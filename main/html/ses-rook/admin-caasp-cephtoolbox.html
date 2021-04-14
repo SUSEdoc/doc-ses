@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Toolboxes | Deploying and Administering SUSE Enterprise Storage with Rook | SUSE Enterprise Storage 7</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE Enterprise Storage" /><meta name="product-number" content="7" /><meta name="book-title" content="Deploying and Administering SUSE Enterprise Storage with Rook" /><meta name="chapter-title" content="Chapter 7. Toolboxes" /><meta name="description" content="The Rook toolbox is a container with common tools used for rook debugging and testing. The toolbox is based on SUSE Linux Enterprise Server, so more tools of your choosing can be installed with zypper." /><meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-assignee" content="tbazant" /><meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    " /><meta name="tracker-gh-labels" content="bug,question,feature request" /><link rel="home" href="index.html" title="SUSE Enterprise Storage 7 Documentation" /><link rel="up" href="rook-ses-admin.html" title="Part II. Administrating Ceph on SUSE CaaS Platform" /><link rel="prev" href="admin-caasp-cephconfig.html" title="Chapter 6. Configuration" /><link rel="next" href="admin-caasp-cephosd.html" title="Chapter 8. Ceph OSD management" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 7 Documentation"><span class="book-icon">SUSE Enterprise Storage 7 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-rook.html">Deploying and Administering SUSE Enterprise Storage with Rook</a><span> › </span><a class="crumb" href="rook-ses-admin.html">Administrating Ceph on SUSE CaaS Platform</a><span> › </span><a class="crumb" href="admin-caasp-cephtoolbox.html">Toolboxes</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Deploying and Administering SUSE Enterprise Storage with Rook</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="preface-rook.html"><span class="number"> </span><span class="name">About this guide</span></a></li><li class="inactive"><a href="rook-ses-deployment.html"><span class="number">I </span><span class="name">Quick Start: Deploying Ceph on SUSE CaaS Platform</span></a><ol><li class="inactive"><a href="deploy-rook.html"><span class="number">1 </span><span class="name">Quick start</span></a></li></ol></li><li class="inactive"><a href="rook-ses-admin.html"><span class="number">II </span><span class="name">Administrating Ceph on SUSE CaaS Platform</span></a><ol><li class="inactive"><a href="admin-intro-caasp.html"><span class="number">2 </span><span class="name">Rook-Ceph administration</span></a></li><li class="inactive"><a href="admin-caasp-block-storage.html"><span class="number">3 </span><span class="name">Block Storage</span></a></li><li class="inactive"><a href="admin-caasp-cephfs.html"><span class="number">4 </span><span class="name">CephFS</span></a></li><li class="inactive"><a href="admin-caasp-crd.html"><span class="number">5 </span><span class="name">Ceph cluster custom resource definitions</span></a></li><li class="inactive"><a href="admin-caasp-cephconfig.html"><span class="number">6 </span><span class="name">Configuration</span></a></li><li class="inactive"><a href="admin-caasp-cephtoolbox.html"><span class="number">7 </span><span class="name">Toolboxes</span></a></li><li class="inactive"><a href="admin-caasp-cephosd.html"><span class="number">8 </span><span class="name">Ceph OSD management</span></a></li><li class="inactive"><a href="admin-caasp-ceph-examples.html"><span class="number">9 </span><span class="name">Ceph examples</span></a></li><li class="inactive"><a href="admin-caasp-advanced-config.html"><span class="number">10 </span><span class="name">Advanced configuration</span></a></li><li class="inactive"><a href="admin-caasp-object-storage.html"><span class="number">11 </span><span class="name">Object Storage</span></a></li><li class="inactive"><a href="admin-caasp-dashboard.html"><span class="number">12 </span><span class="name">Ceph Dashboard</span></a></li></ol></li><li class="inactive"><a href="rook-ses-troubleshooting.html"><span class="number">III </span><span class="name">Troubleshooting Ceph on SUSE CaaS Platform</span></a><ol><li class="inactive"><a href="atroubleshooting-caasp-debugging-rook.html"><span class="number">13 </span><span class="name">Troubleshooting</span></a></li><li class="inactive"><a href="admin-caasp-ceph-common-issues.html"><span class="number">14 </span><span class="name">Common issues</span></a></li></ol></li><li class="inactive"><a href="bk05apa.html"><span class="number">A </span><span class="name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li class="inactive"><a href="bk05go01.html"><span class="number"> </span><span class="name">Glossary</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 6. Configuration" href="admin-caasp-cephconfig.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 8. Ceph OSD management" href="admin-caasp-cephosd.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 7 Documentation"><span class="book-icon">SUSE Enterprise Storage 7 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-rook.html">Deploying and Administering SUSE Enterprise Storage with Rook</a><span> › </span><a class="crumb" href="rook-ses-admin.html">Administrating Ceph on SUSE CaaS Platform</a><span> › </span><a class="crumb" href="admin-caasp-cephtoolbox.html">Toolboxes</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 6. Configuration" href="admin-caasp-cephconfig.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 8. Ceph OSD management" href="admin-caasp-cephosd.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="admin-caasp-cephtoolbox"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">7</span></div><div><h2 class="title"><span class="number">7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Toolboxes</span> <a title="Permalink" class="permalink" href="admin-caasp-cephtoolbox.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_cephtoolbox.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_caasp_cephtoolbox.xml</li><li><span class="ds-label">ID: </span>admin-caasp-cephtoolbox</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="admin-caasp-cephtoolbox.html#rook-toolbox"><span class="number">7.1 </span><span class="name">Rook toolbox</span></a></span></dt></dl></div></div><div class="sect1 " id="rook-toolbox"><div class="titlepage"><div><div><h2 class="title"><span class="number">7.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Rook toolbox</span> <a title="Permalink" class="permalink" href="admin-caasp-cephtoolbox.html#rook-toolbox">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_cephtoolbox.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_caasp_cephtoolbox.xml</li><li><span class="ds-label">ID: </span>rook-toolbox</li></ul></div></div></div></div><p>
+   The Rook toolbox is a container with common tools used for rook debugging
+   and testing. The toolbox is based on SUSE Linux Enterprise Server, so more
+   tools of your choosing can be installed with <code class="command">zypper</code>.
+  </p><p>
+   The toolbox can be run in two modes:
+  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+     <a class="xref" href="admin-caasp-cephtoolbox.html#interactive-toolbox" title="7.1.1. Interactive toolbox">Section 7.1.1, “Interactive toolbox”</a>: Start a toolbox pod where you can
+     connect and execute Ceph commands from a shell.
+    </p></li><li class="listitem "><p>
+     <a class="xref" href="admin-caasp-cephtoolbox.html#toolbox-job" title="7.1.2. Running the toolbox job">Section 7.1.2, “Running the toolbox job”</a>: Run a script with Ceph commands and
+     collect the results from the job log.
+    </p></li></ul></div><div id="id-1.7.4.7.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+    Prerequisite: Before running the toolbox you should have a running Rook
+    cluster deployed.
+   </p></div><div class="sect2 " id="interactive-toolbox"><div class="titlepage"><div><div><h3 class="title"><span class="number">7.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Interactive toolbox</span> <a title="Permalink" class="permalink" href="admin-caasp-cephtoolbox.html#interactive-toolbox">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_cephtoolbox.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_caasp_cephtoolbox.xml</li><li><span class="ds-label">ID: </span>interactive-toolbox</li></ul></div></div></div></div><p>
+    The Rook toolbox can run as a deployment in a Kubernetes cluster where you
+    can connect and run arbitrary Ceph commands.
+   </p><p>
+    Save the tools spec as <code class="filename">toolbox.yaml</code>:
+   </p><div class="verbatim-wrap"><pre class="screen">  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: rook-ceph-tools
+    namespace: rook-ceph
+    labels:
+      app: rook-ceph-tools
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: rook-ceph-tools
+    template:
+      metadata:
+        labels:
+          app: rook-ceph-tools
+      spec:
+        dnsPolicy: ClusterFirstWithHostNet
+        containers:
+        - name: rook-ceph-tools
+          image: registry.suse.com/ses/7/rook/ceph:<em class="replaceable ">LATEST_TAG</em>
+          command: ["/tini"]
+          args: ["-g", "--", "/usr/bin/toolbox.sh"]
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ROOK_CEPH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rook-ceph-mon
+                  key: ceph-username
+            - name: ROOK_CEPH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rook-ceph-mon
+                  key: ceph-secret
+          volumeMounts:
+            - mountPath: /etc/ceph
+              name: ceph-config
+            - name: mon-endpoint-volume
+              mountPath: /etc/rook
+        volumes:
+          - name: mon-endpoint-volume
+            configMap:
+              name: rook-ceph-mon-endpoints
+              items:
+              - key: data
+                path: mon-endpoints
+          - name: ceph-config
+            emptyDir: {}
+        tolerations:
+          - key: "node.kubernetes.io/unreachable"
+            operator: "Exists"
+            effect: "NoExecute"
+            tolerationSeconds: 5</pre></div><p>
+    Launch the <code class="literal">rook-ceph-tools</code> pod:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f toolbox.yaml</pre></div><p>
+    Wait for the toolbox pod to download its container and get to the
+    <code class="literal">running</code> state:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l "app=rook-ceph-tools"</pre></div><p>
+    Once the rook-ceph-tools pod is running, you can connect to it with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash</pre></div><p>
+    All available tools in the toolbox are ready for your troubleshooting
+    needs.
+   </p><p>
+    <span class="strong"><strong>Example</strong></span>:
+   </p><div class="itemizedlist "><ul class="itemizedlist compact"><li class="listitem "><p>
+      <code class="command">ceph status</code>
+     </p></li><li class="listitem "><p>
+      <code class="command">ceph osd status</code>
+     </p></li><li class="listitem "><p>
+      <code class="command">ceph df</code>
+     </p></li><li class="listitem "><p>
+      <code class="command">rados df</code>
+     </p></li></ul></div><p>
+    When you are done with the toolbox, you can remove the deployment:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph delete deployment rook-ceph-tools</pre></div></div><div class="sect2 " id="toolbox-job"><div class="titlepage"><div><div><h3 class="title"><span class="number">7.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Running the toolbox job</span> <a title="Permalink" class="permalink" href="admin-caasp-cephtoolbox.html#toolbox-job">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_cephtoolbox.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_caasp_cephtoolbox.xml</li><li><span class="ds-label">ID: </span>toolbox-job</li></ul></div></div></div></div><p>
+    If you want to run Ceph commands as a one-time operation and collect the
+    results later from the logs, you can run a script as a Kubernetes Job. The
+    toolbox job will run a script that is embedded in the job spec. The script
+    has the full flexibility of a bash script.
+   </p><p>
+    In this example, the <code class="command">ceph status</code> command is executed
+    when the job is created.
+   </p><div class="verbatim-wrap"><pre class="screen">  apiVersion: batch/v1
+  kind: Job
+  metadata:
+    name: rook-ceph-toolbox-job
+    namespace: rook-ceph
+    labels:
+      app: ceph-toolbox-job
+  spec:
+    template:
+      spec:
+        initContainers:
+        - name: config-init
+          image: registry.suse.com/ses/7/rook/ceph:<em class="replaceable ">LATEST_TAG</em>
+          command: ["/usr/bin/toolbox.sh"]
+          args: ["--skip-watch"]
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: ROOK_CEPH_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: rook-ceph-mon
+                key: ceph-username
+          - name: ROOK_CEPH_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: rook-ceph-mon
+                key: ceph-secret
+          volumeMounts:
+          - mountPath: /etc/ceph
+            name: ceph-config
+          - name: mon-endpoint-volume
+            mountPath: /etc/rook
+        containers:
+        - name: script
+          image: registry.suse.com/ses/7/rook/ceph:<em class="replaceable ">LATEST_TAG</em>
+          volumeMounts:
+          - mountPath: /etc/ceph
+            name: ceph-config
+            readOnly: true
+          command:
+          - "bash"
+          - "-c"
+          - |
+            # Modify this script to run any ceph, rbd, radosgw-admin, or other commands that could
+            # be run in the toolbox pod. The output of the commands can be seen by getting the pod log.
+            #
+            # example: print the ceph status
+            ceph status
+        volumes:
+        - name: mon-endpoint-volume
+          configMap:
+            name: rook-ceph-mon-endpoints
+            items:
+            - key: data
+              path: mon-endpoints
+        - name: ceph-config
+          emptyDir: {}
+        restartPolicy: Never</pre></div><p>
+    Create the toolbox job:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f toolbox-job.yaml</pre></div><p>
+    After the job completes, see the results of the script:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph logs -l job-name=rook-ceph-toolbox-job</pre></div></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="admin-caasp-cephosd.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 8 </span>Ceph OSD management</span></a><a class="nav-link" href="admin-caasp-cephconfig.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 6 </span>Configuration</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2021 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

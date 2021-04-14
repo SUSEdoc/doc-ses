@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Ceph Manager Modules | Administration Guide | SUSE Enterprise Storage 6</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE Enterprise Storage" /><meta name="product-number" content="6" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 21. Ceph Manager Modules" /><meta name="description" content="The architecture of the Ceph Manager (refer to Book “Deployment Guide”, Chapter 1 “SUSE Enterprise Storage 6 and Ceph”, Section 1.2.3 “Ceph Nodes and Daemons” for a brief introduction) allows extending its functionality via modules, such as 'dashboard' (see Part II, “Ceph Dashboard”), 'prometheus' (…" /><meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-assignee" content="asettle" /><meta name="tracker-gh-labels" content="bug,question,feature request" /><link rel="home" href="index.html" title="SUSE Enterprise Storage 6 Documentation" /><link rel="up" href="part-operate.html" title="Part III. Operating a Cluster" /><link rel="prev" href="cha-storage-datamgm.html" title="Chapter 20. Stored Data Management" /><link rel="next" href="ceph-pools.html" title="Chapter 22. Managing Storage Pools" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-operate.html">Operating a Cluster</a><span> › </span><a class="crumb" href="cha-mgr-modules.html">Ceph Manager Modules</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="bk01pr01.html"><span class="number"> </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="part-cluster-managment.html"><span class="number">I </span><span class="name">Cluster Management</span></a><ol><li class="inactive"><a href="bk01pt01ch01.html"><span class="number">1 </span><span class="name">User Privileges and Command Prompts</span></a></li><li class="inactive"><a href="storage-salt-cluster.html"><span class="number">2 </span><span class="name">Salt Cluster Administration</span></a></li><li class="inactive"><a href="cha-deployment-backup.html"><span class="number">3 </span><span class="name">Backing Up Cluster Configuration and Data</span></a></li></ol></li><li class="inactive"><a href="part-dashboard.html"><span class="number">II </span><span class="name">Ceph Dashboard</span></a><ol><li class="inactive"><a href="dashboard-about.html"><span class="number">4 </span><span class="name">About Ceph Dashboard</span></a></li><li class="inactive"><a href="dashboard-webui-general.html"><span class="number">5 </span><span class="name">Dashboard's Web User Interface</span></a></li><li class="inactive"><a href="dashboard-user-mgmt.html"><span class="number">6 </span><span class="name">Managing Dashboard Users and Roles</span></a></li><li class="inactive"><a href="dashboard-cluster.html"><span class="number">7 </span><span class="name">Viewing Cluster Internals</span></a></li><li class="inactive"><a href="dashboard-pools.html"><span class="number">8 </span><span class="name">Managing Pools</span></a></li><li class="inactive"><a href="dashboard-rbds.html"><span class="number">9 </span><span class="name">Managing RADOS Block Devices</span></a></li><li class="inactive"><a href="dash-webui-nfs.html"><span class="number">10 </span><span class="name">Managing NFS Ganesha</span></a></li><li class="inactive"><a href="dashboard-mds.html"><span class="number">11 </span><span class="name">Managing Ceph File Systems</span></a></li><li class="inactive"><a href="dashboard-ogw.html"><span class="number">12 </span><span class="name">Managing Object Gateways</span></a></li><li class="inactive"><a href="dashboard-initial-configuration.html"><span class="number">13 </span><span class="name">Manual Configuration</span></a></li><li class="inactive"><a href="dashboard-user-roles.html"><span class="number">14 </span><span class="name">Managing Users and Roles on the Command Line</span></a></li></ol></li><li class="inactive"><a href="part-operate.html"><span class="number">III </span><span class="name">Operating a Cluster</span></a><ol><li class="inactive"><a href="cha-ceph-operating.html"><span class="number">15 </span><span class="name">Introduction</span></a></li><li class="inactive"><a href="ceph-operating-services.html"><span class="number">16 </span><span class="name">Operating Ceph Services</span></a></li><li class="inactive"><a href="ceph-monitor.html"><span class="number">17 </span><span class="name">Determining Cluster State</span></a></li><li class="inactive"><a href="monitoring-alerting.html"><span class="number">18 </span><span class="name">Monitoring and Alerting</span></a></li><li class="inactive"><a href="cha-storage-cephx.html"><span class="number">19 </span><span class="name">Authentication with <code class="systemitem">cephx</code></span></a></li><li class="inactive"><a href="cha-storage-datamgm.html"><span class="number">20 </span><span class="name">Stored Data Management</span></a></li><li class="inactive"><a href="cha-mgr-modules.html"><span class="number">21 </span><span class="name">Ceph Manager Modules</span></a></li><li class="inactive"><a href="ceph-pools.html"><span class="number">22 </span><span class="name">Managing Storage Pools</span></a></li><li class="inactive"><a href="ceph-rbd.html"><span class="number">23 </span><span class="name">RADOS Block Device</span></a></li><li class="inactive"><a href="cha-ceph-erasure.html"><span class="number">24 </span><span class="name">Erasure Coded Pools</span></a></li><li class="inactive"><a href="cha-ceph-configuration.html"><span class="number">25 </span><span class="name">Ceph Cluster Configuration</span></a></li></ol></li><li class="inactive"><a href="part-dataccess.html"><span class="number">IV </span><span class="name">Accessing Cluster Data</span></a><ol><li class="inactive"><a href="cha-ceph-gw.html"><span class="number">26 </span><span class="name">Ceph Object Gateway</span></a></li><li class="inactive"><a href="cha-ceph-iscsi.html"><span class="number">27 </span><span class="name">Ceph iSCSI Gateway</span></a></li><li class="inactive"><a href="cha-ceph-cephfs.html"><span class="number">28 </span><span class="name">Clustered File System</span></a></li><li class="inactive"><a href="cha-ses-cifs.html"><span class="number">29 </span><span class="name">Exporting Ceph Data via Samba</span></a></li><li class="inactive"><a href="cha-ceph-nfsganesha.html"><span class="number">30 </span><span class="name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li class="inactive"><a href="part-virt.html"><span class="number">V </span><span class="name">Integration with Virtualization Tools</span></a><ol><li class="inactive"><a href="cha-ceph-libvirt.html"><span class="number">31 </span><span class="name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li class="inactive"><a href="cha-ceph-kvm.html"><span class="number">32 </span><span class="name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li class="inactive"><a href="part-troubleshooting.html"><span class="number">VI </span><span class="name">FAQs, Tips and Troubleshooting</span></a><ol><li class="inactive"><a href="storage-tips.html"><span class="number">33 </span><span class="name">Hints and Tips</span></a></li><li class="inactive"><a href="storage-faqs.html"><span class="number">34 </span><span class="name">Frequently Asked Questions</span></a></li><li class="inactive"><a href="storage-troubleshooting.html"><span class="number">35 </span><span class="name">Troubleshooting</span></a></li></ol></li><li class="inactive"><a href="app-stage1-custom.html"><span class="number">A </span><span class="name">DeepSea Stage 1 Custom Example</span></a></li><li class="inactive"><a href="bk01apb.html"><span class="number">B </span><span class="name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li class="inactive"><a href="bk01go01.html"><span class="number"> </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="ap-adm-docupdate.html"><span class="number">C </span><span class="name">Documentation Updates</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 20. Stored Data Management" href="cha-storage-datamgm.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 22. Managing Storage Pools" href="ceph-pools.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-operate.html">Operating a Cluster</a><span> › </span><a class="crumb" href="cha-mgr-modules.html">Ceph Manager Modules</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 20. Stored Data Management" href="cha-storage-datamgm.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 22. Managing Storage Pools" href="ceph-pools.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="cha-mgr-modules"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">6</span></div><div><h2 class="title"><span class="number">21 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Manager Modules</span> <a title="Permalink" class="permalink" href="cha-mgr-modules.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/manager_modules.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>manager_modules.xml</li><li><span class="ds-label">ID: </span>cha-mgr-modules</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="cha-mgr-modules.html#mgr-modules-balancer"><span class="number">21.1 </span><span class="name">Balancer</span></a></span></dt><dt><span class="sect1"><a href="cha-mgr-modules.html#mgr-modules-telemetry"><span class="number">21.2 </span><span class="name">Telemetry Module</span></a></span></dt></dl></div></div><p>
+  The architecture of the Ceph Manager (refer to
+  <span class="intraxref">Book “Deployment Guide”, Chapter 1 “SUSE Enterprise Storage 6 and Ceph”, Section 1.2.3 “Ceph Nodes and Daemons”</span> for a brief introduction) allows
+  extending its functionality via <span class="emphasis"><em>modules</em></span>, such as
+  'dashboard' (see <a class="xref" href="part-dashboard.html" title="Part II. Ceph Dashboard">Part II, “Ceph Dashboard”</a>), 'prometheus' (see
+  <a class="xref" href="monitoring-alerting.html" title="Chapter 18. Monitoring and Alerting">Chapter 18, <em>Monitoring and Alerting</em></a>), or 'balancer'.
+ </p><p>
+  To list all available modules, run:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mgr module ls
+{
+        "enabled_modules": [
+                "restful",
+                "status"
+        ],
+        "disabled_modules": [
+                "dashboard"
+        ]
+}</pre></div><p>
+  To enable or disable a specific module, run:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mgr module enable <em class="replaceable ">MODULE-NAME</em></pre></div><p>
+  For example:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mgr module disable dashboard</pre></div><p>
+  To list the services that the enabled modules provide, run:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mgr services
+{
+        "dashboard": "http://myserver.com:7789/",
+        "restful": "https://myserver.com:8789/"
+}</pre></div><div class="sect1 " id="mgr-modules-balancer"><div class="titlepage"><div><div><h2 class="title"><span class="number">21.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Balancer</span> <a title="Permalink" class="permalink" href="cha-mgr-modules.html#mgr-modules-balancer">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/manager_modules.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>manager_modules.xml</li><li><span class="ds-label">ID: </span>mgr-modules-balancer</li></ul></div></div></div></div><p>
+   The balancer module optimizes the placement group (PG) distribution across
+   OSDs for a more balanced deployment. Although the module is activated by
+   default, it is inactive. It supports the following two modes: 'crush-compat'
+   and 'upmap'.
+  </p><div id="id-1.3.5.8.12.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Current Balancer Configuration</h6><p>
+    To view the current balancer configuration, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer status</pre></div></div><div id="id-1.3.5.8.12.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Supported Mode</h6><p>
+    We currently only support the 'crush-compat' mode because the 'upmap' mode
+    requires an OSD feature that prevents any pre-Luminous OSDs from connecting
+    to the cluster.
+   </p></div><div class="sect2 " id="mgr-balancer-crush-compat"><div class="titlepage"><div><div><h3 class="title"><span class="number">21.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">The 'crush-compat' Mode</span> <a title="Permalink" class="permalink" href="cha-mgr-modules.html#mgr-balancer-crush-compat">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/manager_modules.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>manager_modules.xml</li><li><span class="ds-label">ID: </span>mgr-balancer-crush-compat</li></ul></div></div></div></div><p>
+    In 'crush-compat' mode, the balancer adjusts the OSDs' reweight-sets to
+    achieve improved distribution of the data. It moves PGs between OSDs,
+    temporarily causing a HEALTH_WARN cluster state resulting from misplaced
+    PGs.
+   </p><div id="id-1.3.5.8.12.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Mode Activation</h6><p>
+     Although 'crush-compat' is the default mode, we recommend activating it
+     explicitly:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer mode crush-compat</pre></div></div></div><div class="sect2 " id="mgr-balancer-planning-executing"><div class="titlepage"><div><div><h3 class="title"><span class="number">21.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Planning and Executing of Data Balancing</span> <a title="Permalink" class="permalink" href="cha-mgr-modules.html#mgr-balancer-planning-executing">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/manager_modules.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>manager_modules.xml</li><li><span class="ds-label">ID: </span>mgr-balancer-planning-executing</li></ul></div></div></div></div><p>
+    Using the balancer module, you can create a plan for data balancing. You
+    can then execute the plan manually, or let the balancer balance PGs
+    continuously.
+   </p><p>
+    The decision whether to run the balancer in manual or automatic mode
+    depends on several factors, such as the current data imbalance, cluster
+    size, PG count, or I/O activity. We recommend creating an initial plan and
+    executing it at a time of low I/O load in the cluster. The reason for this
+    is that the initial imbalance will probably be considerable and it is a
+    good practice to keep the impact on clients low. After an initial manual
+    run, consider activating the automatic mode and monitor the rebalance
+    traffic under normal I/O load. The improvements in PG distribution need to
+    be weighed against the rebalance traffic caused by the balancer.
+   </p><div id="id-1.3.5.8.12.6.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Movable Fraction of Placement Groups (PGs)</h6><p>
+     During the process of balancing, the balancer module throttles PG
+     movements so that only a configurable fraction of PGs is moved. The
+     default is 5% and you can adjust the fraction, to 9% for example, by
+     running the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr target_max_misplaced_ratio .09</pre></div></div><p>
+    To create and execute a balancing plan, follow these steps:
+   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      Check the current cluster score:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer eval</pre></div></li><li class="step "><p>
+      Create a plan. For example, 'great_plan':
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer optimize great_plan</pre></div></li><li class="step "><p>
+      See what changes the 'great_plan' will entail:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer show great_plan</pre></div></li><li class="step "><p>
+      Check the potential cluster score if you decide to apply the
+      'great_plan':
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer eval great_plan</pre></div></li><li class="step "><p>
+      Execute the 'great_plan' for one time only:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer execute great_plan</pre></div></li><li class="step "><p>
+      Observe the cluster balancing with the <code class="command">ceph -s</code>
+      command. If you are satisfied with the result, activate automatic
+      balancing:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer on</pre></div><p>
+      If you later decide to deactivate automatic balancing, run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph balancer off</pre></div></li></ol></div></div><div id="id-1.3.5.8.12.6.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Automatic Balancing without Initial Plan</h6><p>
+     You can activate automatic balancing without executing an initial plan. In
+     such case, expect a potentially long running rebalancing of placement
+     groups.
+    </p></div></div></div><div class="sect1 " id="mgr-modules-telemetry"><div class="titlepage"><div><div><h2 class="title"><span class="number">21.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Telemetry Module</span> <a title="Permalink" class="permalink" href="cha-mgr-modules.html#mgr-modules-telemetry">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/manager_modules.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>manager_modules.xml</li><li><span class="ds-label">ID: </span>mgr-modules-telemetry</li></ul></div></div></div></div><p>
+   The telemetry plugin sends the Ceph project anonymous data about the
+   cluster in which the plugin is running.
+  </p><p>
+   This (opt-in) component contains counters and statistics on how the cluster
+   has been deployed, the version of Ceph, the distribution of the hosts and
+   other parameters which help the project to gain a better understanding of
+   the way Ceph is used. It does not contain any sensitive data like pool
+   names, object names, object contents, or host names.
+  </p><p>
+   The purpose of the telemetry module is to provide an automated feedback loop
+   for the developers to help quantify adoption rates, tracking, or point out
+   things that need to be better explained or validated during configuration to
+   prevent undesirable outcomes.
+  </p><div id="id-1.3.5.8.13.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+    The telemetry module requires the Ceph Manager nodes to have the ability to push
+    data over HTTPS to the upstream servers. Ensure your corporate firewalls
+    permit this action.
+   </p></div><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     To enable the telemetry module:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mgr module enable telemetry</pre></div><div id="id-1.3.5.8.13.6.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      This command only enables you to view your data locally. This command
+      does not share your data with the Ceph community.
+     </p></div></li><li class="step "><p>
+     To allow the telemetry module to start sharing data:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry on</pre></div></li><li class="step "><p>
+     To disable telemetry data sharing:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry off</pre></div></li><li class="step "><p>
+     To generate a JSON report that can be printed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show</pre></div></li><li class="step "><p>
+     To add a contact and description to the report:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/telemetry/contact ‘John Doe john.doe@example.com’
+<code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/telemetry/description ‘My first Ceph cluster’</pre></div></li><li class="step "><p>
+     The module compiles and sends a new report every 24 hours by default. To
+     adjust this interval:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/telemetry/interval HOURS</pre></div></li></ol></div></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="ceph-pools.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 22 </span>Managing Storage Pools</span></a><a class="nav-link" href="cha-storage-datamgm.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 20 </span>Stored Data Management</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2021 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

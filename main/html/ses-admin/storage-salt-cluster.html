@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Operational tasks | Operations and Administration Guide | SUSE Enterprise Storage 7</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE Enterprise Storage" /><meta name="product-number" content="7" /><meta name="book-title" content="Operations and Administration Guide" /><meta name="chapter-title" content="Chapter 13. Operational tasks" /><meta name="description" content="To modify the configuration of an existing Ceph cluster, follow these steps:" /><meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-assignee" content="tbazant" /><meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    " /><meta name="tracker-gh-labels" content="bug,question,feature request" /><link rel="home" href="index.html" title="SUSE Enterprise Storage 7 Documentation" /><link rel="up" href="part-cluster-operation.html" title="Part II. Cluster Operation" /><link rel="prev" href="ceph-monitor.html" title="Chapter 12. Determine the cluster state" /><link rel="next" href="cha-ceph-operating.html" title="Chapter 14. Operation of Ceph services" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 7 Documentation"><span class="book-icon">SUSE Enterprise Storage 7 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Operations and Administration Guide</a><span> › </span><a class="crumb" href="part-cluster-operation.html">Cluster Operation</a><span> › </span><a class="crumb" href="storage-salt-cluster.html">Operational tasks</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Operations and Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="preface-admin.html"><span class="number"> </span><span class="name">About this guide</span></a></li><li class="inactive"><a href="part-dashboard.html"><span class="number">I </span><span class="name">Ceph Dashboard</span></a><ol><li class="inactive"><a href="dashboard-about.html"><span class="number">1 </span><span class="name">About the Ceph Dashboard</span></a></li><li class="inactive"><a href="dashboard-webui-general.html"><span class="number">2 </span><span class="name">Dashboard's Web user interface</span></a></li><li class="inactive"><a href="dashboard-user-mgmt.html"><span class="number">3 </span><span class="name">Manage Ceph Dashboard users and roles</span></a></li><li class="inactive"><a href="dashboard-cluster.html"><span class="number">4 </span><span class="name">View cluster internals</span></a></li><li class="inactive"><a href="dashboard-pools.html"><span class="number">5 </span><span class="name">Manage pools</span></a></li><li class="inactive"><a href="dashboard-rbds.html"><span class="number">6 </span><span class="name">Manage RADOS Block Device</span></a></li><li class="inactive"><a href="dash-webui-nfs.html"><span class="number">7 </span><span class="name">Manage NFS Ganesha</span></a></li><li class="inactive"><a href="dashboard-mds.html"><span class="number">8 </span><span class="name">Manage CephFS</span></a></li><li class="inactive"><a href="dashboard-ogw.html"><span class="number">9 </span><span class="name">Manage the Object Gateway</span></a></li><li class="inactive"><a href="dashboard-initial-configuration.html"><span class="number">10 </span><span class="name">Manual configuration</span></a></li><li class="inactive"><a href="dashboard-user-roles.html"><span class="number">11 </span><span class="name">Manage users and roles on the command line</span></a></li></ol></li><li class="inactive"><a href="part-cluster-operation.html"><span class="number">II </span><span class="name">Cluster Operation</span></a><ol><li class="inactive"><a href="ceph-monitor.html"><span class="number">12 </span><span class="name">Determine the cluster state</span></a></li><li class="inactive"><a href="storage-salt-cluster.html"><span class="number">13 </span><span class="name">Operational tasks</span></a></li><li class="inactive"><a href="cha-ceph-operating.html"><span class="number">14 </span><span class="name">Operation of Ceph services</span></a></li><li class="inactive"><a href="cha-deployment-backup.html"><span class="number">15 </span><span class="name">Backup and restore</span></a></li><li class="inactive"><a href="monitoring-alerting.html"><span class="number">16 </span><span class="name">Monitoring and alerting</span></a></li></ol></li><li class="inactive"><a href="part-storing-data.html"><span class="number">III </span><span class="name">Storing Data in a Cluster</span></a><ol><li class="inactive"><a href="cha-storage-datamgm.html"><span class="number">17 </span><span class="name">Stored data management</span></a></li><li class="inactive"><a href="ceph-pools.html"><span class="number">18 </span><span class="name">Manage storage pools</span></a></li><li class="inactive"><a href="cha-ceph-erasure.html"><span class="number">19 </span><span class="name">Erasure coded pools</span></a></li><li class="inactive"><a href="ceph-rbd.html"><span class="number">20 </span><span class="name">RADOS Block Device</span></a></li></ol></li><li class="inactive"><a href="part-accessing-data.html"><span class="number">IV </span><span class="name">Accessing Cluster Data</span></a><ol><li class="inactive"><a href="cha-ceph-gw.html"><span class="number">21 </span><span class="name">Ceph Object Gateway</span></a></li><li class="inactive"><a href="cha-ceph-iscsi.html"><span class="number">22 </span><span class="name">Ceph iSCSI gateway</span></a></li><li class="inactive"><a href="cha-ceph-cephfs.html"><span class="number">23 </span><span class="name">Clustered file system</span></a></li><li class="inactive"><a href="cha-ses-cifs.html"><span class="number">24 </span><span class="name">Export Ceph data via Samba</span></a></li><li class="inactive"><a href="cha-ceph-nfsganesha.html"><span class="number">25 </span><span class="name">NFS Ganesha</span></a></li></ol></li><li class="inactive"><a href="part-integration-virt.html"><span class="number">V </span><span class="name">Integration with Virtualization Tools</span></a><ol><li class="inactive"><a href="cha-ceph-libvirt.html"><span class="number">26 </span><span class="name"><code class="systemitem">libvirt</code> and Ceph</span></a></li><li class="inactive"><a href="cha-ceph-kvm.html"><span class="number">27 </span><span class="name">Ceph as a back-end for QEMU KVM instance</span></a></li></ol></li><li class="inactive"><a href="part-cluster-configuration.html"><span class="number">VI </span><span class="name">Configuring a Cluster</span></a><ol><li class="inactive"><a href="cha-ceph-configuration.html"><span class="number">28 </span><span class="name">Ceph cluster configuration</span></a></li><li class="inactive"><a href="cha-mgr-modules.html"><span class="number">29 </span><span class="name">Ceph Manager modules</span></a></li><li class="inactive"><a href="cha-storage-cephx.html"><span class="number">30 </span><span class="name">Authentication with <code class="systemitem">cephx</code></span></a></li></ol></li><li class="inactive"><a href="bk02apa.html"><span class="number">A </span><span class="name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li class="inactive"><a href="bk02go01.html"><span class="number"> </span><span class="name">Glossary</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 12. Determine the cluster state" href="ceph-monitor.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 14. Operation of Ceph services" href="cha-ceph-operating.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 7 Documentation"><span class="book-icon">SUSE Enterprise Storage 7 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Operations and Administration Guide</a><span> › </span><a class="crumb" href="part-cluster-operation.html">Cluster Operation</a><span> › </span><a class="crumb" href="storage-salt-cluster.html">Operational tasks</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 12. Determine the cluster state" href="ceph-monitor.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 14. Operation of Ceph services" href="cha-ceph-operating.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="storage-salt-cluster"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">7</span></div><div><h2 class="title"><span class="number">13 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Operational tasks</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>storage-salt-cluster</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="storage-salt-cluster.html#modifying-cluster-configuration"><span class="number">13.1 </span><span class="name">Modifying the cluster configuration</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#adding-node"><span class="number">13.2 </span><span class="name">Adding nodes</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#salt-node-removing"><span class="number">13.3 </span><span class="name">Removing nodes</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#osd-management"><span class="number">13.4 </span><span class="name">OSD management</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#moving-saltmaster"><span class="number">13.5 </span><span class="name">Moving the Salt Master to a new node</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#cephadm-rolling-updates"><span class="number">13.6 </span><span class="name">Updating the cluster nodes</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#deploy-cephadm-day2-cephupdate"><span class="number">13.7 </span><span class="name">Updating Ceph</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#sec-salt-cluster-reboot"><span class="number">13.8 </span><span class="name">Halting or rebooting cluster</span></a></span></dt><dt><span class="sect1"><a href="storage-salt-cluster.html#ceph-cluster-purge"><span class="number">13.9 </span><span class="name">Removing an entire Ceph cluster</span></a></span></dt></dl></div></div><div class="sect1 " id="modifying-cluster-configuration"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Modifying the cluster configuration</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#modifying-cluster-configuration">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>modifying-cluster-configuration</li></ul></div></div></div></div><p>
+   To modify the configuration of an existing Ceph cluster, follow these
+   steps:
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Export the current configuration of the cluster to a file:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls --export --format yaml &gt; cluster.yaml</pre></div></li><li class="step "><p>
+     Edit the file with the configuration and update the relevant lines. Find
+     specification examples in <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.4 “Deploying services and gateways”</span> and
+     <a class="xref" href="storage-salt-cluster.html#drive-groups" title="13.4.3. Adding OSDs using DriveGroups specification">Section 13.4.3, “Adding OSDs using DriveGroups specification”</a>.
+    </p></li><li class="step "><p>
+     Apply the new configuration:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i cluster.yaml</pre></div></li></ol></div></div></div><div class="sect1 " id="adding-node"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#adding-node">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>adding-node</li></ul></div></div></div></div><p>
+   To add a new node to a Ceph cluster, follow these steps:
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Install SUSE Linux Enterprise Server and SUSE Enterprise Storage on the new host. Refer to
+     <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.1 “Installing and configuring SUSE Linux Enterprise Server”</span> for more information.
+    </p></li><li class="step "><p>
+     Configure the host as a Salt Minion of an already existing Salt Master. Refer
+     to <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.2 “Deploying Salt”</span> for more information.
+    </p></li><li class="step "><p>
+     Add the new host to <code class="systemitem">ceph-salt</code> and make cephadm aware of it, for
+     example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions add ses-min5.example.com
+<code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/cephadm add ses-min5.example.com</pre></div><p>
+     Refer to <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.3.2.2 “Adding Salt Minions”</span> for more
+     information.
+    </p></li><li class="step "><p>
+     Verify that the node was added to <code class="systemitem">ceph-salt</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions ls
+o- minions ................................................. [Minions: 5]
+[...]
+  o- ses-min5.example.com .................................... [no roles]</pre></div></li><li class="step "><p>
+     Apply the configuration to the new cluster host:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply ses-min5.example.com</pre></div></li><li class="step "><p>
+     Verify that the newly added host now belongs to the cephadm environment:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host ls
+HOST                   ADDR                    LABELS   STATUS
+[...]
+ses-min5.example.com   ses-min5.example.com</pre></div></li></ol></div></div></div><div class="sect1 " id="salt-node-removing"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Removing nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-node-removing">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>salt-node-removing</li></ul></div></div></div></div><div id="id-1.4.4.3.5.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Remove OSDs</h6><p>
+    If the node that you are going to remove runs OSDs, remove the OSDs from it
+    first and check that no OSDs are running on that node. Refer to
+    <a class="xref" href="storage-salt-cluster.html#removing-node-osds" title="13.4.4. Removing OSDs">Section 13.4.4, “Removing OSDs”</a> for more details on removing
+    OSDs.
+   </p></div><p>
+   To remove a node from a cluster, do the following:
+  </p><div class="procedure " id="removing-node"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     For all Ceph service types except for <code class="literal">node-exporter</code>
+     and <code class="literal">crash</code>, remove the node's host name from the cluster
+     placement specification file (for example,
+     <code class="filename">cluster.yml</code>). Refer to
+     <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.4.2 “Service and placement specification”</span> for more details.
+     For example, if you are removing the host named
+     <code class="literal">ses-min2</code>, remove all occurrences of <code class="literal">-
+     ses-min2</code> from all <code class="literal">placement:</code> sections:
+    </p><p>
+     Update
+    </p><div class="verbatim-wrap"><pre class="screen">service_type: rgw
+service_id: <em class="replaceable ">EXAMPLE_NFS</em>
+placement:
+  hosts:
+  - ses-min2
+  - ses-min3</pre></div><p>
+     to
+    </p><div class="verbatim-wrap"><pre class="screen">service_type: rgw
+service_id: <em class="replaceable ">EXAMPLE_NFS</em>
+placement:
+  hosts:
+  - ses-min3</pre></div><p>
+     Apply your changes to the configuration file:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable ">rgw-example.yaml</em></pre></div></li><li class="step "><p>
+     Remove the node from cephadm's environment:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host rm ses-min2</pre></div></li><li class="step "><p>
+     If the node is running <code class="literal">crash.osd.1</code> and
+     <code class="literal">crash.osd.2</code> services, remove them by running the
+     following command on the host:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>cephadm rm-daemon --fsid <em class="replaceable ">CLUSTER_ID</em> --name <em class="replaceable ">SERVICE_NAME</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>cephadm rm-daemon --fsid b4b30c6e... --name crash.osd.1
+<code class="prompt user">root@minion &gt; </code>cephadm rm-daemon --fsid b4b30c6e... --name crash.osd.2</pre></div></li><li class="step "><p>
+     Remove all the roles from the minion you want to delete:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/throughput remove ses-min2
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/latency remove ses-min2
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/cephadm remove ses-min2
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/admin remove ses-min2</pre></div><p>
+     If the minion you want to remove is the bootstrap minion, you also need to
+     remove the bootstrap role:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/bootstrap reset</pre></div></li><li class="step "><p>
+     After removing all OSDs on a single host, remove the host from the CRUSH
+     map:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush remove <em class="replaceable ">bucket-name</em></pre></div><div id="id-1.4.4.3.5.4.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      The bucket name should be the same as the host name.
+     </p></div></li><li class="step "><p>
+     You can now remove the minion from the cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/minions remove ses-min2</pre></div></li></ol></div></div><div id="id-1.4.4.3.5.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+    In the event of a failure and the minion you are trying to remove is in a
+    permanently powered-off state, you will need to remove the node from the
+    Salt Master:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -d <em class="replaceable ">minion_id</em></pre></div><p>
+    Then, manually remove the node from
+    <code class="filename"><em class="replaceable ">pillar_root</em>/ceph-salt.sls</code>.
+    This is typically located in
+    <code class="filename">/srv/pillar/ceph-salt.sls</code>.
+   </p></div></div><div class="sect1 " id="osd-management"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">OSD management</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-management">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>osd-management</li></ul></div></div></div></div><p>
+   This section describes how to add, erase, or remove OSDs in a Ceph
+   cluster.
+  </p><div class="sect2 " id="osd-management-listing"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Listing disk devices</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-management-listing">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>osd-management-listing</li></ul></div></div></div></div><p>
+    To identify used and unused disk devices on all cluster nodes, list them by
+    running the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device ls
+HOST       PATH      TYPE SIZE  DEVICE  AVAIL REJECT REASONS
+ses-master /dev/vda  hdd  42.0G         False locked
+ses-min1   /dev/vda  hdd  42.0G         False locked
+ses-min1   /dev/vdb  hdd  8192M  387836 False locked, LVM detected, Insufficient space (&lt;5GB) on vgs
+ses-min2   /dev/vdc  hdd  8192M  450575 True</pre></div></div><div class="sect2 " id="osd-management-erasing"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Erasing disk devices</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-management-erasing">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>osd-management-erasing</li></ul></div></div></div></div><p>
+    To re-use a disk device, you need to erase (or <span class="emphasis"><em>zap</em></span>) it
+    first:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph orch device zap <em class="replaceable ">HOST_NAME</em> <em class="replaceable ">DISK_DEVICE</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device zap ses-min2 /dev/vdc</pre></div><div id="id-1.4.4.3.6.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+     If you previously deployed OSDs by using DriveGroups or the
+     <code class="option">--all-available-devices</code> option while the
+     <code class="literal">unmanaged</code> flag was not set, cephadm will deploy these
+     OSDs automatically after you erase them.
+    </p></div></div><div class="sect2 " id="drive-groups"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.4.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding OSDs using DriveGroups specification</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#drive-groups">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>drive-groups</li></ul></div></div></div></div><p>
+    <span class="emphasis"><em>DriveGroups</em></span> specify the layouts of OSDs in the Ceph
+    cluster. They are defined in a single YAML file. In this section, we will
+    use <code class="filename">drive_groups.yml</code> as an example.
+   </p><p>
+    An administrator should manually specify a group of OSDs that are
+    interrelated (hybrid OSDs that are deployed on a mixture of HDDs and SDDs)
+    or share identical deployment options (for example, the same object store,
+    same encryption option, stand-alone OSDs). To avoid explicitly listing
+    devices, DriveGroups use a list of filter items that correspond to a few
+    selected fields of <code class="command">ceph-volume</code>'s inventory reports.
+    cephadm will provide code that translates these DriveGroups into actual
+    device lists for inspection by the user.
+   </p><p>
+    The command to apply the OSD specification to the cluster is:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply osd -i <code class="filename">drive_groups.yml</code></pre></div><p>
+    To see a preview of actions and test your application, you can use the
+    <code class="option">--dry-run</code> option together with the <code class="command">ceph orch
+    apply osd</code> command. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply osd -i <code class="filename">drive_groups.yml</code> --dry-run
+...
++---------+------+------+----------+----+-----+
+|SERVICE  |NAME  |HOST  |DATA      |DB  |WAL  |
++---------+------+------+----------+----+-----+
+|osd      |test  |mgr0  |/dev/sda  |-   |-    |
+|osd      |test  |mgr0  |/dev/sdb  |-   |-    |
++---------+------+------+----------+----+-----+</pre></div><p>
+    If the <code class="option">--dry-run</code> output matches your expectations, then
+    simply re-run the command without the <code class="option">--dry-run</code> option.
+   </p><div class="sect3 " id="unmanaged-osds"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Unmanaged OSDs</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#unmanaged-osds">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>unmanaged-osds</li></ul></div></div></div></div><p>
+     All available clean disk devices that match the DriveGroups specification
+     will be used as OSDs automatically after you add them to the cluster. This
+     behavior is called a <span class="emphasis"><em>managed</em></span> mode.
+    </p><p>
+     To disable the <span class="emphasis"><em>managed</em></span> mode, add the
+     <code class="literal">unmanaged: true</code> line to the relevant specifications,
+     for example:
+    </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+ hosts:
+ - ses-min2
+ - ses-min3
+encrypted: true
+unmanaged: true</pre></div><div id="id-1.4.4.3.6.5.9.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>
+      To change already deployed OSDs from the <span class="emphasis"><em>managed</em></span> to
+      <span class="emphasis"><em>unmanaged</em></span> mode, add the <code class="literal">unmanaged:
+      true</code> lines where applicable during the procedure described in
+      <a class="xref" href="storage-salt-cluster.html#modifying-cluster-configuration" title="13.1. Modifying the cluster configuration">Section 13.1, “Modifying the cluster configuration”</a>.
+     </p></div></div><div class="sect3 " id="drive-groups-specs"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">DriveGroups specification</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#drive-groups-specs">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>drive-groups-specs</li></ul></div></div></div></div><p>
+     Following is an example DriveGroups specification file:
+    </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+  host_pattern: '*'
+data_devices:
+  drive_spec: <em class="replaceable ">DEVICE_SPECIFICATION</em>
+db_devices:
+  drive_spec: <em class="replaceable ">DEVICE_SPECIFICATION</em>
+wal_devices:
+  drive_spec: <em class="replaceable ">DEVICE_SPECIFICATION</em>
+block_wal_size: '5G'  # (optional, unit suffixes permitted)
+block_db_size: '5G'   # (optional, unit suffixes permitted)
+encrypted: true       # 'True' or 'False' (defaults to 'False')</pre></div><div id="id-1.4.4.3.6.5.10.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+         The option previously called "encryption" in DeepSea has been renamed to
+         "encrypted". When applying DriveGroups in SUSE Enterprise Storage 7, ensure you use
+         this new terminology in your service specification, otherwise the
+         <code class="command">ceph orch apply</code> operation will fail.
+       </p></div></div><div class="sect3 " id="matching-disk-devices"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Matching disk devices</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#matching-disk-devices">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>matching-disk-devices</li></ul></div></div></div></div><p>
+     You can describe the specification using the following filters:
+    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+       By a disk model:
+      </p><div class="verbatim-wrap"><pre class="screen">model: <em class="replaceable ">DISK_MODEL_STRING</em></pre></div></li><li class="listitem "><p>
+       By a disk vendor:
+      </p><div class="verbatim-wrap"><pre class="screen">vendor: <em class="replaceable ">DISK_VENDOR_STRING</em></pre></div><div id="id-1.4.4.3.6.5.11.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>
+        Always enter the <em class="replaceable ">DISK_VENDOR_STRING</em> in lowercase.
+       </p></div><p>
+       To obtain details about disk model and vendor, examine the output of the
+       following command:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device ls
+HOST     PATH     TYPE  SIZE DEVICE_ID                  MODEL            VENDOR
+ses-min1 /dev/sdb ssd  29.8G SATA_SSD_AF34075704240015  SATA SSD         ATA
+ses-min2 /dev/sda ssd   223G Micron_5200_MTFDDAK240TDN  Micron_5200_MTFD ATA
+[...]</pre></div></li><li class="listitem "><p>
+       Whether a disk is rotational or not. SSDs and NVMe drives are not
+       rotational.
+      </p><div class="verbatim-wrap"><pre class="screen">rotational: 0</pre></div></li><li class="listitem "><p>
+       Deploy a node using <span class="emphasis"><em>all</em></span> available drives for OSDs:
+      </p><div class="verbatim-wrap"><pre class="screen">data_devices:
+  all: true</pre></div></li><li class="listitem "><p>
+       Additionally, by limiting the number of matching disks:
+      </p><div class="verbatim-wrap"><pre class="screen">limit: 10</pre></div></li></ul></div></div><div class="sect3 " id="filtering-devices-size"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Filtering devices by size</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#filtering-devices-size">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>filtering-devices-size</li></ul></div></div></div></div><p>
+     You can filter disk devices by their size—either by an exact size,
+     or a size range. The <code class="option">size:</code> parameter accepts arguments in
+     the following form:
+    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+       '10G' - Includes disks of an exact size.
+      </p></li><li class="listitem "><p>
+       '10G:40G' - Includes disks whose size is within the range.
+      </p></li><li class="listitem "><p>
+       ':10G' - Includes disks less than or equal to 10 GB in size.
+      </p></li><li class="listitem "><p>
+       '40G:' - Includes disks equal to or greater than 40 GB in size.
+      </p></li></ul></div><div class="example" id="id-1.4.4.3.6.5.12.4"><div class="example-title-wrap"><h6 class="example-title"><span class="number">Example 13.1: </span><span class="name">Matching by disk size </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.12.4">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+  host_pattern: '*'
+data_devices:
+  size: '40TB:'
+db_devices:
+  size: ':2TB'</pre></div></div></div><div id="id-1.4.4.3.6.5.12.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: Quotes required</h6><p>
+      When using the ':' delimiter, you need to enclose the size in quotes,
+      otherwise the ':' sign will be interpreted as a new configuration hash.
+     </p></div><div id="id-1.4.4.3.6.5.12.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Unit shortcuts</h6><p>
+      Instead of Gigabytes (G), you can specify the sizes in Megabytes (M) or
+      Terabytes (T).
+     </p></div></div><div class="sect3 " id="ds-drive-groups-examples"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">DriveGroups examples</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ds-drive-groups-examples">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>ds-drive-groups-examples</li></ul></div></div></div></div><p>
+     This section includes examples of different OSD setups.
+    </p><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.3"><div class="example-title-wrap"><h6 class="example-title"><span class="number">Example 13.2: </span><span class="name">Simple setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.3">#</a></h6></div><div class="example-contents"><p>
+      This example describes two nodes with the same setup:
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        20 HDDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Intel
+         </p></li><li class="listitem "><p>
+          Model: SSD-123-foo
+         </p></li><li class="listitem "><p>
+          Size: 4 TB
+         </p></li></ul></div></li><li class="listitem "><p>
+        2 SSDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Micron
+         </p></li><li class="listitem "><p>
+          Model: MC-55-44-ZX
+         </p></li><li class="listitem "><p>
+          Size: 512 GB
+         </p></li></ul></div></li></ul></div><p>
+      The corresponding <code class="filename">drive_groups.yml</code> file will be as
+      follows:
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+  host_pattern: '*'
+data_devices:
+  model: SSD-123-foo
+db_devices:
+  model: MC-55-44-XZ</pre></div><p>
+      Such a configuration is simple and valid. The problem is that an
+      administrator may add disks from different vendors in the future, and
+      these will not be included. You can improve it by reducing the filters on
+      core properties of the drives:
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+  host_pattern: '*'
+data_devices:
+  rotational: 1
+db_devices:
+  rotational: 0</pre></div><p>
+      In the previous example, we are enforcing all rotating devices to be
+      declared as 'data devices' and all non-rotating devices will be used as
+      'shared devices' (wal, db).
+     </p><p>
+      If you know that drives with more than 2 TB will always be the
+      slower data devices, you can filter by size:
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+  host_pattern: '*'
+data_devices:
+  size: '2TB:'
+db_devices:
+  size: ':2TB'</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.4"><div class="example-title-wrap"><h6 class="example-title"><span class="number">Example 13.3: </span><span class="name">Advanced setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.4">#</a></h6></div><div class="example-contents"><p>
+      This example describes two distinct setups: 20 HDDs should share 2 SSDs,
+      while 10 SSDs should share 2 NVMes.
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        20 HDDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Intel
+         </p></li><li class="listitem "><p>
+          Model: SSD-123-foo
+         </p></li><li class="listitem "><p>
+          Size: 4 TB
+         </p></li></ul></div></li><li class="listitem "><p>
+        12 SSDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Micron
+         </p></li><li class="listitem "><p>
+          Model: MC-55-44-ZX
+         </p></li><li class="listitem "><p>
+          Size: 512 GB
+         </p></li></ul></div></li><li class="listitem "><p>
+        2 NVMes
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Samsung
+         </p></li><li class="listitem "><p>
+          Model: NVME-QQQQ-987
+         </p></li><li class="listitem "><p>
+          Size: 256 GB
+         </p></li></ul></div></li></ul></div><p>
+      Such a setup can be defined with two layouts as follows:
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+  host_pattern: '*'
+data_devices:
+  rotational: 0
+db_devices:
+  model: MC-55-44-XZ</pre></div><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name2
+placement:
+  host_pattern: '*'
+data_devices:
+  model: MC-55-44-XZ
+db_devices:
+  vendor: samsung
+  size: 256GB</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.5"><div class="example-title-wrap"><h6 class="example-title"><span class="number">Example 13.4: </span><span class="name">Advanced setup with non-uniform nodes </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.5">#</a></h6></div><div class="example-contents"><p>
+      The previous examples assumed that all nodes have the same drives.
+      However, that is not always the case:
+     </p><p>
+      Nodes 1-5:
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        20 HDDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Intel
+         </p></li><li class="listitem "><p>
+          Model: SSD-123-foo
+         </p></li><li class="listitem "><p>
+          Size: 4 TB
+         </p></li></ul></div></li><li class="listitem "><p>
+        2 SSDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Micron
+         </p></li><li class="listitem "><p>
+          Model: MC-55-44-ZX
+         </p></li><li class="listitem "><p>
+          Size: 512 GB
+         </p></li></ul></div></li></ul></div><p>
+      Nodes 6-10:
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        5 NVMes
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Intel
+         </p></li><li class="listitem "><p>
+          Model: SSD-123-foo
+         </p></li><li class="listitem "><p>
+          Size: 4 TB
+         </p></li></ul></div></li><li class="listitem "><p>
+        20 SSDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Micron
+         </p></li><li class="listitem "><p>
+          Model: MC-55-44-ZX
+         </p></li><li class="listitem "><p>
+          Size: 512 GB
+         </p></li></ul></div></li></ul></div><p>
+      You can use the 'target' key in the layout to target specific nodes.
+      Salt target notation helps to keep things simple:
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_one2five
+placement:
+  host_pattern: 'node[1-5]'
+data_devices:
+  rotational: 1
+db_devices:
+  rotational: 0</pre></div><p>
+      followed by
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_rest
+placement:
+  host_pattern: 'node[6-10]'
+data_devices:
+  model: MC-55-44-XZ
+db_devices:
+  model: SSD-123-foo</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.6"><div class="example-title-wrap"><h6 class="example-title"><span class="number">Example 13.5: </span><span class="name">Expert setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.6">#</a></h6></div><div class="example-contents"><p>
+      All previous cases assumed that the WALs and DBs use the same device. It
+      is however possible to deploy the WAL on a dedicated device as well:
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        20 HDDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Intel
+         </p></li><li class="listitem "><p>
+          Model: SSD-123-foo
+         </p></li><li class="listitem "><p>
+          Size: 4 TB
+         </p></li></ul></div></li><li class="listitem "><p>
+        2 SSDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Micron
+         </p></li><li class="listitem "><p>
+          Model: MC-55-44-ZX
+         </p></li><li class="listitem "><p>
+          Size: 512 GB
+         </p></li></ul></div></li><li class="listitem "><p>
+        2 NVMes
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Samsung
+         </p></li><li class="listitem "><p>
+          Model: NVME-QQQQ-987
+         </p></li><li class="listitem "><p>
+          Size: 256 GB
+         </p></li></ul></div></li></ul></div><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_name
+placement:
+  host_pattern: '*'
+data_devices:
+  model: MC-55-44-XZ
+db_devices:
+  model: SSD-123-foo
+wal_devices:
+  model: NVME-QQQQ-987</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.7"><div class="example-title-wrap"><h6 class="example-title"><span class="number">Example 13.6: </span><span class="name">Complex (and unlikely) setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.7">#</a></h6></div><div class="example-contents"><p>
+      In the following setup, we are trying to define:
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        20 HDDs backed by 1 NVMe
+       </p></li><li class="listitem "><p>
+        2 HDDs backed by 1 SSD(db) and 1 NVMe (wal)
+       </p></li><li class="listitem "><p>
+        8 SSDs backed by 1 NVMe
+       </p></li><li class="listitem "><p>
+        2 SSDs stand-alone (encrypted)
+       </p></li><li class="listitem "><p>
+        1 HDD is spare and should not be deployed
+       </p></li></ul></div><p>
+      The summary of used drives is as follows:
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        23 HDDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Intel
+         </p></li><li class="listitem "><p>
+          Model: SSD-123-foo
+         </p></li><li class="listitem "><p>
+          Size: 4 TB
+         </p></li></ul></div></li><li class="listitem "><p>
+        10 SSDs
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Micron
+         </p></li><li class="listitem "><p>
+          Model: MC-55-44-ZX
+         </p></li><li class="listitem "><p>
+          Size: 512 GB
+         </p></li></ul></div></li><li class="listitem "><p>
+        1 NVMe
+       </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+          Vendor: Samsung
+         </p></li><li class="listitem "><p>
+          Model: NVME-QQQQ-987
+         </p></li><li class="listitem "><p>
+          Size: 256 GB
+         </p></li></ul></div></li></ul></div><p>
+      The DriveGroups definition will be the following:
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_hdd_nvme
+placement:
+  host_pattern: '*'
+data_devices:
+  rotational: 0
+db_devices:
+  model: NVME-QQQQ-987</pre></div><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_hdd_ssd_nvme
+placement:
+  host_pattern: '*'
+data_devices:
+  rotational: 0
+db_devices:
+  model: MC-55-44-XZ
+wal_devices:
+  model: NVME-QQQQ-987</pre></div><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_ssd_nvme
+placement:
+  host_pattern: '*'
+data_devices:
+  model: SSD-123-foo
+db_devices:
+  model: NVME-QQQQ-987</pre></div><div class="verbatim-wrap"><pre class="screen">service_type: osd
+service_id: example_drvgrp_standalone_encrypted
+placement:
+  host_pattern: '*'
+data_devices:
+  model: SSD-123-foo
+encrypted: True</pre></div><p>
+      One HDD will remain as the file is being parsed from top to bottom.
+     </p></div></div></div></div></div><div class="sect2 " id="removing-node-osds"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.4.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Removing OSDs</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#removing-node-osds">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>removing-node-osds</li></ul></div></div></div></div><p>
+    Before removing an OSD node from the cluster, verify that the cluster has
+    more free disk space than the OSD disk you are going to remove. Be aware
+    that removing an OSD results in rebalancing of the whole cluster.
+   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      Identify which OSD to remove by getting its ID:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --daemon_type osd
+NAME   HOST            STATUS        REFRESHED  AGE  VERSION
+osd.0  target-ses-090  running (3h)  7m ago     3h   15.2.7.689 ...
+osd.1  target-ses-090  running (3h)  7m ago     3h   15.2.7.689 ...
+osd.2  target-ses-090  running (3h)  7m ago     3h   15.2.7.689 ...
+osd.3  target-ses-090  running (3h)  7m ago     3h   15.2.7.689 ...</pre></div></li><li class="step "><p>
+      Remove one or more OSDs from the cluster:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch osd rm <em class="replaceable ">OSD1_ID</em> <em class="replaceable ">OSD2_ID</em> ...</pre></div><p>
+      For example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch osd rm 1 2</pre></div></li><li class="step "><p>
+      You can query the state of the removal operation:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch osd rm status
+OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_AT
+2       cephadm-dev  done, waiting for purge  0         True     False  2020-07-17 13:01:43.147684
+3       cephadm-dev  draining                 17        False    True   2020-07-17 13:01:45.162158
+4       cephadm-dev  started                  42        False    True   2020-07-17 13:01:45.162158</pre></div></li></ol></div></div><div class="sect3 " id="removing-node-osds-stop"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Stopping OSD removal</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#removing-node-osds-stop">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>removing-node-osds-stop</li></ul></div></div></div></div><p>
+     After you have scheduled an OSD removal, you can stop the removal if
+     needed. The following command will reset the initial state of the OSD and
+     remove it from the queue:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch osd rm stop <em class="replaceable ">OSD_SERVICE_ID</em></pre></div></div></div><div class="sect2 " id="removing-node-osds-replace"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.4.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Replacing OSDs</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#removing-node-osds-replace">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>removing-node-osds-replace</li></ul></div></div></div></div><p>
+    To replace an OSD while preserving its ID, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch osd rm <em class="replaceable ">OSD_SERVICE_ID</em> --replace</pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch osd rm 4 --replace</pre></div><p>
+    Replacing an OSD is identical to removing an OSD (see
+    <a class="xref" href="storage-salt-cluster.html#removing-node-osds" title="13.4.4. Removing OSDs">Section 13.4.4, “Removing OSDs”</a> for more details) with the exception
+    that the OSD is not permanently removed from the CRUSH hierarchy and is
+    assigned a <code class="literal">destroyed</code> flag instead.
+   </p><p>
+    The <code class="literal">destroyed</code> flag is used to determined OSD IDs that
+    will be reused during the next OSD deployment. Newly added disks that match
+    the DriveGroups specification (see <a class="xref" href="storage-salt-cluster.html#drive-groups" title="13.4.3. Adding OSDs using DriveGroups specification">Section 13.4.3, “Adding OSDs using DriveGroups specification”</a> for more
+    details) will be assigned OSD IDs of their replaced counterpart.
+   </p><div id="id-1.4.4.3.6.7.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>
+     Appending the <code class="option">--dry-run</code> option will not execute the
+     actual replacement, but will preview the steps that would normally happen.
+    </p></div><div id="id-1.4.4.3.6.7.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><div id="id-1.4.4.3.6.7.9.1" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+         In the case of replacing an OSD after a failure, we highly recommend triggering
+         a deep scrub of the placement groups. See <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a>
+         for more details.
+       </p><p>
+         Run the following command to initiate a deep scrub:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd deep-scrub osd.<em class="replaceable ">OSD_NUMBER</em></pre></div></div></div></div></div><div class="sect1 " id="moving-saltmaster"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Moving the Salt Master to a new node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#moving-saltmaster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>moving-saltmaster</li></ul></div></div></div></div><p>
+   If you need to replace the Salt Master host with a new one, follow these
+   steps:
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Export the cluster configuration and back up the exported JSON file. Find
+     more details in <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.3.2.15 “Exporting cluster configurations”</span>.
+    </p></li><li class="step "><p>
+     If the old Salt Master is also the only administration node in the cluster,
+     then manually move
+     <code class="filename">/etc/ceph/ceph.client.admin.keyring</code> and
+     <code class="filename">/etc/ceph/ceph.conf</code> to the new Salt Master.
+    </p></li><li class="step "><p>
+     Stop and disable the Salt Master <code class="systemitem">systemd</code> service on the old Salt Master
+     node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl stop salt-master.service
+<code class="prompt user">root@master # </code>systemctl disable salt-master.service</pre></div></li><li class="step "><p>
+     If the old Salt Master node is no longer in the cluster, also stop and
+     disable the Salt Minion <code class="systemitem">systemd</code> service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl stop salt-minion.service
+<code class="prompt user">root@master # </code>systemctl disable salt-minion.service</pre></div><div id="id-1.4.4.3.7.3.4.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.png" /><h6>Warning</h6><p>
+      Do not stop or disable the <code class="literal">salt-minion.service</code> if the
+      old Salt Master node has any Ceph daemons (MON, MGR, OSD, MDS, gateway,
+      monitoring) running on it.
+     </p></div></li><li class="step "><p>
+     Install SUSE Linux Enterprise Server 15 SP2 on the new Salt Master following the procedure described in
+     <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.1 “Installing and configuring SUSE Linux Enterprise Server”</span>.
+    </p><div id="id-1.4.4.3.7.3.5.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Transition of Salt Minion</h6><p>
+      To simplify the transition of Salt Minions to the new Salt Master, remove the
+      original Salt Master's public key from each of them:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>rm /etc/salt/pki/minion/minion_master.pub
+<code class="prompt user">root@minion &gt; </code>systemctl restart salt-minion.service</pre></div></div></li><li class="step "><p>
+     Install the <span class="package ">salt-master</span> package and, if applicable, the
+     <span class="package ">salt-minion</span> package on the new Salt Master.
+    </p></li><li class="step "><p>
+     Install <code class="systemitem">ceph-salt</code> on the new Salt Master node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper install ceph-salt
+<code class="prompt user">root@master # </code>systemctl restart salt-master.service
+<code class="prompt user">root@master # </code>salt '*' saltutil.sync_all</pre></div><div id="id-1.4.4.3.7.3.7.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+      Make sure to run all three commands before continuing. The commands are
+      idempotent; it does not matter if they get repeated.
+     </p></div></li><li class="step "><p>
+     Include the new Salt Master in the cluster as described in
+     <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.3.1 “Installing <code class="systemitem">ceph-salt</code>”</span>,
+     <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.3.2.2 “Adding Salt Minions”</span> and
+     <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Deploy with cephadm”, Section 5.3.2.4 “Specifying Admin Node”</span>.
+    </p></li><li class="step "><p>
+     Import the backed up cluster configuration and apply it:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt import <em class="replaceable ">CLUSTER_CONFIG</em>.json
+<code class="prompt user">root@master # </code>ceph-salt apply</pre></div><div id="id-1.4.4.3.7.3.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+      Rename the Salt Master's <code class="literal">minion id</code> in the exported
+      <code class="filename"><em class="replaceable ">CLUSTER_CONFIG</em>.json</code> file
+      before importing it.
+     </p></div></li></ol></div></div></div><div class="sect1 " id="cephadm-rolling-updates"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Updating the cluster nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#cephadm-rolling-updates">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>cephadm-rolling-updates</li></ul></div></div></div></div><p>
+   Keep the Ceph cluster nodes up-to-date by applying rolling updates
+   regularly.
+  </p><div class="sect2 " id="rolling-updates-repos"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.6.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Software repositories</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#rolling-updates-repos">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>rolling-updates-repos</li></ul></div></div></div></div><p>
+    Before patching the cluster with the latest software packages, verify that
+    all the cluster's nodes have access to the relevant repositories. Refer to
+    <span class="intraxref">Book “Deployment Guide”, Chapter 7 “Upgrade from a previous release”, Section 7.1.5.1 “Software repositories”</span> for a complete
+    list of the required repositories.
+   </p></div><div class="sect2 " id="rolling-upgrades-staging"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.6.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Repository staging</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#rolling-upgrades-staging">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>rolling-upgrades-staging</li></ul></div></div></div></div><p>
+    If you use a staging tool—for example, SUSE Manager, Repository Management Tool, or
+    RMT—that serves software repositories to the cluster nodes, verify
+    that stages for both 'Updates' repositories for SUSE Linux Enterprise Server and SUSE Enterprise Storage are
+    created at the same point in time.
+   </p><p>
+    We strongly recommend to use a staging tool to apply patches which have
+    <code class="literal">frozen</code> or <code class="literal">staged</code> patch levels. This
+    ensures that new nodes joining the cluster have the same patch level as the
+    nodes already running in the cluster. This way you avoid the need to apply
+    the latest patches to all the cluster's nodes before new nodes can join the
+    cluster.
+   </p></div><div class="sect2 " id="id-1.4.4.3.8.5"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.6.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Downtime of Ceph services</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.8.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
+    Depending on the configuration, cluster nodes may be rebooted during the
+    update. If there is a single point of failure for services such as Object Gateway,
+    Samba Gateway, NFS Ganesha, or iSCSI, the client machines may be temporarily
+    disconnected from services whose nodes are being rebooted.
+   </p></div><div class="sect2 " id="rolling-updates-running"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.6.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Running the update</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#rolling-updates-running">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>rolling-updates-running</li></ul></div></div></div></div><p>
+    To update the software packages on all cluster nodes to the latest version,
+    run the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt update</pre></div></div></div><div class="sect1 " id="deploy-cephadm-day2-cephupdate"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Updating Ceph</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#deploy-cephadm-day2-cephupdate">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>deploy-cephadm-day2-cephupdate</li></ul></div></div></div></div><p>
+   You can instruct cephadm to update Ceph from one bugfix release to
+   another. The automated update of Ceph services respects the recommended
+   order—it starts with Ceph Managers, Ceph Monitors, and then continues on to other
+   services such as Ceph OSDs, Metadata Servers, and Object Gateways. Each daemon is restarted only
+   after Ceph indicates that the cluster will remain available.
+  </p><div id="id-1.4.4.3.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+    The following update procedure uses the <code class="command">ceph orch
+    upgrade</code> command. Keep in mind that the following instructions
+    detail how to update your Ceph cluster with a product version (for
+    example, a maintenance update), and <span class="emphasis"><em>does not</em></span> provide
+    instructions on how to upgrade your cluster from one product version to
+    another.
+   </p></div><div class="sect2 " id="deploy-cephadm-day2-cephupdate-start"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.7.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Starting the update</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#deploy-cephadm-day2-cephupdate-start">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>deploy-cephadm-day2-cephupdate-start</li></ul></div></div></div></div><p>
+    Before you start the update, verify that all nodes are currently online and
+    your cluster is healthy:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm shell -- ceph -s</pre></div><p>
+    To update to a specific Ceph release:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch upgrade start --image <em class="replaceable ">REGISTRY_URL</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch upgrade start --image registry.suse.com/ses/7/ceph/ceph:latest</pre></div><p>
+    Upgrade packages on the hosts:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt update</pre></div></div><div class="sect2 " id="deploy-cephadm-day2-cephupdate-monitor"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.7.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Monitoring the update</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#deploy-cephadm-day2-cephupdate-monitor">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>deploy-cephadm-day2-cephupdate-monitor</li></ul></div></div></div></div><p>
+    Run the following command to determine whether an update is in progress:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch upgrade status</pre></div><p>
+    While the update is in progress, you will see a progress bar in the Ceph
+    status output:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -s
+[...]
+  progress:
+    Upgrade to registry.suse.com/ses/7/ceph/ceph:latest (00h 20m 12s)
+      [=======.....................] (time remaining: 01h 43m 31s)</pre></div><p>
+    You can also watch the cephadm log:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -W cephadm</pre></div></div><div class="sect2 " id="deploy-cephadm-day2-cephupdate-stop"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.7.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Cancelling an update</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#deploy-cephadm-day2-cephupdate-stop">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>deploy-cephadm-day2-cephupdate-stop</li></ul></div></div></div></div><p>
+    You can stop the update process at any time:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch upgrade stop</pre></div></div></div><div class="sect1 " id="sec-salt-cluster-reboot"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Halting or rebooting cluster</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#sec-salt-cluster-reboot">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>sec-salt-cluster-reboot</li></ul></div></div></div></div><p>
+   In some cases it may be necessary to halt or reboot the whole cluster. We
+   recommended carefully checking for dependencies of running services. The
+   following steps provide an outline for stopping and starting the cluster:
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Tell the Ceph cluster not to mark OSDs as out:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd set noout</pre></div></li><li class="step "><p>
+     Stop daemons and nodes in the following order:
+    </p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>
+       Storage clients
+      </p></li><li class="listitem "><p>
+       Gateways, for example NFS Ganesha or Object Gateway
+      </p></li><li class="listitem "><p>
+       Metadata Server
+      </p></li><li class="listitem "><p>
+       Ceph OSD
+      </p></li><li class="listitem "><p>
+       Ceph Manager
+      </p></li><li class="listitem "><p>
+       Ceph Monitor
+      </p></li></ol></div></li><li class="step "><p>
+     If required, perform maintenance tasks.
+    </p></li><li class="step "><p>
+     Start the nodes and servers in the reverse order of the shutdown process:
+    </p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>
+       Ceph Monitor
+      </p></li><li class="listitem "><p>
+       Ceph Manager
+      </p></li><li class="listitem "><p>
+       Ceph OSD
+      </p></li><li class="listitem "><p>
+       Metadata Server
+      </p></li><li class="listitem "><p>
+       Gateways, for example NFS Ganesha or Object Gateway
+      </p></li><li class="listitem "><p>
+       Storage clients
+      </p></li></ol></div></li><li class="step "><p>
+     Remove the noout flag:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd unset noout</pre></div></li></ol></div></div></div><div class="sect1 " id="ceph-cluster-purge"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.9 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Removing an entire Ceph cluster</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ceph-cluster-purge">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>ceph-cluster-purge</li></ul></div></div></div></div><p>
+   The <code class="command">ceph-salt purge</code> command removes the entire Ceph
+   cluster. If there are more Ceph clusters deployed, the one reported by
+   <code class="command">ceph -s</code> is purged. This way you can clean the cluster
+   environment when testing different setups.
+  </p><p>
+   To prevent accidental deletion, the orchestration checks if the safety is
+   disengaged. You can disengage the safety measures and remove the Ceph
+   cluster by running:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt disengage-safety
+<code class="prompt user">root@master # </code>ceph-salt purge</pre></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="cha-ceph-operating.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 14 </span>Operation of Ceph services</span></a><a class="nav-link" href="ceph-monitor.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 12 </span>Determine the cluster state</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2021 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

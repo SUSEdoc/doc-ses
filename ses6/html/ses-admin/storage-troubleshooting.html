@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Troubleshooting | Administration Guide | SUSE Enterprise Storage 6</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE Enterprise Storage" /><meta name="product-number" content="6" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 35. Troubleshooting" /><meta name="description" content="This chapter describes several issues that you may face when you operate a Ceph cluster." /><meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-assignee" content="asettle" /><meta name="tracker-gh-labels" content="bug,question,feature request" /><link rel="home" href="index.html" title="SUSE Enterprise Storage 6 Documentation" /><link rel="up" href="part-troubleshooting.html" title="Part VI. FAQs, Tips and Troubleshooting" /><link rel="prev" href="storage-faqs.html" title="Chapter 34. Frequently Asked Questions" /><link rel="next" href="app-stage1-custom.html" title="Appendix A. DeepSea Stage 1 Custom Example" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-troubleshooting.html">FAQs, Tips and Troubleshooting</a><span> › </span><a class="crumb" href="storage-troubleshooting.html">Troubleshooting</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="bk01pr01.html"><span class="number"> </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="part-cluster-managment.html"><span class="number">I </span><span class="name">Cluster Management</span></a><ol><li class="inactive"><a href="bk01pt01ch01.html"><span class="number">1 </span><span class="name">User Privileges and Command Prompts</span></a></li><li class="inactive"><a href="storage-salt-cluster.html"><span class="number">2 </span><span class="name">Salt Cluster Administration</span></a></li><li class="inactive"><a href="cha-deployment-backup.html"><span class="number">3 </span><span class="name">Backing Up Cluster Configuration and Data</span></a></li></ol></li><li class="inactive"><a href="part-dashboard.html"><span class="number">II </span><span class="name">Ceph Dashboard</span></a><ol><li class="inactive"><a href="dashboard-about.html"><span class="number">4 </span><span class="name">About Ceph Dashboard</span></a></li><li class="inactive"><a href="dashboard-webui-general.html"><span class="number">5 </span><span class="name">Dashboard's Web User Interface</span></a></li><li class="inactive"><a href="dashboard-user-mgmt.html"><span class="number">6 </span><span class="name">Managing Dashboard Users and Roles</span></a></li><li class="inactive"><a href="dashboard-cluster.html"><span class="number">7 </span><span class="name">Viewing Cluster Internals</span></a></li><li class="inactive"><a href="dashboard-pools.html"><span class="number">8 </span><span class="name">Managing Pools</span></a></li><li class="inactive"><a href="dashboard-rbds.html"><span class="number">9 </span><span class="name">Managing RADOS Block Devices</span></a></li><li class="inactive"><a href="dash-webui-nfs.html"><span class="number">10 </span><span class="name">Managing NFS Ganesha</span></a></li><li class="inactive"><a href="dashboard-mds.html"><span class="number">11 </span><span class="name">Managing Ceph File Systems</span></a></li><li class="inactive"><a href="dashboard-ogw.html"><span class="number">12 </span><span class="name">Managing Object Gateways</span></a></li><li class="inactive"><a href="dashboard-initial-configuration.html"><span class="number">13 </span><span class="name">Manual Configuration</span></a></li><li class="inactive"><a href="dashboard-user-roles.html"><span class="number">14 </span><span class="name">Managing Users and Roles on the Command Line</span></a></li></ol></li><li class="inactive"><a href="part-operate.html"><span class="number">III </span><span class="name">Operating a Cluster</span></a><ol><li class="inactive"><a href="cha-ceph-operating.html"><span class="number">15 </span><span class="name">Introduction</span></a></li><li class="inactive"><a href="ceph-operating-services.html"><span class="number">16 </span><span class="name">Operating Ceph Services</span></a></li><li class="inactive"><a href="ceph-monitor.html"><span class="number">17 </span><span class="name">Determining Cluster State</span></a></li><li class="inactive"><a href="monitoring-alerting.html"><span class="number">18 </span><span class="name">Monitoring and Alerting</span></a></li><li class="inactive"><a href="cha-storage-cephx.html"><span class="number">19 </span><span class="name">Authentication with <code class="systemitem">cephx</code></span></a></li><li class="inactive"><a href="cha-storage-datamgm.html"><span class="number">20 </span><span class="name">Stored Data Management</span></a></li><li class="inactive"><a href="cha-mgr-modules.html"><span class="number">21 </span><span class="name">Ceph Manager Modules</span></a></li><li class="inactive"><a href="ceph-pools.html"><span class="number">22 </span><span class="name">Managing Storage Pools</span></a></li><li class="inactive"><a href="ceph-rbd.html"><span class="number">23 </span><span class="name">RADOS Block Device</span></a></li><li class="inactive"><a href="cha-ceph-erasure.html"><span class="number">24 </span><span class="name">Erasure Coded Pools</span></a></li><li class="inactive"><a href="cha-ceph-configuration.html"><span class="number">25 </span><span class="name">Ceph Cluster Configuration</span></a></li></ol></li><li class="inactive"><a href="part-dataccess.html"><span class="number">IV </span><span class="name">Accessing Cluster Data</span></a><ol><li class="inactive"><a href="cha-ceph-gw.html"><span class="number">26 </span><span class="name">Ceph Object Gateway</span></a></li><li class="inactive"><a href="cha-ceph-iscsi.html"><span class="number">27 </span><span class="name">Ceph iSCSI Gateway</span></a></li><li class="inactive"><a href="cha-ceph-cephfs.html"><span class="number">28 </span><span class="name">Clustered File System</span></a></li><li class="inactive"><a href="cha-ses-cifs.html"><span class="number">29 </span><span class="name">Exporting Ceph Data via Samba</span></a></li><li class="inactive"><a href="cha-ceph-nfsganesha.html"><span class="number">30 </span><span class="name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li class="inactive"><a href="part-virt.html"><span class="number">V </span><span class="name">Integration with Virtualization Tools</span></a><ol><li class="inactive"><a href="cha-ceph-libvirt.html"><span class="number">31 </span><span class="name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li class="inactive"><a href="cha-ceph-kvm.html"><span class="number">32 </span><span class="name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li class="inactive"><a href="part-troubleshooting.html"><span class="number">VI </span><span class="name">FAQs, Tips and Troubleshooting</span></a><ol><li class="inactive"><a href="storage-tips.html"><span class="number">33 </span><span class="name">Hints and Tips</span></a></li><li class="inactive"><a href="storage-faqs.html"><span class="number">34 </span><span class="name">Frequently Asked Questions</span></a></li><li class="inactive"><a href="storage-troubleshooting.html"><span class="number">35 </span><span class="name">Troubleshooting</span></a></li></ol></li><li class="inactive"><a href="app-stage1-custom.html"><span class="number">A </span><span class="name">DeepSea Stage 1 Custom Example</span></a></li><li class="inactive"><a href="bk01apb.html"><span class="number">B </span><span class="name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li class="inactive"><a href="bk01go01.html"><span class="number"> </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="ap-adm-docupdate.html"><span class="number">C </span><span class="name">Documentation Updates</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 34. Frequently Asked Questions" href="storage-faqs.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Appendix A. DeepSea Stage 1 Custom Example" href="app-stage1-custom.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-troubleshooting.html">FAQs, Tips and Troubleshooting</a><span> › </span><a class="crumb" href="storage-troubleshooting.html">Troubleshooting</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 34. Frequently Asked Questions" href="storage-faqs.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Appendix A. DeepSea Stage 1 Custom Example" href="app-stage1-custom.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="storage-troubleshooting"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">6</span></div><div><h2 class="title"><span class="number">35 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Troubleshooting</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-troubleshooting</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-report-bug"><span class="number">35.1 </span><span class="name">Reporting Software Problems</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-cluster-mntc-rados-striping"><span class="number">35.2 </span><span class="name">Sending Large Objects with <code class="command">rados</code> Fails with Full OSD</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#ceph-xfs-corruption"><span class="number">35.3 </span><span class="name">Corrupted XFS File system</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-recover-toomanypgs"><span class="number">35.4 </span><span class="name">'Too Many PGs per OSD' Status Message</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-recover-stuckinactive"><span class="number">35.5 </span><span class="name">'<span class="emphasis"><em>nn</em></span> pg stuck inactive' Status Message</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-recover-osdweight"><span class="number">35.6 </span><span class="name">OSD Weight is 0</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-recover-osddown"><span class="number">35.7 </span><span class="name">OSD is Down</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-performance-slowosd"><span class="number">35.8 </span><span class="name">Finding Slow OSDs</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-recover-clockskew"><span class="number">35.9 </span><span class="name">Fixing Clock Skew Warnings</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#storage-bp-performance-net-issues"><span class="number">35.10 </span><span class="name">Poor Cluster Performance Caused by Network Problems</span></a></span></dt><dt><span class="sect1"><a href="storage-troubleshooting.html#trouble-jobcache"><span class="number">35.11 </span><span class="name"><code class="filename">/var</code> Running Out of Space</span></a></span></dt></dl></div></div><p>
+  This chapter describes several issues that you may face when you operate a
+  Ceph cluster.
+ </p><div class="sect1 " id="storage-bp-report-bug"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Reporting Software Problems</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-report-bug">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-report-bug</li></ul></div></div></div></div><p>
+   If you come across a problem when running SUSE Enterprise Storage 6
+   related to some of its components, such as Ceph or Object Gateway, report the
+   problem to SUSE Technical Support. The recommended way is with the
+   <code class="command">supportconfig</code> utility.
+  </p><div id="id-1.3.8.4.4.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>
+    Because <code class="command">supportconfig</code> is modular software, make sure
+    that the <code class="systemitem">supportutils-plugin-ses</code> package is
+    installed.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">tux &gt; </code>rpm -q supportutils-plugin-ses</pre></div><p>
+    If it is missing on the Ceph server, install it with
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper ref &amp;&amp; zypper in supportutils-plugin-ses</pre></div></div><p>
+   Although you can use <code class="command">supportconfig</code> on the command line,
+   we recommend using the related YaST module. Find more information about
+   <code class="command">supportconfig</code> in
+   <a class="link" href="https://documentation.suse.com/sles/15-SP1/single-html/SLES-admin/#sec-admsupport-supportconfig" target="_blank">https://documentation.suse.com/sles/15-SP1/single-html/SLES-admin/#sec-admsupport-supportconfig</a>.
+  </p></div><div class="sect1 " id="storage-bp-cluster-mntc-rados-striping"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Sending Large Objects with <code class="command">rados</code> Fails with Full OSD</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-cluster-mntc-rados-striping">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-cluster-mntc-rados-striping</li></ul></div></div></div></div><p>
+   <code class="command">rados</code> is a command line utility to manage RADOS object
+   storage. For more information, see <code class="command">man 8 rados</code>.
+  </p><p>
+   If you send a large object to a Ceph cluster with the
+   <code class="command">rados</code> utility, such as
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>rados -p mypool put myobject /file/to/send</pre></div><p>
+   it can fill up all the related OSD space and cause serious trouble to the
+   cluster performance.
+  </p></div><div class="sect1 " id="ceph-xfs-corruption"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Corrupted XFS File system</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#ceph-xfs-corruption">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>ceph-xfs-corruption</li></ul></div></div></div></div><p>
+   In rare circumstances like kernel bug or broken/misconfigured hardware, the
+   underlying file system (XFS) in which an OSD stores its data might be
+   damaged and unmountable.
+  </p><p>
+   If you are sure there is no problem with your hardware and the system is
+   configured properly, raise a bug against the XFS subsystem of the SUSE Linux Enterprise Server
+   kernel and mark the particular OSD as down:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd down <em class="replaceable ">OSD_ID</em></pre></div><div id="id-1.3.8.4.6.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.png" /><h6>Warning: Do Not Format or Otherwise Modify the Damaged Device</h6><p>
+    Even though using <code class="command">xfs_repair</code> to fix the problem in the
+    file system may seem reasonable, do not use it as the command modifies the
+    file system. The OSD may start but its functioning may be influenced.
+   </p></div><p>
+   Now zap the underlying disk and re-create the OSD by running:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume lvm zap --data /dev/<em class="replaceable ">OSD_DISK_DEVICE</em>
+<code class="prompt user">cephadm@osd &gt; </code>ceph-volume lvm prepare --bluestore --data /dev/<em class="replaceable ">OSD_DISK_DEVICE</em></pre></div></div><div class="sect1 " id="storage-bp-recover-toomanypgs"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">'Too Many PGs per OSD' Status Message</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-recover-toomanypgs">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-recover-toomanypgs</li></ul></div></div></div></div><p>
+   If you receive a <code class="literal">Too Many PGs per OSD</code> message after
+   running <code class="command">ceph status</code>, it means that the
+   <code class="option">mon_pg_warn_max_per_osd</code> value (300 by default) was
+   exceeded. This value is compared to the number of PGs per OSD ratio. This
+   means that the cluster setup is not optimal.
+  </p><p>
+   The number of PGs cannot be reduced after the pool is created. Pools that do
+   not yet contain any data can safely be deleted and then re-created with a
+   lower number of PGs. Where pools already contain data, the only solution is
+   to add OSDs to the cluster so that the ratio of PGs per OSD becomes lower.
+  </p></div><div class="sect1 " id="storage-bp-recover-stuckinactive"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">'<span class="emphasis"><em>nn</em></span> pg stuck inactive' Status Message</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-recover-stuckinactive">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-recover-stuckinactive</li></ul></div></div></div></div><p>
+   If you receive a <code class="literal">stuck inactive</code> status message after
+   running <code class="command">ceph status</code>, it means that Ceph does not know
+   where to replicate the stored data to fulfill the replication rules. It can
+   happen shortly after the initial Ceph setup and fix itself automatically.
+   In other cases, this may require a manual interaction, such as bringing up a
+   broken OSD, or adding a new OSD to the cluster. In very rare cases, reducing
+   the replication level may help.
+  </p><p>
+   If the placement groups are stuck perpetually, you need to check the output
+   of <code class="command">ceph osd tree</code>. The output should look tree-structured,
+   similar to the example in <a class="xref" href="storage-troubleshooting.html#storage-bp-recover-osddown" title="35.7. OSD is Down">Section 35.7, “OSD is Down”</a>.
+  </p><p>
+   If the output of <code class="command">ceph osd tree</code> is rather flat as in the
+   following example
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd tree
+ID WEIGHT TYPE NAME    UP/DOWN REWEIGHT PRIMARY-AFFINITY
+-1      0 root default
+ 0      0 osd.0             up  1.00000          1.00000
+ 1      0 osd.1             up  1.00000          1.00000
+ 2      0 osd.2             up  1.00000          1.00000</pre></div><p>
+   You should check that the related CRUSH map has a tree structure. If it is
+   also flat, or with no hosts as in the above example, it may mean that host
+   name resolution is not working correctly across the cluster.
+  </p><p>
+   If the hierarchy is incorrect—for example the root contains hosts, but
+   the OSDs are at the top level and are not themselves assigned to
+   hosts—you will need to move the OSDs to the correct place in the
+   hierarchy. This can be done using the <code class="command">ceph osd crush move</code>
+   and/or <code class="command">ceph osd crush set</code> commands. For further details
+   see <a class="xref" href="cha-storage-datamgm.html#op-crush" title="20.5. CRUSH Map Manipulation">Section 20.5, “CRUSH Map Manipulation”</a>.
+  </p></div><div class="sect1 " id="storage-bp-recover-osdweight"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">OSD Weight is 0</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-recover-osdweight">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-recover-osdweight</li></ul></div></div></div></div><p>
+   When OSD starts, it is assigned a weight. The higher the weight, the bigger
+   the chance that the cluster writes data to the OSD. The weight is either
+   specified in a cluster CRUSH Map, or calculated by the OSDs' start-up
+   script.
+  </p><p>
+   In some cases, the calculated value for OSDs' weight may be rounded down to
+   zero. It means that the OSD is not scheduled to store data, and no data is
+   written to it. The reason is usually that the disk is too small (smaller
+   than 15GB) and should be replaced with a bigger one.
+  </p></div><div class="sect1 " id="storage-bp-recover-osddown"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">OSD is Down</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-recover-osddown">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-recover-osddown</li></ul></div></div></div></div><p>
+   OSD daemon is either running, or stopped/down. There are 3 general reasons
+   why an OSD is down:
+  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+     Hard disk failure.
+    </p></li><li class="listitem "><p>
+     The OSD crashed.
+    </p></li><li class="listitem "><p>
+     The server crashed.
+    </p></li></ul></div><p>
+   You can see the detailed status of OSDs by running
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd tree
+# id  weight  type name up/down reweight
+ -1    0.02998  root default
+ -2    0.009995   host doc-ceph1
+ 0     0.009995      osd.0 up  1
+ -3    0.009995   host doc-ceph2
+ 1     0.009995      osd.1 up  1
+ -4    0.009995   host doc-ceph3
+ 2     0.009995      osd.2 down  1</pre></div><p>
+   The example listing shows that the <code class="literal">osd.2</code> is down. Then
+   you may check if the disk where the OSD is located is mounted:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>lsblk -f
+ [...]
+ vdb
+ ├─vdb1               /var/lib/ceph/osd/ceph-2
+ └─vdb2</pre></div><p>
+   You can track the reason why the OSD is down by inspecting its log file
+   <code class="filename">/var/log/ceph/ceph-osd.2.log</code>. After you find and fix
+   the reason why the OSD is not running, start it with
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl start ceph-osd@2.service</pre></div><p>
+   Do not forget to replace <code class="literal">2</code> with the actual number of your
+   stopped OSD.
+  </p></div><div class="sect1 " id="storage-bp-performance-slowosd"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Finding Slow OSDs</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-performance-slowosd">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-performance-slowosd</li></ul></div></div></div></div><p>
+   When tuning the cluster performance, it is very important to identify slow
+   storage/OSDs within the cluster. The reason is that if the data is written
+   to the slow(est) disk, the complete write operation slows down as it always
+   waits until it is finished on all the related disks.
+  </p><p>
+   It is not trivial to locate the storage bottleneck. You need to examine each
+   and every OSD to find out the ones slowing down the write process. To do a
+   benchmark on a single OSD, run:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="command">ceph tell</code> osd.<em class="replaceable ">OSD_ID_NUMBER</em> bench</pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph tell osd.0 bench
+ { "bytes_written": 1073741824,
+   "blocksize": 4194304,
+   "bytes_per_sec": "19377779.000000"}</pre></div><p>
+   Then you need to run this command on each OSD and compare the
+   <code class="literal">bytes_per_sec</code> value to get the slow(est) OSDs.
+  </p></div><div class="sect1 " id="storage-bp-recover-clockskew"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.9 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Fixing Clock Skew Warnings</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-recover-clockskew">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-recover-clockskew</li></ul></div></div></div></div><p>
+   The time information in all cluster nodes must be synchronized. If a node's
+   time is not fully synchronized, you may get clock skew warnings when
+   checking the state of the cluster.
+  </p><p>
+   By default, DeepSea uses the Admin Node as the time server for other
+   cluster nodes. Therefore, if the Admin Node is not virtualized, select one or
+   more time servers or pools, and synchronize the local time against them.
+   Verify that the time synchronization service is enabled on each system
+   start-up. Find more information on setting up time synchronization in
+   <a class="link" href="https://www.suse.com/documentation/sles-15/book_sle_admin/data/sec_ntp_yast.html" target="_blank">https://www.suse.com/documentation/sles-15/book_sle_admin/data/sec_ntp_yast.html</a>.
+  </p><p>
+   If the Admin Node is a virtual machine, provide better time sources
+   for the cluster nodes by overriding the default NTP client configuration:
+  </p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>
+     Edit <code class="filename">/srv/pillar/ceph/stack/global.yml</code> on the
+     Salt master node and add the following line:
+    </p><div class="verbatim-wrap"><pre class="screen">time_server: <em class="replaceable ">CUSTOM_NTP_SERVER</em></pre></div><p>
+ To add multiple time servers, the format is as follows:
+</p><div class="verbatim-wrap"><pre class="screen">time_server:
+ - <em class="replaceable ">CUSTOM_NTP_SERVER1</em>
+ - <em class="replaceable ">CUSTOM_NTP_SERVER2</em>
+ - <em class="replaceable ">CUSTOM_NTP_SERVER3</em>
+ [...]</pre></div></li><li class="listitem "><p>
+     Refresh the Salt pillar:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.pillar_refresh</pre></div></li><li class="listitem "><p>
+     Verify the changed value:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' pillar.items</pre></div></li><li class="listitem "><p>
+     Apply the new setting:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' state.apply ceph.time</pre></div></li></ol></div><p>
+   If the time skew still occurs on a node, follow these steps to fix it:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl stop chronyd.service
+<code class="prompt user">root # </code>systemctl stop ceph-mon.target
+<code class="prompt user">root # </code>systemctl start chronyd.service
+<code class="prompt user">root # </code>systemctl start ceph-mon.target</pre></div><p>
+   You can then check the time offset with <code class="command">chronyc
+   sourcestats</code>.
+  </p><p>
+   The Ceph monitors need to have their clocks synchronized to within 0.05
+   seconds of each other. Refer to <a class="xref" href="storage-tips.html#Cluster-Time-Setting" title="33.4. Time Synchronization of Nodes">Section 33.4, “Time Synchronization of Nodes”</a> for
+   more information.
+  </p></div><div class="sect1 " id="storage-bp-performance-net-issues"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.10 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Poor Cluster Performance Caused by Network Problems</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#storage-bp-performance-net-issues">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>storage-bp-performance-net-issues</li></ul></div></div></div></div><p>
+   There are more reasons why the cluster performance may become weak. One of
+   them can be network problems. In such case, you may notice the cluster
+   reaching quorum, OSD and monitor nodes going offline, data transfers taking
+   a long time, or a lot of reconnect attempts.
+  </p><p>
+   To check whether cluster performance is degraded by network problems,
+   inspect the Ceph log files under the <code class="filename">/var/log/ceph</code>
+   directory.
+  </p><p>
+   To fix network issues on the cluster, focus on the following points:
+  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+     Basic network diagnostics. Try DeepSea diagnostics tools runner
+     <code class="literal">net.ping</code> to ping between cluster nodes to see if
+     individual interface can reach to specific interface and the average
+     response time. Any specific response time much slower then average will
+     also be reported. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run net.ping
+  Succeeded: 8 addresses from 7 minions average rtt 0.15 ms</pre></div><p>
+     Try validating all interface with JumboFrame enable:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run net.jumbo_ping
+  Succeeded: 8 addresses from 7 minions average rtt 0.26 ms</pre></div></li><li class="listitem "><p>
+     Network performance benchmark. Try DeepSea's network performance runner
+     <code class="literal">net.iperf</code> to test intern-node network bandwidth. On a
+     given cluster node, a number of <code class="command">iperf</code> processes
+     (according to the number of CPU cores) are started as servers. The
+     remaining cluster nodes will be used as clients to generate network
+     traffic. The accumulated bandwidth of all per-node
+     <code class="command">iperf</code> processes is reported. This should reflect the
+     maximum achievable network throughput on all cluster nodes. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run net.iperf cluster=ceph output=full
+192.168.128.1:
+    8644.0 Mbits/sec
+192.168.128.2:
+    10360.0 Mbits/sec
+192.168.128.3:
+    9336.0 Mbits/sec
+192.168.128.4:
+    9588.56 Mbits/sec
+192.168.128.5:
+    10187.0 Mbits/sec
+192.168.128.6:
+    10465.0 Mbits/sec</pre></div></li><li class="listitem "><p>
+     Check firewall settings on cluster nodes. Make sure they do not block
+     ports/protocols required by Ceph operation. See
+     <a class="xref" href="storage-tips.html#storage-bp-net-firewall" title="33.9. Firewall Settings for Ceph">Section 33.9, “Firewall Settings for Ceph”</a> for more information on firewall
+     settings.
+    </p></li><li class="listitem "><p>
+     Check the networking hardware, such as network cards, cables, or switches,
+     for proper operation.
+    </p></li></ul></div><div id="id-1.3.8.4.13.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Separate Network</h6><p>
+    To ensure fast and safe network communication between cluster nodes, set up
+    a separate network used exclusively by the cluster OSD and monitor nodes.
+   </p></div></div><div class="sect1 " id="trouble-jobcache"><div class="titlepage"><div><div><h2 class="title"><span class="number">35.11 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name"><code class="filename">/var</code> Running Out of Space</span> <a title="Permalink" class="permalink" href="storage-troubleshooting.html#trouble-jobcache">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_troubleshooting.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_troubleshooting.xml</li><li><span class="ds-label">ID: </span>trouble-jobcache</li></ul></div></div></div></div><p>
+   By default, the Salt master saves every minion's return for every job in its
+   <span class="emphasis"><em>job cache</em></span>. The cache can then be used later to look up
+   results from previous jobs. The cache directory defaults to
+   <code class="filename">/var/cache/salt/master/jobs/</code>.
+  </p><p>
+   Each job return from every minion is saved in a single file. Over time this
+   directory can grow very large, depending on the number of published jobs and
+   the value of the <code class="option">keep_jobs</code> option in the
+   <code class="filename">/etc/salt/master</code> file. <code class="option">keep_jobs</code> sets
+   the number of hours (24 by default) to keep information about past minion
+   jobs.
+  </p><div class="verbatim-wrap"><pre class="screen">keep_jobs: 24</pre></div><div id="id-1.3.8.4.14.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Do Not Set <code class="option">keep_jobs: 0</code></h6><p>
+    Setting <code class="option">keep_jobs</code> to '0' will cause the job cache cleaner
+    to <span class="emphasis"><em>never</em></span> run, possibly resulting in a full partition.
+   </p></div><p>
+   If you want to disable the job cache, set <code class="option">job_cache</code> to
+   'False':
+  </p><div class="verbatim-wrap"><pre class="screen">job_cache: False</pre></div><div id="id-1.3.8.4.14.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Restoring Partition Full because of Job Cache</h6><p>
+    When the partition with job cache files gets full because of wrong
+    <code class="option">keep_jobs</code> setting, follow these steps to free disk space
+    and improve the job cache settings:
+   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      Stop the Salt master service:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl stop salt-master</pre></div></li><li class="step "><p>
+      Change the Salt master configuration related to job cache by editing
+      <code class="filename">/etc/salt/master</code>:
+     </p><div class="verbatim-wrap"><pre class="screen">job_cache: False
+keep_jobs: 1</pre></div></li><li class="step "><p>
+      Clear the Salt master job cache:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>rm -rfv /var/cache/salt/master/jobs/*</pre></div></li><li class="step "><p>
+      Start the Salt master service:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl start salt-master</pre></div></li></ol></div></div></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="app-stage1-custom.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Appendix A </span>DeepSea Stage 1 Custom Example</span></a><a class="nav-link" href="storage-faqs.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 34 </span>Frequently Asked Questions</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2021 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

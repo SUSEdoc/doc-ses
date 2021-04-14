@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using libvirt with Ceph | Administration Guide | SUSE Enterprise Storage 6</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE Enterprise Storage" /><meta name="product-number" content="6" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 31. Using libvirt with Ceph" /><meta name="description" content="The libvirt library creates a virtual machine abstraction layer between hypervisor interfaces and the software applications that use them. With libvirt, developers and system administrators can focus on a common management framework, common API, and common shell interface (virsh) to many different h…" /><meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-assignee" content="asettle" /><meta name="tracker-gh-labels" content="bug,question,feature request" /><link rel="home" href="index.html" title="SUSE Enterprise Storage 6 Documentation" /><link rel="up" href="part-virt.html" title="Part V. Integration with Virtualization Tools" /><link rel="prev" href="part-virt.html" title="Part V. Integration with Virtualization Tools" /><link rel="next" href="cha-ceph-kvm.html" title="Chapter 32. Ceph as a Back-end for QEMU KVM Instance" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-virt.html">Integration with Virtualization Tools</a><span> › </span><a class="crumb" href="cha-ceph-libvirt.html">Using libvirt with Ceph</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="bk01pr01.html"><span class="number"> </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="part-cluster-managment.html"><span class="number">I </span><span class="name">Cluster Management</span></a><ol><li class="inactive"><a href="bk01pt01ch01.html"><span class="number">1 </span><span class="name">User Privileges and Command Prompts</span></a></li><li class="inactive"><a href="storage-salt-cluster.html"><span class="number">2 </span><span class="name">Salt Cluster Administration</span></a></li><li class="inactive"><a href="cha-deployment-backup.html"><span class="number">3 </span><span class="name">Backing Up Cluster Configuration and Data</span></a></li></ol></li><li class="inactive"><a href="part-dashboard.html"><span class="number">II </span><span class="name">Ceph Dashboard</span></a><ol><li class="inactive"><a href="dashboard-about.html"><span class="number">4 </span><span class="name">About Ceph Dashboard</span></a></li><li class="inactive"><a href="dashboard-webui-general.html"><span class="number">5 </span><span class="name">Dashboard's Web User Interface</span></a></li><li class="inactive"><a href="dashboard-user-mgmt.html"><span class="number">6 </span><span class="name">Managing Dashboard Users and Roles</span></a></li><li class="inactive"><a href="dashboard-cluster.html"><span class="number">7 </span><span class="name">Viewing Cluster Internals</span></a></li><li class="inactive"><a href="dashboard-pools.html"><span class="number">8 </span><span class="name">Managing Pools</span></a></li><li class="inactive"><a href="dashboard-rbds.html"><span class="number">9 </span><span class="name">Managing RADOS Block Devices</span></a></li><li class="inactive"><a href="dash-webui-nfs.html"><span class="number">10 </span><span class="name">Managing NFS Ganesha</span></a></li><li class="inactive"><a href="dashboard-mds.html"><span class="number">11 </span><span class="name">Managing Ceph File Systems</span></a></li><li class="inactive"><a href="dashboard-ogw.html"><span class="number">12 </span><span class="name">Managing Object Gateways</span></a></li><li class="inactive"><a href="dashboard-initial-configuration.html"><span class="number">13 </span><span class="name">Manual Configuration</span></a></li><li class="inactive"><a href="dashboard-user-roles.html"><span class="number">14 </span><span class="name">Managing Users and Roles on the Command Line</span></a></li></ol></li><li class="inactive"><a href="part-operate.html"><span class="number">III </span><span class="name">Operating a Cluster</span></a><ol><li class="inactive"><a href="cha-ceph-operating.html"><span class="number">15 </span><span class="name">Introduction</span></a></li><li class="inactive"><a href="ceph-operating-services.html"><span class="number">16 </span><span class="name">Operating Ceph Services</span></a></li><li class="inactive"><a href="ceph-monitor.html"><span class="number">17 </span><span class="name">Determining Cluster State</span></a></li><li class="inactive"><a href="monitoring-alerting.html"><span class="number">18 </span><span class="name">Monitoring and Alerting</span></a></li><li class="inactive"><a href="cha-storage-cephx.html"><span class="number">19 </span><span class="name">Authentication with <code class="systemitem">cephx</code></span></a></li><li class="inactive"><a href="cha-storage-datamgm.html"><span class="number">20 </span><span class="name">Stored Data Management</span></a></li><li class="inactive"><a href="cha-mgr-modules.html"><span class="number">21 </span><span class="name">Ceph Manager Modules</span></a></li><li class="inactive"><a href="ceph-pools.html"><span class="number">22 </span><span class="name">Managing Storage Pools</span></a></li><li class="inactive"><a href="ceph-rbd.html"><span class="number">23 </span><span class="name">RADOS Block Device</span></a></li><li class="inactive"><a href="cha-ceph-erasure.html"><span class="number">24 </span><span class="name">Erasure Coded Pools</span></a></li><li class="inactive"><a href="cha-ceph-configuration.html"><span class="number">25 </span><span class="name">Ceph Cluster Configuration</span></a></li></ol></li><li class="inactive"><a href="part-dataccess.html"><span class="number">IV </span><span class="name">Accessing Cluster Data</span></a><ol><li class="inactive"><a href="cha-ceph-gw.html"><span class="number">26 </span><span class="name">Ceph Object Gateway</span></a></li><li class="inactive"><a href="cha-ceph-iscsi.html"><span class="number">27 </span><span class="name">Ceph iSCSI Gateway</span></a></li><li class="inactive"><a href="cha-ceph-cephfs.html"><span class="number">28 </span><span class="name">Clustered File System</span></a></li><li class="inactive"><a href="cha-ses-cifs.html"><span class="number">29 </span><span class="name">Exporting Ceph Data via Samba</span></a></li><li class="inactive"><a href="cha-ceph-nfsganesha.html"><span class="number">30 </span><span class="name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li class="inactive"><a href="part-virt.html"><span class="number">V </span><span class="name">Integration with Virtualization Tools</span></a><ol><li class="inactive"><a href="cha-ceph-libvirt.html"><span class="number">31 </span><span class="name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li class="inactive"><a href="cha-ceph-kvm.html"><span class="number">32 </span><span class="name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li class="inactive"><a href="part-troubleshooting.html"><span class="number">VI </span><span class="name">FAQs, Tips and Troubleshooting</span></a><ol><li class="inactive"><a href="storage-tips.html"><span class="number">33 </span><span class="name">Hints and Tips</span></a></li><li class="inactive"><a href="storage-faqs.html"><span class="number">34 </span><span class="name">Frequently Asked Questions</span></a></li><li class="inactive"><a href="storage-troubleshooting.html"><span class="number">35 </span><span class="name">Troubleshooting</span></a></li></ol></li><li class="inactive"><a href="app-stage1-custom.html"><span class="number">A </span><span class="name">DeepSea Stage 1 Custom Example</span></a></li><li class="inactive"><a href="bk01apb.html"><span class="number">B </span><span class="name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li class="inactive"><a href="bk01go01.html"><span class="number"> </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="ap-adm-docupdate.html"><span class="number">C </span><span class="name">Documentation Updates</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Part V. Integration with Virtualization Tools" href="part-virt.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 32. Ceph as a Back-end for QEMU KVM Instance" href="cha-ceph-kvm.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-virt.html">Integration with Virtualization Tools</a><span> › </span><a class="crumb" href="cha-ceph-libvirt.html">Using libvirt with Ceph</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Part V. Integration with Virtualization Tools" href="part-virt.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 32. Ceph as a Back-end for QEMU KVM Instance" href="cha-ceph-kvm.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="cha-ceph-libvirt"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">6</span></div><div><h2 class="title"><span class="number">31 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using <code class="systemitem">libvirt</code> with Ceph</span> <a title="Permalink" class="permalink" href="cha-ceph-libvirt.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_libvirt.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_libvirt.xml</li><li><span class="ds-label">ID: </span>cha-ceph-libvirt</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="cha-ceph-libvirt.html#ceph-libvirt-cfg-ceph"><span class="number">31.1 </span><span class="name">Configuring Ceph</span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-libvirt.html#ceph-libvirt-virt-manager"><span class="number">31.2 </span><span class="name">Preparing the VM Manager</span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-libvirt.html#ceph-libvirt-create-vm"><span class="number">31.3 </span><span class="name">Creating a VM</span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-libvirt.html#ceph-libvirt-cfg-vm"><span class="number">31.4 </span><span class="name">Configuring the VM</span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-libvirt.html#ceph-libvirt-summary"><span class="number">31.5 </span><span class="name">Summary</span></a></span></dt></dl></div></div><p>
+  The <code class="systemitem">libvirt</code> library creates a virtual machine abstraction layer between
+  hypervisor interfaces and the software applications that use them. With
+  <code class="systemitem">libvirt</code>, developers and system administrators can focus on a common
+  management framework, common API, and common shell interface
+  (<code class="command">virsh</code>) to many different hypervisors, including
+  QEMU/KVM, Xen, LXC, or VirtualBox.
+ </p><p>
+  Ceph block devices support QEMU/KVM. You can use Ceph block devices
+  with software that interfaces with <code class="systemitem">libvirt</code>. The cloud solution uses
+  <code class="systemitem">libvirt</code> to interact with QEMU/KVM, and QEMU/KVM interacts with Ceph
+  block devices via <code class="systemitem">librbd</code>.
+ </p><p>
+  To create VMs that use Ceph block devices, use the procedures in the
+  following sections. In the examples, we have used
+  <code class="literal">libvirt-pool</code> for the pool name,
+  <code class="literal">client.libvirt</code> for the user name, and
+  <code class="literal">new-libvirt-image</code> for the image name. You may use any
+  value you like, but ensure you replace those values when executing commands
+  in the subsequent procedures.
+ </p><div class="sect1 " id="ceph-libvirt-cfg-ceph"><div class="titlepage"><div><div><h2 class="title"><span class="number">31.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring Ceph</span> <a title="Permalink" class="permalink" href="cha-ceph-libvirt.html#ceph-libvirt-cfg-ceph">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_libvirt.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_libvirt.xml</li><li><span class="ds-label">ID: </span>ceph-libvirt-cfg-ceph</li></ul></div></div></div></div><p>
+   To configure Ceph for use with <code class="systemitem">libvirt</code>, perform the following steps:
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Create a pool. The following example uses the pool name
+     <code class="literal">libvirt-pool</code> with 128 placement groups.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool create libvirt-pool 128 128</pre></div><p>
+     Verify that the pool exists.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd lspools</pre></div></li><li class="step "><p>
+     Create a Ceph User. The following example uses the Ceph user name
+     <code class="literal">client.libvirt</code> and references
+     <code class="literal">libvirt-pool</code>.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph auth get-or-create client.libvirt mon 'profile rbd' osd \
+ 'profile rbd pool=libvirt-pool'</pre></div><p>
+     Verify the name exists.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph auth list</pre></div><div id="id-1.3.7.2.6.3.2.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: User Name or ID</h6><p>
+      <code class="systemitem">libvirt</code> will access Ceph using the ID <code class="literal">libvirt</code>, not
+      the Ceph name <code class="literal">client.libvirt</code>. See
+      <a class="xref" href="cha-storage-cephx.html#cephx-user" title="19.2.1.1. User">Section 19.2.1.1, “User”</a> for a detailed explanation of the difference
+      between ID and name.
+     </p></div></li><li class="step "><p>
+     Use QEMU to create an image in your RBD pool. The following example uses
+     the image name <code class="literal">new-libvirt-image</code> and references
+     <code class="literal">libvirt-pool</code>.
+    </p><div id="id-1.3.7.2.6.3.3.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Keyring File Location</h6><p>
+      The <code class="systemitem">libvirt</code> user key is stored in a keyring file placed in the
+      <code class="filename">/etc/ceph</code> directory. The keyring file needs to have
+      an appropriate name that includes the name of the Ceph cluster it
+      belongs to. For the default cluster name 'ceph', the keyring file name is
+      <code class="filename">/etc/ceph/ceph.client.libvirt.keyring</code>.
+     </p><p>
+      If the keyring does not exist, create it with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph auth get client.libvirt &gt; /etc/ceph/ceph.client.libvirt.keyring</pre></div></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>qemu-img create -f raw rbd:libvirt-pool/new-libvirt-image:id=libvirt 2G</pre></div><p>
+     Verify the image exists.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>rbd -p libvirt-pool ls</pre></div></li></ol></div></div></div><div class="sect1 " id="ceph-libvirt-virt-manager"><div class="titlepage"><div><div><h2 class="title"><span class="number">31.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Preparing the VM Manager</span> <a title="Permalink" class="permalink" href="cha-ceph-libvirt.html#ceph-libvirt-virt-manager">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_libvirt.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_libvirt.xml</li><li><span class="ds-label">ID: </span>ceph-libvirt-virt-manager</li></ul></div></div></div></div><p>
+   You may use <code class="systemitem">libvirt</code> without a VM manager, but you may find it simpler to
+   create your first domain with <code class="command">virt-manager</code>.
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Install a virtual machine manager.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper in virt-manager</pre></div></li><li class="step "><p>
+     Prepare/download an OS image of the system you want to run virtualized.
+    </p></li><li class="step "><p>
+     Launch the virtual machine manager.
+    </p><div class="verbatim-wrap"><pre class="screen">virt-manager</pre></div></li></ol></div></div></div><div class="sect1 " id="ceph-libvirt-create-vm"><div class="titlepage"><div><div><h2 class="title"><span class="number">31.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a VM</span> <a title="Permalink" class="permalink" href="cha-ceph-libvirt.html#ceph-libvirt-create-vm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_libvirt.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_libvirt.xml</li><li><span class="ds-label">ID: </span>ceph-libvirt-create-vm</li></ul></div></div></div></div><p>
+   To create a VM with <code class="command">virt-manager</code>, perform the following
+   steps:
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Choose the connection from the list, right-click it, and select
+     <span class="guimenu ">New</span>.
+    </p></li><li class="step "><p>
+     <span class="guimenu ">Import existing disk image</span> by providing the path to the
+     existing storage. Specify OS type, memory settings, and
+     <span class="guimenu ">Name</span> the virtual machine, for example
+     <code class="literal">libvirt-virtual-machine</code>.
+    </p></li><li class="step "><p>
+     Finish the configuration and start the VM.
+    </p></li><li class="step "><p>
+     Verify that the newly created domain exists with <code class="command">sudo virsh
+     list</code>. If needed, specify the connection string, such as
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="command">virsh -c qemu+ssh://root@vm_host_hostname/system list</code>
+Id    Name                           State
+-----------------------------------------------
+[...]
+ 9     libvirt-virtual-machine       running</pre></div></li><li class="step "><p>
+     Log in to the VM and stop it before configuring it for use with Ceph.
+    </p></li></ol></div></div></div><div class="sect1 " id="ceph-libvirt-cfg-vm"><div class="titlepage"><div><div><h2 class="title"><span class="number">31.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring the VM</span> <a title="Permalink" class="permalink" href="cha-ceph-libvirt.html#ceph-libvirt-cfg-vm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_libvirt.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_libvirt.xml</li><li><span class="ds-label">ID: </span>ceph-libvirt-cfg-vm</li></ul></div></div></div></div><p>
+   In this chapter, we focus on configuring VMs for integration with Ceph
+   using <code class="command">virsh</code>. <code class="command">virsh</code> commands often
+   require root privileges (<code class="command">sudo</code>) and will not return
+   appropriate results or notify you that root privileges are required. For a
+   reference of <code class="command">virsh</code> commands, refer to <code class="command">man 1
+   virsh</code> (requires the package <span class="package ">libvirt-client</span> to
+   be installed).
+
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Open the configuration file with <code class="command">virsh edit</code>
+     <em class="replaceable ">vm-domain-name</em>.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>virsh edit libvirt-virtual-machine</pre></div></li><li class="step "><p>
+     Under &lt;devices&gt; there should be a &lt;disk&gt; entry.
+    </p><div class="verbatim-wrap"><pre class="screen">&lt;devices&gt;
+    &lt;emulator&gt;/usr/bin/qemu-system-<em class="replaceable ">SYSTEM-ARCH</em>&lt;/emulator&gt;
+    &lt;disk type='file' device='disk'&gt;
+      &lt;driver name='qemu' type='raw'/&gt;
+      &lt;source file='/path/to/image/recent-linux.img'/&gt;
+      &lt;target dev='vda' bus='virtio'/&gt;
+      &lt;address type='drive' controller='0' bus='0' unit='0'/&gt;
+    &lt;/disk&gt;</pre></div><p>
+     Replace <code class="filename">/path/to/image/recent-linux.img</code> with the path
+     to the OS image.
+    </p><div id="id-1.3.7.2.9.3.2.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+      Use <code class="command">sudo virsh edit</code> instead of a text editor. If you
+      edit the configuration file under <code class="filename">/etc/libvirt/qemu</code>
+      with a text editor, <code class="systemitem">libvirt</code> may not recognize the change. If there is a
+      discrepancy between the contents of the XML file under
+      <code class="filename">/etc/libvirt/qemu</code> and the result of <code class="command">sudo
+      virsh dumpxml</code> <em class="replaceable ">vm-domain-name</em>, then
+      your VM may not work properly.
+     </p></div></li><li class="step "><p>
+     Add the Ceph RBD image you previously created as a &lt;disk&gt; entry.
+    </p><div class="verbatim-wrap"><pre class="screen">&lt;disk type='network' device='disk'&gt;
+        &lt;source protocol='rbd' name='libvirt-pool/new-libvirt-image'&gt;
+                &lt;host name='<em class="replaceable ">monitor-host</em>' port='6789'/&gt;
+        &lt;/source&gt;
+        &lt;target dev='vda' bus='virtio'/&gt;
+&lt;/disk&gt;</pre></div><p>
+     Replace <em class="replaceable ">monitor-host</em> with the name of your
+     host, and replace the pool and/or image name as necessary. You may add
+     multiple &lt;host&gt; entries for your Ceph monitors. The
+     <code class="literal">dev</code> attribute is the logical device name that will
+     appear under the <code class="filename">/dev</code> directory of your VM. The
+     optional bus attribute indicates the type of disk device to emulate. The
+     valid settings are driver specific (for example ide, scsi, virtio, xen,
+     usb or sata).
+    </p></li><li class="step "><p>
+     Save the file.
+    </p></li><li class="step "><p>
+     If your Ceph cluster has authentication enabled (it does by default),
+     you must generate a secret. Open an editor of your choice and create a
+     file called <code class="filename">secret.xml</code> with the following content:
+    </p><div class="verbatim-wrap"><pre class="screen">&lt;secret ephemeral='no' private='no'&gt;
+        &lt;usage type='ceph'&gt;
+                &lt;name&gt;client.libvirt secret&lt;/name&gt;
+        &lt;/usage&gt;
+&lt;/secret&gt;</pre></div></li><li class="step "><p>
+     Define the secret.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>virsh secret-define --file secret.xml
+&lt;uuid of secret is output here&gt;</pre></div></li><li class="step "><p>
+     Get the <code class="literal">client.libvirt</code> key and save the key string to a
+     file.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph auth get-key client.libvirt | sudo tee client.libvirt.key</pre></div></li><li class="step "><p>
+     Set the UUID of the secret.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>virsh secret-set-value --secret <em class="replaceable ">uuid of secret</em> \
+--base64 $(cat client.libvirt.key) &amp;&amp; rm client.libvirt.key secret.xml</pre></div><p>
+     You must also set the secret manually by adding the following
+     <code class="literal">&lt;auth&gt;</code> entry to the
+     <code class="literal">&lt;disk&gt;</code> element you entered earlier (replacing the
+     uuid value with the result from the command line example above).
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>virsh edit libvirt-virtual-machine</pre></div><p>
+     Then, add <code class="literal">&lt;auth&gt;&lt;/auth&gt;</code> element to the
+     domain configuration file:
+    </p><div class="verbatim-wrap"><pre class="screen">...
+&lt;/source&gt;
+&lt;auth username='libvirt'&gt;
+        &lt;secret type='ceph' uuid='9ec59067-fdbc-a6c0-03ff-df165c0587b8'/&gt;
+&lt;/auth&gt;
+&lt;target ...</pre></div><div id="id-1.3.7.2.9.3.8.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      The exemplary ID is <code class="literal">libvirt</code>, not the Ceph name
+      <code class="literal">client.libvirt</code> as generated at step 2 of
+      <a class="xref" href="cha-ceph-libvirt.html#ceph-libvirt-cfg-ceph" title="31.1. Configuring Ceph">Section 31.1, “Configuring Ceph”</a>. Ensure you use the ID component
+      of the Ceph name you generated. If for some reason you need to regenerate
+      the secret, you will need to execute <code class="command">sudo virsh
+      secret-undefine</code> <em class="replaceable ">uuid</em> before
+      executing <code class="command">sudo virsh secret-set-value</code> again.
+     </p></div></li></ol></div></div></div><div class="sect1 " id="ceph-libvirt-summary"><div class="titlepage"><div><div><h2 class="title"><span class="number">31.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Summary</span> <a title="Permalink" class="permalink" href="cha-ceph-libvirt.html#ceph-libvirt-summary">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_libvirt.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_libvirt.xml</li><li><span class="ds-label">ID: </span>ceph-libvirt-summary</li></ul></div></div></div></div><p>
+   Once you have configured the VM for use with Ceph, you can start the VM.
+   To verify that the VM and Ceph are communicating, you may perform the
+   following procedures.
+  </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+     Check to see if Ceph is running:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph health</pre></div></li><li class="step "><p>
+     Check to see if the VM is running:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>virsh list</pre></div></li><li class="step "><p>
+     Check to see if the VM is communicating with Ceph. Replace
+     <em class="replaceable ">vm-domain-name</em> with the name of your VM domain:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>virsh qemu-monitor-command --hmp <em class="replaceable ">vm-domain-name</em> 'info block'</pre></div></li><li class="step "><p>
+     Check to see if the device from <code class="literal">&amp;target dev='hdb'
+     bus='ide'/&gt;</code> appears under <code class="filename">/dev</code> or under
+     <code class="filename">/proc/partitions</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">tux &gt; </code>ls /dev
+<code class="prompt user">tux &gt; </code>cat /proc/partitions</pre></div></li></ol></div></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="cha-ceph-kvm.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 32 </span>Ceph as a Back-end for QEMU KVM Instance</span></a><a class="nav-link" href="part-virt.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Part V </span>Integration with Virtualization Tools</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2021 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

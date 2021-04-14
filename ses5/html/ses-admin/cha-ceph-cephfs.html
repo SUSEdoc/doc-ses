@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Clustered File System | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE Enterprise Storage" /><meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 15. Clustered File System" /><meta name="description" content="This chapter describes administration tasks that are normally performed after the cluster is set up and CephFS exported. If you need more information on setting up CephFS, refer to Book “Deployment Guide”, Chapter 11 “Installation of CephFS”." /><meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi" /><meta name="tracker-type" content="bsc" /><meta name="tracker-bsc-assignee" content="tbazant@suse.com" /><meta name="tracker-bsc-component" content="Documentation" /><meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5" /><link rel="home" href="index.html" title="SUSE Enterprise Storage 5.5 Documentation" /><link rel="up" href="part-dataccess.html" title="Part III. Accessing Cluster Data" /><link rel="prev" href="cha-ceph-iscsi.html" title="Chapter 14. Ceph iSCSI Gateway" /><link rel="next" href="cha-ceph-nfsganesha.html" title="Chapter 16. NFS Ganesha: Export Ceph Data via NFS" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 5.5 Documentation"><span class="book-icon">SUSE Enterprise Storage 5.5 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-dataccess.html">Accessing Cluster Data</a><span> › </span><a class="crumb" href="cha-ceph-cephfs.html">Clustered File System</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="bk01pr01.html"><span class="number"> </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="part-cluster-managment.html"><span class="number">I </span><span class="name">Cluster Management</span></a><ol><li class="inactive"><a href="storage-salt-cluster.html"><span class="number">1 </span><span class="name">Salt Cluster Administration</span></a></li></ol></li><li class="inactive"><a href="part-operate.html"><span class="number">II </span><span class="name">Operating a Cluster</span></a><ol><li class="inactive"><a href="cha-ceph-operating.html"><span class="number">2 </span><span class="name">Introduction</span></a></li><li class="inactive"><a href="ceph-operating-services.html"><span class="number">3 </span><span class="name">Operating Ceph Services</span></a></li><li class="inactive"><a href="ceph-monitor.html"><span class="number">4 </span><span class="name">Determining Cluster State</span></a></li><li class="inactive"><a href="monitoring-alerting.html"><span class="number">5 </span><span class="name">Monitoring and Alerting</span></a></li><li class="inactive"><a href="cha-storage-cephx.html"><span class="number">6 </span><span class="name">Authentication with <code class="systemitem">cephx</code></span></a></li><li class="inactive"><a href="cha-storage-datamgm.html"><span class="number">7 </span><span class="name">Stored Data Management</span></a></li><li class="inactive"><a href="ceph-pools.html"><span class="number">8 </span><span class="name">Managing Storage Pools</span></a></li><li class="inactive"><a href="ceph-rbd.html"><span class="number">9 </span><span class="name">RADOS Block Device</span></a></li><li class="inactive"><a href="cha-ceph-erasure.html"><span class="number">10 </span><span class="name">Erasure Coded Pools</span></a></li><li class="inactive"><a href="cha-ceph-tiered.html"><span class="number">11 </span><span class="name">Cache Tiering</span></a></li><li class="inactive"><a href="cha-ceph-configuration.html"><span class="number">12 </span><span class="name">Ceph Cluster Configuration</span></a></li></ol></li><li class="inactive"><a href="part-dataccess.html"><span class="number">III </span><span class="name">Accessing Cluster Data</span></a><ol><li class="inactive"><a href="cha-ceph-gw.html"><span class="number">13 </span><span class="name">Ceph Object Gateway</span></a></li><li class="inactive"><a href="cha-ceph-iscsi.html"><span class="number">14 </span><span class="name">Ceph iSCSI Gateway</span></a></li><li class="inactive"><a href="cha-ceph-cephfs.html"><span class="number">15 </span><span class="name">Clustered File System</span></a></li><li class="inactive"><a href="cha-ceph-nfsganesha.html"><span class="number">16 </span><span class="name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li class="inactive"><a href="part-gui.html"><span class="number">IV </span><span class="name">Managing Cluster with GUI Tools</span></a><ol><li class="inactive"><a href="ceph-oa.html"><span class="number">17 </span><span class="name">openATTIC</span></a></li></ol></li><li class="inactive"><a href="part-virt.html"><span class="number">V </span><span class="name">Integration with Virtualization Tools</span></a><ol><li class="inactive"><a href="cha-ceph-libvirt.html"><span class="number">18 </span><span class="name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li class="inactive"><a href="cha-ceph-kvm.html"><span class="number">19 </span><span class="name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li class="inactive"><a href="part-troubleshooting.html"><span class="number">VI </span><span class="name">FAQs, Tips and Troubleshooting</span></a><ol><li class="inactive"><a href="storage-tips.html"><span class="number">20 </span><span class="name">Hints and Tips</span></a></li><li class="inactive"><a href="storage-faqs.html"><span class="number">21 </span><span class="name">Frequently Asked Questions</span></a></li><li class="inactive"><a href="storage-troubleshooting.html"><span class="number">22 </span><span class="name">Troubleshooting</span></a></li></ol></li><li class="inactive"><a href="gloss-storage-glossary.html"><span class="number"> </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="app-stage1-custom.html"><span class="number">A </span><span class="name">DeepSea Stage 1 Custom Example</span></a></li><li class="inactive"><a href="app-alerting-default.html"><span class="number">B </span><span class="name">Default Alerts for SUSE Enterprise Storage</span></a></li><li class="inactive"><a href="app-storage-manual-inst.html"><span class="number">C </span><span class="name">Example Procedure of Manual Ceph Installation</span></a></li><li class="inactive"><a href="ap-adm-docupdate.html"><span class="number">D </span><span class="name">Documentation Updates</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 14. Ceph iSCSI Gateway" href="cha-ceph-iscsi.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 16. NFS Ganesha: Export Ceph Data via NFS" href="cha-ceph-nfsganesha.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 5.5 Documentation"><span class="book-icon">SUSE Enterprise Storage 5.5 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-admin.html">Administration Guide</a><span> › </span><a class="crumb" href="part-dataccess.html">Accessing Cluster Data</a><span> › </span><a class="crumb" href="cha-ceph-cephfs.html">Clustered File System</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 14. Ceph iSCSI Gateway" href="cha-ceph-iscsi.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 16. NFS Ganesha: Export Ceph Data via NFS" href="cha-ceph-nfsganesha.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="cha-ceph-cephfs"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="number">15 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Clustered File System</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>cha-ceph-cephfs</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="cha-ceph-cephfs.html#ceph-cephfs-cephfs-mount"><span class="number">15.1 </span><span class="name">Mounting CephFS</span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-cephfs.html#ceph-cephfs-cephfs-unmount"><span class="number">15.2 </span><span class="name">Unmounting CephFS</span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-cephfs.html#ceph-cephfs-cephfs-fstab"><span class="number">15.3 </span><span class="name">CephFS in <code class="filename">/etc/fstab</code></span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-cephfs.html#ceph-cephfs-activeactive"><span class="number">15.4 </span><span class="name">Multiple Active MDS Daemons (Active-Active MDS)</span></a></span></dt><dt><span class="sect1"><a href="cha-ceph-cephfs.html#ceph-cephfs-failover"><span class="number">15.5 </span><span class="name">Managing Failover</span></a></span></dt></dl></div></div><p>
+  This chapter describes administration tasks that are normally performed after
+  the cluster is set up and CephFS exported. If you need more information on
+  setting up CephFS, refer to <span class="intraxref">Book “Deployment Guide”, Chapter 11 “Installation of CephFS”</span>.
+ </p><div class="sect1 " id="ceph-cephfs-cephfs-mount"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Mounting CephFS</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-cephfs-mount">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-cephfs-mount</li></ul></div></div></div></div><p>
+   When the file system is created and the MDS is active, you are ready to
+   mount the file system from a client host.
+  </p><div class="sect2 " id="cephfs-client-preparation"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Client Preparation</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#cephfs-client-preparation">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>cephfs-client-preparation</li></ul></div></div></div></div><p>
+    If the client host is running SUSE Linux Enterprise 12 SP2 or SP3, you can skip this
+    section as the system is ready to mount CephFS 'out of the box'.
+   </p><p>
+    If the client host is running SUSE Linux Enterprise 12 SP1, you need to apply all the
+    latest patches before mounting CephFS.
+   </p><p>
+    In any case, everything needed to mount CephFS is included in SUSE Linux Enterprise. The
+    SUSE Enterprise Storage 5.5 product is not needed.
+   </p><p>
+    To support the full <code class="command">mount</code> syntax, the
+    <span class="package ">ceph-common</span> package (which is shipped with SUSE Linux Enterprise) should
+    be installed before trying to mount CephFS.
+   </p></div><div class="sect2 " id="Creating-Secret-File"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create a Secret File</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#Creating-Secret-File">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>Creating-Secret-File</li></ul></div></div></div></div><p>
+    The Ceph cluster runs with authentication turned on by default. You
+    should create a file that stores your secret key (not the keyring itself).
+    To obtain the secret key for a particular user and then create the file, do
+    the following:
+   </p><div class="procedure " id="id-1.3.5.4.4.4.3"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="number">Procedure 15.1: </span><span class="name">Creating a Secret Key </span><a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#id-1.3.5.4.4.4.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      View the key for the particular user in a keyring file:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>cat /etc/ceph/ceph.client.admin.keyring</pre></div></li><li class="step "><p>
+      Copy the key of the user who will be using the mounted Ceph FS file
+      system. Usually, the key looks similar to the following:
+     </p><div class="verbatim-wrap"><pre class="screen">AQCj2YpRiAe6CxAA7/ETt7Hcl9IyxyYciVs47w==</pre></div></li><li class="step "><p>
+      Create a file with the user name as a file name part, for example
+      <code class="filename">/etc/ceph/admin.secret</code> for the user
+      <span class="emphasis"><em>admin</em></span>.
+     </p></li><li class="step "><p>
+      Paste the key value to the file created in the previous step.
+     </p></li><li class="step "><p>
+      Set proper access rights to the file. The user should be the only one who
+      can read the file—others may not have any access rights.
+     </p></li></ol></div></div></div><div class="sect2 " id="ceph-cephfs-krnldrv"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.1.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Mount CephFS</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-krnldrv">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-krnldrv</li></ul></div></div></div></div><p>
+    You can mount CephFS with the <code class="command">mount</code> command. You need
+    to specify the monitor host name or IP address. Because the
+    <code class="systemitem">cephx</code> authentication is enabled by default in
+    SUSE Enterprise Storage 5.5, you need to specify a user name and their related secret as
+    well:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mount -t ceph ceph_mon1:6789:/ /mnt/cephfs \
+ -o name=admin,secret=AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</pre></div><p>
+    As the previous command remains in the shell history, a more secure
+    approach is to read the secret from a file:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mount -t ceph ceph_mon1:6789:/ /mnt/cephfs \
+ -o name=admin,secretfile=/etc/ceph/admin.secret</pre></div><p>
+    Note that the secret file should only contain the actual keyring secret. In
+    our example, the file will then contain only the following line:
+   </p><div class="verbatim-wrap"><pre class="screen">AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</pre></div><div id="id-1.3.5.4.4.5.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Specify Multiple Monitors</h6><p>
+     It is a good idea to specify multiple monitors separated by commas on the
+     <code class="command">mount</code> command line in case one monitor happens to be
+     down at the time of mount. Each monitor address takes the form
+     <code class="literal">host[:port]</code>. If the port is not specified, it defaults
+     to 6789.
+    </p></div><p>
+    Create the mount point on the local host:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkdir /mnt/cephfs</pre></div><p>
+    Mount the CephFS:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mount -t ceph ceph_mon1:6789:/ /mnt/cephfs \
+ -o name=admin,secretfile=/etc/ceph/admin.secret</pre></div><p>
+    A subdirectory <code class="filename">subdir</code> may be specified if a subset of
+    the file system is to be mounted:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mount -t ceph ceph_mon1:6789:/subdir /mnt/cephfs \
+ -o name=admin,secretfile=/etc/ceph/admin.secret</pre></div><p>
+    You can specify more than one monitor host in the <code class="command">mount</code>
+    command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mount -t ceph ceph_mon1,ceph_mon2,ceph_mon3:6789:/ /mnt/cephfs \
+ -o name=admin,secretfile=/etc/ceph/admin.secret</pre></div><div id="id-1.3.5.4.4.5.17" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Read Access to the Root Directory</h6><p>
+     If clients with path restriction are used, the MDS capabilities need to
+     include read access to the root directory. For example, a keyring may look
+     as follows:
+    </p><div class="verbatim-wrap"><pre class="screen">client.bar
+ key: supersecretkey
+ caps: [mds] allow rw path=/barjail, allow r path=/
+ caps: [mon] allow r
+ caps: [osd] allow rwx</pre></div><p>
+     The <code class="literal">allow r path=/</code> part means that path-restricted
+     clients are able to see the root volume, but cannot write to it. This may
+     be an issue for use cases where complete isolation is a requirement.
+    </p></div></div></div><div class="sect1 " id="ceph-cephfs-cephfs-unmount"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Unmounting CephFS</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-cephfs-unmount">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-cephfs-unmount</li></ul></div></div></div></div><p>
+   To unmount the CephFS, use the <code class="command">umount</code> command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>umount /mnt/cephfs</pre></div></div><div class="sect1 " id="ceph-cephfs-cephfs-fstab"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">CephFS in <code class="filename">/etc/fstab</code></span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-cephfs-fstab">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-cephfs-fstab</li></ul></div></div></div></div><p>
+   To mount CephFS automatically upon client start-up, insert the
+   corresponding line in its file systems table
+   <code class="filename">/etc/fstab</code>:
+  </p><div class="verbatim-wrap"><pre class="screen">mon1:6790,mon2:/subdir /mnt/cephfs ceph name=admin,secretfile=/etc/ceph/secret.key,noatime,_netdev 0 2</pre></div></div><div class="sect1 " id="ceph-cephfs-activeactive"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Multiple Active MDS Daemons (Active-Active MDS)</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-activeactive">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-activeactive</li></ul></div></div></div></div><p>
+   CephFS is configured for a single active MDS daemon by default. To scale
+   metadata performance for large-scale systems, you can enable multiple active
+   MDS daemons, which will share the metadata workload with one another.
+  </p><div class="sect2 " id="id-1.3.5.4.7.3"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">When to Use Active-Active MDS</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#id-1.3.5.4.7.3">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
+    Consider using multiple active MDS daemons when your metadata performance
+    is bottlenecked on the default single MDS.
+   </p><p>
+    Adding more daemons does not increase performance on all workload types.
+    For example, a single application running on a single client will not
+    benefit from an increased number of MDS daemons unless the application is
+    doing a lot of metadata operations in parallel.
+   </p><p>
+    Workloads that typically benefit from a larger number of active MDS daemons
+    are those with many clients, perhaps working on many separate directories.
+   </p></div><div class="sect2 " id="cephfs-activeactive-increase"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Increasing the MDS Active Cluster Size</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#cephfs-activeactive-increase">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>cephfs-activeactive-increase</li></ul></div></div></div></div><p>
+    Each CephFS file system has a <code class="option">max_mds</code> setting, which
+    controls how many ranks will be created. The actual number of ranks in the
+    file system will only be increased if a spare daemon is available to take
+    on the new rank. For example, if there is only one MDS daemon running and
+    <code class="option">max_mds</code> is set to two, no second rank will be created.
+   </p><p>
+    In the following example, we set the <code class="option">max_mds</code> option to 2
+    to create a new rank apart from the default one. To see the changes, run
+    <code class="command">ceph status</code> before and after you set
+    <code class="option">max_mds</code>, and watch the line containing
+    <code class="literal">fsmap</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> status
+  [...]
+  services:
+    [...]
+    mds: cephfs-1/1/1 up  {0=node2=up:active}, 1 up:standby
+    [...]
+<code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> mds set max_mds 2
+<code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> status
+  [...]
+  services:
+    [...]
+    mds: cephfs-2/2/2 up  {0=node2=up:active,1=node1=up:active}
+    [...]</pre></div><p>
+    The newly created rank (1) passes through the 'creating' state and then
+    enter its 'active' state.
+   </p><div id="id-1.3.5.4.7.4.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Standby Daemons</h6><p>
+     Even with multiple active MDS daemons, a highly available system still
+     requires standby daemons to take over if any of the servers running an
+     active daemon fail.
+    </p><p>
+     Consequently, the practical maximum of <code class="option">max_mds</code> for highly
+     available systems is one less than the total number of MDS servers in your
+     system. To remain available in the event of multiple server failures,
+     increase the number of standby daemons in the system to match the number
+     of server failures you need to survive.
+    </p></div></div><div class="sect2 " id="cephfs-activeactive-decrease"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.4.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Decreasing the Number of Ranks</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#cephfs-activeactive-decrease">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>cephfs-activeactive-decrease</li></ul></div></div></div></div><p>
+    All ranks—including the ranks to be removed—must first be
+    active. This means that you need to have at least <code class="option">max_mds</code>
+    MDS daemons available.
+   </p><p>
+    First, set <code class="option">max_mds</code> to a lower number. For example, go back
+    to having a single active MDS:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> status
+  [...]
+  services:
+    [...]
+    mds: cephfs-2/2/2 up  {0=node2=up:active,1=node1=up:active}
+    [...]
+<code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> mds set max_mds 1
+<code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> status
+  [...]
+  services:
+    [...]
+    mds: cephfs-1/1/1 up  {0=node2=up:active}, 1 up:standby
+    [...]</pre></div><p>
+    Note that we still have two active MDSs. The ranks still exist even though
+    we have decreased <code class="option">max_mds</code>, because
+    <code class="option">max_mds</code> only restricts the creation of new ranks.
+   </p><p>
+    Next, use the <code class="command">ceph mds deactivate
+    <em class="replaceable ">rank</em></code> command to remove the unneeded
+    rank:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> status
+  [...]
+  services:
+    [...]
+    mds: cephfs-2/2/1 up  {0=node2=up:active,1=node1=up:active}
+<code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> mds deactivate 1
+telling mds.1:1 192.168.58.101:6805/2799214375 to deactivate
+
+<code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> status
+  [...]
+  services:
+    [...]
+    mds: cephfs-2/2/1 up  {0=node2=up:active,1=node1=up:stopping}
+
+<code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> status
+  [...]
+  services:
+    [...]
+    mds: cephfs-1/1/1 up  {0=node2=up:active}, 1 up:standby</pre></div><p>
+    The deactivated rank will first enter the stopping state, for a period of
+    time while it hands off its share of the metadata to the remaining active
+    daemons. This phase can take from seconds to minutes. If the MDS appears to
+    be stuck in the stopping state then that should be investigated as a
+    possible bug.
+   </p><p>
+    If an MDS daemon crashes or is terminated while in the 'stopping' state, a
+    standby will take over and the rank will go back to 'active'. You can try
+    to deactivate it again when it has come back up.
+   </p><p>
+    When a daemon finishes stopping, it will start again and go back to being a
+    standby.
+   </p></div><div class="sect2 " id="cephfs-activeactive-pinning"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.4.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Manually Pinning Directory Trees to a Rank</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#cephfs-activeactive-pinning">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>cephfs-activeactive-pinning</li></ul></div></div></div></div><p>
+    In multiple active metadata server configurations, a balancer runs, which
+    works to spread metadata load evenly across the cluster. This usually works
+    well enough for most users, but sometimes it is desirable to override the
+    dynamic balancer with explicit mappings of metadata to particular ranks.
+    This can allow the administrator or users to evenly spread application load
+    or limit impact of users' metadata requests on the entire cluster.
+   </p><p>
+    The mechanism provided for this purpose is called an 'export pin'. It is an
+    extended attribute of directories. The name of this extended attribute is
+    <code class="literal">ceph.dir.pin</code>. Users can set this attribute using
+    standard commands:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>setfattr -n ceph.dir.pin -v 2 <em class="replaceable ">/path/to/dir</em></pre></div><p>
+    The value (<code class="option">-v</code>) of the extended attribute is the rank to
+    assign the directory sub-tree to. A default value of -1 indicates that the
+    directory is not pinned.
+   </p><p>
+    A directory export pin is inherited from its closest parent with a set
+    export pin. Therefore, setting the export pin on a directory affects all of
+    its children. However, the parent's pin can be overridden by setting the
+    child directory export pin. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkdir -p a/b                      # "a" and "a/b" start with no export pin set.
+setfattr -n ceph.dir.pin -v 1 a/  # "a" and "b" are now pinned to rank 1.
+setfattr -n ceph.dir.pin -v 0 a/b # "a/b" is now pinned to rank 0
+                                  # and "a/" and the rest of its children
+                                  # are still pinned to rank 1.</pre></div></div></div><div class="sect1 " id="ceph-cephfs-failover"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Managing Failover</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-failover">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-failover</li></ul></div></div></div></div><p>
+   If an MDS daemon stops communicating with the monitor, the monitor will wait
+   <code class="option">mds_beacon_grace</code> seconds (default 15 seconds) before
+   marking the daemon as <span class="emphasis"><em>laggy</em></span>. You can configure one or
+   more 'standby' daemons that will take over during the MDS daemon failover.
+  </p><div class="sect2 " id="ceph-cephfs-failover-standby"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.5.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring Standby Daemons</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-failover-standby">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-failover-standby</li></ul></div></div></div></div><p>
+    There are several configuration settings that control how a daemon will
+    behave while in standby. You can specify them in the
+    <code class="filename">ceph.conf</code> on the host where the MDS daemon runs. The
+    daemon loads these settings when it starts, and sends them to the monitor.
+   </p><p>
+    By default, if none of these settings are used, all MDS daemons which do
+    not hold a rank will be used as 'standbys' for any rank.
+   </p><p>
+    The settings which associate a standby daemon with a particular name or
+    rank do not guarantee that the daemon will only be used for that rank. They
+    mean that when several standbys are available, the associated standby
+    daemon will be used. If a rank is failed, and a standby is available, it
+    will be used even if it is associated with a different rank or named
+    daemon.
+   </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.3.5.4.8.3.5.1"><span class="term ">mds_standby_replay</span></dt><dd><p>
+       If set to true, then the standby daemon will continuously read the
+       metadata journal of an up rank. This will give it a warm metadata cache,
+       and speed up the process of failing over if the daemon serving the rank
+       fails.
+      </p><p>
+       An up rank may only have one standby replay, daemon assigned to it. If
+       two daemons are both set to be standby replay then one of them will
+       arbitrarily win, and the other will become a normal non-replay standby.
+      </p><p>
+       When a daemon has entered the standby replay state, it will only be used
+       as a standby for the rank that it is following. If another rank fails,
+       this standby replay daemon will not be used as a replacement, even if no
+       other standbys are available.
+      </p></dd><dt id="id-1.3.5.4.8.3.5.2"><span class="term ">mds_standby_for_name</span></dt><dd><p>
+       Set this to make the standby daemon only take over a failed rank if the
+       last daemon to hold it matches this name.
+      </p></dd><dt id="id-1.3.5.4.8.3.5.3"><span class="term ">mds_standby_for_rank</span></dt><dd><p>
+       Set this to make the standby daemon only take over the specified rank.
+       If another rank fails, this daemon will not be used to replace it.
+      </p><p>
+       Use in conjunction with<code class="option">mds_standby_for_fscid</code> to be
+       specific about which file system's rank you are targeting in case of
+       multiple file systems.
+      </p></dd><dt id="id-1.3.5.4.8.3.5.4"><span class="term ">mds_standby_for_fscid</span></dt><dd><p>
+       If <code class="option">mds_standby_for_rank</code> is set, this is simply a
+       qualifier to say which file system's rank is being referred to.
+      </p><p>
+       If <code class="option">mds_standby_for_rank</code> is not set, then setting FSCID
+       will cause this daemon to target any rank in the specified FSCID. Use
+       this if you have a daemon that you want to use for any rank, but only
+       within a particular file system.
+      </p></dd><dt id="id-1.3.5.4.8.3.5.5"><span class="term ">mon_force_standby_active</span></dt><dd><p>
+       This setting is used on monitor hosts. It defaults to true.
+      </p><p>
+       If it is false, then daemons configured with
+       <code class="option">standby_replay=true</code> will only become active if the
+       rank/name that they have been configured to follow fails. On the other
+       hand, if this setting is true, then a daemon configured with
+       <code class="option">standby_replay=true</code> may be assigned some other rank.
+      </p></dd></dl></div></div><div class="sect2 " id="ceph-cephfs-failover-examples"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.5.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Examples</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-failover-examples">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-failover-examples</li></ul></div></div></div></div><p>
+    Several example <code class="filename">ceph.conf</code> configurations follow. You
+    can either copy a <code class="filename">ceph.conf</code> with the configuration of
+    all daemons to all your servers, or you can have a different file on each
+    server that contains that server's daemon configuration.
+   </p><div class="sect3 " id="id-1.3.5.4.8.4.3"><div class="titlepage"><div><div><h4 class="title"><span class="number">15.5.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Simple Pair</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#id-1.3.5.4.8.4.3">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5.5/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
+     Two MDS daemons 'a' and 'b' acting as a pair. Whichever one is not
+     currently assigned a rank will be the standby replay follower of the
+     other.
+    </p><div class="verbatim-wrap"><pre class="screen">[mds.a]
+mds standby replay = true
+mds standby for rank = 0
+
+[mds.b]
+mds standby replay = true
+mds standby for rank = 0</pre></div></div></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="cha-ceph-nfsganesha.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 16 </span>NFS Ganesha: Export Ceph Data via NFS</span></a><a class="nav-link" href="cha-ceph-iscsi.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 14 </span>Ceph iSCSI Gateway</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2020 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>
