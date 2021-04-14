@@ -33,7 +33,7 @@ hljs.configure({
      (33 in the prior example) and zap the associated volumes.
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code> ceph-volume lvm zap --destroy --osd-id <em class="replaceable ">ID</em>.</pre></div></li></ol></div></div></div><div class="sect1 " id="tips-scrubbing"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adjusting scrubbing</span> <a title="Permalink" class="permalink" href="storage-tips.html#tips-scrubbing">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_tips.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>bp_troubleshooting_tips.xml</li><li><span class="ds-label">ID: </span>tips-scrubbing</li></ul></div></div></div></div><p>
    By default, Ceph performs light scrubbing daily (find more details in
-   <span class="intraxref">Book “Operations and Administration Guide”, Chapter 17 “Stored data management”, Section 17.6 “Scrubbing placement groups”</span>) and deep scrubbing weekly.
+   <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.6 “Scrubbing placement groups”</span>) and deep scrubbing weekly.
    <span class="emphasis"><em>Light</em></span> scrubbing checks object sizes and checksums to
    ensure that placement groups are storing the same object data.
    <span class="emphasis"><em>Deep</em></span> scrubbing checks an object’s content with that
@@ -67,7 +67,7 @@ hljs.configure({
    To identify the Object Gateway daemon name, run
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps ---hostname <em class="replaceable ">HOSTNAME</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt root">root # </code>systemctl stop ceph-<em class="replaceable ">FSID</em>@<em class="replaceable ">DAEMON_NAME</em></pre></div><p>
    Find more information about operating Ceph services and identifying their
-   names in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 14 “Operation of Ceph services”</span>.
+   names in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 14 “Operation of Ceph services”</span>.
   </p><p>
    After you complete the maintenance, start OSDs again:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root">root # </code>systemctl start ceph-<em class="replaceable ">FSID</em>@osd.<em class="replaceable ">SERVICE_ID</em>.service</pre></div><p>
@@ -123,16 +123,16 @@ hljs.configure({
     a Ceph pool, optionally convert the content of an existing image to it,
     and then run the virtual machine with <code class="command">qemu-kvm</code> making
     use of the disk image stored in the cluster. For more detailed information,
-    see <span class="intraxref">Book “Operations and Administration Guide”, Chapter 27 “Ceph as a back-end for QEMU KVM instance”</span>.
+    see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 27 “Ceph as a back-end for QEMU KVM instance”</span>.
    </p></div><div class="sect2 " id="storage-bp-integration-libvirt"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.6.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Storing <code class="systemitem">libvirt</code> disks in Ceph cluster</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-integration-libvirt">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_tips.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>bp_troubleshooting_tips.xml</li><li><span class="ds-label">ID: </span>storage-bp-integration-libvirt</li></ul></div></div></div></div><p>
     Similar to KVM (see <a class="xref" href="storage-tips.html#storage-bp-integration-kvm" title="13.6.1. Storing KVM disks in Ceph cluster">Section 13.6.1, “Storing KVM disks in Ceph cluster”</a>), you
     can use Ceph to store virtual machines driven by <code class="systemitem">libvirt</code>. The advantage
     is that you can run any <code class="systemitem">libvirt</code>-supported virtualization solution, such
     as KVM, Xen, or LXC. For more information, see
-    <span class="intraxref">Book “Operations and Administration Guide”, Chapter 26 “<code class="systemitem">libvirt</code> and Ceph”</span>.
+    <span class="intraxref">Book “Administration and Operations Guide”, Chapter 26 “<code class="systemitem">libvirt</code> and Ceph”</span>.
    </p></div><div class="sect2 " id="storage-bp-integration-xen"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.6.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Storing Xen disks in Ceph cluster</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-integration-xen">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_tips.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>bp_troubleshooting_tips.xml</li><li><span class="ds-label">ID: </span>storage-bp-integration-xen</li></ul></div></div></div></div><p>
     One way to use Ceph for storing Xen disks is to make use of <code class="systemitem">libvirt</code>
-    as described in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 26 “<code class="systemitem">libvirt</code> and Ceph”</span>.
+    as described in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 26 “<code class="systemitem">libvirt</code> and Ceph”</span>.
    </p><p>
     Another option is to make Xen talk to the <code class="systemitem">rbd</code>
     block device driver directly:
@@ -322,7 +322,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
    hosts—you will need to move the OSDs to the correct place in the
    hierarchy. This can be done using the <code class="command">ceph osd crush move</code>
    and/or <code class="command">ceph osd crush set</code> commands. For further details
-   see <span class="intraxref">Book “Operations and Administration Guide”, Chapter 17 “Stored data management”, Section 17.5 “CRUSH Map manipulation”</span>.
+   see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.5 “CRUSH Map manipulation”</span>.
   </p></div><div class="sect1 " id="storage-bp-recover-clockskew"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.13 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Fixing clock skew warnings</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-recover-clockskew">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_tips.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>bp_troubleshooting_tips.xml</li><li><span class="ds-label">ID: </span>storage-bp-recover-clockskew</li></ul></div></div></div></div><p>
    As a general rule, time synchronization must be configured and running on
    all nodes. Once time synchronization is set up, the clocks should not get

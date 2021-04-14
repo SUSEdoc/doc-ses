@@ -25,8 +25,8 @@ hljs.configure({
   proper quotas on users and groups to ensure that clients can not exhaust
   resources easily. While this is not the only way a client can impact your
   cluster, it's the easiest one and also can happen by accident. For details on
-  how to setup quotas please refer to <span class="intraxref">Book “Operations and Administration Guide”, Chapter 23 “Clustered file system”, Section 23.6 “Setting CephFS quotas”</span> and
-  <span class="intraxref">Book “Operations and Administration Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.5.2.4 “Enabling user quota management”</span>.
+  how to setup quotas please refer to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 23 “Clustered file system”, Section 23.6 “Setting CephFS quotas”</span> and
+  <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.5.2.4 “Enabling user quota management”</span>.
  </p><div id="id-1.6.4.4.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
    Be aware that CephFS quotas are enforced client side, so a malicious
    client can ignore them and exceed the limitations. If this is a concern in

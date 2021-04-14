@@ -54,7 +54,7 @@ hljs.configure({
     situation.
    </p></div><div class="sect2 " id="use-custom-ceph-user-and-secret-for-mounting"><div class="titlepage"><div><div><h3 class="title"><span class="number">10.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using custom Ceph user and secret for mounting</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#use-custom-ceph-user-and-secret-for-mounting">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_advanced_config.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_caasp_advanced_config.xml</li><li><span class="ds-label">ID: </span>use-custom-ceph-user-and-secret-for-mounting</li></ul></div></div></div></div><div id="id-1.7.4.10.3.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
      For extensive info about creating Ceph users, refer to
-     <span class="intraxref">Book “Operations and Administration Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.2.2 “Managing users”</span>
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.2.2 “Managing users”</span>
     </p></div><p>
     Using a custom Ceph user and secret key can be done for both file system
     and block storage.
@@ -358,7 +358,7 @@ data:
     [global]
     osd crush update on start = false
     osd pool default size = 2</pre></div></div></div><div class="sect2 " id="osd-crush-settings"><div class="titlepage"><div><div><h3 class="title"><span class="number">10.1.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">OSD CRUSH settings</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#osd-crush-settings">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_advanced_config.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_caasp_advanced_config.xml</li><li><span class="ds-label">ID: </span>osd-crush-settings</li></ul></div></div></div></div><p>
-    A useful view of the CRUSH Map (see <span class="intraxref">Book “Operations and Administration Guide”, Chapter 17 “Stored data management”</span>
+    A useful view of the CRUSH Map (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”</span>
     for more details) is generated with the following command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tree</pre></div><p>
     In this section we will be tweaking some of the values seen in the output.

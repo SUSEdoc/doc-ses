@@ -278,7 +278,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      New containerized forms of these daemons are started later automatically.
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' service.stop ceph-crash
 <code class="prompt user">root@master # </code>salt '*' service.disable ceph-crash</pre></div></li></ol></div></div></div><div class="sect1 " id="upgrade-cephsalt-monitoring"><div class="titlepage"><div><div><h2 class="title"><span class="number">7.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Upgrading and adopting the monitoring stack</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-cephsalt-monitoring">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>upgrade-cephsalt-monitoring</li></ul></div></div></div></div><p>
-   This following procedure adopts all components of the monitoring stack (see <span class="intraxref">Book “Operations and Administration Guide”, Chapter 16 “Monitoring and alerting”</span> for more details).
+   This following procedure adopts all components of the monitoring stack (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”</span> for more details).
   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
      Pause the orchestrator:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch pause</pre></div></li><li class="step "><p>
@@ -293,7 +293,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
   adopt --style=legacy --name alertmanager.$(hostname)
 <code class="prompt user">cephuser@adm &gt; </code>cephadm --image 192.168.121.1:5000/ses/7/ceph/grafana:7.0.3 \
  adopt --style=legacy --name grafana.$(hostname)</pre></div><p>
-      For more details on using custom or local container images, refer to <span class="intraxref">Book “Operations and Administration Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
+      For more details on using custom or local container images, refer to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
      </p></div></li><li class="step "><p>
      Remove the Node-Exporter.
      It does not need to be migrated and will be re-installed as a container when the <code class="filename">specs.yaml</code> file is applied.
@@ -302,7 +302,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i specs.yaml</pre></div></li><li class="step "><p>
      Resume the orchestrator:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch resume</pre></div></li></ol></div></div></div><div class="sect1 " id="upgrade-gateways"><div class="titlepage"><div><div><h2 class="title"><span class="number">7.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Gateway service redeployment</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-gateways">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>upgrade-gateways</li></ul></div></div></div></div><div class="sect2 " id="upgrade-ogw"><div class="titlepage"><div><div><h3 class="title"><span class="number">7.7.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Upgrading the Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-ogw">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>upgrade-ogw</li></ul></div></div></div></div><p>
-    In SUSE Enterprise Storage 7, the Object Gateways are always configured with a realm, which allows for multi-site (see <span class="intraxref">Book “Operations and Administration Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.13 “Multisite Object Gateways”</span> for more details) in the future.
+    In SUSE Enterprise Storage 7, the Object Gateways are always configured with a realm, which allows for multi-site (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.13 “Multisite Object Gateways”</span> for more details) in the future.
     If you used a single-site Object Gateway configuration in SUSE Enterprise Storage 6, follow these steps to add a realm.
     If you do not plan to actually use the multi-site functionality, it is fine to use <code class="literal">default</code> for the realm, zonegroup and zone names.
    </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
@@ -533,21 +533,21 @@ spec:
       This resulted in a warning message in case of suboptimal number of PGs, but autoscaling did not actually happen.
       The default in SUSE Enterprise Storage 7 is the <code class="option">pg_autoscale_mode</code> option is set to <code class="option">on</code> for new pools and PGs will actually autoscale.
       The upgrade process does not automatically change the <code class="option">pg_autoscale_mode</code> of existing pools.
-      If you want to change it to <code class="option">on</code> to get the full benefit of the autoscaler, see the instructions in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
+      If you want to change it to <code class="option">on</code> to get the full benefit of the autoscaler, see the instructions in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
      </p></div><p>
-     Find more details in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
+     Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
     </p></li><li class="step "><p>
      Prevent pre-Luminous clients:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-require-min-compat-client luminous</pre></div></li><li class="step "><p>
      Enable the balancer module:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer mode upmap
 <code class="prompt user">cephuser@adm &gt; </code>ceph balancer on</pre></div><p>
-     Find more details in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 29 “Ceph Manager modules”, Section 29.1 “Balancer”</span>.
+     Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 29 “Ceph Manager modules”, Section 29.1 “Balancer”</span>.
     </p></li><li class="step "><p>
      Optionally, enable the telemetry module:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable telemetry
 <code class="prompt user">cephuser@adm &gt; </code>ceph telemetry on</pre></div><p>
-     Find more details in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 29 “Ceph Manager modules”, Section 29.2 “Enabling the telemetry module”</span>.
+     Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 29 “Ceph Manager modules”, Section 29.2 “Enabling the telemetry module”</span>.
     </p></li></ol></div></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="bk01apa.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Appendix A </span>Ceph maintenance updates based on upstream 'Octopus' point releases</span></a><a class="nav-link" href="ses-upgrade.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Part IV </span>Upgrading from Previous Releases</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
         2021 
         SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

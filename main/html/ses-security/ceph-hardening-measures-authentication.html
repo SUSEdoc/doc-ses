@@ -53,7 +53,7 @@ hljs.configure({
    the cluster (at rest). When chosing a way for clients to access the cluster,
    select a access method that ensures the confidentiality in transport (for
    example, use HTTPS when using RADOS). For more details about <code class="systemitem">cephx</code>, see
-   <span class="intraxref">Book “Operations and Administration Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.1 “Authentication architecture”</span>.
+   <span class="intraxref">Book “Administration and Operations Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.1 “Authentication architecture”</span>.
   </p><p>
    You can enforce message signing to harden the authentication protocol. With
    the <code class="command">ceph config set global cephx_require_signatures true</code>
@@ -68,7 +68,7 @@ hljs.configure({
    shouldn't be reused, at least not for clients with different security
    properties. With that you can then give the least amount of privileges to
    each account that is necessary, therefor limiting the risk. Creating users
-   is covered in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 20 “RADOS Block Device”, Section 20.2.1 “Creating a Ceph user account”</span>.
+   is covered in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 20 “RADOS Block Device”, Section 20.2.1 “Creating a Ceph user account”</span>.
   </p></div><div class="sect1 " id="ensure-secure-storage-keys"><div class="titlepage"><div><div><h2 class="title"><span class="number">6.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ensuring secure storage of keys</span> <a title="Permalink" class="permalink" href="ceph-hardening-measures-authentication.html#ensure-secure-storage-keys">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/hardening_measures_authentication.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>hardening_measures_authentication.xml</li><li><span class="ds-label">ID: </span>ensure-secure-storage-keys</li></ul></div></div></div></div><p>
    Keys must be stored with safe permissions on the client machine to prevent
    credential leakage. In most cases this means that only the user and root is

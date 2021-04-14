@@ -83,8 +83,8 @@ hljs.configure({
 <code class="prompt user">cephuser@adm &gt; </code>ceph config-key get mgr/dashboard/crt</pre></div></li><li class="step "><p>
      Verify the self-signed certificate exists. If not, run:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard create-self-signed-cert</pre></div><p>
-     See <span class="intraxref">Book “Operations and Administration Guide”, Chapter 10 “Manual configuration”, Section 10.1.1 “Creating self-signed certificates”</span> for more information on
-     self-signed certificates or <span class="intraxref">Book “Operations and Administration Guide”, Chapter 10 “Manual configuration”, Section 10.1.2 “Using certificates signed by CA”</span> for information
+     See <span class="intraxref">Book “Administration and Operations Guide”, Chapter 10 “Manual configuration”, Section 10.1.1 “Creating self-signed certificates”</span> for more information on
+     self-signed certificates or <span class="intraxref">Book “Administration and Operations Guide”, Chapter 10 “Manual configuration”, Section 10.1.2 “Using certificates signed by CA”</span> for information
      on self-signed certificates by CA.
     </p></li></ol></div></div></div><div class="sect1 " id="bp-troubleshooting-login-dashboard"><div class="titlepage"><div><div><h2 class="title"><span class="number">10.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Troubleshooting logging into the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#bp-troubleshooting-login-dashboard">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_dashboard.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>bp_troubleshooting_dashboard.xml</li><li><span class="ds-label">ID: </span>bp-troubleshooting-login-dashboard</li></ul></div></div></div></div><p>
    If you are unable to log into the Ceph Dashboard and you receive the following
@@ -102,7 +102,7 @@ hljs.configure({
      print:
     </p><div class="verbatim-wrap"><pre class="screen">Error ENOENT: User <em class="replaceable ">USERNAME</em> does not exist</pre></div><p>
      In this case, you will need to create the user. See
-     <span class="intraxref">Book “Operations and Administration Guide”, Chapter 11 “Manage users and roles on the command line”, Section 11.2 “Managing user accounts”</span> for more information on user
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 11 “Manage users and roles on the command line”, Section 11.2 “Managing user accounts”</span> for more information on user
      accounts.
     </p></li><li class="step "><p>
      Check if the user is enabled:

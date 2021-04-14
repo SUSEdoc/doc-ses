@@ -172,11 +172,11 @@ INFO:cephadm:Using recent ceph image docker.io/ceph/ceph:v15 obtained 'mgr/cepha
    image:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon redeploy <em class="replaceable ">daemon</em> --image=myregistry.com/<em class="replaceable ">myimage</em>:<em class="replaceable ">mytag</em></pre></div><div id="id-1.5.5.14.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
     If you plan to run the <code class="command">ceph-salt update</code> command after
-    applying a PTF (as described in <span class="intraxref">Book “Operations and Administration Guide”, Chapter 13 “Operational tasks”, Section 13.6.4 “Running the update”</span>),
+    applying a PTF (as described in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.6.4 “Running the update”</span>),
     it will not affect the manual changes made by the temporary fix.
    </p><p>
     Conversely, running the <code class="command">ceph orch upgrade</code> command (see
-    <span class="intraxref">Book “Operations and Administration Guide”, Chapter 13 “Operational tasks”, Section 13.7.1 “Starting the update”</span>) will upgrade
+    <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.7.1 “Starting the update”</span>) will upgrade
     daemons manually deployed by the PTF.
    </p></div></div><div class="sect1 " id="bp-troubleshooting-adding-hosts"><div class="titlepage"><div><div><h2 class="title"><span class="number">3.12 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Failure When Adding Hosts with cephadm</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-adding-hosts">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_cephadm.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>bp_troubleshooting_cephadm.xml</li><li><span class="ds-label">ID: </span>bp-troubleshooting-adding-hosts</li></ul></div></div></div></div><p>
    When cephadm fails to add a new cluster host—no matter whether by
