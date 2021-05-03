@@ -954,7 +954,25 @@ data:
      learning that the monitors also speak the <code class="literal">v2</code> protocol.
      This slows things down and prevents a full transition to the
      <code class="literal">v2</code> protocol.
-    </p></div></div><div class="sect2 " id="final-steps-meter"><div class="titlepage"><div><div><h3 class="title"><span class="number">6.11.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Enable the Telemetry Module</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#final-steps-meter">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>final-steps-meter</li></ul></div></div></div></div><p>
+    </p></div></div><div class="sect2 " id="final-steps-disable-insecure"><div class="titlepage"><div><div><h3 class="title"><span class="number">6.11.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Disable Insecure Clients</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#final-steps-disable-insecure">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>final-steps-disable-insecure</li></ul></div></div></div></div><p>
+    Since Nautilus v14.2.20, a new health warning was introduced that informs
+    you that insecure clients are allowed to join the cluster. This warning is
+    <span class="emphasis"><em>on</em></span> by default. The Ceph Dashboard will show the cluster
+    in the <code class="literal">HEALTH_WARN</code> status and verifying the cluster
+    status on the command line informs you as follows:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph status
+cluster:
+  id:     3fe8b35a-689f-4970-819d-0e6b11f6707c
+  health: HEALTH_WARN
+  mons are allowing insecure global_id reclaim
+[...]</pre></div><p>
+     This warning means that the Ceph Monitors are still allowing old, unpatched clients
+     to connect to the cluster. This ensures existing clients can still connect
+     while the cluster is being upgraded, but warns you that there is a problem
+     that needs to be addressed. When the cluster and all clients are upgraded to
+     the latest version of Ceph, disallow unpatched clients by running the
+     following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></div><div class="sect2 " id="final-steps-meter"><div class="titlepage"><div><div><h3 class="title"><span class="number">6.11.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Enable the Telemetry Module</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#final-steps-meter">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>final-steps-meter</li></ul></div></div></div></div><p>
     Finally, consider enabling the Telemetry module to send anonymized usage
     statistics and crash information to the upstream Ceph developers. To see
     what would be reported (without actually sending any information to
