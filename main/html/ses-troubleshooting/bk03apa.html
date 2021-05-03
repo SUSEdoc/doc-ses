@@ -31,7 +31,23 @@ hljs.configure({
   This chapter contains summaries of notable changes contained in each upstream
   point release that has been—or is planned to be—included in the
   product.
- </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.5"><span class="name">Octopus 15.2.10 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+ </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.5"><span class="name">Octopus 15.2.11 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+  This release includes a security fix that ensures the
+  <code class="option">global_id</code> value (a numeric value that should be unique for
+  every authenticated client or daemon in the cluster) is reclaimed after a
+  network disconnect or ticket renewal in a secure fashion. Two new health
+  alerts may appear during the upgrade indicating that there are clients or
+  daemons that are not yet patched with the appropriate fix.
+ </p><p>
+  To temporarily mute the health alerts around insecure clients for the
+  duration of the upgrade, you may want to run:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM 1h
+<code class="prompt user">cephuser@adm &gt; </code>ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM_ALLOWED 1h</pre></div><p>
+  When all clients are updated, enable the new secure behavior, not allowing
+  old insecure clients to join the cluster:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div><p>
+  For more details, refer ro <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
+ </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.12"><span class="name">Octopus 15.2.10 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.12">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This backport release includes the following fixes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
     The containers include an updated <code class="literal">tcmalloc</code> that avoids crashes seen on 15.2.9.
@@ -48,7 +64,7 @@ hljs.configure({
 <code class="prompt user">cephuser@adm &gt; </code>ceph orch redeploy node-exporter
 <code class="prompt user">cephuser@adm &gt; </code>ceph orch redeploy prometheus
 <code class="prompt user">cephuser@adm &gt; </code>ceph orch redeploy grafana
-<code class="prompt user">cephuser@adm &gt; </code>ceph orch redeploy alertmanager</pre></div></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.8"><span class="name">Octopus 15.2.9 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.8">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch redeploy alertmanager</pre></div></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.15"><span class="name">Octopus 15.2.9 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.15">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This backport release includes the following fixes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
     MGR: progress module can now be turned on/off, using the commands:
@@ -56,7 +72,7 @@ hljs.configure({
     off</code>.
    </p></li><li class="listitem "><p>
     OSD: PG removal has been optimized in this release.
-   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.11"><span class="name">Octopus 15.2.8 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.11">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.18"><span class="name">Octopus 15.2.8 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.18">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This release fixes a security flaw in CephFS and includes a number of bug
   fixes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
@@ -85,17 +101,17 @@ hljs.configure({
     or <code class="option">--mon-host-override</code> command line switch. This generally
     should only be used for debugging and only affects initial communication
     with Ceph's monitor cluster.
-   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.14"><span class="name">Octopus 15.2.7 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.14">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.21"><span class="name">Octopus 15.2.7 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.21">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This release fixes a serious bug in RGW that has been shown to cause data loss
   when a read of a large RGW object (for example, one with at least one tail
   segment) takes longer than one half the time specified in the configuration
   option <code class="option">rgw_gc_obj_min_wait</code>. The bug causes the tail segments
   of that read object to be added to the RGW garbage collection queue, which
   will in turn cause them to be deleted after a period of time.
- </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.16"><span class="name">Octopus 15.2.6 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.16">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+ </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.23"><span class="name">Octopus 15.2.6 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.23">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This releases fixes a security flaw affecting Messenger V2 for Octopus and
   Nautilus.
- </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.18"><span class="name">Octopus 15.2.5 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.18">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+ </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.25"><span class="name">Octopus 15.2.5 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.25">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   The Octopus point release 15.2.5 brought the following fixes and other
   changes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
@@ -116,7 +132,7 @@ hljs.configure({
     interrupted.
    </p></li><li class="listitem "><p>
     Fixed an issue with osdmaps not being trimmed in a healthy cluster.
-   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.21"><span class="name">Octopus 15.2.4 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.21">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.28"><span class="name">Octopus 15.2.4 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.28">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   The Octopus point release 15.2.4 brought the following fixes and other
   changes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
@@ -146,7 +162,7 @@ hljs.configure({
 rados -p <em class="replaceable ">pool-name</em> [-N namespace] rm rbd_trash_trash_purge_schedule</pre></div><p>
     Alternatively, use any other convenient way to restore the schedule after
     the upgrade.
-   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.24"><span class="name">Octopus 15.2.3 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.24">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.31"><span class="name">Octopus 15.2.3 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.31">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
     The Octopus point release 15.2.3 was a hot-fix release to address an
     issue where WAL corruption was seen when
     <code class="option">bluefs_preextend_wal_files</code> and
@@ -156,11 +172,11 @@ rados -p <em class="replaceable ">pool-name</em> [-N namespace] rm rbd_trash_tra
     The permanent fix will be to remove the
     <code class="option">bluefs_preextend_wal_files</code> option completely: this fix
     will most likely arrive in the 15.2.6 point release.
-   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.26"><span class="name">Octopus 15.2.2 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.26">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.33"><span class="name">Octopus 15.2.2 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.33">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   The Octopus point release 15.2.2 patched one security vulnerability:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
     CVE-2020-10736: Fixed an authorization bypass in MONs and MGRs
-   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.29"><span class="name">Octopus 15.2.1 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.29">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
+   </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.36"><span class="name">Octopus 15.2.1 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.36">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   The Octopus point release 15.2.1 fixed an issue where upgrading quickly
   from Luminous (SES5.5) to Nautilus (SES6) to Octopus (SES7) caused OSDs to
   crash. In addition, it patched two security vulnerabilities that were present

@@ -516,7 +516,25 @@ config: OK</pre></div></div></div><div class="sect3 " id="deploy-cephadm-configu
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set osd.* ms_bind_port_max 7568</pre></div><p>
     You will need to adjust your firewall settings accordingly for this to work.
     See <span class="intraxref">Book “Troubleshooting Guide”, Chapter 13 “Hints and tips”, Section 13.7 “Firewall settings for Ceph”</span> for more information.
-   </p></div></div><div class="sect1 " id="deploy-cephadm-day2"><div class="titlepage"><div><div><h2 class="title"><span class="number">5.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Deploying services and gateways</span> <a title="Permalink" class="permalink" href="deploy-cephadm.html#deploy-cephadm-day2">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_cephadm.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deploy_cephadm.xml</li><li><span class="ds-label">ID: </span>deploy-cephadm-day2</li></ul></div></div></div></div><p>
+   </p></div><div class="sect2 " id="deploy-min-cluster-disable-insecure"><div class="titlepage"><div><div><h3 class="title"><span class="number">5.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Disable insecure clients</span> <a title="Permalink" class="permalink" href="deploy-cephadm.html#deploy-min-cluster-disable-insecure">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_cephadm.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deploy_cephadm.xml</li><li><span class="ds-label">ID: </span>deploy-min-cluster-disable-insecure</li></ul></div></div></div></div><p>
+    Since Octopus v15.2.11, a new health warning was introduced that informs
+    you that insecure clients are allowed to join the cluster. This warning is
+    <span class="emphasis"><em>on</em></span> by default. The Ceph Dashboard will show the cluster
+    in the <code class="literal">HEALTH_WARN</code> status and verifying the cluster
+    status on the command line informs you as follows:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph status
+cluster:
+  id:     3fe8b35a-689f-4970-819d-0e6b11f6707c
+  health: HEALTH_WARN
+  mons are allowing insecure global_id reclaim
+[...]</pre></div><p>
+    This warning means that the Ceph Monitors are still allowing old, unpatched
+    clients to connect to the cluster. This ensures existing clients can still
+    connect while the cluster is being upgraded, but warns you that there is a
+    problem that needs to be addressed. When the cluster and all clients are
+    upgraded to the latest version of Ceph, disallow unpatched clients by
+    running the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></div></div><div class="sect1 " id="deploy-cephadm-day2"><div class="titlepage"><div><div><h2 class="title"><span class="number">5.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Deploying services and gateways</span> <a title="Permalink" class="permalink" href="deploy-cephadm.html#deploy-cephadm-day2">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_cephadm.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deploy_cephadm.xml</li><li><span class="ds-label">ID: </span>deploy-cephadm-day2</li></ul></div></div></div></div><p>
    After deploying the basic Ceph cluster, deploy core services to more cluster nodes.
    To make the cluster data accessible to clients, deploy additional services as well.
   </p><p>
