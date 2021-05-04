@@ -2688,8 +2688,8 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      <code class="literal">noout</code> flag if the node you are upgrading is an OSD
      node:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd rm-noout <em class="replaceable ">SHORT_NODE_NAME</em></pre></div></li></ol></div></div></div><div class="sect1 " id="upgrade-gateway-nodes"><div class="titlepage"><div><div><h2 class="title"><span class="number">7.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Upgrading gateway nodes</span> <a title="Permalink" class="permalink" href="#upgrade-gateway-nodes">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>upgrade-gateway-nodes</li></ul></div></div></div></div><p>
-   Upgrade your separate gateway nodes (Metadata Server, Object Gateway, NFS Ganesha, or iSCSI Gateway)
-   next. Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP2 for each node:
+   Upgrade your separate gateway nodes (Samba Gateway, Metadata Server, Object Gateway, NFS Ganesha, or
+   iSCSI Gateway) next. Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP2 for each node:
   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
      If the cluster's nodes are all registered with SUSE Customer Center, run the
      <code class="command">zypper migration</code> command.
