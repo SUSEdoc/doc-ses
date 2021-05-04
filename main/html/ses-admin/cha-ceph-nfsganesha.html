@@ -60,7 +60,12 @@ hljs.configure({
   </p><p>
    One you have updated or created the file, execute the following to create a
    <code class="literal">nfs-ganesha</code> service:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable ">FILE_NAME</em></pre></div></div><div class="sect1 " id="ceph-nfsganesha-services"><div class="titlepage"><div><div><h2 class="title"><span class="number">25.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Starting or Restarting NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-services">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_nfsganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_nfsganesha.xml</li><li><span class="ds-label">ID: </span>ceph-nfsganesha-services</li></ul></div></div></div></div><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable ">FILE_NAME</em></pre></div></div><div class="sect1 " id="ceph-nfsganesha-services"><div class="titlepage"><div><div><h2 class="title"><span class="number">25.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Starting or Restarting NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-services">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_nfsganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_nfsganesha.xml</li><li><span class="ds-label">ID: </span>ceph-nfsganesha-services</li></ul></div></div></div></div><div id="id-1.4.6.6.10.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+    Starting the NFS Ganesha service does not automatically export a CephFS file system. To
+    export a CephFS file system, create an export
+    configuration file. Refer to <a class="xref" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-create-export" title="25.4. Creating an NFS export">Section 25.4, “Creating an NFS export”</a>
+    for more details.
+   </p></div><p>
    To start the NFS Ganesha service, run:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch start nfs.<em class="replaceable ">SERVICE_ID</em></pre></div><p>
    To restart the NFS Ganesha service, run:
@@ -74,11 +79,37 @@ hljs.configure({
   </p></div><div class="sect1 " id="ceph-nfsganesha-list-objects"><div class="titlepage"><div><div><h2 class="title"><span class="number">25.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Listing objects in the NFS recovery pool</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-list-objects">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_nfsganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_nfsganesha.xml</li><li><span class="ds-label">ID: </span>ceph-nfsganesha-list-objects</li></ul></div></div></div></div><p>
    Execute the following to list the objects in the NFS recovery pool:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool <em class="replaceable ">POOL_NAME</em> --namespace <em class="replaceable ">NAMESPACE_NAME</em> ls</pre></div></div><div class="sect1 " id="ceph-nfsganesha-create-export"><div class="titlepage"><div><div><h2 class="title"><span class="number">25.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating an NFS export</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-create-export">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_nfsganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_nfsganesha.xml</li><li><span class="ds-label">ID: </span>ceph-nfsganesha-create-export</li></ul></div></div></div></div><p>
-   Execute the following to create an NFS export.
-  </p><div id="id-1.4.6.6.12.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-    The FSAL block should be modified to include the desired cephx user ID and
-    secret access key.
-   </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool <em class="replaceable ">POOL_NAME</em> --namespace <em class="replaceable ">NAMESPACE_NAME</em> put <em class="replaceable ">export-1</em> <em class="replaceable ">export-1</em></pre></div></div><div class="sect1 " id="ceph-nfsganesha-verify"><div class="titlepage"><div><div><h2 class="title"><span class="number">25.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Verifying the NFS export</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-verify">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_nfsganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_nfsganesha.xml</li><li><span class="ds-label">ID: </span>ceph-nfsganesha-verify</li></ul></div></div></div></div><p>
+   You can create an NFS export either in the Ceph Dashboard, or manually on the
+   command line. To create the export by using the Ceph Dashboard, refer to
+   <a class="xref" href="dash-webui-nfs.html" title="Chapter 7. Manage NFS Ganesha">Chapter 7, <em>Manage NFS Ganesha</em></a>, more specifically to
+   <a class="xref" href="dash-webui-nfs.html#dash-webui-nfs-create" title="7.1. Creating NFS exports">Section 7.1, “Creating NFS exports”</a>.
+  </p><p>
+   To create an NFS export manually, create a configuration
+   file for the export. For example, a file <code class="filename">/tmp/export-1</code>
+   with the following content:
+  </p><div class="verbatim-wrap"><pre class="screen">EXPORT {
+    export_id = 1;
+    path = "/";
+    pseudo = "/";
+    access_type = "RW";
+    squash = "no_root_squash";
+    protocols = 3, 4;
+    transports = "TCP", "UDP";
+    FSAL {
+        name = "CEPH";
+        user_id = "admin";
+        filesystem = "a";
+        secret_access_key = "<em class="replaceable ">SECRET_ACCESS_KEY</em>";
+    }
+}</pre></div><p>
+    After you have created and saved the configuration file for the new export,
+    run the following command to create the export:
+   </p><div class="verbatim-wrap"><pre class="screen">rados --pool <em class="replaceable ">POOL_NAME</em> --namespace <em class="replaceable ">NAMESPACE_NAME</em> put <em class="replaceable ">EXPORT_NAME</em> <em class="replaceable ">EXPORT_CONFIG_FILE</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool example_pool --namespace example_namespace put export-1 /tmp/export-1</pre></div><div id="id-1.4.6.6.12.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+     The FSAL block should be modified to include the desired <code class="systemitem">cephx</code> user ID and
+     secret access key.
+    </p></div></div><div class="sect1 " id="ceph-nfsganesha-verify"><div class="titlepage"><div><div><h2 class="title"><span class="number">25.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Verifying the NFS export</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-verify">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_nfsganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_nfsganesha.xml</li><li><span class="ds-label">ID: </span>ceph-nfsganesha-verify</li></ul></div></div></div></div><p>
    NFS v4 will build a list of exports at the root of a pseudo file system. You
    can verify that the NFS shares are exported by mounting
    <code class="filename">/</code> of the NFS Ganesha server node:
