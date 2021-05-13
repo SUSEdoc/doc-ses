@@ -207,18 +207,19 @@ wal_devices:
 block_wal_size: '5G'  # (optional, unit suffixes permitted)
 block_db_size: '5G'   # (optional, unit suffixes permitted)
 encrypted: true       # 'True' or 'False' (defaults to 'False')</pre></div><div id="id-1.4.4.3.6.5.10.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-         The option previously called "encryption" in DeepSea has been renamed to
-         "encrypted". When applying DriveGroups in SUSE Enterprise Storage 7, ensure you use
-         this new terminology in your service specification, otherwise the
-         <code class="command">ceph orch apply</code> operation will fail.
-       </p></div></div><div class="sect3 " id="matching-disk-devices"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Matching disk devices</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#matching-disk-devices">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>matching-disk-devices</li></ul></div></div></div></div><p>
+      The option previously called "encryption" in DeepSea has been renamed
+      to "encrypted". When applying DriveGroups in SUSE Enterprise Storage 7, ensure you
+      use this new terminology in your service specification, otherwise the
+      <code class="command">ceph orch apply</code> operation will fail.
+     </p></div></div><div class="sect3 " id="matching-disk-devices"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.4.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Matching disk devices</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#matching-disk-devices">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>matching-disk-devices</li></ul></div></div></div></div><p>
      You can describe the specification using the following filters:
     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
        By a disk model:
       </p><div class="verbatim-wrap"><pre class="screen">model: <em class="replaceable ">DISK_MODEL_STRING</em></pre></div></li><li class="listitem "><p>
        By a disk vendor:
       </p><div class="verbatim-wrap"><pre class="screen">vendor: <em class="replaceable ">DISK_VENDOR_STRING</em></pre></div><div id="id-1.4.4.3.6.5.11.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>
-        Always enter the <em class="replaceable ">DISK_VENDOR_STRING</em> in lowercase.
+        Always enter the <em class="replaceable ">DISK_VENDOR_STRING</em> in
+        lowercase.
        </p></div><p>
        To obtain details about disk model and vendor, examine the output of the
        following command:
@@ -567,12 +568,12 @@ OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_
      Appending the <code class="option">--dry-run</code> option will not execute the
      actual replacement, but will preview the steps that would normally happen.
     </p></div><div id="id-1.4.4.3.6.7.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><div id="id-1.4.4.3.6.7.9.1" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-         In the case of replacing an OSD after a failure, we highly recommend triggering
-         a deep scrub of the placement groups. See <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a>
-         for more details.
-       </p><p>
-         Run the following command to initiate a deep scrub:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd deep-scrub osd.<em class="replaceable ">OSD_NUMBER</em></pre></div></div></div></div></div><div class="sect1 " id="moving-saltmaster"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Moving the Salt Master to a new node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#moving-saltmaster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>moving-saltmaster</li></ul></div></div></div></div><p>
+      In the case of replacing an OSD after a failure, we highly recommend
+      triggering a deep scrub of the placement groups. See
+      <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a> for more details.
+     </p><p>
+      Run the following command to initiate a deep scrub:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd deep-scrub osd.<em class="replaceable ">OSD_NUMBER</em></pre></div></div></div></div></div><div class="sect1 " id="moving-saltmaster"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Moving the Salt Master to a new node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#moving-saltmaster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_saltcluster.xml</li><li><span class="ds-label">ID: </span>moving-saltmaster</li></ul></div></div></div></div><p>
    If you need to replace the Salt Master host with a new one, follow these
    steps:
   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>

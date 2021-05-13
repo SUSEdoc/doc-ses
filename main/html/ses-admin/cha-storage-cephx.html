@@ -429,8 +429,8 @@ exported keyring for client.admin
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-authtool /etc/ceph/ceph.keyring \
   --import-keyring /etc/ceph/ceph.client.admin.keyring</pre></div><div id="id-1.4.8.4.6.8.8.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
       If your keyring is compromised, delete your key from the
-      <code class="filename">/etc/ceph</code> directory and re-create a new key using the
-      same instructions from <a class="xref" href="cha-storage-cephx.html#creating-keyring" title="30.2.3.1. Creating a keyring">Section 30.2.3.1, “Creating a keyring”</a>.
+      <code class="filename">/etc/ceph</code> directory and re-create a new key using
+      the same instructions from <a class="xref" href="cha-storage-cephx.html#creating-keyring" title="30.2.3.1. Creating a keyring">Section 30.2.3.1, “Creating a keyring”</a>.
      </p></div></div><div class="sect3 " id="cephx-creating-user"><div class="titlepage"><div><div><h4 class="title"><span class="number">30.2.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a user</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#cephx-creating-user">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_cephx.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_cephx.xml</li><li><span class="ds-label">ID: </span>cephx-creating-user</li></ul></div></div></div></div><p>
      Ceph provides the <code class="command">ceph auth add</code> command to create a
      user directly in the Ceph storage cluster. However, you can also create

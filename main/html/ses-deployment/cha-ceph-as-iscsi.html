@@ -148,8 +148,8 @@ hljs.configure({
      hosts.
     </p></li><li class="listitem "><p>
      Several iSCSI target servers running the LIO iSCSI target, configured via
-     <code class="systemitem">ceph-iscsi</code>. For iSCSI failover and load-balancing, these servers must run
-     a kernel supporting the <code class="systemitem">target_core_rbd</code> module.
+     <code class="systemitem">ceph-iscsi</code>. For iSCSI failover and load-balancing, these servers must run a
+     kernel supporting the <code class="systemitem">target_core_rbd</code> module.
      Update packages are available from the SUSE Linux Enterprise Server maintenance channel.
     </p></li><li class="listitem "><p>
      Any number of iSCSI initiator hosts, running
@@ -366,11 +366,11 @@ hljs.configure({
        </p></dd><dt id="id-1.3.5.2.8.7.5.7.25"><span class="term ">force_pr_aptpl</span></dt><dd><p>
         When enabled, LIO will always write out the <span class="emphasis"><em>persistent
         reservation</em></span> state to persistent storage, regardless of
-        whether the client has requested it via
-        <code class="option">aptpl=1</code>. This has no effect with the kernel RBD
-        back-end for LIO—it always persists PR state. Ideally, the
-        <code class="option">target_core_rbd</code> option should force it to '1' and
-        throw an error if someone tries to disable it via configuration.
+        whether the client has requested it via <code class="option">aptpl=1</code>. This
+        has no effect with the kernel RBD back-end for LIO—it always
+        persists PR state. Ideally, the <code class="option">target_core_rbd</code> option
+        should force it to '1' and throw an error if someone tries to disable
+        it via configuration.
        </p></dd><dt id="id-1.3.5.2.8.7.5.7.26"><span class="term ">unmap_zeroes_data</span></dt><dd><p>
         Affects whether LIO will advertise LBPRZ to SCSI initiators, indicating
         that zeros will be read back from a region following UNMAP or WRITE

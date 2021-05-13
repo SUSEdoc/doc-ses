@@ -180,8 +180,8 @@ hljs.configure({
    </p></div><div class="sect2 " id="dashboard-disable-redirection"><div class="titlepage"><div><div><h3 class="title"><span class="number">11.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Disabling re-directions</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#dashboard-disable-redirection">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/dashboard_user_cmdline.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>dashboard_user_cmdline.xml</li><li><span class="ds-label">ID: </span>dashboard-disable-redirection</li></ul></div></div></div></div><p>
     If the Ceph Dashboard is behind a load-balancing proxy such as HAProxy,
     disable the redirection behaviour to prevent situations where the internal
-    (unresolvable) URLs are published to the front-end client. Use the following
-    command to get the dashboard to respond with an HTTP error
+    (unresolvable) URLs are published to the front-end client. Use the
+    following command to get the dashboard to respond with an HTTP error
     (<code class="literal">500</code> by default) instead of redirecting to the active
     dashboard:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/standby_behaviour "error"</pre></div><p>
@@ -252,8 +252,8 @@ hljs.configure({
     is enabled by default. You can disable it as follows:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-audit-api-log-payload false</pre></div></div></div><div class="sect1 " id="dashboard-config-nfs-ganesha"><div class="titlepage"><div><div><h2 class="title"><span class="number">11.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring NFS Ganesha in the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#dashboard-config-nfs-ganesha">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/dashboard_user_cmdline.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>dashboard_user_cmdline.xml</li><li><span class="ds-label">ID: </span>dashboard-config-nfs-ganesha</li></ul></div></div></div></div><p>
    Ceph Dashboard can manage NFS Ganesha exports that use CephFS or Object Gateway as their
-   backstore. The dashboard manages NFS Ganesha configuration files stored in RADOS
-   objects on the CephFS cluster. NFS Ganesha must store part of their
+   backstore. The dashboard manages NFS Ganesha configuration files stored in
+   RADOS objects on the CephFS cluster. NFS Ganesha must store part of their
    configuration in the Ceph cluster.
   </p><p>
    Run the following command to configure the NFS Ganesha configuration object's

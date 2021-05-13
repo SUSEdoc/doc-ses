@@ -371,10 +371,10 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
        shards to decode to serve the client. In the case of
        <span class="emphasis"><em>jerasure</em></span> and <span class="emphasis"><em>isa</em></span> erasure
        plug-ins, when the first <code class="literal">K</code> replies return, then the
-       client’s request is served immediately using the data decoded from these
-       replies. This approach causes more CPU load and less disk/network load.
-       Currently, this flag is only supported for erasure coding pools. Default
-       is <code class="literal">0</code>.
+       client’s request is served immediately using the data decoded from
+       these replies. This approach causes more CPU load and less disk/network
+       load. Currently, this flag is only supported for erasure coding pools.
+       Default is <code class="literal">0</code>.
       </p></dd></dl></div></div><div class="sect2 " id="ceph-pools-options-num-of-replicas"><div class="titlepage"><div><div><h3 class="title"><span class="number">18.5.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Setting the number of object replicas</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-options-num-of-replicas">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_operating_pools.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_operating_pools.xml</li><li><span class="ds-label">ID: </span>ceph-pools-options-num-of-replicas</li></ul></div></div></div></div><p>
     To set the number of object replicas on a replicated pool, execute the
     following:

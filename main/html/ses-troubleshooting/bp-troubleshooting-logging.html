@@ -674,8 +674,8 @@ debug mds balancer = 1/20</pre></div><p>
       </p><p>
        Default: <code class="literal">false</code>
       </p></dd><dt id="id-1.5.4.12.8.2.2"><span class="term "><code class="literal">rgw log object name</code></span></dt><dd><p>
-       Description: Should an object’s name be logged. // man date to see codes
-       (a subset are supported)
+       Description: Should an object’s name be logged. // man date to see
+       codes (a subset are supported)
       </p><p>
        Type: String
       </p><p>
@@ -750,10 +750,9 @@ debug mds balancer = 1/20</pre></div><p>
    The kernel logs would now include any debug messages in file
    <code class="filename">fs/ceph/snap.c</code>. In order to disable dynamic debugging:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root">root # </code>echo "file fs/ceph/snap.c -p" &gt; /sys/kernel/debug/dynamic_debug/control</pre></div></div><div class="sect1 " id="logging-service-daemons-events"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Per-service and per-daemon events</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#logging-service-daemons-events">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_logging.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>bp_troubleshooting_logging.xml</li><li><span class="ds-label">ID: </span>logging-service-daemons-events</li></ul></div></div></div></div><p>
-   In order to simplify debugging failed daemon deployments, cephadm
-   stores events on a per-service and per-daemon basis. To view the list of
-   events for a specific <span class="emphasis"><em>service</em></span>, run the following
-   example command:
+   In order to simplify debugging failed daemon deployments, cephadm stores
+   events on a per-service and per-daemon basis. To view the list of events for
+   a specific <span class="emphasis"><em>service</em></span>, run the following example command:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls --service_name=<em class="replaceable ">alertmanager</em> --format yaml
   service_type: alertmanager
   service_name: alertmanager
@@ -767,7 +766,7 @@ debug mds balancer = 1/20</pre></div><p>
    Cannot place &lt;AlertManagerSpec for service_name=alertmanager&gt; on \
    unknown_host: Unknown hosts"'</pre></div><p>
    As opposed to a specific service, to view the list of events for a specific
-   <span class="emphasis"><em>daemon</em></span>, for example,  run the following command:
+   <span class="emphasis"><em>daemon</em></span>, for example, run the following command:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ceph --service-type <em class="replaceable ">mds</em> \
  --daemon-id=<em class="replaceable ">hostname.ppdhsz</em> --format yaml
   daemon_type: mds

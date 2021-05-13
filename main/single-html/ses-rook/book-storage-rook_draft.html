@@ -27,7 +27,8 @@ hljs.configure({
     For more details about the SUSE CaaS Platform product, see
     <a class="link" href="https://documentation.suse.com/suse-caasp/4.5/" target="_blank">https://documentation.suse.com/suse-caasp/4.5/</a>.
    </p></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname ">Tomáš</span> <span class="surname ">Bažant</span>, <span class="firstname ">Alexandra</span> <span class="surname ">Settle</span>, and <span class="firstname ">Liam</span> <span class="surname ">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>05/13/2021</div></div></div><div class="toc"><dl><dt><span class="preface"><a href="#preface-rook"><span class="name">About this guide</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#id-1.7.2.7"><span class="name">Available documentation</span></a></span></dt><dt><span class="sect1"><a href="#id-1.7.2.8"><span class="name">Giving feedback</span></a></span></dt><dt><span class="sect1"><a href="#id-1.7.2.9"><span class="name">Documentation conventions</span></a></span></dt><dt><span class="sect1"><a href="#id-1.7.2.10"><span class="name">Product life cycle and support</span></a></span></dt><dt><span class="sect1"><a href="#id-1.7.2.11"><span class="name">Ceph contributors</span></a></span></dt><dt><span class="sect1"><a href="#id-1.7.2.12"><span class="name">Commands and command prompts used in this guide</span></a></span></dt></dl></dd><dt><span class="part"><a href="#rook-ses-deployment"><span class="number">I </span><span class="name">Quick Start: Deploying Ceph on SUSE CaaS Platform</span></a></span></dt><dd><dl><dt><span class="chapter"><a href="#deploy-rook"><span class="number">1 </span><span class="name">Quick start</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#rook-deploy-hardware-specs"><span class="number">1.1 </span><span class="name">Recommended hardware specifications</span></a></span></dt><dt><span class="sect1"><a href="#rook-deploy-before-begin"><span class="number">1.2 </span><span class="name">Prerequisites</span></a></span></dt><dt><span class="sect1"><a href="#getting-started-rook"><span class="number">1.3 </span><span class="name">Getting started with Rook</span></a></span></dt><dt><span class="sect1"><a href="#rook-deploy-ceph"><span class="number">1.4 </span><span class="name">Deploying Ceph with Rook</span></a></span></dt><dt><span class="sect1"><a href="#rook-config-ceph"><span class="number">1.5 </span><span class="name">Configuring the Ceph cluster</span></a></span></dt><dt><span class="sect1"><a href="#updating-rook-images"><span class="number">1.6 </span><span class="name">Updating local images</span></a></span></dt><dt><span class="sect1"><a href="#uninstalling-rook"><span class="number">1.7 </span><span class="name">Uninstalling</span></a></span></dt></dl></dd></dl></dd><dt><span class="part"><a href="#rook-ses-admin"><span class="number">II </span><span class="name">Administrating Ceph on SUSE CaaS Platform</span></a></span></dt><dd><dl><dt><span class="chapter"><a href="#admin-intro-caasp"><span class="number">2 </span><span class="name">Rook-Ceph administration</span></a></span></dt><dt><span class="chapter"><a href="#admin-caasp-block-storage"><span class="number">3 </span><span class="name">Block Storage</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#rook-block-storage-provision-storage"><span class="number">3.1 </span><span class="name">Provisioning Block Storage</span></a></span></dt><dt><span class="sect1"><a href="#consume-the-storage-wordpress-sample"><span class="number">3.2 </span><span class="name">Consuming storage: WordPress sample</span></a></span></dt><dt><span class="sect1"><a href="#consume-the-storage-toolbox"><span class="number">3.3 </span><span class="name">Consuming the storage: Toolbox</span></a></span></dt><dt><span class="sect1"><a href="#rook-block-storage-teardown"><span class="number">3.4 </span><span class="name">Teardown</span></a></span></dt><dt><span class="sect1"><a href="#advanced-example-erasure-coded-block-storage"><span class="number">3.5 </span><span class="name">Advanced Example: Erasure-Coded Block Storage</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-cephfs"><span class="number">4 </span><span class="name">CephFS</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#rook-shared-filesystem"><span class="number">4.1 </span><span class="name">Shared File System</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-crd"><span class="number">5 </span><span class="name">Ceph cluster custom resource definitions</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#rook-ceph-cluster-crd"><span class="number">5.1 </span><span class="name">Ceph cluster CRD</span></a></span></dt><dt><span class="sect1"><a href="#rook-ceph-block-pool-crd"><span class="number">5.2 </span><span class="name">Ceph block pool CRD</span></a></span></dt><dt><span class="sect1"><a href="#rook-ceph-shared-filesystem-crd"><span class="number">5.3 </span><span class="name">Ceph shared file system CRD</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-cephconfig"><span class="number">6 </span><span class="name">Configuration</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#configuration"><span class="number">6.1 </span><span class="name">Ceph configuration</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-cephtoolbox"><span class="number">7 </span><span class="name">Toolboxes</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#rook-toolbox"><span class="number">7.1 </span><span class="name">Rook toolbox</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-cephosd"><span class="number">8 </span><span class="name">Ceph OSD management</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#ceph-osd-management"><span class="number">8.1 </span><span class="name">Ceph OSD management</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-ceph-examples"><span class="number">9 </span><span class="name">Ceph examples</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#ceph-examples"><span class="number">9.1 </span><span class="name">Ceph examples</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-advanced-config"><span class="number">10 </span><span class="name">Advanced configuration</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#advanced-configuration"><span class="number">10.1 </span><span class="name">Performing advanced configuration tasks</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-object-storage"><span class="number">11 </span><span class="name">Object Storage</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#rook-object-storage"><span class="number">11.1 </span><span class="name">Object Storage</span></a></span></dt><dt><span class="sect1"><a href="#ceph-object-store-crd"><span class="number">11.2 </span><span class="name">Ceph Object Storage CRD</span></a></span></dt><dt><span class="sect1"><a href="#ceph-object-bucket-claim"><span class="number">11.3 </span><span class="name">Ceph object bucket claim</span></a></span></dt><dt><span class="sect1"><a href="#ceph-object-store-user-crd"><span class="number">11.4 </span><span class="name">Ceph Object Storage user custom resource definitions (CRD)</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-dashboard"><span class="number">12 </span><span class="name">Ceph Dashboard</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#caasp-ceph-dashboard"><span class="number">12.1 </span><span class="name">Ceph Dashboard</span></a></span></dt></dl></dd></dl></dd><dt><span class="part"><a href="#rook-ses-troubleshooting"><span class="number">III </span><span class="name">Troubleshooting Ceph on SUSE CaaS Platform</span></a></span></dt><dd><dl><dt><span class="chapter"><a href="#atroubleshooting-caasp-debugging-rook"><span class="number">13 </span><span class="name">Troubleshooting</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#debugging-caasp-rook-methods"><span class="number">13.1 </span><span class="name">Debugging Rook</span></a></span></dt></dl></dd><dt><span class="chapter"><a href="#admin-caasp-ceph-common-issues"><span class="number">14 </span><span class="name">Common issues</span></a></span></dt><dd><dl><dt><span class="sect1"><a href="#ceph-common-issues"><span class="number">14.1 </span><span class="name">Ceph common issues</span></a></span></dt></dl></dd></dl></dd><dt><span class="appendix"><a href="#id-1.7.6"><span class="number">A </span><span class="name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></span></dt><dt><span class="glossary"><a href="#id-1.7.7"><span class="name">Glossary</span></a></span></dt></dl></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><dl><dt><span class="figure"><a href="#id-1.7.4.12.3.3"><span class="number">12.1 </span><span class="name">The Ceph Dashboard</span></a></span></dt></dl></div><div><div xml:lang="en" class="legalnotice" id="id-1.7.1.6" lang="en"><p>
-  Copyright © 2020–2021
+  Copyright © 2020–
+2021
 
   SUSE LLC and contributors. All rights reserved.
  </p><p>
@@ -35,9 +36,9 @@ hljs.configure({
   (CC-BY-SA 4.0): <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/legalcode" target="_blank">https://creativecommons.org/licenses/by-sa/4.0/legalcode</a>.
  </p><p>
   For SUSE trademarks, see
-  <a class="link" href="http://www.suse.com/company/legal/" target="_blank">http://www.suse.com/company/legal/</a>. All
-  third-party trademarks are the property of their respective owners. Trademark
-  symbols (®, ™ etc.) denote trademarks of SUSE and its affiliates.
+  <a class="link" href="http://www.suse.com/company/legal/" target="_blank">http://www.suse.com/company/legal/</a>. All third-party
+  trademarks are the property of their respective owners. Trademark symbols
+  (®, ™ etc.) denote trademarks of SUSE and its affiliates.
   Asterisks (*) denote third-party trademarks.
  </p><p>
   All information found in this book has been compiled with utmost attention to
@@ -2977,10 +2978,10 @@ spec:
       Do not remove too many OSDs at once, wait for rebalancing between
       removing multiple OSDs
      </p></li><li class="step "><p>
-      On host-based clusters, you may need to stop the Rook Operator 
-      while performing OSD removal steps in order to prevent Rook from 
-      detecting the old OSD and trying to re-create it before the disk is wiped 
-      or removed.
+      On host-based clusters, you may need to stop the Rook Operator while
+      performing OSD removal steps in order to prevent Rook from detecting
+      the old OSD and trying to re-create it before the disk is wiped or
+      removed.
      </p></li></ol></div></div><p>
     If all the PGs are <code class="literal">active+clean</code> and there are no
     warnings about being low on space, this means the data is fully replicated
@@ -5076,11 +5077,13 @@ too few PGs per OSD (16 &lt; min 30)</pre></div></div><div class="sect3 " id="so
   When all clients are updated, enable the new secure behavior, not allowing
   old insecure clients to join the cluster:
  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div><p>
-  For more details, refer ro <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
+  For more details, refer ro
+  <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.7.6.12"><span class="name">Octopus 15.2.10 Point Release</span><a title="Permalink" class="permalink" href="#id-1.7.6.12">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This backport release includes the following fixes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    The containers include an updated <code class="literal">tcmalloc</code> that avoids crashes seen on 15.2.9.
+    The containers include an updated <code class="literal">tcmalloc</code> that avoids
+    crashes seen on 15.2.9.
    </p></li><li class="listitem "><p>
     RADOS: BlueStore handling of huge (&gt;4GB) writes from RocksDB to BlueFS
     has been fixed.
@@ -5118,8 +5121,8 @@ too few PGs per OSD (16 &lt; min 30)</pre></div></div><div class="sect3 " id="so
    </p></li><li class="listitem "><p>
     MON: The cluster log now logs health detail every
     <code class="option">mon_health_to_clog_interval</code>, which has been changed from
-    1hr to 10min. Logging of health detail will be skipped if there is no change
-    in health summary since last known.
+    1hr to 10min. Logging of health detail will be skipped if there is no
+    change in health summary since last known.
    </p></li><li class="listitem "><p>
     The <code class="command">ceph df</code> command now lists the number of PGs in each
     pool.
@@ -5127,17 +5130,17 @@ too few PGs per OSD (16 &lt; min 30)</pre></div></div><div class="sect3 " id="so
     The <code class="option">bluefs_preextend_wal_files</code> option has been removed.
    </p></li><li class="listitem "><p>
     It is now possible to specify the initial monitor to contact for Ceph
-    tools and daemons using the <code class="option">mon_host_override</code> config option
-    or <code class="option">--mon-host-override</code> command line switch. This generally
-    should only be used for debugging and only affects initial communication
-    with Ceph's monitor cluster.
+    tools and daemons using the <code class="option">mon_host_override</code> config
+    option or <code class="option">--mon-host-override</code> command line switch. This
+    generally should only be used for debugging and only affects initial
+    communication with Ceph's monitor cluster.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.7.6.21"><span class="name">Octopus 15.2.7 Point Release</span><a title="Permalink" class="permalink" href="#id-1.7.6.21">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This release fixes a serious bug in RGW that has been shown to cause data loss
-  when a read of a large RGW object (for example, one with at least one tail
-  segment) takes longer than one half the time specified in the configuration
-  option <code class="option">rgw_gc_obj_min_wait</code>. The bug causes the tail segments
-  of that read object to be added to the RGW garbage collection queue, which
-  will in turn cause them to be deleted after a period of time.
+  This release fixes a serious bug in RGW that has been shown to cause data
+  loss when a read of a large RGW object (for example, one with at least one
+  tail segment) takes longer than one half the time specified in the
+  configuration option <code class="option">rgw_gc_obj_min_wait</code>. The bug causes the
+  tail segments of that read object to be added to the RGW garbage collection
+  queue, which will in turn cause them to be deleted after a period of time.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.7.6.23"><span class="name">Octopus 15.2.6 Point Release</span><a title="Permalink" class="permalink" href="#id-1.7.6.23">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This releases fixes a security flaw affecting Messenger V2 for Octopus and
   Nautilus.
@@ -5157,8 +5160,8 @@ too few PGs per OSD (16 &lt; min 30)</pre></div></div><div class="sect3 " id="so
     <code class="literal">OSD_TOO_MANY_REPAIRS</code> health warning is generated.
    </p></li><li class="listitem "><p>
     Now, when <code class="literal">no scrub</code> and/or <code class="literal">no
-    deep-scrub</code> flags are set globally or per pool, scheduled scrubs of
-    the type disabled will be aborted. All user initiated scrubs are NOT
+    deep-scrub</code> flags are set globally or per pool, scheduled scrubs
+    of the type disabled will be aborted. All user initiated scrubs are NOT
     interrupted.
    </p></li><li class="listitem "><p>
     Fixed an issue with osdmaps not being trimmed in a healthy cluster.

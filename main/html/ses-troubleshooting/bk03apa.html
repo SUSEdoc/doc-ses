@@ -46,11 +46,13 @@ hljs.configure({
   When all clients are updated, enable the new secure behavior, not allowing
   old insecure clients to join the cluster:
  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div><p>
-  For more details, refer ro <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
+  For more details, refer ro
+  <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.12"><span class="name">Octopus 15.2.10 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.12">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This backport release includes the following fixes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    The containers include an updated <code class="literal">tcmalloc</code> that avoids crashes seen on 15.2.9.
+    The containers include an updated <code class="literal">tcmalloc</code> that avoids
+    crashes seen on 15.2.9.
    </p></li><li class="listitem "><p>
     RADOS: BlueStore handling of huge (&gt;4GB) writes from RocksDB to BlueFS
     has been fixed.
@@ -88,8 +90,8 @@ hljs.configure({
    </p></li><li class="listitem "><p>
     MON: The cluster log now logs health detail every
     <code class="option">mon_health_to_clog_interval</code>, which has been changed from
-    1hr to 10min. Logging of health detail will be skipped if there is no change
-    in health summary since last known.
+    1hr to 10min. Logging of health detail will be skipped if there is no
+    change in health summary since last known.
    </p></li><li class="listitem "><p>
     The <code class="command">ceph df</code> command now lists the number of PGs in each
     pool.
@@ -97,17 +99,17 @@ hljs.configure({
     The <code class="option">bluefs_preextend_wal_files</code> option has been removed.
    </p></li><li class="listitem "><p>
     It is now possible to specify the initial monitor to contact for Ceph
-    tools and daemons using the <code class="option">mon_host_override</code> config option
-    or <code class="option">--mon-host-override</code> command line switch. This generally
-    should only be used for debugging and only affects initial communication
-    with Ceph's monitor cluster.
+    tools and daemons using the <code class="option">mon_host_override</code> config
+    option or <code class="option">--mon-host-override</code> command line switch. This
+    generally should only be used for debugging and only affects initial
+    communication with Ceph's monitor cluster.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.21"><span class="name">Octopus 15.2.7 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.21">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This release fixes a serious bug in RGW that has been shown to cause data loss
-  when a read of a large RGW object (for example, one with at least one tail
-  segment) takes longer than one half the time specified in the configuration
-  option <code class="option">rgw_gc_obj_min_wait</code>. The bug causes the tail segments
-  of that read object to be added to the RGW garbage collection queue, which
-  will in turn cause them to be deleted after a period of time.
+  This release fixes a serious bug in RGW that has been shown to cause data
+  loss when a read of a large RGW object (for example, one with at least one
+  tail segment) takes longer than one half the time specified in the
+  configuration option <code class="option">rgw_gc_obj_min_wait</code>. The bug causes the
+  tail segments of that read object to be added to the RGW garbage collection
+  queue, which will in turn cause them to be deleted after a period of time.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.5.17.23"><span class="name">Octopus 15.2.6 Point Release</span><a title="Permalink" class="permalink" href="bk03apa.html#id-1.5.17.23">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This releases fixes a security flaw affecting Messenger V2 for Octopus and
   Nautilus.
@@ -127,8 +129,8 @@ hljs.configure({
     <code class="literal">OSD_TOO_MANY_REPAIRS</code> health warning is generated.
    </p></li><li class="listitem "><p>
     Now, when <code class="literal">no scrub</code> and/or <code class="literal">no
-    deep-scrub</code> flags are set globally or per pool, scheduled scrubs of
-    the type disabled will be aborted. All user initiated scrubs are NOT
+    deep-scrub</code> flags are set globally or per pool, scheduled scrubs
+    of the type disabled will be aborted. All user initiated scrubs are NOT
     interrupted.
    </p></li><li class="listitem "><p>
     Fixed an issue with osdmaps not being trimmed in a healthy cluster.

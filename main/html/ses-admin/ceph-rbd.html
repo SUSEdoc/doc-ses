@@ -648,14 +648,14 @@ Peers:
      The mirror image mode can either be <code class="literal">journal</code> or
      <code class="literal">snapshot</code>:
     </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.4.5.5.10.9.5.5.1"><span class="term ">journal (default)</span></dt><dd><p>
-        When configured in <code class="literal">journal</code> mode, mirroring will
-        use the RBD journaling image feature to replicate the image
-        contents. If the RBD journaling image feature is not yet enabled on the
-        image, it will be automatically enabled.
+        When configured in <code class="literal">journal</code> mode, mirroring will use
+        the RBD journaling image feature to replicate the image contents. If
+        the RBD journaling image feature is not yet enabled on the image, it
+        will be automatically enabled.
        </p></dd><dt id="id-1.4.5.5.10.9.5.5.2"><span class="term ">snapshot</span></dt><dd><p>
-        When configured in <code class="literal">snapshot</code> mode, mirroring will
-        use RBD image mirror-snapshots to replicate the image contents.
-        Once enabled, an initial mirror-snapshot will automatically be created.
+        When configured in <code class="literal">snapshot</code> mode, mirroring will use
+        RBD image mirror-snapshots to replicate the image contents. Once
+        enabled, an initial mirror-snapshot will automatically be created.
         Additional RBD image mirror-snapshots can be created by the
         <code class="command">rbd</code> command.
        </p></dd></dl></div><p>
@@ -1182,10 +1182,9 @@ spec:
 EOF
 <code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f raw-block-pod.yaml</pre></div><p>
     To create a file-system-based <code class="literal">PersistentVolumeClaim</code> that
-    uses the <code class="literal">ceph-csi-based StorageClass</code> created above,
-    the following YAML file can be used to request a mounted file system
-    (backed by an RBD image) from the <code class="literal">csi-rbd-sc
-    StorageClass</code>:
+    uses the <code class="literal">ceph-csi-based StorageClass</code> created above, the
+    following YAML file can be used to request a mounted file system (backed by
+    an RBD image) from the <code class="literal">csi-rbd-sc StorageClass</code>:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; pvc.yaml
 ---
 apiVersion: v1
