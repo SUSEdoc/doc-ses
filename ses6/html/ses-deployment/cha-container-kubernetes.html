@@ -37,33 +37,37 @@ hljs.configure({
     </p></li><li class="listitem "><p>
      The setup requires privileged containers.
     </p></li></ul></div></div><div class="sect1 " id="kube-prereq"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prerequisites</span> <a title="Permalink" class="permalink" href="cha-container-kubernetes.html#kube-prereq">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-prereq</li></ul></div></div></div></div><p>
-   The minimum requirements and prerequisites to deploy SUSE Enterprise Storage 6
-   on top of SUSE CaaS Platform 4 Kubernetes cluster are as follows:
+   The minimum requirements and prerequisites to deploy SUSE Enterprise Storage
+   6 on top of SUSE CaaS Platform 4 Kubernetes cluster are as follows:
   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-     A running SUSE CaaS Platform 4 cluster. You need to have an account with a
-     SUSE CaaS Platform subscription. You can activate a 60-day free evaluation
-     here <a class="link" href="https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4" target="_blank">https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4</a>.
+     A running SUSE CaaS Platform 4 cluster. You need to have an account with a SUSE CaaS Platform
+     subscription. You can activate a 60-day free evaluation here
+     <a class="link" href="https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4" target="_blank">https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4</a>.
     </p></li><li class="listitem "><p>
-     At least three SUSE CaaS Platform worker nodes, with at least one additional disk attached to
-     each worker node as storage for the OSD. We recommend four SUSE CaaS Platform worker nodes.
+     At least three SUSE CaaS Platform worker nodes, with at least one additional disk
+     attached to each worker node as storage for the OSD. We recommend four
+     SUSE CaaS Platform worker nodes.
     </p></li><li class="listitem "><p>
-       At least one OSD per worker node, with a minimum disk size of 5 GB.
-     </p></li><li class="listitem "><p>
-       Access to SUSE Enterprise Storage 6. You can get a trial
-       subscription from here <a class="link" href="https://www.suse.com/products/suse-enterprise-storage/download/" target="_blank">https://www.suse.com/products/suse-enterprise-storage/download/</a>.
-     </p></li><li class="listitem "><p>
-       Access to a workstation that has access to the SUSE CaaS Platform cluster via <code class="literal">kubectl</code>.
-       We recommend using the SUSE CaaS Platform master node as the workstation.
-     </p></li><li class="listitem "><p>
-        Ensure that the <code class="literal">SUSE-Enterprise-Storage-6-Pool</code> and
-        <code class="literal">SUSE-Enterprise-Storage-6-Updates</code> repositories are configured on
-        the management node to install the <span class="package ">rook-k8s-yaml</span> RPM package.
-      </p></li></ul></div></div><div class="sect1 " id="kube-rook-manifests"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Get Rook Manifests</span> <a title="Permalink" class="permalink" href="cha-container-kubernetes.html#kube-rook-manifests">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-rook-manifests</li></ul></div></div></div></div><p>
+     At least one OSD per worker node, with a minimum disk size of 5 GB.
+    </p></li><li class="listitem "><p>
+     Access to SUSE Enterprise Storage 6. You can get a trial subscription
+     from here
+     <a class="link" href="https://www.suse.com/products/suse-enterprise-storage/download/" target="_blank">https://www.suse.com/products/suse-enterprise-storage/download/</a>.
+    </p></li><li class="listitem "><p>
+     Access to a workstation that has access to the SUSE CaaS Platform cluster via
+     <code class="literal">kubectl</code>. We recommend using the SUSE CaaS Platform master node as
+     the workstation.
+    </p></li><li class="listitem "><p>
+     Ensure that the <code class="literal">SUSE-Enterprise-Storage-6-Pool</code> and
+     <code class="literal">SUSE-Enterprise-Storage-6-Updates</code> repositories are
+     configured on the management node to install the
+     <span class="package ">rook-k8s-yaml</span> RPM package.
+    </p></li></ul></div></div><div class="sect1 " id="kube-rook-manifests"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Get Rook Manifests</span> <a title="Permalink" class="permalink" href="cha-container-kubernetes.html#kube-rook-manifests">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-rook-manifests</li></ul></div></div></div></div><p>
    The Rook orchestrator uses configuration files in YAML format called
    <span class="emphasis"><em>manifests</em></span>. The manifests you need are included in the
-   <span class="package ">rook-k8s-yaml</span> RPM package. You can find this package
-   in the SUSE Enterprise Storage 6 repository. Install it by running
-   the following:
+   <span class="package ">rook-k8s-yaml</span> RPM package. You can find this package in
+   the SUSE Enterprise Storage 6 repository. Install it by running the
+   following:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper install rook-k8s-yaml</pre></div></div><div class="sect1 " id="kube-install"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Installation</span> <a title="Permalink" class="permalink" href="cha-container-kubernetes.html#kube-install">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-install</li></ul></div></div></div></div><p>
    Rook-Ceph includes two main components: the 'operator' which is run by
    Kubernetes and allows creation of Ceph clusters, and the Ceph 'cluster'
@@ -118,8 +122,8 @@ hljs.configure({
     <code class="filename">common.yaml</code> will create the 'rook-ceph' namespace,
     Ceph Custom Resource Definitions (CRDs) (see
     <a class="link" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/" target="_blank">https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/</a>)
-    to make Kubernetes aware of Ceph Objects (for example, 'CephCluster'), and the
-    RBAC roles and Pod Security Policies (see
+    to make Kubernetes aware of Ceph Objects (for example, 'CephCluster'), and
+    the RBAC roles and Pod Security Policies (see
     <a class="link" href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/" target="_blank">https://kubernetes.io/docs/concepts/policy/pod-security-policy/</a>)
     which are necessary for allowing Rook to manage the cluster-specific
     resources.

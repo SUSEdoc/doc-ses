@@ -41,13 +41,13 @@ hljs.configure({
     <span class="package ">ceph-common</span> package (which is shipped with SUSE Linux Enterprise) should
     be installed before trying to mount CephFS.
    </p><div id="id-1.3.6.4.4.3.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
-       Without the <span class="package ">ceph-common</span> package (and thus without the
-       <code class="command">mount.ceph</code> helper), the monitors' IPs will need to
-       be used instead of their names. This is because the kernel client will be
-       unable to perform name resolution.
-     </p><p>
-       The basic mount syntax is:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>sudo mount -t ceph monip[:port][,monip2[:port]...]:/[subdir] mnt</pre></div></div></div><div class="sect2 " id="Creating-Secret-File"><div class="titlepage"><div><div><h3 class="title"><span class="number">28.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create a Secret File</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#Creating-Secret-File">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>Creating-Secret-File</li></ul></div></div></div></div><p>
+     Without the <span class="package ">ceph-common</span> package (and thus without the
+     <code class="command">mount.ceph</code> helper), the monitors' IPs will need to be
+     used instead of their names. This is because the kernel client will be
+     unable to perform name resolution.
+    </p><p>
+     The basic mount syntax is:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>sudo mount -t ceph monip[:port][,monip2[:port]...]:/[subdir] mnt</pre></div></div></div><div class="sect2 " id="Creating-Secret-File"><div class="titlepage"><div><div><h3 class="title"><span class="number">28.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create a Secret File</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#Creating-Secret-File">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>Creating-Secret-File</li></ul></div></div></div></div><p>
     The Ceph cluster runs with authentication turned on by default. You
     should create a file that stores your secret key (not the keyring itself).
     To obtain the secret key for a particular user and then create the file, do
@@ -193,7 +193,7 @@ hljs.configure({
     we have decreased <code class="option">max_mds</code>, because
     <code class="option">max_mds</code> only restricts the creation of new ranks.
    </p><p>
-     To reduce the number of ranks, reduce the <code class="option">max_mds</code> option:
+    To reduce the number of ranks, reduce the <code class="option">max_mds</code> option:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs set <em class="replaceable ">fs_name</em> max_mds 1</pre></div><p>
     The deactivated rank will first enter the stopping state, for a period of
     time while it hands off its share of the metadata to the remaining active
@@ -240,19 +240,20 @@ setfattr -n ceph.dir.pin -v 0 a/b # "a/b" is now pinned to rank 0
   </p><div class="sect2 " id="ceph-cephfs-failover-standby"><div class="titlepage"><div><div><h3 class="title"><span class="number">28.5.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring Standby Replay</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-failover-standby">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-failover-standby</li></ul></div></div></div></div><p>
     Each CephFS file system may be configured to add standby-replay daemons.
     These standby daemons follow the active MDS's metadata journal to reduce
-    failover time in the event that the active MDS becomes unavailable. Each active
-    MDS may have only one standby-replay daemon following it.
+    failover time in the event that the active MDS becomes unavailable. Each
+    active MDS may have only one standby-replay daemon following it.
    </p><p>
-     Configure standby-replay on a file system with the following comamnd:
+    Configure standby-replay on a file system with the following comamnd:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs set <em class="replaceable ">FS-NAME</em> allow_standby_replay <em class="replaceable ">BOOL</em></pre></div><p>
-     Once set the monitors will assign available standby daemons to follow
-     the active MDSs in that file system.
+    Once set the monitors will assign available standby daemons to follow the
+    active MDSs in that file system.
    </p><p>
-     Once an MDS has entered the standby-replay state, it will only be used as a
-     standby for the rank that it is following. If another rank fails, this
-     standby-replay daemon will not be used as a replacement, even if no other
-     standbys are available. For this reason, it is advised that if standby-replay
-     is used then every active MDS should have a standby-replay daemon.
+    Once an MDS has entered the standby-replay state, it will only be used as a
+    standby for the rank that it is following. If another rank fails, this
+    standby-replay daemon will not be used as a replacement, even if no other
+    standbys are available. For this reason, it is advised that if
+    standby-replay is used then every active MDS should have a standby-replay
+    daemon.
    </p></div><div class="sect2 " id="ceph-cephfs-failover-examples"><div class="titlepage"><div><div><h3 class="title"><span class="number">28.5.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Examples</span> <a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#ceph-cephfs-failover-examples">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-failover-examples</li></ul></div></div></div></div><p>
     Several example <code class="filename">ceph.conf</code> configurations follow. You
     can either copy a <code class="filename">ceph.conf</code> with the configuration of

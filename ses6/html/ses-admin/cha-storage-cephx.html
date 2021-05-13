@@ -46,14 +46,14 @@ hljs.configure({
    single point of failure or bottleneck when using <code class="systemitem">cephx</code>. The monitor
    returns an authentication data structure that contains a session key for use
    in obtaining Ceph services. This session key is itself encrypted with the
-   client’s permanent secret key, so that only the client can request
-   services from the Ceph monitors. The client then uses the session key to
-   request its desired services from the monitor, and the monitor provides the
-   client with a ticket that will authenticate the client to the OSDs that
-   actually handle data. Ceph monitors and OSDs share a secret, so the client
-   can use the ticket provided by the monitor with any OSD or metadata server
-   in the cluster. <code class="systemitem">cephx</code> tickets expire, so an attacker cannot use an expired
-   ticket or session key obtained wrongfully.
+   client’s permanent secret key, so that only the client can request services
+   from the Ceph monitors. The client then uses the session key to request
+   its desired services from the monitor, and the monitor provides the client
+   with a ticket that will authenticate the client to the OSDs that actually
+   handle data. Ceph monitors and OSDs share a secret, so the client can use
+   the ticket provided by the monitor with any OSD or metadata server in the
+   cluster. <code class="systemitem">cephx</code> tickets expire, so an attacker cannot use an expired ticket
+   or session key obtained wrongfully.
   </p><p>
    To use <code class="systemitem">cephx</code>, an administrator must setup clients/users first. In the
    following diagram, the
@@ -143,11 +143,11 @@ hljs.configure({
       end users. The Ceph file system uses POSIX semantics. The user space
       associated with it is not the same as a Ceph storage cluster user.
      </p></div></div><div class="sect3 " id="auth-capabilities"><div class="titlepage"><div><div><h4 class="title"><span class="number">19.2.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Authorization and Capabilities</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#auth-capabilities">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_cephx.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_cephx.xml</li><li><span class="ds-label">ID: </span>auth-capabilities</li></ul></div></div></div></div><p>
-      Ceph uses the term <code class="literal">capabilities</code> to describe
-      authorizing an authenticated user to exercise the functionality of the
-      monitors, OSDs and metadata servers. Capabilities can also restrict access to data within
-     a pool or pool namespace. A Ceph administrative user sets a user's
-     capabilities when creating or updating a user.
+     Ceph uses the term <code class="literal">capabilities</code> to describe
+     authorizing an authenticated user to exercise the functionality of the
+     monitors, OSDs and metadata servers. Capabilities can also restrict access
+     to data within a pool or pool namespace. A Ceph administrative user sets
+     a user's capabilities when creating or updating a user.
     </p><p>
      Capability syntax follows the form:
     </p><div class="verbatim-wrap"><pre class="screen"><em class="replaceable ">daemon-type</em> '<em class="replaceable ">cap-spec</em>[, <em class="replaceable ">cap-spec</em> ...]'</pre></div><p>
@@ -203,32 +203,34 @@ mon 'allow profile osd'</pre></div></dd><dt id="id-1.3.5.6.6.6.4.6.2"><span clas
         deployment tools so they have permissions to add keys when
         bootstrapping a metadata server.
        </p></dd></dl></div><p>
-      For example, monitor capabilities include <code class="literal">r</code>,
-      <code class="literal">w</code>, <code class="literal">x</code> access settings or
-      <code class="literal">profile {name}</code>.
+     For example, monitor capabilities include <code class="literal">r</code>,
+     <code class="literal">w</code>, <code class="literal">x</code> access settings or
+     <code class="literal">profile {name}</code>.
     </p><p>
-      The syntax looks as follows:
+     The syntax looks as follows:
     </p><div class="verbatim-wrap"><pre class="screen">mon 'allow {access-spec} [network {network/prefix}]'
 mon 'profile {name}'</pre></div><p>
-       The <code class="literal">{access-spec}</code> syntax is as follows:
-     </p><div class="verbatim-wrap"><pre class="screen">* | all | [r][w][x]</pre></div><p>
-    The optional <code class="literal">{network/prefix}</code> is a standard network name
-    and prefix length in CIDR notation (for exmaple, 10.3.0.0/16). If present,
-    the use of this capability is restricted to clients connecting from
-    this network.
-  </p><p>
-    Another example is the OSD capabilities that include <code class="literal">r</code>,
-    <code class="literal">w</code>, <code class="literal">x</code>, <code class="literal">class-read</code>,
-    <code class="literal">class-write</code>  access settings or <code class="literal">profile {name}</code>.
-    Additionally, OSD capabilities also allow for pool and namespace settings.
-  </p><p>
-    The syntax looks as follows:
-  </p><div class="verbatim-wrap"><pre class="screen">osd 'allow {access-spec} [{match-spec}] [network {network/prefix}]'
+     The <code class="literal">{access-spec}</code> syntax is as follows:
+    </p><div class="verbatim-wrap"><pre class="screen">* | all | [r][w][x]</pre></div><p>
+     The optional <code class="literal">{network/prefix}</code> is a standard network
+     name and prefix length in CIDR notation (for exmaple, 10.3.0.0/16). If
+     present, the use of this capability is restricted to clients connecting
+     from this network.
+    </p><p>
+     Another example is the OSD capabilities that include <code class="literal">r</code>,
+     <code class="literal">w</code>, <code class="literal">x</code>, <code class="literal">class-read</code>,
+     <code class="literal">class-write</code> access settings or <code class="literal">profile
+     {name}</code>. Additionally, OSD capabilities also allow for pool and
+     namespace settings.
+    </p><p>
+     The syntax looks as follows:
+    </p><div class="verbatim-wrap"><pre class="screen">osd 'allow {access-spec} [{match-spec}] [network {network/prefix}]'
 osd 'profile {name} [pool={pool-name} [namespace={namespace-name}]] [network {network/prefix}]'</pre></div><p>
-       Capabilities can also restrict access to data within a pool, a namespace
-       within a pool, or a set of pools based on their application tags. A Ceph
-       administrative user sets a user’s capabilities when creating or updating a user.
-     </p></div><div class="sect3 " id="id-1.3.5.6.6.6.5"><div class="titlepage"><div><div><h4 class="title"><span class="number">19.2.1.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Pools</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.3.5.6.6.6.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_cephx.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_cephx.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
+     Capabilities can also restrict access to data within a pool, a namespace
+     within a pool, or a set of pools based on their application tags. A Ceph
+     administrative user sets a user’s capabilities when creating or updating a
+     user.
+    </p></div><div class="sect3 " id="id-1.3.5.6.6.6.5"><div class="titlepage"><div><div><h4 class="title"><span class="number">19.2.1.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Pools</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.3.5.6.6.6.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_cephx.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_cephx.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
      A pool is a logical partition where users store data. In Ceph
      deployments, it is common to create a pool as a logical partition for
      similar types of data. For example, when deploying Ceph as a back-end
@@ -455,9 +457,9 @@ exported keyring for client.admin
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph-authtool /etc/ceph/ceph.keyring \
   --import-keyring /etc/ceph/ceph.client.admin.keyring</pre></div><div id="id-1.3.5.6.6.8.8.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
       If your keyring is compromised, delete your key from the
-      <code class="filename">/etc/ceph</code> directory and recreate a new key using the same
-      instructions from <a class="xref" href="cha-storage-cephx.html#creating-keyring" title="19.2.3.1. Creating a Keyring">Section 19.2.3.1, “Creating a Keyring”</a>.
-    </p></div></div><div class="sect3 " id="id-1.3.5.6.6.8.9"><div class="titlepage"><div><div><h4 class="title"><span class="number">19.2.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a User</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.3.5.6.6.8.9">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_cephx.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_cephx.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
+      <code class="filename">/etc/ceph</code> directory and recreate a new key using the
+      same instructions from <a class="xref" href="cha-storage-cephx.html#creating-keyring" title="19.2.3.1. Creating a Keyring">Section 19.2.3.1, “Creating a Keyring”</a>.
+     </p></div></div><div class="sect3 " id="id-1.3.5.6.6.8.9"><div class="titlepage"><div><div><h4 class="title"><span class="number">19.2.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a User</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.3.5.6.6.8.9">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_cephx.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_cephx.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
      Ceph provides the <code class="command">ceph auth add</code> command to create a
      user directly in the Ceph storage cluster. However, you can also create
      a user, keys and capabilities directly on a Ceph client keyring. Then,

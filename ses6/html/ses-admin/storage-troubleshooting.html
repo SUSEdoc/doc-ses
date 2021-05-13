@@ -170,21 +170,21 @@ ID WEIGHT TYPE NAME    UP/DOWN REWEIGHT PRIMARY-AFFINITY
    time is not fully synchronized, you may get clock skew warnings when
    checking the state of the cluster.
   </p><p>
-   By default, DeepSea uses the Admin Node as the time server for other
-   cluster nodes. Therefore, if the Admin Node is not virtualized, select one or
-   more time servers or pools, and synchronize the local time against them.
-   Verify that the time synchronization service is enabled on each system
-   start-up. Find more information on setting up time synchronization in
+   By default, DeepSea uses the Admin Node as the time server for other cluster
+   nodes. Therefore, if the Admin Node is not virtualized, select one or more time
+   servers or pools, and synchronize the local time against them. Verify that
+   the time synchronization service is enabled on each system start-up. Find
+   more information on setting up time synchronization in
    <a class="link" href="https://www.suse.com/documentation/sles-15/book_sle_admin/data/sec_ntp_yast.html" target="_blank">https://www.suse.com/documentation/sles-15/book_sle_admin/data/sec_ntp_yast.html</a>.
   </p><p>
-   If the Admin Node is a virtual machine, provide better time sources
-   for the cluster nodes by overriding the default NTP client configuration:
+   If the Admin Node is a virtual machine, provide better time sources for the
+   cluster nodes by overriding the default NTP client configuration:
   </p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>
      Edit <code class="filename">/srv/pillar/ceph/stack/global.yml</code> on the
      Salt master node and add the following line:
     </p><div class="verbatim-wrap"><pre class="screen">time_server: <em class="replaceable ">CUSTOM_NTP_SERVER</em></pre></div><p>
- To add multiple time servers, the format is as follows:
-</p><div class="verbatim-wrap"><pre class="screen">time_server:
+     To add multiple time servers, the format is as follows:
+    </p><div class="verbatim-wrap"><pre class="screen">time_server:
  - <em class="replaceable ">CUSTOM_NTP_SERVER1</em>
  - <em class="replaceable ">CUSTOM_NTP_SERVER2</em>
  - <em class="replaceable ">CUSTOM_NTP_SERVER3</em>

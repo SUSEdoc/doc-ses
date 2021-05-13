@@ -33,7 +33,8 @@ hljs.configure({
   For background information on Erasure Code, see
   <a class="link" href="https://en.wikipedia.org/wiki/Erasure_code" target="_blank">https://en.wikipedia.org/wiki/Erasure_code</a>.
  </p><p>
-  For a list of pool values related to EC pools, refer to <a class="xref" href="ceph-pools.html#pool-values-ec" title="Erasure Coded Pool Values">Erasure Coded Pool Values</a>.
+  For a list of pool values related to EC pools, refer to
+  <a class="xref" href="ceph-pools.html#pool-values-ec" title="Erasure Coded Pool Values">Erasure Coded Pool Values</a>.
  </p><div id="id-1.3.5.11.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
    When using FileStore, you cannot access erasure coded pools with the RBD
    interface unless you have a cache tier configured. Refer to
@@ -181,11 +182,11 @@ ABCDEFGHI</pre></div><p>
        Optional. Override an existing profile by the same name, and allow
        setting a non-4K-aligned stripe_unit.
       </p></dd></dl></div><div id="id-1.3.5.11.9.15.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.png" /><h6>Warning</h6><p>
-        We strongly recommend that profiles are never modified. Instead, a new profile
-        should be created and used when creating a new pool or creating a new rule
-        for an existing pool. Seek expert advice before performing this action
-        in specific circumstances. 
-      </p></div></div><div class="sect2 " id="ec-rm"><div class="titlepage"><div><div><h3 class="title"><span class="number">24.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Removing an Erasure Code Profile</span> <a title="Permalink" class="permalink" href="cha-ceph-erasure.html#ec-rm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_erasure.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_erasure.xml</li><li><span class="ds-label">ID: </span>ec-rm</li></ul></div></div></div></div><p>
+     We strongly recommend that profiles are never modified. Instead, a new
+     profile should be created and used when creating a new pool or creating a
+     new rule for an existing pool. Seek expert advice before performing this
+     action in specific circumstances.
+    </p></div></div><div class="sect2 " id="ec-rm"><div class="titlepage"><div><div><h3 class="title"><span class="number">24.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Removing an Erasure Code Profile</span> <a title="Permalink" class="permalink" href="cha-ceph-erasure.html#ec-rm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_erasure.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_erasure.xml</li><li><span class="ds-label">ID: </span>ec-rm</li></ul></div></div></div></div><p>
     The following command removes an erasure code profile as identified by its
     <em class="replaceable ">NAME</em>:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ceph osd erasure-code-profile rm <em class="replaceable ">NAME</em></pre></div><div id="id-1.3.5.11.9.16.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>

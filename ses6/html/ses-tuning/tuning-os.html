@@ -20,20 +20,20 @@ hljs.configure({
   useBR: false
 });
 
-</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-tuning.html">Tuning Guide</a><span> › </span><a class="crumb" href="part-tuning-guide.html">SUSE Enterprise Storage Tuning</a><span> › </span><a class="crumb" href="tuning-os.html">Operating System Level Tuning</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Tuning Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="part-intro.html"><span class="number">I </span><span class="name">Introduction</span></a><ol><li class="inactive"><a href="bk03pt01ch01.html"><span class="number">1 </span><span class="name">User Privileges and Command Prompts</span></a></li><li class="inactive"><a href="tuning-how.html"><span class="number">2 </span><span class="name">General Notes on System Tuning</span></a></li><li class="inactive"><a href="tuning-intro.html"><span class="number">3 </span><span class="name">Introduction to Tuning SUSE Enterprise Storage Clusters </span></a></li></ol></li><li class="inactive"><a href="part-tuning-guide.html"><span class="number">II </span><span class="name">SUSE Enterprise Storage Tuning</span></a><ol><li class="inactive"><a href="tuning-architecture.html"><span class="number">4 </span><span class="name">Architecture and Hardware Tuning</span></a></li><li class="inactive"><a href="tuning-os.html"><span class="number">5 </span><span class="name">Operating System Level Tuning</span></a></li><li class="inactive"><a href="tuning-ceph.html"><span class="number">6 </span><span class="name">Ceph Tuning</span></a></li><li class="inactive"><a href="cha-ceph-tiered.html"><span class="number">7 </span><span class="name">Cache Tiering</span></a></li><li class="inactive"><a href="lvmcache.html"><span class="number">8 </span><span class="name">Improving Performance with LVM cache</span></a></li></ol></li><li class="inactive"><a href="tuning-appendix-a.html"><span class="number">A </span><span class="name">Salt State for Kernel Tuning</span></a></li><li class="inactive"><a href="tuning-appendix-b.html"><span class="number">B </span><span class="name">Ring Buffer Max Value Script</span></a></li><li class="inactive"><a href="tuning-appendix-c.html"><span class="number">C </span><span class="name">Network Tuning</span></a></li><li class="inactive"><a href="bk03apd.html"><span class="number">D </span><span class="name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li class="inactive"><a href="bk03go01.html"><span class="number"> </span><span class="name">Glossary</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 4. Architecture and Hardware Tuning" href="tuning-architecture.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 6. Ceph Tuning" href="tuning-ceph.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-tuning.html">Tuning Guide</a><span> › </span><a class="crumb" href="part-tuning-guide.html">SUSE Enterprise Storage Tuning</a><span> › </span><a class="crumb" href="tuning-os.html">Operating System Level Tuning</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 4. Architecture and Hardware Tuning" href="tuning-architecture.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 6. Ceph Tuning" href="tuning-ceph.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="tuning-os"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">6</span></div><div><h2 class="title"><span class="number">5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Operating System Level Tuning</span> <a title="Permalink" class="permalink" href="tuning-os.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span>tuning-os</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="tuning-os.html#tuning-sles"><span class="number">5.1 </span><span class="name">SUSE Linux Enterprise Install and Validation of Base Performance</span></a></span></dt><dt><span class="sect1"><a href="tuning-os.html#tuning-kernel-tuning"><span class="number">5.2 </span><span class="name">Kernel Tuning</span></a></span></dt></dl></div></div><p>
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-tuning.html">Tuning Guide</a><span> › </span><a class="crumb" href="part-tuning-guide.html">SUSE Enterprise Storage Tuning</a><span> › </span><a class="crumb" href="tuning-os.html">Operating System Level Tuning</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Tuning Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="part-intro.html"><span class="number">I </span><span class="name">Introduction</span></a><ol><li class="inactive"><a href="bk03pt01ch01.html"><span class="number">1 </span><span class="name">User Privileges and Command Prompts</span></a></li><li class="inactive"><a href="tuning-how.html"><span class="number">2 </span><span class="name">General Notes on System Tuning</span></a></li><li class="inactive"><a href="tuning-intro.html"><span class="number">3 </span><span class="name">Introduction to Tuning SUSE Enterprise Storage Clusters</span></a></li></ol></li><li class="inactive"><a href="part-tuning-guide.html"><span class="number">II </span><span class="name">SUSE Enterprise Storage Tuning</span></a><ol><li class="inactive"><a href="tuning-architecture.html"><span class="number">4 </span><span class="name">Architecture and Hardware Tuning</span></a></li><li class="inactive"><a href="tuning-os.html"><span class="number">5 </span><span class="name">Operating System Level Tuning</span></a></li><li class="inactive"><a href="tuning-ceph.html"><span class="number">6 </span><span class="name">Ceph Tuning</span></a></li><li class="inactive"><a href="cha-ceph-tiered.html"><span class="number">7 </span><span class="name">Cache Tiering</span></a></li><li class="inactive"><a href="lvmcache.html"><span class="number">8 </span><span class="name">Improving Performance with LVM cache</span></a></li></ol></li><li class="inactive"><a href="tuning-appendix-a.html"><span class="number">A </span><span class="name">Salt State for Kernel Tuning</span></a></li><li class="inactive"><a href="tuning-appendix-b.html"><span class="number">B </span><span class="name">Ring Buffer Max Value Script</span></a></li><li class="inactive"><a href="tuning-appendix-c.html"><span class="number">C </span><span class="name">Network Tuning</span></a></li><li class="inactive"><a href="bk03apd.html"><span class="number">D </span><span class="name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li class="inactive"><a href="bk03go01.html"><span class="number"> </span><span class="name">Glossary</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 4. Architecture and Hardware Tuning" href="tuning-architecture.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 6. Ceph Tuning" href="tuning-ceph.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="SUSE Enterprise Storage 6 Documentation"><span class="book-icon">SUSE Enterprise Storage 6 Documentation</span></a><span> › </span><a class="crumb" href="book-storage-tuning.html">Tuning Guide</a><span> › </span><a class="crumb" href="part-tuning-guide.html">SUSE Enterprise Storage Tuning</a><span> › </span><a class="crumb" href="tuning-os.html">Operating System Level Tuning</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 4. Architecture and Hardware Tuning" href="tuning-architecture.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 6. Ceph Tuning" href="tuning-ceph.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="tuning-os"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE Enterprise Storage</span> <span class="productnumber ">6</span></div><div><h2 class="title"><span class="number">5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Operating System Level Tuning</span> <a title="Permalink" class="permalink" href="tuning-os.html#">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span>tuning-os</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="tuning-os.html#tuning-sles"><span class="number">5.1 </span><span class="name">SUSE Linux Enterprise Install and Validation of Base Performance</span></a></span></dt><dt><span class="sect1"><a href="tuning-os.html#tuning-kernel-tuning"><span class="number">5.2 </span><span class="name">Kernel Tuning</span></a></span></dt></dl></div></div><p>
   A significant amount of the performance tuning for Ceph clusters can be
   done at the operating system (OS) layer. This tuning involves ensuring that
-  unnecessary services are not running, and extends down to ensuring buffers are
-  not being overrun and interrupts are being spread properly. There are many
-  additional tuning options for the OS that are not included here, either due to
-  statistically-insignificant performance changes, or not being deemed candidates
-  for significant performance improvement at the time of this work.
+  unnecessary services are not running, and extends down to ensuring buffers
+  are not being overrun and interrupts are being spread properly. There are
+  many additional tuning options for the OS that are not included here, either
+  due to statistically-insignificant performance changes, or not being deemed
+  candidates for significant performance improvement at the time of this work.
  </p><div class="sect1 " id="tuning-sles"><div class="titlepage"><div><div><h2 class="title"><span class="number">5.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SUSE Linux Enterprise Install and Validation of Base Performance</span> <a title="Permalink" class="permalink" href="tuning-os.html#tuning-sles">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span>tuning-sles</li></ul></div></div></div></div><p>
    During the OS installation, do <span class="emphasis"><em>not</em></span> select an install
    pattern that includes an X Server. Doing so utilizes RAM and CPU resources
-   that would be better allocated to tuning storage-related daemons. We recommend a
-   pattern that includes the minimal pattern with the addition of the
-   <code class="literal">YaST management</code> pattern.
+   that would be better allocated to tuning storage-related daemons. We
+   recommend a pattern that includes the minimal pattern with the addition of
+   the <code class="literal">YaST management</code> pattern.
   </p><p>
    After the OS is installed, it is proper to evaluate the various individual
    components that are critical to the overall performance of the storage
@@ -44,15 +44,15 @@ hljs.configure({
    </p></div><div class="sect2 " id="id-1.5.3.3.4.5"><div class="titlepage"><div><div><h3 class="title"><span class="number">5.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Performance</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.4.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
     To perform <code class="command">iperf3</code> tests for network performance,
     consider increasing the window size (with the <code class="option">-w</code> option)
-    and running multiple streams to fully test the bandwidth capability. If using
-    the standard MTU, your NICs should be capable of running at approximately
-    70-80% of the advertised bandwidth. If you move up to jumbo frames, the
-    NIC should be able to saturate the link.
+    and running multiple streams to fully test the bandwidth capability. If
+    using the standard MTU, your NICs should be capable of running at
+    approximately 70-80% of the advertised bandwidth. If you move up to jumbo
+    frames, the NIC should be able to saturate the link.
    </p><p>
     This is not necessarily true for faster topologies such as 100 Gb. In
     those topologies, saturating the NIC can require substantial OS and driver
-    tuning, in combination with ensuring the hardware has the appropriate
-    CPU clock speeds and settings.
+    tuning, in combination with ensuring the hardware has the appropriate CPU
+    clock speeds and settings.
    </p><p>
     This is a sample of the <code class="command">iperf3</code> commands used on a
     100 Gb network. In the command line, the <code class="option">-N</code> disables
@@ -80,16 +80,16 @@ hljs.configure({
   [  4]   0.00-10.00  sec  47.4 GBytes  40.7 Gbits/sec    0             sender
   [  4]   0.00-10.00  sec  47.4 GBytes  40.7 Gbits/sec                  receiver</pre></div></div><div class="sect2 " id="id-1.5.3.3.4.6"><div class="titlepage"><div><div><h3 class="title"><span class="number">5.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Storage Performance</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.4.6">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
     Use <code class="command">fio</code> to test individual storage devices to understand
-    the per-device performance maxima. Do this for all devices to ensure that none
-    are out of specification, or are connected to expanders which lower
+    the per-device performance maxima. Do this for all devices to ensure that
+    none are out of specification, or are connected to expanders which lower
     bandwidth. Doing an exhaustive study of different I/O sizes and patterns
     would provide the most information about performance expectations, but is
     beyond the scope of this document.
    </p><p>
     We recommend testing at least random 4 kB, random 64 kB, and
-    sequential 64 kB and 1 MB buffers. This should give a reasonable overall view
-    of the device’s performance characteristics. When testing, it is
-    important to use the raw device
+    sequential 64 kB and 1 MB buffers. This should give a reasonable
+    overall view of the device’s performance characteristics. When testing, it
+    is important to use the raw device
     (<code class="literal">/dev/sd<em class="replaceable ">X</em></code>) and to use the
     <code class="option">direct=1</code> option with multiple jobs to maximize device
     performance under stress.
@@ -103,8 +103,8 @@ hljs.configure({
     Run <code class="command">fio</code> against all devices in an OSD node
     simultaneously to identify bottlenecks. It should scale very near linearly;
     if not, check controller firmware, slot placement, and if necessary, split
-    devices across multiple controllers. This simulates the node under
-    heavy load.
+    devices across multiple controllers. This simulates the node under heavy
+    load.
    </p><p>
     We recommend using the same I/O patterns and block sizes that the
     individual devices were tested with. The job count should be a multiple of
@@ -122,36 +122,35 @@ hljs.configure({
   latency_window=5s
   latency_percentile=99</pre></div><p>
      The settings above cause <code class="command">fio</code> to increase the I/O queue
-     depth until 1% or more of IOPS no longer maintain a 10 ms average during
-     a sliding five-second window. It then backs down the queue depth until the
-     latency average is maintained.
+     depth until 1% or more of IOPS no longer maintain a 10 ms average
+     during a sliding five-second window. It then backs down the queue depth
+     until the latency average is maintained.
     </p></div></div></div><div class="sect1 " id="tuning-kernel-tuning"><div class="titlepage"><div><div><h2 class="title"><span class="number">5.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Kernel Tuning</span> <a title="Permalink" class="permalink" href="tuning-os.html#tuning-kernel-tuning">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span>tuning-kernel-tuning</li></ul></div></div></div></div><p>
    There are several aspects of the kernel that can be tuned on both the
    cluster and some of the clients. It is important to understand that most
    tuning is about gaining very small incremental improvements, which in
    aggregate represent a measureable (and hopefully meaningful) improvement in
-   performance. For this document, information on tuning comes from a variety of
-   sources. The primary source is
+   performance. For this document, information on tuning comes from a variety
+   of sources. The primary source is
    <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/book-sle-tuning.html" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/book-sle-tuning.html</a>.
    We also used numerous other references, including documentation from
    hardware vendors.
   </p><div class="sect2 " id="id-1.5.3.3.5.3"><div class="titlepage"><div><div><h3 class="title"><span class="number">5.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">CPU Mitigations</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.5.3">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
-    One key area of kernel performance tuning is to disable its
-    side-channel attack mitigations. The bulk of the
-    benefits from this occur with smaller I/Os, ranging in size from
-    4 kB to 64 kB. In particular, 64 kB random read and
-    sequential writes doubled in performance in a limited test environment
-    using only two client nodes.
+    One key area of kernel performance tuning is to disable its side-channel
+    attack mitigations. The bulk of the benefits from this occur with smaller
+    I/Os, ranging in size from 4 kB to 64 kB. In particular,
+    64 kB random read and sequential writes doubled in performance in a
+    limited test environment using only two client nodes.
    </p><p>
     Changing these options requires a clear understanding of the security
-    implications, as they involve disabling mitigations for side-channel attacks
-    on some CPUs. The need to disable these mitigations may be minimized with
-    newer processors. You must carefully evaluate whether this is something needed for
-    the particular hardware being utilized. In the test configuration, a Salt
-    state was utilized to apply these changes. The Salt state should be in a
-    subdirectory of <code class="filename">/srv/salt</code> on the Salt master and is
-    applied by using a <code class="command">salt state.apply</code> command similar to
-    below:
+    implications, as they involve disabling mitigations for side-channel
+    attacks on some CPUs. The need to disable these mitigations may be
+    minimized with newer processors. You must carefully evaluate whether this
+    is something needed for the particular hardware being utilized. In the test
+    configuration, a Salt state was utilized to apply these changes. The
+    Salt state should be in a subdirectory of <code class="filename">/srv/salt</code>
+    on the Salt master and is applied by using a <code class="command">salt
+    state.apply</code> command similar to below:
    </p><div class="verbatim-wrap"><pre class="screen">salt '*' state.apply my_kerntune</pre></div><p>
     The Salt state and steps used in this testing can be found in
     <a class="xref" href="tuning-appendix-a.html" title="Appendix A. Salt State for Kernel Tuning">Appendix A, <em>Salt State for Kernel Tuning</em></a>. This needs to be adjusted to work in
@@ -160,15 +159,15 @@ hljs.configure({
     appendix.
    </p></div><div class="sect2 " id="id-1.5.3.3.5.4"><div class="titlepage"><div><div><h3 class="title"><span class="number">5.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">I/O tuning - Multiqueue Block I/O</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.5.4">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
     The first aspect to tune is to ensure that I/O is flowing in the most
-    optimal pattern. For the test cluster used in this test, that means enabling
-    multi-queue block I/O. This is done through adding a boot-time kernel
-    parameter, as found in Section 12.4
+    optimal pattern. For the test cluster used in this test, that means
+    enabling multi-queue block I/O. This is done through adding a boot-time
+    kernel parameter, as found in Section 12.4
     <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-tuning-io.html#cha-tuning-io-barrier" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-tuning-io.html#cha-tuning-io-barrier</a>.
     This is not an action that should be taken unilaterally on clusters which
-    contain spinning media devices, due to potential performance degradation for
-    those devices. The general result is that there multiple I/O queues are
+    contain spinning media devices, due to potential performance degradation
+    for those devices. The general result is that there multiple I/O queues are
     assigned to each device, allowing more jobs to be handled simultaneously by
-    those device that can service large numbers of requests, such as  SSD and 
+    those device that can service large numbers of requests, such as SSD and
     NVMe drives.
    </p></div><div class="sect2 " id="id-1.5.3.3.5.5"><div class="titlepage"><div><div><h3 class="title"><span class="number">5.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SSD Tuning</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.5.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
     To get the best read performance, it may be necessary to adjust the
@@ -194,10 +193,11 @@ hljs.configure({
     latency and throughput of the cluster. A full script for the testing we
     performed can be found in <a class="xref" href="tuning-appendix-c.html" title="Appendix C. Network Tuning">Appendix C, <em>Network Tuning</em></a>.
    </p><p>
-    The first change, and one with the highest impact, is to utilize jumbo frame packets. For
-    this to be done, all interfaces utilizing the cluster must be set to use an MTU of
-    9000 bytes. Network switches are often set to use 9100 or higher. This is 
-    suitable, as they are only passing packets, not creating them.
+    The first change, and one with the highest impact, is to utilize jumbo
+    frame packets. For this to be done, all interfaces utilizing the cluster
+    must be set to use an MTU of 9000 bytes. Network switches are often set to
+    use 9100 or higher. This is suitable, as they are only passing packets, not
+    creating them.
    </p><div class="sect3 " id="id-1.5.3.3.5.6.4"><div class="titlepage"><div><div><h4 class="title"><span class="number">5.2.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Device Tuning</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.5.6.4">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><div class="sect4 " id="id-1.5.3.3.5.6.4.2"><div class="titlepage"><div><div><h5 class="title"><span class="number">5.2.4.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Jumbo Frames</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.5.6.4.2">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h5><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
       The following Salt command ensures the bonded interfaces on all nodes
       under control (including the test load generation nodes) were utilizing
@@ -208,9 +208,9 @@ hljs.configure({
      </p></div><div class="sect4 " id="id-1.5.3.3.5.6.4.3"><div class="titlepage"><div><div><h5 class="title"><span class="number">5.2.4.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">PCIe Bus Adjustment</span> <a title="Permalink" class="permalink" href="tuning-os.html#id-1.5.3.3.5.6.4.3">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-os-tuning.xml" title="Edit the source file for this section">Edit source</a></h5><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>tuning-os-tuning.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
       Adjusting the PCIe maximum read request size can provide a slight boost
       to performance. Be aware that this tuning is card- and slot-specific and
-      must only be done in conjunction with the conditions and
-      instructions supplied by the manufacturer. The maximum PCIe read request
-      size was set with the following Salt commands:
+      must only be done in conjunction with the conditions and instructions
+      supplied by the manufacturer. The maximum PCIe read request size was set
+      with the following Salt commands:
      </p><div id="id-1.5.3.3.5.6.4.3.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.png" /><h6>Warning</h6><p>
        This should only be done with guidance from the NIC manufacturer and is
        specific to bus location, driver version and hardware.
@@ -246,9 +246,9 @@ LOCAL_CPUS=`cat /sys/class/net/$j/device/local_cpus`;echo $LOCAL_CPUS &gt; \
   RX Mini:	0
   RX Jumbo:	0
   TX:		1024</pre></div><p>
-      Here we can see that the NIC can allocate buffers of up to 8 kB,
-      but it iscurrently using ones of only 1 kB. To adjust this for the cluster, issue
-      the following command:
+      Here we can see that the NIC can allocate buffers of up to 8 kB, but
+      it iscurrently using ones of only 1 kB. To adjust this for the
+      cluster, issue the following command:
      </p><div class="verbatim-wrap"><pre class="screen">  salt '*' cmd.run 'ethtool -G eth4 rx 8192 tx 8192'
   salt '*' cmd.run 'ethtool -G eth5 rx 8192 tx 8192'</pre></div><p>
       Setting this value persistently can be achieved via the YaST

@@ -223,25 +223,46 @@ Full list of resources:
       <code class="literal">host_list</code> is unreachable.
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>location nfs-ganesha-server-with-ganesha-ping
         nfs-ganesha-clone \
-        rule -inf: not_defined ping or ping lte 0</pre></div></li></ol></div></div></div><div class="sect2 " id="setup-portblock-resource"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Setting Up PortBlock Resource</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#setup-portblock-resource">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>setup-portblock-resource</li></ul></div></div></div></div><p>When a service goes down, the TCP connection that is in use by
-      NFS Ganesha is required to be closed otherwise it
-      continues to run until a system-specific timeout occurs. This timeout
-      can take upwards of 3 minutes.</p><p>To shorten the timeout time, the TCP connection needs to be reset.
-      We recommend configuring <code class="literal">portblock</code> to reset stale TCP
-      connections.</p><p>You can choose to use portblock with or without the
-      <code class="literal">tickle_dir</code> parameters that could unblock and
-      reconnect clients to the new service faster. We recommend to
-      have <code class="literal">tickle_dir</code> as the shared CephFS mount
-      between two HA nodes (where NFS Ganesha services are running).</p><div class="procedure "><div class="procedure-contents"><div id="id-1.4.5.6.7.8.5.1" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Configuring the following resource is optional.</p></div><ol class="procedure" type="1"><li class="step "><p>On <code class="systemitem">earth</code>, run the crm shell to execute the following
-            commands to configure the resource for NFS Ganesha daemons:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> configure</pre></div></li><li class="step "><p>Configure the <code class="literal">block</code> action for
-          <code class="literal">portblock</code> and omit the <code class="literal">tickle_dir</code>
-          option if you have not configured a shared directory:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-block ocf:portblock \
-protocol=tcp portno=2049 action=block ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>Configure the <code class="literal">unblock</code> action for
-          <code class="literal">portblock</code> and omit the <code class="literal">reset_local_on_unblock_stop</code>
-          option if you have not configured a shared directory:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-unblock ocf:portblock \
-protocol=tcp portno=2049 action=unblock ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" reset_local_on_unblock_stop=true tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>Configure the <code class="literal">IPAddr2</code> resource with <code class="literal">portblock</code>:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> colocation ganesha-portblock inf: ganesha-ip nfs-ganesha-block nfs-ganesha-unblock
+        rule -inf: not_defined ping or ping lte 0</pre></div></li></ol></div></div></div><div class="sect2 " id="setup-portblock-resource"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Setting Up PortBlock Resource</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#setup-portblock-resource">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>setup-portblock-resource</li></ul></div></div></div></div><p>
+    When a service goes down, the TCP connection that is in use by NFS Ganesha is
+    required to be closed otherwise it continues to run until a system-specific
+    timeout occurs. This timeout can take upwards of 3 minutes.
+   </p><p>
+    To shorten the timeout time, the TCP connection needs to be reset. We
+    recommend configuring <code class="literal">portblock</code> to reset stale TCP
+    connections.
+   </p><p>
+    You can choose to use portblock with or without the
+    <code class="literal">tickle_dir</code> parameters that could unblock and reconnect
+    clients to the new service faster. We recommend to have
+    <code class="literal">tickle_dir</code> as the shared CephFS mount between two HA
+    nodes (where NFS Ganesha services are running).
+   </p><div class="procedure "><div class="procedure-contents"><div id="id-1.4.5.6.7.8.5.1" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      Configuring the following resource is optional.
+     </p></div><ol class="procedure" type="1"><li class="step "><p>
+      On <code class="systemitem">earth</code>, run the crm shell to execute the following commands to
+      configure the resource for NFS Ganesha daemons:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> configure</pre></div></li><li class="step "><p>
+      Configure the <code class="literal">block</code> action for
+      <code class="literal">portblock</code> and omit the <code class="literal">tickle_dir</code>
+      option if you have not configured a shared directory:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-block ocf:portblock \
+protocol=tcp portno=2049 action=block ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>
+      Configure the <code class="literal">unblock</code> action for
+      <code class="literal">portblock</code> and omit the
+      <code class="literal">reset_local_on_unblock_stop</code> option if you have not
+      configured a shared directory:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-unblock ocf:portblock \
+protocol=tcp portno=2049 action=unblock ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" reset_local_on_unblock_stop=true tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>
+      Configure the <code class="literal">IPAddr2</code> resource with
+      <code class="literal">portblock</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> colocation ganesha-portblock inf: ganesha-ip nfs-ganesha-block nfs-ganesha-unblock
 <code class="prompt user">crm(live)configure# </code> edit ganesha-ip-after-nfs-ganesha-server
-order ganesha-ip-after-nfs-ganesha-server Mandatory: nfs-ganesha-block nfs-ganesha-clone ganesha-ip nfs-ganesha-unblock</pre></div></li><li class="step "><p>Save your changes:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> commit</pre></div></li><li class="step "><p>Your configuration should look like this:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> show</pre></div><div class="verbatim-wrap"><pre class="screen">"
+order ganesha-ip-after-nfs-ganesha-server Mandatory: nfs-ganesha-block nfs-ganesha-clone ganesha-ip nfs-ganesha-unblock</pre></div></li><li class="step "><p>
+      Save your changes:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> commit</pre></div></li><li class="step "><p>
+      Your configuration should look like this:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> show</pre></div><div class="verbatim-wrap"><pre class="screen">"
 node 1084782956: nfs1
 node 1084783048: nfs2
 primitive ganesha-ip IPaddr2 \
@@ -276,9 +297,12 @@ rsc_defaults rsc-options: \
 op_defaults op-options: \
         timeout=600 \
         record-pending=true
-"</pre></div><p>In this example <code class="filename">/tmp/ganesha/</code> is the CephFS
-        mount on both nodes (nfs1 and nfs2):</p><div class="verbatim-wrap"><pre class="screen">172.16.1.11:6789:/ganesha on /tmp/ganesha type ceph (rw,relatime,name=admin,secret=...hidden...,acl,wsize=16777216)</pre></div><p>The <code class="literal">tickle</code> directory has been initially
-        created.</p></li></ol></div></div></div><div class="sect2 " id="ganesha-ha-deepsea"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">NFS Ganesha HA and DeepSea</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#ganesha-ha-deepsea">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>ganesha-ha-deepsea</li></ul></div></div></div></div><p>
+"</pre></div><p>
+      In this example <code class="filename">/tmp/ganesha/</code> is the CephFS mount
+      on both nodes (nfs1 and nfs2):
+     </p><div class="verbatim-wrap"><pre class="screen">172.16.1.11:6789:/ganesha on /tmp/ganesha type ceph (rw,relatime,name=admin,secret=...hidden...,acl,wsize=16777216)</pre></div><p>
+      The <code class="literal">tickle</code> directory has been initially created.
+     </p></li></ol></div></div></div><div class="sect2 " id="ganesha-ha-deepsea"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">NFS Ganesha HA and DeepSea</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#ganesha-ha-deepsea">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>ganesha-ha-deepsea</li></ul></div></div></div></div><p>
     DeepSea does not support configuring NFS Ganesha HA. To prevent DeepSea
     from failing after NFS Ganesha HA is configured, exclude starting and
     stopping the NFS Ganesha service from DeepSea stage 4:
@@ -296,18 +320,20 @@ op_defaults op-options: \
       Add the following line to
       <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
      </p><div class="verbatim-wrap"><pre class="screen">ganesha_init: ha</pre></div></li></ol></div></div><p>
-     To prevent DeepSea from restarting NFS Ganesha service on stage 4:
+    To prevent DeepSea from restarting NFS Ganesha service on stage 4:
    </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
-         Copy <code class="filename">/srv/salt/ceph/stage/ganesha/default.sls</code> to
-         <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code>.
-       </p></li><li class="step "><p>
-         Remove the line <code class="literal">  - ...restart.ganesha.lax</code> from the
-         <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code> so it looks as follows:
-       </p><div class="verbatim-wrap"><pre class="screen">include:
+      Copy <code class="filename">/srv/salt/ceph/stage/ganesha/default.sls</code> to
+      <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code>.
+     </p></li><li class="step "><p>
+      Remove the line <code class="literal"> - ...restart.ganesha.lax</code> from the
+      <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code> so it looks as
+      follows:
+     </p><div class="verbatim-wrap"><pre class="screen">include:
   - .migrate
   - .core</pre></div></li><li class="step "><p>
-         Add the following line to <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
-       </p><div class="verbatim-wrap"><pre class="screen">stage_ganesha: ha</pre></div></li></ol></div></div></div></div><div class="sect1 " id="sec-ganesha-active-active"><div class="titlepage"><div><div><h2 class="title"><span class="number">12.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Active-Active Configuration</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-ganesha-active-active">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>sec-ganesha-active-active</li></ul></div></div></div></div><p>
+      Add the following line to
+      <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+     </p><div class="verbatim-wrap"><pre class="screen">stage_ganesha: ha</pre></div></li></ol></div></div></div></div><div class="sect1 " id="sec-ganesha-active-active"><div class="titlepage"><div><div><h2 class="title"><span class="number">12.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Active-Active Configuration</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-ganesha-active-active">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>sec-ganesha-active-active</li></ul></div></div></div></div><p>
    This section provides an example of simple active-active NFS Ganesha setup.
    The aim is to deploy two NFS Ganesha servers layered on top of the same
    existing CephFS. The servers will be two Ceph cluster nodes with
@@ -337,9 +363,9 @@ op_defaults op-options: \
 cephfs_data
 cephfs_metadata</pre></div></div><div class="sect2 " id="sec-ganesha-active-active-configure"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configure NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-ganesha-active-active-configure">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>sec-ganesha-active-active-configure</li></ul></div></div></div></div><p>
     Check that both NFS Ganesha nodes have the file
-    <code class="filename">/etc/ganesha/ganesha.conf</code> installed. Add the
-    following blocks, if they do not exist yet, to the configuration file in
-    order to enable RADOS as the recovery backend of NFS Ganesha.
+    <code class="filename">/etc/ganesha/ganesha.conf</code> installed. Add the following
+    blocks, if they do not exist yet, to the configuration file in order to
+    enable RADOS as the recovery backend of NFS Ganesha.
    </p><div class="verbatim-wrap"><pre class="screen">NFS_CORE_PARAM
 {
     Enable_NLM = false;
@@ -364,13 +390,14 @@ RADOS_KV
     UserId = "<em class="replaceable ">cephx_user_id</em>";
     Ceph_Conf = "<em class="replaceable ">path_to_ceph.conf</em>"
 }</pre></div><p>
-   You can find out the values for <em class="replaceable ">rados_pool</em> and
-   <em class="replaceable ">pool_namespace</em> by checking the already existing line in
-   the configuration of the form:</p><div class="verbatim-wrap"><pre class="screen">%url rados://<em class="replaceable ">rados_pool</em>/<em class="replaceable ">pool_namespace</em>/...</pre></div><p>
-   The value for <em class="replaceable ">nodeid</em> option corresponds to the FQDN of
-   the machine, and <em class="replaceable ">UserId</em> and <em class="replaceable ">Ceph_Conf</em>
-   options value can be found in the already existing
-   <em class="replaceable ">RADOS_URLS</em> block.
+    You can find out the values for <em class="replaceable ">rados_pool</em> and
+    <em class="replaceable ">pool_namespace</em> by checking the already existing
+    line in the configuration of the form:
+   </p><div class="verbatim-wrap"><pre class="screen">%url rados://<em class="replaceable ">rados_pool</em>/<em class="replaceable ">pool_namespace</em>/...</pre></div><p>
+    The value for <em class="replaceable ">nodeid</em> option corresponds to the
+    FQDN of the machine, and <em class="replaceable ">UserId</em> and
+    <em class="replaceable ">Ceph_Conf</em> options value can be found in the
+    already existing <em class="replaceable ">RADOS_URLS</em> block.
    </p><p>
     Because legacy versions of NFS prevent us from lifting the grace period
     early and therefore prolong a server restart, we disable options for NFS
@@ -401,8 +428,8 @@ RADOS_KV
     not installed on at least one of the nodes, install it with
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper install nfs-ganesha-rados-grace</pre></div><p>
     We will use the command to create the DB and add both
-    <code class="option">nodeid</code>s. In our example, the two NFS Ganesha nodes are
-    named <code class="literal">ses6min1.example.com</code> and
+    <code class="option">nodeid</code>s. In our example, the two NFS Ganesha nodes are named
+    <code class="literal">ses6min1.example.com</code> and
     <code class="literal">ses6min2.example.com</code> On one of the NFS Ganesha hosts, run
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ganesha-rados-grace -p cephfs_metadata -n ganesha add ses6min1.example.com
 <code class="prompt user">cephadm@adm &gt; </code>ganesha-rados-grace -p cephfs_metadata -n ganesha add ses6min2.example.com

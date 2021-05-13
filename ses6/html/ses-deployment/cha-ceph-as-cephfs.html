@@ -52,12 +52,12 @@ hljs.configure({
      CephFS file system (<code class="literal">ceph mds add_data_pool</code>). They may
      only be added while the file system is unmounted.
     </p></li><li class="listitem "><p>
-       A minimum of one Metadata Server. SUSE recommends deploying several
-       nodes with the MDS role. By default, additional MDS daemons start
-       as <code class="literal">standby</code> daemons, acting as backups for the active
-       MDS. Multiple active MDS daemons are also supported
-       (refer to section <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-multimds" title="11.3.2. MDS Cluster Size">Section 11.3.2, “MDS Cluster Size”</a>).
-     </p></li></ul></div></div><div class="sect1 " id="ceph-cephfs-mds"><div class="titlepage"><div><div><h2 class="title"><span class="number">11.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Metadata Server</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-mds">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-mds</li></ul></div></div></div></div><p>
+     A minimum of one Metadata Server. SUSE recommends deploying several nodes with the
+     MDS role. By default, additional MDS daemons start as
+     <code class="literal">standby</code> daemons, acting as backups for the active MDS.
+     Multiple active MDS daemons are also supported (refer to section
+     <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-multimds" title="11.3.2. MDS Cluster Size">Section 11.3.2, “MDS Cluster Size”</a>).
+    </p></li></ul></div></div><div class="sect1 " id="ceph-cephfs-mds"><div class="titlepage"><div><div><h2 class="title"><span class="number">11.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Metadata Server</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-mds">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-mds</li></ul></div></div></div></div><p>
    Ceph metadata server (MDS) stores metadata for the CephFS. Ceph block
    devices and Ceph object storage <span class="emphasis"><em>do not</em></span> use MDS. MDSs
    make it possible for POSIX file system users to execute basic
@@ -79,8 +79,8 @@ hljs.configure({
     mounting of a file system fails, even though other operations may work
     properly.
    </p><p>
-     You can remove a metadata server in your cluster as described in
-     <span class="intraxref"></span>.
+    You can remove a metadata server in your cluster as described in
+    <span class="intraxref"></span>.
    </p></div><div class="sect2 " id="ceph-cephfs-mds-config"><div class="titlepage"><div><div><h3 class="title"><span class="number">11.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring a Metadata Server</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-mds-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-mds-config</li></ul></div></div></div></div><p>
     You can fine-tune the MDS behavior by inserting relevant options in the
     <code class="filename">ceph.conf</code> configuration file.
@@ -485,8 +485,8 @@ ceph.dir.layout="stripe_unit=4194304 stripe_count=1 object_size=4194304 \
 ceph.dir.layout="stripe_unit=4194304 stripe_count=1 object_size=4194304 \
  pool=cephfs_data_a"</pre></div></div><div class="sect3 " id="id-1.4.5.5.7.6.8"><div class="titlepage"><div><div><h4 class="title"><span class="number">11.3.4.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Inheritance of Layouts</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.7.6.8">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
      Files inherit the layout of their parent directory at creation time.
-     However, subsequent changes to the parent directory’s layout do not
-     affect children:
+     However, subsequent changes to the parent directory’s layout do not affect
+     children:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>getfattr -n ceph.dir.layout dir
 # file: dir
 ceph.dir.layout="stripe_unit=4194304 stripe_count=2 object_size=4194304 \

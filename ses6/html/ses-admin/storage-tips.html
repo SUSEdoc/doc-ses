@@ -45,9 +45,9 @@ hljs.configure({
    <a class="xref" href="cha-storage-datamgm.html#scrubbing" title="20.6. Scrubbing">Section 20.6, “Scrubbing”</a>) and deep scrubbing weekly.
    <span class="emphasis"><em>Light</em></span> scrubbing checks object sizes and checksums to
    ensure that placement groups are storing the same object data.
-   <span class="emphasis"><em>Deep</em></span> scrubbing checks an object’s content with that
-   of its replicas to ensure that the actual contents are the same. The price
-   for checking data integrity is increased I/O load on the cluster during the
+   <span class="emphasis"><em>Deep</em></span> scrubbing checks an object’s content with that of
+   its replicas to ensure that the actual contents are the same. The price for
+   checking data integrity is increased I/O load on the cluster during the
    scrubbing procedure.
   </p><p>
    The default settings allow Ceph OSDs to initiate scrubbing at inappropriate
@@ -419,13 +419,13 @@ disk_led:
       'on': lsmcli local-disk-fault-led-on --path '{device_file}'
       'off': lsmcli local-disk-fault-led-off --path '{device_file}'</pre></div><p>
    The default configuration for <code class="filename">disk_led.sls</code> offers disk
-   LED support through the <code class="systemitem">libstoragemgmt</code> layer.
-   The <code class="systemitem">libstoragemgmt</code> layer provides this support
-   through a hardware-specific plug-in and third party tools.
-   The default behavior can be customized using DeepSea by adding the following
-   for the <code class="literal">ledmon</code> package and
-   <code class="literal">ledctl</code> tool to <code class="filename">/srv/pillar/ceph/stack/global.yml</code>
-   (or any other YAML file in <code class="filename">/stack/ceph/</code>):
+   LED support through the <code class="systemitem">libstoragemgmt</code> layer. The
+   <code class="systemitem">libstoragemgmt</code> layer provides this support through
+   a hardware-specific plug-in and third party tools. The default behavior can
+   be customized using DeepSea by adding the following for the
+   <code class="literal">ledmon</code> package and <code class="literal">ledctl</code> tool to
+   <code class="filename">/srv/pillar/ceph/stack/global.yml</code> (or any other YAML
+   file in <code class="filename">/stack/ceph/</code>):
   </p><div class="verbatim-wrap"><pre class="screen">  disk_led:
     cmd:
       ident:
@@ -434,9 +434,9 @@ disk_led:
       fault:
         'on': ledctl locate='{device_file}'
         'off': ledctl locate_off='{device_file}'</pre></div><p>
-    If the customization should only apply to a special node (minion),
-    then the file <code class="filename">stack/ceph/minions/{{minion}}.yml</code> needs
-    to be used.
+   If the customization should only apply to a special node (minion), then the
+   file <code class="filename">stack/ceph/minions/{{minion}}.yml</code> needs to be
+   used.
   </p><p>
    With or without <code class="systemitem">libstoragemgmt</code>, third party tools
    may be required to adjust LED lights. These third party tools are available

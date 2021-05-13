@@ -264,9 +264,9 @@ sudo zypper refresh</pre></div><p>
        </p></dd><dt id="id-1.3.6.2.8.5.4.7.4"><span class="term "><code class="option">--secret=<em class="replaceable ">KEY</em></code></span></dt><dd><p>
         Specifies a secret key, for example manually generated.
        </p></dd></dl></div></div><div class="sect3 " id="user-quota-managment"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.5.2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">User Quota Management</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#user-quota-managment">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>user-quota-managment</li></ul></div></div></div></div><p>
-     The Ceph Object Gateway enables you to set quotas on users and buckets owned by
-     users. Quotas include the maximum number of objects in a bucket and the
-     maximum storage size in megabytes.
+     The Ceph Object Gateway enables you to set quotas on users and buckets owned by users.
+     Quotas include the maximum number of objects in a bucket and the maximum
+     storage size in megabytes.
     </p><p>
      Before you enable a user quota, you first need to set its parameters:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin quota set --quota-scope=user --uid=<em class="replaceable ">EXAMPLE_USER</em> \
@@ -357,8 +357,8 @@ subjectAltName = DNS:server1.example.com DNS:server2.example.com
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
 <code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3
 <code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4</pre></div></li><li class="step "><p>
-        Finally, run:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph dashboard set-rgw-api-ssl-verify False</pre></div></li></ol></div></div></div><div class="sect2 " id="ogw-ssl-advanced"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.7.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Advanced HTTPS Configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-ssl-advanced">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-ssl-advanced</li></ul></div></div></div></div><p>
+      Finally, run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph dashboard set-rgw-api-ssl-verify False</pre></div></li></ol></div></div></div><div class="sect2 " id="ogw-ssl-advanced"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.7.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Advanced HTTPS Configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-ssl-advanced">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-ssl-advanced</li></ul></div></div></div></div><p>
     If you need to change the default values for SSL settings of the Object Gateway,
     follow these steps:
    </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
@@ -805,7 +805,8 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
     The following parameters in the <code class="filename">/etc/ceph/ceph.conf</code>
     configuration file are related to the LDAP authentication:
    </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.3.6.2.12.5.3.1"><span class="term "><code class="option">rgw_s3_auth_use_ldap</code></span></dt><dd><p>
-       Set this option to <code class="literal">true</code> to enable S3 authentication with LDAP.
+       Set this option to <code class="literal">true</code> to enable S3 authentication
+       with LDAP.
       </p></dd><dt id="id-1.3.6.2.12.5.3.2"><span class="term "><code class="option">rgw_ldap_uri</code></span></dt><dd><p>
        Specifies the LDAP server to use. Make sure to use the
        <code class="literal">ldaps://<em class="replaceable ">FQDN</em>:<em class="replaceable ">PORT</em></code>
@@ -937,12 +938,12 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
       </p></li><li class="listitem "><p>
        Prints the old and the new bucket ID to the standard output.
       </p></li></ul></div><div id="id-1.3.6.2.13.3.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>
-        When choosing a number of shards, note the following: aim
-        for no more than 100000 entries per shard. Bucket index
-        shards that are prime numbers tend to work better in evenly distributing
-        bucket index entries across the shards. For example, 503 bucket index
-        shards is better than 500 since the former is prime.
-      </p></div><div class="procedure " id="id-1.3.6.2.13.3.4.8"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="number">Procedure 26.1: </span><span class="name">Resharding the Bucket Index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.3.6.2.13.3.4.8">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      When choosing a number of shards, note the following: aim for no more
+      than 100000 entries per shard. Bucket index shards that are prime numbers
+      tend to work better in evenly distributing bucket index entries across
+      the shards. For example, 503 bucket index shards is better than 500 since
+      the former is prime.
+     </p></div><div class="procedure " id="id-1.3.6.2.13.3.4.8"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="number">Procedure 26.1: </span><span class="name">Resharding the Bucket Index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.3.6.2.13.3.4.8">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
        Make sure that all operations to the bucket are stopped.
       </p></li><li class="step "><p>
        Back up the original bucket index:
@@ -1000,8 +1001,9 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
       </p></li><li class="step "><p>
        Reset the zonegroup:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup set &lt; zonegroup.json</pre></div></li><li class="step "><p>
-       Update the period. See <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-updateperiod" title="26.13.2.6. Update the Period">Section 26.13.2.6, “Update the Period”</a>.
-     </p></li></ol></div></div></div></div></div><div class="sect1 " id="ogw-keystone"><div class="titlepage"><div><div><h2 class="title"><span class="number">26.11 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Integrating OpenStack Keystone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-keystone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-keystone</li></ul></div></div></div></div><p>
+       Update the period. See
+       <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-updateperiod" title="26.13.2.6. Update the Period">Section 26.13.2.6, “Update the Period”</a>.
+      </p></li></ol></div></div></div></div></div><div class="sect1 " id="ogw-keystone"><div class="titlepage"><div><div><h2 class="title"><span class="number">26.11 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Integrating OpenStack Keystone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-keystone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-keystone</li></ul></div></div></div></div><p>
    OpenStack Keystone is an identity service for the OpenStack product. You can
    integrate the Object Gateway with Keystone to set up a gateway that accepts a
    Keystone authentication token. A user authorized by Keystone to access
@@ -1117,8 +1119,8 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
         The Keystone administrator user project.
        </p></dd></dl></div></div></div></div><div class="sect1 " id="ogw-storage-classes"><div class="titlepage"><div><div><h2 class="title"><span class="number">26.12 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Pool Placement and Storage Classes</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-storage-classes</li></ul></div></div></div></div><div class="sect2 " id="ogw-storage-classes-placement-targets"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.12.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Placement Targets</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-placement-targets">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-storage-classes-placement-targets</li></ul></div></div></div></div><p>
     Placement targets control which pools are associated with a particular
-    bucket. A bucket’s placement target is selected on creation, and cannot
-    be modified. You can display its 'placement_rule' by running the following
+    bucket. A bucket’s placement target is selected on creation, and cannot be
+    modified. You can display its 'placement_rule' by running the following
     command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin bucket stats</pre></div><p>
     The zonegroup configuration contains a list of placement targets with an
@@ -1137,8 +1139,8 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
     named 'STANDARD'. The zone configuration is responsible for providing a
     'data_pool' pool name for each of the zonegroup’s storage classes.
    </p></div><div class="sect2 " id="ogw-storage-classes-zone-config"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.12.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Zonegroup/Zone Configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-zone-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-storage-classes-zone-config</li></ul></div></div></div></div><p>
-    Use the <code class="command">radosgw-admin</code> command on the zonegroups and
-    zones to configure their placement. You can query the zonegroup placement
+    Use the <code class="command">radosgw-admin</code> command on the zonegroups and zones
+    to configure their placement. You can query the zonegroup placement
     configuration using the following command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup get
 {
@@ -1231,8 +1233,8 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
     "placement_tags": [],
     ...
 }</pre></div><p>
-     If a zonegroup’s placement target contains any tags, users will be
-     unable to create buckets with that placement target unless their user info
+     If a zonegroup’s placement target contains any tags, users will be unable
+     to create buckets with that placement target unless their user info
      contains at least one matching tag in its 'placement_tags' field. This can
      be useful to restrict access to certain types of storage.
     </p><p>
@@ -1265,93 +1267,114 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
    </p><p>
     You can use <span class="emphasis"><em>S3 Object Lifecycle Management</em></span> to move
     object data between storage classes using 'Transition' actions.
-   </p></div></div><div class="sect1 " id="ceph-rgw-fed"><div class="titlepage"><div><div><h2 class="title"><span class="number">26.13 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Multisite Object Gateways</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed</li></ul></div></div></div></div><p>Ceph supports several multi-site configuration options for the
-    Ceph Object Gateway:</p><div class="variablelist "><dl class="variablelist"><dt id="id-1.3.6.2.16.3.1"><span class="term ">Multi-zone</span></dt><dd><p>
-      A configuration consisting of one zonegroup and multiple
-      zones, each zone with one or more <code class="systemitem">ceph-radosgw</code> instances. Each zone
-      is backed by its own Ceph Storage Cluster. Multiple zones in a zone
-      group provide disaster recovery for the zonegroup should one of
-      the zones experience a significant failure. Each zone is
+   </p></div></div><div class="sect1 " id="ceph-rgw-fed"><div class="titlepage"><div><div><h2 class="title"><span class="number">26.13 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Multisite Object Gateways</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed</li></ul></div></div></div></div><p>
+   Ceph supports several multi-site configuration options for the Ceph Object Gateway:
+  </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.3.6.2.16.3.1"><span class="term ">Multi-zone</span></dt><dd><p>
+      A configuration consisting of one zonegroup and multiple zones, each zone
+      with one or more <code class="systemitem">ceph-radosgw</code>
+      instances. Each zone is backed by its own Ceph Storage Cluster.
+      Multiple zones in a zone group provide disaster recovery for the zonegroup
+      should one of the zones experience a significant failure. Each zone is
       active and may receive write operations. In addition to disaster
       recovery, multiple active zones may also serve as a foundation for
       content delivery networks.
      </p></dd><dt id="id-1.3.6.2.16.3.2"><span class="term ">Multi-zone-group</span></dt><dd><p>
-      Ceph Object Gateway supports multiple zonegroups, each zonegroup with one or
-      more zones. Objects stored to zones in one zonegroup within the same
-      realm as another zonegroup share a global object namespace, ensuring
-      unique object IDs across zonegroups and zones.
-     </p><div id="id-1.3.6.2.16.3.2.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>It is important to note that zonegroups <span class="emphasis"><em>only</em></span>
-       sync metadata amongst themselves. Data and metadata are replicated
-       between the zones within the zonegroup. No data or metadata is shared
-       across a realm.</p></div></dd><dt id="id-1.3.6.2.16.3.3"><span class="term ">Multiple Realms</span></dt><dd><p>
-      Ceph Object Gateway supports the notion of realms; a globally unique
-      namespace. Multiple realms are supported which may
-      encompass single or multiple zonegroups.
+      Ceph Object Gateway supports multiple zonegroups, each zonegroup with one or more zones.
+      Objects stored to zones in one zonegroup within the same realm as another
+      zonegroup share a global object namespace, ensuring unique object IDs
+      across zonegroups and zones.
+     </p><div id="id-1.3.6.2.16.3.2.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+       It is important to note that zonegroups <span class="emphasis"><em>only</em></span> sync
+       metadata amongst themselves. Data and metadata are replicated between
+       the zones within the zonegroup. No data or metadata is shared across a
+       realm.
+      </p></div></dd><dt id="id-1.3.6.2.16.3.3"><span class="term ">Multiple Realms</span></dt><dd><p>
+      Ceph Object Gateway supports the notion of realms; a globally unique namespace.
+      Multiple realms are supported which may encompass single or multiple
+      zonegroups.
      </p></dd></dl></div><p>
-   You can configure each Object Gateway to work in an active-active zone
-   configuration, allowing for writes to non-master zones.
-   The multi-site configuration is stored within a container called a realm.
-   The realm stores zonegroups, zones, and a time period with multiple
-   epochs for tracking changes to the configuration. The
-   <code class="systemitem">ceph-radosgw</code> daemons handle the synchronization, eliminating the
-   need for a separate synchronization agent. This approach
-   to synchronization allows the Ceph Object Gateway to operate with an
-   active-active configuration instead of active-passive.
+   You can configure each Object Gateway to work in an active-active zone configuration,
+   allowing for writes to non-master zones. The multi-site configuration is
+   stored within a container called a realm. The realm stores zonegroups, zones,
+   and a time period with multiple epochs for tracking changes to the
+   configuration. The <code class="systemitem">ceph-radosgw</code>
+   daemons handle the synchronization, eliminating the need for a separate
+   synchronization agent. This approach to synchronization allows the Ceph Object Gateway to
+   operate with an active-active configuration instead of active-passive.
   </p><div class="sect2 " id="ceph-rgw-multi-req-assump"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Requirements and Assumptions</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-multi-req-assump">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-multi-req-assump</li></ul></div></div></div></div><p>
-     A multi-site configuration requires at least two Ceph storage clusters, and
-     at least two Ceph Object Gateway instances, one for each Ceph storage cluster.
-     The following configuration assumes at least two Ceph storage clusters
-     are in geographically separate locations. However, the configuration can
-     work on the same site. For example, named <code class="literal">rgw1</code> and
-     <code class="literal">rgw2</code>.
-   </p><p>A multi-site configuration requires a master zonegroup and a
-     master zone. A master zone is the source of truth with respect to all
-     metadata operations in a multisite cluster. Additionally, each
-     zonegroup requires a master zone.
-     zonegroups may have one or more secondary or non-master zones.
-     In this guide, the <code class="literal">rgw1</code> host serves as the master zone
-     of the master zonegroup and the <code class="literal">rgw2</code> host serves as the
-     secondary zone of the master zonegroup.</p></div><div class="sect2 " id="ceph-rgw-config-master-zone"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring a Master Zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-config-master-zone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-config-master-zone</li></ul></div></div></div></div><p>
-     All gateways in a multi-site configuration retrieve their configuration
-     from a <code class="systemitem">ceph-radosgw</code> daemon on a host within the master zonegroup and master
-     zone. To configure your gateways in a multi-site configuration, choose
-     a <code class="systemitem">ceph-radosgw</code> instance to configure the master zonegroup and master zone.
-   </p><div class="sect3 " id="ceph-rgw-fed-realm"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a Realm</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-realm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-realm</li></ul></div></div></div></div><p>A realm represents a globally unique namespace consisting of one or
-     more zonegroups containing one or more zones. Zones contain buckets,
-     which in turn contain objects. A realm enables the Ceph Object Gateway to
-     support multiple namespaces and their configuration on the same hardware.
-     A realm contains the notion of periods. Each period represents the state of
-     the zonegroup and zone configuration in time. Each time you make a change
-     to a zonegroup or zone, update the period and commit it.
-     By default, the Ceph Object Gateway does not create a realm for backward
-     compatibility. As a best practice, we recommend creating realms for new clusters.</p><p>
-    Create a new realm called <code class="literal">gold</code> for the multi-site
-    configuration by opening a command line interface on a host identified
-    to serve in the master zonegroup and zone. Then, execute the following:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm create --rgw-realm=gold --default</pre></div><p>If the cluster has a single realm, specify the <code class="option">--default</code>
-   flag. If <code class="option">--default</code> is specified, <code class="command">radosgw-admin</code> uses this realm by default.
-   If <code class="option">--default</code> is not specified, adding zone-groups and zones requires specifying
-   either the <code class="option">--rgw-realm</code> flag or the <code class="option">--realm-id</code> flag to identify the realm when
-   adding zonegroups and zones.</p><p>After creating the realm, <code class="command">radosgw-admin</code> returns the realm
-     configuration:</p><div class="verbatim-wrap"><pre class="screen">{
+    A multi-site configuration requires at least two Ceph storage clusters,
+    and at least two Ceph Object Gateway instances, one for each Ceph storage cluster. The
+    following configuration assumes at least two Ceph storage clusters are in
+    geographically separate locations. However, the configuration can work on
+    the same site. For example, named <code class="literal">rgw1</code> and
+    <code class="literal">rgw2</code>.
+   </p><p>
+    A multi-site configuration requires a master zonegroup and a master zone. A
+    master zone is the source of truth with respect to all metadata operations
+    in a multisite cluster. Additionally, each zonegroup requires a master zone.
+    zonegroups may have one or more secondary or non-master zones. In this
+    guide, the <code class="literal">rgw1</code> host serves as the master zone of the
+    master zonegroup and the <code class="literal">rgw2</code> host serves as the
+    secondary zone of the master zonegroup.
+   </p></div><div class="sect2 " id="ceph-rgw-config-master-zone"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring a Master Zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-config-master-zone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-config-master-zone</li></ul></div></div></div></div><p>
+    All gateways in a multi-site configuration retrieve their configuration
+    from a <code class="systemitem">ceph-radosgw</code> daemon on a
+    host within the master zonegroup and master zone. To configure your gateways
+    in a multi-site configuration, choose a
+    <code class="systemitem">ceph-radosgw</code> instance to configure
+    the master zonegroup and master zone.
+   </p><div class="sect3 " id="ceph-rgw-fed-realm"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a Realm</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-realm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-realm</li></ul></div></div></div></div><p>
+     A realm represents a globally unique namespace consisting of one or more
+     zonegroups containing one or more zones. Zones contain buckets, which in
+     turn contain objects. A realm enables the Ceph Object Gateway to support multiple
+     namespaces and their configuration on the same hardware. A realm contains
+     the notion of periods. Each period represents the state of the zonegroup
+     and zone configuration in time. Each time you make a change to a zonegroup
+     or zone, update the period and commit it. By default, the Ceph Object Gateway does not
+     create a realm for backward compatibility. As a best practice, we
+     recommend creating realms for new clusters.
+    </p><p>
+     Create a new realm called <code class="literal">gold</code> for the multi-site
+     configuration by opening a command line interface on a host identified to
+     serve in the master zonegroup and zone. Then, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm create --rgw-realm=gold --default</pre></div><p>
+     If the cluster has a single realm, specify the <code class="option">--default</code>
+     flag. If <code class="option">--default</code> is specified,
+     <code class="command">radosgw-admin</code> uses this realm by default. If
+     <code class="option">--default</code> is not specified, adding zone-groups and zones
+     requires specifying either the <code class="option">--rgw-realm</code> flag or the
+     <code class="option">--realm-id</code> flag to identify the realm when adding
+     zonegroups and zones.
+    </p><p>
+     After creating the realm, <code class="command">radosgw-admin</code> returns the
+     realm configuration:
+    </p><div class="verbatim-wrap"><pre class="screen">{
   "id": "4a367026-bd8f-40ee-b486-8212482ddcd7",
   "name": "gold",
   "current_period": "09559832-67a4-4101-8b3f-10dfcd6b2707",
   "epoch": 1
-}</pre></div><div id="id-1.3.6.2.16.6.3.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Ceph generates a unique ID for the realm, which allows the
-       renaming of a realm if the need arises.</p></div></div><div class="sect3 " id="ceph-rgw-fed-createmasterzonegrp"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a Master zonegroup</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-createmasterzonegrp">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-createmasterzonegrp</li></ul></div></div></div></div><p>
-    A realm must have at least one zonegroup to serve as the
-    master zonegroup for the realm. Create a new master zonegroup for
-    the multi-site configuration by opening a command line interface
-    on a host identified to serve in the master zonegroup and zone.
-    Create a master zonegroup called <code class="literal">us</code> by executing the following:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup create --rgw-zonegroup=us \
---endpoints=http://rgw1:80 --master --default</pre></div><p>If the realm only has a single zonegroup, specify the
-    <code class="option">--default</code> flag. If <code class="option">--default</code> is specified,
-    <code class="command">radosgw-admin</code> uses this zonegroup by default when adding new zones.
-    If <code class="option">--default</code> is not specified, adding zones requires
-    either the <code class="option">--rgw-zonegroup</code> flag or the <code class="option">--zonegroup-id</code> flag to identify the
-    zonegroup when adding or modifying zones.</p><p>After creating the master zonegroup, <code class="command">radosgw-admin</code> returns
-  the zonegroup configuration. For example:</p><div class="verbatim-wrap"><pre class="screen">{
+}</pre></div><div id="id-1.3.6.2.16.6.3.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      Ceph generates a unique ID for the realm, which allows the renaming of
+      a realm if the need arises.
+     </p></div></div><div class="sect3 " id="ceph-rgw-fed-createmasterzonegrp"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a Master zonegroup</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-createmasterzonegrp">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-createmasterzonegrp</li></ul></div></div></div></div><p>
+     A realm must have at least one zonegroup to serve as the master zonegroup
+     for the realm. Create a new master zonegroup for the multi-site
+     configuration by opening a command line interface on a host identified to
+     serve in the master zonegroup and zone. Create a master zonegroup called
+     <code class="literal">us</code> by executing the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup create --rgw-zonegroup=us \
+--endpoints=http://rgw1:80 --master --default</pre></div><p>
+     If the realm only has a single zonegroup, specify the
+     <code class="option">--default</code> flag. If <code class="option">--default</code> is
+     specified, <code class="command">radosgw-admin</code> uses this zonegroup by default
+     when adding new zones. If <code class="option">--default</code> is not specified,
+     adding zones requires either the <code class="option">--rgw-zonegroup</code> flag or
+     the <code class="option">--zonegroup-id</code> flag to identify the zonegroup when
+     adding or modifying zones.
+    </p><p>
+     After creating the master zonegroup, <code class="command">radosgw-admin</code>
+     returns the zonegroup configuration. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">{
  "id": "d4018b8d-8c0d-4072-8919-608726fa369e",
  "name": "us",
  "api_name": "us",
@@ -1367,17 +1390,20 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
  "default_placement": "",
  "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7"
 }</pre></div></div><div class="sect3 " id="ceph-rgw-fed-masterzone"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating a Master Zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-masterzone</li></ul></div></div></div></div><div id="id-1.3.6.2.16.6.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
-       Zones need to be created on a Ceph Object Gateway node that will be within the zone.
-    </p></div><p>
-   Create a new master zone for the multi-site configuration by opening
-   a command line interface on a host identified to serve in the master
-   zonegroup and zone. Execute the following:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --rgw-zone=us-east-1 \
+      Zones need to be created on a Ceph Object Gateway node that will be within the zone.
+     </p></div><p>
+     Create a new master zone for the multi-site configuration by opening a
+     command line interface on a host identified to serve in the master
+     zonegroup and zone. Execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --rgw-zone=us-east-1 \
 --endpoints=http://rgw1:80 --access-key=<em class="replaceable ">SYSTEM_ACCESS_KEY</em> --secret=<em class="replaceable ">SYSTEM_SECRET_KEY</em></pre></div><div id="id-1.3.6.2.16.6.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-      The <code class="option">--access-key</code> and <code class="option">--secret</code> options are not
-      specified in the above example. These settings are added to the zone once the
-      user is created in the next section.</p></div><p>After creating the master zone, <code class="command">radosgw-admin</code> returns
-  the zone configuration. For example:</p><div class="verbatim-wrap"><pre class="screen">  {
+      The <code class="option">--access-key</code> and <code class="option">--secret</code> options
+      are not specified in the above example. These settings are added to the
+      zone once the user is created in the next section.
+     </p></div><p>
+     After creating the master zone, <code class="command">radosgw-admin</code> returns
+     the zone configuration. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">  {
       "id": "56dfabbb-2f4e-4223-925e-de3c72de3866",
       "name": "us-east-1",
       "domain_root": "us-east-1.rgw.meta:root",
@@ -1415,35 +1441,51 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
       "metadata_heap": "",
       "realm_id": ""
   }</pre></div></div><div class="sect3 " id="ceph-rgw-fed-deldefzonegrp"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Deleting the Default Zone and Group</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-deldefzonegrp">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-deldefzonegrp</li></ul></div></div></div></div><p>
-    The default installation of Object Gateway creates the default zonegroup called
-    <code class="literal">default</code>. Delete the default zone if it exists.
-    Make sure to remove it from the default zonegroup first.
-   </p><div id="id-1.3.6.2.16.6.6.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>The following steps assume a multi-site configuration using newly
-       installed systems that are not storing data yet. <span class="bold"><strong>Do not delete</strong></span>
-       the default zone and its pools if you are already using it to store data,
-       or the data will be deleted and unrecoverable.</p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup delete --rgw-zonegroup=default</pre></div><p>Delete the default pools in your Ceph storage cluster if they exist:</p><div id="id-1.3.6.2.16.6.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>The following step assumes a multi-site configuration using newly
-       installed systems that are not currently storing data. <span class="bold"><strong>Do not delete</strong></span>
-       the default zonegroup if you are already using it to store data.</p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.control default.rgw.control --yes-i-really-really-mean-it
+     The default installation of Object Gateway creates the default zonegroup called
+     <code class="literal">default</code>. Delete the default zone if it exists. Make
+     sure to remove it from the default zonegroup first.
+    </p><div id="id-1.3.6.2.16.6.6.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+      The following steps assume a multi-site configuration using newly
+      installed systems that are not storing data yet. <span class="bold"><strong>Do
+      not delete</strong></span> the default zone and its pools if you are already
+      using it to store data, or the data will be deleted and unrecoverable.
+     </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup delete --rgw-zonegroup=default</pre></div><p>
+     Delete the default pools in your Ceph storage cluster if they exist:
+    </p><div id="id-1.3.6.2.16.6.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+      The following step assumes a multi-site configuration using newly
+      installed systems that are not currently storing data.
+      <span class="bold"><strong>Do not delete</strong></span> the default zonegroup if
+      you are already using it to store data.
+     </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.control default.rgw.control --yes-i-really-really-mean-it
 <code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.data.root default.rgw.data.root --yes-i-really-really-mean-it
 <code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.gc default.rgw.gc --yes-i-really-really-mean-it
 <code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.log default.rgw.log --yes-i-really-really-mean-it
 <code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.meta default.rgw.meta --yes-i-really-really-mean-it</pre></div><div id="id-1.3.6.2.16.6.6.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.png" /><h6>Warning</h6><p>
-       If you delete the default zonegroup, you are also deleting the system user.
-       If your admin user keys are not propagated, the Object Gateway management functionality of the Ceph Dashboard
-       will fail. Follow on to the next section to re-create your system user if
-       you go ahead with this step.
+      If you delete the default zonegroup, you are also deleting the system
+      user. If your admin user keys are not propagated, the Object Gateway management
+      functionality of the Ceph Dashboard will fail. Follow on to the next section
+      to re-create your system user if you go ahead with this step.
      </p></div></div><div class="sect3 " id="ceph-rgw-fed-masterzone-createuser"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating System Users</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-createuser">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-masterzone-createuser</li></ul></div></div></div></div><p>
-     The <code class="systemitem">ceph-radosgw</code> daemons must authenticate before pulling realm and
-     period information. In the master zone, create a system user to
-     facilitate authentication between daemons:
+     The <code class="systemitem">ceph-radosgw</code> daemons must
+     authenticate before pulling realm and period information. In the master
+     zone, create a system user to facilitate authentication between daemons:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin user create --uid=zone.user \
 --display-name="Zone User" --access-key=<em class="replaceable ">SYSTEM_ACCESS_KEY</em> \
---secret=<em class="replaceable ">SYSTEM_SECRET_KEY</em> --system</pre></div><p>Make a note of the <code class="option">access_key</code> and <code class="option">secret_key</code>
-    as the secondary zones require them to authenticate with the master zone.</p><p>Add the system user to the master zone:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=us-east-1 \
---access-key=<em class="replaceable ">ACCESS-KEY</em> --secret=<em class="replaceable ">SECRET</em></pre></div><p>Update the period to make the changes take effect:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></div><div class="sect3 " id="ceph-rgw-fed-masterzone-updateperiod"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Period</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-updateperiod">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-masterzone-updateperiod</li></ul></div></div></div></div><p>
+--secret=<em class="replaceable ">SYSTEM_SECRET_KEY</em> --system</pre></div><p>
+     Make a note of the <code class="option">access_key</code> and
+     <code class="option">secret_key</code> as the secondary zones require them to
+     authenticate with the master zone.
+    </p><p>
+     Add the system user to the master zone:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=us-east-1 \
+--access-key=<em class="replaceable ">ACCESS-KEY</em> --secret=<em class="replaceable ">SECRET</em></pre></div><p>
+     Update the period to make the changes take effect:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></div><div class="sect3 " id="ceph-rgw-fed-masterzone-updateperiod"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Period</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-updateperiod">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-masterzone-updateperiod</li></ul></div></div></div></div><p>
      After updating the master zone configuration, update the period:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div><p>After updating the period, <code class="command">radosgw-admin</code> returns
-         the period configuration. For example:</p><div class="verbatim-wrap"><pre class="screen">{
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div><p>
+     After updating the period, <code class="command">radosgw-admin</code> returns the
+     period configuration. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">{
   "id": "09559832-67a4-4101-8b3f-10dfcd6b2707", "epoch": 1, "predecessor_uuid": "", "sync_status": [], "period_map":
   {
     "id": "09559832-67a4-4101-8b3f-10dfcd6b2707", "zonegroups": [], "short_zone_ids": []
@@ -1455,46 +1497,68 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
        "enabled": false, "max_size_kb": -1, "max_objects": -1
      }
   }, "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7", "realm_name": "gold", "realm_epoch": 1
-}</pre></div><div id="id-1.3.6.2.16.6.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Updating the period changes the epoch and ensures that other
-       zones receive the updated configuration.</p></div></div><div class="sect3 " id="update-ceph-config-file"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Ceph Configuration File</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#update-ceph-config-file">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>update-ceph-config-file</li></ul></div></div></div></div><p>Update the Ceph configuration file on master zone hosts by adding
-       the <code class="literal">rgw_zone</code> configuration option and the name
-       of the master zone to the instance entry.</p><div class="verbatim-wrap"><pre class="screen">[client.rgw.<em class="replaceable ">INSTANCE-NAME</em>]
+}</pre></div><div id="id-1.3.6.2.16.6.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      Updating the period changes the epoch and ensures that other zones
+      receive the updated configuration.
+     </p></div></div><div class="sect3 " id="update-ceph-config-file"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Ceph Configuration File</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#update-ceph-config-file">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>update-ceph-config-file</li></ul></div></div></div></div><p>
+     Update the Ceph configuration file on master zone hosts by adding the
+     <code class="literal">rgw_zone</code> configuration option and the name of the
+     master zone to the instance entry.
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.<em class="replaceable ">INSTANCE-NAME</em>]
 ...
-rgw_zone=<em class="replaceable ">ZONE-NAME</em></pre></div><p>For example:</p><div class="verbatim-wrap"><pre class="screen">[client.rgw.rgw1]
+rgw_zone=<em class="replaceable ">ZONE-NAME</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.rgw1]
 rgw frontends = "beast port=80"
 rgw_zone=us-east</pre></div><p>
-       For more information on how to do this see <a class="xref" href="storage-salt-cluster.html#ds-custom-cephconf" title="2.14. Adjusting ceph.conf with Custom Settings">Section 2.14, “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</a>.
-     </p></div><div class="sect3 " id="ceph-rgw-fed-masterzone-startrgw"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Start the Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-startrgw">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-masterzone-startrgw</li></ul></div></div></div></div><p>On the Object Gateway host, start and enable the Ceph Object Gateway service:
+     For more information on how to do this see
+     <a class="xref" href="storage-salt-cluster.html#ds-custom-cephconf" title="2.14. Adjusting ceph.conf with Custom Settings">Section 2.14, “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</a>.
+    </p></div><div class="sect3 " id="ceph-rgw-fed-masterzone-startrgw"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.2.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Start the Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-startrgw">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-masterzone-startrgw</li></ul></div></div></div></div><p>
+     On the Object Gateway host, start and enable the Ceph Object Gateway service:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl start ceph-radosgw@rgw.`hostname -s`
-<code class="prompt user">cephadm@ogw &gt; </code>systemctl enable ceph-radosgw@rgw.`hostname -s`</pre></div></div></div><div class="sect2 " id="ceph-rgw-config-secondaryzone"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configure Secondary Zones</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-config-secondaryzone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-config-secondaryzone</li></ul></div></div></div></div><p>Zones within a zonegroup replicate all data to ensure that each
-     zone has the same data. When creating the secondary zone, execute
-     all of the following operations on a host identified to serve the secondary zone.
-   </p><div id="id-1.3.6.2.16.7.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>To add a third zone, follow the same procedures as for adding
-       the secondary zone. Use different zone name.</p></div><div id="id-1.3.6.2.16.7.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>You must execute metadata operations, such as user creation,
-       on a host within the master zone. The master zone and the secondary
-       zone can receive bucket operations, but the secondary zone redirects
-       bucket operations to the master zone. If the master zone is down,
-       bucket operations will fail.</p></div><div class="sect3 " id="ceph-rgw-pull-realm"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Pull The Realm</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-pull-realm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-pull-realm</li></ul></div></div></div></div><p>Using the URL path, access key, and secret of the master zone
-       in the master zonegroup, pull the realm configuration to the
-       host. To pull a non-default realm, specify the realm
-       using the <code class="option">--rgw-realm</code> or <code class="option">--realm-id</code>
-       configuration options.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable ">url-to-master-zone-gateway</em> --access-key=<em class="replaceable ">access-key</em> --secret=<em class="replaceable ">secret</em></pre></div><div id="id-1.3.6.2.16.7.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Pulling the realm also retrieves the remote’s current period
-         configuration, and makes it the current period on this host as well.</p></div><p>If this realm is the default realm or the only realm, make the
-       realm the default realm.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm default --rgw-realm=<em class="replaceable ">REALM-NAME</em></pre></div></div><div class="sect3 " id="cceph-rgw-create-secondaryzone"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create a Secondary Zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#cceph-rgw-create-secondaryzone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>cceph-rgw-create-secondaryzone</li></ul></div></div></div></div><p>Create a secondary zone for the multi-site configuration by opening
-     a command line interface on a host identified to serve the secondary
-     zone. Specify the zonegroup ID, the new zone name and an endpoint for
-     the zone. <span class="emphasis"><em>Do not</em></span> use the <code class="option">--master</code> flag.
-     All zones run in an active-active configuration by default. If the secondary
-     zone should not accept write operations, specify the <code class="option">--read-only</code> flag
-     to create an active-passive configuration between the master zone and
-     the secondary zone. Additionally, provide the <code class="option">access_key</code> and <code class="option">secret_key</code>
-     of the generated system user stored in the master zone of the master
-     zonegroup. Execute the following:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=<em class="replaceable ">ZONE-GROUP-NAME</em>\
+<code class="prompt user">cephadm@ogw &gt; </code>systemctl enable ceph-radosgw@rgw.`hostname -s`</pre></div></div></div><div class="sect2 " id="ceph-rgw-config-secondaryzone"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configure Secondary Zones</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-config-secondaryzone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-config-secondaryzone</li></ul></div></div></div></div><p>
+    Zones within a zonegroup replicate all data to ensure that each zone has the
+    same data. When creating the secondary zone, execute all of the following
+    operations on a host identified to serve the secondary zone.
+   </p><div id="id-1.3.6.2.16.7.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+     To add a third zone, follow the same procedures as for adding the
+     secondary zone. Use different zone name.
+    </p></div><div id="id-1.3.6.2.16.7.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+     You must execute metadata operations, such as user creation, on a host
+     within the master zone. The master zone and the secondary zone can receive
+     bucket operations, but the secondary zone redirects bucket operations to
+     the master zone. If the master zone is down, bucket operations will fail.
+    </p></div><div class="sect3 " id="ceph-rgw-pull-realm"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Pull The Realm</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-pull-realm">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-pull-realm</li></ul></div></div></div></div><p>
+     Using the URL path, access key, and secret of the master zone in the
+     master zonegroup, pull the realm configuration to the host. To pull a
+     non-default realm, specify the realm using the
+     <code class="option">--rgw-realm</code> or <code class="option">--realm-id</code> configuration
+     options.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable ">url-to-master-zone-gateway</em> --access-key=<em class="replaceable ">access-key</em> --secret=<em class="replaceable ">secret</em></pre></div><div id="id-1.3.6.2.16.7.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      Pulling the realm also retrieves the remote’s current period
+      configuration, and makes it the current period on this host as well.
+     </p></div><p>
+     If this realm is the default realm or the only realm, make the realm the
+     default realm.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm default --rgw-realm=<em class="replaceable ">REALM-NAME</em></pre></div></div><div class="sect3 " id="cceph-rgw-create-secondaryzone"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create a Secondary Zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#cceph-rgw-create-secondaryzone">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>cceph-rgw-create-secondaryzone</li></ul></div></div></div></div><p>
+     Create a secondary zone for the multi-site configuration by opening a
+     command line interface on a host identified to serve the secondary zone.
+     Specify the zonegroup ID, the new zone name and an endpoint for the zone.
+     <span class="emphasis"><em>Do not</em></span> use the <code class="option">--master</code> flag. All
+     zones run in an active-active configuration by default. If the secondary
+     zone should not accept write operations, specify the
+     <code class="option">--read-only</code> flag to create an active-passive
+     configuration between the master zone and the secondary zone.
+     Additionally, provide the <code class="option">access_key</code> and
+     <code class="option">secret_key</code> of the generated system user stored in the
+     master zone of the master zonegroup. Execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=<em class="replaceable ">ZONE-GROUP-NAME</em>\
                             --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --endpoints=<em class="replaceable ">URL</em> \
                             --access-key=<em class="replaceable ">SYSTEM-KEY</em> --secret=<em class="replaceable ">SECRET</em>\
                             --endpoints=http://<em class="replaceable ">FQDN</em>:80 \
-                            [--read-only]</pre></div><p>For example:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --endpoints=http://rgw2:80 \
+                            [--read-only]</pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --endpoints=http://rgw2:80 \
 --rgw-zone=us-east-2 --access-key=<em class="replaceable ">SYSTEM_ACCESS_KEY</em> --secret=<em class="replaceable ">SYSTEM_SECRET_KEY</em>
 {
   "id": "950c1a43-6836-41a2-a161-64777e07e8b8",
@@ -1526,22 +1590,33 @@ rgw_zone=us-east</pre></div><p>
   ],
   "metadata_heap": "us-east-2.rgw.meta",
   "realm_id": "815d74c2-80d6-4e63-8cfc-232037f7ff5c"
-}</pre></div><div id="id-1.3.6.2.16.7.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>The following steps assume a multi-site configuration
-       using newly installed systems that are not storing data.
-       <span class="bold"><strong>Do not delete</strong></span> the default zone and its pools if you are
-       already using it to store data, or the data will be lost and
-       unrecoverable.</p></div><p>Delete the default zone if needed:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone rm --rgw-zone=default</pre></div><p>Delete the default pools in your Ceph storage cluster if needed:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.control default.rgw.control --yes-i-really-really-mean-it
+}</pre></div><div id="id-1.3.6.2.16.7.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+      The following steps assume a multi-site configuration using newly
+      installed systems that are not storing data. <span class="bold"><strong>Do not
+      delete</strong></span> the default zone and its pools if you are already using
+      it to store data, or the data will be lost and unrecoverable.
+     </p></div><p>
+     Delete the default zone if needed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone rm --rgw-zone=default</pre></div><p>
+     Delete the default pools in your Ceph storage cluster if needed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.control default.rgw.control --yes-i-really-really-mean-it
 <code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.data.root default.rgw.data.root --yes-i-really-really-mean-it
 <code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.gc default.rgw.gc --yes-i-really-really-mean-it
 <code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.log default.rgw.log --yes-i-really-really-mean-it
-<code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.users.uid default.rgw.users.uid --yes-i-really-really-mean-it</pre></div></div><div class="sect3 " id="ceph-rgw-secondzone-update-config"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Ceph Configuration File</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-secondzone-update-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-secondzone-update-config</li></ul></div></div></div></div><p>Update the Ceph configuration file on the secondary zone
-      hosts by adding the <code class="literal">rgw_zone</code> configuration option and the
-      name of the secondary zone to the instance entry.</p><div class="verbatim-wrap"><pre class="screen">[client.rgw.<em class="replaceable ">INSTANCE-NAME</em>]
+<code class="prompt user">cephadm@adm &gt; </code>ceph osd pool rm default.rgw.users.uid default.rgw.users.uid --yes-i-really-really-mean-it</pre></div></div><div class="sect3 " id="ceph-rgw-secondzone-update-config"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Ceph Configuration File</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-secondzone-update-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-secondzone-update-config</li></ul></div></div></div></div><p>
+     Update the Ceph configuration file on the secondary zone hosts by adding
+     the <code class="literal">rgw_zone</code> configuration option and the name of the
+     secondary zone to the instance entry.
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.<em class="replaceable ">INSTANCE-NAME</em>]
 ...
-rgw_zone=<em class="replaceable ">ZONE-NAME</em></pre></div><p>For example:</p><div class="verbatim-wrap"><pre class="screen">[client.rgw.rgw2]
+rgw_zone=<em class="replaceable ">ZONE-NAME</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.rgw2]
 host = rgw2
 rgw frontends = "civetweb port=80"
-rgw_zone=us-west</pre></div></div><div class="sect3 " id="ceph-rgw-fed-secondzone-updateperiod"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Period</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-secondzone-updateperiod">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-secondzone-updateperiod</li></ul></div></div></div></div><p>After updating the master zone configuration, update the period:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit
+rgw_zone=us-west</pre></div></div><div class="sect3 " id="ceph-rgw-fed-secondzone-updateperiod"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Update the Period</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-secondzone-updateperiod">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-secondzone-updateperiod</li></ul></div></div></div></div><p>
+     After updating the master zone configuration, update the period:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit
 {
   "id": "b5e4d3ec-2a62-4746-b479-4b2bc14b27d1",
   "epoch": 2,
@@ -1626,12 +1701,19 @@ rgw_zone=us-west</pre></div></div><div class="sect3 " id="ceph-rgw-fed-secondzon
   "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7",
   "realm_name": "gold",
   "realm_epoch": 2
-}</pre></div><div id="id-1.3.6.2.16.7.8.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Updating the period changes the epoch and ensures that other zones
-       receive the updated configuration.</p></div></div><div class="sect3 " id="ceph-rgw-fed-secondzone-startrgw"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Start the Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-secondzone-startrgw">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-secondzone-startrgw</li></ul></div></div></div></div><p>On the Object Gateway host, start and enable the Ceph Object Gateway service:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl start ceph-radosgw@rgw.us-east-2
-<code class="prompt user">cephadm@ogw &gt; </code>systemctl enable ceph-radosgw@rgw.us-east-2</pre></div></div><div class="sect3 " id="ceph-rgw-check-sync-status"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Check Synchronization Status</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-check-sync-status">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-check-sync-status</li></ul></div></div></div></div><p>Once the secondary zone is up and running, check the synchronization
-      status. Synchronization copies users and buckets created in the
-      master zone to the secondary zone.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin sync status</pre></div><p>The output provides the status of synchronization operations.
-      For example:</p><div class="verbatim-wrap"><pre class="screen">realm f3239bc5-e1a8-4206-a81d-e1576480804d (gold)
+}</pre></div><div id="id-1.3.6.2.16.7.8.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      Updating the period changes the epoch and ensures that other zones
+      receive the updated configuration.
+     </p></div></div><div class="sect3 " id="ceph-rgw-fed-secondzone-startrgw"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Start the Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-secondzone-startrgw">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-fed-secondzone-startrgw</li></ul></div></div></div></div><p>
+     On the Object Gateway host, start and enable the Ceph Object Gateway service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl start ceph-radosgw@rgw.us-east-2
+<code class="prompt user">cephadm@ogw &gt; </code>systemctl enable ceph-radosgw@rgw.us-east-2</pre></div></div><div class="sect3 " id="ceph-rgw-check-sync-status"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.3.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Check Synchronization Status</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-check-sync-status">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-check-sync-status</li></ul></div></div></div></div><p>
+     Once the secondary zone is up and running, check the synchronization
+     status. Synchronization copies users and buckets created in the master
+     zone to the secondary zone.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin sync status</pre></div><p>
+     The output provides the status of synchronization operations. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">realm f3239bc5-e1a8-4206-a81d-e1576480804d (gold)
     zonegroup c50dbb7e-d9ce-47cc-a8bb-97d9b399d388 (us)
          zone 4c453b70-4a16-4ce8-8185-1893b05d346e (us-west)
 metadata sync syncing
@@ -1642,12 +1724,15 @@ metadata sync syncing
                       syncing
                       full sync: 0/128 shards
                       incremental sync: 128/128 shards
-                      data is caught up with source</pre></div><div id="id-1.3.6.2.16.7.10.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Secondary zones accept bucket operations; however, secondary zones
-        redirect bucket operations to the master zone and then synchronize with
-        the master zone to receive the result of the bucket operations.
-        If the master zone is down, bucket operations executed on the
-        secondary zone will fail, but object operations should succeed.</p></div></div></div><div class="sect2 " id="ceph-rgw-maintenance"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Maintenance</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-maintenance">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-maintenance</li></ul></div></div></div></div><div class="sect3 " id="ceph-rgw-check-sync"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Checking the Sync Status</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-check-sync">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-check-sync</li></ul></div></div></div></div><p>Information about the replication status of a zone can be
-       queried with:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin sync status
+                      data is caught up with source</pre></div><div id="id-1.3.6.2.16.7.10.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      Secondary zones accept bucket operations; however, secondary zones
+      redirect bucket operations to the master zone and then synchronize with
+      the master zone to receive the result of the bucket operations. If the
+      master zone is down, bucket operations executed on the secondary zone
+      will fail, but object operations should succeed.
+     </p></div></div></div><div class="sect2 " id="ceph-rgw-maintenance"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Maintenance</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-maintenance">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-maintenance</li></ul></div></div></div></div><div class="sect3 " id="ceph-rgw-check-sync"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Checking the Sync Status</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-check-sync">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-check-sync</li></ul></div></div></div></div><p>
+     Information about the replication status of a zone can be queried with:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin sync status
         realm b3bc1c37-9c44-4b89-a03b-04c269bea5da (gold)
     zonegroup f54f9b22-b4b6-4a0e-9211-fa6ac1693f49 (us)
          zone adce11c9-b8ed-4a90-8bc5-3fc029ff0816 (us-west)
@@ -1665,45 +1750,96 @@ metadata sync syncing
                       syncing
                       full sync: 0/128 shards
                       incremental sync: 128/128 shards
-                      data is caught up with source</pre></div></div><div class="sect3 " id="ceph-rgw-metadata-master"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Changing the Metadata Master Zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-metadata-master">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-metadata-master</li></ul></div></div></div></div><div id="id-1.3.6.2.16.8.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>Be careful when changing which zone is the metadata master.
-          If a zone has not finished syncing metadata from the current master
-          zone, it is unable to serve any remaining entries when promoted
-          to master and those changes will be lost. For this reason, we recommend waiting for
-          a zone’s <code class="command">radosgw-admin</code> sync status to catch up on metadata sync before
-          promoting it to master.
-          Similarly, if changes to metadata are being processed by the current master zone
-          while another zone is being promoted to master, those changes are likely to be
-          lost. To avoid this, we recommend shutting down any Object Gateway instances on the previous
-          master zone. After promoting another zone, its new period
-          can be fetched with <code class="command">radosgw-admin</code> period pull and the gateway(s) can be restarted.</p></div><p>To promote a zone (for example, zone <code class="literal">us-west</code> in zonegroup <code class="literal">us</code>) to
-        metadata master, run the following commands on that zone:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>radosgw-admin zone modify --rgw-zone=us-west --master
+                      data is caught up with source</pre></div></div><div class="sect3 " id="ceph-rgw-metadata-master"><div class="titlepage"><div><div><h4 class="title"><span class="number">26.13.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Changing the Metadata Master Zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-metadata-master">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-metadata-master</li></ul></div></div></div></div><div id="id-1.3.6.2.16.8.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>
+      Be careful when changing which zone is the metadata master. If a zone has
+      not finished syncing metadata from the current master zone, it is unable
+      to serve any remaining entries when promoted to master and those changes
+      will be lost. For this reason, we recommend waiting for a zone’s
+      <code class="command">radosgw-admin</code> sync status to catch up on metadata sync
+      before promoting it to master. Similarly, if changes to metadata are
+      being processed by the current master zone while another zone is being
+      promoted to master, those changes are likely to be lost. To avoid this,
+      we recommend shutting down any Object Gateway instances on the previous master
+      zone. After promoting another zone, its new period can be fetched with
+      <code class="command">radosgw-admin</code> period pull and the gateway(s) can be
+      restarted.
+     </p></div><p>
+     To promote a zone (for example, zone <code class="literal">us-west</code> in
+     zonegroup <code class="literal">us</code>) to metadata master, run the following
+     commands on that zone:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>radosgw-admin zone modify --rgw-zone=us-west --master
 <code class="prompt user">cephadm@ogw &gt; </code>radosgw-admin zonegroup modify --rgw-zonegroup=us --master
-<code class="prompt user">cephadm@ogw &gt; </code>radosgw-admin period update --commit</pre></div><p>This generates a new period, and the Object Gateway instance(s)
-        in zone <code class="literal">us-west</code> sends this period to other zones.</p></div></div><div class="sect2 " id="ceph-rgw-failover-dr"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Failover and Disaster Recovery</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-failover-dr">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-failover-dr</li></ul></div></div></div></div><p>If the master zone should fail, failover to the secondary
-       zone for disaster recovery.</p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>Make the secondary zone the master and default zone.
-           For example:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --master --default</pre></div><p>By default, Ceph Object Gateway runs in an active-active
-           configuration. If the cluster was configured to run in an active-passive
-           configuration, the secondary zone is a read-only zone. Remove the
-           <code class="option">--read-only</code> status to allow the zone to receive
-           write operations. For example:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --master --default \
-                                                   --read-only=false</pre></div></li><li class="step "><p>Update the period to make the changes take effect:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>Restart the Ceph Object Gateway:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li></ol></div></div><p>If the former master zone recovers, revert the operation.</p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>From the recovered zone, pull the latest realm configuration
-           from the current master zone.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable ">URL-TO-MASTER-ZONE-GATEWAY</em> \
-                           --access-key=<em class="replaceable ">ACCESS-KEY</em> --secret=<em class="replaceable ">SECRET</em></pre></div></li><li class="step "><p>Make the recovered zone the master and default zone:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --master --default</pre></div></li><li class="step "><p>Update the period to make the changes take effect:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>Restart the Ceph Object Gateway in the recovered zone:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li><li class="step "><p>If the secondary zone needs to be a read-only configuration, update the secondary zone:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --read-only</pre></div></li><li class="step "><p>Update the period to make the changes take effect:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>Restart the Ceph Object Gateway in the secondary zone:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li></ol></div></div></div><div class="sect2 " id="ceph-rgw-single-site-multi"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Migrating a Single Site System to Multi-Site</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-single-site-multi">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-single-site-multi</li></ul></div></div></div></div><p>To migrate from a single site system with a default zonegroup
-       and zone to a multi-site system, use the following steps:</p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>Create a realm. Replace <em class="replaceable ">NAME</em> with
-         the realm name.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm create --rgw-realm=<em class="replaceable ">NAME</em> --default</pre></div></li><li class="step "><p>Create a system user. Replace <em class="replaceable ">USER-ID</em> with the username.
-           Replace <em class="replaceable ">DISPLAY-NAME</em> with a display name.
-           Only the display name may contain spaces.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin user create --uid=<em class="replaceable ">USER-ID</em> --display-name="<em class="replaceable ">DISPLAY-NAME</em>"\
-                            --access-key=<em class="replaceable ">ACCESS-KEY</em> --secret=<em class="replaceable ">SECRET-KEY</em> --system</pre></div></li><li class="step "><p>Rename the default zone and zonegroup. Replace
-           <em class="replaceable ">NAME</em> with the zonegroup or zone name.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup rename --rgw-zonegroup default --zonegroup-new-name=<em class="replaceable ">NAME</em>
-<code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone rename --rgw-zone default --zone-new-name us-east-1 --rgw-zonegroup=<em class="replaceable ">NAME</em></pre></div></li><li class="step "><p>Configure the master zonegroup. Replace <em class="replaceable ">NAME</em> with the realm
-           or zonegroup name. Replace <em class="replaceable ">FQDN</em> with the fully
-           qualified domain name(s) in the zonegroup.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup modify --rgw-realm=<em class="replaceable ">NAME</em> --rgw-zonegroup=<em class="replaceable ">NAME</em> --endpoints http://<em class="replaceable ">FQDN</em>:80 --master --default</pre></div></li><li class="step "><p>Configure the master zone. Replace <em class="replaceable ">NAME</em> with the realm, zonegroup
-           or zone name. Replace <em class="replaceable ">FQDN</em> with the fully
-           qualified domain name(s) in the zonegroup.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-realm=<em class="replaceable ">NAME</em> --rgw-zonegroup=<em class="replaceable ">NAME</em> \
+<code class="prompt user">cephadm@ogw &gt; </code>radosgw-admin period update --commit</pre></div><p>
+     This generates a new period, and the Object Gateway instance(s) in zone
+     <code class="literal">us-west</code> sends this period to other zones.
+    </p></div></div><div class="sect2 " id="ceph-rgw-failover-dr"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Failover and Disaster Recovery</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-failover-dr">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-failover-dr</li></ul></div></div></div></div><p>
+    If the master zone should fail, failover to the secondary zone for disaster
+    recovery.
+   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      Make the secondary zone the master and default zone. For example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --master --default</pre></div><p>
+      By default, Ceph Object Gateway runs in an active-active configuration. If the cluster
+      was configured to run in an active-passive configuration, the secondary
+      zone is a read-only zone. Remove the <code class="option">--read-only</code> status
+      to allow the zone to receive write operations. For example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --master --default \
+                                                   --read-only=false</pre></div></li><li class="step "><p>
+      Update the period to make the changes take effect:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>
+      Restart the Ceph Object Gateway:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li></ol></div></div><p>
+    If the former master zone recovers, revert the operation.
+   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      From the recovered zone, pull the latest realm configuration from the
+      current master zone.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable ">URL-TO-MASTER-ZONE-GATEWAY</em> \
+                           --access-key=<em class="replaceable ">ACCESS-KEY</em> --secret=<em class="replaceable ">SECRET</em></pre></div></li><li class="step "><p>
+      Make the recovered zone the master and default zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --master --default</pre></div></li><li class="step "><p>
+      Update the period to make the changes take effect:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>
+      Restart the Ceph Object Gateway in the recovered zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li><li class="step "><p>
+      If the secondary zone needs to be a read-only configuration, update the
+      secondary zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --read-only</pre></div></li><li class="step "><p>
+      Update the period to make the changes take effect:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>
+      Restart the Ceph Object Gateway in the secondary zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li></ol></div></div></div><div class="sect2 " id="ceph-rgw-single-site-multi"><div class="titlepage"><div><div><h3 class="title"><span class="number">26.13.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Migrating a Single Site System to Multi-Site</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-single-site-multi">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ceph-rgw-single-site-multi</li></ul></div></div></div></div><p>
+    To migrate from a single site system with a default zonegroup and zone to a
+    multi-site system, use the following steps:
+   </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
+      Create a realm. Replace <em class="replaceable ">NAME</em> with the realm
+      name.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin realm create --rgw-realm=<em class="replaceable ">NAME</em> --default</pre></div></li><li class="step "><p>
+      Create a system user. Replace <em class="replaceable ">USER-ID</em> with the
+      username. Replace <em class="replaceable ">DISPLAY-NAME</em> with a display
+      name. Only the display name may contain spaces.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin user create --uid=<em class="replaceable ">USER-ID</em> --display-name="<em class="replaceable ">DISPLAY-NAME</em>"\
+                            --access-key=<em class="replaceable ">ACCESS-KEY</em> --secret=<em class="replaceable ">SECRET-KEY</em> --system</pre></div></li><li class="step "><p>
+      Rename the default zone and zonegroup. Replace
+      <em class="replaceable ">NAME</em> with the zonegroup or zone name.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup rename --rgw-zonegroup default --zonegroup-new-name=<em class="replaceable ">NAME</em>
+<code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone rename --rgw-zone default --zone-new-name us-east-1 --rgw-zonegroup=<em class="replaceable ">NAME</em></pre></div></li><li class="step "><p>
+      Configure the master zonegroup. Replace <em class="replaceable ">NAME</em>
+      with the realm or zonegroup name. Replace <em class="replaceable ">FQDN</em>
+      with the fully qualified domain name(s) in the zonegroup.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zonegroup modify --rgw-realm=<em class="replaceable ">NAME</em> --rgw-zonegroup=<em class="replaceable ">NAME</em> --endpoints http://<em class="replaceable ">FQDN</em>:80 --master --default</pre></div></li><li class="step "><p>
+      Configure the master zone. Replace <em class="replaceable ">NAME</em> with
+      the realm, zonegroup or zone name. Replace <em class="replaceable ">FQDN</em>
+      with the fully qualified domain name(s) in the zonegroup.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin zone modify --rgw-realm=<em class="replaceable ">NAME</em> --rgw-zonegroup=<em class="replaceable ">NAME</em> \
                             --rgw-zone=<em class="replaceable ">NAME</em> --endpoints http://<em class="replaceable ">FQDN</em>:80 \
                             --access-key=<em class="replaceable ">ACCESS-KEY</em> --secret=<em class="replaceable ">SECRET-KEY</em> \
-                            --master --default</pre></div></li><li class="step "><p>Commit the updated configuration.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>Restart the Ceph Object Gateway.</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li></ol></div></div><p>After completing this procedure, configure a
-       secondary zone to create a secondary zone in the master zonegroup.</p></div></div><div class="sect1 " id="ogw-haproxy"><div class="titlepage"><div><div><h2 class="title"><span class="number">26.14 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Load Balancing the Object Gateway Servers with HAProxy</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-haproxy">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-haproxy</li></ul></div></div></div></div><p>
+                            --master --default</pre></div></li><li class="step "><p>
+      Commit the updated configuration.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step "><p>
+      Restart the Ceph Object Gateway.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@ogw &gt; </code>systemctl restart ceph-radosgw@rgw.`hostname -s`</pre></div></li></ol></div></div><p>
+    After completing this procedure, configure a secondary zone to create a
+    secondary zone in the master zonegroup.
+   </p></div></div><div class="sect1 " id="ogw-haproxy"><div class="titlepage"><div><div><h2 class="title"><span class="number">26.14 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Load Balancing the Object Gateway Servers with HAProxy</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-haproxy">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-haproxy</li></ul></div></div></div></div><p>
    You can use the HAProxy load balancer to distribute all requests across
    multiple Object Gateway back-end servers. Refer to
    <a class="link" href="https://documentation.suse.com/sle-ha/15-SP1/single-html/SLE-HA-guide/#sec-ha-lb-haproxy" target="_blank">https://documentation.suse.com/sle-ha/15-SP1/single-html/SLE-HA-guide/#sec-ha-lb-haproxy</a>

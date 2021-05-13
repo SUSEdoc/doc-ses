@@ -29,49 +29,51 @@ hljs.configure({
   basis. If several processes are located on the same machine, the CPU, RAM,
   disk and network requirements need to be added up.
  </p><div class="sect1 " id="network-overview"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Overview</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#network-overview">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>network-overview</li></ul></div></div></div></div><p>
-    Ceph has several logical networks:
+   Ceph has several logical networks:
   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-        A trusted internal network, the back-end network called the
-        the <code class="literal">cluster network</code>.
-      </p></li><li class="listitem "><p>
-        A public client network called <code class="literal">public network</code>.
-      </p></li><li class="listitem "><p>
-        Client networks for gateways, these are optional.
-      </p></li></ul></div><p>
-     The trusted internal network is the back-end network between the OSD nodes for
-     replication, re-balancing and recovery.Ideally, this network provides twice the
-     bandwidth of the public network with default 3-way replication since the
-     primary OSD sends 2 copies to other OSDs via this network.
-     The public network is between clients and gateways on the one side to
-     talk to monitors, managers, MDS nodes, OSD nodes. It is also used by
-     monitors, managers, and MDS nodes to talk with OSD nodes.
-   </p><div class="figure" id="network-overview-figure"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/network-overview-diagram.png" target="_blank"><img src="images/network-overview-diagram.png" width="" alt="Network Overview" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.1: </span><span class="name">Network Overview </span><a title="Permalink" class="permalink" href="storage-bp-hwreq.html#network-overview-figure">#</a></h6></div></div><div class="sect2 " id="ceph-install-ceph-deploy-network"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Recommendations</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ceph-install-ceph-deploy-network">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ceph-install-ceph-deploy-network</li></ul></div></div></div></div><p>
-    For the Ceph network environment, we recommend two bonded 25 GbE (or faster)
-    network interfaces bonded using 802.3ad (LACP). The use of two network interfaces
-    provides aggregation and fault-tolerance. The bond should then be used to provide
-    two VLAN interfaces, one for the public network, and the second for the cluster network.
-    Details on bonding the interfaces can be found in
+     A trusted internal network, the back-end network called the the
+     <code class="literal">cluster network</code>.
+    </p></li><li class="listitem "><p>
+     A public client network called <code class="literal">public network</code>.
+    </p></li><li class="listitem "><p>
+     Client networks for gateways, these are optional.
+    </p></li></ul></div><p>
+   The trusted internal network is the back-end network between the OSD nodes
+   for replication, re-balancing and recovery.Ideally, this network provides
+   twice the bandwidth of the public network with default 3-way replication
+   since the primary OSD sends 2 copies to other OSDs via this network. The
+   public network is between clients and gateways on the one side to talk to
+   monitors, managers, MDS nodes, OSD nodes. It is also used by monitors,
+   managers, and MDS nodes to talk with OSD nodes.
+  </p><div class="figure" id="network-overview-figure"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/network-overview-diagram.png" target="_blank"><img src="images/network-overview-diagram.png" width="" alt="Network Overview" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.1: </span><span class="name">Network Overview </span><a title="Permalink" class="permalink" href="storage-bp-hwreq.html#network-overview-figure">#</a></h6></div></div><div class="sect2 " id="ceph-install-ceph-deploy-network"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Recommendations</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ceph-install-ceph-deploy-network">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ceph-install-ceph-deploy-network</li></ul></div></div></div></div><p>
+    For the Ceph network environment, we recommend two bonded 25 GbE (or
+    faster) network interfaces bonded using 802.3ad (LACP). The use of two
+    network interfaces provides aggregation and fault-tolerance. The bond
+    should then be used to provide two VLAN interfaces, one for the public
+    network, and the second for the cluster network. Details on bonding the
+    interfaces can be found in
     <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-network.html#sec-network-iface-bonding" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-network.html#sec-network-iface-bonding</a>.
    </p><p>
-     Fault tolerance can be enhanced through isolating the components into failure domains.
-     To improve fault tolerance of the network, bonding one interface from two
-     separate Network Interface Cards (NIC) offers protection against failure
-     of a single NIC. Similarly, creating a bond across two switches protects
-     against failure of a switch. We recommend consulting with the network
-     equipment vendor in order to architect the level of fault tolerance required.
+    Fault tolerance can be enhanced through isolating the components into
+    failure domains. To improve fault tolerance of the network, bonding one
+    interface from two separate Network Interface Cards (NIC) offers protection
+    against failure of a single NIC. Similarly, creating a bond across two
+    switches protects against failure of a switch. We recommend consulting with
+    the network equipment vendor in order to architect the level of fault
+    tolerance required.
    </p><div id="id-1.4.3.3.5.6.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Administration Network not Supported</h6><p>
      Additional administration network setup—that enables for example
      separating SSH, Salt, or DNS networking—is neither tested nor
      supported.
     </p></div><div id="id-1.4.3.3.5.6.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Nodes Configured via DHCP</h6><p>
-     If your storage nodes are configured via DHCP, the default timeouts may not
-     be sufficient for the network to be configured correctly before the various
-     Ceph daemons start. If this happens, the Ceph MONs and OSDs will not
-     start correctly (running <code class="command">systemctl status ceph\*</code> will
-     result in "unable to bind" errors). To avoid this issue, we recommend
-     increasing the DHCP client timeout to at least 30 seconds on each node in
-     your storage cluster. This can be done by changing the following settings
-     on each node:
+     If your storage nodes are configured via DHCP, the default timeouts may
+     not be sufficient for the network to be configured correctly before the
+     various Ceph daemons start. If this happens, the Ceph MONs and OSDs
+     will not start correctly (running <code class="command">systemctl status
+     ceph\*</code> will result in "unable to bind" errors). To avoid this
+     issue, we recommend increasing the DHCP client timeout to at least 30
+     seconds on each node in your storage cluster. This can be done by changing
+     the following settings on each node:
     </p><p>
      In <code class="filename">/etc/sysconfig/network/dhcp</code>, set
     </p><div class="verbatim-wrap"><pre class="screen">DHCLIENT_WAIT_AT_BOOT="30"</pre></div><p>
@@ -79,9 +81,9 @@ hljs.configure({
     </p><div class="verbatim-wrap"><pre class="screen">WAIT_FOR_INTERFACES="60"</pre></div></div><div class="sect3 " id="storage-bp-net-private"><div class="titlepage"><div><div><h4 class="title"><span class="number">2.1.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding a Private Network to a Running Cluster</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#storage-bp-net-private">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>storage-bp-net-private</li></ul></div></div></div></div><p>
      If you do not specify a cluster network during Ceph deployment, it
      assumes a single public network environment. While Ceph operates fine
-     with a public network, its performance and security improves when you set a
-     second private cluster network. To support two networks, each Ceph node
-     needs to have at least two network cards.
+     with a public network, its performance and security improves when you set
+     a second private cluster network. To support two networks, each Ceph
+     node needs to have at least two network cards.
     </p><p>
      You need to apply the following changes to each Ceph node. It is
      relatively quick to do for a small cluster, but can be very time consuming
@@ -96,14 +98,15 @@ hljs.configure({
        <code class="option">cluster network</code> settings, you can do so with the
        optional <code class="option">cluster addr</code>.
       </p></li><li class="step "><p>
-       Check that the private cluster network works as expected on the OS level.
+       Check that the private cluster network works as expected on the OS
+       level.
       </p></li><li class="step "><p>
        Start Ceph related services on each cluster node.
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl start ceph.target</pre></div></li></ol></div></div></div><div class="sect3 " id="storage-bp-net-subnets"><div class="titlepage"><div><div><h4 class="title"><span class="number">2.1.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Monitor Nodes on Different Subnets</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#storage-bp-net-subnets">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>storage-bp-net-subnets</li></ul></div></div></div></div><p>
      If the monitor nodes are on multiple subnets, for example they are located
-     in different rooms and served by different switches, you need to adjust the
-     <code class="filename">ceph.conf</code> file accordingly. For example, if the nodes
-     have IP addresses 192.168.123.12, 1.2.3.4, and 242.12.33.12, add the
+     in different rooms and served by different switches, you need to adjust
+     the <code class="filename">ceph.conf</code> file accordingly. For example, if the
+     nodes have IP addresses 192.168.123.12, 1.2.3.4, and 242.12.33.12, add the
      following lines to their <code class="literal">global</code> section:
     </p><div class="verbatim-wrap"><pre class="screen">[global]
  [...]
@@ -127,119 +130,116 @@ hljs.configure({
    frequency, and RAM perspective, there is no real difference between CPU
    architectures for sizing.
   </p><p>
-   As with smaller x86 processors (non-server), lower-performance
-   Arm-based cores may not provide an optimal experience, especially when
-   used for erasure coded pools.
+   As with smaller x86 processors (non-server), lower-performance Arm-based
+   cores may not provide an optimal experience, especially when used for
+   erasure coded pools.
   </p><div id="id-1.4.3.3.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-      Throughout the documentation, <em class="replaceable ">SYSTEM-ARCH</em>
-      is used in place of x86 or Arm.
-    </p></div></div><div class="sect1 " id="ses-hardware-config"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Hardware Configuration</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ses-hardware-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-hardware-config</li></ul></div></div></div></div><p>
-    For the best product experience, we recommend to start with the
-    recommended cluster configuration. For a test cluster or a cluster
-    with less performance requirements, we document a minimal supported
-    cluster configuration.
+    Throughout the documentation, <em class="replaceable ">SYSTEM-ARCH</em> is
+    used in place of x86 or Arm.
+   </p></div></div><div class="sect1 " id="ses-hardware-config"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Hardware Configuration</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ses-hardware-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-hardware-config</li></ul></div></div></div></div><p>
+   For the best product experience, we recommend to start with the recommended
+   cluster configuration. For a test cluster or a cluster with less performance
+   requirements, we document a minimal supported cluster configuration.
   </p><div class="sect2 " id="ses-bp-minimum-cluster"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Cluster Configuration</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ses-bp-minimum-cluster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-minimum-cluster</li></ul></div></div></div></div><p>
-      A minimal product cluster configuration consists of:
-    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-       At least four physical nodes (OSD nodes) with co-location of services
-      </p></li><li class="listitem "><p>
-       Dual-10 Gb Ethernet as a bonded network
-      </p></li><li class="listitem "><p>
-       A separate Admin Node (can be virtualized on an external node)
-      </p></li></ul></div><p>
-      A detailed configuration is:
-    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-       Separate Admin Node with 4 GB RAM, four cores, 1 TB
-       storage capacity. This is typically the Salt master node.
-       Ceph services and gateways, such as Ceph Monitor, Metadata Server,
-       Ceph OSD, Object Gateway, or NFS Ganesha are
-       not supported on the Admin Node as it needs to orchestrate the
-       cluster update and upgrade processes independently.
-      </p></li><li class="listitem "><p>
-       At least four physical OSD nodes, with eight OSD disks each,
-       see <a class="xref" href="storage-bp-hwreq.html#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for requirements.
-      </p><p>
-        The total capacity of the cluster should be sized so that even
-        with one node unavailable, the total used capacity (including
-        redundancy) does not exceed 80%.
-      </p></li><li class="listitem "><p>
-       Three Ceph Monitor instances. Monitors need to be run from
-       SSD/NVMe storage, not HDDs, for latency reasons.
-      </p></li><li class="listitem "><p>
-         Monitors, Metadata Server, and gateways can be co-located on the OSD
-         nodes, see <a class="xref" href="storage-bp-hwreq.html#ses-bp-diskshare" title="2.12. OSD and Monitor Sharing One Server">Section 2.12, “OSD and Monitor Sharing One Server”</a> for monitor co-location.
-         If you co-locate services, the memory and CPU requirements need to be added up.
+    A minimal product cluster configuration consists of:
+   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      At least four physical nodes (OSD nodes) with co-location of services
+     </p></li><li class="listitem "><p>
+      Dual-10 Gb Ethernet as a bonded network
+     </p></li><li class="listitem "><p>
+      A separate Admin Node (can be virtualized on an external node)
+     </p></li></ul></div><p>
+    A detailed configuration is:
+   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      Separate Admin Node with 4 GB RAM, four cores, 1 TB storage capacity. This is
+      typically the Salt master node. Ceph services and gateways, such as
+      Ceph Monitor, Metadata Server, Ceph OSD, Object Gateway, or NFS Ganesha are not supported on the Admin Node
+      as it needs to orchestrate the cluster update and upgrade processes
+      independently.
+     </p></li><li class="listitem "><p>
+      At least four physical OSD nodes, with eight OSD disks each, see
+      <a class="xref" href="storage-bp-hwreq.html#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for requirements.
+     </p><p>
+      The total capacity of the cluster should be sized so that even with one
+      node unavailable, the total used capacity (including redundancy) does not
+      exceed 80%.
+     </p></li><li class="listitem "><p>
+      Three Ceph Monitor instances. Monitors need to be run from SSD/NVMe storage, not
+      HDDs, for latency reasons.
+     </p></li><li class="listitem "><p>
+      Monitors, Metadata Server, and gateways can be co-located on the OSD nodes, see
+      <a class="xref" href="storage-bp-hwreq.html#ses-bp-diskshare" title="2.12. OSD and Monitor Sharing One Server">Section 2.12, “OSD and Monitor Sharing One Server”</a> for monitor co-location. If you
+      co-locate services, the memory and CPU requirements need to be added up.
+     </p></li><li class="listitem "><p>
+      iSCSI Gateway, Object Gateway, and Metadata Server require at least incremental 4 GB RAM and four
+      cores.
+     </p></li><li class="listitem "><p>
+      If you are using CephFS, S3/Swift, iSCSI, at least two instances of
+      the respective roles (Metadata Server, Object Gateway, iSCSI) are required for redundancy
+      and availability.
+     </p></li><li class="listitem "><p>
+      The nodes are to be dedicated to SUSE Enterprise Storage and must not be used for
+      any other physical, containerized, or virtualized workload.
+     </p></li><li class="listitem "><p>
+      If any of the gateways (iSCSI, Object Gateway, NFS Ganesha, Metadata Server, ...) are
+      deployed within VMs, these VMs must not be hosted on the physical
+      machines serving other cluster roles. (This is unnecessary, as they are
+      supported as collocated services.)
+     </p></li><li class="listitem "><p>
+      When deploying services as VMs on hypervisors outside the core physical
+      cluster, failure domains must be respected to ensure redundancy.
+     </p><p>
+      For example, do not deploy multiple roles of the same type on the same
+      hypervisor, such as multiple MONs or MDSs instances.
+     </p></li><li class="listitem "><p>
+      When deploying inside VMs, it is particularly crucial to ensure that the
+      nodes have strong network connectivity and well working time
+      synchronization.
+     </p></li><li class="listitem "><p>
+      The hypervisor nodes must be adequately sized to avoid interference by
+      other workloads consuming CPU, RAM, network, and storage resources.
+     </p></li></ul></div><div class="figure" id="id-1.4.3.3.7.3.6"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/minimal-ses.png" target="_blank"><img src="images/minimal-ses.png" width="" alt="Minimum Cluster Configuration" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.2: </span><span class="name">Minimum Cluster Configuration </span><a title="Permalink" class="permalink" href="storage-bp-hwreq.html#id-1.4.3.3.7.3.6">#</a></h6></div></div></div><div class="sect2 " id="ses-bp-production-cluster"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Recommended Production Cluster Configuration</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ses-bp-production-cluster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-production-cluster</li></ul></div></div></div></div><p>
+    Once you grow your cluster, we recommend to relocate monitors, Metadata Server, and
+    gateways on separate nodes to ensure better fault tolerance.
+   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      Seven Object Storage Nodes
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        No single node exceeds ~15% of total storage.
        </p></li><li class="listitem "><p>
-         iSCSI Gateway, Object Gateway, and Metadata Server require at least incremental 4 GB RAM and four cores.
+        The total capacity of the cluster should be sized so that even with one
+        node unavailable, the total used capacity (including redundancy) does
+        not exceed 80%.
        </p></li><li class="listitem "><p>
-         If you are using CephFS, S3/Swift, iSCSI, at least two instances
-         of the respective roles (Metadata Server, Object Gateway, iSCSI) are required for redundancy
-         and availability.
+        25 Gb Ethernet or better, bonded for internal cluster and external
+        public network each.
        </p></li><li class="listitem "><p>
-         The nodes are to be dedicated to SUSE Enterprise Storage and
-         must not be used for any other physical, containerized, or
-         virtualized workload.
+        56+ OSDs per storage cluster.
        </p></li><li class="listitem "><p>
-         If any of the gateways (iSCSI, Object Gateway, NFS Ganesha, Metadata Server, ...) are deployed
-         within VMs, these VMs must not be hosted on
-         the physical machines serving other cluster roles. (This is
-         unnecessary, as they are supported as collocated services.)
-       </p></li><li class="listitem "><p>
-         When deploying services as VMs on hypervisors outside the core
-         physical cluster, failure domains must be respected to ensure redundancy.
+        See <a class="xref" href="storage-bp-hwreq.html#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for further recommendation.
+       </p></li></ul></div></li><li class="listitem "><p>
+      Dedicated physical infrastructure nodes.
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        Three Ceph Monitor nodes: 4 GB RAM, 4 core processor, RAID 1 SSDs for disk.
        </p><p>
-         For example, do not deploy multiple roles of the same type on the
-         same hypervisor, such as multiple MONs or MDSs instances.
+        See <a class="xref" href="storage-bp-hwreq.html#sysreq-mon" title="2.5. Monitor Nodes">Section 2.5, “Monitor Nodes”</a> for further recommendation.
        </p></li><li class="listitem "><p>
-         When deploying inside VMs, it is particularly crucial to ensure
-         that the nodes have strong network connectivity and well working
-         time synchronization.
+        Object Gateway nodes: 32 GB RAM, 8 core processor, RAID 1 SSDs for disk.
+       </p><p>
+        See <a class="xref" href="storage-bp-hwreq.html#sysreq-rgw" title="2.6. Object Gateway Nodes">Section 2.6, “Object Gateway Nodes”</a> for further recommendation.
        </p></li><li class="listitem "><p>
-         The hypervisor nodes must be adequately sized to avoid
-         interference by other workloads consuming CPU, RAM, network, and storage resources.
-       </p></li></ul></div><div class="figure" id="id-1.4.3.3.7.3.6"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/minimal-ses.png" target="_blank"><img src="images/minimal-ses.png" width="" alt="Minimum Cluster Configuration" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.2: </span><span class="name">Minimum Cluster Configuration </span><a title="Permalink" class="permalink" href="storage-bp-hwreq.html#id-1.4.3.3.7.3.6">#</a></h6></div></div></div><div class="sect2 " id="ses-bp-production-cluster"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Recommended Production Cluster Configuration</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ses-bp-production-cluster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-production-cluster</li></ul></div></div></div></div><p>
-      Once you grow your cluster, we recommend to relocate monitors,
-      Metadata Server, and gateways on separate nodes to ensure better fault tolerance.
-    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-       Seven Object Storage Nodes
-      </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-         No single node exceeds ~15% of total storage.
-        </p></li><li class="listitem "><p>
-         The total capacity of the cluster should be sized so that even
-         with one node unavailable, the total used capacity (including
-         redundancy) does not exceed 80%.
-        </p></li><li class="listitem "><p>
-         25 Gb Ethernet or better, bonded for internal cluster and external
-         public network each.
-        </p></li><li class="listitem "><p>
-         56+ OSDs per storage cluster.
-        </p></li><li class="listitem "><p>
-         See <a class="xref" href="storage-bp-hwreq.html#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for further recommendation.
-        </p></li></ul></div></li><li class="listitem "><p>
-       Dedicated physical infrastructure nodes.
-      </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-         Three Ceph Monitor nodes: 4 GB RAM, 4 core processor, RAID 1 SSDs for disk.
+        iSCSI Gateway nodes: 16 GB RAM, 6-8 core processor, RAID 1 SSDs for disk.
        </p><p>
-         See <a class="xref" href="storage-bp-hwreq.html#sysreq-mon" title="2.5. Monitor Nodes">Section 2.5, “Monitor Nodes”</a> for further recommendation.
-        </p></li><li class="listitem "><p>
-         Object Gateway nodes: 32 GB RAM, 8 core processor, RAID 1 SSDs for disk.
+        See <a class="xref" href="storage-bp-hwreq.html#sysreq-iscsi" title="2.9. iSCSI Nodes">Section 2.9, “iSCSI Nodes”</a> for further recommendation.
+       </p></li><li class="listitem "><p>
+        Metadata Server nodes (one active/one hot standby): 32 GB RAM, 8 core processor,
+        RAID 1 SSDs for disk.
        </p><p>
-         See <a class="xref" href="storage-bp-hwreq.html#sysreq-rgw" title="2.6. Object Gateway Nodes">Section 2.6, “Object Gateway Nodes”</a> for further recommendation.
-        </p></li><li class="listitem "><p>
-          iSCSI Gateway nodes: 16 GB RAM, 6-8 core processor, RAID 1 SSDs for disk.
-        </p><p>
-          See <a class="xref" href="storage-bp-hwreq.html#sysreq-iscsi" title="2.9. iSCSI Nodes">Section 2.9, “iSCSI Nodes”</a> for further recommendation.
-         </p></li><li class="listitem "><p>
-           Metadata Server nodes (one active/one hot standby): 32 GB RAM, 8 core processor,
-           RAID 1 SSDs for disk.
-         </p><p>
-           See <a class="xref" href="storage-bp-hwreq.html#sysreq-mds" title="2.7. Metadata Server Nodes">Section 2.7, “Metadata Server Nodes”</a> for further recommendation.
-         </p></li><li class="listitem "><p>
-         One SES Admin Node: 4 GB RAM, 4 core processor, RAID 1 SSDs for
-         disk.
-        </p></li></ul></div></li></ul></div></div></div><div class="sect1 " id="deployment-osd-recommendation"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Object Storage Nodes</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#deployment-osd-recommendation">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>deployment-osd-recommendation</li></ul></div></div></div></div><div class="sect2 " id="sysreq-osd"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Requirements</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#sysreq-osd">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-osd</li></ul></div></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-      The following CPU recommendations account for devices independent
-      of usage by Ceph:
+        See <a class="xref" href="storage-bp-hwreq.html#sysreq-mds" title="2.7. Metadata Server Nodes">Section 2.7, “Metadata Server Nodes”</a> for further recommendation.
+       </p></li><li class="listitem "><p>
+        One SES Admin Node: 4 GB RAM, 4 core processor, RAID 1 SSDs for disk.
+       </p></li></ul></div></li></ul></div></div></div><div class="sect1 " id="deployment-osd-recommendation"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Object Storage Nodes</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#deployment-osd-recommendation">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>deployment-osd-recommendation</li></ul></div></div></div></div><div class="sect2 " id="sysreq-osd"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Requirements</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#sysreq-osd">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-osd</li></ul></div></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      The following CPU recommendations account for devices independent of
+      usage by Ceph:
      </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
         1x 2GHz CPU Thread per spinner.
        </p></li><li class="listitem "><p>
@@ -253,8 +253,8 @@ hljs.configure({
       Total RAM required = number of OSDs x (1 GB +
       <code class="option">osd_memory_target</code>) + 16 GB
      </p><p>
-      The default for <code class="option">osd_memory_target</code> is 4 GB.
-      Refer to <span class="intraxref">Book “Administration Guide”, Chapter 25 “Ceph Cluster Configuration”, Section 25.2.1 “Automatic Cache Sizing”</span> for more details on
+      The default for <code class="option">osd_memory_target</code> is 4 GB. Refer to
+      <span class="intraxref">Book “Administration Guide”, Chapter 25 “Ceph Cluster Configuration”, Section 25.2.1 “Automatic Cache Sizing”</span> for more details on
       <code class="option">osd_memory_target</code>.
      </p></li><li class="listitem "><p>
       OSD disks in JBOD configurations or or individual RAID-0 configurations.
@@ -267,16 +267,16 @@ hljs.configure({
       configuration.
      </p></li><li class="listitem "><p>
       Allocate at least an additional 4 GB of RAM if this OSD host will host
-       part of a cache pool used for cache tiering.
+      part of a cache pool used for cache tiering.
      </p></li><li class="listitem "><p>
       Ceph Monitors, gateway and Metadata Servers can reside on Object Storage Nodes.
      </p></li><li class="listitem "><p>
-      For disk performance reasons, OSD nodes are bare metal nodes.
-      No other workloads should run on an OSD node unless it is a minimal
-      setup of Ceph Monitors and Ceph Managers.
+      For disk performance reasons, OSD nodes are bare metal nodes. No other
+      workloads should run on an OSD node unless it is a minimal setup of
+      Ceph Monitors and Ceph Managers.
      </p></li><li class="listitem "><p>
-        SSDs for Journal with 6:1 ratio SSD journal to OSD.
-      </p></li></ul></div></div><div class="sect2 " id="ses-bp-mindisk"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Disk Size</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ses-bp-mindisk">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-mindisk</li></ul></div></div></div></div><p>
+      SSDs for Journal with 6:1 ratio SSD journal to OSD.
+     </p></li></ul></div></div><div class="sect2 " id="ses-bp-mindisk"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Disk Size</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#ses-bp-mindisk">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-mindisk</li></ul></div></div></div></div><p>
     There are two types of disk space needed to run on OSD: the space for the
     disk journal (for FileStore) or WAL/DB device (for BlueStore), and the
     primary space for the stored data. The minimum (and default) value for the
@@ -289,10 +289,10 @@ hljs.configure({
      Refer to <a class="xref" href="cha-storage-about.html#about-bluestore" title="1.4. BlueStore">Section 1.4, “BlueStore”</a> for more information on
      BlueStore.
     </p></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-      We recommend reserving 4 GB for the WAL device. While the minimal DB size
-      is 64 GB for RBD-only workloads, the recommended DB size for Object Gateway
-      and CephFS workloads is 2% of the main device capacity (but at least
-      196 GB).
+      We recommend reserving 4 GB for the WAL device. While the minimal DB
+      size is 64 GB for RBD-only workloads, the recommended DB size for
+      Object Gateway and CephFS workloads is 2% of the main device capacity (but at
+      least 196 GB).
      </p></li><li class="listitem "><p>
       If you intend to put the WAL and DB device on the same disk, then we
       recommend using a single partition for both devices, rather than having a
@@ -300,8 +300,8 @@ hljs.configure({
       the WAL operation as well. Management of the disk space is therefore more
       effective as Ceph uses the DB partition for the WAL only if there is a
       need for it. Another advantage is that the probability that the WAL
-      partition gets full is very small, and when it is not used fully then
-      its space is not wasted but used for DB operation.
+      partition gets full is very small, and when it is not used fully then its
+      space is not wasted but used for DB operation.
      </p><p>
       To share the DB device with the WAL, do <span class="emphasis"><em>not</em></span> specify
       the WAL device, and specify only the DB device.
@@ -330,11 +330,11 @@ hljs.configure({
       server, the more data must be transferred via the network card(s) for the
       disk write operations.
      </p></li><li class="listitem "><p>
-      <span class="emphasis"><em>Memory.</em></span> RAM above 2 GB is used for the BlueStore
-      cache. With the default <code class="option">osd_memory_target</code> of 4 GB, the
-      system has a reasonable starting cache size for spinning media. If using
-      SSD or NVME, consider increasing the cache size and RAM allocation per
-      OSD to maximize performance.
+      <span class="emphasis"><em>Memory.</em></span> RAM above 2 GB is used for the
+      BlueStore cache. With the default <code class="option">osd_memory_target</code> of
+      4 GB, the system has a reasonable starting cache size for spinning
+      media. If using SSD or NVME, consider increasing the cache size and RAM
+      allocation per OSD to maximize performance.
      </p></li><li class="listitem "><p>
       <span class="emphasis"><em>Fault tolerance.</em></span> If the complete server fails, the
       more disks it has, the more OSDs the cluster temporarily loses. Moreover,
@@ -378,9 +378,9 @@ hljs.configure({
     </p></li><li class="listitem "><p>
      2.5 GHz CPU with at least 2 cores.
     </p></li></ul></div></div><div class="sect1 " id="sysreq-admin-node"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Admin Node</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#sysreq-admin-node">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-admin-node</li></ul></div></div></div></div><p>
-   At least 4 GB of RAM and a quad-core CPU are required. This includes
-   running the Salt master on the Admin Node. For large clusters with hundreds of
-   nodes, 6 GB of RAM is suggested.
+   At least 4 GB of RAM and a quad-core CPU are required. This includes running
+   the Salt master on the Admin Node. For large clusters with hundreds of nodes, 6 GB
+   of RAM is suggested.
   </p></div><div class="sect1 " id="sysreq-iscsi"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.9 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">iSCSI Nodes</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#sysreq-iscsi">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-iscsi</li></ul></div></div></div></div><p>
    iSCSI nodes should have six to eight CPU cores and 16 GB of RAM.
   </p></div><div class="sect1 " id="req-ses-other"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.10 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SUSE Enterprise Storage 6 and Other SUSE Products</span> <a title="Permalink" class="permalink" href="storage-bp-hwreq.html#req-ses-other">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>req-ses-other</li></ul></div></div></div></div><p>

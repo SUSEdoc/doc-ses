@@ -76,25 +76,23 @@ hljs.configure({
   latest documentation updates, refer to
   <a class="link" href="https://documentation.suse.com" target="_blank">https://documentation.suse.com</a>.
  </p><div class="sect1 " id="id-1.4.2.7"><div class="titlepage"><div><div><h2 class="title"><span class="number">1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Available Documentation</span> <a title="Permalink" class="permalink" href="#id-1.4.2.7">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/common_intro_available_doc_i.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>common_intro_available_doc_i.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
-
+  
   The following manuals are available for this product:
- </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.4.2.7.4.1"><span class="term "><span class="intraxref">Book “Administration Guide”</span>
-   </span></dt><dd><p>
+ </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.4.2.7.4.1"><span class="term "><span class="intraxref">Book “Administration Guide”</span></span></dt><dd><p>
      The guide describes various administration tasks that are typically
      performed after the installation. The guide also introduces steps to
      integrate Ceph with virtualization solutions such as <code class="systemitem">libvirt</code>, Xen,
      or KVM, and ways to access objects stored in the cluster via iSCSI and
      RADOS gateways.
-    </p></dd><dt id="id-1.4.2.7.4.2"><span class="term "><a class="xref" href="#book-storage-deployment" title="Deployment Guide">Deployment Guide</a>
-   </span></dt><dd><p>
+    </p></dd><dt id="id-1.4.2.7.4.2"><span class="term "><a class="xref" href="#book-storage-deployment" title="Deployment Guide">Deployment Guide</a></span></dt><dd><p>
      Guides you through the installation steps of the Ceph cluster and all
      services related to Ceph. The guide also illustrates a basic Ceph
      cluster structure and provides you with related terminology.
     </p></dd></dl></div><p>
   HTML versions of the product manuals can be found in the installed system
   under <code class="filename">/usr/share/doc/manual</code>. Find the latest
-  documentation updates at <a class="link" href="https://documentation.suse.com" target="_blank">https://documentation.suse.com</a> where you can download the
-  manuals for your product in multiple formats.
+  documentation updates at <a class="link" href="https://documentation.suse.com" target="_blank">https://documentation.suse.com</a>
+  where you can download the manuals for your product in multiple formats.
  </p></div><div class="sect1 " id="id-1.4.2.8"><div class="titlepage"><div><div><h2 class="title"><span class="number">2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Feedback</span> <a title="Permalink" class="permalink" href="#id-1.4.2.8">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/common_intro_feedback_i.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>common_intro_feedback_i.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
   Several feedback channels are available:
  </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.4.2.8.4.1"><span class="term ">Bugs and Enhancement Requests</span></dt><dd><p>
@@ -104,8 +102,8 @@ hljs.configure({
      To report bugs for a product component, log in to the Novell Customer Center from
      <a class="link" href="http://www.suse.com/support/" target="_blank">http://www.suse.com/support/</a> and select <span class="guimenu ">My Support</span> › <span class="guimenu ">Service Request</span>.
     </p></dd><dt id="id-1.4.2.8.4.2"><span class="term ">User Comments</span></dt><dd><p>
-     We want to hear your comments and suggestions for this manual and
-     the other documentation included with this product. If you have questions,
+     We want to hear your comments and suggestions for this manual and the
+     other documentation included with this product. If you have questions,
      suggestions, or corrections, contact doc-team@suse.com, or you can also
      click the <code class="literal">Report Documentation Bug</code> link beside each
      chapter or section heading.
@@ -261,9 +259,9 @@ hljs.configure({
     unit fails, the replicated data is still available on other rows.
    </p></div><div class="sect2 " id="storage-intro-core-nodes"><div class="titlepage"><div><div><h3 class="title"><span class="number">1.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Nodes and Daemons</span> <a title="Permalink" class="permalink" href="#storage-intro-core-nodes">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_about.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_about.xml</li><li><span class="ds-label">ID: </span>storage-intro-core-nodes</li></ul></div></div></div></div><p>
     In Ceph, nodes are servers working for the cluster. They can run several
-    different types of daemons. We recommend to run only one type of
-    daemon on each node, except for Ceph Manager daemons which can be collocated with
-    Ceph Monitors. Each cluster requires at least Ceph Monitor, Ceph Manager, and Ceph OSD daemons:
+    different types of daemons. We recommend to run only one type of daemon on
+    each node, except for Ceph Manager daemons which can be collocated with Ceph Monitors.
+    Each cluster requires at least Ceph Monitor, Ceph Manager, and Ceph OSD daemons:
    </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.4.3.2.7.5.3.1"><span class="term ">Admin Node</span></dt><dd><p>
        <span class="emphasis"><em>Admin Node</em></span> is a Ceph cluster node where the Salt master
        service is running. The Admin Node is a central point of the Ceph cluster
@@ -285,12 +283,11 @@ hljs.configure({
        be such that more than 50% of the Ceph Monitor nodes remain functional if one
        site fails.
       </p></dd><dt id="id-1.4.3.2.7.5.3.3"><span class="term ">Ceph Manager</span></dt><dd><p>
-       The Ceph Manager collects the state information from the whole
-       cluster. The Ceph Manager daemon runs alongside the monitor daemons.
-       It provides additional monitoring, and interfaces the external
-       monitoring and management systems. It includes other services
-       as well, for example the Ceph Dashboard Web UI.
-       The Ceph Dashboard Web UI runs on the same node as the Ceph Manager.
+       The Ceph Manager collects the state information from the whole cluster. The
+       Ceph Manager daemon runs alongside the monitor daemons. It provides additional
+       monitoring, and interfaces the external monitoring and management
+       systems. It includes other services as well, for example the Ceph Dashboard
+       Web UI. The Ceph Dashboard Web UI runs on the same node as the Ceph Manager.
       </p><p>
        The Ceph manager requires no additional configuration, beyond ensuring
        it is running. You can deploy it as a separate role using DeepSea.
@@ -425,9 +422,9 @@ hljs.configure({
    is only helpful to provision a shared DB device if it is faster than the
    primary device.
   </p><div id="id-1.4.3.2.9.9" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Plan for the DB Size</h6><p>
-    Plan thoroughly to ensure sufficient size of the DB device. If the DB device
-    fills up, metadata will spill over to the primary device, which badly
-    degrades the OSD's performance.
+    Plan thoroughly to ensure sufficient size of the DB device. If the DB
+    device fills up, metadata will spill over to the primary device, which
+    badly degrades the OSD's performance.
    </p><p>
     You can check if a WAL/DB partition is getting full and spilling over with
     the <code class="command">ceph daemon osd<em class="replaceable ">.ID</em> perf
@@ -451,12 +448,12 @@ hljs.configure({
      scale clusters it is a recommended reading. The publication can be found
      at <a class="link" href="http://www.ssrc.ucsc.edu/papers/weil-sc06.pdf" target="_blank">http://www.ssrc.ucsc.edu/papers/weil-sc06.pdf</a>.
     </p></li><li class="listitem "><p>
-       SUSE Enterprise Storage can be used with non-SUSE OpenStack distributions.
-       The Ceph clients need to be at a level that is compatible with SUSE Enterprise Storage.
-     </p><div id="id-1.4.3.2.10.2.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-         SUSE supports the server component of the Ceph deployment
-         and the client is supported by the OpenStack distribution vendor.
-       </p></div></li></ul></div></div></div><div class="chapter " id="storage-bp-hwreq"><div class="titlepage"><div><div><h2 class="title"><span class="number">2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Hardware Requirements and Recommendations</span> <a title="Permalink" class="permalink" href="#storage-bp-hwreq">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>storage-bp-hwreq</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="#network-overview"><span class="number">2.1 </span><span class="name">Network Overview</span></a></span></dt><dt><span class="sect1"><a href="#multi-architecture"><span class="number">2.2 </span><span class="name">Multiple Architecture Configurations</span></a></span></dt><dt><span class="sect1"><a href="#ses-hardware-config"><span class="number">2.3 </span><span class="name">Hardware Configuration</span></a></span></dt><dt><span class="sect1"><a href="#deployment-osd-recommendation"><span class="number">2.4 </span><span class="name">Object Storage Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-mon"><span class="number">2.5 </span><span class="name">Monitor Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-rgw"><span class="number">2.6 </span><span class="name">Object Gateway Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-mds"><span class="number">2.7 </span><span class="name">Metadata Server Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-admin-node"><span class="number">2.8 </span><span class="name">Admin Node</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-iscsi"><span class="number">2.9 </span><span class="name">iSCSI Nodes</span></a></span></dt><dt><span class="sect1"><a href="#req-ses-other"><span class="number">2.10 </span><span class="name">SUSE Enterprise Storage 6 and Other SUSE Products</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-naming"><span class="number">2.11 </span><span class="name">Naming Limitations</span></a></span></dt><dt><span class="sect1"><a href="#ses-bp-diskshare"><span class="number">2.12 </span><span class="name">OSD and Monitor Sharing One Server</span></a></span></dt></dl></div></div><p>
+     SUSE Enterprise Storage can be used with non-SUSE OpenStack distributions. The Ceph
+     clients need to be at a level that is compatible with SUSE Enterprise Storage.
+    </p><div id="id-1.4.3.2.10.2.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      SUSE supports the server component of the Ceph deployment and the
+      client is supported by the OpenStack distribution vendor.
+     </p></div></li></ul></div></div></div><div class="chapter " id="storage-bp-hwreq"><div class="titlepage"><div><div><h2 class="title"><span class="number">2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Hardware Requirements and Recommendations</span> <a title="Permalink" class="permalink" href="#storage-bp-hwreq">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>storage-bp-hwreq</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="#network-overview"><span class="number">2.1 </span><span class="name">Network Overview</span></a></span></dt><dt><span class="sect1"><a href="#multi-architecture"><span class="number">2.2 </span><span class="name">Multiple Architecture Configurations</span></a></span></dt><dt><span class="sect1"><a href="#ses-hardware-config"><span class="number">2.3 </span><span class="name">Hardware Configuration</span></a></span></dt><dt><span class="sect1"><a href="#deployment-osd-recommendation"><span class="number">2.4 </span><span class="name">Object Storage Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-mon"><span class="number">2.5 </span><span class="name">Monitor Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-rgw"><span class="number">2.6 </span><span class="name">Object Gateway Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-mds"><span class="number">2.7 </span><span class="name">Metadata Server Nodes</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-admin-node"><span class="number">2.8 </span><span class="name">Admin Node</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-iscsi"><span class="number">2.9 </span><span class="name">iSCSI Nodes</span></a></span></dt><dt><span class="sect1"><a href="#req-ses-other"><span class="number">2.10 </span><span class="name">SUSE Enterprise Storage 6 and Other SUSE Products</span></a></span></dt><dt><span class="sect1"><a href="#sysreq-naming"><span class="number">2.11 </span><span class="name">Naming Limitations</span></a></span></dt><dt><span class="sect1"><a href="#ses-bp-diskshare"><span class="number">2.12 </span><span class="name">OSD and Monitor Sharing One Server</span></a></span></dt></dl></div></div><p>
   The hardware requirements of Ceph are heavily dependent on the IO workload.
   The following hardware requirements and recommendations should be considered
   as a starting point for detailed planning.
@@ -465,49 +462,51 @@ hljs.configure({
   basis. If several processes are located on the same machine, the CPU, RAM,
   disk and network requirements need to be added up.
  </p><div class="sect1 " id="network-overview"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Overview</span> <a title="Permalink" class="permalink" href="#network-overview">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>network-overview</li></ul></div></div></div></div><p>
-    Ceph has several logical networks:
+   Ceph has several logical networks:
   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-        A trusted internal network, the back-end network called the
-        the <code class="literal">cluster network</code>.
-      </p></li><li class="listitem "><p>
-        A public client network called <code class="literal">public network</code>.
-      </p></li><li class="listitem "><p>
-        Client networks for gateways, these are optional.
-      </p></li></ul></div><p>
-     The trusted internal network is the back-end network between the OSD nodes for
-     replication, re-balancing and recovery.Ideally, this network provides twice the
-     bandwidth of the public network with default 3-way replication since the
-     primary OSD sends 2 copies to other OSDs via this network.
-     The public network is between clients and gateways on the one side to
-     talk to monitors, managers, MDS nodes, OSD nodes. It is also used by
-     monitors, managers, and MDS nodes to talk with OSD nodes.
-   </p><div class="figure" id="network-overview-figure"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/network-overview-diagram.png" target="_blank"><img src="images/network-overview-diagram.png" width="" alt="Network Overview" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.1: </span><span class="name">Network Overview </span><a title="Permalink" class="permalink" href="#network-overview-figure">#</a></h6></div></div><div class="sect2 " id="ceph-install-ceph-deploy-network"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Recommendations</span> <a title="Permalink" class="permalink" href="#ceph-install-ceph-deploy-network">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ceph-install-ceph-deploy-network</li></ul></div></div></div></div><p>
-    For the Ceph network environment, we recommend two bonded 25 GbE (or faster)
-    network interfaces bonded using 802.3ad (LACP). The use of two network interfaces
-    provides aggregation and fault-tolerance. The bond should then be used to provide
-    two VLAN interfaces, one for the public network, and the second for the cluster network.
-    Details on bonding the interfaces can be found in
+     A trusted internal network, the back-end network called the the
+     <code class="literal">cluster network</code>.
+    </p></li><li class="listitem "><p>
+     A public client network called <code class="literal">public network</code>.
+    </p></li><li class="listitem "><p>
+     Client networks for gateways, these are optional.
+    </p></li></ul></div><p>
+   The trusted internal network is the back-end network between the OSD nodes
+   for replication, re-balancing and recovery.Ideally, this network provides
+   twice the bandwidth of the public network with default 3-way replication
+   since the primary OSD sends 2 copies to other OSDs via this network. The
+   public network is between clients and gateways on the one side to talk to
+   monitors, managers, MDS nodes, OSD nodes. It is also used by monitors,
+   managers, and MDS nodes to talk with OSD nodes.
+  </p><div class="figure" id="network-overview-figure"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/network-overview-diagram.png" target="_blank"><img src="images/network-overview-diagram.png" width="" alt="Network Overview" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.1: </span><span class="name">Network Overview </span><a title="Permalink" class="permalink" href="#network-overview-figure">#</a></h6></div></div><div class="sect2 " id="ceph-install-ceph-deploy-network"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Network Recommendations</span> <a title="Permalink" class="permalink" href="#ceph-install-ceph-deploy-network">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ceph-install-ceph-deploy-network</li></ul></div></div></div></div><p>
+    For the Ceph network environment, we recommend two bonded 25 GbE (or
+    faster) network interfaces bonded using 802.3ad (LACP). The use of two
+    network interfaces provides aggregation and fault-tolerance. The bond
+    should then be used to provide two VLAN interfaces, one for the public
+    network, and the second for the cluster network. Details on bonding the
+    interfaces can be found in
     <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-network.html#sec-network-iface-bonding" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-network.html#sec-network-iface-bonding</a>.
    </p><p>
-     Fault tolerance can be enhanced through isolating the components into failure domains.
-     To improve fault tolerance of the network, bonding one interface from two
-     separate Network Interface Cards (NIC) offers protection against failure
-     of a single NIC. Similarly, creating a bond across two switches protects
-     against failure of a switch. We recommend consulting with the network
-     equipment vendor in order to architect the level of fault tolerance required.
+    Fault tolerance can be enhanced through isolating the components into
+    failure domains. To improve fault tolerance of the network, bonding one
+    interface from two separate Network Interface Cards (NIC) offers protection
+    against failure of a single NIC. Similarly, creating a bond across two
+    switches protects against failure of a switch. We recommend consulting with
+    the network equipment vendor in order to architect the level of fault
+    tolerance required.
    </p><div id="id-1.4.3.3.5.6.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Administration Network not Supported</h6><p>
      Additional administration network setup—that enables for example
      separating SSH, Salt, or DNS networking—is neither tested nor
      supported.
     </p></div><div id="id-1.4.3.3.5.6.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Nodes Configured via DHCP</h6><p>
-     If your storage nodes are configured via DHCP, the default timeouts may not
-     be sufficient for the network to be configured correctly before the various
-     Ceph daemons start. If this happens, the Ceph MONs and OSDs will not
-     start correctly (running <code class="command">systemctl status ceph\*</code> will
-     result in "unable to bind" errors). To avoid this issue, we recommend
-     increasing the DHCP client timeout to at least 30 seconds on each node in
-     your storage cluster. This can be done by changing the following settings
-     on each node:
+     If your storage nodes are configured via DHCP, the default timeouts may
+     not be sufficient for the network to be configured correctly before the
+     various Ceph daemons start. If this happens, the Ceph MONs and OSDs
+     will not start correctly (running <code class="command">systemctl status
+     ceph\*</code> will result in "unable to bind" errors). To avoid this
+     issue, we recommend increasing the DHCP client timeout to at least 30
+     seconds on each node in your storage cluster. This can be done by changing
+     the following settings on each node:
     </p><p>
      In <code class="filename">/etc/sysconfig/network/dhcp</code>, set
     </p><div class="verbatim-wrap"><pre class="screen">DHCLIENT_WAIT_AT_BOOT="30"</pre></div><p>
@@ -515,9 +514,9 @@ hljs.configure({
     </p><div class="verbatim-wrap"><pre class="screen">WAIT_FOR_INTERFACES="60"</pre></div></div><div class="sect3 " id="storage-bp-net-private"><div class="titlepage"><div><div><h4 class="title"><span class="number">2.1.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding a Private Network to a Running Cluster</span> <a title="Permalink" class="permalink" href="#storage-bp-net-private">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>storage-bp-net-private</li></ul></div></div></div></div><p>
      If you do not specify a cluster network during Ceph deployment, it
      assumes a single public network environment. While Ceph operates fine
-     with a public network, its performance and security improves when you set a
-     second private cluster network. To support two networks, each Ceph node
-     needs to have at least two network cards.
+     with a public network, its performance and security improves when you set
+     a second private cluster network. To support two networks, each Ceph
+     node needs to have at least two network cards.
     </p><p>
      You need to apply the following changes to each Ceph node. It is
      relatively quick to do for a small cluster, but can be very time consuming
@@ -532,14 +531,15 @@ hljs.configure({
        <code class="option">cluster network</code> settings, you can do so with the
        optional <code class="option">cluster addr</code>.
       </p></li><li class="step "><p>
-       Check that the private cluster network works as expected on the OS level.
+       Check that the private cluster network works as expected on the OS
+       level.
       </p></li><li class="step "><p>
        Start Ceph related services on each cluster node.
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl start ceph.target</pre></div></li></ol></div></div></div><div class="sect3 " id="storage-bp-net-subnets"><div class="titlepage"><div><div><h4 class="title"><span class="number">2.1.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Monitor Nodes on Different Subnets</span> <a title="Permalink" class="permalink" href="#storage-bp-net-subnets">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>storage-bp-net-subnets</li></ul></div></div></div></div><p>
      If the monitor nodes are on multiple subnets, for example they are located
-     in different rooms and served by different switches, you need to adjust the
-     <code class="filename">ceph.conf</code> file accordingly. For example, if the nodes
-     have IP addresses 192.168.123.12, 1.2.3.4, and 242.12.33.12, add the
+     in different rooms and served by different switches, you need to adjust
+     the <code class="filename">ceph.conf</code> file accordingly. For example, if the
+     nodes have IP addresses 192.168.123.12, 1.2.3.4, and 242.12.33.12, add the
      following lines to their <code class="literal">global</code> section:
     </p><div class="verbatim-wrap"><pre class="screen">[global]
  [...]
@@ -563,119 +563,116 @@ hljs.configure({
    frequency, and RAM perspective, there is no real difference between CPU
    architectures for sizing.
   </p><p>
-   As with smaller x86 processors (non-server), lower-performance
-   Arm-based cores may not provide an optimal experience, especially when
-   used for erasure coded pools.
+   As with smaller x86 processors (non-server), lower-performance Arm-based
+   cores may not provide an optimal experience, especially when used for
+   erasure coded pools.
   </p><div id="id-1.4.3.3.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-      Throughout the documentation, <em class="replaceable ">SYSTEM-ARCH</em>
-      is used in place of x86 or Arm.
-    </p></div></div><div class="sect1 " id="ses-hardware-config"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Hardware Configuration</span> <a title="Permalink" class="permalink" href="#ses-hardware-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-hardware-config</li></ul></div></div></div></div><p>
-    For the best product experience, we recommend to start with the
-    recommended cluster configuration. For a test cluster or a cluster
-    with less performance requirements, we document a minimal supported
-    cluster configuration.
+    Throughout the documentation, <em class="replaceable ">SYSTEM-ARCH</em> is
+    used in place of x86 or Arm.
+   </p></div></div><div class="sect1 " id="ses-hardware-config"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Hardware Configuration</span> <a title="Permalink" class="permalink" href="#ses-hardware-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-hardware-config</li></ul></div></div></div></div><p>
+   For the best product experience, we recommend to start with the recommended
+   cluster configuration. For a test cluster or a cluster with less performance
+   requirements, we document a minimal supported cluster configuration.
   </p><div class="sect2 " id="ses-bp-minimum-cluster"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Cluster Configuration</span> <a title="Permalink" class="permalink" href="#ses-bp-minimum-cluster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-minimum-cluster</li></ul></div></div></div></div><p>
-      A minimal product cluster configuration consists of:
-    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-       At least four physical nodes (OSD nodes) with co-location of services
-      </p></li><li class="listitem "><p>
-       Dual-10 Gb Ethernet as a bonded network
-      </p></li><li class="listitem "><p>
-       A separate Admin Node (can be virtualized on an external node)
-      </p></li></ul></div><p>
-      A detailed configuration is:
-    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-       Separate Admin Node with 4 GB RAM, four cores, 1 TB
-       storage capacity. This is typically the Salt master node.
-       Ceph services and gateways, such as Ceph Monitor, Metadata Server,
-       Ceph OSD, Object Gateway, or NFS Ganesha are
-       not supported on the Admin Node as it needs to orchestrate the
-       cluster update and upgrade processes independently.
-      </p></li><li class="listitem "><p>
-       At least four physical OSD nodes, with eight OSD disks each,
-       see <a class="xref" href="#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for requirements.
-      </p><p>
-        The total capacity of the cluster should be sized so that even
-        with one node unavailable, the total used capacity (including
-        redundancy) does not exceed 80%.
-      </p></li><li class="listitem "><p>
-       Three Ceph Monitor instances. Monitors need to be run from
-       SSD/NVMe storage, not HDDs, for latency reasons.
-      </p></li><li class="listitem "><p>
-         Monitors, Metadata Server, and gateways can be co-located on the OSD
-         nodes, see <a class="xref" href="#ses-bp-diskshare" title="2.12. OSD and Monitor Sharing One Server">Section 2.12, “OSD and Monitor Sharing One Server”</a> for monitor co-location.
-         If you co-locate services, the memory and CPU requirements need to be added up.
+    A minimal product cluster configuration consists of:
+   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      At least four physical nodes (OSD nodes) with co-location of services
+     </p></li><li class="listitem "><p>
+      Dual-10 Gb Ethernet as a bonded network
+     </p></li><li class="listitem "><p>
+      A separate Admin Node (can be virtualized on an external node)
+     </p></li></ul></div><p>
+    A detailed configuration is:
+   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      Separate Admin Node with 4 GB RAM, four cores, 1 TB storage capacity. This is
+      typically the Salt master node. Ceph services and gateways, such as
+      Ceph Monitor, Metadata Server, Ceph OSD, Object Gateway, or NFS Ganesha are not supported on the Admin Node
+      as it needs to orchestrate the cluster update and upgrade processes
+      independently.
+     </p></li><li class="listitem "><p>
+      At least four physical OSD nodes, with eight OSD disks each, see
+      <a class="xref" href="#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for requirements.
+     </p><p>
+      The total capacity of the cluster should be sized so that even with one
+      node unavailable, the total used capacity (including redundancy) does not
+      exceed 80%.
+     </p></li><li class="listitem "><p>
+      Three Ceph Monitor instances. Monitors need to be run from SSD/NVMe storage, not
+      HDDs, for latency reasons.
+     </p></li><li class="listitem "><p>
+      Monitors, Metadata Server, and gateways can be co-located on the OSD nodes, see
+      <a class="xref" href="#ses-bp-diskshare" title="2.12. OSD and Monitor Sharing One Server">Section 2.12, “OSD and Monitor Sharing One Server”</a> for monitor co-location. If you
+      co-locate services, the memory and CPU requirements need to be added up.
+     </p></li><li class="listitem "><p>
+      iSCSI Gateway, Object Gateway, and Metadata Server require at least incremental 4 GB RAM and four
+      cores.
+     </p></li><li class="listitem "><p>
+      If you are using CephFS, S3/Swift, iSCSI, at least two instances of
+      the respective roles (Metadata Server, Object Gateway, iSCSI) are required for redundancy
+      and availability.
+     </p></li><li class="listitem "><p>
+      The nodes are to be dedicated to SUSE Enterprise Storage and must not be used for
+      any other physical, containerized, or virtualized workload.
+     </p></li><li class="listitem "><p>
+      If any of the gateways (iSCSI, Object Gateway, NFS Ganesha, Metadata Server, ...) are
+      deployed within VMs, these VMs must not be hosted on the physical
+      machines serving other cluster roles. (This is unnecessary, as they are
+      supported as collocated services.)
+     </p></li><li class="listitem "><p>
+      When deploying services as VMs on hypervisors outside the core physical
+      cluster, failure domains must be respected to ensure redundancy.
+     </p><p>
+      For example, do not deploy multiple roles of the same type on the same
+      hypervisor, such as multiple MONs or MDSs instances.
+     </p></li><li class="listitem "><p>
+      When deploying inside VMs, it is particularly crucial to ensure that the
+      nodes have strong network connectivity and well working time
+      synchronization.
+     </p></li><li class="listitem "><p>
+      The hypervisor nodes must be adequately sized to avoid interference by
+      other workloads consuming CPU, RAM, network, and storage resources.
+     </p></li></ul></div><div class="figure" id="id-1.4.3.3.7.3.6"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/minimal-ses.png" target="_blank"><img src="images/minimal-ses.png" width="" alt="Minimum Cluster Configuration" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.2: </span><span class="name">Minimum Cluster Configuration </span><a title="Permalink" class="permalink" href="#id-1.4.3.3.7.3.6">#</a></h6></div></div></div><div class="sect2 " id="ses-bp-production-cluster"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Recommended Production Cluster Configuration</span> <a title="Permalink" class="permalink" href="#ses-bp-production-cluster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-production-cluster</li></ul></div></div></div></div><p>
+    Once you grow your cluster, we recommend to relocate monitors, Metadata Server, and
+    gateways on separate nodes to ensure better fault tolerance.
+   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      Seven Object Storage Nodes
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        No single node exceeds ~15% of total storage.
        </p></li><li class="listitem "><p>
-         iSCSI Gateway, Object Gateway, and Metadata Server require at least incremental 4 GB RAM and four cores.
+        The total capacity of the cluster should be sized so that even with one
+        node unavailable, the total used capacity (including redundancy) does
+        not exceed 80%.
        </p></li><li class="listitem "><p>
-         If you are using CephFS, S3/Swift, iSCSI, at least two instances
-         of the respective roles (Metadata Server, Object Gateway, iSCSI) are required for redundancy
-         and availability.
+        25 Gb Ethernet or better, bonded for internal cluster and external
+        public network each.
        </p></li><li class="listitem "><p>
-         The nodes are to be dedicated to SUSE Enterprise Storage and
-         must not be used for any other physical, containerized, or
-         virtualized workload.
+        56+ OSDs per storage cluster.
        </p></li><li class="listitem "><p>
-         If any of the gateways (iSCSI, Object Gateway, NFS Ganesha, Metadata Server, ...) are deployed
-         within VMs, these VMs must not be hosted on
-         the physical machines serving other cluster roles. (This is
-         unnecessary, as they are supported as collocated services.)
-       </p></li><li class="listitem "><p>
-         When deploying services as VMs on hypervisors outside the core
-         physical cluster, failure domains must be respected to ensure redundancy.
+        See <a class="xref" href="#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for further recommendation.
+       </p></li></ul></div></li><li class="listitem "><p>
+      Dedicated physical infrastructure nodes.
+     </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+        Three Ceph Monitor nodes: 4 GB RAM, 4 core processor, RAID 1 SSDs for disk.
        </p><p>
-         For example, do not deploy multiple roles of the same type on the
-         same hypervisor, such as multiple MONs or MDSs instances.
+        See <a class="xref" href="#sysreq-mon" title="2.5. Monitor Nodes">Section 2.5, “Monitor Nodes”</a> for further recommendation.
        </p></li><li class="listitem "><p>
-         When deploying inside VMs, it is particularly crucial to ensure
-         that the nodes have strong network connectivity and well working
-         time synchronization.
+        Object Gateway nodes: 32 GB RAM, 8 core processor, RAID 1 SSDs for disk.
+       </p><p>
+        See <a class="xref" href="#sysreq-rgw" title="2.6. Object Gateway Nodes">Section 2.6, “Object Gateway Nodes”</a> for further recommendation.
        </p></li><li class="listitem "><p>
-         The hypervisor nodes must be adequately sized to avoid
-         interference by other workloads consuming CPU, RAM, network, and storage resources.
-       </p></li></ul></div><div class="figure" id="id-1.4.3.3.7.3.6"><div class="figure-contents"><div class="mediaobject"><a xmlns="" href="images/minimal-ses.png" target="_blank"><img src="images/minimal-ses.png" width="" alt="Minimum Cluster Configuration" /></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="number">Figure 2.2: </span><span class="name">Minimum Cluster Configuration </span><a title="Permalink" class="permalink" href="#id-1.4.3.3.7.3.6">#</a></h6></div></div></div><div class="sect2 " id="ses-bp-production-cluster"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Recommended Production Cluster Configuration</span> <a title="Permalink" class="permalink" href="#ses-bp-production-cluster">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-production-cluster</li></ul></div></div></div></div><p>
-      Once you grow your cluster, we recommend to relocate monitors,
-      Metadata Server, and gateways on separate nodes to ensure better fault tolerance.
-    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-       Seven Object Storage Nodes
-      </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-         No single node exceeds ~15% of total storage.
-        </p></li><li class="listitem "><p>
-         The total capacity of the cluster should be sized so that even
-         with one node unavailable, the total used capacity (including
-         redundancy) does not exceed 80%.
-        </p></li><li class="listitem "><p>
-         25 Gb Ethernet or better, bonded for internal cluster and external
-         public network each.
-        </p></li><li class="listitem "><p>
-         56+ OSDs per storage cluster.
-        </p></li><li class="listitem "><p>
-         See <a class="xref" href="#sysreq-osd" title="2.4.1. Minimum Requirements">Section 2.4.1, “Minimum Requirements”</a> for further recommendation.
-        </p></li></ul></div></li><li class="listitem "><p>
-       Dedicated physical infrastructure nodes.
-      </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-         Three Ceph Monitor nodes: 4 GB RAM, 4 core processor, RAID 1 SSDs for disk.
+        iSCSI Gateway nodes: 16 GB RAM, 6-8 core processor, RAID 1 SSDs for disk.
        </p><p>
-         See <a class="xref" href="#sysreq-mon" title="2.5. Monitor Nodes">Section 2.5, “Monitor Nodes”</a> for further recommendation.
-        </p></li><li class="listitem "><p>
-         Object Gateway nodes: 32 GB RAM, 8 core processor, RAID 1 SSDs for disk.
+        See <a class="xref" href="#sysreq-iscsi" title="2.9. iSCSI Nodes">Section 2.9, “iSCSI Nodes”</a> for further recommendation.
+       </p></li><li class="listitem "><p>
+        Metadata Server nodes (one active/one hot standby): 32 GB RAM, 8 core processor,
+        RAID 1 SSDs for disk.
        </p><p>
-         See <a class="xref" href="#sysreq-rgw" title="2.6. Object Gateway Nodes">Section 2.6, “Object Gateway Nodes”</a> for further recommendation.
-        </p></li><li class="listitem "><p>
-          iSCSI Gateway nodes: 16 GB RAM, 6-8 core processor, RAID 1 SSDs for disk.
-        </p><p>
-          See <a class="xref" href="#sysreq-iscsi" title="2.9. iSCSI Nodes">Section 2.9, “iSCSI Nodes”</a> for further recommendation.
-         </p></li><li class="listitem "><p>
-           Metadata Server nodes (one active/one hot standby): 32 GB RAM, 8 core processor,
-           RAID 1 SSDs for disk.
-         </p><p>
-           See <a class="xref" href="#sysreq-mds" title="2.7. Metadata Server Nodes">Section 2.7, “Metadata Server Nodes”</a> for further recommendation.
-         </p></li><li class="listitem "><p>
-         One SES Admin Node: 4 GB RAM, 4 core processor, RAID 1 SSDs for
-         disk.
-        </p></li></ul></div></li></ul></div></div></div><div class="sect1 " id="deployment-osd-recommendation"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Object Storage Nodes</span> <a title="Permalink" class="permalink" href="#deployment-osd-recommendation">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>deployment-osd-recommendation</li></ul></div></div></div></div><div class="sect2 " id="sysreq-osd"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Requirements</span> <a title="Permalink" class="permalink" href="#sysreq-osd">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-osd</li></ul></div></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-      The following CPU recommendations account for devices independent
-      of usage by Ceph:
+        See <a class="xref" href="#sysreq-mds" title="2.7. Metadata Server Nodes">Section 2.7, “Metadata Server Nodes”</a> for further recommendation.
+       </p></li><li class="listitem "><p>
+        One SES Admin Node: 4 GB RAM, 4 core processor, RAID 1 SSDs for disk.
+       </p></li></ul></div></li></ul></div></div></div><div class="sect1 " id="deployment-osd-recommendation"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Object Storage Nodes</span> <a title="Permalink" class="permalink" href="#deployment-osd-recommendation">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>deployment-osd-recommendation</li></ul></div></div></div></div><div class="sect2 " id="sysreq-osd"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Requirements</span> <a title="Permalink" class="permalink" href="#sysreq-osd">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-osd</li></ul></div></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
+      The following CPU recommendations account for devices independent of
+      usage by Ceph:
      </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
         1x 2GHz CPU Thread per spinner.
        </p></li><li class="listitem "><p>
@@ -689,8 +686,8 @@ hljs.configure({
       Total RAM required = number of OSDs x (1 GB +
       <code class="option">osd_memory_target</code>) + 16 GB
      </p><p>
-      The default for <code class="option">osd_memory_target</code> is 4 GB.
-      Refer to <span class="intraxref">Book “Administration Guide”, Chapter 25 “Ceph Cluster Configuration”, Section 25.2.1 “Automatic Cache Sizing”</span> for more details on
+      The default for <code class="option">osd_memory_target</code> is 4 GB. Refer to
+      <span class="intraxref">Book “Administration Guide”, Chapter 25 “Ceph Cluster Configuration”, Section 25.2.1 “Automatic Cache Sizing”</span> for more details on
       <code class="option">osd_memory_target</code>.
      </p></li><li class="listitem "><p>
       OSD disks in JBOD configurations or or individual RAID-0 configurations.
@@ -703,16 +700,16 @@ hljs.configure({
       configuration.
      </p></li><li class="listitem "><p>
       Allocate at least an additional 4 GB of RAM if this OSD host will host
-       part of a cache pool used for cache tiering.
+      part of a cache pool used for cache tiering.
      </p></li><li class="listitem "><p>
       Ceph Monitors, gateway and Metadata Servers can reside on Object Storage Nodes.
      </p></li><li class="listitem "><p>
-      For disk performance reasons, OSD nodes are bare metal nodes.
-      No other workloads should run on an OSD node unless it is a minimal
-      setup of Ceph Monitors and Ceph Managers.
+      For disk performance reasons, OSD nodes are bare metal nodes. No other
+      workloads should run on an OSD node unless it is a minimal setup of
+      Ceph Monitors and Ceph Managers.
      </p></li><li class="listitem "><p>
-        SSDs for Journal with 6:1 ratio SSD journal to OSD.
-      </p></li></ul></div></div><div class="sect2 " id="ses-bp-mindisk"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Disk Size</span> <a title="Permalink" class="permalink" href="#ses-bp-mindisk">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-mindisk</li></ul></div></div></div></div><p>
+      SSDs for Journal with 6:1 ratio SSD journal to OSD.
+     </p></li></ul></div></div><div class="sect2 " id="ses-bp-mindisk"><div class="titlepage"><div><div><h3 class="title"><span class="number">2.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minimum Disk Size</span> <a title="Permalink" class="permalink" href="#ses-bp-mindisk">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>ses-bp-mindisk</li></ul></div></div></div></div><p>
     There are two types of disk space needed to run on OSD: the space for the
     disk journal (for FileStore) or WAL/DB device (for BlueStore), and the
     primary space for the stored data. The minimum (and default) value for the
@@ -725,10 +722,10 @@ hljs.configure({
      Refer to <a class="xref" href="#about-bluestore" title="1.4. BlueStore">Section 1.4, “BlueStore”</a> for more information on
      BlueStore.
     </p></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-      We recommend reserving 4 GB for the WAL device. While the minimal DB size
-      is 64 GB for RBD-only workloads, the recommended DB size for Object Gateway
-      and CephFS workloads is 2% of the main device capacity (but at least
-      196 GB).
+      We recommend reserving 4 GB for the WAL device. While the minimal DB
+      size is 64 GB for RBD-only workloads, the recommended DB size for
+      Object Gateway and CephFS workloads is 2% of the main device capacity (but at
+      least 196 GB).
      </p></li><li class="listitem "><p>
       If you intend to put the WAL and DB device on the same disk, then we
       recommend using a single partition for both devices, rather than having a
@@ -736,8 +733,8 @@ hljs.configure({
       the WAL operation as well. Management of the disk space is therefore more
       effective as Ceph uses the DB partition for the WAL only if there is a
       need for it. Another advantage is that the probability that the WAL
-      partition gets full is very small, and when it is not used fully then
-      its space is not wasted but used for DB operation.
+      partition gets full is very small, and when it is not used fully then its
+      space is not wasted but used for DB operation.
      </p><p>
       To share the DB device with the WAL, do <span class="emphasis"><em>not</em></span> specify
       the WAL device, and specify only the DB device.
@@ -766,11 +763,11 @@ hljs.configure({
       server, the more data must be transferred via the network card(s) for the
       disk write operations.
      </p></li><li class="listitem "><p>
-      <span class="emphasis"><em>Memory.</em></span> RAM above 2 GB is used for the BlueStore
-      cache. With the default <code class="option">osd_memory_target</code> of 4 GB, the
-      system has a reasonable starting cache size for spinning media. If using
-      SSD or NVME, consider increasing the cache size and RAM allocation per
-      OSD to maximize performance.
+      <span class="emphasis"><em>Memory.</em></span> RAM above 2 GB is used for the
+      BlueStore cache. With the default <code class="option">osd_memory_target</code> of
+      4 GB, the system has a reasonable starting cache size for spinning
+      media. If using SSD or NVME, consider increasing the cache size and RAM
+      allocation per OSD to maximize performance.
      </p></li><li class="listitem "><p>
       <span class="emphasis"><em>Fault tolerance.</em></span> If the complete server fails, the
       more disks it has, the more OSDs the cluster temporarily loses. Moreover,
@@ -814,9 +811,9 @@ hljs.configure({
     </p></li><li class="listitem "><p>
      2.5 GHz CPU with at least 2 cores.
     </p></li></ul></div></div><div class="sect1 " id="sysreq-admin-node"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Admin Node</span> <a title="Permalink" class="permalink" href="#sysreq-admin-node">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-admin-node</li></ul></div></div></div></div><p>
-   At least 4 GB of RAM and a quad-core CPU are required. This includes
-   running the Salt master on the Admin Node. For large clusters with hundreds of
-   nodes, 6 GB of RAM is suggested.
+   At least 4 GB of RAM and a quad-core CPU are required. This includes running
+   the Salt master on the Admin Node. For large clusters with hundreds of nodes, 6 GB
+   of RAM is suggested.
   </p></div><div class="sect1 " id="sysreq-iscsi"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.9 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">iSCSI Nodes</span> <a title="Permalink" class="permalink" href="#sysreq-iscsi">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>sysreq-iscsi</li></ul></div></div></div></div><p>
    iSCSI nodes should have six to eight CPU cores and 16 GB of RAM.
   </p></div><div class="sect1 " id="req-ses-other"><div class="titlepage"><div><div><h2 class="title"><span class="number">2.10 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SUSE Enterprise Storage 6 and Other SUSE Products</span> <a title="Permalink" class="permalink" href="#req-ses-other">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_hwrecommend.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_hwrecommend.xml</li><li><span class="ds-label">ID: </span>req-ses-other</li></ul></div></div></div></div><p>
@@ -853,24 +850,24 @@ hljs.configure({
     to the <code class="filename">/var/lib/ceph/mon</code> directory for slightly better
     performance.
    </p></div></div></div><div class="chapter " id="cha-admin-ha"><div class="titlepage"><div><div><h2 class="title"><span class="number">3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Admin Node HA Setup</span> <a title="Permalink" class="permalink" href="#cha-admin-ha">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_admin_ha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_admin_ha.xml</li><li><span class="ds-label">ID: </span>cha-admin-ha</li></ul></div></div></div></div><div class="line"><div class="toc"><dl><dt><span class="sect1"><a href="#admin-ha-architecture"><span class="number">3.1 </span><span class="name">Outline of the HA Cluster for Admin Node</span></a></span></dt><dt><span class="sect1"><a href="#admin-ha-cluster"><span class="number">3.2 </span><span class="name">Building a HA Cluster with Admin Node</span></a></span></dt></dl></div></div><p>
-  The <span class="emphasis"><em>Admin Node</em></span> is a Ceph cluster node where the
-  Salt master service runs. The Admin Node is a central point of the Ceph
-  cluster because it manages the rest of the cluster nodes by querying and
-  instructing their Salt minion services. It usually includes other services as
-  well, for example the <span class="emphasis"><em>Grafana</em></span> dashboard
-  backed by the <span class="emphasis"><em>Prometheus</em></span> monitoring toolkit.
+  The <span class="emphasis"><em>Admin Node</em></span> is a Ceph cluster node where the Salt master
+  service runs. The Admin Node is a central point of the Ceph cluster because it
+  manages the rest of the cluster nodes by querying and instructing their
+  Salt minion services. It usually includes other services as well, for example
+  the <span class="emphasis"><em>Grafana</em></span> dashboard backed by the
+  <span class="emphasis"><em>Prometheus</em></span> monitoring toolkit.
  </p><p>
-  In case of Admin Node failure, you usually need to provide new working hardware for
-  the node and restore the complete cluster configuration stack from a recent
-  backup. Such a method is time consuming and causes cluster outage.
+  In case of Admin Node failure, you usually need to provide new working hardware
+  for the node and restore the complete cluster configuration stack from a
+  recent backup. Such a method is time consuming and causes cluster outage.
  </p><p>
   To prevent the Ceph cluster performance downtime caused by the Admin Node
   failure, we recommend making use of a High Availability (HA) cluster for the Ceph Admin Node.
  </p><div class="sect1 " id="admin-ha-architecture"><div class="titlepage"><div><div><h2 class="title"><span class="number">3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Outline of the HA Cluster for Admin Node</span> <a title="Permalink" class="permalink" href="#admin-ha-architecture">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_admin_ha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_admin_ha.xml</li><li><span class="ds-label">ID: </span>admin-ha-architecture</li></ul></div></div></div></div><p>
    The idea of an HA cluster is that in case of one cluster node failing, the
    other node automatically takes over its role, including the virtualized
-   Admin Node. This way, other Ceph cluster nodes do not notice that
-   the Admin Node failed.
+   Admin Node. This way, other Ceph cluster nodes do not notice that the Admin Node
+   failed.
   </p><p>
    The minimal HA solution for the Admin Node requires the following hardware:
   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
@@ -880,9 +877,9 @@ hljs.configure({
      Two or more redundant network communication paths, for example via Network
      Device Bonding.
     </p></li><li class="listitem "><p>
-     Shared storage to host the disk image(s) of the Admin Node virtual
-     machine. The shared storage needs to be accessible from both servers. It
-     can be, for example, an NFS export, a Samba share, or iSCSI target.
+     Shared storage to host the disk image(s) of the Admin Node virtual machine. The
+     shared storage needs to be accessible from both servers. It can be, for
+     example, an NFS export, a Samba share, or iSCSI target.
     </p></li></ul></div><p>
    Find more details on the cluster requirements at
    <a class="link" href="https://documentation.suse.com/sle-ha/15-SP1/single-html/SLE-HA-install-quick/#sec-ha-inst-quick-req" target="_blank">https://documentation.suse.com/sle-ha/15-SP1/single-html/SLE-HA-install-quick/#sec-ha-inst-quick-req</a>.
@@ -1098,7 +1095,7 @@ hljs.configure({
        The directory stores Salt state files (also called
        <span class="emphasis"><em>sls</em></span> files). State files are formatted descriptions
        of states in which the cluster should be.
-
+       
       </p></dd><dt id="id-1.4.4.2.6.9.3.3"><span class="term "><code class="filename">/srv/module/runners</code></span></dt><dd><p>
        The directory stores Python scripts known as runners. Runners are
        executed on the master node.
@@ -1483,8 +1480,8 @@ minion1:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.services</pre></div><p>
      Depending on the setup, the command may run for several minutes.
     </p></li><li class="step "><p>
-     <span class="emphasis"><em>Disable insecure clients</em></span>. Since Nautilus v14.2.20, a
-     new health warning was introduced that informs you that insecure clients
+     <span class="emphasis"><em>Disable insecure clients</em></span>. Since Nautilus v14.2.20,
+     a new health warning was introduced that informs you that insecure clients
      are allowed to join the cluster. This warning is <span class="emphasis"><em>on</em></span>
      by default. The Ceph Dashboard will show the cluster in the
      <code class="literal">HEALTH_WARN</code> status and verifying the cluster status on
@@ -1495,12 +1492,12 @@ cluster:
   health: HEALTH_WARN
   mons are allowing insecure global_id reclaim
 [...]</pre></div><p>
-     This warning means that the Ceph Monitors are still allowing old, unpatched clients
-     to connect to the cluster. This ensures existing clients can still connect
-     while the cluster is being upgraded, but warns you that there is a problem
-     that needs to be addressed. When the cluster and all clients are upgraded to
-     the latest version of Ceph, disallow unpatched clients by running the
-     following command:
+     This warning means that the Ceph Monitors are still allowing old, unpatched
+     clients to connect to the cluster. This ensures existing clients can still
+     connect while the cluster is being upgraded, but warns you that there is a
+     problem that needs to be addressed. When the cluster and all clients are
+     upgraded to the latest version of Ceph, disallow unpatched clients by
+     running the following command:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></li><li class="step "><p>
      Before you continue, we strongly recommend enabling the Ceph telemetry
      module. For more information, see <span class="intraxref">Book “Administration Guide”, Chapter 21 “Ceph Manager Modules”, Section 21.2 “Telemetry Module”</span>
@@ -2155,9 +2152,9 @@ cluster-ceph/cluster/ses-example-*.sls</pre></div><p>
      Unfortunately, single instance services, such as a single iSCSI Gateway, will be
      unavailable.
     </p></li></ul></div></div><div class="sect1 " id="before-upgrade"><div class="titlepage"><div><div><h2 class="title"><span class="number">6.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Steps to Take before Upgrading the First Node</span> <a title="Permalink" class="permalink" href="#before-upgrade">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>before-upgrade</li></ul></div></div></div></div><div class="sect2 " id="before-upgrade-release-notes"><div class="titlepage"><div><div><h3 class="title"><span class="number">6.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Read the Release Notes</span> <a title="Permalink" class="permalink" href="#before-upgrade-release-notes">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>before-upgrade-release-notes</li></ul></div></div></div></div><p>
-    In the SES 6 release notes, you can find additional information on changes
-    since the previous release of SUSE Enterprise Storage. Check the SES 6 release notes
-    online to see whether:
+    In the SES 6 release notes, you can find additional
+    information on changes since the previous release of SUSE Enterprise Storage. Check
+    the SES 6 release notes online to see whether:
    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
       Your hardware needs special considerations.
      </p></li><li class="listitem "><p>
@@ -3077,13 +3074,13 @@ cluster:
   health: HEALTH_WARN
   mons are allowing insecure global_id reclaim
 [...]</pre></div><p>
-     This warning means that the Ceph Monitors are still allowing old, unpatched clients
-     to connect to the cluster. This ensures existing clients can still connect
-     while the cluster is being upgraded, but warns you that there is a problem
-     that needs to be addressed. When the cluster and all clients are upgraded to
-     the latest version of Ceph, disallow unpatched clients by running the
-     following command:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></div><div class="sect2 " id="final-steps-meter"><div class="titlepage"><div><div><h3 class="title"><span class="number">6.11.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Enable the Telemetry Module</span> <a title="Permalink" class="permalink" href="#final-steps-meter">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>final-steps-meter</li></ul></div></div></div></div><p>
+    This warning means that the Ceph Monitors are still allowing old, unpatched
+    clients to connect to the cluster. This ensures existing clients can still
+    connect while the cluster is being upgraded, but warns you that there is a
+    problem that needs to be addressed. When the cluster and all clients are
+    upgraded to the latest version of Ceph, disallow unpatched clients by
+    running the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></div><div class="sect2 " id="final-steps-meter"><div class="titlepage"><div><div><h3 class="title"><span class="number">6.11.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Enable the Telemetry Module</span> <a title="Permalink" class="permalink" href="#final-steps-meter">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_upgrade.xml</li><li><span class="ds-label">ID: </span>final-steps-meter</li></ul></div></div></div></div><p>
     Finally, consider enabling the Telemetry module to send anonymized usage
     statistics and crash information to the upstream Ceph developers. To see
     what would be reported (without actually sending any information to
@@ -3736,9 +3733,9 @@ default.rgw.buckets.data</pre></div><p>
      To create the pools manually, see
      <span class="intraxref">Book “Administration Guide”, Chapter 22 “Managing Storage Pools”, Section 22.2.2 “Create a Pool”</span>.
     </p><div id="id-1.4.5.3.8.3.4.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Object Gateway and Erasure-Coded Pools</h6><p>
-      Only the <code class="literal">default.rgw.buckets.data</code> pool can be
-      erasure coded. All other pools need to be replicated, otherwise the
-      gateway is not accessible.
+      Only the <code class="literal">default.rgw.buckets.data</code> pool can be erasure
+      coded. All other pools need to be replicated, otherwise the gateway is
+      not accessible.
      </p></div></div><div class="sect3 " id="id-1.4.5.3.8.3.5"><div class="titlepage"><div><div><h4 class="title"><span class="number">9.1.1.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding Gateway Configuration to Ceph</span> <a title="Permalink" class="permalink" href="#id-1.4.5.3.8.3.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_rgw.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_rgw.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
      Add the Ceph Object Gateway configuration to the Ceph Configuration file. The
      Ceph Object Gateway configuration requires you to identify the Ceph Object Gateway
@@ -4150,8 +4147,8 @@ listen-address=<em class="replaceable ">CLIENT_LOOPBACK_IP</em></pre></div><p>
         SAME with an unmap bit.
        </p></dd></dl></div></div></div></div><div class="sect1 " id="iscsi-tcmu"><div class="titlepage"><div><div><h2 class="title"><span class="number">10.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Exporting RADOS Block Device Images Using <code class="systemitem">tcmu-runner</code></span> <a title="Permalink" class="permalink" href="#iscsi-tcmu">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_iscsi.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_iscsi.xml</li><li><span class="ds-label">ID: </span>iscsi-tcmu</li></ul></div></div></div></div><p>
    The <code class="systemitem">ceph-iscsi</code> supports both <code class="option">rbd</code> (kernel-based) and
-   <code class="option">user:rbd</code> (tcmu-runner) backstores, making all the management
-   transparent and independent of the backstore.
+   <code class="option">user:rbd</code> (tcmu-runner) backstores, making all the
+   management transparent and independent of the backstore.
   </p><div id="id-1.4.5.4.9.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.png" /><h6>Warning: Technology Preview</h6><p>
     <code class="systemitem">tcmu-runner</code> based iSCSI Gateway deployments are currently
     a technology preview.
@@ -4198,12 +4195,12 @@ listen-address=<em class="replaceable ">CLIENT_LOOPBACK_IP</em></pre></div><p>
      CephFS file system (<code class="literal">ceph mds add_data_pool</code>). They may
      only be added while the file system is unmounted.
     </p></li><li class="listitem "><p>
-       A minimum of one Metadata Server. SUSE recommends deploying several
-       nodes with the MDS role. By default, additional MDS daemons start
-       as <code class="literal">standby</code> daemons, acting as backups for the active
-       MDS. Multiple active MDS daemons are also supported
-       (refer to section <a class="xref" href="#ceph-cephfs-multimds" title="11.3.2. MDS Cluster Size">Section 11.3.2, “MDS Cluster Size”</a>).
-     </p></li></ul></div></div><div class="sect1 " id="ceph-cephfs-mds"><div class="titlepage"><div><div><h2 class="title"><span class="number">11.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Metadata Server</span> <a title="Permalink" class="permalink" href="#ceph-cephfs-mds">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-mds</li></ul></div></div></div></div><p>
+     A minimum of one Metadata Server. SUSE recommends deploying several nodes with the
+     MDS role. By default, additional MDS daemons start as
+     <code class="literal">standby</code> daemons, acting as backups for the active MDS.
+     Multiple active MDS daemons are also supported (refer to section
+     <a class="xref" href="#ceph-cephfs-multimds" title="11.3.2. MDS Cluster Size">Section 11.3.2, “MDS Cluster Size”</a>).
+    </p></li></ul></div></div><div class="sect1 " id="ceph-cephfs-mds"><div class="titlepage"><div><div><h2 class="title"><span class="number">11.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Metadata Server</span> <a title="Permalink" class="permalink" href="#ceph-cephfs-mds">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-mds</li></ul></div></div></div></div><p>
    Ceph metadata server (MDS) stores metadata for the CephFS. Ceph block
    devices and Ceph object storage <span class="emphasis"><em>do not</em></span> use MDS. MDSs
    make it possible for POSIX file system users to execute basic
@@ -4225,8 +4222,8 @@ listen-address=<em class="replaceable ">CLIENT_LOOPBACK_IP</em></pre></div><p>
     mounting of a file system fails, even though other operations may work
     properly.
    </p><p>
-     You can remove a metadata server in your cluster as described in
-     <span class="intraxref"></span>.
+    You can remove a metadata server in your cluster as described in
+    <span class="intraxref"></span>.
    </p></div><div class="sect2 " id="ceph-cephfs-mds-config"><div class="titlepage"><div><div><h3 class="title"><span class="number">11.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configuring a Metadata Server</span> <a title="Permalink" class="permalink" href="#ceph-cephfs-mds-config">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span>ceph-cephfs-mds-config</li></ul></div></div></div></div><p>
     You can fine-tune the MDS behavior by inserting relevant options in the
     <code class="filename">ceph.conf</code> configuration file.
@@ -4631,8 +4628,8 @@ ceph.dir.layout="stripe_unit=4194304 stripe_count=1 object_size=4194304 \
 ceph.dir.layout="stripe_unit=4194304 stripe_count=1 object_size=4194304 \
  pool=cephfs_data_a"</pre></div></div><div class="sect3 " id="id-1.4.5.5.7.6.8"><div class="titlepage"><div><div><h4 class="title"><span class="number">11.3.4.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Inheritance of Layouts</span> <a title="Permalink" class="permalink" href="#id-1.4.5.5.7.6.8">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" title="Edit the source file for this section">Edit source</a></h4><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_cephfs.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><p>
      Files inherit the layout of their parent directory at creation time.
-     However, subsequent changes to the parent directory’s layout do not
-     affect children:
+     However, subsequent changes to the parent directory’s layout do not affect
+     children:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>getfattr -n ceph.dir.layout dir
 # file: dir
 ceph.dir.layout="stripe_unit=4194304 stripe_count=2 object_size=4194304 \
@@ -4893,25 +4890,46 @@ Full list of resources:
       <code class="literal">host_list</code> is unreachable.
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>location nfs-ganesha-server-with-ganesha-ping
         nfs-ganesha-clone \
-        rule -inf: not_defined ping or ping lte 0</pre></div></li></ol></div></div></div><div class="sect2 " id="setup-portblock-resource"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Setting Up PortBlock Resource</span> <a title="Permalink" class="permalink" href="#setup-portblock-resource">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>setup-portblock-resource</li></ul></div></div></div></div><p>When a service goes down, the TCP connection that is in use by
-      NFS Ganesha is required to be closed otherwise it
-      continues to run until a system-specific timeout occurs. This timeout
-      can take upwards of 3 minutes.</p><p>To shorten the timeout time, the TCP connection needs to be reset.
-      We recommend configuring <code class="literal">portblock</code> to reset stale TCP
-      connections.</p><p>You can choose to use portblock with or without the
-      <code class="literal">tickle_dir</code> parameters that could unblock and
-      reconnect clients to the new service faster. We recommend to
-      have <code class="literal">tickle_dir</code> as the shared CephFS mount
-      between two HA nodes (where NFS Ganesha services are running).</p><div class="procedure "><div class="procedure-contents"><div id="id-1.4.5.6.7.8.5.1" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Configuring the following resource is optional.</p></div><ol class="procedure" type="1"><li class="step "><p>On <code class="systemitem">earth</code>, run the crm shell to execute the following
-            commands to configure the resource for NFS Ganesha daemons:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> configure</pre></div></li><li class="step "><p>Configure the <code class="literal">block</code> action for
-          <code class="literal">portblock</code> and omit the <code class="literal">tickle_dir</code>
-          option if you have not configured a shared directory:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-block ocf:portblock \
-protocol=tcp portno=2049 action=block ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>Configure the <code class="literal">unblock</code> action for
-          <code class="literal">portblock</code> and omit the <code class="literal">reset_local_on_unblock_stop</code>
-          option if you have not configured a shared directory:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-unblock ocf:portblock \
-protocol=tcp portno=2049 action=unblock ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" reset_local_on_unblock_stop=true tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>Configure the <code class="literal">IPAddr2</code> resource with <code class="literal">portblock</code>:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> colocation ganesha-portblock inf: ganesha-ip nfs-ganesha-block nfs-ganesha-unblock
+        rule -inf: not_defined ping or ping lte 0</pre></div></li></ol></div></div></div><div class="sect2 " id="setup-portblock-resource"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Setting Up PortBlock Resource</span> <a title="Permalink" class="permalink" href="#setup-portblock-resource">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>setup-portblock-resource</li></ul></div></div></div></div><p>
+    When a service goes down, the TCP connection that is in use by NFS Ganesha is
+    required to be closed otherwise it continues to run until a system-specific
+    timeout occurs. This timeout can take upwards of 3 minutes.
+   </p><p>
+    To shorten the timeout time, the TCP connection needs to be reset. We
+    recommend configuring <code class="literal">portblock</code> to reset stale TCP
+    connections.
+   </p><p>
+    You can choose to use portblock with or without the
+    <code class="literal">tickle_dir</code> parameters that could unblock and reconnect
+    clients to the new service faster. We recommend to have
+    <code class="literal">tickle_dir</code> as the shared CephFS mount between two HA
+    nodes (where NFS Ganesha services are running).
+   </p><div class="procedure "><div class="procedure-contents"><div id="id-1.4.5.6.7.8.5.1" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      Configuring the following resource is optional.
+     </p></div><ol class="procedure" type="1"><li class="step "><p>
+      On <code class="systemitem">earth</code>, run the crm shell to execute the following commands to
+      configure the resource for NFS Ganesha daemons:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> configure</pre></div></li><li class="step "><p>
+      Configure the <code class="literal">block</code> action for
+      <code class="literal">portblock</code> and omit the <code class="literal">tickle_dir</code>
+      option if you have not configured a shared directory:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-block ocf:portblock \
+protocol=tcp portno=2049 action=block ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>
+      Configure the <code class="literal">unblock</code> action for
+      <code class="literal">portblock</code> and omit the
+      <code class="literal">reset_local_on_unblock_stop</code> option if you have not
+      configured a shared directory:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-unblock ocf:portblock \
+protocol=tcp portno=2049 action=unblock ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" reset_local_on_unblock_stop=true tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step "><p>
+      Configure the <code class="literal">IPAddr2</code> resource with
+      <code class="literal">portblock</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> colocation ganesha-portblock inf: ganesha-ip nfs-ganesha-block nfs-ganesha-unblock
 <code class="prompt user">crm(live)configure# </code> edit ganesha-ip-after-nfs-ganesha-server
-order ganesha-ip-after-nfs-ganesha-server Mandatory: nfs-ganesha-block nfs-ganesha-clone ganesha-ip nfs-ganesha-unblock</pre></div></li><li class="step "><p>Save your changes:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> commit</pre></div></li><li class="step "><p>Your configuration should look like this:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> show</pre></div><div class="verbatim-wrap"><pre class="screen">"
+order ganesha-ip-after-nfs-ganesha-server Mandatory: nfs-ganesha-block nfs-ganesha-clone ganesha-ip nfs-ganesha-unblock</pre></div></li><li class="step "><p>
+      Save your changes:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> commit</pre></div></li><li class="step "><p>
+      Your configuration should look like this:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> show</pre></div><div class="verbatim-wrap"><pre class="screen">"
 node 1084782956: nfs1
 node 1084783048: nfs2
 primitive ganesha-ip IPaddr2 \
@@ -4946,9 +4964,12 @@ rsc_defaults rsc-options: \
 op_defaults op-options: \
         timeout=600 \
         record-pending=true
-"</pre></div><p>In this example <code class="filename">/tmp/ganesha/</code> is the CephFS
-        mount on both nodes (nfs1 and nfs2):</p><div class="verbatim-wrap"><pre class="screen">172.16.1.11:6789:/ganesha on /tmp/ganesha type ceph (rw,relatime,name=admin,secret=...hidden...,acl,wsize=16777216)</pre></div><p>The <code class="literal">tickle</code> directory has been initially
-        created.</p></li></ol></div></div></div><div class="sect2 " id="ganesha-ha-deepsea"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">NFS Ganesha HA and DeepSea</span> <a title="Permalink" class="permalink" href="#ganesha-ha-deepsea">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>ganesha-ha-deepsea</li></ul></div></div></div></div><p>
+"</pre></div><p>
+      In this example <code class="filename">/tmp/ganesha/</code> is the CephFS mount
+      on both nodes (nfs1 and nfs2):
+     </p><div class="verbatim-wrap"><pre class="screen">172.16.1.11:6789:/ganesha on /tmp/ganesha type ceph (rw,relatime,name=admin,secret=...hidden...,acl,wsize=16777216)</pre></div><p>
+      The <code class="literal">tickle</code> directory has been initially created.
+     </p></li></ol></div></div></div><div class="sect2 " id="ganesha-ha-deepsea"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">NFS Ganesha HA and DeepSea</span> <a title="Permalink" class="permalink" href="#ganesha-ha-deepsea">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>ganesha-ha-deepsea</li></ul></div></div></div></div><p>
     DeepSea does not support configuring NFS Ganesha HA. To prevent DeepSea
     from failing after NFS Ganesha HA is configured, exclude starting and
     stopping the NFS Ganesha service from DeepSea stage 4:
@@ -4966,18 +4987,20 @@ op_defaults op-options: \
       Add the following line to
       <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
      </p><div class="verbatim-wrap"><pre class="screen">ganesha_init: ha</pre></div></li></ol></div></div><p>
-     To prevent DeepSea from restarting NFS Ganesha service on stage 4:
+    To prevent DeepSea from restarting NFS Ganesha service on stage 4:
    </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
-         Copy <code class="filename">/srv/salt/ceph/stage/ganesha/default.sls</code> to
-         <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code>.
-       </p></li><li class="step "><p>
-         Remove the line <code class="literal">  - ...restart.ganesha.lax</code> from the
-         <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code> so it looks as follows:
-       </p><div class="verbatim-wrap"><pre class="screen">include:
+      Copy <code class="filename">/srv/salt/ceph/stage/ganesha/default.sls</code> to
+      <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code>.
+     </p></li><li class="step "><p>
+      Remove the line <code class="literal"> - ...restart.ganesha.lax</code> from the
+      <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code> so it looks as
+      follows:
+     </p><div class="verbatim-wrap"><pre class="screen">include:
   - .migrate
   - .core</pre></div></li><li class="step "><p>
-         Add the following line to <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
-       </p><div class="verbatim-wrap"><pre class="screen">stage_ganesha: ha</pre></div></li></ol></div></div></div></div><div class="sect1 " id="sec-ganesha-active-active"><div class="titlepage"><div><div><h2 class="title"><span class="number">12.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Active-Active Configuration</span> <a title="Permalink" class="permalink" href="#sec-ganesha-active-active">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>sec-ganesha-active-active</li></ul></div></div></div></div><p>
+      Add the following line to
+      <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+     </p><div class="verbatim-wrap"><pre class="screen">stage_ganesha: ha</pre></div></li></ol></div></div></div></div><div class="sect1 " id="sec-ganesha-active-active"><div class="titlepage"><div><div><h2 class="title"><span class="number">12.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Active-Active Configuration</span> <a title="Permalink" class="permalink" href="#sec-ganesha-active-active">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>sec-ganesha-active-active</li></ul></div></div></div></div><p>
    This section provides an example of simple active-active NFS Ganesha setup.
    The aim is to deploy two NFS Ganesha servers layered on top of the same
    existing CephFS. The servers will be two Ceph cluster nodes with
@@ -5007,9 +5030,9 @@ op_defaults op-options: \
 cephfs_data
 cephfs_metadata</pre></div></div><div class="sect2 " id="sec-ganesha-active-active-configure"><div class="titlepage"><div><div><h3 class="title"><span class="number">12.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Configure NFS Ganesha</span> <a title="Permalink" class="permalink" href="#sec-ganesha-active-active-configure">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_ganesha.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>deployment_ganesha.xml</li><li><span class="ds-label">ID: </span>sec-ganesha-active-active-configure</li></ul></div></div></div></div><p>
     Check that both NFS Ganesha nodes have the file
-    <code class="filename">/etc/ganesha/ganesha.conf</code> installed. Add the
-    following blocks, if they do not exist yet, to the configuration file in
-    order to enable RADOS as the recovery backend of NFS Ganesha.
+    <code class="filename">/etc/ganesha/ganesha.conf</code> installed. Add the following
+    blocks, if they do not exist yet, to the configuration file in order to
+    enable RADOS as the recovery backend of NFS Ganesha.
    </p><div class="verbatim-wrap"><pre class="screen">NFS_CORE_PARAM
 {
     Enable_NLM = false;
@@ -5034,13 +5057,14 @@ RADOS_KV
     UserId = "<em class="replaceable ">cephx_user_id</em>";
     Ceph_Conf = "<em class="replaceable ">path_to_ceph.conf</em>"
 }</pre></div><p>
-   You can find out the values for <em class="replaceable ">rados_pool</em> and
-   <em class="replaceable ">pool_namespace</em> by checking the already existing line in
-   the configuration of the form:</p><div class="verbatim-wrap"><pre class="screen">%url rados://<em class="replaceable ">rados_pool</em>/<em class="replaceable ">pool_namespace</em>/...</pre></div><p>
-   The value for <em class="replaceable ">nodeid</em> option corresponds to the FQDN of
-   the machine, and <em class="replaceable ">UserId</em> and <em class="replaceable ">Ceph_Conf</em>
-   options value can be found in the already existing
-   <em class="replaceable ">RADOS_URLS</em> block.
+    You can find out the values for <em class="replaceable ">rados_pool</em> and
+    <em class="replaceable ">pool_namespace</em> by checking the already existing
+    line in the configuration of the form:
+   </p><div class="verbatim-wrap"><pre class="screen">%url rados://<em class="replaceable ">rados_pool</em>/<em class="replaceable ">pool_namespace</em>/...</pre></div><p>
+    The value for <em class="replaceable ">nodeid</em> option corresponds to the
+    FQDN of the machine, and <em class="replaceable ">UserId</em> and
+    <em class="replaceable ">Ceph_Conf</em> options value can be found in the
+    already existing <em class="replaceable ">RADOS_URLS</em> block.
    </p><p>
     Because legacy versions of NFS prevent us from lifting the grace period
     early and therefore prolong a server restart, we disable options for NFS
@@ -5071,8 +5095,8 @@ RADOS_KV
     not installed on at least one of the nodes, install it with
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper install nfs-ganesha-rados-grace</pre></div><p>
     We will use the command to create the DB and add both
-    <code class="option">nodeid</code>s. In our example, the two NFS Ganesha nodes are
-    named <code class="literal">ses6min1.example.com</code> and
+    <code class="option">nodeid</code>s. In our example, the two NFS Ganesha nodes are named
+    <code class="literal">ses6min1.example.com</code> and
     <code class="literal">ses6min2.example.com</code> On one of the NFS Ganesha hosts, run
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ganesha-rados-grace -p cephfs_metadata -n ganesha add ses6min1.example.com
 <code class="prompt user">cephadm@adm &gt; </code>ganesha-rados-grace -p cephfs_metadata -n ganesha add ses6min2.example.com
@@ -5132,33 +5156,37 @@ ses6min2.example.com</pre></div><div id="id-1.4.5.6.8.6.6" class="admonition not
     </p></li><li class="listitem "><p>
      The setup requires privileged containers.
     </p></li></ul></div></div><div class="sect1 " id="kube-prereq"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prerequisites</span> <a title="Permalink" class="permalink" href="#kube-prereq">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-prereq</li></ul></div></div></div></div><p>
-   The minimum requirements and prerequisites to deploy SUSE Enterprise Storage 6
-   on top of SUSE CaaS Platform 4 Kubernetes cluster are as follows:
+   The minimum requirements and prerequisites to deploy SUSE Enterprise Storage
+   6 on top of SUSE CaaS Platform 4 Kubernetes cluster are as follows:
   </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-     A running SUSE CaaS Platform 4 cluster. You need to have an account with a
-     SUSE CaaS Platform subscription. You can activate a 60-day free evaluation
-     here <a class="link" href="https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4" target="_blank">https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4</a>.
+     A running SUSE CaaS Platform 4 cluster. You need to have an account with a SUSE CaaS Platform
+     subscription. You can activate a 60-day free evaluation here
+     <a class="link" href="https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4" target="_blank">https://www.suse.com/products/caas-platform/download/MkpwEt3Ub98~/?campaign_name=Eval:_CaaSP_4</a>.
     </p></li><li class="listitem "><p>
-     At least three SUSE CaaS Platform worker nodes, with at least one additional disk attached to
-     each worker node as storage for the OSD. We recommend four SUSE CaaS Platform worker nodes.
+     At least three SUSE CaaS Platform worker nodes, with at least one additional disk
+     attached to each worker node as storage for the OSD. We recommend four
+     SUSE CaaS Platform worker nodes.
     </p></li><li class="listitem "><p>
-       At least one OSD per worker node, with a minimum disk size of 5 GB.
-     </p></li><li class="listitem "><p>
-       Access to SUSE Enterprise Storage 6. You can get a trial
-       subscription from here <a class="link" href="https://www.suse.com/products/suse-enterprise-storage/download/" target="_blank">https://www.suse.com/products/suse-enterprise-storage/download/</a>.
-     </p></li><li class="listitem "><p>
-       Access to a workstation that has access to the SUSE CaaS Platform cluster via <code class="literal">kubectl</code>.
-       We recommend using the SUSE CaaS Platform master node as the workstation.
-     </p></li><li class="listitem "><p>
-        Ensure that the <code class="literal">SUSE-Enterprise-Storage-6-Pool</code> and
-        <code class="literal">SUSE-Enterprise-Storage-6-Updates</code> repositories are configured on
-        the management node to install the <span class="package ">rook-k8s-yaml</span> RPM package.
-      </p></li></ul></div></div><div class="sect1 " id="kube-rook-manifests"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Get Rook Manifests</span> <a title="Permalink" class="permalink" href="#kube-rook-manifests">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-rook-manifests</li></ul></div></div></div></div><p>
+     At least one OSD per worker node, with a minimum disk size of 5 GB.
+    </p></li><li class="listitem "><p>
+     Access to SUSE Enterprise Storage 6. You can get a trial subscription
+     from here
+     <a class="link" href="https://www.suse.com/products/suse-enterprise-storage/download/" target="_blank">https://www.suse.com/products/suse-enterprise-storage/download/</a>.
+    </p></li><li class="listitem "><p>
+     Access to a workstation that has access to the SUSE CaaS Platform cluster via
+     <code class="literal">kubectl</code>. We recommend using the SUSE CaaS Platform master node as
+     the workstation.
+    </p></li><li class="listitem "><p>
+     Ensure that the <code class="literal">SUSE-Enterprise-Storage-6-Pool</code> and
+     <code class="literal">SUSE-Enterprise-Storage-6-Updates</code> repositories are
+     configured on the management node to install the
+     <span class="package ">rook-k8s-yaml</span> RPM package.
+    </p></li></ul></div></div><div class="sect1 " id="kube-rook-manifests"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Get Rook Manifests</span> <a title="Permalink" class="permalink" href="#kube-rook-manifests">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-rook-manifests</li></ul></div></div></div></div><p>
    The Rook orchestrator uses configuration files in YAML format called
    <span class="emphasis"><em>manifests</em></span>. The manifests you need are included in the
-   <span class="package ">rook-k8s-yaml</span> RPM package. You can find this package
-   in the SUSE Enterprise Storage 6 repository. Install it by running
-   the following:
+   <span class="package ">rook-k8s-yaml</span> RPM package. You can find this package in
+   the SUSE Enterprise Storage 6 repository. Install it by running the
+   following:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper install rook-k8s-yaml</pre></div></div><div class="sect1 " id="kube-install"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Installation</span> <a title="Permalink" class="permalink" href="#kube-install">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/containerized-kubernetes.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>containerized-kubernetes.xml</li><li><span class="ds-label">ID: </span>kube-install</li></ul></div></div></div></div><p>
    Rook-Ceph includes two main components: the 'operator' which is run by
    Kubernetes and allows creation of Ceph clusters, and the Ceph 'cluster'
@@ -5213,8 +5241,8 @@ ses6min2.example.com</pre></div><div id="id-1.4.5.6.8.6.6" class="admonition not
     <code class="filename">common.yaml</code> will create the 'rook-ceph' namespace,
     Ceph Custom Resource Definitions (CRDs) (see
     <a class="link" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/" target="_blank">https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/</a>)
-    to make Kubernetes aware of Ceph Objects (for example, 'CephCluster'), and the
-    RBAC roles and Pod Security Policies (see
+    to make Kubernetes aware of Ceph Objects (for example, 'CephCluster'), and
+    the RBAC roles and Pod Security Policies (see
     <a class="link" href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/" target="_blank">https://kubernetes.io/docs/concepts/policy/pod-security-policy/</a>)
     which are necessary for allowing Rook to manage the cluster-specific
     resources.
@@ -5298,10 +5326,16 @@ rook-discover-tztz4                          1/1    Running    0         22h</pr
      <a class="link" href="https://rook.io/docs/rook/master/ceph-teardown.html" target="_blank">https://rook.io/docs/rook/master/ceph-teardown.html</a>
      for more details.
     </p></li></ol></div></div></div></div></div><div class="appendix " id="id-1.4.7"><div class="titlepage"><div><div><h1 class="title"><span class="number">A </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span> <a title="Permalink" class="permalink" href="#id-1.4.7">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h1><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>ceph_maintenance_updates.xml</li><li><span class="ds-label">ID: </span><span class="ds-message">no ID found</span></li></ul></div></div></div></div><div class="line"></div><p>
-  Several key packages in SUSE Enterprise Storage 6 are based on the Nautilus release series of Ceph.
-  When the Ceph project (<a class="link" href="https://github.com/ceph/ceph" target="_blank">https://github.com/ceph/ceph</a>) publishes new point releases in the Nautilus series, SUSE Enterprise Storage 6 is updated to ensure that the product benefits from the latest upstream bugfixes and feature backports.
+  Several key packages in SUSE Enterprise Storage 6 are based on the
+  Nautilus release series of Ceph. When the Ceph project
+  (<a class="link" href="https://github.com/ceph/ceph" target="_blank">https://github.com/ceph/ceph</a>) publishes new point
+  releases in the Nautilus series, SUSE Enterprise Storage 6 is updated
+  to ensure that the product benefits from the latest upstream bugfixes and
+  feature backports.
  </p><p>
-  This chapter contains summaries of notable changes contained in each upstream point release that has been—or is planned to be—included in the product.
+  This chapter contains summaries of notable changes contained in each upstream
+  point release that has been—or is planned to be—included in the
+  product.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.5"><span class="name">Nautilus 14.2.20 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.5">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This release includes a security fix that ensures the
   <code class="option">global_id</code> value (a numeric value that should be unique for
@@ -5317,95 +5351,148 @@ rook-discover-tztz4                          1/1    Running    0         22h</pr
   When all clients are updated, enable the new secure behavior, not allowing
   old insecure clients to join the cluster:
  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div><p>
-  For more details, refer ro <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
+  For more details, refer ro
+  <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.12"><span class="name">Nautilus 14.2.18 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.12">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This release fixes a regression introduced in 14.2.17 in which the manager module tries to use a couple of Python modules that do not exist in some environments.
+  This release fixes a regression introduced in 14.2.17 in which the manager
+  module tries to use a couple of Python modules that do not exist in some
+  environments.
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    This release fixes issues loading the dashboard and volumes manager modules in some environments.
+    This release fixes issues loading the dashboard and volumes manager modules
+    in some environments.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.15"><span class="name">Nautilus 14.2.17 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.15">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This release includes the following fixes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    <code class="varname">$pid</code> expansion in configuration paths such as <code class="literal">admin_socket</code> will now properly expand to the daemon PID for commands like <code class="command">ceph-mds</code> or <code class="command">ceph-osd</code>.
-    Previously, only <code class="command">ceph-fuse</code> and <code class="command">rbd-nbd</code> expanded <code class="varname">$pid</code> with the actual daemon PID.
+    <code class="varname">$pid</code> expansion in configuration paths such as
+    <code class="literal">admin_socket</code> will now properly expand to the daemon PID
+    for commands like <code class="command">ceph-mds</code> or
+    <code class="command">ceph-osd</code>. Previously, only <code class="command">ceph-fuse</code>
+    and <code class="command">rbd-nbd</code> expanded <code class="varname">$pid</code> with the
+    actual daemon PID.
    </p></li><li class="listitem "><p>
     RADOS: PG removal has been optimized.
    </p></li><li class="listitem "><p>
-    RADOS: Memory allocations are tracked in finer detail in BlueStore and displayed as a part of the <code class="command">dump_mempools</code> command.
+    RADOS: Memory allocations are tracked in finer detail in BlueStore and
+    displayed as a part of the <code class="command">dump_mempools</code> command.
    </p></li><li class="listitem "><p>
-    CephFS: clients which acquire capabilities too quickly are throttled to prevent instability.
-    See new config option <code class="option">mds_session_cap_acquisition_throttle</code> to control this behavior.
+    CephFS: clients which acquire capabilities too quickly are throttled to
+    prevent instability. See new config option
+    <code class="option">mds_session_cap_acquisition_throttle</code> to control this
+    behavior.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.18"><span class="name">Nautilus 14.2.16 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.18">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This release fixes a security flaw in CephFS.
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    CVE-2020-27781 : OpenStack Manila use of <code class="command">ceph_volume_client.py</code> library allowed tenant access to any Ceph credentials' secret.
+    CVE-2020-27781 : OpenStack Manila use of
+    <code class="command">ceph_volume_client.py</code> library allowed tenant access to
+    any Ceph credentials' secret.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.21"><span class="name">Nautilus 14.2.15 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.21">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This release fixes a ceph-volume regression introduced in v14.2.13 and includes few other fixes.
+  This release fixes a ceph-volume regression introduced in v14.2.13 and
+  includes few other fixes.
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    ceph-volume: Fixes <code class="command">lvm batch –auto</code>, which breaks backward compatibility when using non rotational devices only (SSD and/or NVMe).
+    ceph-volume: Fixes <code class="command">lvm batch –auto</code>, which breaks
+    backward compatibility when using non rotational devices only (SSD and/or
+    NVMe).
    </p></li><li class="listitem "><p>
-    BlueStore: Fixes a bug in <code class="literal">collection_list_legacy</code> which makes PGs inconsistent during scrub when running OSDs older than 14.2.12 with newer ones.
+    BlueStore: Fixes a bug in <code class="literal">collection_list_legacy</code> which
+    makes PGs inconsistent during scrub when running OSDs older than 14.2.12
+    with newer ones.
    </p></li><li class="listitem "><p>
-    MGR: progress module can now be turned on or off, using the commands <code class="command">ceph progress on</code> and <code class="command">ceph progress off</code>.
+    MGR: progress module can now be turned on or off, using the commands
+    <code class="command">ceph progress on</code> and <code class="command">ceph progress
+    off</code>.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.24"><span class="name">Nautilus 14.2.14 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.24">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This releases fixes a security flaw affecting Messenger V2 for Octopus and Nautilus, among other fixes across components.
+  This releases fixes a security flaw affecting Messenger V2 for Octopus and
+  Nautilus, among other fixes across components.
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
     CVE 2020-25660: Fix a regression in Messenger V2 replay attacks.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.27"><span class="name">Nautilus 14.2.13 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.27">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This release fixes a regression introduced in v14.2.12, and a few ceph-volume amd RGW fixes.
+  This release fixes a regression introduced in v14.2.12, and a few ceph-volume
+  amd RGW fixes.
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    Fixed a regression that caused breakage in clusters that referred to ceph-mon hosts using dns names instead of IP addresses in the <code class="option">mon_host</code> parameter in <code class="filename">ceph.conf</code>.
+    Fixed a regression that caused breakage in clusters that referred to
+    ceph-mon hosts using dns names instead of IP addresses in the
+    <code class="option">mon_host</code> parameter in <code class="filename">ceph.conf</code>.
    </p></li><li class="listitem "><p>
-    ceph-volume: the <code class="command">lvm batch</code> subcommand received a major rewrite.
+    ceph-volume: the <code class="command">lvm batch</code> subcommand received a major
+    rewrite.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.30"><span class="name">Nautilus 14.2.12 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.30">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  In addition to bug fixes, this major upstream release brought a number of notable changes:
+  In addition to bug fixes, this major upstream release brought a number of
+  notable changes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    The <code class="command">ceph df command</code> now lists the number of PGs in each pool.
+    The <code class="command">ceph df command</code> now lists the number of PGs in each
+    pool.
    </p></li><li class="listitem "><p>
-    MONs now have a config option <code class="option">mon_osd_warn_num_repaired</code>, 10 by default.
-    If any OSD has repaired more than this many I/O errors in stored data, a <code class="literal">OSD_TOO_MANY_REPAIRS</code> health warning is generated.
-    In order to allow clearing of the warning, a new command <code class="command">ceph tell osd.<em class="replaceable ">SERVICE_ID</em> clear_shards_repaired <em class="replaceable ">COUNT</em></code> has been added.
-    By default, it will set the repair count to 0.
-    If you want to be warned again if additional repairs are performed, you can provide a value to the command and specify the value of <code class="option">mon_osd_warn_num_repaired</code>.
-    This command will be replaced in future releases by the health mute/unmute feature.
+    MONs now have a config option <code class="option">mon_osd_warn_num_repaired</code>,
+    10 by default. If any OSD has repaired more than this many I/O errors in
+    stored data, a <code class="literal">OSD_TOO_MANY_REPAIRS</code> health warning is
+    generated. In order to allow clearing of the warning, a new command
+    <code class="command">ceph tell osd.<em class="replaceable ">SERVICE_ID</em>
+    clear_shards_repaired <em class="replaceable ">COUNT</em></code> has been
+    added. By default, it will set the repair count to 0. If you want to be
+    warned again if additional repairs are performed, you can provide a value
+    to the command and specify the value of
+    <code class="option">mon_osd_warn_num_repaired</code>. This command will be replaced
+    in future releases by the health mute/unmute feature.
    </p></li><li class="listitem "><p>
-    It is now possible to specify the initial MON to contact for Ceph tools and daemons using the <code class="option">mon_host_override config</code> option or <code class="option">--mon-host-override <em class="replaceable ">IP</em></code> command-line switch.
-    This generally should only be used for debugging and only affects initial communication with Ceph’s MON cluster.
+    It is now possible to specify the initial MON to contact for Ceph tools
+    and daemons using the <code class="option">mon_host_override config</code> option or
+    <code class="option">--mon-host-override <em class="replaceable ">IP</em></code>
+    command-line switch. This generally should only be used for debugging and
+    only affects initial communication with Ceph’s MON cluster.
    </p></li><li class="listitem "><p>
     Fix an issue with osdmaps not being trimmed in a healthy cluster.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.33"><span class="name">Nautilus 14.2.11 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.33">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  In addition to bug fixes, this major upstream release brought a number of notable changes:
+  In addition to bug fixes, this major upstream release brought a number of
+  notable changes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    RGW: The <code class="command">radosgw-admin</code> sub-commands dealing with orphans – <code class="command">radosgw-admin orphans find</code>, <code class="command">radosgw-admin orphans finish</code>, <code class="command">radosgw-admin orphans list-jobs</code> – have been deprecated.
-    They have not been actively maintained and they store intermediate results on the cluster, which could fill a nearly-full cluster.
-    They have been replaced by a tool, currently considered experimental, <code class="command">rgw-orphan-list</code>.
+    RGW: The <code class="command">radosgw-admin</code> sub-commands dealing with orphans
+    – <code class="command">radosgw-admin orphans find</code>, <code class="command">radosgw-admin
+    orphans finish</code>, <code class="command">radosgw-admin orphans
+    list-jobs</code> – have been deprecated. They have not been actively
+    maintained and they store intermediate results on the cluster, which could
+    fill a nearly-full cluster. They have been replaced by a tool, currently
+    considered experimental, <code class="command">rgw-orphan-list</code>.
    </p></li><li class="listitem "><p>
-    Now, when <code class="option">noscrub</code> and/or <code class="option">nodeep-scrub</code> flags are set globally or per pool, scheduled scrubs of the type disabled will be aborted.
-    All user initiated scrubs are <span class="emphasis"><em>not</em></span> interrupted.
+    Now, when <code class="option">noscrub</code> and/or <code class="option">nodeep-scrub</code>
+    flags are set globally or per pool, scheduled scrubs of the type disabled
+    will be aborted. All user initiated scrubs are <span class="emphasis"><em>not</em></span>
+    interrupted.
    </p></li><li class="listitem "><p>
-    Fixed a ceph-osd crash in committed OSD maps when there is a failure to encode the first incremental map.
+    Fixed a ceph-osd crash in committed OSD maps when there is a failure to
+    encode the first incremental map.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.36"><span class="name">Nautilus 14.2.10 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.36">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This upstream release patched one security flaw:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    CVE-2020-10753: rgw: sanitize newlines in s3 CORSConfiguration’s ExposeHeader
+    CVE-2020-10753: rgw: sanitize newlines in s3 CORSConfiguration’s
+    ExposeHeader
    </p></li></ul></div><p>
-  In addition to security flaws, this major upstream release brought a number of notable changes:
+  In addition to security flaws, this major upstream release brought a number
+  of notable changes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    The pool parameter <code class="option">target_size_ratio</code>, used by the PG autoscaler, has changed meaning.
-    It is now normalized across pools, rather than specifying an absolute ratio.
-    If you have set target size ratios on any pools, you may want to set these pools to autoscale <code class="literal">warn</code> mode to avoid data movement during the upgrade:
+    The pool parameter <code class="option">target_size_ratio</code>, used by the PG
+    autoscaler, has changed meaning. It is now normalized across pools, rather
+    than specifying an absolute ratio. If you have set target size ratios on
+    any pools, you may want to set these pools to autoscale
+    <code class="literal">warn</code> mode to avoid data movement during the upgrade:
    </p><div class="verbatim-wrap"><pre class="screen">ceph osd pool set <em class="replaceable ">POOL_NAME</em> pg_autoscale_mode warn</pre></div></li><li class="listitem "><p>
-    The behaviour of the <code class="option">-o</code> argument to the RADOS tool has been reverted to its original behaviour of indicating an output file.
-    This reverts it to a more consistent behaviour when compared to other tools.
-    Specifying object size is now accomplished by using an upper case O <code class="option">-O</code>.
+    The behaviour of the <code class="option">-o</code> argument to the RADOS tool has
+    been reverted to its original behaviour of indicating an output file. This
+    reverts it to a more consistent behaviour when compared to other tools.
+    Specifying object size is now accomplished by using an upper case O
+    <code class="option">-O</code>.
    </p></li><li class="listitem "><p>
     The format of MDSs in <code class="command">ceph fs dump</code> has changed.
    </p></li><li class="listitem "><p>
-    Ceph will issue a health warning if a RADOS pool’s <code class="literal">size</code> is set to 1 or, in other words, the pool is configured with no redundancy.
-    This can be fixed by setting the pool size to the minimum recommended value with:
+    Ceph will issue a health warning if a RADOS pool’s
+    <code class="literal">size</code> is set to 1 or, in other words, the pool is
+    configured with no redundancy. This can be fixed by setting the pool size
+    to the minimum recommended value with:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable ">pool-name</em> size <em class="replaceable ">num-replicas</em></pre></div><p>
     The warning can be silenced with:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_no_redundancy false</pre></div></li><li class="listitem "><p>
-    RGW: bucket listing performance on sharded bucket indexes has been notably improved by heuristically – and significantly, in many cases – reducing the number of entries requested from each bucket index shard.
+    RGW: bucket listing performance on sharded bucket indexes has been notably
+    improved by heuristically – and significantly, in many cases – reducing the
+    number of entries requested from each bucket index shard.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.41"><span class="name">Nautilus 14.2.9 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.41">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This upstream release patched two security flaws:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
@@ -5415,80 +5502,116 @@ rook-discover-tztz4                          1/1    Running    0         22h</pr
    </p></li></ul></div><p>
   In SES 6, these flaws were patched in Ceph version 14.2.5.389+gb0f23ac248.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.45"><span class="name">Nautilus 14.2.8 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.45">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  In addition to bug fixes, this major upstream release brought a number of notable changes:
+  In addition to bug fixes, this major upstream release brought a number of
+  notable changes:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    The default value of <code class="option">bluestore_min_alloc_size_ssd</code> has been changed to 4K to improve performance across all workloads.
+    The default value of <code class="option">bluestore_min_alloc_size_ssd</code> has been
+    changed to 4K to improve performance across all workloads.
    </p></li><li class="listitem "><p>
-    The following OSD memory config options related to BlueStore cache autotuning can now be configured during runtime:
+    The following OSD memory config options related to BlueStore cache
+    autotuning can now be configured during runtime:
    </p><div class="verbatim-wrap"><pre class="screen">osd_memory_base (default: 768 MB)
 osd_memory_cache_min (default: 128 MB)
 osd_memory_expected_fragmentation (default: 0.15)
 osd_memory_target (default: 4 GB)</pre></div><p>
     You can set the above options by running:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set osd <em class="replaceable ">OPTION</em> <em class="replaceable ">VALUE</em></pre></div></li><li class="listitem "><p>
-    The Ceph Manager now accepts <code class="literal">profile rbd</code> and <code class="literal">profile rbd-read-only</code> user capabilities.
-    You can use these capabilities to provide users access to MGR-based RBD functionality such as <code class="literal">rbd perf image iostat</code> and <code class="literal">rbd perf image iotop</code>.
+    The Ceph Manager now accepts <code class="literal">profile rbd</code> and <code class="literal">profile
+    rbd-read-only</code> user capabilities. You can use these capabilities
+    to provide users access to MGR-based RBD functionality such as <code class="literal">rbd
+    perf image iostat</code> and <code class="literal">rbd perf image iotop</code>.
    </p></li><li class="listitem "><p>
-    The configuration value <code class="option">osd_calc_pg_upmaps_max_stddev</code> used for upmap balancing has been removed.
-    Instead, use the Ceph Manager balancer configuration option <code class="option">upmap_max_deviation</code> which now is an integer number of PGs of deviation from the target PGs per OSD.
-    You can set it with a following command:
+    The configuration value <code class="option">osd_calc_pg_upmaps_max_stddev</code> used
+    for upmap balancing has been removed. Instead, use the Ceph Manager balancer
+    configuration option <code class="option">upmap_max_deviation</code> which now is an
+    integer number of PGs of deviation from the target PGs per OSD. You can set
+    it with a following command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/balancer/upmap_max_deviation 2</pre></div><p>
-    The default <code class="option">upmap_max_deviation</code> is 5.
-    There are situations where crush rules would not allow a pool to ever have completely balanced PGs.
-    For example, if crush requires 1 replica on each of 3 racks, but there are fewer OSDs in 1 of the racks.
-    In those cases, the configuration value can be increased.
+    The default <code class="option">upmap_max_deviation</code> is 5. There are situations
+    where crush rules would not allow a pool to ever have completely balanced
+    PGs. For example, if crush requires 1 replica on each of 3 racks, but there
+    are fewer OSDs in 1 of the racks. In those cases, the configuration value
+    can be increased.
    </p></li><li class="listitem "><p>
-    CephFS: multiple active Metadata Server forward scrub is now rejected.
-    Scrub is currently only permitted on a file system with a single rank.
-    Reduce the ranks to one via <code class="command">ceph fs set <em class="replaceable ">FS_NAME</em> max_mds 1</code>.
+    CephFS: multiple active Metadata Server forward scrub is now rejected. Scrub is
+    currently only permitted on a file system with a single rank. Reduce the
+    ranks to one via <code class="command">ceph fs set <em class="replaceable ">FS_NAME</em>
+    max_mds 1</code>.
    </p></li><li class="listitem "><p>
-    Ceph will now issue a health warning if a RADOS pool has a <code class="option">pg_num</code> value that is not a power of two.
-    This can be fixed by adjusting the pool to an adjacent power of two:
+    Ceph will now issue a health warning if a RADOS pool has a
+    <code class="option">pg_num</code> value that is not a power of two. This can be fixed
+    by adjusting the pool to an adjacent power of two:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable ">POOL_NAME</em> pg_num <em class="replaceable ">NEW_PG_NUM</em></pre></div><p>
     Alternatively, you can silence the warning with:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_pg_num_not_power_of_two false</pre></div></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.48"><span class="name">Nautilus 14.2.7 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.48">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
   This upstream release patched two security flaws:
  </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    CVE-2020-1699: a path traversal flaw in Ceph Dashboard that could allow for potential information disclosure.
+    CVE-2020-1699: a path traversal flaw in Ceph Dashboard that could allow for
+    potential information disclosure.
    </p></li><li class="listitem "><p>
-    CVE-2020-1700: a flaw in the RGW beast front-end that could lead to denial of service from an unauthenticated client.
+    CVE-2020-1700: a flaw in the RGW beast front-end that could lead to denial
+    of service from an unauthenticated client.
    </p></li></ul></div><p>
   In SES 6, these flaws were patched in Ceph version 14.2.5.382+g8881d33957b.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.52"><span class="name">Nautilus 14.2.6 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.52">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This release fixed a Ceph Manager bug that caused MGRs becoming unresponsive on larger clusters.
-  SES users were never exposed to the bug.
+  This release fixed a Ceph Manager bug that caused MGRs becoming unresponsive on
+  larger clusters. SES users were never exposed to the bug.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.54"><span class="name">Nautilus 14.2.5 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.54">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    <span class="bold"><strong>Health warnings are now issued if daemons have recently crashed.</strong></span> Ceph will now issue health warnings if daemons have recently crashed. Ceph has been collecting crash reports since the initial Nautilus release, but the health alerts are new.
-    To view new crashes (or all crashes, if you have just upgraded), run:
+    <span class="bold"><strong>Health warnings are now issued if daemons have
+    recently crashed.</strong></span> Ceph will now issue health warnings if
+    daemons have recently crashed. Ceph has been collecting crash reports
+    since the initial Nautilus release, but the health alerts are new. To view
+    new crashes (or all crashes, if you have just upgraded), run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph crash ls-new</pre></div><p>
-    To acknowledge a particular crash (or all crashes) and silence the health warning, run:
+    To acknowledge a particular crash (or all crashes) and silence the health
+    warning, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph crash archive <em class="replaceable ">CRASH-ID</em>
 <code class="prompt user">cephadm@adm &gt; </code>ceph crash archive-all</pre></div></li><li class="listitem "><p>
-    <span class="bold"><strong><code class="option">pg_num</code> must be a power of two, otherwise <code class="literal">HEALTH_WARN</code> is reported.</strong></span> Ceph will now issue a health warning if a RADOS pool has a <code class="option">pg_num</code> value that is not a power of two.
-    You can fix this by adjusting the pool to a nearby power of two:
+    <span class="bold"><strong><code class="option">pg_num</code> must be a power of two,
+    otherwise <code class="literal">HEALTH_WARN</code> is reported.</strong></span> Ceph
+    will now issue a health warning if a RADOS pool has a
+    <code class="option">pg_num</code> value that is not a power of two. You can fix this
+    by adjusting the pool to a nearby power of two:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable ">POOL-NAME</em> pg_num <em class="replaceable ">NEW-PG-NUM</em></pre></div><p>
     Alternatively, you can silence the warning with:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_pg_num_not_power_of_two false</pre></div></li><li class="listitem "><p>
-    <span class="bold"><strong>Pool size needs to be greater than 1 otherwise <code class="literal">HEALTH_WARN</code> is reported.</strong></span> Ceph will issue a health warning if a RADOS pool’s size is set to 1 or if the pool is configured with no redundancy. Ceph will stop issuing the warning if the pool size is set to the minimum recommended value:
+    <span class="bold"><strong>Pool size needs to be greater than 1 otherwise
+    <code class="literal">HEALTH_WARN</code> is reported.</strong></span> Ceph will issue a
+    health warning if a RADOS pool’s size is set to 1 or if the pool is
+    configured with no redundancy. Ceph will stop issuing the warning if the
+    pool size is set to the minimum recommended value:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable ">POOL-NAME</em> size <em class="replaceable ">NUM-REPLICAS</em></pre></div><p>
     You can silence the warning with:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_no_redundancy false</pre></div></li><li class="listitem "><p>
-    <span class="bold"><strong>Health warning is reported if average OSD heartbeat ping time exceeds the threshold.</strong></span> A health warning is now generated if the average OSD heartbeat ping time exceeds a configurable threshold for any of the intervals computed.
-    The
-    OSD computes 1 minute, 5 minute and 15 minute intervals with average, minimum, and maximum values.
+    <span class="bold"><strong>Health warning is reported if average OSD heartbeat
+    ping time exceeds the threshold.</strong></span> A health warning is now
+    generated if the average OSD heartbeat ping time exceeds a configurable
+    threshold for any of the intervals computed. The OSD computes 1 minute, 5
+    minute and 15 minute intervals with average, minimum, and maximum values.
    </p><p>
-    A new configuration option, <code class="option">mon_warn_on_slow_ping_ratio</code>, specifies a percentage of <code class="option">osd_heartbeat_grace</code> to determine the threshold.
-    A value of zero disables the warning.
+    A new configuration option, <code class="option">mon_warn_on_slow_ping_ratio</code>,
+    specifies a percentage of <code class="option">osd_heartbeat_grace</code> to determine
+    the threshold. A value of zero disables the warning.
    </p><p>
-    A new configuration option, <code class="option">mon_warn_on_slow_ping_time</code>, specified in milliseconds, overrides the computed value and causes a warning when OSD heartbeat pings take longer than the specified amount.
+    A new configuration option, <code class="option">mon_warn_on_slow_ping_time</code>,
+    specified in milliseconds, overrides the computed value and causes a
+    warning when OSD heartbeat pings take longer than the specified amount.
    </p><p>
-    A new command <code class="command">ceph daemon mgr.<em class="replaceable ">MGR-NUMBER</em> dump_osd_network <em class="replaceable ">THRESHOLD</em></code> lists all connections with a ping time longer than the specified threshold or value determined by the configuration options, for the average for any of the 3 intervals.
+    A new command <code class="command">ceph daemon
+    mgr.<em class="replaceable ">MGR-NUMBER</em> dump_osd_network
+    <em class="replaceable ">THRESHOLD</em></code> lists all connections with a
+    ping time longer than the specified threshold or value determined by the
+    configuration options, for the average for any of the 3 intervals.
    </p><p>
-    A new command <code class="command">ceph daemon osd.# dump_osd_network <em class="replaceable ">THRESHOLD</em></code> will do the same as the previous one but only including heartbeats initiated by the specified OSD.
+    A new command <code class="command">ceph daemon osd.# dump_osd_network
+    <em class="replaceable ">THRESHOLD</em></code> will do the same as the
+    previous one but only including heartbeats initiated by the specified OSD.
    </p></li><li class="listitem "><p>
     <span class="bold"><strong>Changes in the telemetry MGR module.</strong></span>
    </p><p>
-    A new 'device' channel (enabled by default) will report anonymized hard disk and SSD health metrics to <code class="literal">telemetry.ceph.com</code> in order to build and improve device failure prediction algorithms.
+    A new 'device' channel (enabled by default) will report anonymized hard
+    disk and SSD health metrics to <code class="literal">telemetry.ceph.com</code> in
+    order to build and improve device failure prediction algorithms.
    </p><p>
     Telemetry reports information about CephFS file systems, including:
    </p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
@@ -5514,85 +5637,133 @@ osd_memory_target (default: 4 GB)</pre></div><p>
      </p></li><li class="listitem "><p>
       Whether RADOS cache tiering is enabled (and the mode).
      </p></li><li class="listitem "><p>
-      Whether pools are replicated or erasure coded, and which erasure code profile plug-in and parameters are in use.
+      Whether pools are replicated or erasure coded, and which erasure code
+      profile plug-in and parameters are in use.
      </p></li><li class="listitem "><p>
-      How many hosts are in the cluster, and how many hosts have each type of daemon.
+      How many hosts are in the cluster, and how many hosts have each type of
+      daemon.
      </p></li><li class="listitem "><p>
       Whether a separate OSD cluster network is being used.
      </p></li><li class="listitem "><p>
-      How many RBD pools and images are in the cluster, and how many pools have RBD mirroring enabled.
+      How many RBD pools and images are in the cluster, and how many pools have
+      RBD mirroring enabled.
      </p></li><li class="listitem "><p>
-      How many RGW daemons, zones, and zonegroups are present and which RGW frontends are in use.
+      How many RGW daemons, zones, and zonegroups are present and which RGW
+      frontends are in use.
      </p></li><li class="listitem "><p>
-      Aggregate stats about the CRUSH Map, such as which algorithms are used, how big buckets are, how many rules are defined, and what tunables are in use.
+      Aggregate stats about the CRUSH Map, such as which algorithms are used,
+      how big buckets are, how many rules are defined, and what tunables are in
+      use.
      </p></li></ul></div><p>
-    If you had telemetry enabled before 14.2.5, you will need to re-opt-in with:
+    If you had telemetry enabled before 14.2.5, you will need to re-opt-in
+    with:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry on</pre></div><p>
-    If you are not comfortable sharing device metrics, you can disable that channel first before re-opting-in:
+    If you are not comfortable sharing device metrics, you can disable that
+    channel first before re-opting-in:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/telemetry/channel_device false
 <code class="prompt user">cephadm@adm &gt; </code>ceph telemetry on</pre></div><p>
     You can view exactly what information will be reported first with:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show        # see everything
 <code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show device # just the device info
 <code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show basic  # basic cluster info</pre></div></li><li class="listitem "><p>
-    <span class="bold"><strong>New OSD daemon command <code class="command">dump_recovery_reservations</code></strong></span>.
-    It reveals the recovery locks held (<code class="option">in_progress</code>) and waiting in priority queues.
-    Usage:
+    <span class="bold"><strong>New OSD daemon command
+    <code class="command">dump_recovery_reservations</code></strong></span>. It reveals the
+    recovery locks held (<code class="option">in_progress</code>) and waiting in priority
+    queues. Usage:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph daemon osd.<em class="replaceable ">ID</em> dump_recovery_reservations</pre></div></li><li class="listitem "><p>
-    <span class="bold"><strong>New OSD daemon command <code class="command">dump_scrub_reservations</code>. </strong></span> It reveals the scrub reservations that are held for local (primary) and remote (replica) PGs.
-    Usage:
+    <span class="bold"><strong>New OSD daemon command
+    <code class="command">dump_scrub_reservations</code>. </strong></span> It reveals the
+    scrub reservations that are held for local (primary) and remote (replica)
+    PGs. Usage:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph daemon osd.<em class="replaceable ">ID</em> dump_scrub_reservations</pre></div></li><li class="listitem "><p>
-    <span class="bold"><strong>RGW now supports S3 Object Lock set of APIs.</strong></span> RGW now supports S3 Object Lock set of APIs allowing for a WORM model for storing objects. 6 new APIs have been added PUT/GET bucket object lock, PUT/GET object retention, PUT/GET object legal hold.
+    <span class="bold"><strong>RGW now supports S3 Object Lock set of
+    APIs.</strong></span> RGW now supports S3 Object Lock set of APIs allowing for a
+    WORM model for storing objects. 6 new APIs have been added PUT/GET bucket
+    object lock, PUT/GET object retention, PUT/GET object legal hold.
    </p></li><li class="listitem "><p>
-    <span class="bold"><strong>RGW now supports List Objects V2.</strong></span> RGW now supports List Objects V2 as specified at <a class="link" href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html" target="_blank">https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html</a>.
+    <span class="bold"><strong>RGW now supports List Objects V2.</strong></span> RGW now
+    supports List Objects V2 as specified at
+    <a class="link" href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html" target="_blank">https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html</a>.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.56"><span class="name">Nautilus 14.2.4 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.56">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This point release fixes a serious regression that found its way into the 14.2.3 point release.
-  This regression did not affect SUSE Enterprise Storage customers because we did not ship a version based on 14.2.3.
+  This point release fixes a serious regression that found its way into the
+  14.2.3 point release. This regression did not affect SUSE Enterprise Storage customers
+  because we did not ship a version based on 14.2.3.
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.58"><span class="name">Nautilus 14.2.3 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.58">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    Fixed a denial of service vulnerability where an unauthenticated client of Ceph Object Gateway could trigger a crash from an uncaught exception.
+    Fixed a denial of service vulnerability where an unauthenticated client of
+    Ceph Object Gateway could trigger a crash from an uncaught exception.
    </p></li><li class="listitem "><p>
     Nautilus-based librbd clients can now open images on Jewel clusters.
    </p></li><li class="listitem "><p>
-    The Object Gateway <code class="option">num_rados_handles</code> has been removed.
-    If you were using a value of <code class="option">num_rados_handles</code> greater than 1, multiply your current <code class="option">objecter_inflight_ops</code> and <code class="option">objecter_inflight_op_bytes</code> parameters by the old <code class="option">num_rados_handles</code> to get the same throttle behavior.
+    The Object Gateway <code class="option">num_rados_handles</code> has been removed. If you were
+    using a value of <code class="option">num_rados_handles</code> greater than 1,
+    multiply your current <code class="option">objecter_inflight_ops</code> and
+    <code class="option">objecter_inflight_op_bytes</code> parameters by the old
+    <code class="option">num_rados_handles</code> to get the same throttle behavior.
    </p></li><li class="listitem "><p>
-    The secure mode of Messenger v2 protocol is no longer experimental with this release.
-    This mode is now the preferred mode of connection for monitors.
+    The secure mode of Messenger v2 protocol is no longer experimental with
+    this release. This mode is now the preferred mode of connection for
+    monitors.
    </p></li><li class="listitem "><p>
-    <code class="option">osd_deep_scrub_large_omap_object_key_threshold</code> has been lowered to detect an object with a large number of omap keys more easily.
+    <code class="option">osd_deep_scrub_large_omap_object_key_threshold</code> has been
+    lowered to detect an object with a large number of omap keys more easily.
    </p></li><li class="listitem "><p>
     The Ceph Dashboard now supports silencing Prometheus notifications.
    </p></li></ul></div><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.60"><span class="name">Nautilus 14.2.2 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.60">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
-    The <code class="literal">no{up,down,in,out}</code> related commands have been revamped.
-    There are now two ways to set the <code class="literal">no{up,down,in,out}</code> flags: the old command
+    The <code class="literal">no{up,down,in,out}</code> related commands have been
+    revamped. There are now two ways to set the
+    <code class="literal">no{up,down,in,out}</code> flags: the old command
    </p><div class="verbatim-wrap"><pre class="screen">ceph osd [un]set <em class="replaceable ">FLAG</em></pre></div><p>
     which sets cluster-wide flags; and the new command
    </p><div class="verbatim-wrap"><pre class="screen">ceph osd [un]set-group <em class="replaceable ">FLAGS</em> <em class="replaceable ">WHO</em></pre></div><p>
-    which sets flags in batch at the granularity of any crush node or device class.
+    which sets flags in batch at the granularity of any crush node or device
+    class.
    </p></li><li class="listitem "><p>
-    <code class="command">radosgw-admin</code> introduces two subcommands that allow the managing of expire-stale objects that might be left behind after a bucket reshard in earlier versions of Object Gateway.
-    Expire-stale objects are expired objects that should have been automatically erased but still exist and need to be listed and removed manually.
-    One subcommand lists such objects and the other deletes them.
+    <code class="command">radosgw-admin</code> introduces two subcommands that allow the
+    managing of expire-stale objects that might be left behind after a bucket
+    reshard in earlier versions of Object Gateway. Expire-stale objects are expired
+    objects that should have been automatically erased but still exist and need
+    to be listed and removed manually. One subcommand lists such objects and
+    the other deletes them.
    </p></li><li class="listitem "><p>
-    Earlier Nautilus releases (14.2.1 and 14.2.0) have an issue where deploying a single new Nautilus BlueStore OSD on an upgraded cluster (i.e. one that was originally deployed pre-Nautilus) breaks the pool utilization statistics reported by <code class="command">ceph df</code>.
-    Until all OSDs have been reprovisioned or updated (via <code class="command">ceph-bluestore-tool repair</code>), the pool statistics will show values that are lower than the true value.
-    This is resolved in 14.2.2, such that the cluster only switches to using the more accurate per-pool stats after <span class="emphasis"><em>all</em></span> OSDs are 14.2.2 or later, are Block Storage, and have been updated via the repair function if they were created prior to Nautilus.
+    Earlier Nautilus releases (14.2.1 and 14.2.0) have an issue where
+    deploying a single new Nautilus BlueStore OSD on an upgraded cluster
+    (i.e. one that was originally deployed pre-Nautilus) breaks the pool
+    utilization statistics reported by <code class="command">ceph df</code>. Until all
+    OSDs have been reprovisioned or updated (via <code class="command">ceph-bluestore-tool
+    repair</code>), the pool statistics will show values that are lower than
+    the true value. This is resolved in 14.2.2, such that the cluster only
+    switches to using the more accurate per-pool stats after
+    <span class="emphasis"><em>all</em></span> OSDs are 14.2.2 or later, are Block Storage, and
+    have been updated via the repair function if they were created prior to
+    Nautilus.
    </p></li><li class="listitem "><p>
-    The default value for <code class="option">mon_crush_min_required_version</code> has been changed from <code class="literal">firefly</code> to <code class="literal">hammer</code>, which means the cluster will issue a health warning if your CRUSH tunables are older than Hammer.
-    There is generally a small (but non-zero) amount of data that will be re-balanced after making the switch to Hammer tunables.
+    The default value for <code class="option">mon_crush_min_required_version</code> has
+    been changed from <code class="literal">firefly</code> to <code class="literal">hammer</code>,
+    which means the cluster will issue a health warning if your CRUSH tunables
+    are older than Hammer. There is generally a small (but non-zero) amount of
+    data that will be re-balanced after making the switch to Hammer tunables.
    </p><p>
-    If possible, we recommend that you set the oldest allowed client to <code class="literal">hammer</code> or later.
-    To display what the current oldest allowed client is, run:
+    If possible, we recommend that you set the oldest allowed client to
+    <code class="literal">hammer</code> or later. To display what the current oldest
+    allowed client is, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd dump | grep min_compat_client</pre></div><p>
-    If the current value is older than <code class="literal">hammer</code>, run the following command to determine whether it is safe to make this change by verifying that there are no clients older than Hammer currently connected to the cluster:
+    If the current value is older than <code class="literal">hammer</code>, run the
+    following command to determine whether it is safe to make this change by
+    verifying that there are no clients older than Hammer currently connected
+    to the cluster:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph features</pre></div><p>
-    The newer <code class="literal">straw2</code> CRUSH bucket type was introduced in Hammer.
-    If you verify that all clients are Hammer or newer, it allows new features only supported for <code class="literal">straw2</code> buckets to be used, including the <code class="literal">crush-compat</code> mode for the Balancer (<span class="intraxref">Book “Administration Guide”, Chapter 21 “Ceph Manager Modules”, Section 21.1 “Balancer”</span>).
+    The newer <code class="literal">straw2</code> CRUSH bucket type was introduced in
+    Hammer. If you verify that all clients are Hammer or newer, it allows new
+    features only supported for <code class="literal">straw2</code> buckets to be used,
+    including the <code class="literal">crush-compat</code> mode for the Balancer
+    (<span class="intraxref">Book “Administration Guide”, Chapter 21 “Ceph Manager Modules”, Section 21.1 “Balancer”</span>).
    </p></li></ul></div><p>
-  Find detailed information about the patch at <a class="link" href="https://download.suse.com/Download?buildid=D38A7mekBz4~" target="_blank">https://download.suse.com/Download?buildid=D38A7mekBz4~</a>
+  Find detailed information about the patch at
+  <a class="link" href="https://download.suse.com/Download?buildid=D38A7mekBz4~" target="_blank">https://download.suse.com/Download?buildid=D38A7mekBz4~</a>
  </p><div xmlns:dm="urn:x-suse:ns:docmanager" class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.63"><span class="name">Nautilus 14.2.1 Point Release</span><a title="Permalink" class="permalink" href="#id-1.4.7.63">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" title="Edit the source file for this section">Edit source</a></h2></div><p>
-  This was the first point release following the original Nautilus release (14.2.0).
-  The original ('General Availability' or 'GA') version of SUSE Enterprise Storage 6 was based on this point release.
+  This was the first point release following the original Nautilus release
+  (14.2.0). The original ('General Availability' or 'GA') version of
+  SUSE Enterprise Storage 6 was based on this point release.
  </p></div><div class="glossary"><div class="titlepage"><div><div><h1 class="title"><span class="number"> </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Glossary</span> <a title="Permalink" class="permalink" href="#id-1.4.8">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ses_glossary.xml" title="Edit the source file for this section">Edit source</a></h1><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>ses_glossary.xml</li><li><span class="ds-label">ID: </span>book-storage-deployment</li></ul></div></div></div></div><div class="line"></div><div class="glossdiv" id="id-1.4.8.3"><h3 class="title">General</h3><dl><dt id="id-1.4.8.3.2"><span><span class="glossterm">Admin node</span> <a title="Permalink" class="permalink" href="#id-1.4.8.3.2">#</a></span></dt><dd class="glossdef"><p>
      The node from which you run the <code class="command">ceph-deploy</code> utility to
      deploy Ceph on OSD nodes.
@@ -5630,23 +5801,23 @@ osd_memory_target (default: 4 GB)</pre></div><p>
     </p></dd><dt id="id-1.4.8.3.10"><span><span class="glossterm">Pool</span> <a title="Permalink" class="permalink" href="#id-1.4.8.3.10">#</a></span></dt><dd class="glossdef"><p>
      Logical partitions for storing objects such as disk images.
     </p></dd><dt id="id-1.4.8.3.12"><span><span class="glossterm">Routing tree</span> <a title="Permalink" class="permalink" href="#id-1.4.8.3.12">#</a></span></dt><dd class="glossdef"><p>
-     A term given to any diagram that shows the various routes a
-     receiver can run.
+     A term given to any diagram that shows the various routes a receiver can
+     run.
     </p></dd><dt id="id-1.4.8.3.11"><span><span class="glossterm">Rule Set</span> <a title="Permalink" class="permalink" href="#id-1.4.8.3.11">#</a></span></dt><dd class="glossdef"><p>
      Rules to determine data placement for a pool.
     </p></dd></dl></div><div class="glossdiv" id="id-1.4.8.4"><h3 class="title">Ceph Specific Terms</h3><dl><dt id="id-1.4.8.4.5"><span><span class="glossterm">Alertmanager</span> <a title="Permalink" class="permalink" href="#id-1.4.8.4.5">#</a></span></dt><dd class="glossdef"><p>
-   A single binary which handles alerts sent by the Prometheus server
-   and notifies end user.
-  </p></dd><dt id="id-1.4.8.4.2"><span><span class="glossterm">Ceph Storage Cluster</span> <a title="Permalink" class="permalink" href="#id-1.4.8.4.2">#</a></span></dt><dd class="glossdef"><p>
-     The core set of storage software which stores the user’s data. Such a
-     set consists of Ceph monitors and OSDs.
+     A single binary which handles alerts sent by the Prometheus server and
+     notifies end user.
+    </p></dd><dt id="id-1.4.8.4.2"><span><span class="glossterm">Ceph Storage Cluster</span> <a title="Permalink" class="permalink" href="#id-1.4.8.4.2">#</a></span></dt><dd class="glossdef"><p>
+     The core set of storage software which stores the user’s data. Such a set
+     consists of Ceph monitors and OSDs.
     </p><p>
      AKA <span class="quote">“<span class="quote ">Ceph Object Store</span>”</span>.
     </p></dd><dt id="id-1.4.8.4.3"><span><span class="glossterm">Grafana</span> <a title="Permalink" class="permalink" href="#id-1.4.8.4.3">#</a></span></dt><dd class="glossdef"><p>
      Database analytics and monitoring solution.
     </p></dd><dt id="id-1.4.8.4.4"><span><span class="glossterm">Prometheus</span> <a title="Permalink" class="permalink" href="#id-1.4.8.4.4">#</a></span></dt><dd class="glossdef"><p>
-   Systems monitoring and alerting toolkit.
-  </p></dd></dl></div><div class="glossdiv" id="id-1.4.8.5"><h3 class="title">Object Gateway Specific Terms</h3><dl><dt id="id-1.4.8.5.3"><span><span class="glossterm">archive sync module</span> <a title="Permalink" class="permalink" href="#id-1.4.8.5.3">#</a></span></dt><dd class="glossdef"><p>
+     Systems monitoring and alerting toolkit.
+    </p></dd></dl></div><div class="glossdiv" id="id-1.4.8.5"><h3 class="title">Object Gateway Specific Terms</h3><dl><dt id="id-1.4.8.5.3"><span><span class="glossterm">archive sync module</span> <a title="Permalink" class="permalink" href="#id-1.4.8.5.3">#</a></span></dt><dd class="glossdef"><p>
      Module that enables creating an Object Gateway zone for keeping the history of S3
      object versions.
     </p></dd><dt id="id-1.4.8.5.2"><span><span class="glossterm">Object Gateway</span> <a title="Permalink" class="permalink" href="#id-1.4.8.5.2">#</a></span></dt><dd class="glossdef"><p>

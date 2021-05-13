@@ -118,9 +118,9 @@ hljs.configure({
     unit fails, the replicated data is still available on other rows.
    </p></div><div class="sect2 " id="storage-intro-core-nodes"><div class="titlepage"><div><div><h3 class="title"><span class="number">1.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Ceph Nodes and Daemons</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-core-nodes">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_about.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_about.xml</li><li><span class="ds-label">ID: </span>storage-intro-core-nodes</li></ul></div></div></div></div><p>
     In Ceph, nodes are servers working for the cluster. They can run several
-    different types of daemons. We recommend to run only one type of
-    daemon on each node, except for Ceph Manager daemons which can be collocated with
-    Ceph Monitors. Each cluster requires at least Ceph Monitor, Ceph Manager, and Ceph OSD daemons:
+    different types of daemons. We recommend to run only one type of daemon on
+    each node, except for Ceph Manager daemons which can be collocated with Ceph Monitors.
+    Each cluster requires at least Ceph Monitor, Ceph Manager, and Ceph OSD daemons:
    </p><div class="variablelist "><dl class="variablelist"><dt id="id-1.4.3.2.7.5.3.1"><span class="term ">Admin Node</span></dt><dd><p>
        <span class="emphasis"><em>Admin Node</em></span> is a Ceph cluster node where the Salt master
        service is running. The Admin Node is a central point of the Ceph cluster
@@ -142,12 +142,11 @@ hljs.configure({
        be such that more than 50% of the Ceph Monitor nodes remain functional if one
        site fails.
       </p></dd><dt id="id-1.4.3.2.7.5.3.3"><span class="term ">Ceph Manager</span></dt><dd><p>
-       The Ceph Manager collects the state information from the whole
-       cluster. The Ceph Manager daemon runs alongside the monitor daemons.
-       It provides additional monitoring, and interfaces the external
-       monitoring and management systems. It includes other services
-       as well, for example the Ceph Dashboard Web UI.
-       The Ceph Dashboard Web UI runs on the same node as the Ceph Manager.
+       The Ceph Manager collects the state information from the whole cluster. The
+       Ceph Manager daemon runs alongside the monitor daemons. It provides additional
+       monitoring, and interfaces the external monitoring and management
+       systems. It includes other services as well, for example the Ceph Dashboard
+       Web UI. The Ceph Dashboard Web UI runs on the same node as the Ceph Manager.
       </p><p>
        The Ceph manager requires no additional configuration, beyond ensuring
        it is running. You can deploy it as a separate role using DeepSea.
@@ -282,9 +281,9 @@ hljs.configure({
    is only helpful to provision a shared DB device if it is faster than the
    primary device.
   </p><div id="id-1.4.3.2.9.9" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip: Plan for the DB Size</h6><p>
-    Plan thoroughly to ensure sufficient size of the DB device. If the DB device
-    fills up, metadata will spill over to the primary device, which badly
-    degrades the OSD's performance.
+    Plan thoroughly to ensure sufficient size of the DB device. If the DB
+    device fills up, metadata will spill over to the primary device, which
+    badly degrades the OSD's performance.
    </p><p>
     You can check if a WAL/DB partition is getting full and spilling over with
     the <code class="command">ceph daemon osd<em class="replaceable ">.ID</em> perf
@@ -308,11 +307,11 @@ hljs.configure({
      scale clusters it is a recommended reading. The publication can be found
      at <a class="link" href="http://www.ssrc.ucsc.edu/papers/weil-sc06.pdf" target="_blank">http://www.ssrc.ucsc.edu/papers/weil-sc06.pdf</a>.
     </p></li><li class="listitem "><p>
-       SUSE Enterprise Storage can be used with non-SUSE OpenStack distributions.
-       The Ceph clients need to be at a level that is compatible with SUSE Enterprise Storage.
-     </p><div id="id-1.4.3.2.10.2.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
-         SUSE supports the server component of the Ceph deployment
-         and the client is supported by the OpenStack distribution vendor.
-       </p></div></li></ul></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="storage-bp-hwreq.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 2 </span>Hardware Requirements and Recommendations</span></a><a class="nav-link" href="part-ses.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Part I </span>SUSE Enterprise Storage</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+     SUSE Enterprise Storage can be used with non-SUSE OpenStack distributions. The Ceph
+     clients need to be at a level that is compatible with SUSE Enterprise Storage.
+    </p><div id="id-1.4.3.2.10.2.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>
+      SUSE supports the server component of the Ceph deployment and the
+      client is supported by the OpenStack distribution vendor.
+     </p></div></li></ul></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="storage-bp-hwreq.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 2 </span>Hardware Requirements and Recommendations</span></a><a class="nav-link" href="part-ses.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Part I </span>SUSE Enterprise Storage</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
         2021 
         SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

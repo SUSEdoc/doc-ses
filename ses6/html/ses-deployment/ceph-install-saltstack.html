@@ -136,7 +136,7 @@ hljs.configure({
        The directory stores Salt state files (also called
        <span class="emphasis"><em>sls</em></span> files). State files are formatted descriptions
        of states in which the cluster should be.
-
+       
       </p></dd><dt id="id-1.4.4.2.6.9.3.3"><span class="term "><code class="filename">/srv/module/runners</code></span></dt><dd><p>
        The directory stores Python scripts known as runners. Runners are
        executed on the master node.
@@ -521,8 +521,8 @@ minion1:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.services</pre></div><p>
      Depending on the setup, the command may run for several minutes.
     </p></li><li class="step "><p>
-     <span class="emphasis"><em>Disable insecure clients</em></span>. Since Nautilus v14.2.20, a
-     new health warning was introduced that informs you that insecure clients
+     <span class="emphasis"><em>Disable insecure clients</em></span>. Since Nautilus v14.2.20,
+     a new health warning was introduced that informs you that insecure clients
      are allowed to join the cluster. This warning is <span class="emphasis"><em>on</em></span>
      by default. The Ceph Dashboard will show the cluster in the
      <code class="literal">HEALTH_WARN</code> status and verifying the cluster status on
@@ -533,12 +533,12 @@ cluster:
   health: HEALTH_WARN
   mons are allowing insecure global_id reclaim
 [...]</pre></div><p>
-     This warning means that the Ceph Monitors are still allowing old, unpatched clients
-     to connect to the cluster. This ensures existing clients can still connect
-     while the cluster is being upgraded, but warns you that there is a problem
-     that needs to be addressed. When the cluster and all clients are upgraded to
-     the latest version of Ceph, disallow unpatched clients by running the
-     following command:
+     This warning means that the Ceph Monitors are still allowing old, unpatched
+     clients to connect to the cluster. This ensures existing clients can still
+     connect while the cluster is being upgraded, but warns you that there is a
+     problem that needs to be addressed. When the cluster and all clients are
+     upgraded to the latest version of Ceph, disallow unpatched clients by
+     running the following command:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></li><li class="step "><p>
      Before you continue, we strongly recommend enabling the Ceph telemetry
      module. For more information, see <span class="intraxref">Book “Administration Guide”, Chapter 21 “Ceph Manager Modules”, Section 21.2 “Telemetry Module”</span>

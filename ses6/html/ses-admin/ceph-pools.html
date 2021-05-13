@@ -273,9 +273,10 @@ pool4                     1.1 MiB      13      0     39                  0      
        Disables (deep) scrubbing of the data for the specific pool to resolve
        temporary high I/O load.
       </p></dd><dt id="id-1.3.5.9.7.10.5.10"><span class="term ">write_fadvise_dontneed</span></dt><dd><p>
-       Set or unset the <code class="literal">WRITE_FADVISE_DONTNEED</code> flag on a given
-       pool's read/write requests to bypass putting data into cache. Default is
-       <code class="literal">false</code>. Applies to both replicated and EC pools.
+       Set or unset the <code class="literal">WRITE_FADVISE_DONTNEED</code> flag on a
+       given pool's read/write requests to bypass putting data into cache.
+       Default is <code class="literal">false</code>. Applies to both replicated and EC
+       pools.
       </p></dd><dt id="id-1.3.5.9.7.10.5.11"><span class="term ">scrub_min_interval</span></dt><dd><p>
        The minimum interval in seconds for pool scrubbing when the cluster load
        is low. The default <code class="literal">0</code> means that the
@@ -371,10 +372,10 @@ pool4                     1.1 MiB      13      0     39                  0      
        shards to decode to serve the client. In the case of
        <span class="emphasis"><em>jerasure</em></span> and <span class="emphasis"><em>isa</em></span> erasure
        plug-ins, when the first <code class="literal">K</code> replies return, then the
-       client’s request is served immediately using the data decoded from
-       these replies. This approach causes more CPU load and less disk/network
-       load. Currently, this flag is only supported for erasure coding pools.
-       Default is <code class="literal">0</code>.
+       client’s request is served immediately using the data decoded from these
+       replies. This approach causes more CPU load and less disk/network load.
+       Currently, this flag is only supported for erasure coding pools. Default
+       is <code class="literal">0</code>.
       </p></dd></dl></div></div><div class="sect2 " id="ceph-pools-options-num-of-replicas"><div class="titlepage"><div><div><h3 class="title"><span class="number">22.2.9 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Set the Number of Object Replicas</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-options-num-of-replicas">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_operating_pools.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_operating_pools.xml</li><li><span class="ds-label">ID: </span>ceph-pools-options-num-of-replicas</li></ul></div></div></div></div><p>
     To set the number of object replicas on a replicated pool, execute the
     following:
@@ -422,10 +423,10 @@ pool4                     1.1 MiB      13      0     39                  0      
    need to migrate the pool data to another one whose parameters suit your
    deployment.
   </p><p>
-   This section describes two migration methods—a <span class="emphasis"><em>cache tier</em></span>
-   method for general pool data migration, and a method using <code class="command">rbd
-    migrate</code> sub-commands to migrate RBD images to a new pool. Each
-   method has its specifics and limitations.
+   This section describes two migration methods—a <span class="emphasis"><em>cache
+   tier</em></span> method for general pool data migration, and a method using
+   <code class="command">rbd migrate</code> sub-commands to migrate RBD images to a new
+   pool. Each method has its specifics and limitations.
   </p><div class="sect2 " id="pool-migrate-limits"><div class="titlepage"><div><div><h3 class="title"><span class="number">22.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Limitations</span> <a title="Permalink" class="permalink" href="ceph-pools.html#pool-migrate-limits">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_operating_pools.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_operating_pools.xml</li><li><span class="ds-label">ID: </span>pool-migrate-limits</li></ul></div></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>
       You can use the <span class="emphasis"><em>cache tier</em></span> method to migrate from a
       replicated pool to either an EC pool or another replicated pool.
@@ -443,9 +444,10 @@ pool4                     1.1 MiB      13      0     39                  0      
       <code class="option">prepare</code> step and start it afterward. Note that only a
       <code class="systemitem">librbd</code> client that supports this feature (Ceph
       Nautilus or newer) will be able to open the image just after the
-      <code class="option">prepare</code> step, while older <code class="systemitem">librbd</code> clients or
-      the <code class="systemitem">krbd</code> clients will not be able to open the
-      image until the <code class="option">commit</code> step is executed.
+      <code class="option">prepare</code> step, while older
+      <code class="systemitem">librbd</code> clients or the
+      <code class="systemitem">krbd</code> clients will not be able to open the image
+      until the <code class="option">commit</code> step is executed.
      </p></li></ul></div></div><div class="sect2 " id="pool-migrate-cache-tier"><div class="titlepage"><div><div><h3 class="title"><span class="number">22.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Migrate Using Cache Tier</span> <a title="Permalink" class="permalink" href="ceph-pools.html#pool-migrate-cache-tier">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_operating_pools.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_operating_pools.xml</li><li><span class="ds-label">ID: </span>pool-migrate-cache-tier</li></ul></div></div></div></div><p>
     The principle is simple—include the pool that you need to migrate
     into a cache tier in reverse order. Find more details on cache tiers in
@@ -486,8 +488,8 @@ pool4                     1.1 MiB      13      0     39                  0      
       Run
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph tell mon.* injectargs \
  '--mon_debug_unsafe_allow_tier_with_nonempty_snaps=0'</pre></div></li></ol></div></div></div><div class="sect2 " id="migrate-rbd-image"><div class="titlepage"><div><div><h3 class="title"><span class="number">22.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Migrating RBD Images</span> <a title="Permalink" class="permalink" href="ceph-pools.html#migrate-rbd-image">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_operating_pools.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_operating_pools.xml</li><li><span class="ds-label">ID: </span>migrate-rbd-image</li></ul></div></div></div></div><p>
-    The following is the recommended way to migrate RBD images from one replicated
-    pool to another replicated pool.
+    The following is the recommended way to migrate RBD images from one
+    replicated pool to another replicated pool.
    </p><div class="procedure "><div class="procedure-contents"><ol class="procedure" type="1"><li class="step "><p>
       Stop clients (such as a virtual machine) from accessing the RBD image.
      </p></li><li class="step "><p>
