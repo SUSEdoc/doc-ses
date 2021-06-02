@@ -1037,9 +1037,9 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
         The Keystone administrator user project.
        </p></dd></dl></div></div></div></div><div class="sect1 " id="ogw-storage-classes"><div class="titlepage"><div><div><h2 class="title"><span class="number">21.12 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Pool placement and storage classes</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h2><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-storage-classes</li></ul></div></div></div></div><div class="sect2 " id="ogw-storage-classes-placement-targets"><div class="titlepage"><div><div><h3 class="title"><span class="number">21.12.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Displaying placement targets</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-placement-targets">#</a><a class="report-bug" target="_blank" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_gateway.xml" title="Edit the source file for this section">Edit source</a></h3><div class="doc-status"><ul><li><span class="ds-label">File Name: </span>admin_ceph_gateway.xml</li><li><span class="ds-label">ID: </span>ogw-storage-classes-placement-targets</li></ul></div></div></div></div><p>
     Placement targets control which pools are associated with a particular
-    bucket. A bucket’s placement target is selected on creation, and cannot
-    be modified. You can display its <code class="literal">placement_rule</code> by
-    running the following command:
+    bucket. A bucket’s placement target is selected on creation, and cannot be
+    modified. You can display its <code class="literal">placement_rule</code> by running
+    the following command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket stats</pre></div><p>
     The zonegroup configuration contains a list of placement targets with an
     initial target named 'default-placement'. The zone configuration then maps
@@ -1463,10 +1463,10 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      <code class="option">secret_key</code> of the generated system user stored in the
      master zone of the master zonegroup. Execute the following:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=<em class="replaceable ">ZONE-GROUP-NAME</em>\
-                            --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --endpoints=<em class="replaceable ">URL</em> \
-                            --access-key=<em class="replaceable ">SYSTEM-KEY</em> --secret=<em class="replaceable ">SECRET</em>\
-                            --endpoints=http://<em class="replaceable ">FQDN</em>:80 \
-                            [--read-only]</pre></div><p>
+ --rgw-zone=<em class="replaceable ">ZONE-NAME</em> --endpoints=<em class="replaceable ">URL</em> \
+ --access-key=<em class="replaceable ">SYSTEM-KEY</em> --secret=<em class="replaceable ">SECRET</em>\
+ --endpoints=http://<em class="replaceable ">FQDN</em>:80 \
+ [--read-only]</pre></div><p>
      For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --endpoints=http://rgw2:80 \
 --rgw-zone=us-east-2 --access-key=<em class="replaceable ">SYSTEM_ACCESS_KEY</em> --secret=<em class="replaceable ">SYSTEM_SECRET_KEY</em>
@@ -1508,7 +1508,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
       be lost and unrecoverable.
      </p></div><p>
      Delete the default zone if needed:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone rm --rgw-zone=default</pre></div><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone delete --rgw-zone=default</pre></div><p>
      Delete the default pools in your Ceph storage cluster if needed:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.control default.rgw.control --yes-i-really-really-mean-it
 <code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.data.root default.rgw.data.root --yes-i-really-really-mean-it
