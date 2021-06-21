@@ -499,8 +499,8 @@ pool4                     1.1 MiB      13      0     39                  0      
        If you need to migrate only the image data to a new EC pool and leave
        the metadata in the original replicated pool, run the following command
        instead:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>rbd migration prepare <em class="replaceable ">SRC_POOL</em>/<em class="replaceable ">IMAGE</em> \
- --data-pool <em class="replaceable ">TARGET_POOL</em>/<em class="replaceable ">IMAGE</em></pre></div></div></li><li class="step "><p>
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>rbd migration prepare <em class="replaceable ">SRC_METADATA_POOL</em>/<em class="replaceable ">IMAGE</em> <em class="replaceable ">TARGET_METADATA_POOL</em>/<em class="replaceable ">IMAGE</em> \
+ --data-pool <em class="replaceable ">TARGET_DATA_POOL</em>/<em class="replaceable ">IMAGE</em></pre></div></div></li><li class="step "><p>
       Let clients access the image in the target pool.
      </p></li><li class="step "><p>
       Migrate data to the target pool:
