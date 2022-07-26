@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Ceph cluster configuration | Administration and Operations Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Ceph cluster configuration | SES 7"/>
+<meta name="description" content="This chapter describes how to configure the Ceph cluster by means of configuration options."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Administration and Operations Guide"/>
+<meta name="chapter-title" content="Chapter 28. Ceph cluster configuration"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Ceph cluster configuration | SES 7"/>
+<meta property="og:description" content="This chapter describes how to configure the Ceph cluster by means of configuration options."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ceph cluster configuration | SES 7"/>
+<meta name="twitter:description" content="This chapter describes how to configure the Ceph cluster by means of configuration options."/>
+<link rel="prev" href="part-cluster-configuration.html" title="Part VI. Configuring a Cluster"/><link rel="next" href="cha-mgr-modules.html" title="Chapter 29. Ceph Manager modules"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration and Operations Guide</a><span> / </span><a class="crumb" href="part-cluster-configuration.html">Configuring a Cluster</a><span> / </span><a class="crumb" href="cha-ceph-configuration.html">Ceph cluster configuration</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration and Operations Guide</div><ol><li><a href="preface-admin.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="part-dashboard.html" class="has-children "><span class="title-number">I </span><span class="title-name">Ceph Dashboard</span></a><ol><li><a href="dashboard-about.html" class=" "><span class="title-number">1 </span><span class="title-name">About the Ceph Dashboard</span></a></li><li><a href="dashboard-webui-general.html" class=" "><span class="title-number">2 </span><span class="title-name">Dashboard's Web user interface</span></a></li><li><a href="dashboard-user-mgmt.html" class=" "><span class="title-number">3 </span><span class="title-name">Manage Ceph Dashboard users and roles</span></a></li><li><a href="dashboard-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">View cluster internals</span></a></li><li><a href="dashboard-pools.html" class=" "><span class="title-number">5 </span><span class="title-name">Manage pools</span></a></li><li><a href="dashboard-rbds.html" class=" "><span class="title-number">6 </span><span class="title-name">Manage RADOS Block Device</span></a></li><li><a href="dash-webui-nfs.html" class=" "><span class="title-number">7 </span><span class="title-name">Manage NFS Ganesha</span></a></li><li><a href="dashboard-mds.html" class=" "><span class="title-number">8 </span><span class="title-name">Manage CephFS</span></a></li><li><a href="dashboard-ogw.html" class=" "><span class="title-number">9 </span><span class="title-name">Manage the Object Gateway</span></a></li><li><a href="dashboard-initial-configuration.html" class=" "><span class="title-number">10 </span><span class="title-name">Manual configuration</span></a></li><li><a href="dashboard-user-roles.html" class=" "><span class="title-number">11 </span><span class="title-name">Manage users and roles on the command line</span></a></li></ol></li><li><a href="part-cluster-operation.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Operation</span></a><ol><li><a href="ceph-monitor.html" class=" "><span class="title-number">12 </span><span class="title-name">Determine the cluster state</span></a></li><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">13 </span><span class="title-name">Operational tasks</span></a></li><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">14 </span><span class="title-name">Operation of Ceph services</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">15 </span><span class="title-name">Backup and restore</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">16 </span><span class="title-name">Monitoring and alerting</span></a></li></ol></li><li><a href="part-storing-data.html" class="has-children "><span class="title-number">III </span><span class="title-name">Storing Data in a Cluster</span></a><ol><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">17 </span><span class="title-name">Stored data management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">18 </span><span class="title-name">Manage storage pools</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">19 </span><span class="title-name">Erasure coded pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">20 </span><span class="title-name">RADOS Block Device</span></a></li></ol></li><li><a href="part-accessing-data.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">21 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">22 </span><span class="title-name">Ceph iSCSI gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">23 </span><span class="title-name">Clustered file system</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">24 </span><span class="title-name">Export Ceph data via Samba</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">25 </span><span class="title-name">NFS Ganesha</span></a></li></ol></li><li><a href="part-integration-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">26 </span><span class="title-name"><code class="systemitem">libvirt</code> and Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">27 </span><span class="title-name">Ceph as a back-end for QEMU KVM instance</span></a></li></ol></li><li class="active"><a href="part-cluster-configuration.html" class="has-children you-are-here"><span class="title-number">VI </span><span class="title-name">Configuring a Cluster</span></a><ol><li><a href="cha-ceph-configuration.html" class=" you-are-here"><span class="title-number">28 </span><span class="title-name">Ceph cluster configuration</span></a></li><li><a href="cha-mgr-modules.html" class=" "><span class="title-number">29 </span><span class="title-name">Ceph Manager modules</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">30 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-configuration" data-id-title="Ceph cluster configuration"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h2 class="title"><span class="title-number">28 </span><span class="title-name">Ceph cluster configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#">#</a></h2></div></div></div><p>
+  This chapter describes how to configure the Ceph cluster by means of
+  configuration options.
+ </p><section class="sect1" id="cha-ceph-configuration-ceph-conf" data-id-title="Configure the ceph.conf file"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">28.1 </span><span class="title-name">Configure the <code class="filename">ceph.conf</code> file</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-ceph-conf">#</a></h2></div></div></div><p>
+   cephadm uses a basic <code class="filename">ceph.conf</code> file that only
+   contains a minimal set of options for connecting to MONs, authenticating,
+   and fetching configuration information. In most cases, this is limited to
+   the <code class="option">mon_host</code> option (although this can be avoided through
+   the use of DNS SRV records).
+  </p><div id="id-1.4.8.2.4.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    The <code class="filename">ceph.conf</code> file no longer serves as a central place
+    for storing cluster configuration, in favor of the configuration database
+    (see <a class="xref" href="cha-ceph-configuration.html#cha-ceph-configuration-db" title="28.2. Configuration database">Section 28.2, “Configuration database”</a>).
+   </p><p>
+    If you still need to change cluster configuration via the
+    <code class="filename">ceph.conf</code> file—for example, because you use a
+    client that does not support reading options form the configuration
+    database—you need to run the following command, and take care of
+    maintaining and distributing the <code class="filename">ceph.conf</code> file across
+    the whole cluster:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/manage_etc_ceph_ceph_conf false</pre></div></div><section class="sect2" id="cha-ceph-configuration-ceph-conf-containers" data-id-title="Accessing ceph.conf inside container images"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.1.1 </span><span class="title-name">Accessing <code class="filename">ceph.conf</code> inside container images</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-ceph-conf-containers">#</a></h3></div></div></div><p>
+    Although Ceph daemons run inside containers, you can still access their
+    <code class="filename">ceph.conf</code> configuration file. It is
+    <span class="emphasis"><em>bind-mounted</em></span> as the following file on the host system:
+   </p><div class="verbatim-wrap"><pre class="screen">/var/lib/ceph/<em class="replaceable">CLUSTER_FSID</em>/<em class="replaceable">DAEMON_NAME</em>/config</pre></div><p>
+    Replace <em class="replaceable">CLUSTER_FSID</em> with the unique FSID of the
+    running cluster as returned by the <code class="command">ceph fsid</code> command,
+    and <em class="replaceable">DAEMON_NAME</em> with the name of the specific
+    daemon as listed by the <code class="command">ceph orch ps</code> command. For
+    example:
+   </p><div class="verbatim-wrap"><pre class="screen">/var/lib/ceph/b4b30c6e-9681-11ea-ac39-525400d7702d/osd.2/config</pre></div><p>
+    To modify the configuration of a daemon, edit its
+    <code class="filename">config</code> file and restart it:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>systemctl restart ceph-<em class="replaceable">CLUSTER_FSID</em>-<em class="replaceable">DAEMON_NAME</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>systemctl restart ceph-b4b30c6e-9681-11ea-ac39-525400d7702d-osd.2</pre></div><div id="id-1.4.8.2.4.4.10" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     All custom settings will be lost after cephadm redeploys the daemon.
+    </p></div></section></section><section class="sect1" id="cha-ceph-configuration-db" data-id-title="Configuration database"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">28.2 </span><span class="title-name">Configuration database</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-db">#</a></h2></div></div></div><p>
+   Ceph Monitors manage a central database of configuration options that affect the
+   behavior of the whole cluster.
+  </p><section class="sect2" id="cha-ceph-configuration-db-sections" data-id-title="Configuring sections and masks"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.2.1 </span><span class="title-name">Configuring sections and masks</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-db-sections">#</a></h3></div></div></div><p>
+    Configuration options stored by the MON can live in a
+    <span class="emphasis"><em>global</em></span> section, <span class="emphasis"><em>daemon type</em></span>
+    section, or a <span class="emphasis"><em>specific daemon</em></span> section. In addition,
+    options may also have a <span class="emphasis"><em>mask</em></span> associated with them to
+    further restrict to which daemons or clients the option applies. Masks have
+    two forms:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      <em class="replaceable">TYPE</em>:<em class="replaceable">LOCATION</em> where
+      <em class="replaceable">TYPE</em> is a CRUSH property such as
+      <code class="literal">rack</code> or <code class="literal">host</code>, while
+      <em class="replaceable">LOCATION</em> is a value for that property.
+     </p><p>
+      For example, <code class="literal">host:example_host</code> will limit the option
+      only to daemons or clients running on a particular host.
+     </p></li><li class="listitem"><p>
+      <em class="replaceable">CLASS</em>:<em class="replaceable">DEVICE_CLASS</em>
+      where <em class="replaceable">DEVICE_CLASS</em> is the name of a CRUSH
+      device class such as <code class="literal">hdd</code> or <code class="literal">ssd</code>.
+      For example, <code class="literal">class:ssd</code> will limit the option only to
+      OSDs backed by SSDs. This mask has no effect for non-OSD daemons or
+      clients.
+     </p></li></ul></div></section><section class="sect2" id="cha-ceph-configuration-db-commands" data-id-title="Setting and reading configuration options"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.2.2 </span><span class="title-name">Setting and reading configuration options</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-db-commands">#</a></h3></div></div></div><p>
+    Use the following commands to set or read cluster configuration options.
+    The <em class="replaceable">WHO</em> parameter may be a section name, a mask,
+    or a combination of both separated by a slash (/) character. For example,
+    <code class="literal">osd/rack:foo</code> represents all OSD daemons in the rack
+    called <code class="literal">foo</code>.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.5.4.3.1"><span class="term"><code class="command">ceph config dump</code></span></dt><dd><p>
+       Dumps the entire configuration database for a whole cluster.
+      </p></dd><dt id="id-1.4.8.2.5.4.3.2"><span class="term"><code class="command">ceph config get <em class="replaceable">WHO</em></code></span></dt><dd><p>
+       Dumps the configuration for a specific daemon or client (for example,
+       <code class="literal">mds.a</code>), as stored in the configuration database.
+      </p></dd><dt id="id-1.4.8.2.5.4.3.3"><span class="term"><code class="command">ceph config set <em class="replaceable">WHO</em> <em class="replaceable">OPTION</em> <em class="replaceable">VALUE</em></code></span></dt><dd><p>
+       Sets the configuration option to the specified value in the
+       configuration database.
+      </p></dd><dt id="id-1.4.8.2.5.4.3.4"><span class="term"><code class="command">ceph config show <em class="replaceable">WHO</em></code></span></dt><dd><p>
+       Shows the reported running configuration for a running daemon. These
+       settings may differ from those stored by the monitors if there are also
+       local configuration files in use, or options have been overridden on the
+       command line or at runtime. The source of the option values is reported
+       as part of the output.
+      </p></dd><dt id="id-1.4.8.2.5.4.3.5"><span class="term"><code class="command">ceph config assimilate-conf -i <em class="replaceable">INPUT_FILE</em> -o <em class="replaceable">OUTPUT_FILE</em></code></span></dt><dd><p>
+       Imports a configuration file specified as
+       <em class="replaceable">INPUT_FILE</em> and stores any valid options into
+       the configuration database. Any settings that are unrecognized, invalid,
+       or cannot be controlled by the monitor will be returned in an
+       abbreviated file stored as <em class="replaceable">OUTPUT_FILE</em>. This
+       command is useful for transitioning from legacy configuration files to
+       centralized monitor-based configuration.
+      </p></dd></dl></div></section><section class="sect2" id="cha-ceph-configuration-db-runtime" data-id-title="Configuring daemons at runtime"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.2.3 </span><span class="title-name">Configuring daemons at runtime</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-db-runtime">#</a></h3></div></div></div><p>
+    In most cases, Ceph allows you to make changes to the configuration of a
+    daemon at runtime. This is useful, for example, when you need to increase
+    or decrease the amount of logging output, or when performing runtime
+    cluster optimization.
+   </p><p>
+    You can update the values of configuration options with the following
+    command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set <em class="replaceable">DAEMON</em> <em class="replaceable">OPTION</em> <em class="replaceable">VALUE</em></pre></div><p>
+    For example, to adjust the debugging log level on a specific OSD, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set osd.123 debug_ms 20</pre></div><div id="id-1.4.8.2.5.5.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     If the same option is also customized in a local configuration file, the
+     monitor setting will be ignored because it has lower priority than the
+     configuration file.
+    </p></div><section class="sect3" id="cha-ceph-configuration-db-runtime-override" data-id-title="Overriding values"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">28.2.3.1 </span><span class="title-name">Overriding values</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-db-runtime-override">#</a></h4></div></div></div><p>
+     You can temporarily modify an option value using the
+     <code class="command">tell</code> or <code class="command">daemon</code> subcommands. Such
+     modification only affect the running process and is discarded after the
+     daemon or process restarts.
+    </p><p>
+     There are two ways to override values:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Use the <code class="command">tell</code> subcommand to send a message to a
+       specific daemon from any cluster node:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell <em class="replaceable">DAEMON</em> config set <em class="replaceable">OPTION</em> <em class="replaceable">VALUE</em></pre></div><p>
+       For example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell osd.123 config set debug_osd 20</pre></div><div id="id-1.4.8.2.5.5.8.4.1.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+        The <code class="command">tell</code> subcommand accepts wild cards as daemon
+        identifiers. For example, to adjust the debug level on all OSD daemons,
+        run:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell osd.* config set debug_osd 20</pre></div></div></li><li class="listitem"><p>
+       Use the <code class="command">daemon</code> subcommand to connect to a specific
+       daemon process via a socket in <code class="filename">/var/run/ceph</code> from
+       the node where the process is running:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">ID</em> -- ceph daemon <em class="replaceable">DAEMON</em> config set <em class="replaceable">OPTION</em> <em class="replaceable">VALUE</em></pre></div><p>
+       For example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.4 -- ceph daemon osd.4 config set debug_osd 20</pre></div></li></ul></div><div id="id-1.4.8.2.5.5.8.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      When viewing runtime settings with the <code class="command">ceph config
+      show</code> command (see
+      <a class="xref" href="cha-ceph-configuration.html#cha-ceph-configuration-db-runtime-view" title="28.2.3.2. Viewing runtime settings">Section 28.2.3.2, “Viewing runtime settings”</a>), temporarily
+      overridden values will be shown with a source
+      <code class="literal">override</code>.
+     </p></div></section><section class="sect3" id="cha-ceph-configuration-db-runtime-view" data-id-title="Viewing runtime settings"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">28.2.3.2 </span><span class="title-name">Viewing runtime settings</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-configuration-db-runtime-view">#</a></h4></div></div></div><p>
+     To view all options set for a daemon:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config show-with-defaults osd.0</pre></div><p>
+     To view all non-default options set for a daemon:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config show osd.0</pre></div><p>
+     To inspect a specific option:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config show osd.0 debug_osd</pre></div><p>
+     You can also connect to a running daemon from the node where its process
+     is running, and observe its configuration:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.0 -- ceph daemon osd.0 config show</pre></div><p>
+     To view only non-default settings:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.0 -- ceph daemon osd.0 config diff</pre></div><p>
+     To inspect a specific option:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.0 -- ceph daemon osd.0 config get debug_osd</pre></div></section></section></section><section class="sect1" id="cha-ceph-config-key-store" data-id-title="config-key store"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">28.3 </span><span class="title-name"><code class="systemitem">config-key</code> store</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-config-key-store">#</a></h2></div></div></div><p>
+   <code class="systemitem">config-key</code> is a general-purpose service offered by the Ceph Monitors. It
+   simplifies managing configuration keys by storing key-value pairs
+   persistently. <code class="systemitem">config-key</code> is mainly used by Ceph tools and daemons.
+  </p><div id="id-1.4.8.2.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    After you add a new key or modify an existing one, restart the affected
+    service for the changes to take effect. Find more details about operating
+    Ceph services in <a class="xref" href="cha-ceph-operating.html" title="Chapter 14. Operation of Ceph services">Chapter 14, <em>Operation of Ceph services</em></a>.
+   </p></div><p>
+   Use the <code class="command">config-key</code> command to operate the <code class="systemitem">config-key</code>
+   store. The <code class="command">config-key</code> command uses the following
+   subcommands:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.6.5.1"><span class="term"><code class="command">ceph config-key rm <em class="replaceable">KEY</em></code></span></dt><dd><p>
+      Deletes the specified key.
+     </p></dd><dt id="id-1.4.8.2.6.5.2"><span class="term"><code class="command">ceph config-key exists <em class="replaceable">KEY</em></code></span></dt><dd><p>
+      Checks for the existence of the specified key.
+     </p></dd><dt id="id-1.4.8.2.6.5.3"><span class="term"><code class="command">ceph config-key get <em class="replaceable">KEY</em></code></span></dt><dd><p>
+      Retrieves the value of the specified key.
+     </p></dd><dt id="id-1.4.8.2.6.5.4"><span class="term"><code class="command">ceph config-key ls</code></span></dt><dd><p>
+      Lists all keys.
+     </p></dd><dt id="id-1.4.8.2.6.5.5"><span class="term"><code class="command">ceph config-key dump</code></span></dt><dd><p>
+      Dumps all keys and their values.
+     </p></dd><dt id="id-1.4.8.2.6.5.6"><span class="term"><code class="command">ceph config-key set <em class="replaceable">KEY</em> <em class="replaceable">VALUE</em></code></span></dt><dd><p>
+      Stores the specified key with the given value.
+     </p></dd></dl></div><section class="sect2" id="cha-ceph-config-key-store-iscsi" data-id-title="iSCSI Gateway"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.3.1 </span><span class="title-name">iSCSI Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#cha-ceph-config-key-store-iscsi">#</a></h3></div></div></div><p>
+    The iSCSI Gateway uses the <code class="systemitem">config-key</code> store to save or read its configuration
+    options. All iSCSI Gateway related keys are prefixed with the
+    <code class="literal">iscsi</code> string, for example:
+   </p><div class="verbatim-wrap"><pre class="screen">iscsi/trusted_ip_list
+iscsi/api_port
+iscsi/api_user
+iscsi/api_password
+iscsi/api_secure</pre></div><p>
+    If you need, for example, two sets of configuration options, extend the
+    prefix with another descriptive keyword, for example
+    <code class="literal">datacenterA</code> and <code class="literal">datacenterB</code>:
+   </p><div class="verbatim-wrap"><pre class="screen">iscsi/datacenterA/trusted_ip_list
+iscsi/datacenterA/api_port
+[...]
+iscsi/datacenterB/trusted_ip_list
+iscsi/datacenterB/api_port
+[...]</pre></div></section></section><section class="sect1" id="config-osd-and-bluestore" data-id-title="Ceph OSD and BlueStore"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">28.4 </span><span class="title-name">Ceph OSD and BlueStore</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-osd-and-bluestore">#</a></h2></div></div></div><section class="sect2" id="config-auto-cache-sizing" data-id-title="Configuring automatic cache sizing"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.4.1 </span><span class="title-name">Configuring automatic cache sizing</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-auto-cache-sizing">#</a></h3></div></div></div><p>
+    BlueStore can be configured to automatically resize its caches when
+    <code class="option">tc_malloc</code> is configured as the memory allocator and the
+    <code class="option">bluestore_cache_autotune</code> setting is enabled. This option
+    is currently enabled by default. BlueStore will attempt to keep OSD heap
+    memory usage under a designated target size via the
+    <code class="option">osd_memory_target</code> configuration option. This is a best
+    effort algorithm and caches will not shrink smaller than the amount
+    specified by <code class="option">osd_memory_cache_min</code>. Cache ratios will be
+    chosen based on a hierarchy of priorities. If priority information is not
+    available, the <code class="option">bluestore_cache_meta_ratio</code> and
+    <code class="option">bluestore_cache_kv_ratio</code> options are used as fallbacks.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.7.2.3.1"><span class="term">bluestore_cache_autotune</span></dt><dd><p>
+       Automatically tunes the ratios assigned to different BlueStore caches
+       while respecting minimum values. Default is <code class="option">True</code>.
+      </p></dd><dt id="id-1.4.8.2.7.2.3.2"><span class="term">osd_memory_target</span></dt><dd><p>
+       When <code class="option">tc_malloc</code> and
+       <code class="option">bluestore_cache_autotune</code> are enabled, try to keep this
+       many bytes mapped in memory.
+      </p><div id="id-1.4.8.2.7.2.3.2.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+        This may not exactly match the RSS memory usage of the process. While
+        the total amount of heap memory mapped by the process should generally
+        stay close to this target, there is no guarantee that the kernel will
+        actually reclaim memory that has been unmapped.
+       </p></div></dd><dt id="id-1.4.8.2.7.2.3.3"><span class="term">osd_memory_cache_min</span></dt><dd><p>
+       When <code class="option">tc_malloc</code> and
+       <code class="option">bluestore_cache_autotune</code> are enabled, set the minimum
+       amount of memory used for caches.
+      </p><div id="id-1.4.8.2.7.2.3.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+        Setting this value too low can result in significant cache thrashing.
+       </p></div></dd></dl></div></section></section><section class="sect1" id="config-ogw" data-id-title="Ceph Object Gateway"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">28.5 </span><span class="title-name">Ceph Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-ogw">#</a></h2></div></div></div><p>
+   You can influence the Object Gateway behavior by a number of options. If an option is
+   not specified, its default value is used. A complete list of the Object Gateway
+   options follows:
+  </p><section class="sect2" id="config-ogw-general-settings" data-id-title="General Settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.5.1 </span><span class="title-name">General Settings</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-ogw-general-settings">#</a></h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.8.3.2.1"><span class="term">rgw_frontends</span></dt><dd><p>
+       Configures the HTTP front-end(s). Specify multiple front-ends in a
+       comma-delimited list. Each front-end configuration may include a list of
+       options separated by spaces, where each option is in the form
+       “key=value” or “key”. Default is <code class="literal">beast
+       port=7480</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.2"><span class="term">rgw_data</span></dt><dd><p>
+       Sets the location of the data files for the Object Gateway. Default is
+       <code class="filename">/var/lib/ceph/radosgw/<em class="replaceable">CLUSTER_ID</em></code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.3"><span class="term">rgw_enable_apis</span></dt><dd><p>
+       Enables the specified APIs. Default is 's3, swift, swift_auth, admin All
+       APIs'.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.4"><span class="term">rgw_cache_enabled</span></dt><dd><p>
+       Enables or disables the Object Gateway cache. Default is <code class="literal">true</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.5"><span class="term">rgw_cache_lru_size</span></dt><dd><p>
+       The number of entries in the Object Gateway cache. Default is 10000.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.6"><span class="term">rgw_socket_path</span></dt><dd><p>
+       The socket path for the domain socket.
+       <code class="option">FastCgiExternalServer</code> uses this socket. If you do not
+       specify a socket path, the Object Gateway will not run as an external server. The
+       path you specify here needs to be the same as the path specified in the
+       <code class="filename">rgw.conf</code> file.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.7"><span class="term">rgw_fcgi_socket_backlog</span></dt><dd><p>
+       The socket backlog for fcgi. Default is 1024.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.8"><span class="term">rgw_host</span></dt><dd><p>
+       The host for the Object Gateway instance. It can be an IP address or a host name.
+       Default is <code class="literal">0.0.0.0</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.9"><span class="term">rgw_port</span></dt><dd><p>
+       The port number where the instance listens for requests. If not
+       specified, the Object Gateway runs external FastCGI.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.10"><span class="term">rgw_dns_name</span></dt><dd><p>
+       The DNS name of the served domain.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.11"><span class="term">rgw_script_uri</span></dt><dd><p>
+       The alternative value for the SCRIPT_URI if not set in the request.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.12"><span class="term">rgw_request_uri</span></dt><dd><p>
+       The alternative value for the REQUEST_URI if not set in the request.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.13"><span class="term">rgw_print_continue</span></dt><dd><p>
+       Enable 100-continue if it is operational. Default is
+       <code class="literal">true</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.14"><span class="term">rgw_remote_addr_param</span></dt><dd><p>
+       The remote address parameter. For example, the HTTP field containing the
+       remote address, or the X-Forwarded-For address if a reverse proxy is
+       operational. Default is <code class="literal">REMOTE_ADDR</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.15"><span class="term">rgw_op_thread_timeout</span></dt><dd><p>
+       The timeout in seconds for open threads. Default is 600.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.16"><span class="term">rgw_op_thread_suicide_timeout</span></dt><dd><p>
+       The time timeout in seconds before the Object Gateway process dies. Disabled if
+       set to 0 (default).
+      </p></dd><dt id="id-1.4.8.2.8.3.2.17"><span class="term">rgw_thread_pool_size</span></dt><dd><p>
+       Number of threads for the Beast server. Increase to a higher value if
+       you need to serve more requests. Defaults to 100 threads.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.18"><span class="term">rgw_num_rados_handles</span></dt><dd><p>
+       The number of RADOS cluster handles for Object Gateway. Each Object Gateway worker thread
+       now gets to pick a RADOS handle for its lifetime. This option may be
+       deprecated and removed in future releases. Default is 1.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.19"><span class="term">rgw_num_control_oids</span></dt><dd><p>
+       The number of notification objects used for cache synchronization
+       between different Object Gateway instances. Default is 8.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.20"><span class="term">rgw_init_timeout</span></dt><dd><p>
+       The number of seconds before the Object Gateway gives up on initialization.
+       Default is 30.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.21"><span class="term">rgw_mime_types_file</span></dt><dd><p>
+       The path and location of the MIME types. Used for Swift auto-detection
+       of object types. Default is <code class="filename">/etc/mime.types</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.22"><span class="term">rgw_gc_max_objs</span></dt><dd><p>
+       The maximum number of objects that may be handled by garbage collection
+       in one garbage collection processing cycle. Default is 32.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.23"><span class="term">rgw_gc_obj_min_wait</span></dt><dd><p>
+       The minimum wait time before the object may be removed and handled by
+       garbage collection processing. Default is 2 * 3600.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.24"><span class="term">rgw_gc_processor_max_time</span></dt><dd><p>
+       The maximum time between the beginning of two consecutive garbage
+       collection processing cycles. Default is 3600.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.25"><span class="term">rgw_gc_processor_period</span></dt><dd><p>
+       The cycle time for garbage collection processing. Default is 3600.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.26"><span class="term">rgw_s3_success_create_obj_status</span></dt><dd><p>
+       The alternate success status response for <code class="literal">create-obj</code>.
+       Default is 0.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.27"><span class="term">rgw_resolve_cname</span></dt><dd><p>
+       Whether the Object Gateway should use DNS CNAME record of the request host name
+       field (if host name is not equal to the Object Gateway DNS name). Default is
+       <code class="literal">false</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.28"><span class="term">rgw_obj_stripe_size</span></dt><dd><p>
+       The size of an object stripe for Object Gateway objects. Default is <code class="literal">4
+       &lt;&lt; 20</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.29"><span class="term">rgw_extended_http_attrs</span></dt><dd><p>
+       Add a new set of attributes that can be set on an entity (for example, a
+       user, a bucket, or an object). These extra attributes can be set through
+       HTTP header fields when putting the entity or modifying it using the
+       POST method. If set, these attributes will return as HTTP fields when
+       requesting GET/HEAD on the entity. Default is <code class="literal">content_foo,
+       content_bar, x-foo-bar</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.30"><span class="term">rgw_exit_timeout_secs</span></dt><dd><p>
+       Number of seconds to wait for a process before exiting unconditionally.
+       Default is 120.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.31"><span class="term">rgw_get_obj_window_size</span></dt><dd><p>
+       The window size in bytes for a single object request. Default is
+       <code class="literal">16 &lt;&lt; 20</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.32"><span class="term">rgw_get_obj_max_req_size</span></dt><dd><p>
+       The maximum request size of a single GET operation sent to the Ceph
+       Storage Cluster. Default is <code class="literal">4 &lt;&lt; 20</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.33"><span class="term">rgw_relaxed_s3_bucket_names</span></dt><dd><p>
+       Enables relaxed S3 bucket name rules for US region buckets. Default is
+       <code class="literal">false</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.34"><span class="term">rgw_list_buckets_max_chunk</span></dt><dd><p>
+       The maximum number of buckets to retrieve in a single operation when
+       listing user buckets. Default is 1000.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.35"><span class="term">rgw_override_bucket_index_max_shards</span></dt><dd><p>
+       Represents the number of shards for the bucket index object. Setting 0
+       (default) indicates there is no sharding. It is not recommended to set a
+       value too large (for example 1000) as it increases the cost for bucket
+       listing. This variable should be set in the client or global sections so
+       that it is automatically applied to <code class="command">radosgw-admin</code>
+       commands.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.36"><span class="term">rgw_curl_wait_timeout_ms</span></dt><dd><p>
+       The timeout in milliseconds for certain <code class="command">curl</code> calls.
+       Default is 1000.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.37"><span class="term">rgw_copy_obj_progress</span></dt><dd><p>
+       Enables output of object progress during long copy operations. Default
+       is <code class="literal">true</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.38"><span class="term">rgw_copy_obj_progress_every_bytes</span></dt><dd><p>
+       The minimum bytes between copy progress output. Default is 1024 * 1024.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.39"><span class="term">rgw_admin_entry</span></dt><dd><p>
+       The entry point for an admin request URL. Default is
+       <code class="literal">admin</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.40"><span class="term">rgw_content_length_compat</span></dt><dd><p>
+       Enable compatibility handling of FCGI requests with both CONTENT_LENGTH
+       AND HTTP_CONTENT_LENGTH set. Default is <code class="literal">false</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.41"><span class="term">rgw_bucket_quota_ttl</span></dt><dd><p>
+       The amount of time in seconds for which cached quota information is
+       trusted. After this timeout, the quota information will be re-fetched
+       from the cluster. Default is 600.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.42"><span class="term">rgw_user_quota_bucket_sync_interval</span></dt><dd><p>
+       The amount of time in seconds for which the bucket quota information is
+       accumulated before synchronizing to the cluster. During this time, other
+       Object Gateway instances will not see the changes in the bucket quota stats
+       related to operations on this instance. Default is 180.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.43"><span class="term">rgw_user_quota_sync_interval</span></dt><dd><p>
+       The amount of time in seconds for which user quota information is
+       accumulated before synchronizing to the cluster. During this time, other
+       Object Gateway instances will not see the changes in the user quota stats related
+       to operations on this instance. Default is 180.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.44"><span class="term">rgw_bucket_default_quota_max_objects</span></dt><dd><p>
+       Default maximum number of objects per bucket. It is set on new users if
+       no other quota is specified, and has no effect on existing users. This
+       variable should be set in the client or global sections so that it is
+       automatically applied to <code class="command">radosgw-admin</code> commands.
+       Default is -1.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.45"><span class="term">rgw_bucket_default_quota_max_size</span></dt><dd><p>
+       Default maximum capacity per bucket in bytes. It is set on new users if
+       no other quota is specified, and has no effect on existing users.
+       Default is -1.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.46"><span class="term">rgw_user_default_quota_max_objects</span></dt><dd><p>
+       Default maximum number of objects for a user. This includes all objects
+       in all buckets owned by the user. It is set on new users if no other
+       quota is specified, and has no effect on existing users. Default is -1.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.47"><span class="term">rgw_user_default_quota_max_size</span></dt><dd><p>
+       The value for user maximum size quota in bytes set on new users if no
+       other quota is specified. It has no effect on existing users. Default is
+       -1.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.48"><span class="term">rgw_verify_ssl</span></dt><dd><p>
+       Verify SSL certificates while making requests. Default is
+       <code class="literal">true</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.2.49"><span class="term">rgw_max_chunk_size</span></dt><dd><p>
+       Maximum size of a chunk of data that will be read in a single operation.
+       Increasing the value to 4 MB (4194304) will provide better performance
+       when processing large objects. Default is 128 kB (131072).
+      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Multisite Settings </span><a title="Permalink" class="permalink" href="cha-ceph-configuration.html#id-1.4.8.2.8.3.3">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.8.2.8.3.3.2"><span class="term">rgw_zone</span></dt><dd><p>
+       The name of the zone for the gateway instance. If no zone is set, a
+       cluster-wide default can be configured with the <code class="command">radosgw-admin
+       zone default</code> command.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.3"><span class="term">rgw_zonegroup</span></dt><dd><p>
+       The name of the zonegroup for the gateway instance. If no zonegroup is
+       set, a cluster-wide default can be configured with the
+       <code class="command">radosgw-admin zonegroup default</code> command.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.4"><span class="term">rgw_realm</span></dt><dd><p>
+       The name of the realm for the gateway instance. If no realm is set, a
+       cluster-wide default can be configured with the<code class="command">radosgw-admin
+       realm default</code> command.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.5"><span class="term">rgw_run_sync_thread</span></dt><dd><p>
+       If there are other zones in the realm to synchronize from, spawn threads
+       to handle the synchronization of data and metadata. Default is
+       <code class="literal">true</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.6"><span class="term">rgw_data_log_window</span></dt><dd><p>
+       The data log entries window in seconds. Default is 30.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.7"><span class="term">rgw_data_log_changes_size</span></dt><dd><p>
+       The number of in-memory entries to hold for the data changes log.
+       Default is 1000.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.8"><span class="term">rgw_data_log_obj_prefix</span></dt><dd><p>
+       The object name prefix for the data log. Default is 'data_log'.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.9"><span class="term">rgw_data_log_num_shards</span></dt><dd><p>
+       The number of shards (objects) on which to keep the data changes log.
+       Default is 128.
+      </p></dd><dt id="id-1.4.8.2.8.3.3.10"><span class="term">rgw_md_log_max_shards</span></dt><dd><p>
+       The maximum number of shards for the metadata log. Default is 64.
+      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Swift Settings </span><a title="Permalink" class="permalink" href="cha-ceph-configuration.html#id-1.4.8.2.8.3.4">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.8.2.8.3.4.2"><span class="term">rgw_enforce_swift_acls</span></dt><dd><p>
+       Enforces the Swift Access Control List (ACL) settings. Default is
+       <code class="literal">true</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.4.3"><span class="term">rgw_swift_token_expiration</span></dt><dd><p>
+       The time in seconds for expiring a Swift token. Default is 24 * 3600.
+      </p></dd><dt id="id-1.4.8.2.8.3.4.4"><span class="term">rgw_swift_url</span></dt><dd><p>
+       The URL for the Ceph Object Gateway Swift API.
+      </p></dd><dt id="id-1.4.8.2.8.3.4.5"><span class="term">rgw_swift_url_prefix</span></dt><dd><p>
+       The URL prefix for the Swift StorageURL that goes in front of the '/v1'
+       part. This allows to run several Gateway instances on the same host. For
+       compatibility, setting this configuration variable to empty causes the
+       default '/swift' to be used. Use explicit prefix '/' to start StorageURL
+       at the root.
+      </p><div id="id-1.4.8.2.8.3.4.5.2.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+        Setting this option to '/' will not work if S3 API is enabled. Keep in
+        mind that disabling S3 will make it impossible to deploy the Object Gateway in
+        the multisite configuration.
+       </p></div></dd><dt id="id-1.4.8.2.8.3.4.6"><span class="term">rgw_swift_auth_url</span></dt><dd><p>
+       Default URL for verifying v1 authentication tokens when the internal
+       Swift authentication is not used.
+      </p></dd><dt id="id-1.4.8.2.8.3.4.7"><span class="term">rgw_swift_auth_entry</span></dt><dd><p>
+       The entry point for a Swift authentication URL. Default is
+       <code class="literal">auth</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.4.8"><span class="term">rgw_swift_versioning_enabled</span></dt><dd><p>
+       Enables the Object Versioning of OpenStack Object Storage API. This
+       allows clients to put the <code class="literal">X-Versions-Location</code>
+       attribute on containers that should be versioned. The attribute
+       specifies the name of container storing archived versions. It must be
+       owned by the same user as the versioned container for reasons of access
+       control verification—ACLs are <span class="emphasis"><em>not</em></span> taken into
+       consideration. Those containers cannot be versioned by the S3 object
+       versioning mechanism. Default is <code class="literal">false</code>.
+      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Logging Settings </span><a title="Permalink" class="permalink" href="cha-ceph-configuration.html#id-1.4.8.2.8.3.5">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.8.2.8.3.5.2"><span class="term">rgw_log_nonexistent_bucket</span></dt><dd><p>
+       Enables the Object Gateway to log a request for a non-existent bucket. Default is
+       <code class="literal">false</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.3"><span class="term">rgw_log_object_name</span></dt><dd><p>
+       The logging format for an object name. See the manual page <code class="command">man
+       1 date</code> for details about format specifiers. Default is
+       <code class="literal">%Y-%m-%d-%H-%i-%n</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.4"><span class="term">rgw_log_object_name_utc</span></dt><dd><p>
+       Whether a logged object name includes a UTC time. If set to
+       <code class="literal">false</code> (default), it uses the local time.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.5"><span class="term">rgw_usage_max_shards</span></dt><dd><p>
+       The maximum number of shards for usage logging. Default is 32.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.6"><span class="term">rgw_usage_max_user_shards</span></dt><dd><p>
+       The maximum number of shards used for a single user’s usage logging.
+       Default is 1.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.7"><span class="term">rgw_enable_ops_log</span></dt><dd><p>
+       Enable logging for each successful Object Gateway operation. Default is
+       <code class="literal">false</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.8"><span class="term">rgw_enable_usage_log</span></dt><dd><p>
+       Enable the usage log. Default is <code class="literal">false</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.9"><span class="term">rgw_ops_log_rados</span></dt><dd><p>
+       Whether the operations log should be written to the Ceph Storage Cluster
+       back-end. Default is <code class="literal">true</code>.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.10"><span class="term">rgw_ops_log_socket_path</span></dt><dd><p>
+       The Unix domain socket for writing operations logs.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.11"><span class="term">rgw_ops_log_data_backlog</span></dt><dd><p>
+       The maximum data backlog data size for operations logs written to a Unix
+       domain socket. Default is 5 &lt;&lt; 20.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.12"><span class="term">rgw_usage_log_flush_threshold</span></dt><dd><p>
+       The number of dirty merged entries in the usage log before flushing
+       synchronously. Default is 1024.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.13"><span class="term">rgw_usage_log_tick_interval</span></dt><dd><p>
+       Flush pending usage log data every 'n' seconds. Default is 30.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.14"><span class="term">rgw_log_http_headers</span></dt><dd><p>
+       Comma-delimited list of HTTP headers to include in log entries. Header
+       names are case-insensitive, and use the full header name with words
+       separated by underscores. For example, 'http_x_forwarded_for',
+       'http_x_special_k'.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.15"><span class="term">rgw_intent_log_object_name</span></dt><dd><p>
+       The logging format for the intent log object name. See the manual page
+       <code class="command">man 1 date</code> for details about format specifiers.
+       Default is '%Y-%m-%d-%i-%n'.
+      </p></dd><dt id="id-1.4.8.2.8.3.5.16"><span class="term">rgw_intent_log_object_name_utc</span></dt><dd><p>
+       Whether the intent log object name includes a UTC time. If set to
+       <code class="literal">false</code> (default), it uses the local time.
+      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Keystone Settings </span><a title="Permalink" class="permalink" href="cha-ceph-configuration.html#id-1.4.8.2.8.3.6">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.8.2.8.3.6.2"><span class="term">rgw_keystone_url</span></dt><dd><p>
+       The URL for the Keystone server.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.3"><span class="term">rgw_keystone_api_version</span></dt><dd><p>
+       The version (2 or 3) of OpenStack Identity API that should be used for
+       communication with the Keystone server. Default is 2.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.4"><span class="term">rgw_keystone_admin_domain</span></dt><dd><p>
+       The name of the OpenStack domain with the administrator privilege when
+       using OpenStack Identity API v3.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.5"><span class="term">rgw_keystone_admin_project</span></dt><dd><p>
+       The name of the OpenStack project with the administrator privilege when
+       using OpenStack Identity API v3. If not set, the value of the
+       <code class="command">rgw keystone admin tenant</code> will be used instead.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.6"><span class="term">rgw_keystone_admin_token</span></dt><dd><p>
+       The Keystone administrator token (shared secret). In the Object Gateway,
+       authentication with the administrator token has priority over
+       authentication with the administrator credentials (options <code class="option">rgw
+       keystone admin user</code>, <code class="option">rgw keystone admin
+       password</code>, <code class="option">rgw keystone admin tenant</code>,
+       <code class="option">rgw keystone admin project</code>, and <code class="option">rgw keystone
+       admin domain</code>). The administrator token feature is considered as
+       deprecated.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.7"><span class="term">rgw_keystone_admin_tenant</span></dt><dd><p>
+       The name of the OpenStack tenant with the administrator privilege
+       (Service Tenant) when using OpenStack Identity API v2.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.8"><span class="term">rgw_keystone_admin_user</span></dt><dd><p>
+       The name of the OpenStack user with the administrator privilege for
+       Keystone authentication (Service User) when using OpenStack Identity API
+       v2.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.9"><span class="term">rgw_keystone_admin_password</span></dt><dd><p>
+       The password for the OpenStack administrator user when using OpenStack
+       Identity API v2.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.10"><span class="term">rgw_keystone_accepted_roles</span></dt><dd><p>
+       The roles required to serve requests. Default is 'Member, admin'.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.11"><span class="term">rgw_keystone_token_cache_size</span></dt><dd><p>
+       The maximum number of entries in each Keystone token cache. Default is
+       10000.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.12"><span class="term">rgw_keystone_revocation_interval</span></dt><dd><p>
+       The number of seconds between token revocation checks. Default is 15 *
+       60.
+      </p></dd><dt id="id-1.4.8.2.8.3.6.13"><span class="term">rgw_keystone_verify_ssl</span></dt><dd><p>
+       Verify SSL certificates while making token requests to Keystone. Default
+       is <code class="literal">true</code>.
+      </p></dd></dl></div><section class="sect3" id="sec-ceph-rgw-configuration-notes" data-id-title="Additional notes"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">28.5.1.1 </span><span class="title-name">Additional notes</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#sec-ceph-rgw-configuration-notes">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.8.3.7.2.1"><span class="term">rgw_dns_name</span></dt><dd><p>
+        Allows clients to use <code class="literal">vhost</code>-style buckets.
+       </p><p>
+        <code class="literal">vhost</code>-style access refers to the use of
+        <em class="replaceable">bucketname</em>.<em class="replaceable">s3-endpoint</em>/<em class="replaceable">object-path</em>.
+        This is in comparison to <code class="literal">path</code>-style access:
+        <em class="replaceable">s3-endpoint</em>/<em class="replaceable">bucket</em>/<em class="replaceable">object</em>
+       </p><p>
+        If the <code class="literal">rgw dns name</code> is set, verify that the S3
+        client is configured to direct requests to the endpoint specified by
+        <code class="literal">rgw dns name</code>.
+       </p></dd></dl></div></section></section><section class="sect2" id="config-ogw-http-frontends" data-id-title="Configuring HTTP front-ends"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">28.5.2 </span><span class="title-name">Configuring HTTP front-ends</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-ogw-http-frontends">#</a></h3></div></div></div><section class="sect3" id="config-http-beast" data-id-title="Beast"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">28.5.2.1 </span><span class="title-name">Beast</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-http-beast">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.8.4.2.2.1"><span class="term">port, ssl_port</span></dt><dd><p>
+        IPv4 &amp; IPv6 listening port numbers. You can specify multiple port
+        numbers:
+       </p><div class="verbatim-wrap"><pre class="screen">port=80 port=8000 ssl_port=8080</pre></div><p>
+        Default is 80.
+       </p></dd><dt id="id-1.4.8.2.8.4.2.2.2"><span class="term">endpoint, ssl_endpoint</span></dt><dd><p>
+        The listening addresses in the form 'address[:port]', where the address
+        is an IPv4 address string in dotted decimal form, or an IPv6 address in
+        hexadecimal notation surrounded by square brackets. Specifying an IPv6
+        endpoint would listen to IPv6 only. The optional port number defaults
+        to 80 for <code class="option">endpoint</code> and 443 for
+        <code class="option">ssl_endpoint</code>. You can specify multiple addresses:
+       </p><div class="verbatim-wrap"><pre class="screen">endpoint=[::1] endpoint=192.168.0.100:8000 ssl_endpoint=192.168.0.100:8080</pre></div></dd><dt id="id-1.4.8.2.8.4.2.2.3"><span class="term">ssl_private_key</span></dt><dd><p>
+        Optional path to the private key file used for SSL-enabled endpoints.
+        If not specified, the <code class="option">ssl_certificate</code> file is used as
+        a private key.
+       </p></dd><dt id="id-1.4.8.2.8.4.2.2.4"><span class="term">tcp_nodelay</span></dt><dd><p>
+        If specified, the socket option will disable Nagle's algorithm on the
+        connection. It means that packets will be sent as soon as possible
+        instead of waiting for a full buffer or timeout to occur.
+       </p><p>
+        '1' disables Nagle's algorithm for all sockets.
+       </p><p>
+        '0' keeps Nagle's algorithm enabled (default).
+       </p></dd></dl></div><div class="example" id="id-1.4.8.2.8.4.2.3" data-id-title="Example Beast Configuration"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 28.1: </span><span class="title-name">Example Beast Configuration </span><a title="Permalink" class="permalink" href="cha-ceph-configuration.html#id-1.4.8.2.8.4.2.3">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set rgw.myrealm.myzone.ses-min1.kwwazo \
+ rgw_frontends beast port=8000 ssl_port=443 \
+ ssl_certificate=/etc/ssl/ssl.crt \
+ error_log_file=/var/log/radosgw/beast.error.log</pre></div><div class="verbatim-wrap"><pre class="screen"/></div></div></div></section><section class="sect3" id="config-http-civetweb" data-id-title="CivetWeb"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">28.5.2.2 </span><span class="title-name">CivetWeb</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-http-civetweb">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.8.4.3.2.1"><span class="term">port</span></dt><dd><p>
+        The listening port number. For SSL-enabled ports, add an 's' suffix
+        (for example, '443s'). To bind a specific IPv4 or IPv6 address, use the
+        form 'address:port'. You can specify multiple endpoints either by
+        joining them with '+' or by providing multiple options:
+       </p><div class="verbatim-wrap"><pre class="screen">port=127.0.0.1:8000+443s
+port=8000 port=443s</pre></div><p>
+        Default is 7480.
+       </p></dd><dt id="id-1.4.8.2.8.4.3.2.2"><span class="term">num_threads</span></dt><dd><p>
+        The number of threads spawned by Civetweb to handle incoming HTTP
+        connections. This effectively limits the number of concurrent
+        connections that the front-end can service.
+       </p><p>
+        Default is the value specified by the
+        <code class="option">rgw_thread_pool_size</code> option.
+       </p></dd><dt id="id-1.4.8.2.8.4.3.2.3"><span class="term">request_timeout_ms</span></dt><dd><p>
+        The amount of time in milliseconds that Civetweb will wait for more
+        incoming data before giving up.
+       </p><p>
+        Default is 30000 milliseconds.
+       </p></dd><dt id="id-1.4.8.2.8.4.3.2.4"><span class="term">access_log_file</span></dt><dd><p>
+        Path to the access log file. You can specify either a full path, or a
+        path relative to the current working directory. If not specified
+        (default), then accesses are not logged.
+       </p></dd><dt id="id-1.4.8.2.8.4.3.2.5"><span class="term">error_log_file</span></dt><dd><p>
+        Path to the error log file. You can specify either a full path, or a
+        path relative to the current working directory. If not specified
+        (default), then errors are not logged.
+       </p></dd></dl></div><div class="example" id="id-1.4.8.2.8.4.3.3" data-id-title="Example Civetweb Configuration in /etc/ceph/ceph.conf"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 28.2: </span><span class="title-name">Example Civetweb Configuration in <code class="filename">/etc/ceph/ceph.conf</code> </span><a title="Permalink" class="permalink" href="cha-ceph-configuration.html#id-1.4.8.2.8.4.3.3">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set rgw.myrealm.myzone.ses-min2.ingabw \
+ rgw_frontends civetweb port=8000+443s request_timeout_ms=30000 \
+ error_log_file=/var/log/radosgw/civetweb.error.log</pre></div></div></div></section><section class="sect3" id="config-http-common-options" data-id-title="Common Options"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">28.5.2.3 </span><span class="title-name">Common Options</span> <a title="Permalink" class="permalink" href="cha-ceph-configuration.html#config-http-common-options">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.8.2.8.4.4.2.1"><span class="term">ssl_certificate</span></dt><dd><p>
+        Path to the SSL certificate file used for SSL-enabled endpoints.
+       </p></dd><dt id="id-1.4.8.2.8.4.4.2.2"><span class="term">prefix</span></dt><dd><p>
+        A prefix string that is inserted into the URI of all requests. For
+        example, a Swift-only front-end could supply a URI prefix of
+        <code class="literal">/swift</code>.
+       </p></dd></dl></div></section></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="part-cluster-configuration.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part VI </span>Configuring a Cluster</span></a> </div><div><a class="pagination-link next" href="cha-mgr-modules.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 29 </span>Ceph Manager modules</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-configuration.html#cha-ceph-configuration-ceph-conf"><span class="title-number">28.1 </span><span class="title-name">Configure the <code class="filename">ceph.conf</code> file</span></a></span></li><li><span class="sect1"><a href="cha-ceph-configuration.html#cha-ceph-configuration-db"><span class="title-number">28.2 </span><span class="title-name">Configuration database</span></a></span></li><li><span class="sect1"><a href="cha-ceph-configuration.html#cha-ceph-config-key-store"><span class="title-number">28.3 </span><span class="title-name"><code class="systemitem">config-key</code> store</span></a></span></li><li><span class="sect1"><a href="cha-ceph-configuration.html#config-osd-and-bluestore"><span class="title-number">28.4 </span><span class="title-name">Ceph OSD and BlueStore</span></a></span></li><li><span class="sect1"><a href="cha-ceph-configuration.html#config-ogw"><span class="title-number">28.5 </span><span class="title-name">Ceph Object Gateway</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/runtime_config.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

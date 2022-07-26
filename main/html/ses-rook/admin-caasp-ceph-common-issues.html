@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Common issues | Deploying and Administering SUSE Enterprise Storage with Rook | SUSE Enterprise Storage 7.1</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Common issues | SES 7.1"/>
+<meta name="description" content="Many of these problem cases are hard to summarize down to a short phrase that adequately describes the problem. Each problem will start with a bulleted list of…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7.1"/>
+<meta name="book-title" content="Deploying and Administering SUSE Enterprise Storage with Rook"/>
+<meta name="chapter-title" content="Chapter 16. Common issues"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Common issues | SES 7.1"/>
+<meta property="og:description" content="Many of these problem cases are hard to summarize down to a short phrase that adequately describes the problem. Each problem will start with a bulleted list of…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Common issues | SES 7.1"/>
+<meta name="twitter:description" content="Many of these problem cases are hard to summarize down to a short phrase that adequately describes the problem. Each problem will start with a bulleted list of…"/>
+<link rel="prev" href="atroubleshooting-caasp-debugging-rook.html" title="Chapter 15. Troubleshooting"/><link rel="next" href="bk05apa.html" title="Appendix A. Ceph maintenance updates based on upstream 'Pacific' point releases"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deploying and Administering SUSE Enterprise Storage with Rook</a><span> / </span><a class="crumb" href="rook-ses-troubleshooting.html">Troubleshooting Ceph on SUSE CaaS Platform</a><span> / </span><a class="crumb" href="admin-caasp-ceph-common-issues.html">Common issues</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deploying and Administering SUSE Enterprise Storage with Rook</div><ol><li><a href="preface-rook.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="rook-ses-deployment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</span></a><ol><li><a href="deploy-rook.html" class=" "><span class="title-number">1 </span><span class="title-name">Quick start</span></a></li><li><a href="update-rook.html" class=" "><span class="title-number">2 </span><span class="title-name">Updating Rook</span></a></li></ol></li><li><a href="rook-ses-admin.html" class="has-children "><span class="title-number">II </span><span class="title-name">Administrating Ceph on SUSE CaaS Platform</span></a><ol><li><a href="admin-intro-caasp.html" class=" "><span class="title-number">3 </span><span class="title-name">Rook-Ceph administration</span></a></li><li><a href="admin-caasp-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">Ceph cluster administration</span></a></li><li><a href="admin-caasp-block-storage.html" class=" "><span class="title-number">5 </span><span class="title-name">Block Storage</span></a></li><li><a href="admin-caasp-cephfs.html" class=" "><span class="title-number">6 </span><span class="title-name">CephFS</span></a></li><li><a href="admin-caasp-crd.html" class=" "><span class="title-number">7 </span><span class="title-name">Ceph cluster custom resource definitions</span></a></li><li><a href="admin-caasp-cephconfig.html" class=" "><span class="title-number">8 </span><span class="title-name">Configuration</span></a></li><li><a href="admin-caasp-cephtoolbox.html" class=" "><span class="title-number">9 </span><span class="title-name">Toolboxes</span></a></li><li><a href="admin-caasp-cephosd.html" class=" "><span class="title-number">10 </span><span class="title-name">Ceph OSD management</span></a></li><li><a href="admin-caasp-ceph-examples.html" class=" "><span class="title-number">11 </span><span class="title-name">Ceph examples</span></a></li><li><a href="admin-caasp-advanced-config.html" class=" "><span class="title-number">12 </span><span class="title-name">Advanced configuration</span></a></li><li><a href="admin-caasp-object-storage.html" class=" "><span class="title-number">13 </span><span class="title-name">Object Storage</span></a></li><li><a href="admin-caasp-dashboard.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph Dashboard</span></a></li></ol></li><li class="active"><a href="rook-ses-troubleshooting.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Troubleshooting Ceph on SUSE CaaS Platform</span></a><ol><li><a href="atroubleshooting-caasp-debugging-rook.html" class=" "><span class="title-number">15 </span><span class="title-name">Troubleshooting</span></a></li><li><a href="admin-caasp-ceph-common-issues.html" class=" you-are-here"><span class="title-number">16 </span><span class="title-name">Common issues</span></a></li></ol></li><li><a href="bk05apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></li><li><a href="bk05go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="admin-caasp-ceph-common-issues" data-id-title="Common issues"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h2 class="title"><span class="title-number">16 </span><span class="title-name">Common issues</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#">#</a></h2></div></div></div><section class="sect1" id="ceph-common-issues" data-id-title="Ceph common issues"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">16.1 </span><span class="title-name">Ceph common issues</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#ceph-common-issues">#</a></h2></div></div></div><p>
+   Many of these problem cases are hard to summarize down to a short phrase
+   that adequately describes the problem. Each problem will start with a
+   bulleted list of symptoms. Keep in mind that all symptoms may not apply,
+   depending on the configuration of Rook. If the majority of the symptoms
+   are seen, then there is a fair chance that you are experiencing that
+   problem.
+  </p><section class="sect2" id="troubleshooting-techniques" data-id-title="Troubleshooting techniques"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.1 </span><span class="title-name">Troubleshooting techniques</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#troubleshooting-techniques">#</a></h3></div></div></div><p>
+    There are two main categories of information you will need to investigate
+    issues in the cluster:
+   </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+      Kubernetes status and logs.
+     </p></li><li class="listitem"><p>
+      Ceph cluster status.
+     </p></li></ol></div><section class="sect3" id="ceph-tools" data-id-title="Running Ceph tools"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.1.1 </span><span class="title-name">Running Ceph tools</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#ceph-tools">#</a></h4></div></div></div><p>
+     After you verify the basic health of the running pods, next you will want
+     to run Ceph tools for status of the storage components. There are two
+     ways to run the Ceph tools, either in the Rook toolbox or inside other
+     Rook pods that are already running.
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Logs on a specific node to find why a PVC is failing to mount: Rook
+       agent errors around the attach and detach:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl logs -n rook-ceph <em class="replaceable">rook-ceph-agent-pod</em></pre></div></li><li class="listitem"><p>
+       See the <a class="xref" href="admin-caasp-advanced-config.html#log-collection" title="12.1.3. Collecting logs">Section 12.1.3, “Collecting logs”</a> for a script that will help you
+       gather the logs.
+      </p></li><li class="listitem"><p>
+       Other artifacts:
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+         The monitors that are expected to be in quorum:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n &lt;cluster-namespace&gt; get configmap rook-ceph-mon-endpoints -o yaml | grep data</pre></div></li></ul></div></li></ul></div><section class="sect4" id="tools-in-the-rook-toolbox" data-id-title="Using tools in the Rook toolbox"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.1.1.1 </span><span class="title-name">Using tools in the Rook toolbox</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#tools-in-the-rook-toolbox">#</a></h5></div></div></div><p>
+      The <code class="literal">rook-ceph-tools pod</code> provides a simple environment
+      to run Ceph tools. Once the pod is up and running, connect to the pod
+      to execute Ceph commands to evaluate that current state of the cluster.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash</pre></div></section><section class="sect4" id="ceph-commands" data-id-title="Ceph commands"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.1.1.2 </span><span class="title-name">Ceph commands</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#ceph-commands">#</a></h5></div></div></div><p>
+      Here are some common commands to troubleshoot a Ceph cluster:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        <code class="command">ceph status</code>
+       </p></li><li class="listitem"><p>
+        <code class="command">ceph osd status</code>
+       </p></li><li class="listitem"><p>
+        <code class="command">ceph osd df</code>
+       </p></li><li class="listitem"><p>
+        <code class="command">ceph osd utilization</code>
+       </p></li><li class="listitem"><p>
+        <code class="command">ceph osd pool stats</code>
+       </p></li><li class="listitem"><p>
+        <code class="command">ceph osd tree</code>
+       </p></li><li class="listitem"><p>
+        <code class="command">ceph pg stat</code>
+       </p></li></ul></div><p>
+      The first two status commands provide the overall cluster health. The
+      normal state for cluster operations is <code class="literal">HEALTH_OK</code>, but
+      will still function when the state is in a <code class="literal">HEALTH_WARN</code>
+      state. If you are in a <code class="literal">WARN</code> state, then the cluster is
+      in a condition that it may enter the <code class="literal">HEALTH_ERROR</code>
+      state at which point <span class="emphasis"><em>all</em></span> disk I/O operations are
+      halted. If a <code class="literal">HEALTH_WARN</code> state is observed, then one
+      should take action to prevent the cluster from halting when it enters the
+      <code class="literal">HEALTH_ERROR</code> state.
+     </p></section></section></section><section class="sect2" id="cluster-failing-to-service-requests" data-id-title="Cluster failing to service requests"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.2 </span><span class="title-name">Cluster failing to service requests</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#cluster-failing-to-service-requests">#</a></h3></div></div></div><section class="sect3" id="symptoms-1" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.2.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-1">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Execution of the Ceph command hangs.
+      </p></li><li class="listitem"><p>
+       <code class="literal">PersistentVolumes</code> are not being created.
+      </p></li><li class="listitem"><p>
+       Large amount of slow requests are blocking.
+      </p></li><li class="listitem"><p>
+       Large amount of stuck requests are blocking.
+      </p></li><li class="listitem"><p>
+       One or more MONs are restarting periodically.
+      </p></li></ul></div></section><section class="sect3" id="investigation" data-id-title="Investigating the current state of Ceph"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.2.2 </span><span class="title-name">Investigating the current state of Ceph</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#investigation">#</a></h4></div></div></div><p>
+     Create a <code class="literal">rook-ceph-tools pod</code> to investigate the current
+     state of Ceph. The following is an example of the output. In this case,
+     the <code class="command">ceph status</code> command would just hang and the process
+     would need to be killed.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash
+<code class="prompt user">cephuser@adm &gt; </code>ceph status
+^CCluster connection interrupted or timed out</pre></div><p>
+     Another indication is when one or more of the MON pods restart frequently.
+     Note the <span class="quote">“<span class="quote">mon107</span>”</span> that has only been up for 16 minutes in the
+     following output.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get all -o wide --show-all
+  NAME                                 READY     STATUS    RESTARTS   AGE       IP               NODE
+  po/rook-ceph-mgr0-2487684371-gzlbq   1/1       Running   0          17h       192.168.224.46   k8-host-0402
+  po/rook-ceph-mon107-p74rj            1/1       Running   0          16m       192.168.224.28   k8-host-0402
+  rook-ceph-mon1-56fgm                 1/1       Running   0          2d        192.168.91.135   k8-host-0404
+  rook-ceph-mon2-rlxcd                 1/1       Running   0          2d        192.168.123.33   k8-host-0403
+  rook-ceph-osd-bg2vj                  1/1       Running   0          2d        192.168.91.177   k8-host-0404
+  rook-ceph-osd-mwxdm                  1/1       Running   0          2d        192.168.123.31   k8-host-0403</pre></div></section><section class="sect3" id="solution" data-id-title="Identifying the solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.2.3 </span><span class="title-name">Identifying the solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution">#</a></h4></div></div></div><p>
+     What is happening here is that the MON pods are restarting and one or more
+     of the Ceph daemons are not getting configured with the proper cluster
+     information. This is commonly the result of not specifying a value for
+     <code class="literal">dataDirHostPath</code> in your Cluster CRD.
+    </p><p>
+     The <code class="literal">dataDirHostPath</code> setting specifies a path on the
+     local host for the Ceph daemons to store configuration and data. Setting
+     this to a path like <code class="filename">/var/lib/rook</code>, reapplying your
+     cluster CRD and restarting all the Ceph daemons (MON, MGR, OSD, RGW)
+     should solve this problem. After the Object Gateway daemons have been restarted, it
+     is advisable to restart the <code class="literal">rook-tools</code> pod.
+    </p></section></section><section class="sect2" id="monitors-are-the-only-pods-running" data-id-title="Monitors are the only PODs running"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.3 </span><span class="title-name">Monitors are the only PODs running</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#monitors-are-the-only-pods-running">#</a></h3></div></div></div><section class="sect3" id="symptoms-2" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.3.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-2">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Rook operator is running.
+      </p></li><li class="listitem"><p>
+       Either a single mon starts or the MONs skip letters, specifically named
+       <code class="literal">a</code>, <code class="literal">d</code>, and <code class="literal">f</code>.
+      </p></li><li class="listitem"><p>
+       No MGR, OSD, or other daemons are created.
+      </p></li></ul></div></section><section class="sect3" id="investigation-1" data-id-title="Investigating MON health"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.3.2 </span><span class="title-name">Investigating MON health</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#investigation-1">#</a></h4></div></div></div><p>
+     When the operator is starting a cluster, the operator will start one MON
+     at a time and check that they are healthy before continuing to bring up
+     all three MONs. If the first MON is not detected healthy, the operator
+     will continue to check until it is healthy. If the first MON fails to
+     start, a second and then a third MON may attempt to start. However, they
+     will never form a quorum, and orchestration will be blocked from
+     proceeding.
+    </p><p>
+     The likely causes for the MON health not being detected:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       The operator pod does not have network connectivity to the MON pod.
+      </p></li><li class="listitem"><p>
+       The MON pod is failing to start.
+      </p></li><li class="listitem"><p>
+       One or more MON pods are in running state, but are not able to form a
+       quorum.
+      </p></li></ul></div><section class="sect4" id="operator-fails-to-connect-to-the-mon" data-id-title="Failing to connect to the MON"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.3.2.1 </span><span class="title-name">Failing to connect to the MON</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#operator-fails-to-connect-to-the-mon">#</a></h5></div></div></div><p>
+      Firstly, look at the logs of the operator to confirm if it is able to
+      connect to the MONs.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph logs -l app=rook-ceph-operator</pre></div><p>
+      Likely you will see an error similar to the following that the operator
+      is timing out when connecting to the MON. The last command is
+      <code class="command">ceph mon_status</code>, followed by a timeout message five
+      minutes later.
+     </p><div class="verbatim-wrap"><pre class="screen">  2018-01-21 21:47:32.375833 I | exec: Running command: ceph mon_status --cluster=rook --conf=/var/lib/rook/rook-ceph/rook.config --keyring=/var/lib/rook/rook-ceph/client.admin.keyring --format json --out-file /tmp/442263890
+  2018-01-21 21:52:35.370533 I | exec: 2018-01-21 21:52:35.071462 7f96a3b82700  0 monclient(hunting): authenticate timed out after 300
+  2018-01-21 21:52:35.071462 7f96a3b82700  0 monclient(hunting): authenticate timed out after 300
+  2018-01-21 21:52:35.071524 7f96a3b82700  0 librados: client.admin authentication error (110) Connection timed out
+  2018-01-21 21:52:35.071524 7f96a3b82700  0 librados: client.admin authentication error (110) Connection timed out
+  [errno 110] error connecting to the cluster</pre></div><p>
+      The error would appear to be an authentication error, but it is
+      misleading. The real issue is a timeout.
+     </p></section><section class="sect4" id="solution-1" data-id-title="Identifying the solution"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.3.2.2 </span><span class="title-name">Identifying the solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-1">#</a></h5></div></div></div><p>
+      If you see the timeout in the operator log, verify if the MON pod is
+      running (see the next section). If the MON pod is running, check the
+      network connectivity between the operator pod and the MON pod. A common
+      issue is that the CNI is not configured correctly.
+     </p></section><section class="sect4" id="failing-mon-pod" data-id-title="Failing MON pod"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.3.2.3 </span><span class="title-name">Failing MON pod</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#failing-mon-pod">#</a></h5></div></div></div><p>
+      We need to verify if the MON pod started successfully.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l app=rook-ceph-mon
+NAME                                READY     STATUS               RESTARTS   AGE
+rook-ceph-mon-a-69fb9c78cd-58szd    1/1       CrashLoopBackOff     2          47s</pre></div><p>
+      If the MON pod is failing as in this example, you will need to look at
+      the <code class="command">mon pod status</code> or logs to determine the cause. If
+      the pod is in a crash loop backoff state, you should see the reason by
+      describing the pod.
+     </p><p>
+      The pod shows a termination status that the keyring does not match the
+      existing keyring.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph describe pod -l mon=rook-ceph-mon0
+[...]
+Last State:    Terminated
+Reason:    Error
+Message:    The keyring does not match the existing keyring in /var/lib/rook/rook-ceph-mon0/data/keyring.
+You may need to delete the contents of dataDirHostPath on the host from a previous deployment.
+[...]</pre></div><p>
+      See the solution in the next section regarding cleaning up the
+      <code class="literal">dataDirHostPath</code> on the nodes.
+     </p><p>
+      If you see the three mons running with the names <code class="literal">a</code>,
+      <code class="literal">d</code>, and <code class="literal">f</code>, they likely did not form
+      quorum even though they are running.
+     </p><div class="verbatim-wrap"><pre class="screen">NAME                               READY   STATUS    RESTARTS   AGE
+rook-ceph-mon-a-7d9fd97d9b-cdq7g   1/1     Running   0          10m
+rook-ceph-mon-d-77df8454bd-r5jwr   1/1     Running   0          9m2s
+rook-ceph-mon-f-58b4f8d9c7-89lgs   1/1     Running   0          7m38s</pre></div></section><section class="sect4" id="solution-2" data-id-title="Identifying the solution"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.3.2.4 </span><span class="title-name">Identifying the solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-2">#</a></h5></div></div></div><p>
+      This is a common problem reinitializing the Rook cluster when the local
+      directory used for persistence has <span class="strong"><strong>not</strong></span>
+      been purged. This directory is the <code class="literal">dataDirHostPath</code>
+      setting in the cluster CRD, and is typically set to
+      <code class="filename">/var/lib/rook</code>. To fix the issue, you will need to
+      delete all components of Rook and then delete the contents of
+      <code class="filename">/var/lib/rook</code> (or the directory specified by
+      <code class="literal">dataDirHostPath</code>) on each of the hosts in the cluster.
+      Then, when the cluster CRD is applied to start a new cluster, the
+      rook-operator should start all the pods as expected.
+     </p><div id="id-1.7.5.3.3.5.3.8.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+       Deleting the <code class="literal">dataDirHostPath</code> folder is destructive to
+       the storage. Only delete the folder if you are trying to permanently
+       purge the Rook cluster.
+      </p></div></section></section></section><section class="sect2" id="pvcs-stay-in-pending-state" data-id-title="PVCs stay in pending state"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.4 </span><span class="title-name">PVCs stay in pending state</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#pvcs-stay-in-pending-state">#</a></h3></div></div></div><section class="sect3" id="symptoms-3" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.4.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-3">#</a></h4></div></div></div><p>
+     When you create a PVC based on a Rook storage class, it stays pending
+     indefinitely.
+    </p><p>
+     For the Wordpress example, you might see two PVCs in the pending state.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl get pvc
+NAME             STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS      AGE
+mysql-pv-claim   Pending                                      rook-ceph-block   8s
+wp-pv-claim      Pending                                      rook-ceph-block   16s</pre></div></section><section class="sect3" id="investigation-2" data-id-title="Investigating common causes"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.4.2 </span><span class="title-name">Investigating common causes</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#investigation-2">#</a></h4></div></div></div><p>
+     There are two common causes for the PVCs staying in the pending state:
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+       There are no OSDs in the cluster.
+      </p></li><li class="listitem"><p>
+       The CSI provisioner pod is not running or is not responding to the
+       request to provision the storage.
+      </p></li></ol></div><section class="sect4" id="confirm-if-there-are-osds" data-id-title="Confirming if there are OSDs"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.4.2.1 </span><span class="title-name">Confirming if there are OSDs</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#confirm-if-there-are-osds">#</a></h5></div></div></div><p>
+      To confirm if you have OSDs in your cluster, connect to the Rook
+      Toolbox and run the <code class="command">ceph status</code> command. You should
+      see that you have at least one OSD <code class="literal">up</code> and
+      <code class="literal">in</code>. The minimum number of OSDs required depends on the
+      <code class="literal">replicated.size</code> setting in the pool created for the
+      storage class. In a <span class="quote">“<span class="quote">test</span>”</span> cluster, only one OSD is required
+      (see <code class="filename">storageclass-test.yaml</code>). In the production
+      storage class example (<code class="filename">storageclass.yaml</code>), three
+      OSDs would be required.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph status
+  cluster:
+  id:     a0452c76-30d9-4c1a-a948-5d8405f19a7c
+  health: HEALTH_OK
+
+  services:
+  mon: 3 daemons, quorum a,b,c (age 11m)
+  mgr: a(active, since 10m)
+  osd: 1 osds: 1 up (since 46s), 1 in (since 109m)</pre></div></section><section class="sect4" id="osd-prepare-logs" data-id-title="Preparing OSD logs"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.4.2.2 </span><span class="title-name">Preparing OSD logs</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#osd-prepare-logs">#</a></h5></div></div></div><p>
+      If you do not see the expected number of OSDs, investigate why they were
+      not created. On each node where Rook looks for OSDs to configure, you
+      will see an <span class="quote">“<span class="quote">osd prepare</span>”</span> pod.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l app=rook-ceph-osd-prepare
+NAME                                 ...  READY   STATUS      RESTARTS   AGE
+rook-ceph-osd-prepare-minikube-9twvk   0/2     Completed   0          30m</pre></div><p>
+      See the section on
+      <a class="xref" href="admin-caasp-ceph-common-issues.html#osd-pods-are-not-created-on-my-devices" title="16.1.6. OSD pods are not created on my devices">Section 16.1.6, “OSD pods are not created on my devices”</a> to investigate
+      the logs.
+     </p></section><section class="sect4" id="csi-driver" data-id-title="Checking CSI driver"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.4.2.3 </span><span class="title-name">Checking CSI driver</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#csi-driver">#</a></h5></div></div></div><p>
+      The CSI driver may not be responding to the requests. Look in the logs of
+      the CSI provisioner pod to see if there are any errors during the
+      provisioning.
+     </p><p>
+      There are two provisioner pods:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l app=csi-rbdplugin-provisioner</pre></div><p>
+      Get the logs of each of the pods. One of them should be the leader and be
+      responding to requests.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph logs csi-cephfsplugin-provisioner-d77bb49c6-q9hwq csi-provisioner</pre></div></section><section class="sect4" id="operator-unresponsiveness" data-id-title="Restarting the operator"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">16.1.4.2.4 </span><span class="title-name">Restarting the operator</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#operator-unresponsiveness">#</a></h5></div></div></div><p>
+      Lastly, if you have OSDs <code class="literal">up</code> and <code class="literal">in</code>,
+      the next step is to confirm the operator is responding to the requests.
+      Look in the operator pod logs around the time when the PVC was created to
+      confirm if the request is being raised. If the operator does not show
+      requests to provision the block image, the operator may be stuck on some
+      other operation. In this case, restart the operator pod to get things
+      going again.
+     </p></section></section><section class="sect3" id="solution-3" data-id-title="Identifying the solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.4.3 </span><span class="title-name">Identifying the solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-3">#</a></h4></div></div></div><p>
+     If the OSD prepare logs did not give you enough clues about why the OSDs
+     were not being created, review your <code class="filename">cluster.yaml</code>
+     configuration. The common mistakes include:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       If <code class="literal">useAllDevices: true</code>, Rook expects to find local
+       devices attached to the nodes. If no devices are found, no OSDs will be
+       created.
+      </p></li><li class="listitem"><p>
+       If <code class="literal">useAllDevices: false</code>, OSDs will only be created if
+       <code class="literal">deviceFilter</code> is specified.
+      </p></li><li class="listitem"><p>
+       Only local devices attached to the nodes will be configurable by Rook.
+       In other words, the devices must show up under
+       <code class="filename">/dev</code>.
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+         The devices must not have any partitions or file systems on them.
+         Rook will only configure raw devices. Partitions are not yet
+         supported.
+        </p></li></ul></div></li></ul></div></section></section><section class="sect2" id="osd-pods-are-failing-to-start" data-id-title="OSD pods are failing to start"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.5 </span><span class="title-name">OSD pods are failing to start</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#osd-pods-are-failing-to-start">#</a></h3></div></div></div><section class="sect3" id="symptoms-4" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.5.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-4">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       OSD pods are failing to start.
+      </p></li><li class="listitem"><p>
+       You have started a cluster after tearing down another cluster.
+      </p></li></ul></div></section><section class="sect3" id="investigation-3" data-id-title="Investigating configuration errors"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.5.2 </span><span class="title-name">Investigating configuration errors</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#investigation-3">#</a></h4></div></div></div><p>
+     When an OSD starts, the device or directory will be configured for
+     consumption. If there is an error with the configuration, the pod will
+     crash and you will see the <code class="literal">CrashLoopBackoff</code> status for
+     the pod. Look in the OSD pod logs for an indication of the failure.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph logs rook-ceph-osd-fl8fs</pre></div><p>
+     One common case for failure is that you have re-deployed a test cluster
+     and some state may remain from a previous deployment. If your cluster is
+     larger than a few nodes, you may get lucky enough that the monitors were
+     able to start and form a quorum. However, now the OSDs pods may fail to
+     start due to the old state. Looking at the OSD pod logs, you will see an
+     error about the file already existing.
+    </p><div class="verbatim-wrap"><pre class="screen">kubectl -n rook-ceph logs rook-ceph-osd-fl8fs
+[...]
+2017-10-31 20:13:11.187106 I | mkfs-osd0: 2017-10-31 20:13:11.186992 7f0059d62e00 -1 bluestore(/var/lib/rook/osd0) _read_fsid unparsable uuid
+2017-10-31 20:13:11.187208 I | mkfs-osd0: 2017-10-31 20:13:11.187026 7f0059d62e00 -1 bluestore(/var/lib/rook/osd0) _setup_block_symlink_or_file failed to create block symlink to /dev/disk/by-partuuid/651153ba-2dfc-4231-ba06-94759e5ba273: (17) File exists
+2017-10-31 20:13:11.187233 I | mkfs-osd0: 2017-10-31 20:13:11.187038 7f0059d62e00 -1 bluestore(/var/lib/rook/osd0) mkfs failed, (17) File exists
+2017-10-31 20:13:11.187254 I | mkfs-osd0: 2017-10-31 20:13:11.187042 7f0059d62e00 -1 OSD::mkfs: ObjectStore::mkfs failed with error (17) File exists
+2017-10-31 20:13:11.187275 I | mkfs-osd0: 2017-10-31 20:13:11.187121 7f0059d62e00 -1  ** ERROR: error creating empty object store in /var/lib/rook/osd0: (17) File exists</pre></div></section><section class="sect3" id="solution-4" data-id-title="Solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.5.3 </span><span class="title-name">Solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-4">#</a></h4></div></div></div><p>
+     If the error is from the file that already exists, this is a common
+     problem reinitializing the Rook cluster when the local directory used
+     for persistence has <span class="strong"><strong>not</strong></span> been purged.
+     This directory is the <code class="literal">dataDirHostPath</code> setting in the
+     cluster CRD and is typically set to <code class="filename">/var/lib/rook</code>. To
+     fix the issue you will need to delete all components of Rook and then
+     delete the contents of <code class="filename">/var/lib/rook</code> (or the
+     directory specified by <code class="literal">dataDirHostPath</code>) on each of the
+     hosts in the cluster. Then when the cluster CRD is applied to start a new
+     cluster, the rook-operator should start all the pods as expected.
+    </p></section></section><section class="sect2" id="osd-pods-are-not-created-on-my-devices" data-id-title="OSD pods are not created on my devices"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.6 </span><span class="title-name">OSD pods are not created on my devices</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#osd-pods-are-not-created-on-my-devices">#</a></h3></div></div></div><section class="sect3" id="symptoms-5" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.6.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-5">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       No OSD pods are started in the cluster.
+      </p></li><li class="listitem"><p>
+       Devices are not configured with OSDs even though specified in the
+       cluster CRD.
+      </p></li><li class="listitem"><p>
+       One OSD pod is started on each node instead of multiple pods for each
+       device.
+      </p></li></ul></div></section><section class="sect3" id="investigation-4" data-id-title="Investigating"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.6.2 </span><span class="title-name">Investigating</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#investigation-4">#</a></h4></div></div></div><p>
+     First, ensure that you have specified the devices correctly in the CRD.
+     The cluster CRD has several ways to specify the devices that are to be
+     consumed by the Rook storage:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <code class="literal">useAllDevices: true</code>: Rook will consume all devices
+       it determines to be available.
+      </p></li><li class="listitem"><p>
+       <code class="literal">deviceFilter</code>: Consume all devices that match this
+       regular expression.
+      </p></li><li class="listitem"><p>
+       <code class="literal">devices</code>: Explicit list of device names on each node
+       to consume.
+      </p></li></ul></div><p>
+     Second, if Rook determines that a device is not available (has existing
+     partitions or a formatted file system), Rook will skip consuming the
+     devices. If Rook is not starting OSDs on the devices you expect, Rook
+     may have skipped it for this reason. To see if a device was skipped, view
+     the OSD preparation log on the node where the device was skipped. Note
+     that it is completely normal and expected for OSD prepare pod to be in the
+     <code class="literal">completed</code> state. After the job is complete, Rook
+     leaves the pod around in case the logs need to be investigated.
+    </p><p>
+     Get the prepare pods in the cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l app=rook-ceph-osd-prepare
+NAME                                   READY     STATUS      RESTARTS   AGE
+rook-ceph-osd-prepare-node1-fvmrp      0/1       Completed   0          18m
+rook-ceph-osd-prepare-node2-w9xv9      0/1       Completed   0          22m
+rook-ceph-osd-prepare-node3-7rgnv      0/1       Completed   0          22m</pre></div><p>
+     View the logs for the node of interest in the "provision"
+     container:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph logs rook-ceph-osd-prepare-node1-fvmrp provision</pre></div><p>
+     Here are some key lines to look for in the log. A device will be skipped
+     if Rook sees it has partitions or a file system:
+    </p><div class="verbatim-wrap"><pre class="screen">2019-05-30 19:02:57.353171 W | cephosd: skipping device sda that is in use
+2019-05-30 19:02:57.452168 W | skipping device "sdb5": ["Used by ceph-disk"]</pre></div><p>
+     Other messages about a disk being unusable by Ceph include:
+    </p><div class="verbatim-wrap"><pre class="screen">Insufficient space (&lt;5GB) on vgs
+Insufficient space (&lt;5GB)
+LVM detected
+Has BlueStore device label
+locked
+read-only</pre></div><p>
+     A device is going to be configured:
+    </p><div class="verbatim-wrap"><pre class="screen">2019-05-30 19:02:57.535598 I | cephosd: device sdc to be configured by ceph-volume</pre></div><p>
+     For each device configured, you will see a report in the log:
+    </p><div class="verbatim-wrap"><pre class="screen">2019-05-30 19:02:59.844642 I |   Type            Path                                                    LV Size         % of device
+2019-05-30 19:02:59.844651 I | ----------------------------------------------------------------------------------------------------
+2019-05-30 19:02:59.844677 I |   [data]          /dev/sdc                                                7.00 GB         100%</pre></div></section><section class="sect3" id="solution-5" data-id-title="Solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.6.3 </span><span class="title-name">Solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-5">#</a></h4></div></div></div><p>
+     Either update the CR with the correct settings, or clean the partitions or
+     file system from your devices.
+    </p><p>
+     After the settings are updated or the devices are cleaned, trigger the
+     operator to analyze the devices again by restarting the operator. Each
+     time the operator starts, it will ensure all the desired devices are
+     configured. The operator does automatically deploy OSDs in most scenarios,
+     but an operator restart will cover any scenarios that the operator does
+     not detect automatically.
+    </p><p>
+     Restart the operator to ensure devices are configured. A new pod will
+     automatically be started when the current operator pod is deleted.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph delete pod -l app=rook-ceph-operator</pre></div></section></section><section class="sect2" id="rook-agent-modprobe-exec-format-error" data-id-title="Rook agent modprobe exec format error"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.7 </span><span class="title-name">Rook agent modprobe exec format error</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#rook-agent-modprobe-exec-format-error">#</a></h3></div></div></div><section class="sect3" id="symptoms-7" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.7.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-7">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <code class="literal">PersistentVolumes</code> from Ceph fail or timeout to
+       mount.
+      </p></li><li class="listitem"><p>
+       Rook Agent logs contain <code class="literal">modinfo: ERROR: could not get modinfo
+       from 'rbd': Exec format error</code> lines.
+      </p></li></ul></div></section><section class="sect3" id="solution-7" data-id-title="Solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.7.2 </span><span class="title-name">Solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-7">#</a></h4></div></div></div><p>
+     If it is feasible to upgrade your kernel, you should upgrade to 4.x, even
+     better is 4.7 or above, due to a feature for CephFS added to the kernel.
+    </p><p>
+     If you are unable to upgrade the kernel, you need to go to each host that
+     will consume storage and run:
+    </p><div class="verbatim-wrap"><pre class="screen">modprobe rbd</pre></div><p>
+     This command inserts the <code class="literal">rbd</code> module into the kernel.
+    </p><p>
+     To persist this fix, you need to add the <code class="literal">rbd</code> kernel
+     module to either <code class="filename">/etc/modprobe.d/</code> or
+     <code class="filename">/etc/modules-load.d/</code>. For both paths create a file
+     called <code class="filename">rbd.conf</code> with the following content:
+    </p><div class="verbatim-wrap"><pre class="screen">rbd</pre></div><p>
+     Now when a host is restarted, the module should be loaded automatically.
+    </p></section></section><section class="sect2" id="using-multiple-shared-filesystem-cephfs-is-attempted-on-a-kernel-version-older-than-47" data-id-title="Using multiple shared file systems (CephFS) is attempted on a kernel version older than 4.7"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.8 </span><span class="title-name">Using multiple shared file systems (CephFS) is attempted on a kernel version older than 4.7</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#using-multiple-shared-filesystem-cephfs-is-attempted-on-a-kernel-version-older-than-47">#</a></h3></div></div></div><section class="sect3" id="symptoms-9" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.8.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-9">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       More than one shared file system (CephFS) has been created in the
+       cluster.
+      </p></li><li class="listitem"><p>
+       A pod attempts to mount any other shared file system besides the
+       <span class="strong"><strong>first</strong></span> one that was created.
+      </p></li><li class="listitem"><p>
+       The pod incorrectly gets the first file system mounted instead of the
+       intended file system.
+      </p></li></ul></div></section><section class="sect3" id="solution-9" data-id-title="Solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.8.2 </span><span class="title-name">Solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-9">#</a></h4></div></div></div><p>
+     The only solution to this problem is to upgrade your kernel to 4.7 or
+     higher. This is due to a <code class="command">mount</code> flag added in kernel
+     version 4.7, which allows choosing the file system by name.
+    </p></section></section><section class="sect2" id="activate-log-to-file-for-a-particular-ceph-daemon" data-id-title="Activating log to file for a particular Ceph daemon"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.9 </span><span class="title-name">Activating log to file for a particular Ceph daemon</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#activate-log-to-file-for-a-particular-ceph-daemon">#</a></h3></div></div></div><p>
+    They are cases where looking at Kubernetes logs is not enough for various
+    reasons, but just to name a few:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Not everyone is familiar for Kubernetes logging and expects to find logs in
+      traditional directories.
+     </p></li><li class="listitem"><p>
+      Logs get eaten (buffer limit from the log engine) and thus not
+      requestable from Kubernetes.
+     </p></li></ul></div><p>
+    So for each daemon, <code class="literal">dataDirHostPath</code> is used to store
+    logs, if logging is activated. Rook will bind-mount
+    <code class="literal">dataDirHostPath</code> for every pod. As of Ceph Nautilus
+    14.2.1, it is possible to enable logging for a particular daemon on the
+    fly. Let us say you want to enable logging for <code class="literal">mon.a</code>,
+    but only for this daemon. Using the toolbox or from inside the operator
+    run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config daemon mon.a log_to_file true</pre></div><p>
+    This will activate logging on the file system, you will be able to find
+    logs in <code class="filename">dataDirHostPath/$NAMESPACE/log</code>, so typically
+    this would mean <code class="filename">/var/lib/rook/rook-ceph/log</code>. You do
+    not need to restart the pod, the effect will be immediate.
+   </p><p>
+    To disable the logging on file, simply set <code class="literal">log_to_file</code>
+    to <code class="literal">false</code>.
+   </p><p>
+    For Ceph Luminous and Mimic releases,
+    <code class="literal">mon_cluster_log_file</code> and
+    <code class="literal">cluster_log_file</code> can be set to
+    <code class="filename">/var/log/ceph/XXXX</code> in the config override ConfigMap to
+    enable logging.
+   </p></section><section class="sect2" id="a-worker-node-using-rbd-devices-hangs-up" data-id-title="A worker node using RBD devices hangs up"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.10 </span><span class="title-name">A worker node using RBD devices hangs up</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#a-worker-node-using-rbd-devices-hangs-up">#</a></h3></div></div></div><section class="sect3" id="symptoms-10" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.10.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-10">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       There is no progress on I/O from/to one of RBD devices
+       (<code class="filename">/dev/rbd*</code> or <code class="filename">/dev/nbd*</code>).
+      </p></li><li class="listitem"><p>
+       After that, the whole worker node hangs up.
+      </p></li></ul></div></section><section class="sect3" id="investigation-6" data-id-title="Investigating"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.10.2 </span><span class="title-name">Investigating</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#investigation-6">#</a></h4></div></div></div><p>
+     This happens when the following conditions are satisfied.
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       The problematic RBD device and the corresponding OSDs are co-located.
+      </p></li><li class="listitem"><p>
+       There is an XFS file system on top of this device.
+      </p></li></ul></div><p>
+     In addition, when this problem happens, you can see the following messages
+     in <code class="literal">dmesg</code>.
+    </p><div class="verbatim-wrap"><pre class="screen">dmesg
+...
+[51717.039319] INFO: task kworker/2:1:5938 blocked for more than 120 seconds.
+[51717.039361]       Not tainted 4.15.0-72-generic #81-Ubuntu
+[51717.039388] "echo 0 &gt; /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+...</pre></div><p>
+     This is the so-called <code class="literal">hung_task</code> problem and means that
+     there is a deadlock in the kernel.
+    </p></section><section class="sect3" id="solution-10" data-id-title="Solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.10.3 </span><span class="title-name">Solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-10">#</a></h4></div></div></div><p>
+     You can bypass this problem by using ext4 or any other file systems rather
+     than XFS. The file system type can be specified with
+     <code class="literal">csi.storage.k8s.io/fstype</code> in StorageClass resource.
+    </p></section></section><section class="sect2" id="too-few-pgs-per-osd-warning-is-shown" data-id-title="Too few PGs per OSD warning is shown"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.11 </span><span class="title-name">Too few PGs per OSD warning is shown</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#too-few-pgs-per-osd-warning-is-shown">#</a></h3></div></div></div><section class="sect3" id="symptoms-11" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.11.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-11">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <code class="literal">ceph status</code> shows <span class="quote">“<span class="quote">too few PGs per OSD</span>”</span>
+       warning as follows.
+      </p></li></ul></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph status
+cluster:
+id:     fd06d7c3-5c5c-45ca-bdea-1cf26b783065
+health: HEALTH_WARN
+too few PGs per OSD (16 &lt; min 30)</pre></div></section><section class="sect3" id="solution-11" data-id-title="Solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.11.2 </span><span class="title-name">Solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-11">#</a></h4></div></div></div><p>
+     See <span class="intraxref">Book “Troubleshooting Guide”, Chapter 5 “Troubleshooting placement groups (PGs)”</span> for more information.
+    </p></section></section><section class="sect2" id="lvm-metadata-can-be-corrupted-with-osd-on-lv-backed-pvc" data-id-title="LVM metadata can be corrupted with OSD on LV-backed PVC"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.1.12 </span><span class="title-name">LVM metadata can be corrupted with OSD on LV-backed PVC</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#lvm-metadata-can-be-corrupted-with-osd-on-lv-backed-pvc">#</a></h3></div></div></div><section class="sect3" id="symptoms-12" data-id-title="Identifying symptoms"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.12.1 </span><span class="title-name">Identifying symptoms</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#symptoms-12">#</a></h4></div></div></div><p>
+     There is a critical flaw in OSD on LV-backed PVC. LVM metadata can be
+     corrupted if both the host and OSD container modify it simultaneously. For
+     example, the administrator might modify it on the host, while the OSD
+     initialization process in a container could modify it too. In addition, if
+     <code class="literal">lvmetad</code> is running, the possibility of occurrence gets
+     higher. In this case, the change of LVM metadata in OSD container is not
+     reflected to LVM metadata cache in host for a while.
+    </p><p>
+     If you still decide to configure an OSD on LVM, keep the following in mind
+     to reduce the probability of this issue.
+    </p></section><section class="sect3" id="solution-12" data-id-title="Solution"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">16.1.12.2 </span><span class="title-name">Solution</span> <a title="Permalink" class="permalink" href="admin-caasp-ceph-common-issues.html#solution-12">#</a></h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Disable <code class="literal">lvmetad</code>.
+      </p></li><li class="listitem"><p>
+       Avoid configuration of LVs from the host. In addition, do not touch the
+       VGs and physical volumes that back these LVs.
+      </p></li><li class="listitem"><p>
+       Avoid incrementing the <code class="literal">count</code> field of
+       <code class="literal">storageClassDeviceSets</code> and create a new LV that backs
+       a OSD simultaneously.
+      </p></li></ul></div><p>
+     You can know whether the above-mentioned tag exists tag by running
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code> lvs -o lv_name,lv_tags</pre></div><p>
+     If the <code class="literal">lv_tag</code> field is empty in an LV corresponding to
+     the OSD lv_tags, this OSD encountered the problem. In this case, retire
+     this OSD or replace with other new OSD before restarting.
+    </p></section></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="atroubleshooting-caasp-debugging-rook.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 15 </span>Troubleshooting</span></a> </div><div><a class="pagination-link next" href="bk05apa.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Appendix A </span>Ceph maintenance updates based on upstream 'Pacific' point releases</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="admin-caasp-ceph-common-issues.html#ceph-common-issues"><span class="title-number">16.1 </span><span class="title-name">Ceph common issues</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/troubleshooting_caasp_common_issues.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

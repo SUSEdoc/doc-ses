@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Manage storage pools | Administration and Operations Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Manage storage pools | SES 7"/>
+<meta name="description" content="Ceph stores data within pools. Pools are logical groups for storing objects. When you first deploy a cluster without creating a pool, Ceph uses the default poo…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Administration and Operations Guide"/>
+<meta name="chapter-title" content="Chapter 18. Manage storage pools"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Manage storage pools | SES 7"/>
+<meta property="og:description" content="Ceph stores data within pools. Pools are logical groups for storing objects. When you first deploy a cluster without creating a pool, Ceph uses the default poo…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Manage storage pools | SES 7"/>
+<meta name="twitter:description" content="Ceph stores data within pools. Pools are logical groups for storing objects. When you first deploy a cluster without creating a pool, Ceph uses the default poo…"/>
+<link rel="prev" href="cha-storage-datamgm.html" title="Chapter 17. Stored data management"/><link rel="next" href="cha-ceph-erasure.html" title="Chapter 19. Erasure coded pools"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration and Operations Guide</a><span> / </span><a class="crumb" href="part-storing-data.html">Storing Data in a Cluster</a><span> / </span><a class="crumb" href="ceph-pools.html">Manage storage pools</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration and Operations Guide</div><ol><li><a href="preface-admin.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="part-dashboard.html" class="has-children "><span class="title-number">I </span><span class="title-name">Ceph Dashboard</span></a><ol><li><a href="dashboard-about.html" class=" "><span class="title-number">1 </span><span class="title-name">About the Ceph Dashboard</span></a></li><li><a href="dashboard-webui-general.html" class=" "><span class="title-number">2 </span><span class="title-name">Dashboard's Web user interface</span></a></li><li><a href="dashboard-user-mgmt.html" class=" "><span class="title-number">3 </span><span class="title-name">Manage Ceph Dashboard users and roles</span></a></li><li><a href="dashboard-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">View cluster internals</span></a></li><li><a href="dashboard-pools.html" class=" "><span class="title-number">5 </span><span class="title-name">Manage pools</span></a></li><li><a href="dashboard-rbds.html" class=" "><span class="title-number">6 </span><span class="title-name">Manage RADOS Block Device</span></a></li><li><a href="dash-webui-nfs.html" class=" "><span class="title-number">7 </span><span class="title-name">Manage NFS Ganesha</span></a></li><li><a href="dashboard-mds.html" class=" "><span class="title-number">8 </span><span class="title-name">Manage CephFS</span></a></li><li><a href="dashboard-ogw.html" class=" "><span class="title-number">9 </span><span class="title-name">Manage the Object Gateway</span></a></li><li><a href="dashboard-initial-configuration.html" class=" "><span class="title-number">10 </span><span class="title-name">Manual configuration</span></a></li><li><a href="dashboard-user-roles.html" class=" "><span class="title-number">11 </span><span class="title-name">Manage users and roles on the command line</span></a></li></ol></li><li><a href="part-cluster-operation.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Operation</span></a><ol><li><a href="ceph-monitor.html" class=" "><span class="title-number">12 </span><span class="title-name">Determine the cluster state</span></a></li><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">13 </span><span class="title-name">Operational tasks</span></a></li><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">14 </span><span class="title-name">Operation of Ceph services</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">15 </span><span class="title-name">Backup and restore</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">16 </span><span class="title-name">Monitoring and alerting</span></a></li></ol></li><li class="active"><a href="part-storing-data.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Storing Data in a Cluster</span></a><ol><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">17 </span><span class="title-name">Stored data management</span></a></li><li><a href="ceph-pools.html" class=" you-are-here"><span class="title-number">18 </span><span class="title-name">Manage storage pools</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">19 </span><span class="title-name">Erasure coded pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">20 </span><span class="title-name">RADOS Block Device</span></a></li></ol></li><li><a href="part-accessing-data.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">21 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">22 </span><span class="title-name">Ceph iSCSI gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">23 </span><span class="title-name">Clustered file system</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">24 </span><span class="title-name">Export Ceph data via Samba</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">25 </span><span class="title-name">NFS Ganesha</span></a></li></ol></li><li><a href="part-integration-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">26 </span><span class="title-name"><code class="systemitem">libvirt</code> and Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">27 </span><span class="title-name">Ceph as a back-end for QEMU KVM instance</span></a></li></ol></li><li><a href="part-cluster-configuration.html" class="has-children "><span class="title-number">VI </span><span class="title-name">Configuring a Cluster</span></a><ol><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">28 </span><span class="title-name">Ceph cluster configuration</span></a></li><li><a href="cha-mgr-modules.html" class=" "><span class="title-number">29 </span><span class="title-name">Ceph Manager modules</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">30 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="ceph-pools" data-id-title="Manage storage pools"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h2 class="title"><span class="title-number">18 </span><span class="title-name">Manage storage pools</span> <a title="Permalink" class="permalink" href="ceph-pools.html#">#</a></h2></div></div></div><p>
+  Ceph stores data within pools. Pools are logical groups for storing
+  objects. When you first deploy a cluster without creating a pool, Ceph uses
+  the default pools for storing data. The following important highlights relate
+  to Ceph pools:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <span class="emphasis"><em>Resilience</em></span>: Ceph pools provide resilience by
+    replicating or encoding the data contained within them. Each pool can be
+    set to either <code class="literal">replicated</code> or <code class="literal">erasure
+    coding</code>. For replicated pools, you further set the number of
+    replicas, or copies, which each data object within the pool will have. The
+    number of copies (OSDs, CRUSH buckets/leaves) that can be lost is one less
+    than the number of replicas. With erasure coding, you set the values of
+    <code class="option">k</code> and <code class="option">m</code>, where <code class="option">k</code> is the
+    number of data chunks and <code class="option">m</code> is the number of coding
+    chunks. For erasure coded pools, it is the number of coding chunks that
+    determines how many OSDs (CRUSH buckets/leaves) can be lost without losing
+    data.
+   </p></li><li class="listitem"><p>
+    <span class="emphasis"><em>Placement Groups</em></span>: You can set the number of placement
+    groups for the pool. A typical configuration uses approximately 100
+    placement groups per OSD to provide optimal balancing without using up too
+    many computing resources. When setting up multiple pools, be careful to
+    ensure you set a reasonable number of placement groups for both the pool
+    and the cluster as a whole.
+   </p></li><li class="listitem"><p>
+    <span class="emphasis"><em>CRUSH Rules</em></span>: When you store data in a pool, objects
+    and its replicas (or chunks in case of erasure coded pools) are placed
+    according to the CRUSH ruleset mapped to the pool. You can create a custom
+    CRUSH rule for your pool.
+   </p></li><li class="listitem"><p>
+    <span class="emphasis"><em>Snapshots</em></span>: When you create snapshots with
+    <code class="command">ceph osd pool mksnap</code>, you effectively take a snapshot of
+    a particular pool.
+   </p></li></ul></div><p>
+  To organize data into pools, you can list, create, and remove pools. You can
+  also view the usage statistics for each pool.
+ </p><section class="sect1" id="ceph-pools-operate-add-pool" data-id-title="Creating a pool"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.1 </span><span class="title-name">Creating a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-operate-add-pool">#</a></h2></div></div></div><p>
+   A pool can be created as either <code class="literal">replicated</code> to recover
+   from lost OSDs by keeping multiple copies of the objects or
+   <code class="literal">erasure</code> to have generalized RAID 5 or 6 capability.
+   Replicated pools require more raw storage, while erasure coded pools require
+   less raw storage. The default setting is <code class="literal">replicated</code>. For
+   more information on erasure coded pools, see
+   <a class="xref" href="cha-ceph-erasure.html" title="Chapter 19. Erasure coded pools">Chapter 19, <em>Erasure coded pools</em></a>.
+  </p><p>
+   To create a replicated pool, execute:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.3.6.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    The autoscaler will take care of the remaining optional arguments. For more
+    information, see <a class="xref" href="cha-storage-datamgm.html#op-pgs-autoscaler" title="17.4.12. Enabling the PG auto-scaler">Section 17.4.12, “Enabling the PG auto-scaler”</a>.
+   </p></div><p>
+   To create an erasure coded pool, execute:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create <em class="replaceable">POOL_NAME</em> erasure <em class="replaceable">CRUSH_RULESET_NAME</em> \
+<em class="replaceable">EXPECTED_NUM_OBJECTS</em></pre></div><p>
+   The <code class="command">ceph osd pool create</code> command can fail if you exceed
+   the limit of placement groups per OSD. The limit is set with the option
+   <code class="option">mon_max_pg_per_osd</code>.
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.3.6.9.1"><span class="term">POOL_NAME</span></dt><dd><p>
+      The name of the pool. It must be unique. This option is required.
+     </p></dd><dt id="id-1.4.5.3.6.9.2"><span class="term">POOL_TYPE</span></dt><dd><p>
+      The pool type which may either be <code class="literal">replicated</code> to
+      recover from lost OSDs by keeping multiple copies of the objects or
+      <code class="literal">erasure</code> to get a kind of generalized RAID 5
+      capability. The replicated pools require more raw storage but implement
+      all Ceph operations. The erasure pools require less raw storage but only
+      implement a subset of the available operations. The default
+      <code class="literal">POOL_TYPE</code> is <code class="literal">replicated</code>.
+     </p></dd><dt id="id-1.4.5.3.6.9.3"><span class="term">CRUSH_RULESET_NAME</span></dt><dd><p>
+      The name of the CRUSH ruleset for this pool. If the specified ruleset
+      does not exist, the creation of replicated pools will fail with -ENOENT.
+      For replicated pools it is the ruleset specified by the <code class="varname">osd pool
+      default CRUSH replicated ruleset</code> configuration variable. This
+      ruleset must exist. For erasure pools it is 'erasure-code' if the default
+      erasure code profile is used or <em class="replaceable">POOL_NAME</em>
+      otherwise. This ruleset will be created implicitly if it does not exist
+      already.
+     </p></dd><dt id="id-1.4.5.3.6.9.4"><span class="term">erasure_code_profile=profile</span></dt><dd><p>
+      For erasure coded pools only. Use the erasure code profile. It must be an
+      existing profile as defined by <code class="command">osd erasure-code-profile
+      set</code>.
+     </p><div id="id-1.4.5.3.6.9.4.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       If for any reason the autoscaler has been disabled
+       (<code class="literal">pg_autoscale_mode</code> set to off) on a pool, you can
+       calculate and set the PG numbers manually. See <a class="xref" href="cha-storage-datamgm.html#op-pgs" title="17.4. Placement groups">Section 17.4, “Placement groups”</a>
+       for details on calculating an appropriate number of placement groups for
+       your pool.
+      </p></div></dd><dt id="id-1.4.5.3.6.9.5"><span class="term">EXPECTED_NUM_OBJECTS</span></dt><dd><p>
+      The expected number of objects for this pool. By setting this value
+      (together with a negative <code class="option">filestore merge threshold</code>),
+      the PG folder splitting happens at the pool creation time. This avoids
+      the latency impact with a runtime folder splitting.
+     </p></dd></dl></div></section><section class="sect1" id="ceph-listing-pools" data-id-title="Listing pools"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.2 </span><span class="title-name">Listing pools</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-listing-pools">#</a></h2></div></div></div><p>
+   To list your cluster’s pools, execute:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool ls</pre></div></section><section class="sect1" id="ceph-renaming-pool" data-id-title="Renaming a pool"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.3 </span><span class="title-name">Renaming a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-renaming-pool">#</a></h2></div></div></div><p>
+   To rename a pool, execute:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rename <em class="replaceable">CURRENT_POOL_NAME</em> <em class="replaceable">NEW_POOL_NAME</em></pre></div><p>
+   If you rename a pool and you have per-pool capabilities for an authenticated
+   user, you must update the user’s capabilities with the new pool name.
+  </p></section><section class="sect1" id="ceph-pools-operate-del-pool" data-id-title="Deleting a pool"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.4 </span><span class="title-name">Deleting a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-operate-del-pool">#</a></h2></div></div></div><div id="id-1.4.5.3.9.2" data-id-title="Pool deletion is not reversible" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Pool deletion is not reversible</h6><p>
+    Pools may contain important data. Deleting a pool causes all data in the
+    pool to disappear, and there is no way to recover it.
+   </p></div><p>
+   Because inadvertent pool deletion is a real danger, Ceph implements two
+   mechanisms that prevent pools from being deleted. Both mechanisms must be
+   disabled before a pool can be deleted.
+  </p><p>
+   The first mechanism is the <code class="literal">NODELETE</code> flag. Each pool has
+   this flag, and its default value is 'false'. To find out the value of this
+   flag on a pool, run the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool get <em class="replaceable">pool_name</em> nodelete</pre></div><p>
+   If it outputs <code class="literal">nodelete: true</code>, it is not possible to
+   delete the pool until you change the flag using the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">pool_name</em> nodelete false</pre></div><p>
+   The second mechanism is the cluster-wide configuration parameter <code class="option">mon
+   allow pool delete</code>, which defaults to 'false'. This means that, by
+   default, it is not possible to delete a pool. The error message displayed
+   is:
+  </p><div class="verbatim-wrap"><pre class="screen">Error EPERM: pool deletion is disabled; you must first set the
+mon_allow_pool_delete config option to true before you can destroy a pool</pre></div><p>
+   To delete the pool in spite of this safety setting, you can temporarily set
+   <code class="option">mon allow pool delete</code> to 'true', delete the pool, and then
+   return the parameter to 'false':
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell mon.* injectargs --mon-allow-pool-delete=true
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool delete pool_name pool_name --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph tell mon.* injectargs --mon-allow-pool-delete=false</pre></div><p>
+   The <code class="command">injectargs</code> command displays the following message:
+  </p><div class="verbatim-wrap"><pre class="screen">injectargs:mon_allow_pool_delete = 'true' (not observed, change may require restart)</pre></div><p>
+   This is merely confirming that the command was executed successfully. It is
+   not an error.
+  </p><p>
+   If you created your own rulesets and rules for a pool you created, you
+   should consider removing them when you no longer need your pool.
+  </p></section><section class="sect1" id="ceph-pool-other-operations" data-id-title="Other operations"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.5 </span><span class="title-name">Other operations</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pool-other-operations">#</a></h2></div></div></div><section class="sect2" id="ceph-pools-associate" data-id-title="Associating pools with an application"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.5.1 </span><span class="title-name">Associating pools with an application</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-associate">#</a></h3></div></div></div><p>
+    Before using pools, you need to associate them with an application. Pools
+    that will be used with CephFS, or pools that are automatically created by
+    Object Gateway are automatically associated.
+   </p><p>
+    For other cases, you can manually associate a free-form application name
+    with a pool:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool application enable <em class="replaceable">POOL_NAME</em> <em class="replaceable">APPLICATION_NAME</em></pre></div><div id="id-1.4.5.3.10.2.5" data-id-title="Default application names" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Default application names</h6><p>
+     CephFS uses the application name <code class="literal">cephfs</code>, RADOS Block Device uses
+     <code class="literal">rbd</code>, and Object Gateway uses <code class="literal">rgw</code>.
+    </p></div><p>
+    A pool can be associated with multiple applications, and each application
+    can have its own metadata. To list the application (or applications)
+    associated with a pool, issue the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool application get <em class="replaceable">pool_name</em></pre></div></section><section class="sect2" id="ceph-set-pool-quotas" data-id-title="Setting pool quotas"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.5.2 </span><span class="title-name">Setting pool quotas</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-set-pool-quotas">#</a></h3></div></div></div><p>
+    You can set pool quotas for the maximum number of bytes and/or the maximum
+    number of objects per pool.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set-quota <em class="replaceable">POOL_NAME</em> <em class="replaceable">MAX_OBJECTS</em> <em class="replaceable">OBJ_COUNT</em> <em class="replaceable">MAX_BYTES</em> <em class="replaceable">BYTES</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set-quota data max_objects 10000</pre></div><p>
+    To remove a quota, set its value to 0.
+   </p></section><section class="sect2" id="ceph-showing-pool-statistics" data-id-title="Showing pool statistics"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.5.3 </span><span class="title-name">Showing pool statistics</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-showing-pool-statistics">#</a></h3></div></div></div><p>
+    To show a pool’s usage statistics, execute:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados df
+ POOL_NAME                    USED OBJECTS CLONES COPIES MISSING_ON_PRIMARY UNFOUND DEGRADED  RD_OPS      RD  WR_OPS      WR USED COMPR UNDER COMPR
+ .rgw.root                 768 KiB       4      0     12                  0       0        0      44  44 KiB       4   4 KiB        0 B         0 B
+ cephfs_data               960 KiB       5      0     15                  0       0        0    5502 2.1 MiB      14  11 KiB        0 B         0 B
+ cephfs_metadata           1.5 MiB      22      0     66                  0       0        0      26  78 KiB     176 147 KiB        0 B         0 B
+ default.rgw.buckets.index     0 B       1      0      3                  0       0        0       4   4 KiB       1     0 B        0 B         0 B
+ default.rgw.control           0 B       8      0     24                  0       0        0       0     0 B       0     0 B        0 B         0 B
+ default.rgw.log               0 B     207      0    621                  0       0        0 5372132 5.1 GiB 3579618     0 B        0 B         0 B
+ default.rgw.meta          961 KiB       6      0     18                  0       0        0     155 140 KiB      14   7 KiB        0 B         0 B
+ example_rbd_pool          2.1 MiB      18      0     54                  0       0        0 3350841 2.7 GiB     118  98 KiB        0 B         0 B
+ iscsi-images              769 KiB       8      0     24                  0       0        0 1559261 1.3 GiB      61  42 KiB        0 B         0 B
+ mirrored-pool             1.1 MiB      10      0     30                  0       0        0  475724 395 MiB      54  48 KiB        0 B         0 B
+ pool2                         0 B       0      0      0                  0       0        0       0     0 B       0     0 B        0 B         0 B
+ pool3                     333 MiB      37      0    111                  0       0        0 3169308 2.5 GiB   14847 118 MiB        0 B         0 B
+ pool4                     1.1 MiB      13      0     39                  0       0        0 1379568 1.1 GiB   16840  16 MiB        0 B         0 B</pre></div><p>
+    A description of individual columns follow:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.3.10.4.5.1"><span class="term">USED</span></dt><dd><p>
+       Number of bytes used by the pool.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.2"><span class="term">OBJECTS</span></dt><dd><p>
+       Number of objects stored in the pool.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.3"><span class="term">CLONES</span></dt><dd><p>
+       Number of clones stored in the pool. When a snapshot is created and one
+       writes to an object, instead of modifying the original object its clone
+       is created so the original snapshotted object content is not modified.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.4"><span class="term">COPIES</span></dt><dd><p>
+       Number of object replicas. For example, if a replicated pool with the
+       replication factor 3 has 'x' objects, it will normally have 3 * x
+       copies.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.5"><span class="term">MISSING_ON_PRIMARY</span></dt><dd><p>
+       Number of objects in the degraded state (not all copies exist) while the
+       copy is missing on the primary OSD.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.6"><span class="term">UNFOUND</span></dt><dd><p>
+       Number of unfound objects.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.7"><span class="term">DEGRADED</span></dt><dd><p>
+       Number of degraded objects.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.8"><span class="term">RD_OPS</span></dt><dd><p>
+       Total number of read operations requested for this pool.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.9"><span class="term">RD</span></dt><dd><p>
+       Total number of bytes read from this pool.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.10"><span class="term">WR_OPS</span></dt><dd><p>
+       Total number of write operations requested for this pool.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.11"><span class="term">WR</span></dt><dd><p>
+       Total number of bytes written to the pool. Note that it is not the same
+       as the pool's usage because you can write to the same object many times.
+       The result is that the pool's usage will remain the same but the number
+       of bytes written to the pool will grow.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.12"><span class="term">USED COMPR</span></dt><dd><p>
+       Number of bytes allocated for compressed data.
+      </p></dd><dt id="id-1.4.5.3.10.4.5.13"><span class="term">UNDER COMPR</span></dt><dd><p>
+       Number of bytes that the compressed data occupy when it is not
+       compressed.
+      </p></dd></dl></div></section><section class="sect2" id="ceph-getting-pool-values" data-id-title="Getting pool values"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.5.4 </span><span class="title-name">Getting pool values</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-getting-pool-values">#</a></h3></div></div></div><p>
+    To get a value from a pool, run the following <code class="command">get</code>
+    command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool get <em class="replaceable">POOL_NAME</em> <em class="replaceable">KEY</em></pre></div><p>
+    You can get values for keys listed in <a class="xref" href="ceph-pools.html#ceph-pools-values" title="18.5.5. Setting pool values">Section 18.5.5, “Setting pool values”</a>
+    plus the following keys:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.3.10.5.5.1"><span class="term">PG_NUM</span></dt><dd><p>
+       The number of placement groups for the pool.
+      </p></dd><dt id="id-1.4.5.3.10.5.5.2"><span class="term">PGP_NUM</span></dt><dd><p>
+       The effective number of placement groups to use when calculating data
+       placement. Valid range is equal to or less than <code class="option">PG_NUM</code>.
+      </p></dd></dl></div><div id="id-1.4.5.3.10.5.6" data-id-title="All of a pools values" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: All of a pool's values</h6><p>
+     To list all values related to a specific pool, run:
+    </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephuser@adm &gt; </code>ceph osd pool get <em class="replaceable">POOL_NAME</em> all</pre></div></div></section><section class="sect2" id="ceph-pools-values" data-id-title="Setting pool values"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.5.5 </span><span class="title-name">Setting pool values</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-values">#</a></h3></div></div></div><p>
+    To set a value to a pool, execute:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">POOL_NAME</em> <em class="replaceable">KEY</em> <em class="replaceable">VALUE</em></pre></div><p>
+    The following is a list of pool values sorted by a pool type:
+   </p><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Common pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.10.6.5">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.5.2"><span class="term">crash_replay_interval</span></dt><dd><p>
+       The number of seconds to allow clients to replay acknowledged, but
+       uncommitted requests.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.3"><span class="term">pg_num</span></dt><dd><p>
+       The number of placement groups for the pool. If you add new OSDs to the
+       cluster, verify the value for placement groups on all pools targeted for
+       the new OSDs.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.4"><span class="term">pgp_num</span></dt><dd><p>
+       The effective number of placement groups to use when calculating data
+       placement.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.5"><span class="term">crush_ruleset</span></dt><dd><p>
+       The ruleset to use for mapping object placement in the cluster.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.6"><span class="term">hashpspool</span></dt><dd><p>
+       Set (1) or unset (0) the HASHPSPOOL flag on a given pool. Enabling this
+       flag changes the algorithm to better distribute PGs to OSDs. After
+       enabling this flag on a pool whose HASHPSPOOL flag was set to the
+       default 0, the cluster starts backfilling to have a correct placement of
+       all PGs again. Be aware that this can create quite substantial I/O load
+       on a cluster, therefore do not enable the flag from 0 to 1 on highly
+       loaded production clusters.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.7"><span class="term">nodelete</span></dt><dd><p>
+       Prevents the pool from being removed.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.8"><span class="term">nopgchange</span></dt><dd><p>
+       Prevents the pool's <code class="option">pg_num</code> and <code class="option">pgp_num</code>
+       from being changed.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.9"><span class="term">noscrub,nodeep-scrub</span></dt><dd><p>
+       Disables (deep) scrubbing of the data for the specific pool to resolve
+       temporary high I/O load.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.10"><span class="term">write_fadvise_dontneed</span></dt><dd><p>
+       Set or unset the <code class="literal">WRITE_FADVISE_DONTNEED</code> flag on a
+       given pool's read/write requests to bypass putting data into cache.
+       Default is <code class="literal">false</code>. Applies to both replicated and EC
+       pools.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.11"><span class="term">scrub_min_interval</span></dt><dd><p>
+       The minimum interval in seconds for pool scrubbing when the cluster load
+       is low. The default <code class="literal">0</code> means that the
+       <code class="option">osd_scrub_min_interval</code> value from the Ceph
+       configuration file is used.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.12"><span class="term">scrub_max_interval</span></dt><dd><p>
+       The maximum interval in seconds for pool scrubbing, regardless of the
+       cluster load. The default <code class="literal">0</code> means that the
+       <code class="option">osd_scrub_max_interval</code> value from the Ceph
+       configuration file is used.
+      </p></dd><dt id="id-1.4.5.3.10.6.5.13"><span class="term">deep_scrub_interval</span></dt><dd><p>
+       The interval in seconds for the pool <span class="emphasis"><em>deep</em></span>
+       scrubbing. The default <code class="literal">0</code> means that the
+       <code class="option">osd_deep_scrub</code> value from the Ceph configuration file
+       is used.
+      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Replicated pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.10.6.6">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.6.2"><span class="term">size</span></dt><dd><p>
+       Sets the number of replicas for objects in the pool. See
+       <a class="xref" href="ceph-pools.html#ceph-pools-options-num-of-replicas" title="18.5.6. Setting the number of object replicas">Section 18.5.6, “Setting the number of object replicas”</a> for further
+       details. Replicated pools only.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.3"><span class="term">min_size</span></dt><dd><p>
+       Sets the minimum number of replicas required for I/O. See
+       <a class="xref" href="ceph-pools.html#ceph-pools-options-num-of-replicas" title="18.5.6. Setting the number of object replicas">Section 18.5.6, “Setting the number of object replicas”</a> for further
+       details. Replicated pools only.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.4"><span class="term">nosizechange</span></dt><dd><p>
+       Prevents the pool's size from being changed. When a pool is created, the
+       default value is taken from the value of the
+       <code class="option">osd_pool_default_flag_nosizechange</code> parameter which is
+       <code class="literal">false</code> by default. Applies to replicated pools only
+       because you cannot change size for EC pools.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.5"><span class="term">hit_set_type</span></dt><dd><p>
+       Enables hit set tracking for cache pools. See
+       <a class="link" href="http://en.wikipedia.org/wiki/Bloom_filter" target="_blank">Bloom
+       Filter</a> for additional information. This option can have the
+       following values: <code class="literal">bloom</code>,
+       <code class="literal">explicit_hash</code>, <code class="literal">explicit_object</code>.
+       Default is <code class="literal">bloom</code>, other values are for testing only.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.6"><span class="term">hit_set_count</span></dt><dd><p>
+       The number of hit sets to store for cache pools. The higher the number,
+       the more RAM consumed by the <code class="systemitem">ceph-osd</code> daemon.
+       Default is <code class="literal">0</code>.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.7"><span class="term">hit_set_period</span></dt><dd><p>
+       The duration of a hit set period in seconds for cache pools. The higher
+       the number, the more RAM consumed by the
+       <code class="systemitem">ceph-osd</code> daemon. When a pool is created, the
+       default value is taken from the value of the
+       <code class="option">osd_tier_default_cache_hit_set_period</code> parameter, which
+       is <code class="literal">1200</code> by default. Applies to replicated pools only
+       because EC pools cannot be used as a cache tier.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.8"><span class="term">hit_set_fpp</span></dt><dd><p>
+       The false positive probability for the bloom hit set type. See
+       <a class="link" href="http://en.wikipedia.org/wiki/Bloom_filter" target="_blank">Bloom
+       Filter</a> for additional information. Valid range is 0.0 - 1.0
+       Default is <code class="literal">0.05</code>
+      </p></dd><dt id="id-1.4.5.3.10.6.6.9"><span class="term">use_gmt_hitset</span></dt><dd><p>
+       Force OSDs to use GMT (Greenwich Mean Time) time stamps when creating a
+       hit set for cache tiering. This ensures that nodes in different time
+       zones return the same result. Default is <code class="literal">1</code>. This
+       value should not be changed.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.10"><span class="term">cache_target_dirty_ratio</span></dt><dd><p>
+       The percentage of the cache pool containing modified (dirty) objects
+       before the cache tiering agent will flush them to the backing storage
+       pool. Default is <code class="literal">0.4</code>.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.11"><span class="term">cache_target_dirty_high_ratio</span></dt><dd><p>
+       The percentage of the cache pool containing modified (dirty) objects
+       before the cache tiering agent will flush them to the backing storage
+       pool with a higher speed. Default is <code class="literal">0.6</code>.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.12"><span class="term">cache_target_full_ratio</span></dt><dd><p>
+       The percentage of the cache pool containing unmodified (clean) objects
+       before the cache tiering agent will evict them from the cache pool.
+       Default is <code class="literal">0.8</code>.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.13"><span class="term">target_max_bytes</span></dt><dd><p>
+       Ceph will begin flushing or evicting objects when the
+       <code class="option">max_bytes</code> threshold is triggered.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.14"><span class="term">target_max_objects</span></dt><dd><p>
+       Ceph will begin flushing or evicting objects when the
+       <code class="option">max_objects</code> threshold is triggered.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.15"><span class="term">hit_set_grade_decay_rate</span></dt><dd><p>
+       Temperature decay rate between two successive
+       <code class="literal">hit_set</code>s. Default is <code class="literal">20</code>.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.16"><span class="term">hit_set_search_last_n</span></dt><dd><p>
+       Count at most <code class="literal">N</code> appearances in
+       <code class="literal">hit_set</code>s for temperature calculation. Default is
+       <code class="literal">1</code>.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.17"><span class="term">cache_min_flush_age</span></dt><dd><p>
+       The time (in seconds) before the cache tiering agent will flush an
+       object from the cache pool to the storage pool.
+      </p></dd><dt id="id-1.4.5.3.10.6.6.18"><span class="term">cache_min_evict_age</span></dt><dd><p>
+       The time (in seconds) before the cache tiering agent will evict an
+       object from the cache pool.
+      </p></dd></dl></div><div class="variablelist" id="pool-values-ec" data-id-title="Erasure coded pool values"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Erasure coded pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#pool-values-ec">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.7.2"><span class="term">fast_read</span></dt><dd><p>
+       If this flag is enabled on erasure coding pools, then the read request
+       issues sub-reads to all shards, and waits until it receives enough
+       shards to decode to serve the client. In the case of
+       <span class="emphasis"><em>jerasure</em></span> and <span class="emphasis"><em>isa</em></span> erasure
+       plug-ins, when the first <code class="literal">K</code> replies return, then the
+       client’s request is served immediately using the data decoded from
+       these replies. This approach causes more CPU load and less disk/network
+       load. Currently, this flag is only supported for erasure coding pools.
+       Default is <code class="literal">0</code>.
+      </p></dd></dl></div></section><section class="sect2" id="ceph-pools-options-num-of-replicas" data-id-title="Setting the number of object replicas"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.5.6 </span><span class="title-name">Setting the number of object replicas</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-options-num-of-replicas">#</a></h3></div></div></div><p>
+    To set the number of object replicas on a replicated pool, execute the
+    following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">poolname</em> size <em class="replaceable">num-replicas</em></pre></div><p>
+    The <em class="replaceable">num-replicas</em> includes the object itself. For
+    example if you want the object and two copies of the object for a total of
+    three instances of the object, specify 3.
+   </p><div id="id-1.4.5.3.10.7.5" data-id-title="Do not set less than 3 replicas" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Do not set less than 3 replicas</h6><p>
+     If you set the <em class="replaceable">num-replicas</em> to 2, there will be
+     only <span class="emphasis"><em>one</em></span> copy of your data. If you lose one object
+     instance, you need to trust that the other copy has not been corrupted,
+     for example since the last scrubbing during recovery (refer to
+     <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a> for details).
+    </p><p>
+     Setting a pool to one replica means that there is exactly
+     <span class="emphasis"><em>one</em></span> instance of the data object in the pool. If the
+     OSD fails, you lose the data. A possible usage for a pool with one replica
+     is storing temporary data for a short time.
+    </p></div><div id="id-1.4.5.3.10.7.6" data-id-title="Setting more than 3 replicas" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Setting more than 3 replicas</h6><p>
+     Setting 4 replicas for a pool increases the reliability by 25%.
+    </p><p>
+     In case of two data centers, you need to set at least 4 replicas for a
+     pool to have two copies in each data center so that if one data center is
+     lost, two copies still exist and you can still lose one disk without
+     losing data.
+    </p></div><div id="id-1.4.5.3.10.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     An object might accept I/Os in degraded mode with fewer than <code class="literal">pool
+     size</code> replicas. To set a minimum number of required replicas for
+     I/O, you should use the <code class="literal">min_size</code> setting. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set data min_size 2</pre></div><p>
+     This ensures that no object in the data pool will receive I/O with fewer
+     than <code class="literal">min_size</code> replicas.
+    </p></div><div id="id-1.4.5.3.10.7.8" data-id-title="Get the number of object replicas" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Get the number of object replicas</h6><p>
+     To get the number of object replicas, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd dump | grep 'replicated size'</pre></div><p>
+     Ceph will list the pools, with the <code class="literal">replicated size</code>
+     attribute highlighted. By default, Ceph creates two replicas of an
+     object (a total of three copies, or a size of 3).
+    </p></div></section></section><section class="sect1" id="pools-migration" data-id-title="Pool migration"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.6 </span><span class="title-name">Pool migration</span> <a title="Permalink" class="permalink" href="ceph-pools.html#pools-migration">#</a></h2></div></div></div><p>
+   When creating a pool (see <a class="xref" href="ceph-pools.html#ceph-pools-operate-add-pool" title="18.1. Creating a pool">Section 18.1, “Creating a pool”</a>) you
+   need to specify its initial parameters, such as the pool type or the number
+   of placement groups. If you later decide to change any of these
+   parameters—for example when converting a replicated pool into an
+   erasure coded one, or decreasing the number of placement groups—you
+   need to migrate the pool data to another one whose parameters suit your
+   deployment.
+  </p><p>
+   This section describes two migration methods—a <span class="emphasis"><em>cache
+   tier</em></span> method for general pool data migration, and a method using
+   <code class="command">rbd migrate</code> sub-commands to migrate RBD images to a new
+   pool. Each method has its specifics and limitations.
+  </p><section class="sect2" id="pool-migrate-limits" data-id-title="Limitations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.6.1 </span><span class="title-name">Limitations</span> <a title="Permalink" class="permalink" href="ceph-pools.html#pool-migrate-limits">#</a></h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      You can use the <span class="emphasis"><em>cache tier</em></span> method to migrate from a
+      replicated pool to either an EC pool or another replicated pool.
+      Migrating from an EC pool is not supported.
+     </p></li><li class="listitem"><p>
+      You cannot migrate RBD images and CephFS exports from a replicated pool
+      to an EC pool. The reason is that EC pools do not support
+      <code class="literal">omap</code>, while RBD and CephFS use
+      <code class="literal">omap</code> to store its metadata. For example, the header
+      object of the RBD will fail to be flushed. But you can migrate data to EC
+      pool, leaving metadata in replicated pool.
+     </p></li><li class="listitem"><p>
+      The <code class="command">rbd migration</code> method allows migrating images with
+      minimal client downtime. You only need to stop the client before the
+      <code class="option">prepare</code> step and start it afterward. Note that only a
+      <code class="systemitem">librbd</code> client that supports this feature (Ceph
+      Nautilus or newer) will be able to open the image just after the
+      <code class="option">prepare</code> step, while older
+      <code class="systemitem">librbd</code> clients or the
+      <code class="systemitem">krbd</code> clients will not be able to open the image
+      until the <code class="option">commit</code> step is executed.
+     </p></li></ul></div></section><section class="sect2" id="pool-migrate-cache-tier" data-id-title="Migrating using cache tier"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.6.2 </span><span class="title-name">Migrating using cache tier</span> <a title="Permalink" class="permalink" href="ceph-pools.html#pool-migrate-cache-tier">#</a></h3></div></div></div><p>
+    The principle is simple—include the pool that you need to migrate
+    into a cache tier in reverse order. The following example migrates a
+    replicated pool named 'testpool' to an erasure coded pool:
+   </p><div class="procedure" id="id-1.4.5.3.11.5.3" data-id-title="Migrating replicated to erasure coded pool"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 18.1: </span><span class="title-name">Migrating replicated to erasure coded pool </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Create a new erasure coded pool named 'newpool'. Refer to
+      <a class="xref" href="ceph-pools.html#ceph-pools-operate-add-pool" title="18.1. Creating a pool">Section 18.1, “Creating a pool”</a> for a detailed explanation
+      of pool creation parameters.
+     </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create newpool erasure default</pre></div><p>
+      Verify that the used client keyring provides at least the same
+      capabilities for 'newpool' as it does for 'testpool'.
+     </p><p>
+      Now you have two pools: the original replicated 'testpool' filled with
+      data, and the new empty erasure coded 'newpool':
+     </p><div class="figure" id="id-1.4.5.3.11.5.3.2.5"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate1.png" target="_blank"><img src="images/pool_migrate1.png" width="" alt="Pools before migration"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.1: </span><span class="title-name">Pools before migration </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.2.5">#</a></h6></div></div></li><li class="step"><p>
+      Set up the cache tier and configure the replicated pool 'testpool' as a
+      cache pool. The <code class="option">-force-nonempty</code> option allows adding a
+      cache tier even if the pool already has data:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell mon.* injectargs \
+ '--mon_debug_unsafe_allow_tier_with_nonempty_snaps=1'
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd tier add newpool testpool --force-nonempty
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd tier cache-mode testpool proxy</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate2.png" target="_blank"><img src="images/pool_migrate2.png" width="" alt="Cache tier setup"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.2: </span><span class="title-name">Cache tier setup </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.3.3">#</a></h6></div></div></li><li class="step"><p>
+      Force the cache pool to move all objects to the new pool:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados -p testpool cache-flush-evict-all</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.4.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate3.png" target="_blank"><img src="images/pool_migrate3.png" width="" alt="Data flushing"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.3: </span><span class="title-name">Data flushing </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.4.3">#</a></h6></div></div></li><li class="step"><p>
+      Until all the data has been flushed to the new erasure coded pool, you
+      need to specify an overlay so that objects are searched on the old pool:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tier set-overlay newpool testpool</pre></div><p>
+      With the overlay, all operations are forwarded to the old replicated
+      'testpool':
+     </p><div class="figure" id="id-1.4.5.3.11.5.3.5.4"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate4.png" target="_blank"><img src="images/pool_migrate4.png" width="" alt="Setting overlay"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.4: </span><span class="title-name">Setting overlay </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.5.4">#</a></h6></div></div><p>
+      Now you can switch all the clients to access objects on the new pool.
+     </p></li><li class="step"><p>
+      After all data is migrated to the erasure coded 'newpool', remove the
+      overlay and the old cache pool 'testpool':
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tier remove-overlay newpool
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd tier remove newpool testpool</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.6.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate5.png" target="_blank"><img src="images/pool_migrate5.png" width="" alt="Migration complete"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.5: </span><span class="title-name">Migration complete </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.6.3">#</a></h6></div></div></li><li class="step"><p>
+      Run
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell mon.* injectargs \
+ '--mon_debug_unsafe_allow_tier_with_nonempty_snaps=0'</pre></div></li></ol></div></div></section><section class="sect2" id="migrate-rbd-image" data-id-title="Migrating RBD images"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.6.3 </span><span class="title-name">Migrating RBD images</span> <a title="Permalink" class="permalink" href="ceph-pools.html#migrate-rbd-image">#</a></h3></div></div></div><p>
+    The following is the recommended way to migrate RBD images from one
+    replicated pool to another replicated pool.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Stop clients (such as a virtual machine) from accessing the RBD image.
+     </p></li><li class="step"><p>
+      Create a new image in the target pool, with the parent set to the source
+      image:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd migration prepare <em class="replaceable">SRC_POOL</em>/<em class="replaceable">IMAGE</em> <em class="replaceable">TARGET_POOL</em>/<em class="replaceable">IMAGE</em></pre></div><div id="id-1.4.5.3.11.6.3.2.3" data-id-title="Migrate only data to an erasure coded pool" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Migrate only data to an erasure coded pool</h6><p>
+       If you need to migrate only the image data to a new EC pool and leave
+       the metadata in the original replicated pool, run the following command
+       instead:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd migration prepare <em class="replaceable">SRC_POOL</em>/<em class="replaceable">IMAGE</em> \
+ --data-pool <em class="replaceable">TARGET_POOL</em>/<em class="replaceable">IMAGE</em></pre></div></div></li><li class="step"><p>
+      Let clients access the image in the target pool.
+     </p></li><li class="step"><p>
+      Migrate data to the target pool:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd migration execute <em class="replaceable">SRC_POOL</em>/<em class="replaceable">IMAGE</em></pre></div></li><li class="step"><p>
+      Remove the old image:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd migration commit <em class="replaceable">SRC_POOL</em>/<em class="replaceable">IMAGE</em></pre></div></li></ol></div></div></section></section><section class="sect1" id="cha-ceph-snapshots-pool" data-id-title="Pool snapshots"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.7 </span><span class="title-name">Pool snapshots</span> <a title="Permalink" class="permalink" href="ceph-pools.html#cha-ceph-snapshots-pool">#</a></h2></div></div></div><p>
+   Pool snapshots are snapshots of the state of the whole Ceph pool. With
+   pool snapshots, you can retain the history of the pool's state. Creating
+   pool snapshots consumes storage space proportional to the pool size. Always
+   check the related storage for enough disk space before creating a snapshot
+   of a pool.
+  </p><section class="sect2" id="ceph-make-snapshot-pool" data-id-title="Making a snapshot of a pool"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.7.1 </span><span class="title-name">Making a snapshot of a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-make-snapshot-pool">#</a></h3></div></div></div><p>
+    To make a snapshot of a pool, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool mksnap <em class="replaceable">POOL-NAME</em> <em class="replaceable">SNAP-NAME</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool mksnap pool1 snap1
+created pool pool1 snap snap1</pre></div></section><section class="sect2" id="ceph-listing-snapshots-pool" data-id-title="Listing snapshots of a pool"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.7.2 </span><span class="title-name">Listing snapshots of a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-listing-snapshots-pool">#</a></h3></div></div></div><p>
+    To list existing snapshots of a pool, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados lssnap -p <em class="replaceable">POOL_NAME</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados lssnap -p pool1
+1	snap1	2018.12.13 09:36:20
+2	snap2	2018.12.13 09:46:03
+2 snaps</pre></div></section><section class="sect2" id="ceph-removing-snapshot-pool" data-id-title="Removing a snapshot of a pool"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.7.3 </span><span class="title-name">Removing a snapshot of a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-removing-snapshot-pool">#</a></h3></div></div></div><p>
+    To remove a snapshot of a pool, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rmsnap <em class="replaceable">POOL-NAME</em> <em class="replaceable">SNAP-NAME</em></pre></div></section></section><section class="sect1" id="sec-ceph-pool-compression" data-id-title="Data compression"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.8 </span><span class="title-name">Data compression</span> <a title="Permalink" class="permalink" href="ceph-pools.html#sec-ceph-pool-compression">#</a></h2></div></div></div><p>
+   BlueStore (find more details in <span class="intraxref">Book “Deployment Guide”, Chapter 1 “SES and Ceph”, Section 1.4 “BlueStore”</span>)
+   provides on-the-fly data compression to save disk space. The compression
+   ratio depends on the data stored in the system. Note that
+   compression/decompression requires additional CPU power.
+  </p><p>
+   You can configure data compression globally (see
+   <a class="xref" href="ceph-pools.html#sec-ceph-pool-bluestore-compression-options" title="18.8.3. Global compression options">Section 18.8.3, “Global compression options”</a>) and then
+   override specific compression settings for each individual pool.
+  </p><p>
+   You can enable or disable pool data compression, or change the compression
+   algorithm and mode at any time, regardless of whether the pool contains data
+   or not.
+  </p><p>
+   No compression will be applied to existing data after enabling the pool
+   compression.
+  </p><p>
+   After disabling the compression of a pool, all its data will be
+   decompressed.
+  </p><section class="sect2" id="sec-ceph-pool-compression-enable" data-id-title="Enabling compression"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.8.1 </span><span class="title-name">Enabling compression</span> <a title="Permalink" class="permalink" href="ceph-pools.html#sec-ceph-pool-compression-enable">#</a></h3></div></div></div><p>
+    To enable data compression for a pool named
+    <em class="replaceable">POOL_NAME</em>, run the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd pool set <em class="replaceable">POOL_NAME</em> compression_algorithm <em class="replaceable">COMPRESSION_ALGORITHM</em>
+<code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd pool set <em class="replaceable">POOL_NAME</em> compression_mode <em class="replaceable">COMPRESSION_MODE</em></pre></div><div id="id-1.4.5.3.13.7.4" data-id-title="Disabling pool compression" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Disabling pool compression</h6><p>
+     To disable data compression for a pool, use 'none' as the compression
+     algorithm:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd pool set <em class="replaceable">POOL_NAME</em> compression_algorithm none</pre></div></div></section><section class="sect2" id="sec-ceph-pool-compression-options" data-id-title="Pool compression options"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.8.2 </span><span class="title-name">Pool compression options</span> <a title="Permalink" class="permalink" href="ceph-pools.html#sec-ceph-pool-compression-options">#</a></h3></div></div></div><p>
+    A full list of compression settings:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="compr-algorithm"><span class="term">compression_algorithm</span></dt><dd><p>
+       Possible values are <code class="literal">none</code>, <code class="literal">zstd</code>,
+       <code class="literal">snappy</code>. Default is <code class="literal">snappy</code>.
+      </p><p>
+       Which compression algorithm to use depends on the specific use case.
+       Several recommendations follow:
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+         Use the default <code class="literal">snappy</code> as long as you do not have a
+         good reason to change it.
+        </p></li><li class="listitem"><p>
+         <code class="literal">zstd</code> offers a good compression ratio, but causes
+         high CPU overhead when compressing small amounts of data.
+        </p></li><li class="listitem"><p>
+         Run a benchmark of these algorithms on a sample of your actual data
+         while keeping an eye on the CPU and memory usage of your cluster.
+        </p></li></ul></div></dd><dt id="compr-mode"><span class="term">compression_mode</span></dt><dd><p>
+       Possible values are <code class="literal">none</code>,
+       <code class="literal">aggressive</code>, <code class="literal">passive</code>,
+       <code class="literal">force</code>. Default is <code class="literal">none</code>.
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+         <code class="literal">none</code>: compress never
+        </p></li><li class="listitem"><p>
+         <code class="literal">passive</code>: compress if hinted
+         <code class="literal">COMPRESSIBLE</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">aggressive</code>: compress unless hinted
+         <code class="literal">INCOMPRESSIBLE</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">force</code>: compress always
+        </p></li></ul></div></dd><dt id="compr-ratio"><span class="term">compression_required_ratio</span></dt><dd><p>
+       Value: Double, Ratio = SIZE_COMPRESSED / SIZE_ORIGINAL. Default is
+       <code class="literal">0.875</code>, which means that if the compression does not
+       reduce the occupied space by at least 12.5%, the object will not be
+       compressed.
+      </p><p>
+       Objects above this ratio will not be stored compressed because of the
+       low net gain.
+      </p></dd><dt id="id-1.4.5.3.13.8.3.4"><span class="term">compression_max_blob_size</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">0</code>
+      </p><p>
+       Maximum size of objects that are compressed.
+      </p></dd><dt id="id-1.4.5.3.13.8.3.5"><span class="term">compression_min_blob_size</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">0</code>
+      </p><p>
+       Minimum size of objects that are compressed.
+      </p></dd></dl></div></section><section class="sect2" id="sec-ceph-pool-bluestore-compression-options" data-id-title="Global compression options"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.8.3 </span><span class="title-name">Global compression options</span> <a title="Permalink" class="permalink" href="ceph-pools.html#sec-ceph-pool-bluestore-compression-options">#</a></h3></div></div></div><p>
+    The following configuration options can be set in the Ceph configuration
+    and apply to all OSDs and not only a single pool. The pool specific
+    configuration listed in <a class="xref" href="ceph-pools.html#sec-ceph-pool-compression-options" title="18.8.2. Pool compression options">Section 18.8.2, “Pool compression options”</a>
+    takes precedence.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.3.13.9.3.1"><span class="term">bluestore_compression_algorithm</span></dt><dd><p>
+       See <a class="xref" href="ceph-pools.html#compr-algorithm">compression_algorithm</a>
+      </p></dd><dt id="id-1.4.5.3.13.9.3.2"><span class="term">bluestore_compression_mode</span></dt><dd><p>
+       See <a class="xref" href="ceph-pools.html#compr-mode">compression_mode</a>
+      </p></dd><dt id="id-1.4.5.3.13.9.3.3"><span class="term">bluestore_compression_required_ratio</span></dt><dd><p>
+       See <a class="xref" href="ceph-pools.html#compr-ratio">compression_required_ratio</a>
+      </p></dd><dt id="id-1.4.5.3.13.9.3.4"><span class="term">bluestore_compression_min_blob_size</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">0</code>
+      </p><p>
+       Minimum size of objects that are compressed. The setting is ignored by
+       default in favor of
+       <code class="option">bluestore_compression_min_blob_size_hdd</code> and
+       <code class="option">bluestore_compression_min_blob_size_ssd</code>. It takes
+       precedence when set to a non-zero value.
+      </p></dd><dt id="id-1.4.5.3.13.9.3.5"><span class="term">bluestore_compression_max_blob_size</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">0</code>
+      </p><p>
+       Maximum size of objects that are compressed before they will be split
+       into smaller chunks. The setting is ignored by default in favor of
+       <code class="option">bluestore_compression_max_blob_size_hdd</code> and
+       <code class="option">bluestore_compression_max_blob_size_ssd</code>. It takes
+       precedence when set to a non-zero value.
+      </p></dd><dt id="id-1.4.5.3.13.9.3.6"><span class="term">bluestore_compression_min_blob_size_ssd</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">8K</code>
+      </p><p>
+       Minimum size of objects that are compressed and stored on solid-state
+       drive.
+      </p></dd><dt id="id-1.4.5.3.13.9.3.7"><span class="term">bluestore_compression_max_blob_size_ssd</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">64K</code>
+      </p><p>
+       Maximum size of objects that are compressed and stored on solid-state
+       drive before they will be split into smaller chunks.
+      </p></dd><dt id="id-1.4.5.3.13.9.3.8"><span class="term">bluestore_compression_min_blob_size_hdd</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">128K</code>
+      </p><p>
+       Minimum size of objects that are compressed and stored on hard disks.
+      </p></dd><dt id="id-1.4.5.3.13.9.3.9"><span class="term">bluestore_compression_max_blob_size_hdd</span></dt><dd><p>
+       Value: Unsigned Integer, size in bytes. Default: <code class="literal">512K</code>
+      </p><p>
+       Maximum size of objects that are compressed and stored on hard disks
+       before they will be split into smaller chunks.
+      </p></dd></dl></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-storage-datamgm.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 17 </span>Stored data management</span></a> </div><div><a class="pagination-link next" href="cha-ceph-erasure.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 19 </span>Erasure coded pools</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="ceph-pools.html#ceph-pools-operate-add-pool"><span class="title-number">18.1 </span><span class="title-name">Creating a pool</span></a></span></li><li><span class="sect1"><a href="ceph-pools.html#ceph-listing-pools"><span class="title-number">18.2 </span><span class="title-name">Listing pools</span></a></span></li><li><span class="sect1"><a href="ceph-pools.html#ceph-renaming-pool"><span class="title-number">18.3 </span><span class="title-name">Renaming a pool</span></a></span></li><li><span class="sect1"><a href="ceph-pools.html#ceph-pools-operate-del-pool"><span class="title-number">18.4 </span><span class="title-name">Deleting a pool</span></a></span></li><li><span class="sect1"><a href="ceph-pools.html#ceph-pool-other-operations"><span class="title-number">18.5 </span><span class="title-name">Other operations</span></a></span></li><li><span class="sect1"><a href="ceph-pools.html#pools-migration"><span class="title-number">18.6 </span><span class="title-name">Pool migration</span></a></span></li><li><span class="sect1"><a href="ceph-pools.html#cha-ceph-snapshots-pool"><span class="title-number">18.7 </span><span class="title-name">Pool snapshots</span></a></span></li><li><span class="sect1"><a href="ceph-pools.html#sec-ceph-pool-compression"><span class="title-number">18.8 </span><span class="title-name">Data compression</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_operating_pools.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

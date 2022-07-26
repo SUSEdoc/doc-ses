@@ -1,0 +1,1630 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Man pages | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Man pages | SES 7"/>
+<meta name="description" content="ceph-volume"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Man pages"/>
+<meta property="og:title" content="Man pages | SES 7"/>
+<meta property="og:description" content="ceph-volume"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Man pages | SES 7"/>
+<meta name="twitter:description" content="ceph-volume"/>
+
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Man pages</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Man pages</div> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="article" id="book-storage-man" data-id-title="Man pages"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h1 class="title">Man pages</h1></div><div class="date"><span class="imprint-label">Publication Date: </span>06/27/2022</div></div></div><section xml:lang="en" class="sect1" id="man-ceph-volume-ceph-volume----ceph-osd-deployment-and-inspection-tool" data-id-title="ceph-volume -- Ceph OSD deployment and inspection tool"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">ceph-volume -- Ceph OSD deployment and inspection tool</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-ceph-volume----ceph-osd-deployment-and-inspection-tool">#</a></h2></div></div></div><p>
+  ceph-volume
+ </p><section class="sect2" id="man-ceph-volume-synopsis" data-id-title="Synopsis"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.1 </span><span class="title-name">Synopsis</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-synopsis">#</a></h3></div></div></div><div class="verbatim-wrap"><pre class="screen"><span class="strong"><strong>ceph-volume</strong></span> [-h] [--cluster CLUSTER] [--log-level LOG_LEVEL]
+                [--log-path LOG_PATH]</pre></div><p>
+   <span class="strong"><strong>ceph-volume</strong></span>
+   <span class="strong"><strong>inventory</strong></span>
+  </p><div class="verbatim-wrap"><pre class="screen"><span class="strong"><strong>ceph-volume</strong></span> <span class="strong"><strong>lvm</strong></span> [ <span class="emphasis"><em>trigger</em></span> | <span class="emphasis"><em>create</em></span> | <span class="emphasis"><em>activate</em></span> | <span class="emphasis"><em>prepare</em></span>
+<span class="emphasis"><em>zap</em></span> | <span class="emphasis"><em>list</em></span> | <span class="emphasis"><em>batch</em></span>]</pre></div><p>
+   <span class="strong"><strong>ceph-volume</strong></span>
+   <span class="strong"><strong>simple</strong></span> [ <span class="emphasis"><em>trigger</em></span> |
+   <span class="emphasis"><em>scan</em></span> | <span class="emphasis"><em>activate</em></span> ]
+  </p></section><section class="sect2" id="man-ceph-volume-description" data-id-title="Description"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.2 </span><span class="title-name">Description</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-description">#</a></h3></div></div></div><p>
+   <code class="literal">ceph-volume</code> is a single purpose command line tool to
+   deploy logical volumes as OSDs, trying to maintain a similar API to
+   <code class="literal">ceph-disk</code> when preparing, activating, and creating OSDs.
+  </p><p>
+   It deviates from <code class="literal">ceph-disk</code> by not interacting or relying
+   on the udev rules that come installed for Ceph. These rules allow automatic
+   detection of previously setup devices that are in turn fed into
+   <code class="literal">ceph-disk</code> to activate them.
+  </p></section><section class="sect2" id="man-ceph-volume-commands" data-id-title="Commands"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.3 </span><span class="title-name">Commands</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-commands">#</a></h3></div></div></div><section class="sect3" id="man-ceph-volume-inventory" data-id-title="inventory"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">1.3.1 </span><span class="title-name">inventory</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-inventory">#</a></h4></div></div></div><p>
+    This subcommand provides information about a host's physical disc inventory
+    and reports metadata about these discs. Among this metadata one can find
+    disc specific data items (like model, size, rotational or solid state) as
+    well as data items specific to ceph using a device, such as if it is
+    available for use with ceph or if logical volumes are present.
+   </p><p>
+    Examples:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume inventory
+ceph-volume inventory /dev/sda
+ceph-volume inventory --format json-pretty</pre></div><p>
+    Optional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      [-h, --help] show the help message and exit
+     </p></li><li class="listitem"><div class="variablelist"><dl class="variablelist"><dt id="id-1.2.5.2.6.2.1.1"><span class="term">[--format] report format, valid values are <code class="literal">plain</code> (default),</span></dt><dd><p>
+         <code class="literal">json</code> and <code class="literal">json-pretty</code>
+        </p></dd></dl></div></li></ul></div></section><section class="sect3" id="man-ceph-volume-lvm" data-id-title="lvm"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">1.3.2 </span><span class="title-name">lvm</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-lvm">#</a></h4></div></div></div><p>
+    By making use of LVM tags, the <code class="literal">lvm</code> sub-command is able
+    to store and later re-discover and query devices associated with OSDs so
+    that they can later activated.
+   </p><p>
+    Subcommands:
+   </p><p>
+    <span class="strong"><strong>batch</strong></span> Creates OSDs from a list of
+    devices using a <code class="literal">filestore</code> or
+    <code class="literal">bluestore</code> (default) setup. It will create all necessary
+    volume groups and logical volumes required to have a working OSD.
+   </p><p>
+    Example usage with three devices:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm batch --bluestore /dev/sda /dev/sdb /dev/sdc</pre></div><p>
+    Optional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      [-h, --help] show the help message and exit
+     </p></li><li class="listitem"><p>
+      [--bluestore] Use the bluestore objectstore (default)
+     </p></li><li class="listitem"><p>
+      [--filestore] Use the filestore objectstore
+     </p></li><li class="listitem"><p>
+      [--yes] Skip the report and prompt to continue provisioning
+     </p></li><li class="listitem"><p>
+      [--prepare] Only prepare OSDs, do not activate
+     </p></li><li class="listitem"><p>
+      [--dmcrypt] Enable encryption for the underlying OSD devices
+     </p></li><li class="listitem"><p>
+      [--crush-device-class] Define a CRUSH device class to assign the OSD to
+     </p></li><li class="listitem"><p>
+      [--no-systemd] Do not enable or create any systemd units
+     </p></li><li class="listitem"><p>
+      [--osds-per-device] Provision more than 1 (the default) OSD per device
+     </p></li><li class="listitem"><p>
+      [--report] Report what the potential outcome would be for the current
+      input (requires devices to be passed in)
+     </p></li><li class="listitem"><p>
+      [--format] Output format when reporting (used along with --report), can
+      be one of 'pretty' (default) or 'json'
+     </p></li><li class="listitem"><p>
+      [--block-db-size] Set (or override) the "bluestore_block_db_size" value,
+      in bytes
+     </p></li><li class="listitem"><p>
+      [--journal-size] Override the "osd_journal_size" value, in megabytes
+     </p></li></ul></div><p>
+    Required positional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><div class="variablelist"><dl class="variablelist"><dt id="id-1.2.5.3.10.1.1.1"><span class="term">&lt;DEVICE&gt; Full path to a raw device, like <code class="literal">/dev/sda</code>.
+        Multiple</span></dt><dd><p>
+         <code class="literal">&lt;DEVICE&gt;</code> paths can be passed in.
+        </p></dd></dl></div></li></ul></div><p>
+    <span class="strong"><strong>activate</strong></span> Enables a systemd unit that
+    persists the OSD ID and its UUID (also called <code class="literal">fsid</code> in
+    Ceph CLI tools), so that at boot time it can understand what OSD is enabled
+    and needs to be mounted.
+   </p><p>
+    Usage:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm activate --bluestore &lt;osd id&gt; &lt;osd fsid&gt;</pre></div><p>
+    Optional Arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      [-h, --help] show the help message and exit
+     </p></li><li class="listitem"><p>
+      [--auto-detect-objectstore] Automatically detect the objectstore by
+      inspecting the OSD
+     </p></li><li class="listitem"><p>
+      [--bluestore] bluestore objectstore (default)
+     </p></li><li class="listitem"><p>
+      [--filestore] filestore objectstore
+     </p></li><li class="listitem"><p>
+      [--all] Activate all OSDs found in the system
+     </p></li><li class="listitem"><p>
+      [--no-systemd] Skip creating and enabling systemd units and starting of
+      OSD services
+     </p></li></ul></div><p>
+    Multiple OSDs can be activated at once by using the (idempotent)
+    <code class="literal">--all</code> flag:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm activate --all</pre></div><p>
+    <span class="strong"><strong>prepare</strong></span> Prepares a logical volume to be
+    used as an OSD and journal using a <code class="literal">filestore</code> or
+    <code class="literal">bluestore</code> (default) setup. It will not create or modify
+    the logical volumes except for adding extra metadata.
+   </p><p>
+    Usage:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm prepare --filestore --data &lt;data lv&gt; --journal &lt;journal device&gt;</pre></div><p>
+    Optional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      [-h, --help] show the help message and exit
+     </p></li><li class="listitem"><p>
+      [--journal JOURNAL] A logical group name, path to a logical volume, or
+      path to a device
+     </p></li><li class="listitem"><p>
+      [--bluestore] Use the bluestore objectstore (default)
+     </p></li><li class="listitem"><p>
+      [--block.wal] Path to a bluestore block.wal logical volume or partition
+     </p></li><li class="listitem"><p>
+      [--block.db] Path to a bluestore block.db logical volume or partition
+     </p></li><li class="listitem"><p>
+      [--filestore] Use the filestore objectstore
+     </p></li><li class="listitem"><p>
+      [--dmcrypt] Enable encryption for the underlying OSD devices
+     </p></li><li class="listitem"><p>
+      [--osd-id OSD_ID] Reuse an existing OSD id
+     </p></li><li class="listitem"><p>
+      [--osd-fsid OSD_FSID] Reuse an existing OSD fsid
+     </p></li><li class="listitem"><p>
+      [--crush-device-class] Define a CRUSH device class to assign the OSD to
+     </p></li></ul></div><p>
+    Required arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      --data A logical group name or a path to a logical volume
+     </p></li></ul></div><p>
+    For encrypting an OSD, the <code class="literal">--dmcrypt</code> flag must be added
+    when preparing (also supported in the <code class="literal">create</code>
+    sub-command).
+   </p><p>
+    <span class="strong"><strong>create</strong></span> Wraps the two-step process to
+    provision a new osd (calling <code class="literal">prepare</code> first and then
+    <code class="literal">activate</code>) into a single one. The reason to prefer
+    <code class="literal">prepare</code> and then <code class="literal">activate</code> is to
+    gradually introduce new OSDs into a cluster, and avoiding large amounts of
+    data being rebalanced.
+   </p><p>
+    The single-call process unifies exactly what <code class="literal">prepare</code> and
+    <code class="literal">activate</code> do, with the convenience of doing it all at
+    once. Flags and general usage are equivalent to those of the
+    <code class="literal">prepare</code> and <code class="literal">activate</code> subcommand.
+   </p><p>
+    <span class="strong"><strong>trigger</strong></span> This subcommand is not meant to
+    be used directly, and it is used by systemd so that it proxies input to
+    <code class="literal">ceph-volume lvm activate</code> by parsing the input from
+    systemd, detecting the UUID and ID associated with an OSD.
+   </p><p>
+    Usage:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm trigger &lt;SYSTEMD-DATA&gt;</pre></div><p>
+    The systemd "data" is expected to be in the format of:
+   </p><div class="verbatim-wrap"><pre class="programlisting">&lt;OSD ID&gt;-&lt;OSD UUID&gt;</pre></div><p>
+    The lvs associated with the OSD need to have been prepared previously, so
+    that all needed tags and metadata exist.
+   </p><p>
+    Positional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      &lt;SYSTEMD_DATA&gt; Data from a systemd unit containing ID and UUID of
+      the OSD.
+     </p></li></ul></div><p>
+    <span class="strong"><strong>list</strong></span> List devices or logical volumes
+    associated with Ceph. An association is determined if a device has
+    information relating to an OSD. This is verified by querying LVM's metadata
+    and correlating it with devices.
+   </p><p>
+    The lvs associated with the OSD need to have been prepared previously by
+    ceph-volume so that all needed tags and metadata exist.
+   </p><p>
+    Usage:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm list</pre></div><p>
+    List a particular device, reporting all metadata about it:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm list /dev/sda1</pre></div><p>
+    List a logical volume, along with all its metadata (vg is a volume group,
+    and lv the logical volume name):
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm list {vg/lv}</pre></div><p>
+    Positional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      &lt;DEVICE&gt; Either in the form of <code class="literal">vg/lv</code> for logical
+      volumes, <code class="literal">/path/to/sda1</code> or
+      <code class="literal">/path/to/sda</code> for regular devices.
+     </p></li></ul></div><p>
+    <span class="strong"><strong>zap</strong></span> Zaps the given logical volume or
+    partition. If given a path to a logical volume it must be in the format of
+    vg/lv. Any file systems present on the given lv or partition will be
+    removed and all data will be purged.
+   </p><p>
+    However, the lv or partition will be kept intact.
+   </p><p>
+    Usage, for logical volumes:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm zap {vg/lv}</pre></div><p>
+    Usage, for logical partitions:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm zap /dev/sdc1</pre></div><p>
+    For full removal of the device use the <code class="literal">--destroy</code> flag
+    (allowed for all device types):
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm zap --destroy /dev/sdc1</pre></div><p>
+    Multiple devices can be removed by specifying the OSD ID and/or the OSD
+    FSID:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume lvm zap --destroy --osd-id 1
+ceph-volume lvm zap --destroy --osd-id 1 --osd-fsid C9605912-8395-4D76-AFC0-7DFDAC315D59</pre></div><p>
+    Positional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      &lt;DEVICE&gt; Either in the form of <code class="literal">vg/lv</code> for logical
+      volumes, <code class="literal">/path/to/sda1</code> or
+      <code class="literal">/path/to/sda</code> for regular devices.
+     </p></li></ul></div></section><section class="sect3" id="man-ceph-volume-simple" data-id-title="simple"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">1.3.3 </span><span class="title-name">simple</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-simple">#</a></h4></div></div></div><p>
+    Scan legacy OSD directories or data devices that may have been created by
+    ceph-disk, or manually.
+   </p><p>
+    Subcommands:
+   </p><p>
+    <span class="strong"><strong>activate</strong></span> Enables a systemd unit that
+    persists the OSD ID and its UUID (also called <code class="literal">fsid</code> in
+    Ceph CLI tools), so that at boot time it can understand what OSD is enabled
+    and needs to be mounted, while reading information that was previously
+    created and persisted at <code class="literal">/etc/ceph/osd/</code> in JSON format.
+   </p><p>
+    Usage:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume simple activate --bluestore &lt;osd id&gt; &lt;osd fsid&gt;</pre></div><p>
+    Optional Arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      [-h, --help] show the help message and exit
+     </p></li><li class="listitem"><p>
+      [--bluestore] bluestore objectstore (default)
+     </p></li><li class="listitem"><p>
+      [--filestore] filestore objectstore
+     </p></li></ul></div><p>
+    Note: It requires a matching JSON file with the following format:
+   </p><div class="verbatim-wrap"><pre class="programlisting">/etc/ceph/osd/&lt;osd id&gt;-&lt;osd fsid&gt;.json</pre></div><p>
+    <span class="strong"><strong>scan</strong></span> Scan a running OSD or data device
+    for an OSD for metadata that can later be used to activate and manage the
+    OSD with ceph-volume. The scan method will create a JSON file with the
+    required information plus anything found in the OSD directory as well.
+   </p><p>
+    Optionally, the JSON blob can be sent to stdout for further inspection.
+   </p><p>
+    Usage on all running OSDs:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume simple scan</pre></div><p>
+    Usage on data devices:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume simple scan &lt;data device&gt;</pre></div><p>
+    Running OSD directories:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume simple scan &lt;path to osd dir&gt;</pre></div><p>
+    Optional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      [-h, --help] show the help message and exit
+     </p></li><li class="listitem"><p>
+      [--stdout] Send the JSON blob to stdout
+     </p></li><li class="listitem"><p>
+      [--force] If the JSON file exists at destination, overwrite it
+     </p></li></ul></div><p>
+    Optional Positional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      &lt;DATA DEVICE or OSD DIR&gt; Actual data partition or a path to the
+      running OSD
+     </p></li></ul></div><p>
+    <span class="strong"><strong>trigger</strong></span> This subcommand is not meant to
+    be used directly, and it is used by systemd so that it proxies input to
+    <code class="literal">ceph-volume simple activate</code> by parsing the input from
+    systemd, detecting the UUID and ID associated with an OSD.
+   </p><p>
+    Usage:
+   </p><div class="verbatim-wrap"><pre class="programlisting">ceph-volume simple trigger &lt;SYSTEMD-DATA&gt;</pre></div><p>
+    The systemd "data" is expected to be in the format of:
+   </p><div class="verbatim-wrap"><pre class="programlisting">&lt;OSD ID&gt;-&lt;OSD UUID&gt;</pre></div><p>
+    The JSON file associated with the OSD need to have been persisted
+    previously by a scan (or manually), so that all needed metadata can be
+    used.
+   </p><p>
+    Positional arguments:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      &lt;SYSTEMD_DATA&gt; Data from a systemd unit containing ID and UUID of
+      the OSD.
+     </p></li></ul></div></section></section><section class="sect2" id="man-ceph-volume-availability" data-id-title="Availability"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.4 </span><span class="title-name">Availability</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-availability">#</a></h3></div></div></div><p>
+   <code class="literal">ceph-volume</code> is part of Ceph, a massively scalable,
+   open-source, distributed storage system. Please refer to the documentation
+   at <a class="link" href="http://docs.ceph.com/" target="_blank">http://docs.ceph.com/</a> for
+   more information.
+  </p></section><section class="sect2" id="man-ceph-volume-see-also" data-id-title="See also"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.5 </span><span class="title-name">See also</span> <a title="Permalink" class="permalink" href="index.html#man-ceph-volume-see-also">#</a></h3></div></div></div><p>
+   <code class="literal">ceph-osd &lt;ceph-osd&gt;</code>(8),
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-rgw-config-ganesha-rgw-config----nfs-ganesha-rgw-configuration-file" data-id-title="ganesha-rgw-config -- NFS Ganesha RGW Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2 </span><span class="title-name">ganesha-rgw-config -- NFS Ganesha RGW Configuration File</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rgw-config-ganesha-rgw-config----nfs-ganesha-rgw-configuration-file">#</a></h2></div></div></div><p>
+  ganesha-rgw-config
+ </p><section class="sect2" id="man-ganesha-rgw-config-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rgw-config-synopsis">#</a></h3></div></div></div><p>
+   /etc/ganesha/rgw.conf
+  </p><p>
+   /etc/ganesha/rgw_bucket.conf
+  </p></section><section class="sect2" id="man-ganesha-rgw-config-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rgw-config-description">#</a></h3></div></div></div><p>
+   NFS-Ganesha install two config examples for RGW FSAL:
+  </p><p>
+   /etc/ganesha/rgw.conf
+  </p><p>
+   /etc/ganesha/rgw_bucket.conf
+  </p><p>
+   This file lists RGW specific config options.
+  </p><section class="sect3" id="man-ganesha-rgw-config-export" data-id-title="EXPORT { }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">2.2.1 </span><span class="title-name">EXPORT { }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rgw-config-export">#</a></h4></div></div></div><p>
+    RGW supports exporting both the buckets and filesystem.
+   </p></section><section class="sect3" id="man-ganesha-rgw-config-export-fsal" data-id-title="EXPORT { FSAL {} }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">2.2.2 </span><span class="title-name">EXPORT { FSAL {} }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rgw-config-export-fsal">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.7.2.1"><span class="term">Name(string, "RGW")</span></dt><dd><p>
+       Name of FSAL should always be RGW.
+      </p></dd></dl></div><p>
+    <span class="strong"><strong>User_Id(string, no default)</strong></span>
+   </p><p>
+    <span class="strong"><strong>Access_Key(string, no default)</strong></span>
+   </p><p>
+    <span class="strong"><strong>Secret_Access_Key(string, no default)</strong></span>
+   </p></section><section class="sect3" id="man-ganesha-rgw-config-rgw" data-id-title="RGW {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">2.2.3 </span><span class="title-name">RGW {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rgw-config-rgw">#</a></h4></div></div></div><p>
+    The following configuration variables customize the startup of the FSAL's
+    radosgw instance.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.8.3.1"><span class="term">ceph_conf</span></dt><dd><p>
+       optional full-path to the Ceph configuration file (equivalent to passing
+       "-c /path/to/ceph.conf" to any Ceph binary
+      </p></dd><dt id="id-1.3.4.8.3.2"><span class="term">name</span></dt><dd><p>
+       optional instance name (equivalent to passing "--name
+       client.rgw.foohost" to the radosgw binary); the value provided here
+       should be the same as the section name (sans brackets) of the radosgw
+       facility in the Ceph configuration file (which must exist)
+      </p></dd><dt id="id-1.3.4.8.3.3"><span class="term">cluster</span></dt><dd><p>
+       optional cluster name (equivalent to passing "--cluster foo" to any Ceph
+       binary); use of a non-default value for cluster name is uncommon, but
+       can be verified by examining the startup options of Ceph binaries
+      </p></dd><dt id="id-1.3.4.8.3.4"><span class="term">init_args</span></dt><dd><p>
+       additional argument strings which will be passed verbatim to the radosgw
+       instance startup process as if they had been given on the radosgw
+       command line provided for customization in uncommon setups
+      </p></dd></dl></div></section></section><section class="sect2" id="man-ganesha-rgw-config-see-also" data-id-title="See also"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.3 </span><span class="title-name">See also</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rgw-config-see-also">#</a></h3></div></div></div><p>
+   <code class="literal">ganesha-log-config &lt;ganesha-log-config&gt;</code>(8)
+   <code class="literal">ganesha-core-config &lt;ganesha-core-config&gt;</code>(8)
+   <code class="literal">ganesha-export-config &lt;ganesha-export-config&gt;</code>(8)
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-rados-grace-ganesha-rados-grace----manipulate-the-shared-grace-management-database" data-id-title="ganesha-rados-grace -- manipulate the shared grace management database"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3 </span><span class="title-name">ganesha-rados-grace -- manipulate the shared grace management database</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-ganesha-rados-grace----manipulate-the-shared-grace-management-database">#</a></h2></div></div></div><section class="sect2" id="man-ganesha-rados-grace-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-synopsis">#</a></h3></div></div></div><p>
+   ganesha-rados-grace [ --cephconf /path/to/ceph.conf ] [--ns namespace] [
+   --oid obj_id ] [ --pool pool_id ] [ --userid cephuser ]
+   dumpstartliftenforcemember [ nodeid ... ]
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-description">#</a></h3></div></div></div><p>
+   This tool allows the administrator to directly manipulate the database used
+   by the rados_cluster recovery backend. Cluster nodes use that database to
+   indicate their current state in order to coordinate a cluster-wide grace
+   period.
+  </p><p>
+   The first argument should be a command to execute against the database. Any
+   remaining arguments represent the nodeids of nodes in the cluster that
+   should be acted upon.
+  </p><p>
+   Most commands will just fail if the grace database is not present. The
+   exception to this rule is the <span class="strong"><strong>add</strong></span> command
+   which will create the pool, database and namespace if they do not already
+   exist.
+  </p><p>
+   Note that this program does not consult ganesha.conf. If you use non-default
+   values for <span class="strong"><strong>ceph_conf</strong></span>,
+   <span class="strong"><strong>userid</strong></span>,
+   <span class="strong"><strong>grace_oid</strong></span>,
+   <span class="strong"><strong>namespace</strong></span> or
+   <span class="strong"><strong>pool</strong></span> in your RADOS_KV config block, then
+   they will need to passed in via command-line options.
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-options" data-id-title="OPTIONS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.3 </span><span class="title-name">OPTIONS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-options">#</a></h3></div></div></div><p>
+   <span class="strong"><strong>--cephconf</strong></span>
+  </p><p>
+   Specify the ceph.conf configuration that should be used (default is to use
+   the normal search path to find one)
+  </p><p>
+   <span class="strong"><strong>--ns</strong></span>
+  </p><p>
+   Set the RADOS namespace to use within the pool (default is NULL)
+  </p><p>
+   <span class="strong"><strong>--oid</strong></span>
+  </p><p>
+   Set the object id of the grace database RADOS object (default is "grace")
+  </p><p>
+   <span class="strong"><strong>--pool</strong></span>
+  </p><p>
+   Set the RADOS poolid in which the grace database object resides (default is
+   "nfs-ganesha")
+  </p><p>
+   <span class="strong"><strong>--userid</strong></span>
+  </p><p>
+   Set the cephx user ID to use when contacting the cluster (default is NULL)
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-commands" data-id-title="COMMANDS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.4 </span><span class="title-name">COMMANDS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-commands">#</a></h3></div></div></div><p>
+   <span class="strong"><strong>dump</strong></span>
+  </p><p>
+   Dump the current status of the grace period database to stdout. This will
+   show the current and recovery epoch serial numbers, as well as a list of
+   hosts currently in the cluster and what flags they have set in their
+   individual records.
+  </p><p>
+   <span class="strong"><strong>add</strong></span>
+  </p><p>
+   Add the specified hosts to the cluster. This must be done before the given
+   hosts can take part in the cluster. Attempts to modify the database by
+   cluster hosts that have not yet been added will generally fail. New hosts
+   are added with the enforcing flag set, as they are unable to hand out new
+   state until their own grace period has been lifted.
+  </p><p>
+   <span class="strong"><strong>start</strong></span>
+  </p><p>
+   Start a new grace period. This will begin a new grace period in the cluster
+   if one is not already active and set the record for the listed cluster hosts
+   as both needing a grace period and enforcing the grace period. If a grace
+   period is already active, then this is equivalent to
+   <span class="strong"><strong>join</strong></span>.
+  </p><p>
+   <span class="strong"><strong>join</strong></span>
+  </p><p>
+   Attempt to join an existing grace period. This works like
+   <span class="strong"><strong>start</strong></span>, but only if there is already an
+   existing grace period in force.
+  </p><p>
+   <span class="strong"><strong>lift</strong></span>
+  </p><p>
+   Attempt to lift the current grace period. This will clear the need grace
+   flags for the listed hosts. If there are no more hosts in the cluster that
+   require a grace period, then it will be fully lifted and the cluster will
+   transition to normal operations.
+  </p><p>
+   <span class="strong"><strong>remove</strong></span>
+  </p><p>
+   Remove one or more existing hosts from the cluster. This will remove the
+   listed hosts from the grace database, possibly lifting the current grace
+   period if there are no more hosts that need one.
+  </p><p>
+   <span class="strong"><strong>enforce</strong></span>
+  </p><p>
+   Set the flag for the given hosts that indicates that they are currently
+   enforcing the grace period; not allowing the acquisition of new state by
+   clients.
+  </p><p>
+   <span class="strong"><strong>noenforce</strong></span>
+  </p><p>
+   Clear the enforcing flag for the given hosts, meaning that those hosts are
+   now allowing clients to acquire new state.
+  </p><p>
+   <span class="strong"><strong>member</strong></span>
+  </p><p>
+   Test whether the given hosts are members of the cluster. Returns an error if
+   any of the hosts are not present in the grace db omap.
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-flags" data-id-title="FLAGS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.5 </span><span class="title-name">FLAGS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-flags">#</a></h3></div></div></div><p>
+   When the <span class="strong"><strong>dump</strong></span> command is issued,
+   ganesha-rados-grace will display a list of all of the nodes in the grace
+   database, and any flags they have set. The flags are as follows:
+  </p><p>
+   <span class="strong"><strong>E (Enforcing)</strong></span>
+  </p><p>
+   The node is currently enforcing the grace period by rejecting requests from
+   clients to acquire new state.
+  </p><p>
+   <span class="strong"><strong>N (Need Grace)</strong></span>
+  </p><p>
+   The node currently requires a grace period. Generally, this means that the
+   node has clients that need to perform recovery.
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-nodeid-assignment" data-id-title="NODEID ASSIGNMENT"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.6 </span><span class="title-name">NODEID ASSIGNMENT</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-nodeid-assignment">#</a></h3></div></div></div><p>
+   Each running ganesha daemon requires a
+   <span class="strong"><strong>nodeid</strong></span> string that is unique within the
+   cluster. This can be any value as ganesha treats it as an opaque string. By
+   default, the ganesha daemon will use the hostname of the node where it is
+   running.
+  </p><p>
+   This may not be suitable when running under certain HA clustering
+   infrastructure, so it's generally recommended to manually assign nodeid
+   values to the hosts in the <span class="strong"><strong>RADOS_KV</strong></span>
+   config block of <span class="strong"><strong>ganesha.conf</strong></span>.
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-ganesha-configuration" data-id-title="GANESHA CONFIGURATION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.7 </span><span class="title-name">GANESHA CONFIGURATION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-ganesha-configuration">#</a></h3></div></div></div><p>
+   The ganesha daemon will need to be configured with the RecoveryBackend set
+   to <span class="strong"><strong>rados_cluster</strong></span>. If you use a
+   non-default pool, namespace or oid, nodeid then those values will need to be
+   set accordingly in the <span class="strong"><strong>RADOS_KV</strong></span> config
+   block as well.
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-starting-a-new-cluster" data-id-title="STARTING A NEW CLUSTER"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.8 </span><span class="title-name">STARTING A NEW CLUSTER</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-starting-a-new-cluster">#</a></h3></div></div></div><p>
+   First, add the given cluster nodes to the grace database. Assuming that the
+   nodes in our cluster will have nodeids ganesha-1 through ganesha-3:
+  </p><p>
+   <span class="strong"><strong>ganesha-rados-grace add ganesha-1 ganesha-2
+   ganesha-3</strong></span>
+  </p><p>
+   Once this is done, you can start the daemons on each host and they will
+   coordinate to start and lift the grace periods as-needed.
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-adding-nodes-to-a-running-cluster" data-id-title="ADDING NODES TO A RUNNING CLUSTER"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.9 </span><span class="title-name">ADDING NODES TO A RUNNING CLUSTER</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-adding-nodes-to-a-running-cluster">#</a></h3></div></div></div><p>
+   After this point, new nodes can then be added to the cluster as needed using
+   the <span class="strong"><strong>add</strong></span> command:
+  </p><p>
+   <span class="strong"><strong>ganesha-rados-grace add ganesha-4</strong></span>
+  </p><p>
+   After the node has been added, ganesha.nfsd can then be started. It will
+   then request a new grace period as-needed.
+  </p></section><section class="sect2" id="man-ganesha-rados-grace-removing-a-node-from-the-cluster" data-id-title="REMOVING A NODE FROM THE CLUSTER"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.10 </span><span class="title-name">REMOVING A NODE FROM THE CLUSTER</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-grace-removing-a-node-from-the-cluster">#</a></h3></div></div></div><p>
+   To remove a node from the cluster, first unmount any clients that have that
+   node mounted (possibly moving them to other servers). Then execute the
+   remove command with the nodeids to be removed from the cluster. For example:
+  </p><p>
+   <span class="strong"><strong>ganesha-rados-grace remove ganesha-4</strong></span>
+  </p><p>
+   This will remove the ganesha-4's record from the database, and possibly lift
+   the current grace period if one is active and it was the last one to need
+   it.
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-rados-cluster-design-ganesha-rados-cluster-design----clustered-rados-recovery-backend-design" data-id-title="ganesha-rados-cluster-design -- Clustered RADOS Recovery Backend Design"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4 </span><span class="title-name">ganesha-rados-cluster-design -- Clustered RADOS Recovery Backend Design</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-ganesha-rados-cluster-design----clustered-rados-recovery-backend-design">#</a></h2></div></div></div><section class="sect2" id="man-ganesha-rados-cluster-design-overview" data-id-title="Overview"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1 </span><span class="title-name">Overview</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-overview">#</a></h3></div></div></div><p>
+   This document aims to explain the theory and design behind the rados_cluster
+   recovery backend, which coordinates grace period enforcement among multiple,
+   independent NFS servers.
+  </p><p>
+   In order to understand the clustered recovery backend, it's first necessary
+   to understand how recovery works with a single server:
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-singleton-server-recovery" data-id-title="Singleton Server Recovery"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2 </span><span class="title-name">Singleton Server Recovery</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-singleton-server-recovery">#</a></h3></div></div></div><p>
+   NFSv4 is a lease-based protocol. Clients set up a relationship to the server
+   and must periodically renew their lease in order to maintain their ephemeral
+   state (open files, locks, delegations or layouts).
+  </p><p>
+   When a singleton NFS server is restarted, any ephemeral state is lost. When
+   the server comes comes back online, NFS clients detect that the server has
+   been restarted and will reclaim the ephemeral state that they held at the
+   time of their last contact with the server.
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-singleton-grace-period" data-id-title="Singleton Grace Period"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.3 </span><span class="title-name">Singleton Grace Period</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-singleton-grace-period">#</a></h3></div></div></div><p>
+   In order to ensure that we don't end up with conflicts, clients are barred
+   from acquiring any new state while in the Recovery phase. Only reclaim
+   operations are allowed.
+  </p><p>
+   This period of time is called the <span class="strong"><strong>grace
+   period</strong></span>. Most NFS servers have a grace period that lasts around
+   two lease periods, however nfs-ganesha can and will lift the grace period
+   early if it determines that no more clients will be allowed to recover.
+  </p><p>
+   Once the grace period ends, the server will move into its Normal operation
+   state. During this period, no more recovery is allowed and new state can be
+   acquired by NFS clients.
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-reboot-epochs" data-id-title="Reboot Epochs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4 </span><span class="title-name">Reboot Epochs</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-reboot-epochs">#</a></h3></div></div></div><p>
+   The lifecycle of a singleton NFS server can be considered to be a series of
+   transitions from the Recovery period to Normal operation and back. In the
+   remainder of this document we'll consider such a period to be an
+   <span class="strong"><strong>epoch</strong></span>, and assign each a number beginning
+   with 1.
+  </p><p>
+   Visually, we can represent it like this, such that each Normal -&gt;
+   Recovery transition is marked by a change in the epoch value:
+  </p><div class="verbatim-wrap"><pre class="programlisting">+-------+-------+-------+---------------+-------+
+| State | R | N | R | N | R | R | R | N | R | N |
++-------+-------+-------+---------------+-------+
+| Epoch |   1   |   2   |       3       |   4   |
++-------+-------+-------+---------------+-------+</pre></div><p>
+   Note that it is possible to restart during the grace period (as shown above
+   during epoch 3). That just serves to extend the recovery period and the
+   epoch. A new epoch is only declared during a Recovery -&gt; Normal
+   transition.
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-client-recovery-database" data-id-title="Client Recovery Database"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.5 </span><span class="title-name">Client Recovery Database</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-client-recovery-database">#</a></h3></div></div></div><p>
+   There are some potential edge cases that can occur involving network
+   partitions and multiple reboots. In order to prevent those, the server must
+   maintain a list of clients that hold state on the server at any given time.
+   This list must be maintained on stable storage. If a client sends a request
+   to reclaim some state, then the server must check to make sure it's on that
+   list before allowing the request.
+  </p><p>
+   Thus when the server allows reclaim requests it must always gate it against
+   the recovery database from the previous epoch. As clients come in to
+   reclaim, we establish records for them in a new database associated with the
+   current epoch.
+  </p><p>
+   The transition from recovery to normal operation should perform an atomic
+   switch of recovery databases. A recovery database only becomes legitimate on
+   a recovery to normal transition. Until that point, the recovery database
+   from the previous epoch is the canonical one.
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-exporting-a-clustered-filesystem" data-id-title="Exporting a Clustered Filesystem"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.6 </span><span class="title-name">Exporting a Clustered Filesystem</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-exporting-a-clustered-filesystem">#</a></h3></div></div></div><p>
+   Let's consider a set of independent NFS servers, all serving out the same
+   content from a clustered backend filesystem of any flavor. Each NFS server
+   in this case can itself be considered a clustered FS client. This means that
+   the NFS server is really just a proxy for state on the clustered filesystem.
+  </p><p>
+   The filesystem must make some guarantees to the NFS server. First filesystem
+   guarantee:
+  </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+     The filesystem ensures that the NFS servers (aka the FS clients) cannot
+     obtain state that conflicts with that of another NFS server.
+    </p></li></ol></div><p>
+   This is somewhat obvious and is what we expect from any clustered filesystem
+   outside of any requirements of NFS. If the clustered filesystem can provide
+   this, then we know that conflicting state during normal operations cannot be
+   granted.
+  </p><p>
+   The recovery period has a different set of rules. If an NFS server crashes
+   and is restarted, then we have a window of time when that NFS server does
+   not know what state was held by its clients.
+  </p><p>
+   If the state held by the crashed NFS server is immediately released after
+   the crash, another NFS server could hand out conflicting state before the
+   original NFS client has a chance to recover it.
+  </p><p>
+   This <span class="emphasis"><em>must</em></span> be prevented. Second filesystem guarantee:
+  </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem" value="2"><p>
+     The filesystem must not release state held by a server during the previous
+     epoch until all servers in the cluster are enforcing the grace period.
+    </p></li></ol></div><p>
+   In practical terms, we want the filesystem to provide a way for an NFS
+   server to tell it when it's safe to release state held by a previous
+   instance of itself. The server should do this once it knows that all of its
+   siblings are enforcing the grace period.
+  </p><p>
+   Note that we do not require that all servers restart and allow reclaim at
+   that point. It's sufficient for them to simply begin grace period
+   enforcement as soon as possible once one server needs it.
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-clustered-grace-period-database" data-id-title="Clustered Grace Period Database"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.7 </span><span class="title-name">Clustered Grace Period Database</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-clustered-grace-period-database">#</a></h3></div></div></div><p>
+   At this point the cluster siblings are no longer completely independent, and
+   the grace period has become a cluster-wide property. This means that we must
+   track the current epoch on some sort of shared storage that the servers can
+   all access.
+  </p><p>
+   Additionally we must also keep track of whether a cluster-wide grace period
+   is in effect. Any running nodes should all be informed when either of this
+   info changes, so they can take appropriate steps when it occurs.
+  </p><p>
+   In the rados_cluster backend, we track these using two epoch values:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.8.5.1"><span class="term"><span class="strong"><strong>C</strong></span>: is the current epoch.
+     This represents the current epoch value</span></dt><dd><p>
+      of the cluster
+     </p></dd><dt id="id-1.5.8.5.2"><span class="term"><span class="strong"><strong>R</strong></span>: is the recovery epoch.
+     This represents the epoch from which</span></dt><dd><p>
+      clients are allowed to recover. A non-zero value here means that a
+      cluster-wide grace period is in effect. Setting this to 0 ends that grace
+      period.
+     </p></dd></dl></div><p>
+   In order to decide when to make grace period transitions, each server must
+   also advertise its state to the other nodes. Specifically, each server must
+   be able to determine these two things about each of its siblings:
+  </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+     Does this server have clients from the previous epoch that will require
+     recovery? (NEED)
+    </p></li><li class="listitem"><p>
+     Is this server enforcing the grace period by refusing non-reclaim locks?
+     (ENFORCING)
+    </p></li></ol></div><p>
+   We do this with a pair of flags per sibling (NEED and ENFORCING). Each
+   server typically manages its own flags.
+  </p><p>
+   The rados_cluster backend stores all of this information in a single RADOS
+   object that is modified using read/modify/write cycles. Typically we'll read
+   the whole object, modify it, and then attept to write it back. If something
+   changes between the read and write, we redo the read and try it again.
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-clustered-client-recovery-databases" data-id-title="Clustered Client Recovery Databases"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.8 </span><span class="title-name">Clustered Client Recovery Databases</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-clustered-client-recovery-databases">#</a></h3></div></div></div><p>
+   In rados_cluster the client recovery databases are stored as RADOS objects.
+   Each NFS server has its own set of them and they are given names that have
+   the current epoch (C) embedded in it. This ensures that recovery databases
+   are specific to a particular epoch.
+  </p><p>
+   In general, it's safe to delete any recovery database that precedes R when R
+   is non-zero, and safe to remove any recovery database except for the current
+   one (the one with C in the name) when the grace period is not in effect
+   (R==0).
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-establishing-a-new-grace-period" data-id-title="Establishing a New Grace Period"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.9 </span><span class="title-name">Establishing a New Grace Period</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-establishing-a-new-grace-period">#</a></h3></div></div></div><p>
+   When a server restarts and wants to allow clients to reclaim their state, it
+   must establish a new epoch by incrementing the current epoch to declare a
+   new grace period (R=C; C=C+1).
+  </p><p>
+   The exception to this rule is when the cluster is already in a grace period.
+   Servers can just join an in-progress grace period instead of establishing a
+   new one if one is already active.
+  </p><p>
+   In either case, the server should also set its NEED and ENFORCING flags at
+   the same time.
+  </p><p>
+   The other surviving cluster siblings should take steps to begin grace period
+   enforcement as soon as possible. This entails "draining off" any in-progress
+   state morphing operations and then blocking the acquisition of any new state
+   (usually with a return of NFS4ERR_GRACE to clients that attempt it). Again,
+   there is no need for the survivors from the previous epoch to allow recovery
+   here.
+  </p><p>
+   The surviving servers must however establish a new client recovery database
+   at this point to ensure that their clients can do recovery in the event of a
+   crash afterward.
+  </p><p>
+   Once all of the siblings are enforcing the grace period, the recovering
+   server can then request that the filesystem release the old state, and allow
+   clients to begin reclaiming their state. In the rados_cluster backend
+   driver, we do this by stalling server startup until all hosts in the cluster
+   are enforcing the grace period.
+  </p></section><section class="sect2" id="man-ganesha-rados-cluster-design-lifting-the-grace-period" data-id-title="Lifting the Grace Period"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.10 </span><span class="title-name">Lifting the Grace Period</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-rados-cluster-design-lifting-the-grace-period">#</a></h3></div></div></div><p>
+   Transitioning from recovery to normal operation really consists of two
+   different steps:
+  </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+     the server decides that it no longer requires a grace period, either due
+     to it timing out or there not being any clients that would be allowed to
+     reclaim.
+    </p></li><li class="listitem"><p>
+     the server stops enforcing the grace period and transitions to normal
+     operation
+    </p></li></ol></div><p>
+   These concepts are often conflated in singleton servers, but in a cluster we
+   must consider them independently.
+  </p><p>
+   When a server is finished with its own local recovery period, it should
+   clear its NEED flag. That server should continue enforcing the grace period
+   however until the grace period is fully lifted. The server must not permit
+   reclaims after clearing its NEED flag, however.
+  </p><p>
+   If the servers' own NEED flag is the last one set, then it can lift the
+   grace period (by setting R=0). At that point, all servers in the cluster can
+   end grace period enforcement, and communicate that fact to the others by
+   clearing their ENFORCING flags.
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-log-config-ganesha-log-config----nfs-ganesha-log-configuration-file" data-id-title="ganesha-log-config -- NFS Ganesha Log Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5 </span><span class="title-name">ganesha-log-config -- NFS Ganesha Log Configuration File</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-ganesha-log-config----nfs-ganesha-log-configuration-file">#</a></h2></div></div></div><p>
+  ganesha-log-config
+ </p><section class="sect2" id="man-ganesha-log-config-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-synopsis">#</a></h3></div></div></div><p>
+   /etc/ganesha/ganesha.conf
+  </p></section><section class="sect2" id="man-ganesha-log-config-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-description">#</a></h3></div></div></div><p>
+   NFS-Ganesha reads the configuration data from: | /etc/ganesha/ganesha.conf
+  </p><p>
+   This file lists NFS-Ganesha Log config options.
+  </p><p>
+   These options may be dynamically updated by issuing a SIGHUP to the
+   ganesha.nfsd process.
+  </p><section class="sect3" id="man-ganesha-log-config-log" data-id-title="LOG {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">5.2.1 </span><span class="title-name">LOG {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-log">#</a></h4></div></div></div><p>
+    Default_log_level(token,default EVENT)
+   </p><div class="verbatim-wrap"><pre class="screen">If this option is NOT set, the fall back log level will be that specified in the -N option on the command line if that is set, otherwise the fallback level is EVENT.</pre></div><p>
+    The log levels are:
+   </p><p>
+    NULL, FATAL, MAJ, CRIT, WARN, EVENT, INFO, DEBUG, MID_DEBUG, M_DBG,
+    FULL_DEBUG, F_DBG
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.4.5.6.1"><span class="term">RPC_Debug_Flags(uint32, range 0 to UINT32_MAX, default 7)</span></dt><dd><p>
+       Debug flags for TIRPC (default 7 matches log level default EVENT).
+      </p><p>
+       These flags are only used if the TIRPC component is set to DEBUG
+      </p></dd><dt id="id-1.6.4.5.6.2"><span class="term">Display_UTC_Timestamp(bool, default false)</span></dt><dd><p>
+       Flag to enable displaying UTC date/time in log messages instead of
+       localtime.
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-log-config-log-components" data-id-title="LOG { COMPONENTS {} }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">5.2.2 </span><span class="title-name">LOG { COMPONENTS {} }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-log-components">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.4.6.2.1"><span class="term"><span class="strong"><strong>Default_log_level(token,default EVENT)</strong></span></span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.4.6.2.1.2.1.1"><span class="term">These entries are of the form:</span></dt><dd><p>
+          COMPONENT = LEVEL;
+         </p></dd><dt id="id-1.6.4.6.2.1.2.1.2"><span class="term">The components are:</span></dt><dd><p>
+          ALL, LOG, MEMLEAKS, FSAL, NFSPROTO, NFS_V4, EXPORT, FILEHANDLE,
+          DISPATCH, CACHE_INODE, CACHE_INODE_LRU, HASHTABLE, HASHTABLE_CACHE,
+          DUPREQ, INIT, MAIN, IDMAPPER, NFS_READDIR, NFS_V4_LOCK, CONFIG,
+          CLIENTID, SESSIONS, PNFS, RW_LOCK, NLM, RPC, TIRPC, NFS_CB, THREAD,
+          NFS_V4_ACL, STATE, 9P, 9P_DISPATCH, FSAL_UP, DBUS, NFS_MSK
+         </p></dd><dt id="id-1.6.4.6.2.1.2.1.3"><span class="term">Some synonyms are:</span></dt><dd><p>
+          FH = FILEHANDLE HT = HASHTABLE INODE_LRU = CACHE_INODE_LRU INODE =
+          CACHE_INODE DISP = DISPATCH LEAKS = MEMLEAKS NFS3 = NFSPROTO NFS4 =
+          NFS_V4 HT_CACHE = HASHTABLE_CACHE NFS_STARTUP = INIT NFS4_LOCK =
+          NFS_V4_LOCK NFS4_ACL = NFS_V4_ACL 9P_DISP = 9P_DISPATCH
+         </p></dd><dt id="id-1.6.4.6.2.1.2.1.4"><span class="term">The log levels are:</span></dt><dd><p>
+          NULL, FATAL, MAJ, CRIT, WARN, EVENT, INFO, DEBUG, MID_DEBUG, M_DBG,
+          FULL_DEBUG, F_DBG
+         </p><p>
+          default none
+         </p></dd></dl></div><p>
+       ALL is a special component that when set, sets all components to the
+       specified value, overriding any that are explicitly set. Note that if
+       ALL is then removed from the config and SIGHUP is issued, all components
+       will revert to what is explicitly set, or Default_Log_Level if that is
+       specified, or the original log level from the -N command line option if
+       that was set, or the code default of EVENT.
+      </p><p>
+       TIRPC is a special component that also sets the active RPC_Debug_Flags.
+       If the level for TIRPC is DEBUG or MID_DEBUG, the custom RPC_Debug_Flags
+       set by that parameter will be used, otherwise flags will depend on the
+       level the TIRPC component is set to:
+      </p><div class="verbatim-wrap"><pre class="screen">NULL or FATAL: 0</pre></div></dd></dl></div></section><section class="sect3" id="man-ganesha-log-config-log-facility" data-id-title="LOG { FACILITY {} }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">5.2.3 </span><span class="title-name">LOG { FACILITY {} }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-log-facility">#</a></h4></div></div></div><p>
+    <span class="strong"><strong>name(string, no default)</strong></span>
+   </p><p>
+    <span class="strong"><strong>destination(string, no default, must be
+    supplied)</strong></span>
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.4.7.4.1"><span class="term"><span class="strong"><strong>max_level(token,default FULL_DEBUG)</strong></span></span></dt><dd><p>
+       The log levels are:
+      </p><div class="verbatim-wrap"><pre class="screen">NULL, FATAL, MAJ, CRIT, WARN, EVENT, INFO, DEBUG, MID_DEBUG, M_DBG, FULL_DEBUG, F_DBG</pre></div></dd></dl></div><p>
+    <span class="strong"><strong>headers(token, values [none, component, all],
+    default all)</strong></span>
+   </p><p>
+    <span class="strong"><strong>enable(token, values [idle, active, default],
+    default idle)</strong></span>
+   </p></section><section class="sect3" id="man-ganesha-log-config-log-format" data-id-title="LOG { FORMAT {} }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">5.2.4 </span><span class="title-name">LOG { FORMAT {} }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-log-format">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.4.8.2.1"><span class="term">date_format(enum,default ganesha)</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.4.8.2.1.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          ganesha, true, local, 8601, ISO-8601, ISO 8601, ISO, syslog,
+          syslog_usec, false, none, user_defined
+         </p></dd></dl></div></dd><dt id="id-1.6.4.8.2.2"><span class="term">time_format(enum,default ganesha)</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.4.8.2.2.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          ganesha, true, local, 8601, ISO-8601, ISO 8601, ISO, syslog,
+          syslog_usec, false, none, user_defined
+         </p></dd></dl></div></dd></dl></div><p>
+    <span class="strong"><strong>user_date_format(string, no default)</strong></span>
+   </p><p>
+    <span class="strong"><strong>user_time_format(string, no default)</strong></span>
+   </p><p>
+    <span class="strong"><strong>EPOCH(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>CLIENTIP(bool, default false)</strong></span>
+   </p><p>
+    <span class="strong"><strong>HOSTNAME(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>PROGNAME(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>PID(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>THREAD_NAME(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>FILE_NAME(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>LINE_NUM(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>FUNCTION_NAME(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>COMPONENT(bool, default true)</strong></span>
+   </p><p>
+    <span class="strong"><strong>LEVEL(bool, default true)</strong></span>
+   </p></section></section><section class="sect2" id="man-ganesha-log-config-see-also" data-id-title="See also"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.3 </span><span class="title-name">See also</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-log-config-see-also">#</a></h3></div></div></div><p>
+   <code class="literal">ganesha-config &lt;ganesha-config&gt;</code>(8)
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-export-config-ganesha-export-config----nfs-ganesha-export-configuration-file" data-id-title="ganesha-export-config -- NFS Ganesha Export Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6 </span><span class="title-name">ganesha-export-config -- NFS Ganesha Export Configuration File</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-ganesha-export-config----nfs-ganesha-export-configuration-file">#</a></h2></div></div></div><p>
+  ganesha-export-config
+ </p><section class="sect2" id="man-ganesha-export-config-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-synopsis">#</a></h3></div></div></div><div class="verbatim-wrap"><pre class="screen">/etc/ganesha/ganesha.conf</pre></div></section><section class="sect2" id="man-ganesha-export-config-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-description">#</a></h3></div></div></div><p>
+   NFS-Ganesha obtains configuration data from the configuration file:
+  </p><div class="verbatim-wrap"><pre class="screen">/etc/ganesha/ganesha.conf</pre></div><p>
+   This file lists NFS-Ganesha Export block config options.
+  </p><section class="sect3" id="man-ganesha-export-config-export-defaults" data-id-title="EXPORT_DEFAULTS {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.1 </span><span class="title-name">EXPORT_DEFAULTS {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-export-defaults">#</a></h4></div></div></div><p>
+    These options are all "export permissions" options, and will be repeated in
+    the EXPORT {} and EXPORT { CLIENT {} } blocks.
+   </p><p>
+    These options will all be dynamically updateable.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.4.1"><span class="term">Access_Type(enum, default None)</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.4.1.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          None, RW, RO, MDONLY, MDONLY_RO
+         </p></dd></dl></div></dd><dt id="id-1.7.4.5.4.2"><span class="term">Protocols(enum list, default [3,4])</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.4.2.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          3, 4, NFS3, NFS4, V3, V4, NFSv3, NFSv4, 9P
+         </p></dd></dl></div></dd></dl></div><p>
+    Transports(enum list, values [UDP, TCP, RDMA], default [UDP, TCP])
+   </p><p>
+    Anonymous_uid(anonid, range INT32_MIN to UINT32_MAX, default -2)
+   </p><p>
+    Anonymous_gid(anonid, range INT32_MIN to UINT32_MAX, default -2)
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.8.1"><span class="term">SecType(enum list, default [none, sys])</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.8.1.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          none, sys, krb5, krb5i, krb5p
+         </p></dd></dl></div></dd></dl></div><p>
+    PrivilegedPort(bool, default false)
+   </p><p>
+    Manage_Gids(bool, default false)
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.11.1"><span class="term">Squash(enum, default root_sqaush)</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.11.1.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          root, root_squash, rootsquash, rootid, root_id_squash, rootidsquash,
+          all, all_squash, allsquash, all_anomnymous, allanonymous,
+          no_root_squash, none, noidsquash
+         </p></dd></dl></div><p>
+       Each line of defaults above are synonyms
+      </p></dd></dl></div><p>
+    Security_Label(bool, default false)
+   </p><p>
+    <span class="strong"><strong>NFS_Commit(bool, default false)</strong></span>
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.14.1"><span class="term">Delegations(enum, default None)</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.5.14.1.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          None, read, write, readwrite, r, w, rw
+         </p></dd></dl></div></dd></dl></div><p>
+    <span class="strong"><strong>Attr_Expiration_Time(int32, range -1 to INT32_MAX,
+    default 60)</strong></span>
+   </p></section><section class="sect3" id="man-ganesha-export-config-export" data-id-title="EXPORT {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.2 </span><span class="title-name">EXPORT {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-export">#</a></h4></div></div></div><p>
+    All options below are dynamically changeable with config update unless
+    specified below.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.6.3.1"><span class="term">Export_id (required):</span></dt><dd><p>
+       An identifier for the export, must be unique and betweem 0 and 65535. If
+       Export_Id 0 is specified, Pseudo must be the root path (/).
+      </p><p>
+       Export_id is not dynamic per se, changing it essentially removes the old
+       export and introduces a new export.
+      </p></dd><dt id="id-1.7.4.6.3.2"><span class="term">Path (required)</span></dt><dd><p>
+       The directory in the exported file system this export is rooted on (may
+       be ignored for some FSALs). It need not be unique if Pseudo and/or Tag
+       are specified.
+      </p><p>
+       Note that if it is not unique, and the core option mount_path_pseudo is
+       not set true, a v3 mount using the path will ONLY be able to access the
+       first export configured. To access other exports the Tag option would
+       need to be used.
+      </p><p>
+       This option is NOT dunamically updateable since it fundamentally changes
+       the export. To change the path exported, export_id should be changed
+       also.
+      </p></dd><dt id="id-1.7.4.6.3.3"><span class="term">Pseudo (required v4)</span></dt><dd><p>
+       This option specifies the position in the Pseudo Filesystem this export
+       occupies if this is an NFS v4 export. It must be unique. By using
+       different Pseudo options, the same Path may be exported multiple times.
+      </p><p>
+       This option is used to place the export within the NFS v4 Pseudo
+       Filesystem. This creates a single name space for NFS v4. Clients may
+       mount the root of the Pseudo Filesystem and navigate to exports. Note
+       that the Path and Tag options are not at all visible to NFS v4 clients.
+      </p><p>
+       Export id 0 is automatically created to provide the root and any
+       directories necessary to navigate to exports if there is no other export
+       specified with Pseudo = /;. Note that if an export is specified with
+       Pseudo = /;, it need not be export id 0. Specifying such an export with
+       FSAL { name = PSEUDO; } may be used to create a Pseudo Filesystem with
+       specific options. Such an export may also use other FSALs (though
+       directories to reach exports will ONLY be automatically created on FSAL
+       PSEUDO exports).
+      </p><p>
+       This option is dynamically changeable and changing it will move the
+       export within the pseudo filesystem. This may be disruptive to clients.
+       Note that if the mount_path_pseudo NFS_CORE_PARAM option is true, the
+       NFSv3 mount path will also change (that should not be disruptive to
+       clients that have the export mounted).
+      </p></dd><dt id="id-1.7.4.6.3.4"><span class="term">Tag (no default)</span></dt><dd><p>
+       This option allows an alternative access for NFS v3 mounts. The option
+       MUST not have a leading /. Clients may not mount subdirectories (i.e. if
+       Tag = foo, the client may not mount foo/baz). By using different Tag
+       options, the same Path may be exported multiple times.
+      </p><p>
+       This option is not dynamically updatable.
+      </p></dd><dt id="id-1.7.4.6.3.5"><span class="term">MaxRead (64*1024*1024)</span></dt><dd><p>
+       The maximum read size on this export
+      </p></dd><dt id="id-1.7.4.6.3.6"><span class="term">MaxWrite (64*1024*1024)</span></dt><dd><p>
+       The maximum write size on this export
+      </p></dd><dt id="id-1.7.4.6.3.7"><span class="term">PrefRead (64*1024*1024)</span></dt><dd><p>
+       The preferred read size on this export
+      </p></dd><dt id="id-1.7.4.6.3.8"><span class="term">PrefWrite (64*1024*1024)</span></dt><dd><p>
+       The preferred write size on this export
+      </p></dd><dt id="id-1.7.4.6.3.9"><span class="term">PrefReaddir (16384)</span></dt><dd><p>
+       The preferred readdir size on this export
+      </p></dd><dt id="id-1.7.4.6.3.10"><span class="term">MaxOffsetWrite (INT64_MAX)</span></dt><dd><p>
+       Maximum file offset that may be written Range is 512 to UINT64_MAX
+      </p></dd><dt id="id-1.7.4.6.3.11"><span class="term">MaxOffsetRead (INT64_MAX)</span></dt><dd><p>
+       Maximum file offset that may be read Range is 512 to UINT64_MAX
+      </p></dd><dt id="id-1.7.4.6.3.12"><span class="term">CLIENT (optional)</span></dt><dd><p>
+       See the <code class="literal">EXPORT { CLIENT {} }</code> block.
+      </p></dd><dt id="id-1.7.4.6.3.13"><span class="term">FSAL (required)</span></dt><dd><p>
+       See the <code class="literal">EXPORT { FSAL {} }</code> block.
+      </p><p>
+       The FSAL for an export can not be changed dynamically. In order to
+       change the FSAL, a new export must be created.
+      </p><p>
+       At this time, no FSAL actually supports any updatable options.
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-export-config-export-client" data-id-title="EXPORT { CLIENT {} }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.3 </span><span class="title-name">EXPORT { CLIENT {} }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-export-client">#</a></h4></div></div></div><p>
+    Take all the "export permissions" options from EXPORT_DEFAULTS. The client
+    lists are dynamically updateable.
+   </p><p>
+    These blocks form an ordered "access control list" for the export. If no
+    client block matches for a particular client, then the permissions in the
+    EXPORT {} block will be used.
+   </p><p>
+    Even when a CLIENT block matches a client, if a particular export
+    permission is not explicit in that CLIENT block, the permission specified
+    in the EXPORT block will be used, or if not specified there, from the
+    EXPORT_DEFAULTS block, and if not specified there, the permission will
+    default to the default code value noted in the permission option
+    descriptions above.
+   </p><p>
+    Note that when the CLIENT blocks are processed on config reload, a new
+    client access list is constructed and atomically swapped in. This allows
+    adding, removing, and re-arranging clients as well as changing the access
+    for any give client.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.7.4.7.6.1"><span class="term">Clients(client list, empty)</span></dt><dd><p>
+       Client list entries can take on one of the following forms: Match any
+       client:
+      </p><div class="verbatim-wrap"><pre class="programlisting">@name       Netgroup name
+x.x.x.x/y   IPv4 network address
+wildcarded  If the string contains at least one ? or *
+            character (and is not simply "*"), the string is
+            used to pattern match host names. Note that [] may
+            also be used, but the pattern MUST have at least one
+            ? or *
+hostname    Match a single client (match is by IP address, all
+            addresses returned by getaddrinfo will match, the
+            getaddrinfo call is made at config parsing time)
+IP address  Match a single client</pre></div></dd></dl></div></section><section class="sect3" id="man-ganesha-export-config-export-fsal" data-id-title="EXPORT { FSAL {} }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.4 </span><span class="title-name">EXPORT { FSAL {} }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-export-fsal">#</a></h4></div></div></div><p>
+    NFS-Ganesha supports the following FSALs:
+    <span class="strong"><strong>Ceph</strong></span>
+    <span class="strong"><strong>Gluster</strong></span>
+    <span class="strong"><strong>GPFS</strong></span>
+    <span class="strong"><strong>PROXY_V3</strong></span>
+    <span class="strong"><strong>PROXY_V4</strong></span>
+    <span class="strong"><strong>RGW</strong></span>
+    <span class="strong"><strong>VFS</strong></span>
+    <span class="strong"><strong>XFS</strong></span>
+    <span class="strong"><strong>LUSTRE</strong></span>
+    <span class="strong"><strong>LIzardFS</strong></span>
+    <span class="strong"><strong>KVSFS</strong></span>
+   </p><p>
+    Refer to individual FSAL config file for list of config options.
+   </p><p>
+    The FSAL blocks generally are less updatable
+   </p></section></section><section class="sect2" id="man-ganesha-export-config-discussion" data-id-title="DISCUSSION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.3 </span><span class="title-name">DISCUSSION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-discussion">#</a></h3></div></div></div><p>
+   The EXPORT blocks define the file namespaces that are served by NFS-Ganesha.
+  </p><p>
+   In best practice, each underlying filesystem has a single EXPORT defining
+   how that filesystem is to be shared, however, in some cases, it is desirable
+   to sub-divide a filesystem into multiple exports. The danger when this is
+   done is that rogue clients may be able to spoof file handles and access
+   portions of the filesystem not intended to be accessible to that client.
+  </p><p>
+   Some FSALs (currently FSAL_VFS, FSAL_GPFS, FSAL_XFS, and FSAL_LUSTRE) are
+   built to support nested filesystems, for example:
+  </p><div class="verbatim-wrap"><pre class="screen">/export/fs1 /export/fs1/some/path/fs2</pre></div><p>
+   In this case, it is possible to create a single export that exports both
+   filesystems. There is a lot of complexity of what can be done there.
+  </p><p>
+   In discussions of filesystems, btrfs filesystems exported by FSAL_VFS may
+   have subvolumes. Starting in NFS-Ganesha V4.0 FSAL_VFS treats these as
+   separate filesystems that are integrated with all the richness of FSAL_VFS
+   exports.
+  </p><p>
+   Another significant FSAL from an export point of view is FSAL_PSEUDO. This
+   is used to build glue exports to build the unified NFSv4 name space. This
+   name space may also be used by NFSv3 by setting the NFS_CORE_PARAM option:
+  </p><div class="verbatim-wrap"><pre class="screen">mount_path_pseudo = TRUE;</pre></div><p>
+   If no FSAL_PSEUDO export is explicitly defined, and there is no EXPORT with:
+  </p><div class="verbatim-wrap"><pre class="screen">Pseudo = "/";</pre></div><p>
+   NFS-Ganesha will build a FSAL_PSEUDO EXPORT with this Pseudo Path using
+   Export_Id = 0. This automatic EXPORT may be replaced with an explicit EXPORT
+   which need not have Export_Id = 0, it just must have Pseudo = "/" and
+   Protocols = 4.
+  </p><p>
+   In building the Pseudo Filesystem, there is a subtle gotcha. Since NFSv4
+   clients actually moount the root of the Pseudo Filesystem and then use
+   LOOKUP to traverse into the actual directory the sysadmin has mounted from
+   the client, any EXPORTs from "/" to the desired EXPORT MUST have Protocols =
+   4 specified either in EXPORT_DEFAULTS {}, EXPORT {}, or EXPORT { CLIENT {}
+   }. This is to assure that the client is allowed to traverse each EXPORT.
+  </p><p>
+   If Mount_Path_Pseudo = TRUE is being used and an export is desired to be
+   NFSv3 only, Protocols = 3 MUST be specified in the EXPORT {} block. If
+   Protocols is not specified in the EXPORT {} block and is only specified in
+   an EXPORT { CLIENT {} } block, then that export will still be mounted in the
+   Pseudo Filesystem but might not be traversable. Thus if the following two
+   filesystems are exported:
+  </p><div class="verbatim-wrap"><pre class="screen">/export/fs1 /export/fs1/some/path/fs2</pre></div><p>
+   And the EXPORTs look something like this:
+  </p><div class="verbatim-wrap"><pre class="screen">EXPORT { Export_Id = 1; Path = /export/fs1; Peudo = /export/fs1;</pre></div><p>
+   NFSv4 clients will not be able to access /export/fs1/some/path/fs2. The
+   correct way to accomplish this is:
+  </p><div class="verbatim-wrap"><pre class="screen">EXPORT { Export_Id = 1; Path = /export/fs1; Peudo = /export/fs1; Protocols=3;</pre></div><p>
+   Note that an EXPORT { CLIENT {} } block is not necessary if the default
+   export pernmissions are workable.
+  </p><p>
+   Note that in order for an EXPORT to be usable with NSFv4 it MUST either have
+   Protcols = 4 specified in the EXPORT block, or the EXPORT block must not
+   have the Protocols option at all such that it defaults to 3,4,9P. Note
+   though that if it is not set and EXPORT_DEFAULTS just has Protocols = 3;
+   then even though the export is mounted in the Pseudo Filesystem, it will not
+   be accessible and the gotcha discussed above may be in play.
+  </p></section><section class="sect2" id="man-ganesha-export-config-configuration-reload" data-id-title="CONFIGURATION RELOAD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.4 </span><span class="title-name">CONFIGURATION RELOAD</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-configuration-reload">#</a></h3></div></div></div><p>
+   In addition to the LOG {} configuration, EXPORT {} config is the main
+   configuration that can be updated while NFS-Ganesha is running by issuing a
+   SIGHUP.
+  </p><p>
+   This causes all EXPORT and EXPORT_DEFAULTS blocks to be reloaded.
+   NFS-Ganesha V4.0 and later have some significant improvements to this since
+   it was introduced in NFS-Ganesha V2.4.0. V2.8.0 introduced the ability to
+   remove EXPORTs via SIGHUP configuration reload.
+  </p><p>
+   Significantly how things work now is:
+  </p><p>
+   On SIGHUP all the EXPORT and EXPORT_DEFAULTS blocks are re-read. There are
+   three conditions that may occur:
+  </p><div class="verbatim-wrap"><pre class="screen">An export may be added An export may be removed An export may be updated</pre></div><p>
+   A note on Export_Id and Path. These are the primary options that define an
+   export. If Export_Id is changed, the change is treated as a remove of the
+   old Export_Id and an addition of the new Export_Id. Path can not be changed
+   without also changing Export_Id. The Tag and Pseudo options that also
+   contribute to the uniqueness of an EXPORT may be changed.
+  </p><p>
+   Any removed exports are removed from the internal tables and if they are
+   NFSv4 exports, unmounted from the Pseudo Filesystem, which will then be
+   re-built as if those exports had not been present.
+  </p><p>
+   Any new exports are added to the internal tables, and if the export is an
+   NFSv4 export, they are mounted into the Pseudo Filesystem.
+  </p><p>
+   Any updated exports will be modified with the least disruption possible. If
+   the Pseduo option is changed, the export is unmounted from the Pseduo
+   Filesystem in it's original location, and re-mounted in it's new location.
+   Other options are updated atomically, though serially, so for a short period
+   of time, the options may be mixed between old and new. In most cases this
+   should not cause problems. Notably though, the CLIENT blocks are processed
+   to form a new access control list and that list is atomically swapped with
+   the old list. If the Protocols for an EXPORT are changed to include or
+   remove NFSv4, the Pseduo Filesystem will also be updated.
+  </p><p>
+   Note that there is no pause in operations other than a lock being taken when
+   the client list is being swapped out, however the export permissions are
+   applied to an operation once. Notably for NFSv4, this is on a PUTFH or
+   LOOKUP which changes the Current File Handle. As an example, if a write is
+   in progress, having passed the permission check with the previous export
+   permissions, the write will complete without interruption. If the write is
+   part of an NFSv4 COMPOUND, the other operations in that COMPOUND that
+   operate on the same file handle will also complete with the previous export
+   permissions.
+  </p><p>
+   An update of EXPORT_DEFAULTS changes the export options atomically. These
+   options are only used for those options not otherwise set in an EXPORT {} or
+   CLIENT {} block and are applied when export permissions are evaluated when a
+   new file handle is encountered.
+  </p><p>
+   The FSAL { Name } may not be changed and FSALs offer limited support for
+   changing any options in the FSAL block. Some FSALs may validate and warn if
+   any options in the FSAL block are changed when such a change is not
+   supported.
+  </p></section><section class="sect2" id="man-ganesha-export-config-see-also" data-id-title="SEE ALSO"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.5 </span><span class="title-name">SEE ALSO</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-export-config-see-also">#</a></h3></div></div></div><p>
+   <code class="literal">ganesha-config &lt;ganesha-config&gt;</code>(8)
+   <code class="literal">ganesha-rgw-config &lt;ganesha-rgw-config&gt;</code>(8)
+   <code class="literal">ganesha-vfs-config &lt;ganesha-vfs-config&gt;</code>(8)
+   <code class="literal">ganesha-lustre-config &lt;ganesha-lustre-config&gt;</code>(8)
+   <code class="literal">ganesha-xfs-config &lt;ganesha-xfs-config&gt;</code>(8)
+   <code class="literal">ganesha-gpfs-config &lt;ganesha-gpfs-config&gt;</code>(8)
+   <code class="literal">ganesha-9p-config &lt;ganesha-9p-config&gt;</code>(8)
+   <code class="literal">ganesha-proxy-config &lt;ganesha-proxy-config&gt;</code>(8)
+   <code class="literal">ganesha-ceph-config &lt;ganesha-ceph-config&gt;</code>(8)
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-core-config-ganesha-core-config----nfs-ganesha-core-configuration-file" data-id-title="ganesha-core-config -- NFS Ganesha Core Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">7 </span><span class="title-name">ganesha-core-config -- NFS Ganesha Core Configuration File</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-ganesha-core-config----nfs-ganesha-core-configuration-file">#</a></h2></div></div></div><p>
+  ganesha-core-config
+ </p><section class="sect2" id="man-ganesha-core-config-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-synopsis">#</a></h3></div></div></div><p>
+   /etc/ganesha/ganesha.conf
+  </p></section><section class="sect2" id="man-ganesha-core-config-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-description">#</a></h3></div></div></div><p>
+   NFS-Ganesha reads the configuration data from: | /etc/ganesha/ganesha.conf
+  </p><p>
+   This file lists NFS related core config options.
+  </p><section class="sect3" id="man-ganesha-core-config-nfs-core-param" data-id-title="NFS_CORE_PARAM {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.1 </span><span class="title-name">NFS_CORE_PARAM {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-nfs-core-param">#</a></h4></div></div></div><p>
+    Core parameters:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.4.3.1"><span class="term">NFS_Port (uint16, range 0 to UINT16_MAX, default 2049)</span></dt><dd><p>
+       Port number used by NFS Protocol.
+      </p></dd><dt id="id-1.8.4.4.3.2"><span class="term">MNT_Port (uint16, range 0 to UINT16_MAX, default 0)</span></dt><dd><p>
+       Port number used by MNT Protocol.
+      </p></dd><dt id="id-1.8.4.4.3.3"><span class="term">NLM_Port (uint16, range 0 to UINT16_MAX, default 0)</span></dt><dd><p>
+       Port number used by NLM Protocol.
+      </p></dd><dt id="id-1.8.4.4.3.4"><span class="term">Rquota_Port (uint16, range 0 to UINT16_MAX, default 875)</span></dt><dd><p>
+       Port number used by Rquota Protocol.
+      </p></dd><dt id="id-1.8.4.4.3.5"><span class="term">Bind_addr(IPv4 or IPv6 addr, default 0.0.0.0)</span></dt><dd><p>
+       The address to which to bind for our listening port.
+      </p></dd><dt id="id-1.8.4.4.3.6"><span class="term">NFS_Program(uint32, range 1 to INT32_MAX, default 100003)</span></dt><dd><p>
+       RPC program number for NFS.
+      </p></dd><dt id="id-1.8.4.4.3.7"><span class="term">MNT_Program(uint32, range 1 to INT32_MAX, default 100005)</span></dt><dd><p>
+       RPC program number for MNT.
+      </p></dd><dt id="id-1.8.4.4.3.8"><span class="term">NLM_Program(uint32, range 1 to INT32_MAX, default 100021)</span></dt><dd><p>
+       RPC program number for NLM.
+      </p></dd><dt id="id-1.8.4.4.3.9"><span class="term">Drop_IO_Errors(bool, default false)</span></dt><dd><p>
+       For NFSv3, whether to drop rather than reply to requests yielding I/O
+       errors. It results in client retry.
+      </p></dd><dt id="id-1.8.4.4.3.10"><span class="term">Drop_Inval_Errors(bool, default false)</span></dt><dd><p>
+       For NFSv3, whether to drop rather than reply to requests yielding
+       invalid argument errors. False by default and settable with
+       Drop_Inval_Errors.
+      </p></dd><dt id="id-1.8.4.4.3.11"><span class="term">Drop_Delay_Errors(bool, default false)</span></dt><dd><p>
+       For NFSv3, whether to drop rather than reply to requests yielding delay
+       errors. False by default and settable with Drop_Delay_Errors.
+      </p></dd><dt id="id-1.8.4.4.3.12"><span class="term">Plugins_Dir(path, default "/usr/lib64/ganesha")</span></dt><dd><p>
+       Path to the directory containing server specific modules
+      </p></dd><dt id="id-1.8.4.4.3.13"><span class="term">Enable_NFS_Stats(bool, default true)</span></dt><dd><p>
+       Whether to collect perfomance statistics. By default the perfomance
+       counting is enabled. Enable_NFS_Stats can be enabled or disabled
+       dynamically via ganesha_stats.
+      </p></dd><dt id="id-1.8.4.4.3.14"><span class="term">Enable_Fast_Stats(bool, default false)</span></dt><dd><p>
+       Whether to use fast stats. If enabled this will skip statistics counters
+       collection for per client and per export.
+      </p></dd><dt id="id-1.8.4.4.3.15"><span class="term">Enable_FSAL_Stats(bool, default false)</span></dt><dd><p>
+       Whether to count and collect FSAL specific performance statistics.
+       Enable_FSAL_Stats can be enabled or disabled dynamically via
+       ganesha_stats
+      </p></dd><dt id="id-1.8.4.4.3.16"><span class="term">Enable_FULLV3_Stats(bool, default false)</span></dt><dd><p>
+       Whether to count and collect "detailed statistics" for NFSv3.
+       Enable_FULLV3_Stats can be enabled or disabled dynamically via
+       ganesha_stats.
+      </p></dd><dt id="id-1.8.4.4.3.17"><span class="term">Enable_FULLV4_Stats(bool, default false)</span></dt><dd><p>
+       Whether to count and collect "detailed statistics" for NFSv4.
+       Enable_FULLV4_Stats can be enabled or disabled dynamically via
+       ganesha_stats.
+      </p></dd><dt id="id-1.8.4.4.3.18"><span class="term">Enable_CLNT_AllOps_Stats(bool, default false)</span></dt><dd><p>
+       Whether to count and collect statistics for all NFS operations requested
+       by NFS clients. Enable_CLNT_AllOps_Stats can be enabled or disabled
+       dynamically via ganesha_stats.
+      </p></dd><dt id="id-1.8.4.4.3.19"><span class="term">Short_File_Handle(bool, default false)</span></dt><dd><p>
+       Whether to use short NFS file handle to accommodate VMware NFS client.
+       Enable this if you have a VMware NFSv3 client. VMware NFSv3 client has a
+       max limit of 56 byte file handles.
+      </p></dd><dt id="id-1.8.4.4.3.20"><span class="term">Manage_Gids_Expiration(int64, range 0 to 7*24*60*60, default 30*60)</span></dt><dd><p>
+       How long the server will trust information it got by calling getgroups()
+       when "Manage_Gids = TRUE" is used in a export entry.
+      </p></dd><dt id="id-1.8.4.4.3.21"><span class="term">heartbeat_freq(uint32, range 0 to 5000 default 1000)</span></dt><dd><p>
+       Frequency of dbus health heartbeat in ms.
+      </p></dd><dt id="id-1.8.4.4.3.22"><span class="term">Enable_NLM(bool, default true)</span></dt><dd><p>
+       Whether to support the Network Lock Manager protocol.
+      </p></dd><dt id="id-1.8.4.4.3.23"><span class="term">Blocked_Lock_Poller_Interval(int64, range 0 to 180, default 10)</span></dt><dd><p>
+       Polling interval for blocked lock polling thread
+      </p></dd><dt id="id-1.8.4.4.3.24"><span class="term">Protocols(enum list, default [3,4,9P])</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.4.3.24.2.1.1"><span class="term">Possible values:</span></dt><dd><p>
+          3, 4, NFS3, NFS4, V3, V4, NFSv3, NFSv4, 9P
+         </p></dd></dl></div><p>
+       The protocols that Ganesha will listen for. This is a hard limit, as
+       this list determines which sockets are opened. This list can be
+       restricted per export, but cannot be expanded.
+      </p></dd><dt id="id-1.8.4.4.3.25"><span class="term">NSM_Use_Caller_Name(bool, default false)</span></dt><dd><p>
+       Whether to use the supplied name rather than the IP address in NSM
+       operations.
+      </p></dd><dt id="id-1.8.4.4.3.26"><span class="term">Clustered(bool, default true)</span></dt><dd><p>
+       Whether this Ganesha is part of a cluster of Ganeshas. Its vendor
+       specific option.
+      </p></dd><dt id="id-1.8.4.4.3.27"><span class="term">fsid_device(bool, default false)</span></dt><dd><p>
+       Whether to use device major/minor for fsid.
+      </p></dd><dt id="id-1.8.4.4.3.28"><span class="term">mount_path_pseudo(bool, default false)</span></dt><dd><p>
+       Whether to use Pseudo (true) or Path (false) for NFS v3 and 9P mounts.
+      </p><p>
+       This option defaults to false for backward compatibility, however, for
+       new setups, it's strongly recommended to be set true since it then means
+       the same server path for the mount is used for both v3 and v4.x.
+      </p><p>
+       Note that as an export related option, it seems very desireable to be
+       able to change this on config reload, unfortunately, at the moment it is
+       NOT changeable on config reload. A restart is necessary to change this.
+      </p></dd><dt id="id-1.8.4.4.3.29"><span class="term">Dbus_Name_Prefix</span></dt><dd><p>
+       DBus name prefix. Required if one wants to run multiple ganesha
+       instances on single host. The prefix should be different for every
+       ganesha instance. If this is set, the dbus name will be
+       &lt;prefix&gt;.org.ganesha.nfsd
+      </p></dd><dt id="id-1.8.4.4.3.30"><span class="term">Enable_UDP(enum, values [False, True, Mount], default True)</span></dt><dd><p>
+       Whether to create UDP listeners for Mount, NFS, NLM, RQUOTA, and
+       register them with portmapper. Set to false, e.g., to run as non-root.
+       Set to Mount to enable only Mount UDP listener.
+      </p></dd><dt id="id-1.8.4.4.3.31"><span class="term">Max_Uid_To_Group_Reqs(uint32, range 0 to INT32_MAX, default 0)</span></dt><dd><p>
+       Maximum number of concurrent uid2grp requests that can be made by
+       ganesha. In environments with a slow Directory Service Provider, where
+       users are part of large number of groups, and Manage_Gids is set to
+       True, uid2grp queries made by ganesha can fail if a large number of them
+       are made in parallel. This option throttles the number of concurrent
+       uid2grp queries that ganesha makes.
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-parameters-controlling-tcp-drc-behavior" data-id-title="Parameters controlling TCP DRC behavior:"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.2 </span><span class="title-name">Parameters controlling TCP DRC behavior:</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-parameters-controlling-tcp-drc-behavior">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.5.2.1"><span class="term">DRC_Disabled(bool, default false)</span></dt><dd><p>
+       Whether to disable the DRC entirely.
+      </p></dd><dt id="id-1.8.4.5.2.2"><span class="term">TCP_Npart(uint32, range 1 to 20, default 1)</span></dt><dd><p>
+       Number of partitions in the tree for the TCP DRC.
+      </p></dd><dt id="id-1.8.4.5.2.3"><span class="term">DRC_TCP_Size(uint32, range 1 to 32767, default 1024)</span></dt><dd><p>
+       Maximum number of requests in a transport's DRC.
+      </p></dd><dt id="id-1.8.4.5.2.4"><span class="term">DRC_TCP_Cachesz(uint32, range 1 to 255, default 127)</span></dt><dd><p>
+       Number of entries in the O(1) front-end cache to a TCP Duplicate Request
+       Cache.
+      </p></dd><dt id="id-1.8.4.5.2.5"><span class="term">DRC_TCP_Hiwat(uint32, range 1 to 256, default 64)</span></dt><dd><p>
+       High water mark for a TCP connection's DRC at which to start retiring
+       entries if we can.
+      </p></dd><dt id="id-1.8.4.5.2.6"><span class="term">DRC_TCP_Recycle_Npart(uint32, range 1 to 20, default 7)</span></dt><dd><p>
+       Number of partitions in the recycle tree that holds per-connection DRCs
+       so they can be used on reconnection (or recycled.)
+      </p></dd><dt id="id-1.8.4.5.2.7"><span class="term">DRC_TCP_Recycle_Expire_S(uint32, range 0 to 60*60, default 600)</span></dt><dd><p>
+       How long to wait (in seconds) before freeing the DRC of a disconnected
+       client.
+      </p></dd><dt id="id-1.8.4.5.2.8"><span class="term">DRC_TCP_Checksum(bool, default true)</span></dt><dd><p>
+       Whether to use a checksum to match requests as well as the XID
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-parameters-controlling-udp-drc-behavior" data-id-title="Parameters controlling UDP DRC behavior:"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.3 </span><span class="title-name">Parameters controlling UDP DRC behavior:</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-parameters-controlling-udp-drc-behavior">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.6.2.1"><span class="term">DRC_UDP_Npart(uint32, range 1 to 100, default 7)</span></dt><dd><p>
+       Number of partitions in the tree for the UDP DRC.
+      </p></dd><dt id="id-1.8.4.6.2.2"><span class="term">DRC_UDP_Size(uint32, range 512, to 32768, default 32768)</span></dt><dd><p>
+       Maximum number of requests in the UDP DRC.
+      </p></dd><dt id="id-1.8.4.6.2.3"><span class="term">DRC_UDP_Cachesz(uint32, range 1 to 2047, default 599)</span></dt><dd><p>
+       Number of entries in the O(1) front-end cache to the UDP Duplicate
+       Request Cache.
+      </p></dd><dt id="id-1.8.4.6.2.4"><span class="term">DRC_UDP_Hiwat(uint32, range 1 to 32768, default 16384)</span></dt><dd><p>
+       High water mark for the UDP DRC at which to start retiring entries if we
+       can
+      </p></dd><dt id="id-1.8.4.6.2.5"><span class="term">DRC_UDP_Checksum(bool, default true)</span></dt><dd><p>
+       Whether to use a checksum to match requests as well as the XID.
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-parameters-affecting-the-relation-with-tirpc" data-id-title="Parameters affecting the relation with TIRPC:"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.4 </span><span class="title-name">Parameters affecting the relation with TIRPC:</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-parameters-affecting-the-relation-with-tirpc">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.7.2.1"><span class="term">RPC_Max_Connections(uint32, range 1 to 10000, default 1024)</span></dt><dd><p>
+       Maximum number of connections for TIRPC.
+      </p></dd><dt id="id-1.8.4.7.2.2"><span class="term">RPC_Idle_Timeout_S(uint32, range 0 to 60*60, default 300)</span></dt><dd><p>
+       Idle timeout (seconds). Default to 300 seconds.
+      </p></dd><dt id="id-1.8.4.7.2.3"><span class="term">MaxRPCSendBufferSize(uint32, range 1 to 1048576*9, default 1048576)</span></dt><dd><p>
+       Size of RPC send buffer.
+      </p></dd><dt id="id-1.8.4.7.2.4"><span class="term">MaxRPCRecvBufferSize(uint32, range 1 to 1048576*9, default 1048576)</span></dt><dd><p>
+       Size of RPC receive buffer.
+      </p></dd><dt id="id-1.8.4.7.2.5"><span class="term">RPC_Ioq_ThrdMax(uint32, range 1 to 1024*128 default 200)</span></dt><dd><p>
+       TIRPC ioq max simultaneous io threads
+      </p></dd><dt id="id-1.8.4.7.2.6"><span class="term">RPC_GSS_Npart(uint32, range 1 to 1021, default 13)</span></dt><dd><p>
+       Partitions in GSS ctx cache table
+      </p></dd><dt id="id-1.8.4.7.2.7"><span class="term">RPC_GSS_Max_Ctx(uint32, range 1 to 1048576, default 16384)</span></dt><dd><p>
+       Max GSS contexts in cache. Default 16k
+      </p></dd><dt id="id-1.8.4.7.2.8"><span class="term">RPC_GSS_Max_Gc(uint32, range 1 to 1048576, default 200)</span></dt><dd><p>
+       Max entries to expire in one idle check
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-parameters-for-tcp" data-id-title="Parameters for TCP:"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.5 </span><span class="title-name">Parameters for TCP:</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-parameters-for-tcp">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.8.2.1"><span class="term">Enable_TCP_keepalive(bool, default true)</span></dt><dd><p>
+       Whether tcp sockets should use SO_KEEPALIVE
+      </p></dd><dt id="id-1.8.4.8.2.2"><span class="term">TCP_KEEPCNT(UINT32, range 0 to 255, default 0 -&gt; use system defaults)</span></dt><dd><p>
+       Maximum number of TCP probes before dropping the connection
+      </p></dd><dt id="id-1.8.4.8.2.3"><span class="term">TCP_KEEPIDLE(UINT32, range 0 to 65535, default 0 -&gt; use system defautls)</span></dt><dd><p>
+       Idle time before TCP starts to send keepalive probes
+      </p></dd><dt id="id-1.8.4.8.2.4"><span class="term">TCP_KEEPINTVL(INT32, range 0 to 65535, default 0 -&gt; use system defaults)</span></dt><dd><p>
+       Time between each keepalive probe
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-nfs-ip-name" data-id-title="NFS_IP_NAME {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.6 </span><span class="title-name">NFS_IP_NAME {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-nfs-ip-name">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.9.2.1"><span class="term">Index_Size(uint32, range 1 to 51, default 17)</span></dt><dd><p>
+       Configuration for hash table for NFS Name/IP map.
+      </p></dd><dt id="id-1.8.4.9.2.2"><span class="term">Expiration_Time(uint32, range 1 to 60*60*24, default 3600)</span></dt><dd><p>
+       Expiration time for ip-name mappings.
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-nfs-krb5" data-id-title="NFS_KRB5 {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.7 </span><span class="title-name">NFS_KRB5 {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-nfs-krb5">#</a></h4></div></div></div><p>
+    <span class="strong"><strong>PrincipalName(string, default "nfs")</strong></span>
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.10.3.1"><span class="term">KeytabPath(path, default "")</span></dt><dd><p>
+       Kerberos keytab.
+      </p></dd><dt id="id-1.8.4.10.3.2"><span class="term">CCacheDir(path, default "/var/run/ganesha")</span></dt><dd><p>
+       The ganesha credential cache.
+      </p></dd><dt id="id-1.8.4.10.3.3"><span class="term">Active_krb5(bool, default false)</span></dt><dd><p>
+       Whether to activate Kerberos 5. Defaults to true (if Kerberos support is
+       compiled in)
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-nfsv4" data-id-title="NFSv4 {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.8 </span><span class="title-name">NFSv4 {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-nfsv4">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.11.2.1"><span class="term">Graceless(bool, default false)</span></dt><dd><p>
+       Whether to disable the NFSv4 grace period.
+      </p></dd><dt id="id-1.8.4.11.2.2"><span class="term">Lease_Lifetime(uint32, range 0 to 120, default 60)</span></dt><dd><p>
+       The NFSv4 lease lifetime.
+      </p></dd><dt id="id-1.8.4.11.2.3"><span class="term">Grace_Period(uint32, range 0 to 180, default 90)</span></dt><dd><p>
+       The NFS grace period.
+      </p></dd><dt id="id-1.8.4.11.2.4"><span class="term">DomainName(string, default "localdomain")</span></dt><dd><p>
+       Domain to use if we aren't using the nfsidmap.
+      </p></dd><dt id="id-1.8.4.11.2.5"><span class="term">IdmapConf(path, default "/etc/idmapd.conf")</span></dt><dd><p>
+       Path to the idmap configuration file.
+      </p></dd><dt id="id-1.8.4.11.2.6"><span class="term">UseGetpwnam(bool, default false if using idmap, true otherwise)</span></dt><dd><p>
+       Whether to use local password (PAM, on Linux) rather than nfsidmap.
+      </p></dd><dt id="id-1.8.4.11.2.7"><span class="term">Allow_Numeric_Owners(bool, default true)</span></dt><dd><p>
+       Whether to allow bare numeric IDs in NFSv4 owner and group identifiers.
+      </p></dd><dt id="id-1.8.4.11.2.8"><span class="term">Only_Numeric_Owners(bool, default false)</span></dt><dd><p>
+       Whether to ONLY use bare numeric IDs in NFSv4 owner and group
+       identifiers.
+      </p></dd><dt id="id-1.8.4.11.2.9"><span class="term">Delegations(bool, default false)</span></dt><dd><p>
+       Whether to allow delegations.
+      </p></dd><dt id="id-1.8.4.11.2.10"><span class="term">Deleg_Recall_Retry_Delay(uint32_t, range 0 to 10, default 1)</span></dt><dd><p>
+       Delay after which server will retry a recall in case of failures
+      </p></dd><dt id="id-1.8.4.11.2.11"><span class="term">pnfs_mds(bool, default false)</span></dt><dd><p>
+       Whether this a pNFS MDS server. For FSAL Gluster, if this is true, set
+       pnfs_mds in gluster block as well.
+      </p></dd><dt id="id-1.8.4.11.2.12"><span class="term">pnfs_ds(bool, default false)</span></dt><dd><p>
+       Whether this a pNFS DS server.
+      </p></dd><dt id="id-1.8.4.11.2.13"><span class="term">RecoveryBackend(enum, default "fs")</span></dt><dd><p>
+       Use different backend for client info:
+      </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+         fs : filesystem
+        </p></li><li class="listitem"><p>
+         fs_ng: filesystem (better resiliency)
+        </p></li><li class="listitem"><p>
+         rados_kv : rados key-value
+        </p></li><li class="listitem"><p>
+         rados_ng : rados key-value (better resiliency)
+        </p></li><li class="listitem"><p>
+         rados_cluster: clustered rados backend (active/active)
+        </p></li></ul></div></dd><dt id="id-1.8.4.11.2.14"><span class="term">RecoveryRoot(path, default "/var/lib/nfs/ganesha")</span></dt><dd><p>
+       Specify the root recovery directory for fs or fs_ng recovery backends.
+      </p></dd><dt id="id-1.8.4.11.2.15"><span class="term">RecoveryDir(path, default "v4recov")</span></dt><dd><p>
+       Specify the recovery directory name for fs or fs_ng recovery backends.
+      </p></dd><dt id="id-1.8.4.11.2.16"><span class="term">RecoveryOldDir(path, "v4old")</span></dt><dd><p>
+       Specify the recovery old directory name for fs recovery backend.
+      </p></dd><dt id="id-1.8.4.11.2.17"><span class="term">Minor_Versions(enum list, values [0, 1, 2], default [0, 1, 2])</span></dt><dd><p>
+       List of supported NFSV4 minor version numbers.
+      </p></dd><dt id="id-1.8.4.11.2.18"><span class="term">Slot_Table_Size(uint32, range 1 to 1024, default 64)</span></dt><dd><p>
+       Size of the NFSv4.1 slot table
+      </p></dd><dt id="id-1.8.4.11.2.19"><span class="term">Enforce_UTF8_Validation(bool, default false)</span></dt><dd><p>
+       Set true to enforce valid UTF-8 for path components and compound tags
+      </p></dd><dt id="id-1.8.4.11.2.20"><span class="term">Max_Client_Ids(uint32, range 0 to UINT32_MAX, default 0)</span></dt><dd><p>
+       Specify a max limit on number of NFS4 ClientIDs supported by the server.
+       With filesystem recovery backend, each ClientID translates to one
+       directory. With certain workloads, this could result in reaching inode
+       limits of the filesystem that /var/lib/nfs/ganesha is part of. The above
+       limit can be used as a guardrail to prevent getting into this situation.
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-rados-kv" data-id-title="RADOS_KV {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.9 </span><span class="title-name">RADOS_KV {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-rados-kv">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.12.2.1"><span class="term">ceph_conf(string, no default)</span></dt><dd><p>
+       Connection to ceph cluster, should be file path for ceph configuration.
+      </p></dd><dt id="id-1.8.4.12.2.2"><span class="term">userid(path, no default)</span></dt><dd><p>
+       User ID to ceph cluster.
+      </p></dd><dt id="id-1.8.4.12.2.3"><span class="term">namespace(string, default NULL)</span></dt><dd><p>
+       RADOS Namespace in which to store objects
+      </p></dd><dt id="id-1.8.4.12.2.4"><span class="term">pool(string, default "nfs-ganesha")</span></dt><dd><p>
+       Pool for client info.
+      </p></dd><dt id="id-1.8.4.12.2.5"><span class="term">grace_oid(string, default "grace")</span></dt><dd><p>
+       Name of the object containing the rados_cluster grace DB
+      </p></dd><dt id="id-1.8.4.12.2.6"><span class="term">nodeid(string, default result of gethostname())</span></dt><dd><p>
+       Unique node identifier within rados_cluster
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-core-config-rados-urls" data-id-title="RADOS_URLS {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10 </span><span class="title-name">RADOS_URLS {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-core-config-rados-urls">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.8.4.13.2.1"><span class="term">ceph_conf(string, no default)</span></dt><dd><p>
+       Connection to ceph cluster, should be file path for ceph configuration.
+      </p></dd><dt id="id-1.8.4.13.2.2"><span class="term">userid(path, no default)</span></dt><dd><p>
+       User ID to ceph cluster.
+      </p></dd><dt id="id-1.8.4.13.2.3"><span class="term">watch_url(url, no default)</span></dt><dd><p>
+       rados:// URL to watch for notifications of config changes. When a
+       notification is received, the server will issue a SIGHUP to itself.
+      </p></dd></dl></div></section></section></section><section xml:lang="en" class="sect1" id="man-ganesha-config-ganesha-config----nfs-ganesha-configuration-file" data-id-title="ganesha-config -- NFS Ganesha Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8 </span><span class="title-name">ganesha-config -- NFS Ganesha Configuration File</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-ganesha-config----nfs-ganesha-configuration-file">#</a></h2></div></div></div><p>
+  ganesha-config
+ </p><section class="sect2" id="man-ganesha-config-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-synopsis">#</a></h3></div></div></div><p>
+   /etc/ganesha/ganesha.conf
+  </p></section><section class="sect2" id="man-ganesha-config-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-description">#</a></h3></div></div></div><p>
+   NFS-Ganesha obtains configuration data from the configuration file:
+  </p><div class="verbatim-wrap"><pre class="screen">/etc/ganesha/ganesha.conf</pre></div><p>
+   The configuration file consists of following parts:
+  </p><section class="sect3" id="man-ganesha-config-comments" data-id-title="Comments"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.2.1 </span><span class="title-name">Comments</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-comments">#</a></h4></div></div></div><p>
+    Empty lines and lines starting with '#' are comments.:
+   </p><div class="verbatim-wrap"><pre class="programlisting"># This whole line is a comment
+Protocol = TCP; # The rest of this line is a comment</pre></div></section><section class="sect3" id="man-ganesha-config-blocks" data-id-title="Blocks"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.2.2 </span><span class="title-name">Blocks</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-blocks">#</a></h4></div></div></div><p>
+    Related options are grouped together into "blocks". A block is a name
+    followed by parameters enclosed between "{" and "}". A block can contain
+    other sub blocks as well.:
+   </p><div class="verbatim-wrap"><pre class="programlisting">EXPORT
+{
+    Export_ID = 1;
+    FSAL {
+        Name = VFS:
+    }
+}</pre></div><p>
+    NOTE: FSAL is a sub block. Refer to <code class="literal">BLOCKS</code> section for
+    list of blocks and options.
+   </p></section><section class="sect3" id="man-ganesha-config-options" data-id-title="Options"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.2.3 </span><span class="title-name">Options</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-options">#</a></h4></div></div></div><p>
+    Configuration options can be of following types.
+   </p><p>
+    1. <span class="strong"><strong>Numeric.</strong></span> Numeric options can be
+    defined in octal, decimal, or hexadecimal. The format follows ANSI C
+    syntax. eg.:
+   </p><div class="verbatim-wrap"><pre class="programlisting">mode = 0755;  # This is octal 0755, 493 (decimal)</pre></div><p>
+    Numeric values can also be negated or logical NOT'd. eg.:
+   </p><div class="verbatim-wrap"><pre class="programlisting">anonymousuid = -2; # this is a negative
+mask = ~0xff; # Equivalent to 0xffffff00 (for 32 bit integers)</pre></div><p>
+    2. <span class="strong"><strong>Boolean.</strong></span> Possible values are true,
+    false, yes and no. 1 and 0 are not acceptable.
+   </p><p>
+    3. <span class="strong"><strong>List.</strong></span> The option can contain a list
+    of possible applicable values. Protocols = 3, 4, 9p;
+   </p></section><section class="sect3" id="man-ganesha-config-including-other-config-files" data-id-title="Including other config files"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.2.4 </span><span class="title-name">Including other config files</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-including-other-config-files">#</a></h4></div></div></div><p>
+    Additional files can be referenced in a configuration using '%include' and
+    '%url' directives.:
+   </p><div class="verbatim-wrap"><pre class="programlisting">%include &lt;filename&gt;
+%url &lt;url, e.g., rados://mypool/mynamespace/myobject&gt;</pre></div><p>
+    The included file is inserted into the configuration text in place of the
+    %include or %url line. Sub-inclusions may be to any depth. Filenames and
+    URLs may optionally use '"':
+   </p><div class="verbatim-wrap"><pre class="programlisting">%include base.conf
+%include "base.conf"
+%url rados://mypool/mynamespace/myobject
+%url "rados://mypool/mynamespace/myobject"
+%url rados://mypool/myobject
+%url "rados://mypool/myobject"</pre></div><p>
+    In the case of rados:// URLs, providing a two-component URL indicates that
+    the default namespace should be used.
+   </p></section><section class="sect3" id="man-ganesha-config-reloading-config" data-id-title="Reloading Config"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.2.5 </span><span class="title-name">Reloading Config</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-reloading-config">#</a></h4></div></div></div><p>
+    A config reload can be triggered by sending the ganesha.nfsd process a
+    SIGHUP. Not all config options may be changed with reload, those that can
+    will be documented in the individual sections.
+   </p><p>
+    In general, currently dynamic config is supported for EXPORT and LOG
+    options.
+   </p></section></section><section class="sect2" id="man-ganesha-config-blocks-1" data-id-title="BLOCKS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3 </span><span class="title-name">BLOCKS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-blocks-1">#</a></h3></div></div></div><p>
+   NFS-Ganesha supports the following blocks:
+  </p><section class="sect3" id="man-ganesha-config-export" data-id-title="EXPORT {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.1 </span><span class="title-name">EXPORT {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-export">#</a></h4></div></div></div><p>
+    Along with its configuration options, the
+    <span class="strong"><strong>EXPORT</strong></span> block supports
+    <span class="strong"><strong>FSAL</strong></span> and
+    <span class="strong"><strong>CLIENT</strong></span> sub-blocks. See
+    <code class="literal">ganesha-export-config &lt;ganesha-export-config&gt;</code>(8)
+    for usage of this block and its sub-blocks.
+   </p></section><section class="sect3" id="man-ganesha-config-export-defaults" data-id-title="EXPORT_DEFAULTS {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.2 </span><span class="title-name">EXPORT_DEFAULTS {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-export-defaults">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-export-config
+    &lt;ganesha-export-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-mdcache" data-id-title="MDCACHE {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.3 </span><span class="title-name">MDCACHE {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-mdcache">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-cache-config
+    &lt;ganesha-cache-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-nfs-core-param" data-id-title="NFS_CORE_PARAM {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.4 </span><span class="title-name">NFS_CORE_PARAM {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-nfs-core-param">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-core-config
+    &lt;ganesha-core-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-nfs-ip-name" data-id-title="NFS_IP_NAME {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.5 </span><span class="title-name">NFS_IP_NAME {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-nfs-ip-name">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-core-config
+    &lt;ganesha-core-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-nfs-krb5" data-id-title="NFS_KRB5 {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.6 </span><span class="title-name">NFS_KRB5 {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-nfs-krb5">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-core-config
+    &lt;ganesha-core-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-nfsv4" data-id-title="NFSv4 {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.7 </span><span class="title-name">NFSv4 {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-nfsv4">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-core-config
+    &lt;ganesha-core-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-ceph" data-id-title="CEPH {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.8 </span><span class="title-name">CEPH {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-ceph">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-ceph-config
+    &lt;ganesha-ceph-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-p" data-id-title="9P {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.9 </span><span class="title-name">9P {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-p">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-9p-config &lt;ganesha-9p-config&gt;</code>(8)
+    for usage
+   </p></section><section class="sect3" id="man-ganesha-config-gluster" data-id-title="GLUSTER {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.10 </span><span class="title-name">GLUSTER {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-gluster">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-gluster-config
+    &lt;ganesha-gluster-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-gpfs" data-id-title="GPFS {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.11 </span><span class="title-name">GPFS {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-gpfs">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-gpfs-config
+    &lt;ganesha-gpfs-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-log" data-id-title="LOG {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.12 </span><span class="title-name">LOG {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-log">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-log-config
+    &lt;ganesha-log-config&gt;</code>(8) for usage
+   </p><p>
+    1.<span class="strong"><strong>LOG { FACILITY {} }</strong></span>
+    2.<span class="strong"><strong>LOG { FORMAT {} }</strong></span>
+   </p></section><section class="sect3" id="man-ganesha-config-proxy-v4" data-id-title="PROXY_V4 {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.13 </span><span class="title-name">PROXY_V4 {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-proxy-v4">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-proxy-config
+    &lt;ganesha-proxy-v4-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-proxy-v3" data-id-title="PROXY_V3 {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.14 </span><span class="title-name">PROXY_V3 {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-proxy-v3">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-proxy-v3-config
+    &lt;ganesha-proxy-v3-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-rgw" data-id-title="RGW {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.15 </span><span class="title-name">RGW {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-rgw">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-rgw-config
+    &lt;ganesha-rgw-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-vfs" data-id-title="VFS {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.16 </span><span class="title-name">VFS {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-vfs">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-vfs-config
+    &lt;ganesha-vfs-config&gt;</code>(8) for usage
+   </p></section><section class="sect3" id="man-ganesha-config-xfs" data-id-title="XFS {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.17 </span><span class="title-name">XFS {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-xfs">#</a></h4></div></div></div><p>
+    Refer to <code class="literal">ganesha-xfs-config
+    &lt;ganesha-xfs-config&gt;</code>(8) for usage
+   </p></section></section><section class="sect2" id="man-ganesha-config-example" data-id-title="EXAMPLE"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.4 </span><span class="title-name">EXAMPLE</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-example">#</a></h3></div></div></div><p>
+   Along with "ganesha.conf", for each installed FSAL, a sample config file is
+   added at:
+  </p><p>
+   /etc/ganesha
+  </p></section><section class="sect2" id="man-ganesha-config-see-also" data-id-title="See also"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.5 </span><span class="title-name">See also</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-config-see-also">#</a></h3></div></div></div><p>
+   <code class="literal">ganesha-log-config &lt;ganesha-log-config&gt;</code>(8)
+   <code class="literal">ganesha-rgw-config &lt;ganesha-rgw-config&gt;</code>(8)
+   <code class="literal">ganesha-vfs-config &lt;ganesha-vfs-config&gt;</code>(8)
+   <code class="literal">ganesha-lustre-config &lt;ganesha-lustre-config&gt;</code>(8)
+   <code class="literal">ganesha-xfs-config &lt;ganesha-xfs-config&gt;</code>(8)
+   <code class="literal">ganesha-gpfs-config &lt;ganesha-gpfs-config&gt;</code>(8)
+   <code class="literal">ganesha-gluster-config &lt;ganesha-gluster-config&gt;</code>(8)
+   <code class="literal">ganesha-9p-config &lt;ganesha-9p-config&gt;</code>(8)
+   <code class="literal">ganesha-proxy-config &lt;ganesha-proxy-config&gt;</code>(8)
+   <code class="literal">ganesha-proxy-v3-config
+   &lt;ganesha-proxy-v3-config&gt;</code>(8) <code class="literal">ganesha-ceph-config
+   &lt;ganesha-ceph-config&gt;</code>(8) <code class="literal">ganesha-core-config
+   &lt;ganesha-core-config&gt;</code>(8) <code class="literal">ganesha-export-config
+   &lt;ganesha-export-config&gt;</code>(8)
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-ceph-config-ganesha-ceph-config----nfs-ganesha-ceph-configuration-file" data-id-title="ganesha-ceph-config -- NFS Ganesha CEPH Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">9 </span><span class="title-name">ganesha-ceph-config -- NFS Ganesha CEPH Configuration File</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-ceph-config-ganesha-ceph-config----nfs-ganesha-ceph-configuration-file">#</a></h2></div></div></div><p>
+  ganesha-ceph-config
+ </p><section class="sect2" id="man-ganesha-ceph-config-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-ceph-config-synopsis">#</a></h3></div></div></div><p>
+   /etc/ganesha/ceph.conf
+  </p></section><section class="sect2" id="man-ganesha-ceph-config-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-ceph-config-description">#</a></h3></div></div></div><p>
+   NFS-Ganesha install config example for CEPH FSAL: | /etc/ganesha/ceph.conf
+  </p><p>
+   This file lists CEPH specific config options.
+  </p><section class="sect3" id="man-ganesha-ceph-config-export-fsal" data-id-title="EXPORT { FSAL {} }"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.2.1 </span><span class="title-name">EXPORT { FSAL {} }</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-ceph-config-export-fsal">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.10.4.4.2.1"><span class="term">Name(string, "Ceph")</span></dt><dd><p>
+       Name of FSAL should always be Ceph.
+      </p></dd><dt id="id-1.10.4.4.2.2"><span class="term">Filesystem(string, no default)</span></dt><dd><p>
+       Ceph filesystem name string, for mounting an alternate filesystem within
+       the cluster. The default is to mount the default filesystem in the
+       cluster (usually, the first one created).
+      </p></dd><dt id="id-1.10.4.4.2.3"><span class="term">User_Id(string, no default)</span></dt><dd><p>
+       cephx userid used to open the MDS session. This string is what gets
+       appended to "client.". If not set, the ceph client libs will sort this
+       out based on ceph configuration.
+      </p></dd><dt id="id-1.10.4.4.2.4"><span class="term">Secret_Access_Key(string, no default)</span></dt><dd><p>
+       Key to use for the session (if any). If not set, then it uses the normal
+       search path for cephx keyring files to find a key.
+      </p></dd></dl></div></section><section class="sect3" id="man-ganesha-ceph-config-ceph" data-id-title="CEPH {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.2.2 </span><span class="title-name">CEPH {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-ceph-config-ceph">#</a></h4></div></div></div><p>
+    <span class="strong"><strong>Ceph_Conf(path, default "")</strong></span>
+   </p><p>
+    <span class="strong"><strong>umask(mode, range 0 to 0777, default 0)</strong></span>
+   </p></section></section><section class="sect2" id="man-ganesha-ceph-config-see-also" data-id-title="See also"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.3 </span><span class="title-name">See also</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-ceph-config-see-also">#</a></h3></div></div></div><p>
+   <code class="literal">ganesha-config &lt;ganesha-config&gt;</code>(8)
+   <code class="literal">ganesha-log-config &lt;ganesha-log-config&gt;</code>(8)
+   <code class="literal">ganesha-core-config &lt;ganesha-core-config&gt;</code>(8)
+   <code class="literal">ganesha-export-config &lt;ganesha-export-config&gt;</code>(8)
+  </p></section></section><section xml:lang="en" class="sect1" id="man-ganesha-cache-config-ganesha-cache-config----nfs-ganesha-cache-configuration-file" data-id-title="ganesha-cache-config -- NFS Ganesha Cache Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10 </span><span class="title-name">ganesha-cache-config -- NFS Ganesha Cache Configuration File</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-cache-config-ganesha-cache-config----nfs-ganesha-cache-configuration-file">#</a></h2></div></div></div><p>
+  ganesha-cache-config
+ </p><section class="sect2" id="man-ganesha-cache-config-synopsis" data-id-title="SYNOPSIS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1 </span><span class="title-name">SYNOPSIS</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-cache-config-synopsis">#</a></h3></div></div></div><p>
+   /etc/ganesha/ganesha.conf
+  </p></section><section class="sect2" id="man-ganesha-cache-config-description" data-id-title="DESCRIPTION"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.2 </span><span class="title-name">DESCRIPTION</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-cache-config-description">#</a></h3></div></div></div><p>
+   NFS-Ganesha reads the configuration data from: | /etc/ganesha/ganesha.conf
+  </p><p>
+   This file lists NFS-Ganesha Cache config options. These options used to be
+   configured in the CACHEINODE block. They may still be used in that block,
+   but it is deprecated and will go away. The MDCACHE block takes precidence
+   over the CACHEINODE block.
+  </p><section class="sect3" id="man-ganesha-cache-config-mdcache" data-id-title="MDCACHE {}"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">10.2.1 </span><span class="title-name">MDCACHE {}</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-cache-config-mdcache">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.11.4.4.2.1"><span class="term">NParts (uint32, range 1 to 32633, default 7)</span></dt><dd><p>
+       Partitions in the Cache_Inode tree.
+      </p></dd><dt id="id-1.11.4.4.2.2"><span class="term">Cache_Size(uint32, range 1 to UINT32_MAX, default 32633)</span></dt><dd><p>
+       Per-partition hash table size.
+      </p></dd><dt id="id-1.11.4.4.2.3"><span class="term">Use_Getattr_Directory_Invalidation(bool, default false)</span></dt><dd><p>
+       Use getattr for directory invalidation.
+      </p></dd><dt id="id-1.11.4.4.2.4"><span class="term">Dir_Chunk(uint32, range 0 to UINT32_MAX, default 128)</span></dt><dd><p>
+       Size of per-directory dirent cache chunks, 0 means directory chunking is
+       not enabled.
+      </p></dd><dt id="id-1.11.4.4.2.5"><span class="term">Detached_Mult(uint32, range 1 to UINT32_MAX, default 1)</span></dt><dd><p>
+       Max number of detached directory entries expressed as a multiple of the
+       chunk size.
+      </p></dd><dt id="id-1.11.4.4.2.6"><span class="term">Entries_HWMark(uint32, range 1 to UINT32_MAX, default 100000)</span></dt><dd><p>
+       The point at which object cache entries will start being reused.
+      </p></dd><dt id="id-1.11.4.4.2.7"><span class="term">Entries_Release_Size(uint32, range 0 to UINT32_MAX, default 100)</span></dt><dd><p>
+       The number of entries attempted to release each time when the handle
+       cache has exceeded the entries high water mark.
+      </p></dd><dt id="id-1.11.4.4.2.8"><span class="term">Chunks_HWMark(uint32, range 1 to UINT32_MAX, default 100000)</span></dt><dd><p>
+       The point at which dirent cache chunks will start being reused.
+      </p></dd><dt id="id-1.11.4.4.2.9"><span class="term">LRU_Run_Interval(uint32, range 1 to 24 * 3600, default 90)</span></dt><dd><p>
+       Base interval in seconds between runs of the LRU cleaner thread.
+      </p></dd><dt id="id-1.11.4.4.2.10"><span class="term">FD_Limit_Percent(uint32, range 0 to 100, default 99)</span></dt><dd><p>
+       The percentage of the system-imposed maximum of file descriptors at
+       which Ganesha will deny requests.
+      </p></dd><dt id="id-1.11.4.4.2.11"><span class="term">FD_HWMark_Percent(uint32, range 0 to 100, default 90)</span></dt><dd><p>
+       The percentage of the system-imposed maximum of file descriptors above
+       which Ganesha will make greater efforts at reaping.
+      </p></dd><dt id="id-1.11.4.4.2.12"><span class="term">FD_LWMark_Percent(uint32, range 0 to 100, default 50)</span></dt><dd><p>
+       The percentage of the system-imposed maximum of file descriptors below
+       which Ganesha will not reap file descriptors.
+      </p></dd><dt id="id-1.11.4.4.2.13"><span class="term">Reaper_Work(uint32, range 1 to 2000, default 0)</span></dt><dd><p>
+       Roughly, the amount of work to do on each pass through the thread under
+       normal conditions. (Ideally, a multiple of the number of lanes.)
+       <span class="emphasis"><em>This setting is deprecated. Please use
+       Reaper_Work_Per_Lane</em></span>
+      </p></dd><dt id="id-1.11.4.4.2.14"><span class="term">Reaper_Work_Per_Lane(uint32, range 1 to UINT32_MAX, default 50)</span></dt><dd><p>
+       This is the numer of handles per lane to scan when performing LRU
+       maintenance. This task is performed by the Reaper thread.
+      </p></dd><dt id="id-1.11.4.4.2.15"><span class="term">Biggest_Window(uint32, range 1 to 100, default 40)</span></dt><dd><p>
+       The largest window (as a percentage of the system-imposed limit on FDs)
+       of work that we will do in extremis.
+      </p></dd><dt id="id-1.11.4.4.2.16"><span class="term">Required_Progress(uint32, range 1 to 50, default 5)</span></dt><dd><p>
+       Percentage of progress toward the high water mark required in in a pass
+       through the thread when in extremis
+      </p></dd><dt id="id-1.11.4.4.2.17"><span class="term">Futility_Count(uint32, range 1 to 50, default 8)</span></dt><dd><p>
+       Number of failures to approach the high watermark before we disable
+       caching, when in extremis.
+      </p></dd><dt id="id-1.11.4.4.2.18"><span class="term">Dirmap_HWMark(uint32, range 1 to UINT32_MAX, default 10000)</span></dt><dd><p>
+       The point at which dirmap entries are reused. This puts a practical
+       limit on the number of simultaneous readdirs that may be in progress on
+       an export for a whence-is-name FSAL (currently only FSAL_RGW)
+      </p></dd></dl></div></section></section><section class="sect2" id="man-ganesha-cache-config-see-also" data-id-title="See also"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.3 </span><span class="title-name">See also</span> <a title="Permalink" class="permalink" href="index.html#man-ganesha-cache-config-see-also">#</a></h3></div></div></div><p>
+   <code class="literal">ganesha-config &lt;ganesha-config&gt;</code>(8)
+  </p></section></section></section></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="index.html#man-ceph-volume-ceph-volume----ceph-osd-deployment-and-inspection-tool"><span class="title-number">1 </span><span class="title-name">ceph-volume -- Ceph OSD deployment and inspection tool</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-rgw-config-ganesha-rgw-config----nfs-ganesha-rgw-configuration-file"><span class="title-number">2 </span><span class="title-name">ganesha-rgw-config -- NFS Ganesha RGW Configuration File</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-rados-grace-ganesha-rados-grace----manipulate-the-shared-grace-management-database"><span class="title-number">3 </span><span class="title-name">ganesha-rados-grace -- manipulate the shared grace management database</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-rados-cluster-design-ganesha-rados-cluster-design----clustered-rados-recovery-backend-design"><span class="title-number">4 </span><span class="title-name">ganesha-rados-cluster-design -- Clustered RADOS Recovery Backend Design</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-log-config-ganesha-log-config----nfs-ganesha-log-configuration-file"><span class="title-number">5 </span><span class="title-name">ganesha-log-config -- NFS Ganesha Log Configuration File</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-export-config-ganesha-export-config----nfs-ganesha-export-configuration-file"><span class="title-number">6 </span><span class="title-name">ganesha-export-config -- NFS Ganesha Export Configuration File</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-core-config-ganesha-core-config----nfs-ganesha-core-configuration-file"><span class="title-number">7 </span><span class="title-name">ganesha-core-config -- NFS Ganesha Core Configuration File</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-config-ganesha-config----nfs-ganesha-configuration-file"><span class="title-number">8 </span><span class="title-name">ganesha-config -- NFS Ganesha Configuration File</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-ceph-config-ganesha-ceph-config----nfs-ganesha-ceph-configuration-file"><span class="title-number">9 </span><span class="title-name">ganesha-ceph-config -- NFS Ganesha CEPH Configuration File</span></a></span></li><li><span class="sect1"><a href="index.html#man-ganesha-cache-config-ganesha-cache-config----nfs-ganesha-cache-configuration-file"><span class="title-number">10 </span><span class="title-name">ganesha-cache-config -- NFS Ganesha Cache Configuration File</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/art-storage-man.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

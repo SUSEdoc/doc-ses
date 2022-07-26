@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Security Hardening Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Security Hardening Guide | SES 7"/>
+<meta name="description" content="This guide focuses on how to ensure that your Ceph cluster is secure."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Security Hardening Guide"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Security Hardening Guide | SES 7"/>
+<meta property="og:description" content="This guide focuses on how to ensure that your Ceph cluster is secure."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Security Hardening Guide | SES 7"/>
+<meta name="twitter:description" content="This guide focuses on how to ensure that your Ceph cluster is secure."/>
+
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-security">Security Hardening Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-security" data-id-title="Security Hardening Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h1 class="title">Security Hardening Guide</h1></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>06/27/2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-security"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.6.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.6.2.6"><span class="title-name">Giving feedback</span></a></span></li><li><span class="sect1"><a href="#id-1.6.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.6.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.6.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.6.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#ceph-security-hardening-initial"><span class="title-number">I </span><span class="title-name">Introduction</span></a></span><ul><li><span class="chapter"><a href="#ceph-hardening1"><span class="title-number">1 </span><span class="title-name">Understanding the threat</span></a></span></li><li><span class="chapter"><a href="#ceph-hardening2"><span class="title-number">2 </span><span class="title-name">About this guide</span></a></span></li></ul></li><li><span class="part"><a href="#ceph-security-hardening-meassures"><span class="title-number">II </span><span class="title-name">Hardening meassures</span></a></span><ul><li><span class="chapter"><a href="#ceph-hardening-measures-general"><span class="title-number">3 </span><span class="title-name">General</span></a></span><ul><li><span class="sect1"><a href="#basic-security-hygiene"><span class="title-number">3.1 </span><span class="title-name">Basic security hygiene</span></a></span></li><li><span class="sect1"><a href="#general-system-hardening"><span class="title-number">3.2 </span><span class="title-name">General system hardening</span></a></span></li><li><span class="sect1"><a href="#security-monitoring"><span class="title-number">3.3 </span><span class="title-name">Monitoring</span></a></span></li></ul></li><li><span class="chapter"><a href="#ceph-hardening-measures-network"><span class="title-number">4 </span><span class="title-name">Network</span></a></span></li><li><span class="chapter"><a href="#ceph-hardening-measures-dos"><span class="title-number">5 </span><span class="title-name">Prevent Denial Of Service (DoS)</span></a></span></li><li><span class="chapter"><a href="#ceph-hardening-measures-authentication"><span class="title-number">6 </span><span class="title-name">Authentication</span></a></span><ul><li><span class="sect1"><a href="#strong-authentication"><span class="title-number">6.1 </span><span class="title-name">Enabling strong authentication</span></a></span></li><li><span class="sect1"><a href="#ensure-secure-storage-keys"><span class="title-number">6.2 </span><span class="title-name">Ensuring secure storage of keys</span></a></span></li><li><span class="sect1"><a href="#account-setup-security"><span class="title-number">6.3 </span><span class="title-name">Account setup</span></a></span></li></ul></li><li><span class="chapter"><a href="#ceph-hardening-measures-confidentiality"><span class="title-number">7 </span><span class="title-name">Confidentiality</span></a></span><ul><li><span class="sect1"><a href="#data-at-rest"><span class="title-number">7.1 </span><span class="title-name">Data at rest</span></a></span></li><li><span class="sect1"><a href="#data-in-flight"><span class="title-number">7.2 </span><span class="title-name">Data in flight</span></a></span></li></ul></li></ul></li><li><span class="glossary"><a href="#id-1.6.5"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#id-1.6.4.4.6"><span class="number">5.1 </span><span class="name">Quotas in the dashboard</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.6.1.6"><p>
+  Copyright © 2020–2022
+
+  SUSE LLC and contributors. All rights reserved.
+ </p><p>
+  Except where otherwise noted, this document is licensed under Creative Commons Attribution-ShareAlike 4.0 International
+  (CC-BY-SA 4.0): <a class="link" href="https://creativecommons.org/licenses/by-sa/4.0/legalcode" target="_blank">https://creativecommons.org/licenses/by-sa/4.0/legalcode</a>.
+ </p><p>
+  For SUSE trademarks, see
+  <a class="link" href="http://www.suse.com/company/legal/" target="_blank">http://www.suse.com/company/legal/</a>. All
+  third-party trademarks are the property of their respective owners. Trademark
+  symbols (®, ™ etc.) denote trademarks of SUSE and its affiliates.
+  Asterisks (*) denote third-party trademarks.
+ </p><p>
+  All information found in this book has been compiled with utmost attention to
+  detail. However, this does not guarantee complete accuracy. Neither
+  SUSE LLC, its affiliates, the authors nor the translators shall be
+  held liable for possible errors or the consequences thereof.
+ </p></div></div><section xml:lang="en" class="preface" id="preface-security" data-id-title="About this guide"><div class="titlepage"><div><div><h1 class="title"><span class="title-number"> </span><span class="title-name">About this guide</span> <a title="Permalink" class="permalink" href="#preface-security">#</a></h1></div></div></div><p>
+  This guide focuses on how to ensure that your Ceph cluster is secure.
+ </p><p>
+ SUSE Enterprise Storage 7 is an extension to SUSE Linux Enterprise Server 15 SP2. It combines the
+ capabilities of the Ceph
+ (<a class="link" href="http://ceph.com/" target="_blank">http://ceph.com/</a>)
+ storage project with the enterprise engineering and support of SUSE.
+ SUSE Enterprise Storage 7 provides IT organizations with the ability to
+ deploy a distributed storage architecture that can support a number of use
+ cases using commodity hardware platforms.
+</p><section xml:lang="en" class="sect1" id="id-1.6.2.5" data-id-title="Available documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Available documentation</span> <a title="Permalink" class="permalink" href="#id-1.6.2.5">#</a></h2></div></div></div><div id="id-1.6.2.5.3" data-id-title="Online documentation and latest updates" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Online documentation and latest updates</h6><p>
+   Documentation for our products is available at
+   <a class="link" href="https://documentation.suse.com" target="_blank">https://documentation.suse.com</a>,
+   where you can also find the latest updates, and browse or download the
+   documentation in various formats. The latest documentation updates can be
+   found in the English language version.
+  </p></div><p>
+  In addition, the product documentation is available in your installed system
+  under <code class="filename">/usr/share/doc/manual</code>. It is included in an RPM
+  package named
+  <span class="package">ses-manual_<em class="replaceable">LANG_CODE</em></span>. Install
+  it if it is not already on your system, for example:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper install ses-manual_en</pre></div><p>
+  The following documentation is available for this product:
+ </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.2.5.7.1"><span class="term"><a class="link" href="https://documentation.suse.com/ses/html/ses-all/book-storage-deployment.html" target="_blank"><em class="citetitle">Deployment Guide</em></a></span></dt><dd><p>
+     This guide focuses on deploying a basic Ceph cluster, and how to deploy
+     additional services. It also cover the steps for upgrading to
+     SUSE Enterprise Storage 7 from the previous product version.
+    </p></dd><dt id="id-1.6.2.5.7.2"><span class="term"><a class="link" href="https://documentation.suse.com/ses/html/ses-all/book-storage-admin.html" target="_blank"><em class="citetitle">Administration and Operations Guide</em></a></span></dt><dd><p>
+     This guide focuses on routine tasks that you as an administrator need to
+     take care of after the basic Ceph cluster has been deployed (day 2
+     operations). It also describes all the supported ways to access data
+     stored in a Ceph cluster.
+    </p></dd><dt id="id-1.6.2.5.7.3"><span class="term"><a class="link" href="https://documentation.suse.com/ses/html/ses-all/book-storage-security.html" target="_blank"><em class="citetitle">Security Hardening Guide</em></a></span></dt><dd><p>
+     This guide focuses on how to ensure your cluster is secure.
+    </p></dd><dt id="id-1.6.2.5.7.4"><span class="term"><a class="link" href="https://documentation.suse.com/ses/html/ses-all/book-storage-troubleshooting.html" target="_blank"><em class="citetitle">Troubleshooting Guide</em></a></span></dt><dd><p>
+     This guide takes you through various common problems when running
+     SUSE Enterprise Storage 7 and other related issues to relevant
+     components such as Ceph or Object Gateway.
+    </p></dd><dt id="id-1.6.2.5.7.5"><span class="term"><a class="link" href="https://documentation.suse.com/ses/html/ses-all/book-storage-windows.html" target="_blank"><em class="citetitle">SUSE Enterprise Storage for Windows Guide</em></a></span></dt><dd><p>
+     This guide describes the integration, installation, and configuration of
+     Microsoft Windows environments and SUSE Enterprise Storage using the Windows Driver.
+    </p></dd></dl></div></section><section xml:lang="en" class="sect1" id="id-1.6.2.6" data-id-title="Giving feedback"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2 </span><span class="title-name">Giving feedback</span> <a title="Permalink" class="permalink" href="#id-1.6.2.6">#</a></h2></div></div></div><p>
+  We welcome feedback on, and contributions to, this documentation.
+  There are several channels for this:
+ </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.2.6.3.1"><span class="term">Service requests and support</span></dt><dd><p>
+     For services and support options available for your product, see
+     <a class="link" href="http://www.suse.com/support/" target="_blank">http://www.suse.com/support/</a>.
+    </p><p>
+     To open a service request, you need a SUSE subscription registered at
+     SUSE Customer Center.
+     Go to <a class="link" href="https://scc.suse.com/support/requests" target="_blank">https://scc.suse.com/support/requests</a>, log
+     in, and click <span class="guimenu">Create New</span>.
+    </p></dd><dt id="id-1.6.2.6.3.2"><span class="term">Bug reports</span></dt><dd><p>
+     Report issues with the documentation at <a class="link" href="https://bugzilla.suse.com/" target="_blank">https://bugzilla.suse.com/</a>.
+     Reporting issues requires a Bugzilla account.
+    </p><p>
+     To simplify this process, you can use the <span class="guimenu">Report
+     Documentation Bug</span> links next to headlines in the HTML
+     version of this document. These preselect the right product and
+     category in Bugzilla and add a link to the current section.
+     You can start typing your bug report right away.
+    </p></dd><dt id="id-1.6.2.6.3.3"><span class="term">Contributions</span></dt><dd><p>
+     To contribute to this documentation, use the <span class="guimenu">Edit Source</span>
+     links next to headlines in the HTML version of this document. They
+     take you to the source code on GitHub, where you can open a pull request.
+     Contributing requires a GitHub account.
+    </p><p>
+     For more information about the documentation environment used for this
+     documentation, see the repository's README at
+     <a class="link" href="https://github.com/SUSE/doc-ses" target="_blank">https://github.com/SUSE/doc-ses</a>.
+    </p></dd><dt id="id-1.6.2.6.3.4"><span class="term">Mail</span></dt><dd><p>
+     You can also report errors and send feedback concerning the
+     documentation to &lt;<a class="email" href="mailto:doc-team@suse.com">doc-team@suse.com</a>&gt;. Include the
+     document title, the product version, and the publication date of the
+     document. Additionally, include the relevant section number and title (or
+     provide the URL) and provide a concise description of the problem.
+    </p></dd></dl></div></section><section xml:lang="en" class="sect1" id="id-1.6.2.7" data-id-title="Documentation conventions"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3 </span><span class="title-name">Documentation conventions</span> <a title="Permalink" class="permalink" href="#id-1.6.2.7">#</a></h2></div></div></div><p>
+  The following notices and typographic conventions are used in this
+  document:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <code class="filename">/etc/passwd</code>: Directory names and file names
+   </p></li><li class="listitem"><p>
+    <em class="replaceable">PLACEHOLDER</em>: Replace
+    <em class="replaceable">PLACEHOLDER</em> with the actual value
+   </p></li><li class="listitem"><p>
+    <code class="envar">PATH</code>: An environment variable
+   </p></li><li class="listitem"><p>
+    <code class="command">ls</code>, <code class="option">--help</code>: Commands, options, and
+    parameters
+   </p></li><li class="listitem"><p>
+    <code class="systemitem">user</code>: The name of user or group
+   </p></li><li class="listitem"><p>
+    <span class="package">package_name</span>: The name of a software package
+   </p></li><li class="listitem"><p>
+    <span class="keycap">Alt</span>, <span class="keycap">Alt</span><span class="key-connector">–</span><span class="keycap">F1</span>: A key to press or a key combination. Keys
+    are shown in uppercase as on a keyboard.
+   </p></li><li class="listitem"><p>
+    <span class="guimenu">File</span>, <span class="guimenu">File</span> / <span class="guimenu">Save
+    As</span>: menu items, buttons
+   </p></li><li class="listitem"><p><strong class="arch-arrow-start">AMD/Intel</strong>
+    This paragraph is only relevant for the AMD64/Intel 64 architectures. The
+    arrows mark the beginning and the end of the text block.
+   <strong class="arch-arrow-end"> </strong></p><p><strong class="arch-arrow-start">IBM Z, POWER</strong>
+    This paragraph is only relevant for the architectures
+    <code class="literal">IBM Z</code> and <code class="literal">POWER</code>. The arrows
+    mark the beginning and the end of the text block.
+   <strong class="arch-arrow-end"> </strong></p></li><li class="listitem"><p>
+    <em class="citetitle">Chapter 1, <span class="quote">“<span class="quote">Example chapter</span>”</span></em>:
+    A cross-reference to another chapter in this guide.
+   </p></li><li class="listitem"><p>
+    Commands that must be run with <code class="systemitem">root</code> privileges. Often you can also
+    prefix these commands with the <code class="command">sudo</code> command to run them
+    as non-privileged user.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code><code class="command">command</code>
+<code class="prompt user">&gt; </code><code class="command">sudo</code> <code class="command">command</code></pre></div></li><li class="listitem"><p>
+    Commands that can be run by non-privileged users.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">command</code></pre></div></li><li class="listitem"><p>
+    Notices
+   </p><div id="id-1.6.2.7.4.13.2" data-id-title="Warning notice" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Warning notice</h6><p>
+     Vital information you must be aware of before proceeding. Warns you about
+     security issues, potential loss of data, damage to hardware, or physical
+     hazards.
+    </p></div><div id="id-1.6.2.7.4.13.3" data-id-title="Important notice" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Important notice</h6><p>
+     Important information you should be aware of before proceeding.
+    </p></div><div id="id-1.6.2.7.4.13.4" data-id-title="Note notice" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Note notice</h6><p>
+     Additional information, for example about differences in software
+     versions.
+    </p></div><div id="id-1.6.2.7.4.13.5" data-id-title="Tip notice" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Tip notice</h6><p>
+     Helpful information, like a guideline or a piece of practical advice.
+    </p></div></li><li class="listitem"><p>
+    Compact Notices
+   </p><div id="id-1.6.2.7.4.14.2" class="admonition note compact"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><p>
+     Additional information, for example about differences in software
+     versions.
+    </p></div><div id="id-1.6.2.7.4.14.3" class="admonition tip compact"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><p>
+     Helpful information, like a guideline or a piece of practical advice.
+    </p></div></li></ul></div></section><section xml:lang="en" class="sect1" id="id-1.6.2.8" data-id-title="Support"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4 </span><span class="title-name">Support</span> <a title="Permalink" class="permalink" href="#id-1.6.2.8">#</a></h2></div></div></div><p>
+  Find the support statement for SUSE Enterprise Storage and general information about
+  technology previews below.
+  For details about the product lifecycle, see
+  <a class="link" href="https://www.suse.com/lifecycle" target="_blank">https://www.suse.com/lifecycle</a>.
+ </p><p>
+  If you are entitled to support, find details on how to collect information
+  for a support ticket at
+  <a class="link" href="https://documentation.suse.com/sles-15/html/SLES-all/cha-adm-support.html" target="_blank">https://documentation.suse.com/sles-15/html/SLES-all/cha-adm-support.html</a>.
+ </p><section class="sect2" id="id-1.6.2.8.4" data-id-title="Support statement for SUSE Enterprise Storage"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1 </span><span class="title-name">Support statement for SUSE Enterprise Storage</span> <a title="Permalink" class="permalink" href="#id-1.6.2.8.4">#</a></h3></div></div></div><p>
+   To receive support, you need an appropriate subscription with SUSE.
+   To view the specific support offerings available to you, go to
+   <a class="link" href="https://www.suse.com/support/" target="_blank">https://www.suse.com/support/</a> and select your product.
+  </p><p>
+   The support levels are defined as follows:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.6.2.8.4.4.1"><span class="term">L1</span></dt><dd><p>
+      Problem determination, which means technical support designed to provide
+      compatibility information, usage support, ongoing maintenance,
+      information gathering and basic troubleshooting using available
+      documentation.
+     </p></dd><dt id="id-1.6.2.8.4.4.2"><span class="term">L2</span></dt><dd><p>
+      Problem isolation, which means technical support designed to analyze
+      data, reproduce customer problems, isolate problem area and provide a
+      resolution for problems not resolved by Level 1 or prepare for
+      Level 3.
+     </p></dd><dt id="id-1.6.2.8.4.4.3"><span class="term">L3</span></dt><dd><p>
+      Problem resolution, which means technical support designed to resolve
+      problems by engaging engineering to resolve product defects which have
+      been identified by Level 2 Support.
+     </p></dd></dl></div><p>
+   For contracted customers and partners, SUSE Enterprise Storage is delivered with L3
+   support for all packages, except for the following:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Technology previews.
+    </p></li><li class="listitem"><p>
+     Sound, graphics, fonts, and artwork.
+    </p></li><li class="listitem"><p>
+     Packages that require an additional customer contract.
+    </p></li><li class="listitem"><p>
+     Some packages shipped as part of the module <span class="emphasis"><em>Workstation
+     Extension</em></span> are L2-supported only.
+    </p></li><li class="listitem"><p>
+     Packages with names ending in <span class="package">-devel</span> (containing header
+     files and similar developer resources) will only be supported together
+     with their main packages.
+    </p></li></ul></div><p>
+   SUSE will only support the usage of original packages.
+   That is, packages that are unchanged and not recompiled.
+  </p></section><section class="sect2" id="id-1.6.2.8.5" data-id-title="Technology previews"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2 </span><span class="title-name">Technology previews</span> <a title="Permalink" class="permalink" href="#id-1.6.2.8.5">#</a></h3></div></div></div><p>
+   Technology previews are packages, stacks, or features delivered by SUSE
+   to provide glimpses into upcoming innovations.
+   Technology previews are included for your convenience to give you a chance
+   to test new technologies within your environment.
+   We would appreciate your feedback!
+   If you test a technology preview, please contact your SUSE representative
+   and let them know about your experience and use cases.
+   Your input is helpful for future development.
+  </p><p>
+   Technology previews have the following limitations:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Technology previews are still in development.
+     Therefore, they may be functionally incomplete, unstable, or in other ways
+     <span class="emphasis"><em>not</em></span> suitable for production use.
+    </p></li><li class="listitem"><p>
+     Technology previews are <span class="emphasis"><em>not</em></span> supported.
+    </p></li><li class="listitem"><p>
+     Technology previews may only be available for specific hardware
+     architectures.
+    </p></li><li class="listitem"><p>
+     Details and functionality of technology previews are subject to change.
+     As a result, upgrading to subsequent releases of a technology preview may
+     be impossible and require a fresh installation.
+    </p></li><li class="listitem"><p>
+     SUSE may discover that a preview does not meet customer or market needs,
+     or does not comply with enterprise standards.
+     Technology previews can be removed from a product at any time.
+     SUSE does not commit to providing a supported version of such
+     technologies in the future.
+    </p></li></ul></div><p>
+   For an overview of technology previews shipped with your product, see the
+   release notes at <a class="link" href="https://www.suse.com/releasenotes/x86_64/SUSE-Enterprise-Storage/7" target="_blank">https://www.suse.com/releasenotes/x86_64/SUSE-Enterprise-Storage/7</a>.
+  </p></section></section><section class="sect1" id="id-1.6.2.9" data-id-title="Ceph contributors"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5 </span><span class="title-name">Ceph contributors</span> <a title="Permalink" class="permalink" href="#id-1.6.2.9">#</a></h2></div></div></div><p>
+  The Ceph project and its documentation is a result of the work of hundreds
+  of contributors and organizations. See
+  <a class="link" href="https://ceph.com/contributors/" target="_blank">https://ceph.com/contributors/</a> for more details.
+ </p></section><section class="sect1" id="id-1.6.2.10" data-id-title="Commands and command prompts used in this guide"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6 </span><span class="title-name">Commands and command prompts used in this guide</span> <a title="Permalink" class="permalink" href="#id-1.6.2.10">#</a></h2></div></div></div><p>
+  As a Ceph cluster administrator, you will be configuring and adjusting the
+  cluster behavior by running specific commands. There are several types of
+  commands you will need:
+ </p><section class="sect2" id="id-1.6.2.10.4" data-id-title="Salt-related commands"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.1 </span><span class="title-name">Salt-related commands</span> <a title="Permalink" class="permalink" href="#id-1.6.2.10.4">#</a></h3></div></div></div><p>
+   These commands help you to deploy Ceph cluster nodes, run commands on
+   several (or all) cluster nodes at the same time, or assist you when adding
+   or removing cluster nodes. The most frequently used commands are
+   <code class="command">ceph-salt</code> and <code class="command">ceph-salt config</code>. You
+   need to run Salt commands on the Salt Master node as <code class="systemitem">root</code>. These
+   commands are introduced with the following prompt:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code></pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config ls</pre></div></section><section class="sect2" id="id-1.6.2.10.5" data-id-title="Ceph related commands"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2 </span><span class="title-name">Ceph related commands</span> <a title="Permalink" class="permalink" href="#id-1.6.2.10.5">#</a></h3></div></div></div><p>
+   These are lower-level commands to configure and fine tune all aspects of the
+   cluster and its gateways on the command line, for example
+   <code class="command">ceph</code>, <code class="command">cephadm</code>, <code class="command">rbd</code>,
+   or <code class="command">radosgw-admin</code>.
+  </p><p>
+   To run Ceph related commands, you need to have read access to a Ceph
+   key. The key's capabilities then define your privileges within the Ceph
+   environment. One option is to run Ceph commands as <code class="systemitem">root</code> (or via
+   <code class="command">sudo</code>) and use the unrestricted default keyring
+   'ceph.client.admin.key'.
+  </p><p>
+   The safer and recommended option is to create a more restrictive individual
+   key for each administrator user and put it in a directory where the users
+   can read it, for example:
+  </p><div class="verbatim-wrap"><pre class="screen">~/.ceph/ceph.client.<em class="replaceable">USERNAME</em>.keyring</pre></div><div id="id-1.6.2.10.5.6" data-id-title="Path to Ceph keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Path to Ceph keys</h6><p>
+    To use a custom admin user and keyring, you need to specify the user name
+    and path to the key each time you run the <code class="command">ceph</code> command
+    using the <code class="option">-n client.<em class="replaceable">USER_NAME</em></code>
+    and <code class="option">--keyring <em class="replaceable">PATH/TO/KEYRING</em></code>
+    options.
+   </p><p>
+    To avoid this, include these options in the <code class="varname">CEPH_ARGS</code>
+    variable in the individual users' <code class="filename">~/.bashrc</code> files.
+   </p></div><p>
+   Although you can run Ceph-related commands on any cluster node, we
+   recommend running them on the Admin Node. This documentation uses the <code class="systemitem">cephuser</code>
+   user to run the commands, therefore they are introduced with the following
+   prompt:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code></pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.6.2.10.5.11" data-id-title="Commands for specific nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Commands for specific nodes</h6><p>
+    If the documentation instructs you to run a command on a cluster node with
+    a specific role, it will be addressed by the prompt. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mon &gt; </code></pre></div></div><section class="sect3" id="id-1.6.2.10.5.12" data-id-title="Running ceph-volume"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.1 </span><span class="title-name">Running <code class="command">ceph-volume</code></span> <a title="Permalink" class="permalink" href="#id-1.6.2.10.5.12">#</a></h4></div></div></div><p>
+    Starting with SUSE Enterprise Storage 7, Ceph services are running containerized.
+    If you need to run <code class="command">ceph-volume</code> on an OSD node, you need
+    to prepend it with the <code class="command">cephadm</code> command, for example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm ceph-volume simple scan</pre></div></section></section><section class="sect2" id="id-1.6.2.10.6" data-id-title="General Linux commands"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.3 </span><span class="title-name">General Linux commands</span> <a title="Permalink" class="permalink" href="#id-1.6.2.10.6">#</a></h3></div></div></div><p>
+   Linux commands not related to Ceph, such as <code class="command">mount</code>,
+   <code class="command">cat</code>, or <code class="command">openssl</code>, are introduced either
+   with the <code class="prompt user">cephuser@adm &gt; </code> or <code class="prompt root"># </code> prompts, depending on which
+   privileges the related command requires.
+  </p></section><section class="sect2" id="id-1.6.2.10.7" data-id-title="Additional information"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.4 </span><span class="title-name">Additional information</span> <a title="Permalink" class="permalink" href="#id-1.6.2.10.7">#</a></h3></div></div></div><p>
+   For more information on Ceph key management, refer to
+   <span class="intraxref">Book “Administration and Operations Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.2 “Key management”</span>.
+  </p></section></section></section><div class="part" id="ceph-security-hardening-initial" data-id-title="Introduction"><div class="titlepage"><div><div><h1 class="title"><span class="title-number">Part I </span><span class="title-name">Introduction </span><a title="Permalink" class="permalink" href="#ceph-security-hardening-initial">#</a></h1></div></div></div><div class="toc"><ul><li><span class="chapter"><a href="#ceph-hardening1"><span class="title-number">1 </span><span class="title-name">Understanding the threat</span></a></span></li><dd class="toc-abstract"><p>
+  Before you start to harden your SUSE Enterprise Storage cluster you need to consider
+  the threat landscape you try to control.
+ </p></dd><li><span class="chapter"><a href="#ceph-hardening2"><span class="title-number">2 </span><span class="title-name">About this guide</span></a></span></li><dd class="toc-abstract"><p>
+  There a three main pillars of security:
+ </p></dd></ul></div><section class="chapter" id="ceph-hardening1" data-id-title="Understanding the threat"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Understanding the threat</span> <a title="Permalink" class="permalink" href="#ceph-hardening1">#</a></h2></div></div></div><p>
+  Before you start to harden your SUSE Enterprise Storage cluster you need to consider
+  the threat landscape you try to control.
+ </p><p>
+  Depending on your exposure you will need to invest at different levels. You
+  need to take differing measures when you use SUSE Enterprise Storage to provide storage
+  on an internal network to a well-known group of employees, as opposed to
+  deploying a cluster in a setting where arbitrary internet actors can access
+  the cluster. For example, in a public cloud offering as storage solution.
+ </p><p>
+  This is something that needs to happen as a first step as it provides a set
+  of guidelines on how much effort you need to invest to get to the level of
+  security you need.
+ </p><p>
+  If you have a mature IT security landscape, you should have already policies
+  and standards that you can use to guide you here. You need to have a threat
+  model for the planned system and implement measures that you find necessary
+  for your situation. Look to you CISO or similar role for guidance on this. It
+  is mandatory to understand the potential threats and security requirements
+  before you continue.
+ </p><p>
+  Without a threat model you run the risk of not investing enough or you might
+  spent to much on securing a resource than you should. A good approach to this
+  is described in the
+  <a class="link" href="https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html" target="_blank">OWASP
+  Threat Modeling Cheat Sheet</a>.
+ </p></section><section class="chapter" id="ceph-hardening2" data-id-title="About this guide"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2 </span><span class="title-name">About this guide</span> <a title="Permalink" class="permalink" href="#ceph-hardening2">#</a></h2></div></div></div><p>
+  There a three main pillars of security:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    Confidentiality: Protect information from unauthorized access.
+   </p></li><li class="listitem"><p>
+    Integrity: Ensure that information is accurate, consistent and only changed
+    via authorized operations.
+   </p></li><li class="listitem"><p>
+    Availability: The ressource is available when needed.
+   </p></li></ul></div><p>
+  This guide is mainly concerned with confidentiality and integrity.
+  Availability is something you can configure in SUSE Enterprise Storage easily depending
+  on your requirements. It is important that you consider the availability
+  requirements you have and create the cluster accordingly. For example, high
+  availability requirements ensure that you do not have a single point of
+  failure. Especially Ceph Monitor nodes are critical and need to be available at all
+  times. SUSE Enterprise Storage makes it easy for you to have more nodes for a given
+  service than what you need during normal operations. The more important a
+  service is to you the more redundancy you need to build into the system.
+ </p><p>
+  When you plan for availability, make sure the SUSE Enterprise Storage environment is
+  not isolated. The requirements also affect other systems that interact with
+  SUSE Enterprise Storage transitively. For example, if you use LDAP for authentication,
+  then a highly available SUSE Enterprise Storage cluster does not help you if the LDAP
+  server is not reachable.
+ </p><p>
+  Confidentiality needs to consider the life cycle of the data in question and
+  the hardware that is used to hold the data. You not only need to take
+  measures to ensure the confidentiality of data while it's kept in
+  SUSE Enterprise Storage, you also need to consider how to safely discard data once you
+  remove hardware.
+ </p><p>
+  Integrity requires that the cluster is in a trusted state and that data can
+  only be modified by authorized subjects. Keeping the cluster up to date is
+  the most important step in ensuring the integrity of the cluster. Ensuring
+  that only authorized subjects can change data requires that permissions are
+  handed out in a controlled and granular way. To ensure that this does not
+  deteriorate over time, ensure that you regularly review existing permissions
+  and have processes in place that revoke them if necessary.
+ </p><p>
+  This guide will not give you a set of commands you can run to ensure
+  security. The new system needs to be integrated into your organizational
+  security framework and the concrete steps often depend on your local
+  configurations. For example, the recommendations on how to structure the
+  network and which ports need to made available then need to be translated
+  into changes of you existing networking hardware, such as firewalls.
+ </p><p>
+  Some suggested changes have performance implications. Changing a plain text
+  to a encrypted protocol causes the cluster to have more work. This may not be
+  noticeable (such as full disk encryption for OSDs, where the CPU is not the
+  limiting factor), but you need to check for your setup if this causes issues
+  for you with workloads that are realistic for your environment.
+ </p></section></div><div class="part" id="ceph-security-hardening-meassures" data-id-title="Hardening meassures"><div class="titlepage"><div><div><h1 class="title"><span class="title-number">Part II </span><span class="title-name">Hardening meassures </span><a title="Permalink" class="permalink" href="#ceph-security-hardening-meassures">#</a></h1></div></div></div><div class="toc"><ul><li><span class="chapter"><a href="#ceph-hardening-measures-general"><span class="title-number">3 </span><span class="title-name">General</span></a></span></li><dd class="toc-abstract"><p>
+  Hardening your SUSE Enterprise Storage installation involves reducing the attack
+  surface presented to potential attackers. But this is only the tip of the
+  iceberg. All the basic tasks of securing a system applied to SUSE Enterprise Storage as
+  well.
+ </p></dd><li><span class="chapter"><a href="#ceph-hardening-measures-network"><span class="title-number">4 </span><span class="title-name">Network</span></a></span></li><dd class="toc-abstract"><p>
+  SUSE Enterprise Storage is a complex system that communicates internally and externally
+  via networks. As with all other systems careful design and control of this
+  network access is vital for ensuring the security of your cluster.
+ </p></dd><li><span class="chapter"><a href="#ceph-hardening-measures-dos"><span class="title-number">5 </span><span class="title-name">Prevent Denial Of Service (DoS)</span></a></span></li><dd class="toc-abstract"><p>The most important piece in preventing Denial Of Service (DoS) is to put proper quotas on users and groups to ensure that clients can not exhaust resources easily. While this is not the only way a client can impact your cluster, it's the easiest one and also can happen by accident. For details on ho…</p></dd><li><span class="chapter"><a href="#ceph-hardening-measures-authentication"><span class="title-number">6 </span><span class="title-name">Authentication</span></a></span></li><dd class="toc-abstract"><p>
+  Ensuring that clients need to authenticate before accessing ressources on
+  SUSE Enterprise Storage is important to the security of the system. Allowing anonymous
+  usage or weak authentication schemes should be avoided.
+ </p></dd><li><span class="chapter"><a href="#ceph-hardening-measures-confidentiality"><span class="title-number">7 </span><span class="title-name">Confidentiality</span></a></span></li><dd class="toc-abstract"><p>
+  Confidentiality is a common requirement. There are diffent ways of ensuring
+  data stays confidential at different times of its lifecycle.
+ </p></dd></ul></div><section class="chapter" id="ceph-hardening-measures-general" data-id-title="General"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3 </span><span class="title-name">General</span> <a title="Permalink" class="permalink" href="#ceph-hardening-measures-general">#</a></h2></div></div></div><p>
+  Hardening your SUSE Enterprise Storage installation involves reducing the attack
+  surface presented to potential attackers. But this is only the tip of the
+  iceberg. All the basic tasks of securing a system applied to SUSE Enterprise Storage as
+  well.
+ </p><section class="sect1" id="basic-security-hygiene" data-id-title="Basic security hygiene"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.1 </span><span class="title-name">Basic security hygiene</span> <a title="Permalink" class="permalink" href="#basic-security-hygiene">#</a></h2></div></div></div><p>
+   As with any other system it is important that you practice proper security
+   hygiene for you SUSE Enterprise Storage installation. This includes monitoring a
+   suitable channel for security notices
+   (<a class="link" href="https://www.suse.com/security/cve/" target="_blank">https://www.suse.com/security/cve/</a>) and incorporate
+   this in your security tracking.
+  </p><p>
+   It is mandatory that you install updates in a timely manner. If available,
+   you can use threat intelligence to guide you in your update strategy, but
+   the sooner you install updates the better. Most organizations do not get
+   hacked via 0-day exploits but through long known security issues. If you
+   keep your cluster current you improve the security posture dramatically.
+  </p><p>
+   Installing updates in a SUSE Enterprise Storage context means that you keep the base
+   operating system and the SUSE Enterprise Storage images up to date. For the base
+   operating system you can either use basic command line tools like
+   <code class="command">zypper</code> or use SUSE Manager to conveniently manage a large
+   fleet of machines. Refer to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.7 “Updating Ceph”</span>
+   on how to keep the SUSE Enterprise Storage images up to date.
+  </p></section><section class="sect1" id="general-system-hardening" data-id-title="General system hardening"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.2 </span><span class="title-name">General system hardening</span> <a title="Permalink" class="permalink" href="#general-system-hardening">#</a></h2></div></div></div><p>
+   Ensuring that the base system is hardened is helping to provide a proper
+   base for further hardening measures more specific to SUSE Enterprise Storage. SUSE
+   published a hardening guide for SUSE Linux Enterprise Server at
+   <a class="link" href="https://documentation.suse.com/de-de/sles/15-SP1/html/SLES-all/book-hardening.html" target="_blank">https://documentation.suse.com/de-de/sles/15-SP1/html/SLES-all/book-hardening.html</a>.
+   As SUSE Enterprise Storage is based on SUSE Linux Enterprise Server this contains tips that you can
+   incorporate in your security strategy. For example, we recommend that you
+   ensure that the systems that host SUSE Enterprise Storage are physically secure and
+   that the boot process is protected is important to have a solid base for
+   futher hardenings.
+  </p><p>
+   We also recommend that you do not add any other workloads on the machines
+   that you use for you SUSE Enterprise Storage cluster. Not only can this negatively
+   impact the performance of your SUSE Enterprise Storage cluster, but you also introduce
+   additional risk to your data. If an attacker is able to exploit a
+   vulnerability in the unrelated workload, they may be able to use this access
+   to compromise your SUSE Enterprise Storage cluster.
+  </p><p>
+   If you have a virtualized environment and can easily provision machines, we
+   recommend using one machine for each role. Especially the Ceph Monitor should be
+   stand-alone as they have access to all the key material and running other
+   services on them increases their risk profile.
+  </p></section><section class="sect1" id="security-monitoring" data-id-title="Monitoring"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.3 </span><span class="title-name">Monitoring</span> <a title="Permalink" class="permalink" href="#security-monitoring">#</a></h2></div></div></div><p>
+   Without visibility into you systems it is tough to ensure that they run in a
+   secure state. You have to either monitor the SUSE Enterprise Storage cluster itself or
+   hook it into your existing monitoring framework to ensure that you are aware
+   of changes in the cluster. This mainly helps with availability, but is also
+   important for other security goals. For example, you need to notice if
+   someone is trying to brute force credentials on the machines by collecting
+   and analyzing the logs showing this behavior.
+  </p><p>
+   You should at least include <code class="filename">/var/log/ceph/cephadm.log</code>
+   into your log analysis setup to make sure you notice changes on your
+   SUSE Enterprise Storage cluster.
+  </p></section></section><section class="chapter" id="ceph-hardening-measures-network" data-id-title="Network"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4 </span><span class="title-name">Network</span> <a title="Permalink" class="permalink" href="#ceph-hardening-measures-network">#</a></h2></div></div></div><p>
+  SUSE Enterprise Storage is a complex system that communicates internally and externally
+  via networks. As with all other systems careful design and control of this
+  network access is vital for ensuring the security of your cluster.
+ </p><p>
+  While SUSE Enterprise Storage can be run with a single network connected to all nodes,
+  it is important for security to use the setup recommended in
+  <span class="intraxref">Book “Deployment Guide”, Chapter 2 “Hardware requirements and recommendations”, Section 2.1 “Network overview”</span> and have two separate networks connected
+  to your cluster. It is to be preferred to have physically separate networks.
+  If this is not possible, you can use VLANs to logically separate them.
+ </p><p>
+  The internal network is used for replication and recovery and should not be
+  available to clients. Unless special measures are taken (described in
+  <a class="xref" href="#ceph-hardening-measures-confidentiality" title="Chapter 7. Confidentiality">Chapter 7, <em>Confidentiality</em></a>) data stored on
+  SUSE Enterprise Storage is transfered in cleartext on this network. Even when you
+  ensure that data is transfered only in encrypted form, we highly recommend to
+  use a dedicated network.
+ </p><p>
+  The public network is used as interface for clients and can be restricted to
+  the minimal necessary access and also be monitored for anomalies.
+ </p><p>
+  These are the TCP ports that are necessary for various services:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    3300, 6789: Monitor nodes
+   </p></li><li class="listitem"><p>
+    6800-7300: OSD nodes
+   </p></li><li class="listitem"><p>
+    6800-7300: MGR nodes
+   </p></li><li class="listitem"><p>
+    6800: MDS nodes
+   </p></li><li class="listitem"><p>
+    80,443,7480: Radosgw
+   </p></li><li class="listitem"><p>
+    8080,8443: Dashboard
+   </p></li><li class="listitem"><p>
+    4505,4506: Administration via salt
+   </p></li></ul></div><p>
+  You should ensure on a network and on a host level that these ports are only
+  accessible to the strictest possible set of clients. All other ports should
+  be blocked by a default-deny rule. Remember to block the ports you want to
+  deny access to for IPv4 and IPv6 if that is enabled in your environment.
+ </p><p>
+  Consider your use case and then analyze what network access is necessary on
+  each network. For example, the Ceph Dashboard usually does not need to be
+  accessible to users and access to it can be restricted via firewalls. The
+  RADOS Block Device, CephFS, and the Object Gateway must be available to the clients that use
+  them. If certain services are not used, or only a limited set of users use
+  it, you can prevent access to these ports in general or for groups that do
+  not need access. This limits the damage that can be done if a vulnerability
+  in this component is found.
+ </p></section><section class="chapter" id="ceph-hardening-measures-dos" data-id-title="Prevent Denial Of Service (DoS)"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5 </span><span class="title-name">Prevent Denial Of Service (DoS)</span> <a title="Permalink" class="permalink" href="#ceph-hardening-measures-dos">#</a></h2></div></div></div><p>
+  The most important piece in preventing Denial Of Service (DoS) is to put
+  proper quotas on users and groups to ensure that clients can not exhaust
+  resources easily. While this is not the only way a client can impact your
+  cluster, it's the easiest one and also can happen by accident. For details on
+  how to setup quotas please refer to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 23 “Clustered file system”, Section 23.6 “Setting CephFS quotas”</span> and
+  <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.5.2.4 “Enabling user quota management”</span>.
+ </p><div id="id-1.6.4.4.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   Be aware that CephFS quotas are enforced client side, so a malicious
+   client can ignore them and exceed the limitations. If this is a concern in
+   your environment, do not use CephFS.
+  </p></div><p>
+  To set the quotas conviniently you can use the Ceph Dashboard.
+ </p><div class="figure" id="id-1.6.4.4.6"><div class="figure-contents"><div class="mediaobject"><a href="images/rados_quota.png" target="_blank"><img src="images/rados_quota.png" width="" alt="Quotas in the dashboard"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 5.1: </span><span class="title-name">Quotas in the dashboard </span><a title="Permalink" class="permalink" href="#id-1.6.4.4.6">#</a></h6></div></div><p>
+  Current Ceph versions do not offer advanced ways of preventing malicious
+  clients from attacking the availability of the cluster (for exmaple, with
+  many open connections). To ensure you notice an attack or a misconfiguration,
+  you need to setup proper monitoring that will alert you if the cluster gets
+  into a problematic state so you can investigate and if necessary act.
+ </p></section><section class="chapter" id="ceph-hardening-measures-authentication" data-id-title="Authentication"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6 </span><span class="title-name">Authentication</span> <a title="Permalink" class="permalink" href="#ceph-hardening-measures-authentication">#</a></h2></div></div></div><p>
+  Ensuring that clients need to authenticate before accessing ressources on
+  SUSE Enterprise Storage is important to the security of the system. Allowing anonymous
+  usage or weak authentication schemes should be avoided.
+ </p><section class="sect1" id="strong-authentication" data-id-title="Enabling strong authentication"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.1 </span><span class="title-name">Enabling strong authentication</span> <a title="Permalink" class="permalink" href="#strong-authentication">#</a></h2></div></div></div><p>
+   Enforce strong authentication whenever possible: <code class="systemitem">cephx</code> works by having a
+   secret key shared between the client and the service. This way both sides
+   can prove to each other that they are who they claim to be. <code class="systemitem">cephx</code> is the
+   default authentication scheme and should not be replaced by weaker methods.
+  </p><p>
+   <code class="systemitem">cephx</code> is enabled by default for communication in the cluster itself
+   (<code class="literal">auth_cluster_required</code>) and for the communication between
+   the client and the cluster (<code class="literal">auth_service_required</code>). You
+   can check this by running the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>for option_name in auth_cluster_required auth_service_required auth_client_required ; do
+        echo -n "$option_name: "
+        ceph config get mon $option_name
+      done
+    auth_cluster_required: cephx
+    auth_service_required: cephx
+    auth_client_required: cephx, none</pre></div><p>
+   You can also enable <code class="literal">auth_client_required</code> to force the
+   SUSE Enterprise Storage cluster to authenticate towards clients to prevent malicious
+   actors from impersonating services. This is done by setting
+   <code class="literal">auth_client_required</code> to <code class="systemitem">cephx</code> only with the
+   <code class="command">ceph config set global auth_client_required cephx</code>
+   command.
+  </p><p>
+   <code class="systemitem">cephx</code> is only concerned with authentication. It does not ensure that the
+   data is encrypted when sent to the cluster (in transport) or when stored in
+   the cluster (at rest). When chosing a way for clients to access the cluster,
+   select a access method that ensures the confidentiality in transport (for
+   example, use HTTPS when using RADOS). For more details about <code class="systemitem">cephx</code>, see
+   <span class="intraxref">Book “Administration and Operations Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.1 “Authentication architecture”</span>.
+  </p><p>
+   You can enforce message signing to harden the authentication protocol. With
+   the <code class="command">ceph config set global cephx_require_signatures true</code>
+   command, you can force that signatures are used on all messages between the
+   client and the cluster and in between the daemons in the cluster.If you run
+   into issue with clients not being able to properly sign their messages you
+   can enable it only for use within the cluster with the <code class="command">ceph config
+   set global cephx_cluster_require_signatures</code> command.
+  </p><p>
+   Strong authentication also requires proper key handling from the creation to
+   the destruction of keys. Each client should receive a separate key which
+   shouldn't be reused, at least not for clients with different security
+   properties. With that you can then give the least amount of privileges to
+   each account that is necessary, therefor limiting the risk. Creating users
+   is covered in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 20 “RADOS Block Device”, Section 20.2.1 “Creating a Ceph user account”</span>.
+  </p></section><section class="sect1" id="ensure-secure-storage-keys" data-id-title="Ensuring secure storage of keys"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.2 </span><span class="title-name">Ensuring secure storage of keys</span> <a title="Permalink" class="permalink" href="#ensure-secure-storage-keys">#</a></h2></div></div></div><p>
+   Keys must be stored with safe permissions on the client machine to prevent
+   credential leakage. In most cases this means that only the user and root is
+   able to read the key material. If you have a setup where you need to provide
+   broader access you need to think through the security implications that
+   accidential or malicious leaks of the key material has in your environment.
+  </p><p>
+   By default, key material is stored in a safe way on SUSE Enterprise Storage and you
+   need to make sure that you do the same when transferring key material to
+   clients. This means that you use secure transport mechanisms (HTTPs, SSH) to
+   transfer the key and set strict permissions of files storing key material.
+   Depending on your security requirements the use of vault services or
+   hardware security modules might be appropriate.
+  </p><p>
+   Also consider your backup scheme to ensure that keys are secure during the
+   whole life cycle. The backup of keys must meet the same security standards
+   as the other systems that store a key dufing its lifetime.
+  </p></section><section class="sect1" id="account-setup-security" data-id-title="Account setup"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.3 </span><span class="title-name">Account setup</span> <a title="Permalink" class="permalink" href="#account-setup-security">#</a></h2></div></div></div><p>
+   In the initial configuration, you have administrative accounts that hold all
+   the power. Depending on your regulatory and other requirements, you need to
+   split up these accounts into several accounts that hold different
+   privileges. This allows to assign the least amount of privilege needed to
+   fulfill a task.
+  </p><p>
+   You should create a process that regularly reviews the privileges users have
+   and adjust them if necessary. Especially for highly privileged accounts, we
+   recommend this happens on a regular basis and every time a user that could
+   have modified these settings is removed from the settings. For example, if
+   someone changes role and is not the administrator for SUSE Enterprise Storage anymore.
+  </p></section></section><section class="chapter" id="ceph-hardening-measures-confidentiality" data-id-title="Confidentiality"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">7 </span><span class="title-name">Confidentiality</span> <a title="Permalink" class="permalink" href="#ceph-hardening-measures-confidentiality">#</a></h2></div></div></div><p>
+  Confidentiality is a common requirement. There are diffent ways of ensuring
+  data stays confidential at different times of its lifecycle.
+ </p><section class="sect1" id="data-at-rest" data-id-title="Data at rest"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">7.1 </span><span class="title-name">Data at rest</span> <a title="Permalink" class="permalink" href="#data-at-rest">#</a></h2></div></div></div><p>
+   The data stored in OSDs is not encrypted by default. If you have high
+   confidentiality requirements, we recommend that you encrypt the storage that
+   you provide SUSE Enterprise Storage for use. This protects the data if a disk is
+   stolen or when you decommission disk drives.
+  </p><p>
+   The easiest way to do this is to enable disk encryption directly when you
+   install the system. The SUSE installer allows you to create encrypted
+   partitions.
+  </p><p>
+   Alternatively you can use cryptsetup to encrypt individual partitions:
+   <code class="command">cryptsetup LuksFormat --key-size 256 /dev/sda1</code> allows you
+   to create an encrypted partition that you can open with <code class="command">cryptsetup
+   luksOpen /dev/sda1 osd_data</code>. The resulting
+   <code class="literal">osd_data</code> device can then be given to SUSE Enterprise Storage to
+   store data that will be transparently encrypted.
+  </p><p>
+   This only protects data if the disk is offline. To protect data at rest when
+   the system is running you can use client-side encryption.
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     For RADOS Block Device, you can encrypt the block device at the client (such as,
+     cryptsetup).
+    </p></li><li class="listitem"><p>
+     For CephFS you can you file level encryption (such as, EncFS).
+    </p></li><li class="listitem"><p>
+     For RADOS, you need to encrypt the data in the application before
+     storing it via the REST interface.
+    </p></li></ul></div><p>
+   With this the data is encrypted on the client and is never available in
+   cleartext on SUSE Enterprise Storage. This also protects in case the transport
+   protocol is either not encrypted or an attacker manages to circumvent the
+   transport encryption.
+  </p></section><section class="sect1" id="data-in-flight" data-id-title="Data in flight"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">7.2 </span><span class="title-name">Data in flight</span> <a title="Permalink" class="permalink" href="#data-in-flight">#</a></h2></div></div></div><p>
+   When creating services on you SUSE Enterprise Storage cluster you should enable
+   encryption if possible. For example, RADOS can communicate via HTTP or
+   HTTPs. Configure it to use HTTPs and use certificates that can be checked by
+   the client.
+  </p><p>
+   If possible, do not use self signed certificates. Either use certificates
+   signed by trusted authorities or create your own PKI to issue trusted
+   certificates. Using self signed certificates is better than using plaintext
+   protocols, but it can still allow attackers to get between the communicating
+   nodes.
+  </p><p>
+   To secure the communication within the SUSE Enterprise Storage cluster you have
+   several options:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     You can use a dedicated network that is not reachable externally.
+     Depending on your security needs and regulatory requirements that can be
+     acceptable.
+    </p></li><li class="listitem"><p>
+     You encrypt the links connecting the SUSE Enterprise Storage machines with an
+     external mechanism, for example using IPsec to setup secure tunnels
+     between the machines that takes care of encryption.
+    </p></li><li class="listitem"><p>
+     You use the encryption capabilities in msgr2.
+    </p></li></ul></div><p>
+   On fresh SUSE Enterprise Storage installs msgr2 is available, which also allows for
+   transport encryption for data. Unfortunately, many clients still do not
+   support this, but Ceph clients using librbd starting with Nautilus can
+   lready benefit from this.
+  </p><p>
+   The previous message protocol had no guarantee of data authenticity or data
+   encryption. msgr2 uses port 3300, port 6789 is used for the old version.
+   When you want to make sure that only msgr2 is used you can block 6789 to
+   guarantee that the old protocol will not be used.
+  </p><p>
+   The default configuration allows SUSE Enterprise Storage to use CRC mode for msgr2.
+   You can check this with:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>for option_name in ms_cluster_mode ms_service_mode ms_client_mode; do
+        echo -n "$option_name: "
+        ceph config get mon $option_name
+      done
+    ms_cluster_mode: crc secure
+    ms_service_mode: crc secure
+    ms_client_mode: crc secure</pre></div><p>
+   Currently only clients build on librbd support secure mode, but the kernel
+   client does not. You can set secure mode only for the cluster internal
+   communication by setting the <code class="option">ms_cluster_mode</code> option to
+   <code class="literal">secure</code>. If you have a client landscape that allows you to
+   enforce secure mode you can also set the <code class="option">ms_service_mode</code>
+   and <code class="option">ms_client_mode</code> options to <code class="literal">secure</code>.
+  </p><p>
+   This might cause performance issues for your setup, so you need to test this
+   first. If you run into performance issues you can enable secure mode only
+   for select daemons, for example if the <code class="option">ms_cluster_mode</code>
+   option allows you to force secure mode for Ceph Monitor while keeping a different
+   setting for other services.
+  </p></section></section></div><section class="glossary"><div class="titlepage"><div><div><h1 class="title"><span class="title-number"> </span><span class="title-name">Glossary</span> <a title="Permalink" class="permalink" href="#id-1.6.5">#</a></h1></div></div></div><div class="line"/><div class="glossdiv" id="id-1.6.5.3" data-id-title="General"><h3 class="title">General</h3><dl><dt id="id-1.6.5.3.2"><span><span class="glossterm">Admin node</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.2">#</a></span></dt><dd class="glossdef"><p>
+     The host from which you run the Ceph-related commands to administer
+     cluster hosts.
+    </p></dd><dt id="id-1.6.5.3.3"><span><span class="glossterm">Alertmanager</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.3">#</a></span></dt><dd class="glossdef"><p>
+     A single binary which handles alerts sent by the Prometheus server and
+     notifies the end user.
+    </p></dd><dt id="id-1.6.5.3.4"><span><span class="glossterm">archive sync module</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.4">#</a></span></dt><dd class="glossdef"><p>
+     Module that enables creating an Object Gateway zone for keeping the history of S3
+     object versions.
+    </p></dd><dt id="id-1.6.5.3.5"><span><span class="glossterm">Bucket</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.5">#</a></span></dt><dd class="glossdef"><p>
+     A point that aggregates other nodes into a hierarchy of physical
+     locations.
+    </p></dd><dt id="id-1.6.5.3.9"><span><span class="glossterm">Ceph Client</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.9">#</a></span></dt><dd class="glossdef"><p>
+     The collection of Ceph components which can access a Ceph Storage
+     Cluster. These include the Object Gateway, the Ceph Block Device, the CephFS,
+     and their corresponding libraries, kernel modules, and FUSE clients.
+    </p></dd><dt id="id-1.6.5.3.14"><span><span class="glossterm">Ceph Dashboard</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.14">#</a></span></dt><dd class="glossdef"><p>
+     A built-in Web-based Ceph management and monitoring application to
+     administer various aspects and objects of the cluster. The dashboard is
+     implemented as a Ceph Manager module.
+    </p></dd><dt id="id-1.6.5.3.19"><span><span class="glossterm">Ceph Manager</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.19">#</a></span></dt><dd class="glossdef"><p>
+     Ceph Manager or MGR is the Ceph manager software, which collects all the state
+     from the whole cluster in one place.
+    </p></dd><dt id="id-1.6.5.3.18"><span><span class="glossterm">Ceph Monitor</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.18">#</a></span></dt><dd class="glossdef"><p>
+     Ceph Monitor or MON is the Ceph monitor software.
+    </p></dd><dt id="id-1.6.5.3.24"><span><span class="glossterm">Ceph Object Storage</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.24">#</a></span></dt><dd class="glossdef"><p>
+     The object storage "product", service or capabilities, which consists of a
+     Ceph Storage Cluster and a Ceph Object Gateway.
+    </p></dd><dt id="id-1.6.5.3.22"><span><span class="glossterm">Ceph OSD Daemon</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.22">#</a></span></dt><dd class="glossdef"><p>
+     The <code class="command">ceph-osd</code> daemon is the component of Ceph that is
+     responsible for storing objects on a local file system and providing
+     access to them over the network.
+    </p></dd><dt id="id-1.6.5.3.11"><span><span class="glossterm">Ceph Storage Cluster</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.11">#</a></span></dt><dd class="glossdef"><p>
+     The core set of storage software which stores the user's data. Such a set
+     consists of Ceph monitors and OSDs.
+    </p></dd><dt id="id-1.6.5.3.10"><span><span class="glossterm"><code class="systemitem">ceph-salt</code></span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.10">#</a></span></dt><dd class="glossdef"><p>
+     Provides tooling for deploying Ceph clusters managed by cephadm using
+     Salt.
+    </p></dd><dt id="id-1.6.5.3.6"><span><span class="glossterm">cephadm</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.6">#</a></span></dt><dd class="glossdef"><p>
+     cephadm deploys and manages a Ceph cluster by connecting to hosts from
+     the manager daemon via SSH to add, remove, or update Ceph daemon
+     containers.
+    </p></dd><dt id="id-1.6.5.3.7"><span><span class="glossterm">CephFS</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.7">#</a></span></dt><dd class="glossdef"><p>
+     The Ceph file system.
+    </p></dd><dt id="id-1.6.5.3.8"><span><span class="glossterm">CephX</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.8">#</a></span></dt><dd class="glossdef"><p>
+     The Ceph authentication protocol. Cephx operates like Kerberos, but it
+     has no single point of failure.
+    </p></dd><dt id="id-1.6.5.3.13"><span><span class="glossterm">CRUSH rule</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.13">#</a></span></dt><dd class="glossdef"><p>
+     The CRUSH data placement rule that applies to a particular pool or pools.
+    </p></dd><dt id="id-1.6.5.3.12"><span><span class="glossterm">CRUSH, CRUSH Map</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.12">#</a></span></dt><dd class="glossdef"><p>
+     <span class="emphasis"><em>Controlled Replication Under Scalable Hashing</em></span>: An
+     algorithm that determines how to store and retrieve data by computing data
+     storage locations. CRUSH requires a map of the cluster to pseudo-randomly
+     store and retrieve data in OSDs with a uniform distribution of data across
+     the cluster.
+    </p></dd><dt id="id-1.6.5.3.15"><span><span class="glossterm">DriveGroups</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.15">#</a></span></dt><dd class="glossdef"><p>
+     DriveGroups are a declaration of one or more OSD layouts that can be mapped
+     to physical drives. An OSD layout defines how Ceph physically allocates
+     OSD storage on the media matching the specified criteria.
+    </p></dd><dt id="id-1.6.5.3.16"><span><span class="glossterm">Grafana</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.16">#</a></span></dt><dd class="glossdef"><p>
+     Database analytics and monitoring solution.
+    </p></dd><dt id="id-1.6.5.3.17"><span><span class="glossterm">Metadata Server</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.17">#</a></span></dt><dd class="glossdef"><p>
+     Metadata Server or MDS is the Ceph metadata software.
+    </p></dd><dt id="id-1.6.5.3.36"><span><span class="glossterm">Multi-zone</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.36">#</a></span></dt><dd class="glossdef"/><dt id="id-1.6.5.3.20"><span><span class="glossterm">Node</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.20">#</a></span></dt><dd class="glossdef"><p>
+     Any single machine or server in a Ceph cluster.
+    </p></dd><dt id="id-1.6.5.3.25"><span><span class="glossterm">Object Gateway</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.25">#</a></span></dt><dd class="glossdef"><p>
+     The S3/Swift gateway component for Ceph Object Store. Also known as the
+     RADOS Gateway (RGW).
+    </p></dd><dt id="id-1.6.5.3.21"><span><span class="glossterm">OSD</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.21">#</a></span></dt><dd class="glossdef"><p>
+     <span class="emphasis"><em>Object Storage Device</em></span>: A physical or logical storage
+     unit.
+    </p></dd><dt id="id-1.6.5.3.23"><span><span class="glossterm">OSD node</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.23">#</a></span></dt><dd class="glossdef"><p>
+     A cluster node that stores data, handles data replication, recovery,
+     backfilling, rebalancing, and provides some monitoring information to
+     Ceph monitors by checking other Ceph OSD daemons.
+    </p></dd><dt id="id-1.6.5.3.26"><span><span class="glossterm">PG</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.26">#</a></span></dt><dd class="glossdef"><p>
+     Placement Group: a sub-division of a <span class="emphasis"><em>pool</em></span>, used for
+     performance tuning.
+    </p></dd><dt id="id-1.6.5.3.27"><span><span class="glossterm">Point Release</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.27">#</a></span></dt><dd class="glossdef"><p>
+     Any ad-hoc release that includes only bug or security fixes.
+    </p></dd><dt id="id-1.6.5.3.28"><span><span class="glossterm">Pool</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.28">#</a></span></dt><dd class="glossdef"><p>
+     Logical partitions for storing objects such as disk images.
+    </p></dd><dt id="id-1.6.5.3.29"><span><span class="glossterm">Prometheus</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.29">#</a></span></dt><dd class="glossdef"><p>
+     Systems monitoring and alerting toolkit.
+    </p></dd><dt id="id-1.6.5.3.31"><span><span class="glossterm">RADOS Block Device (RBD)</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.31">#</a></span></dt><dd class="glossdef"><p>
+     The block storage component of Ceph. Also known as the Ceph block
+     device.
+    </p></dd><dt id="id-1.6.5.3.30"><span><span class="glossterm">Reliable Autonomic Distributed Object Store (RADOS)</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.30">#</a></span></dt><dd class="glossdef"><p>
+     The core set of storage software which stores the user's data (MON+OSD).
+    </p></dd><dt id="id-1.6.5.3.33"><span><span class="glossterm">Routing tree</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.33">#</a></span></dt><dd class="glossdef"><p>
+     A term given to any diagram that shows the various routes a receiver can
+     run.
+    </p></dd><dt id="id-1.6.5.3.32"><span><span class="glossterm">Rule Set</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.32">#</a></span></dt><dd class="glossdef"><p>
+     Rules to determine data placement for a pool.
+    </p></dd><dt id="id-1.6.5.3.34"><span><span class="glossterm">Samba</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.34">#</a></span></dt><dd class="glossdef"><p>
+     Windows integration software.
+    </p></dd><dt id="id-1.6.5.3.35"><span><span class="glossterm">Samba Gateway</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.35">#</a></span></dt><dd class="glossdef"><p>
+     The Samba Gateway joins the Active Directory in the Windows domain to authenticate
+     and authorize users.
+    </p></dd><dt id="id-1.6.5.3.37"><span><span class="glossterm">zonegroup</span> <a title="Permalink" class="permalink" href="#id-1.6.5.3.37">#</a></span></dt><dd class="glossdef"/></dl></div></section></section></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_security.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

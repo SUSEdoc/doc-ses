@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Upgrading from Previous Releases | Deployment Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Upgrading from Previous Releases | SES 6"/>
+<meta name="description" content="This chapter introduces steps to upgrade SUSE Enterprise Storage 5.5 to version 6. Note that version 5.5 is basically 5 with all latest patches applied."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 6. Upgrading from Previous Releases"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Upgrading from Previous Releases | SES 6"/>
+<meta property="og:description" content="This chapter introduces steps to upgrade SUSE Enterprise Storage 5.5 to version 6. Note that version 5.5 is basically 5 with all latest patches applied."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Upgrading from Previous Releases | SES 6"/>
+<meta name="twitter:description" content="This chapter introduces steps to upgrade SUSE Enterprise Storage 5.5 to version 6. Note that version 5.5 is basically 5 with all latest patches applied."/>
+<link rel="prev" href="ceph-install-saltstack.html" title="Chapter 5. Deploying with DeepSea/Salt"/><link rel="next" href="ceph-deploy-ds-custom.html" title="Chapter 7. Customizing the Default Configuration"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="ses-deployment.html">Cluster Deployment and Upgrade</a><span> / </span><a class="crumb" href="cha-ceph-upgrade.html">Upgrading from Previous Releases</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 6 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Admin Node HA Setup</span></a></li><li><a href="bk02pt01ch04.html" class=" "><span class="title-number">4 </span><span class="title-name">User Privileges and Command Prompts</span></a></li></ol></li><li class="active"><a href="ses-deployment.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">5 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" you-are-here"><span class="title-number">6 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li><a href="additional-software.html" class="has-children "><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li></ol></li><li><a href="containerized-ses-on-caasp.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Cluster Deployment on Top of SUSE CaaS Platform 4 (Technology Preview)</span></a><ol><li><a href="cha-container-kubernetes.html" class=" "><span class="title-number">13 </span><span class="title-name">SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster</span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">B </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-upgrade" data-id-title="Upgrading from Previous Releases"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h2 class="title"><span class="title-number">6 </span><span class="title-name">Upgrading from Previous Releases</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#">#</a></h2></div></div></div><p>
+  This chapter introduces steps to upgrade SUSE Enterprise Storage 5.5 to
+  version 6. Note that version 5.5 is basically 5
+  with all latest patches applied.
+ </p><div id="id-1.4.4.3.4" data-id-title="Upgrade from Older Releases Not Supported" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Upgrade from Older Releases Not Supported</h6><p>
+   Upgrading from SUSE Enterprise Storage versions older than 5.5 is not
+   supported. You first need to upgrade to the latest version of SUSE Enterprise Storage
+   5.5 and then follow the steps in this chapter.
+  </p></div><section class="sect1" id="upgrade-general-considerations" data-id-title="General Considerations"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.1 </span><span class="title-name">General Considerations</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-general-considerations">#</a></h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     If openATTIC is located on the Admin Node, it will be unavailable after you upgrade
+     the node. The new Ceph Dashboard will not be available until you deploy it by
+     using DeepSea.
+    </p></li><li class="listitem"><p>
+     The cluster upgrade may take a long time—approximately the time it
+     takes to upgrade one machine multiplied by the number of cluster nodes.
+    </p></li><li class="listitem"><p>
+     A single node cannot be upgraded while running the previous SUSE Linux Enterprise Server release,
+     but needs to be rebooted into the new version's installer. Therefore the
+     services that the node provides will be unavailable for some time. The
+     core cluster services will still be available—for example if one MON
+     is down during upgrade, there are still at least two active MONs.
+     Unfortunately, single instance services, such as a single iSCSI Gateway, will be
+     unavailable.
+    </p></li></ul></div></section><section class="sect1" id="before-upgrade" data-id-title="Steps to Take before Upgrading the First Node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.2 </span><span class="title-name">Steps to Take before Upgrading the First Node</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade">#</a></h2></div></div></div><section class="sect2" id="before-upgrade-release-notes" data-id-title="Read the Release Notes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.1 </span><span class="title-name">Read the Release Notes</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade-release-notes">#</a></h3></div></div></div><p>
+    In the SES 6 release notes, you can find additional
+    information on changes since the previous release of SUSE Enterprise Storage. Check
+    the SES 6 release notes online to see whether:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Your hardware needs special considerations.
+     </p></li><li class="listitem"><p>
+      Any used software packages have changed significantly.
+     </p></li><li class="listitem"><p>
+      Special precautions are necessary for your installation.
+     </p></li></ul></div><p>
+    You can find SES 6 release notes online at
+    <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
+   </p></section><section class="sect2" id="before-upgrade-password" data-id-title="Verify Your Password"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.2 </span><span class="title-name">Verify Your Password</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade-password">#</a></h3></div></div></div><p>
+    Your password must be changed to meet SUSE Enterprise Storage 6
+    requirements. Ensure you change the username and password on
+    <span class="emphasis"><em>all</em></span> initiators as well. For more information on
+    changing your password, see <a class="xref" href="cha-ceph-as-iscsi.html#chap-auth-password" title="10.4.4.3. CHAP Authentication">Section 10.4.4.3, “CHAP Authentication”</a>.
+   </p></section><section class="sect2" id="before-upgrade-verify-upgrade" data-id-title="Verify the Previous Upgrade"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.3 </span><span class="title-name">Verify the Previous Upgrade</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade-verify-upgrade">#</a></h3></div></div></div><p>
+    In case you previously upgraded from version 4, verify that the upgrade to
+    version 5 was completed successfully:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Check for the existence of the file
+     </p><div class="verbatim-wrap"><pre class="screen">/srv/salt/ceph/configuration/files/ceph.conf.import</pre></div><p>
+      It is created by the import process during the upgrade from SES 4 to 5.
+      Also, the <code class="option">configuration_init: default-import</code> option is
+      set in the file
+      <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>
+     </p><p>
+      If <code class="option">configuration_init</code> is still set to
+      <code class="option">default-import</code>, the cluster is using
+      <code class="filename">ceph.conf.import</code> as its configuration file and not
+      DeepSea's default <code class="filename">ceph.conf</code> which is compiled from
+      files in
+      <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/</code>
+     </p><p>
+      Therefore you need to inspect <code class="filename">ceph.conf.import</code> for
+      any custom configuration, and possibly move the configuration to one of
+      the files in
+     </p><div class="verbatim-wrap"><pre class="screen">/srv/salt/ceph/configuration/files/ceph.conf.d/</pre></div><p>
+      Then remove the <code class="option">configuration_init: default-import</code> line
+      from
+      <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>
+     </p><div id="id-1.4.4.3.6.4.3.1.8" data-id-title="Default DeepSea Configuration" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Default DeepSea Configuration</h6><p>
+       If you <span class="bold"><strong>do not</strong></span> merge the configuration
+       from <code class="filename">ceph.conf.import</code> and remove the
+       <code class="option">configuration_init: default-import</code> option, any default
+       configuration settings we ship as part of DeepSea (stored in
+       <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.j2</code>)
+       will not be applied to the cluster.
+      </p></div></li><li class="listitem"><p>
+      Run the <code class="command">salt-run upgrade.check</code> command to verify that
+      the cluster uses the new bucket type <code class="literal">straw2</code>, and that
+      the Admin Node is not a storage node. The default is <code class="literal">straw2</code>
+      for any newly created buckets.
+     </p><div id="id-1.4.4.3.6.4.3.2.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+       The new <code class="literal">straw2</code> bucket type fixes several limitations
+       in the original <code class="literal">straw</code> bucket type. The previous
+       <code class="literal">straw</code> buckets would change some mappings that should
+       have changed when a weight was adjusted. <code class="literal">straw2</code>
+       achieves the original goal of only changing mappings to or from the
+       bucket item whose weight has changed.
+      </p><p>
+       Changing a bucket type from <code class="literal">straw</code> to
+       <code class="literal">straw2</code> results in a small amount of data movement,
+       depending on how much the bucket item weights vary from each other. When
+       the weights are all the same, no data will move. When an item's weight
+       varies significantly there will be more movement. To migrate, execute:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd getcrushmap -o backup-crushmap
+<code class="prompt user">cephadm@adm &gt; </code>ceph osd crush set-all-straw-buckets-to-straw2</pre></div><p>
+       If there are problems, you can revert this change with:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd setcrushmap -i backup-crushmap</pre></div><p>
+       Moving to <code class="literal">straw2</code> buckets unlocks a few recent
+       features, such as the <code class="literal">crush-compat</code> balancer mode that
+       was added in Ceph Luminous (SES 4).
+      </p></div></li><li class="listitem"><p>
+      Check that Ceph 'jewel' profile is used:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd crush dump | grep profile</pre></div></li></ul></div></section><section class="sect2" id="before-upgrade-rbd-clients" data-id-title="Upgrade Old RBD Kernel Clients"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.4 </span><span class="title-name">Upgrade Old RBD Kernel Clients</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade-rbd-clients">#</a></h3></div></div></div><p>
+    In case old RBD kernel clients (older than SUSE Linux Enterprise Server 12 SP3) are being used,
+    refer to <span class="intraxref">Book “Administration Guide”, Chapter 23 “RADOS Block Device”, Section 23.9 “Mapping RBD Using Old Kernel Clients”</span>. We recommend upgrading old
+    RBD kernel clients if possible.
+   </p></section><section class="sect2" id="before-upgrade-apparmor" data-id-title="Adjust AppArmor"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.5 </span><span class="title-name">Adjust AppArmor</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade-apparmor">#</a></h3></div></div></div><p>
+    If you used AppArmor in either 'complain' or 'enforce' mode, you need to set a
+    Salt pillar variable before upgrading. Because SUSE Linux Enterprise Server 15 SP1 ships with AppArmor by
+    default, AppArmor management was integrated into DeepSea stage 0. The default
+    behavior in SUSE Enterprise Storage 6 is to remove AppArmor and related
+    profiles. If you want to retain the behavior configured in SUSE Enterprise Storage
+    5.5, verify that one of the following lines is present in
+    the <code class="filename">/srv/pillar/ceph/stack/global.yml</code> file before
+    starting the upgrade:
+   </p><div class="verbatim-wrap"><pre class="screen">apparmor_init: default-enforce</pre></div><p>
+    or
+   </p><div class="verbatim-wrap"><pre class="screen">apparmor_init: default-complain</pre></div></section><section class="sect2" id="before-upgrade-mds-names" data-id-title="Verify MDS Names"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.6 </span><span class="title-name">Verify MDS Names</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade-mds-names">#</a></h3></div></div></div><p>
+    From SUSE Enterprise Storage 6, MDS names are no longer allowed to
+    begin with a digit, and such names will cause MDS daemons to refuse to
+    start. You can check whether your daemons have such names either by running
+    the <code class="command">ceph fs status</code> command, or by restarting an MDS and
+    checking its logs for the following message:
+   </p><div class="verbatim-wrap"><pre class="screen">deprecation warning: MDS id '1mon1' is invalid and will be forbidden in
+a future version.  MDS names may not start with a numeric digit.</pre></div><p>
+    If you see the above message, the MDS names must be migrated before
+    attempting to upgrade to SUSE Enterprise Storage 6. DeepSea provides
+    an orchestration to automate such a migration. MDS names starting with a
+    digit will be prepended with 'mds.':
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.mds.migrate-numerical-names</pre></div><div id="id-1.4.4.3.6.7.6" data-id-title="Custom Configuration Bound to MDS Names" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Custom Configuration Bound to MDS Names</h6><p>
+     If you have configuration settings that are bound to MDS names and your
+     MDS daemons have names starting with a digit, verify that your
+     configuration settings apply to the new names as well (with the 'mds.'
+     prefix). Consider the following example section in the
+     <code class="filename">/etc/ceph/ceph.conf</code> file:
+    </p><div class="verbatim-wrap"><pre class="screen">[mds.123-my-mds] # config setting specific to MDS name with a name starting with a digit
+mds cache memory limit = 1073741824
+mds standby for name = 456-another-mds</pre></div><p>
+     The <code class="command">ceph.mds.migrate-numerical-names</code> orchestrator will
+     change the MDS daemon name '123-my-mds' to 'mds.123-my-mds'. You need to
+     adjust the configuration to reflect the new name:
+    </p><div class="verbatim-wrap"><pre class="screen">[mds.mds,123-my-mds] # config setting specific to MDS name with the new name
+mds cache memory limit = 1073741824
+mds standby for name = mds.456-another-mds</pre></div></div><p>
+    This will add MDS daemons with the new names before removing the old MDS
+    daemons. The number of MDS daemons will double for a short time. Clients
+    will be able to access CephFS only after a short pause for failover to
+    happen. Therefore plan the migration for a time when you expect little or
+    no CephFS load.
+   </p></section><section class="sect2" id="before-upgrade-scrub-settings" data-id-title="Consolidate Scrub-related Configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.7 </span><span class="title-name">Consolidate Scrub-related Configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#before-upgrade-scrub-settings">#</a></h3></div></div></div><p>
+    The <code class="literal">osd_scrub_max_interval</code> and
+    <code class="literal">osd_scrub_max_interval</code> settings are used by both OSD and
+    MON daemons. OSDs use these settings to decide when to run scrub, and MONs
+    use them to decide if a warning about scrub not running in time (running
+    too long) should be shown. Therefore, if non-default settings are used,
+    they should be visible by both OSD and MON daemons (that is, defined either
+    in both <code class="literal">[osd]</code> and <code class="literal">[mon]</code> sections, or
+    in the <code class="literal">[global]</code> section), otherwise the monitor may give
+    a false alarm.
+   </p><p>
+    In SES 5.5 the monitor warning are disabled by default and the issue may
+    not be noticed if the settings are overridden in the
+    <code class="literal">[osd]</code> section only. But when the monitors are upgraded
+    to SES 6, it will start to complain, because in this version the warnings
+    are enabled by default. So if you define non-default scrub settings in your
+    configuration only in the <code class="literal">[osd]</code> section, it is desirable
+    to move them to the <code class="literal">[global]</code> section before upgrading to
+    SES 6 to avoid false alarms about scrub not running in time.
+   </p></section><section class="sect2" id="upgrade-backup" data-id-title="Back Up Cluster Data"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.8 </span><span class="title-name">Back Up Cluster Data</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-backup">#</a></h3></div></div></div><p>
+    Although creating backups of a cluster's configuration and data is not
+    mandatory, we strongly recommend backing up important configuration files
+    and cluster data. Refer to <span class="intraxref">Book “Administration Guide”, Chapter 3 “Backing Up Cluster Configuration and Data”</span> for more
+    details.
+   </p></section><section class="sect2" id="upgrade-ntp" data-id-title="Migrate from ntpd to chronyd"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.9 </span><span class="title-name">Migrate from <code class="systemitem">ntpd</code> to <code class="systemitem">chronyd</code></span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-ntp">#</a></h3></div></div></div><p>
+    SUSE Linux Enterprise Server 15 SP1 no longer uses <code class="systemitem">ntpd</code> to
+    synchronize the local host time. Instead,
+    <code class="systemitem">chronyd</code> is used. You need to
+    migrate the time synchronization daemon on each cluster node. You can
+    migrate to <code class="systemitem">chronyd</code> either
+    <span class="bold"><strong>before</strong></span> migrating the cluster, or upgrade
+    the cluster and migrate to <code class="systemitem">chronyd</code>
+    <span class="bold"><strong>afterward</strong></span>.
+   </p><div id="id-1.4.4.3.6.10.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+     Before you continue, review your current
+     <code class="systemitem">ntpd</code> settings and determine if you
+     want to keep using the same time server. Keep in mind that the default
+     behaviour <span class="emphasis"><em>will</em></span> convert to using
+     <code class="systemitem">chronyd</code>.
+    </p><p>
+     If you want to manually maintain the
+     <code class="systemitem">chronyd</code> configuration, follow the
+     instructions below and ensure you disable
+     <code class="systemitem">ntpd</code> time configuration. See
+     <a class="xref" href="ceph-deploy-ds-custom.html#disable-time-sync" title="Disabling Time Synchronization">Procedure 7.1, “Disabling Time Synchronization”</a> for more information.
+    </p></div><div class="procedure" id="id-1.4.4.3.6.10.4" data-id-title="Migrate to chronyd before the Cluster Upgrade"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 6.1: </span><span class="title-name">Migrate to <code class="systemitem">chronyd</code> <span class="emphasis"><em>before</em></span> the Cluster Upgrade </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.4.4.3.6.10.4">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Install the <span class="package">chrony</span> package:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>zypper install chrony</pre></div></li><li class="step"><p>
+      Edit the <code class="systemitem">chronyd</code> configuration
+      file <code class="filename">/etc/chrony.conf</code> and add NTP sources from the
+      current <code class="systemitem">ntpd</code> configuration in
+      <code class="filename">/etc/ntp.conf</code>.
+     </p><div id="id-1.4.4.3.6.10.4.3.2" data-id-title="More Details on chronyd Configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: More Details on <code class="systemitem">chronyd</code> Configuration</h6><p>
+       Refer to
+       <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-ntp.html" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-ntp.html</a>
+       to find more details about how to include time sources in
+       <code class="systemitem">chronyd</code> configuration.
+      </p></div></li><li class="step"><p>
+      Edit the file <code class="filename">/srv/salt/ceph/rescind/time/ntp</code> and
+      remove the following lines:
+     </p><div class="verbatim-wrap"><pre class="screen">/etc/ntp.conf:
+file.absent</pre></div></li><li class="step"><p>
+      Remove the directory <code class="filename">/srv/salt/ceph/time/ntp</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>rm -rf /srv/salt/ceph/time/ntp</pre></div></li><li class="step"><p>
+      Edit the file <code class="filename">/srv/pillar/ceph/stack/global.yml</code> and
+      add or update the <code class="option">time_init</code> option to use
+      <code class="literal">chrony</code>:
+     </p><div class="verbatim-wrap"><pre class="screen">time_init: chrony</pre></div></li><li class="step"><p>
+      Disable and stop the <code class="systemitem">ntpd</code>
+      service:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl disable ntpd.service &amp;&amp; systemctl stop ntpd.service</pre></div></li><li class="step"><p>
+      Start and enable the <code class="systemitem">chronyd</code>
+      service:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl start chronyd.service &amp;&amp; systemctl enable chronyd.service</pre></div></li><li class="step"><p>
+      Verify the status of <code class="systemitem">chronyd</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>chronyc tracking</pre></div></li></ol></div></div><div class="procedure" id="id-1.4.4.3.6.10.5" data-id-title="Migrate to chronyd after the Cluster Upgrade"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 6.2: </span><span class="title-name">Migrate to <code class="systemitem">chronyd</code> <span class="emphasis"><em>after</em></span> the Cluster Upgrade </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.4.4.3.6.10.5">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      During cluster upgrade, add the following software repositories:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        SLE-Module-Legacy15-SP1-Pool
+       </p></li><li class="listitem"><p>
+        SLE-Module-Legacy15-SP1-Updates
+       </p></li></ul></div></li><li class="step"><p>
+      Upgrade the cluster to version 6.
+     </p></li><li class="step"><p>
+      Edit the <code class="systemitem">chronyd</code> configuration
+      file <code class="filename">/etc/chrony.conf</code> and add NTP sources from the
+      current <code class="systemitem">ntpd</code> configuration in
+      <code class="filename">/etc/ntp.conf</code>.
+     </p><div id="id-1.4.4.3.6.10.5.4.2" data-id-title="More Details on chronyd Configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: More Details on <code class="systemitem">chronyd</code> Configuration</h6><p>
+       Refer to
+       <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-ntp.html" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-ntp.html</a>
+       to find more details about how to include time sources in
+       <code class="systemitem">chronyd</code> configuration.
+      </p></div></li><li class="step"><p>
+      Edit the file <code class="filename">/srv/salt/ceph/rescind/time/ntp</code> and
+      remove the following lines:
+     </p><div class="verbatim-wrap"><pre class="screen">/etc/ntp.conf:
+file.absent</pre></div></li><li class="step"><p>
+      Remove the directory <code class="filename">/srv/salt/ceph/time/ntp</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>rm -rf /srv/salt/ceph/time/ntp</pre></div></li><li class="step"><p>
+      Edit the file <code class="filename">/srv/pillar/ceph/stack/global.yml</code> and
+      add or update the <code class="option">time_init</code> option to use
+      <code class="literal">chrony</code>:
+     </p><div class="verbatim-wrap"><pre class="screen">time_init: chrony</pre></div></li><li class="step"><p>
+      Disable and stop the <code class="systemitem">ntpd</code>
+      service:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl disable ntpd.service &amp;&amp; systemctl stop ntpd.service</pre></div></li><li class="step"><p>
+      Start and enable the <code class="systemitem">chronyd</code>
+      service:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl start chronyd.service &amp;&amp; systemctl enable chronyd.service</pre></div></li><li class="step"><p>
+      Migrate from <code class="systemitem">ntpd</code> to
+      <code class="systemitem">chronyd</code>.
+     </p></li><li class="step"><p>
+      Verify the status of <code class="systemitem">chronyd</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>chronyc tracking</pre></div></li><li class="step"><p>
+      Remove the legacy software repositories that you added to keep
+      <code class="systemitem">ntpd</code> in the system during the
+      upgrade process.
+     </p></li></ol></div></div></section><section class="sect2" id="upgrade-prepare" data-id-title="Patch Cluster Prior to Upgrade"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.10 </span><span class="title-name">Patch Cluster Prior to Upgrade</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-prepare">#</a></h3></div></div></div><p>
+    Apply the latest patches to all cluster nodes prior to upgrade.
+   </p><section class="sect3" id="upgrade-prepare-repos" data-id-title="Required Software Repositories"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.10.1 </span><span class="title-name">Required Software Repositories</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-prepare-repos">#</a></h4></div></div></div><p>
+     Check that required repositories are configured on each host of the
+     cluster. To list all available repositories, run
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>zypper lr</pre></div><div id="id-1.4.4.3.6.11.3.4" data-id-title="Remove SUSE Enterprise Storage 5.5 LTSS Repositories" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Remove SUSE Enterprise Storage 5.5 LTSS Repositories</h6><p>
+      Upgrades will fail if LTSS repositories are configured in SUSE Enterprise Storage
+      5.5. Find their IDs and remove them from the system. For
+      example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper lr
+[...]
+12 | SUSE_Linux_Enterprise_Server_LTSS_12_SP3_x86_64:SLES12-SP3-LTSS-Debuginfo-Updates
+13 | SUSE_Linux_Enterprise_Server_LTSS_12_SP3_x86_64:SLES12-SP3-LTSS-Updates
+[...]
+<code class="prompt user">root # </code>zypper rr 12 13</pre></div></div><div id="id-1.4.4.3.6.11.3.5" data-id-title="Upgrade Without Using SCC, SMT, or RMT" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Upgrade Without Using SCC, SMT, or RMT</h6><p>
+      If your nodes are not subscribed to one of the supported software channel
+      providers that handle automatic channel adjustment—such as SMT,
+      RMT, or SCC—you may need to enable additional software modules and
+      channels.
+     </p></div><p>
+     SUSE Enterprise Storage 5.5 requires:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       SLES12-SP3-Installer-Updates
+      </p></li><li class="listitem"><p>
+       SLES12-SP3-Pool
+      </p></li><li class="listitem"><p>
+       SLES12-SP3-Updates
+      </p></li><li class="listitem"><p>
+       SUSE-Enterprise-Storage-5-Pool
+      </p></li><li class="listitem"><p>
+       SUSE-Enterprise-Storage-5-Updates
+      </p></li></ul></div><p>
+     NFS/SMB Gateway on SLE-HA on SUSE Linux Enterprise Server 12 SP3 requires:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       SLE-HA12-SP3-Pool
+      </p></li><li class="listitem"><p>
+       SLE-HA12-SP3-Updates
+      </p></li></ul></div></section><section class="sect3" id="upgrade-prepare-staging" data-id-title="Repository Staging Systems"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.10.2 </span><span class="title-name">Repository Staging Systems</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-prepare-staging">#</a></h4></div></div></div><p>
+     If you are using one of the repository staging systems—SMT, or
+     RMT—create a new frozen patch level for the current and the new
+     SUSE Enterprise Storage version.
+    </p><p>
+     Find more information in:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <a class="link" href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/book-smt.html" target="_blank">https://documentation.suse.com/sles/12-SP5/html/SLES-all/book-smt.html</a>,
+      </p></li><li class="listitem"><p>
+       <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/book-rmt.html" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/book-rmt.html</a>.
+      </p></li><li class="listitem"><p>
+       <a class="link" href="https://documentation.suse.com/suma/3.2/" target="_blank">https://documentation.suse.com/suma/3.2/</a>,
+      </p></li></ul></div></section><section class="sect3" id="upgrade-prepare-patch" data-id-title="Patch the Whole Cluster to the Latest Patches"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.10.3 </span><span class="title-name">Patch the Whole Cluster to the Latest Patches</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-prepare-patch">#</a></h4></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Apply the latest patches of SUSE Enterprise Storage 5.5 and
+       SUSE Linux Enterprise Server 12 SP3 to each Ceph cluster node. Verify that correct software
+       repositories are connected to each cluster node (see
+       <a class="xref" href="cha-ceph-upgrade.html#upgrade-prepare-repos" title="6.2.10.1. Required Software Repositories">Section 6.2.10.1, “Required Software Repositories”</a>) and run DeepSea stage 0:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0</pre></div></li><li class="step"><p>
+       After stage 0 completes, verify that each cluster node's status includes
+       'HEALTH_OK'. If not, resolve the problem before any possible reboots in
+       the next steps.
+      </p></li><li class="step"><p>
+       Run <code class="command">zypper ps</code> to check for processes that may still
+       be running with outdated libraries or binaries, and reboot if there are
+       any.
+      </p></li><li class="step"><p>
+       Verify that the running kernel is the latest available, and reboot if
+       not. Check outputs of the following commands:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>uname -a
+<code class="prompt user">cephadm@adm &gt; </code>rpm -qa kernel-default</pre></div></li><li class="step"><p>
+       Verify that the <span class="package">ceph</span> package is version 12.2.12 or
+       newer. Verify that the <span class="package">deepsea</span> package is version
+       0.8.9 or newer.
+      </p></li><li class="step"><p>
+       If you previously used any of the <code class="option">bluestore_cache</code>
+       settings, they are no longer effective from <span class="package">ceph</span>
+       version 12.2.10. The new setting
+       <code class="option">bluestore_cache_autotune</code> which is set to 'true' by
+       default disables manual cache sizing. To turn on the old behavior, you
+       need to set <code class="option">bluestore_cache_autotune=false</code>. Refer to
+       <span class="intraxref">Book “Administration Guide”, Chapter 25 “Ceph Cluster Configuration”, Section 25.2.1 “Automatic Cache Sizing”</span> for details.
+      </p></li></ol></div></div></section></section><section class="sect2" id="upgrade-verify-current" data-id-title="Verify the Current Environment"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.11 </span><span class="title-name">Verify the Current Environment</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-verify-current">#</a></h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      If the system has obvious problems, fix them before starting the upgrade.
+      Upgrading never fixes existing system problems.
+     </p></li><li class="listitem"><p>
+      Check cluster performance. You can use commands such as <code class="command">rados
+      bench</code>, <code class="command">ceph tell osd.* bench</code>, or
+      <code class="command">iperf3</code>.
+     </p></li><li class="listitem"><p>
+      Verify access to gateways (such as iSCSI Gateway or Object Gateway) and RADOS Block Device.
+     </p></li><li class="listitem"><p>
+      Document specific parts of the system setup, such as network setup,
+      partitioning, or installation details.
+     </p></li><li class="listitem"><p>
+      Use <code class="command">supportconfig</code> to collect important system
+      information and save it outside cluster nodes. Find more information in
+      <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-adm-support.html#sec-admsupport-submit" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-adm-support.html#sec-admsupport-submit</a>.
+     </p></li><li class="listitem"><p>
+      Ensure there is enough free disk space on each cluster node. Check free
+      disk space with <code class="command">df -h</code>. When needed, free up additional
+      disk space by removing unneeded files/directories or removing obsolete OS
+      snapshots. If there is not enough free disk space, do not continue with
+      the upgrade until you have freed enough disk space.
+     </p></li></ul></div></section><section class="sect2" id="upgrade-verify-state" data-id-title="Check the Clusters State"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.12 </span><span class="title-name">Check the Cluster's State</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-verify-state">#</a></h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Check the <code class="command">cluster health</code> command before starting the
+      upgrade procedure. Do not start the upgrade unless each cluster node
+      reports 'HEALTH_OK'.
+     </p></li><li class="listitem"><p>
+      Verify that all services are running:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        Salt master and Salt master daemons.
+       </p></li><li class="listitem"><p>
+        Ceph Monitor and Ceph Manager daemons.
+       </p></li><li class="listitem"><p>
+        Metadata Server daemons.
+       </p></li><li class="listitem"><p>
+        Ceph OSD daemons.
+       </p></li><li class="listitem"><p>
+        Object Gateway daemons.
+       </p></li><li class="listitem"><p>
+        iSCSI Gateway daemons.
+       </p></li></ul></div></li></ul></div><p>
+    The following commands provide details of the cluster state and specific
+    configuration:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.3.6.13.4.1"><span class="term"><code class="command">ceph -s</code></span></dt><dd><p>
+       Prints a brief summary of Ceph cluster health, running services, data
+       usage, and I/O statistics. Verify that it reports 'HEALTH_OK' before
+       starting the upgrade.
+      </p></dd><dt id="id-1.4.4.3.6.13.4.2"><span class="term"><code class="command">ceph health detail</code></span></dt><dd><p>
+       Prints details if Ceph cluster health is not OK.
+      </p></dd><dt id="id-1.4.4.3.6.13.4.3"><span class="term"><code class="command">ceph versions</code></span></dt><dd><p>
+       Prints versions of running Ceph daemons.
+      </p></dd><dt id="id-1.4.4.3.6.13.4.4"><span class="term"><code class="command">ceph df</code></span></dt><dd><p>
+       Prints total and free disk space on the cluster. Do not start the
+       upgrade if the cluster's free disk space is less than 25% of the total
+       disk space.
+      </p></dd><dt id="id-1.4.4.3.6.13.4.5"><span class="term"><code class="command">salt '*' cephprocesses.check results=true</code></span></dt><dd><p>
+       Prints running Ceph processes and their PIDs sorted by Salt minions.
+      </p></dd><dt id="id-1.4.4.3.6.13.4.6"><span class="term"><code class="command">ceph osd dump | grep ^flags</code></span></dt><dd><p>
+       Verify that 'recovery_deletes' and 'purged_snapdirs' flags are present.
+       If not, you can force a scrub on all placement groups by running the
+       following command. Be aware that this forced scrub may possibly have a
+       negative impact on your Ceph clients’ performance.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph pg dump pgs_brief | cut -d " " -f 1 | xargs -n1 ceph pg scrub</pre></div></dd></dl></div></section><section class="sect2" id="filestore2bluestore" data-id-title="Migrate OSDs to BlueStore"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.2.13 </span><span class="title-name">Migrate OSDs to BlueStore</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#filestore2bluestore">#</a></h3></div></div></div><p>
+    OSD BlueStore is a new back-end for the OSD daemons. It is the default
+    option since SUSE Enterprise Storage 5. Compared to FileStore, which stores objects
+    as files in an XFS file system, BlueStore can deliver increased
+    performance because it stores objects directly on the underlying block
+    device. BlueStore also enables other features, such as built-in
+    compression and EC overwrites, that are unavailable with FileStore.
+   </p><p>
+    Specifically for BlueStore, an OSD has a 'wal' (Write Ahead Log) device
+    and a 'db' (RocksDB database) device. The RocksDB database holds the
+    metadata for a BlueStore OSD. These two devices will reside on the same
+    device as an OSD by default, but either can be placed on different, for
+    example faster, media.
+   </p><p>
+    In SUSE Enterprise Storage 5, both FileStore and BlueStore are supported and it
+    is possible for FileStore and BlueStore OSDs to co-exist in a single
+    cluster. During the SUSE Enterprise Storage upgrade procedure, FileStore OSDs are
+    not automatically converted to BlueStore.
+   </p><div id="id-1.4.4.3.6.14.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+     Migration to BlueStore needs to be completed on all OSD nodes
+     <span class="bold"><strong>before</strong></span> the cluster upgrade because
+     FileStore OSDs are not supported in SES 6.
+    </p></div><p>
+    Before converting to BlueStore, the OSDs need to be running SUSE Enterprise Storage
+    5. The conversion is a slow process as all data gets re-written twice.
+    Though the migration process can take a long time to complete, there is no
+    cluster outage and all clients can continue accessing the cluster during
+    this period. However, do expect lower performance for the duration of the
+    migration. This is caused by rebalancing and backfilling of cluster data.
+   </p><p>
+    Use the following procedure to migrate FileStore OSDs to BlueStore:
+   </p><div id="id-1.4.4.3.6.14.8" data-id-title="Turn Off Safety Measures" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Turn Off Safety Measures</h6><p>
+     Salt commands needed for running the migration are blocked by safety
+     measures. In order to turn these precautions off, run the following
+     command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disengage.safety</pre></div><p>
+     Rebuild the nodes before continuing:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code> salt-run rebuild.node <em class="replaceable">TARGET</em></pre></div><p>
+     You can also choose to rebuild each node individually. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code> salt-run rebuild.node data1.ceph</pre></div><p>
+     The <code class="literal">rebuild.node</code> always removes and recreates all OSDs
+     on the node.
+    </p></div><div id="id-1.4.4.3.6.14.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     If one OSD fails to convert, re-running the rebuild destroys the
+     already-converted BlueStore OSDs. Instead of re-running the rebuild, you
+     can run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disks.deploy target=<em class="replaceable">NODE-ID</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disks.deploy target=data1.ceph</pre></div></div><p>
+    After the migration to BlueStore, the object count will remain the same
+    and disk usage will be nearly the same.
+   </p></section></section><section class="sect1" id="upgrade-backup-order-of-nodes" data-id-title="Order in Which Nodes Must Be Upgraded"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.3 </span><span class="title-name">Order in Which Nodes Must Be Upgraded</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-backup-order-of-nodes">#</a></h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Certain types of daemons depend upon others. For example, Ceph Object Gateways
+     depend upon Ceph MON and OSD daemons. We recommend upgrading in this
+     order:
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+       Admin Node
+      </p></li><li class="listitem"><p>
+       Ceph Monitors/Ceph Managers
+      </p></li><li class="listitem"><p>
+       Metadata Servers
+      </p></li><li class="listitem"><p>
+       Ceph OSDs
+      </p></li><li class="listitem"><p>
+       Object Gateways
+      </p></li><li class="listitem"><p>
+       iSCSI Gateways
+      </p></li><li class="listitem"><p>
+       NFS Ganesha
+      </p></li><li class="listitem"><p>
+       Samba Gateways
+      </p></li></ol></div></li></ul></div></section><section class="sect1" id="upgrade-offline-ctdb-cluster" data-id-title="Offline Upgrade of CTDB Clusters"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.4 </span><span class="title-name">Offline Upgrade of CTDB Clusters</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-offline-ctdb-cluster">#</a></h2></div></div></div><p>
+   CTDB provides a clustered database used by Samba Gateways. The CTDB protocol does
+   not support clusters of nodes communicating with different protocol
+   versions. Therefore, CTDB nodes need to be taken offline prior to performing
+   a SUSE Enterprise Storage upgrade.
+  </p><p>
+   CTDB refuses to start if it is running alongside an incompatible version.
+   For example, if you start a SUSE Enterprise Storage 6 CTDB version while
+   SUSE Enterprise Storage 5.5 CTDB versions are running, then it will
+   fail.
+  </p><p>
+   To take the CTDB offline, stop the SLE-HA cloned CTDB resource. For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>crm resource stop <em class="replaceable">cl-ctdb</em></pre></div><p>
+   This will stop the resource across all gateway nodes (assigned to the cloned
+   resource). Verify all the services are stopped by running the following
+   command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>crm status</pre></div><div id="id-1.4.4.3.8.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    Ensure CTDB is taken offline prior to the SUSE Enterprise Storage 5.5
+    to SUSE Enterprise Storage 6 upgrade of the CTDB and Samba Gateway packages.
+    SLE-HA may also specify requirements for the upgrade of the underlying
+    pacemaker/Linux-HA cluster; these should be tracked separately.
+   </p></div><p>
+   The SLE-HA cloned CTDB resource can be restarted once the new packages have
+   been installed on all Samba Gateway nodes and the underlying pacemaker/Linux-HA
+   cluster is up. To restart the CTDB resource run the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>crm resource start cl-ctdb</pre></div></section><section class="sect1" id="upgrade-one-node" data-id-title="Per-Node Upgrade Instructions"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.5 </span><span class="title-name">Per-Node Upgrade Instructions</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-one-node">#</a></h2></div></div></div><p>
+   To ensure the core cluster services are available during the upgrade, you
+   need to upgrade the cluster nodes sequentially one by one. There are two
+   ways you can perform the upgrade of a node: either using the <span class="emphasis"><em>
+   installer DVD</em></span> or using the <span class="emphasis"><em>distribution migration
+   system</em></span>.
+  </p><p>
+   After upgrading each node, we recommend running
+   <code class="command">rpmconfigcheck</code> to check for any updated configuration
+   files that have been edited locally. If the command returns a list of file
+   names with a suffix <code class="filename">.rpmnew</code>,
+   <code class="filename">.rpmorig</code>, or <code class="filename">.rpmsave</code>, compare
+   these files against the current configuration files to ensure that no local
+   changes have been lost. If necessary, update the affected files. For more
+   information on working with <code class="filename">.rpmnew</code>,
+   <code class="filename">.rpmorig</code>, and <code class="filename">.rpmsave</code> files,
+   refer to
+   <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-sw-cl.html#sec-rpm-packages-manage" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-sw-cl.html#sec-rpm-packages-manage</a>.
+  </p><div id="id-1.4.4.3.9.4" data-id-title="Orphaned Packages" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Orphaned Packages</h6><p>
+    After a node is upgraded, a number of packages will be in an 'orphaned'
+    state without a parent repository. This happens because python3 related
+    packages do not make python2 packages obsolete.
+   </p><p>
+    Find more information about listing orphaned packages in
+    <a class="link" href="https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-sw-cl.html#sec-zypper-softup-orphaned" target="_blank">https://documentation.suse.com/sles/12-SP5/html/SLES-all/cha-sw-cl.html#sec-zypper-softup-orphaned</a>.
+   </p></div><section class="sect2" id="upgrade-one-node-manual" data-id-title="Manual Node Upgrade Using the Installer DVD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.5.1 </span><span class="title-name">Manual Node Upgrade Using the Installer DVD</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-one-node-manual">#</a></h3></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Reboot the node from the SUSE Linux Enterprise Server 15 SP1 installer DVD/image.
+     </p></li><li class="step"><p>
+      On the YaST command line, add the option
+      <code class="option">YAST_ACTIVATE_LUKS=0</code>. This option ensures that the
+      system does not ask for a password for encrypted disks.
+     </p><div id="id-1.4.4.3.9.5.2.2.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+       This must not be enabled by default as it would break full-disk
+       encryption on the system disk or part of the system disk. This parameter
+       only works if it is provided by the installer. If not provided, you will
+       be prompted for an encryption password for each individual disk
+       partition.
+      </p><p>
+       This is only supported since the 3rd Quarterly Update of SLES 15 SP1.
+       You need SLE-15-SP1-Installer-DVD-*-QU3-DVD1.iso media or newer.
+      </p></div></li><li class="step"><p>
+      Select <span class="guimenu">Upgrade</span> from the boot menu.
+     </p></li><li class="step"><p>
+      On the <span class="guimenu">Select the Migration Target</span> screen, verify that
+      'SUSE Linux Enterprise Server 15 SP1' is selected and activate the <span class="guimenu">Manually Adjust the
+      Repositories for Migration</span> check box.
+     </p><div class="figure" id="id-1.4.4.3.9.5.2.4.2"><div class="figure-contents"><div class="mediaobject"><a href="images/migration-target.png" target="_blank"><img src="images/migration-target.png" width="" alt="Select the Migration Target"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 6.1: </span><span class="title-name">Select the Migration Target </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.4.4.3.9.5.2.4.2">#</a></h6></div></div></li><li class="step"><p>
+      Select the following modules to install:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        SUSE Enterprise Storage 6 x86_64
+       </p></li><li class="listitem"><p>
+        Basesystem Module 15 SP1 x86_64
+       </p></li><li class="listitem"><p>
+        Desktop Applications Module 15 SP1 x86_64
+       </p></li><li class="listitem"><p>
+        Legacy Module 15 SP1 x86_64
+       </p></li><li class="listitem"><p>
+        Server Applications Module 15 SP1 x86_64
+       </p></li></ul></div></li><li class="step"><p>
+      On the <span class="guimenu">Previously Used Repositories</span> screen, verify
+      that the correct repositories are selected. If the system is not
+      registered with SCC/SMT, you need to add the repositories manually.
+     </p><p>
+      SUSE Enterprise Storage 6 requires:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        SLE-Module-Basesystem15-SP1-Pool
+       </p></li><li class="listitem"><p>
+         SLE-Module-Basesystem15-SP1-Updates
+       </p></li><li class="listitem"><p>
+         SLE-Module-Server-Applications15-SP1-Pool
+       </p></li><li class="listitem"><p>
+         SLE-Module-Server-Applications15-SP1-Updates
+       </p></li><li class="listitem"><p>
+        SLE-Module-Desktop-Applications15-SP1-Pool
+       </p></li><li class="listitem"><p>
+        SLE-Module-Desktop-Applications15-SP1-Updates
+       </p></li><li class="listitem"><p>
+         SLE-Product-SLES15-SP1-Pool
+       </p></li><li class="listitem"><p>
+         SLE-Product-SLES15-SP1-Updates
+       </p></li><li class="listitem"><p>
+         SLE15-SP1-Installer-Updates
+       </p></li><li class="listitem"><p>
+         SUSE-Enterprise-Storage-6-Pool
+       </p></li><li class="listitem"><p>
+         SUSE-Enterprise-Storage-6-Updates
+       </p></li></ul></div><p>
+      If you intend to migrate <code class="systemitem">ntpd</code> to
+      <code class="systemitem">chronyd</code> after SES migration
+      (refer to <a class="xref" href="cha-ceph-upgrade.html#upgrade-ntp" title="6.2.9. Migrate from ntpd to chronyd">Section 6.2.9, “Migrate from <code class="systemitem">ntpd</code> to <code class="systemitem">chronyd</code>”</a>), include the following
+      repositories:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        SLE-Module-Legacy15-SP1-Pool
+       </p></li><li class="listitem"><p>
+        SLE-Module-Legacy15-SP1-Updates
+       </p></li></ul></div><p>
+      NFS/SMB Gateway on SLE-HA on SUSE Linux Enterprise Server 15 SP1 requires:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        SLE-Product-HA15-SP1-Pool
+       </p></li><li class="listitem"><p>
+        SLE-Product-HA15-SP1-Updates
+       </p></li></ul></div></li><li class="step"><p>
+      Review the <span class="guimenu">Installation Settings</span> and start the
+      installation procedure by clicking <span class="guimenu">Update</span>.
+     </p></li></ol></div></div></section><section class="sect2" id="upgrade-one-node-auto" data-id-title="Node Upgrade Using the SUSE Distribution Migration System"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.5.2 </span><span class="title-name">Node Upgrade Using the SUSE Distribution Migration System</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-one-node-auto">#</a></h3></div></div></div><p>
+    The <span class="emphasis"><em>Distribution Migration System</em></span> (DMS) provides an
+    upgrade path for an installed SUSE Linux Enterprise system from one major version to
+    another. The following procedure utilizes DMS to upgrade SUSE Enterprise Storage
+    5.5 to version 6, including the underlying
+    SUSE Linux Enterprise Server 12 SP3 to SUSE Linux Enterprise Server 15 SP1 migration.
+   </p><p>
+    Refer to
+    <a class="link" href="https://documentation.suse.com/suse-distribution-migration-system/1.0/single-html/distribution-migration-system/" target="_blank">https://documentation.suse.com/suse-distribution-migration-system/1.0/single-html/distribution-migration-system/</a>
+    to find both general and detailed information about DMS.
+   </p><section class="sect3" id="upgrade-node-before-you-begin" data-id-title="Before You Begin"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.5.2.1 </span><span class="title-name">Before You Begin</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-node-before-you-begin">#</a></h4></div></div></div><p>
+     Before the starting the upgrade process, check whether the
+     <span class="package">sles-ltss-release</span> or
+     <span class="package">sles-ltss-release-POOL</span> packages are installed on any
+     node of the cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>rpm -q sles-ltss-release
+ <code class="prompt user">root@minion &gt; </code>rpm -q sles-ltss-release-POOL</pre></div><p>
+     If either or both are installed, remove them:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>zypper rm -y sles-ltss-release sles-ltss-release-POOL</pre></div><div id="id-1.4.4.3.9.6.4.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      This must be done on all nodes of the cluster before proceeding.
+     </p></div><div id="id-1.4.4.3.9.6.4.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Ensure you also follow the <a class="xref" href="cha-ceph-upgrade.html#upgrade-verify-state" title="6.2.12. Check the Cluster's State">Section 6.2.12, “Check the Cluster's State”</a>
+      guidelines. The upgrade must not be started until all nodes are fully
+      patched. See <a class="xref" href="cha-ceph-upgrade.html#upgrade-prepare-patch" title="6.2.10.3. Patch the Whole Cluster to the Latest Patches">Section 6.2.10.3, “Patch the Whole Cluster to the Latest Patches”</a> for more
+      information.
+     </p></div></section><section class="sect3" id="upgrade-nodes-dms" data-id-title="Upgrading Nodes"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.5.2.2 </span><span class="title-name">Upgrading Nodes</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-nodes-dms">#</a></h4></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Install the migration RPM packages. They adjust the GRUB boot loader
+       to automatically trigger the upgrade on next reboot. Install the
+       <span class="package">SLES15-SES-Migration</span> and
+       <span class="package">suse-migration-sle15-activation</span> packages:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>zypper install SLES15-SES-Migration suse-migration-sle15-activation</pre></div></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
+         If the node being upgraded <span class="bold"><strong>is</strong></span>
+         registered with a repository staging system such as SCC, SMT, RMT, or
+         SUSE Manager, create the
+         <code class="filename">/etc/sle-migration-service.yml</code> with the following
+         content:
+        </p><div class="verbatim-wrap"><pre class="screen">  use_zypper_migration: true
+  preserve:
+    rules:
+      - /etc/udev/rules.d/70-persistent-net.rules</pre></div></li><li class="step"><p>
+         If the node being upgraded is <span class="bold"><strong>not</strong></span>
+         registered with a repository staging system such as SCC, SMT, RMT, or
+         SUSE Manager, perform the following changes:
+        </p><ol type="i" class="substeps"><li class="step"><p>
+           Create the <code class="filename">/etc/sle-migration-service.yml</code> with
+           the following content:
+          </p><div class="verbatim-wrap"><pre class="screen">  use_zypper_migration: false
+  preserve:
+    rules:
+      - /etc/udev/rules.d/70-persistent-net.rules</pre></div></li><li class="step"><p>
+           Disable or remove the SLE 12 SP3 and SES 5 repos, and add the SLE 15
+           SP1 and SES6 repos. Find the list of related repositories in
+           <a class="xref" href="cha-ceph-upgrade.html#upgrade-prepare-repos" title="6.2.10.1. Required Software Repositories">Section 6.2.10.1, “Required Software Repositories”</a>.
+          </p></li></ol></li></ol></li><li class="step"><p>
+       Reboot to start the upgrade. While the upgrade is running, you can log
+       in to the upgraded node via <code class="command">ssh</code> as the migration user
+       using the existing SSH key from the host system as described in
+       <a class="link" href="https://documentation.suse.com/suse-distribution-migration-system/1.0/single-html/distribution-migration-system/" target="_blank">https://documentation.suse.com/suse-distribution-migration-system/1.0/single-html/distribution-migration-system/</a>.
+       For SUSE Enterprise Storage, if you have physical access or direct console access
+       to the machine, you can also log in as <code class="systemitem">root</code> on the system console
+       using the password <code class="literal">sesupgrade</code>. The node will reboot
+       automatically after the upgrade.
+      </p><div id="id-1.4.4.3.9.6.5.2.3.2" data-id-title="Upgrade Failure" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Upgrade Failure</h6><p>
+        If the upgrade fails, inspect
+        <code class="filename">/var/log/distro_migration.log</code>. Fix the problem,
+        re-install the migration RPM packages, and reboot the node.
+       </p></div></li></ol></div></div></section></section></section><section class="sect1" id="upgrade-adm" data-id-title="Upgrade the Admin Node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.6 </span><span class="title-name">Upgrade the Admin Node</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-adm">#</a></h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     The following commands will still work, although Salt minions are running
+     old versions of Ceph and Salt: <code class="command">salt '*' test.ping</code>
+     and <code class="command">ceph status</code>
+    </p></li><li class="listitem"><p>
+     After the upgrade of the Admin Node, openATTIC will no longer be installed.
+    </p></li><li class="listitem"><p>
+     If the Admin Node hosted SMT, complete its migration to RMT (refer to
+     <a class="link" href="https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-rmt-migrate.html" target="_blank">https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-rmt-migrate.html</a>).
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Use the procedure described in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+    </p></li></ul></div><div id="id-1.4.4.3.10.3" data-id-title="Status of Cluster Nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Status of Cluster Nodes</h6><p>
+    After the Admin Node is upgraded, you can run the <code class="command">salt-run
+    upgrade.status</code> command to view useful information about cluster
+    nodes. The command lists the Ceph and OS versions of all nodes, and
+    recommends the order in which to upgrade any nodes that are still running
+    old versions.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run upgrade.status
+The newest installed software versions are:
+  ceph: ceph version 14.2.1-468-g994fd9e0cc (994fd9e0ccc50c2f3a55a3b7a3d4e0ba74786d50) nautilus (stable)
+  os: SUSE Linux Enterprise Server 15 SP1
+
+Nodes running these software versions:
+  admin.ceph (assigned roles: master)
+  mon2.ceph (assigned roles: admin, mon, mgr)
+
+Nodes running older software versions must be upgraded in the following order:
+   1: mon1.ceph (assigned roles: admin, mon, mgr)
+   2: mon3.ceph (assigned roles: admin, mon, mgr)
+   3: data1.ceph (assigned roles: storage)
+[...]</pre></div></div></section><section class="sect1" id="upgrade-mons" data-id-title="Upgrade Ceph Monitor/Ceph Manager Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.7 </span><span class="title-name">Upgrade Ceph Monitor/Ceph Manager Nodes</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-mons">#</a></h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     If your cluster <span class="bold"><strong>does not use</strong></span> MDS roles,
+     upgrade MON/MGR nodes one by one.
+    </p></li><li class="listitem"><p>
+     If your cluster <span class="bold"><strong>uses</strong></span> MDS roles, and
+     MON/MGR and MDS roles are co-located, you need to shrink the MDS cluster
+     and then upgrade the co-located nodes. Refer to
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-mds" title="6.8. Upgrade Metadata Servers">Section 6.8, “Upgrade Metadata Servers”</a> for more details.
+    </p></li><li class="listitem"><p>
+     If your cluster <span class="bold"><strong>uses</strong></span> MDS roles and they
+     run on <span class="bold"><strong>dedicated</strong></span> servers, upgrade all
+     MON/MGR nodes one by one, then shrink the MDS cluster and upgrade it.
+     Refer to <a class="xref" href="cha-ceph-upgrade.html#upgrade-mds" title="6.8. Upgrade Metadata Servers">Section 6.8, “Upgrade Metadata Servers”</a> for more details.
+    </p></li></ul></div><div id="id-1.4.4.3.11.3" data-id-title="Ceph Monitor Upgrade" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Ceph Monitor Upgrade</h6><p>
+    Due to a limitation in the Ceph Monitor design, once two MONs have been upgraded
+    to SUSE Enterprise Storage 6 and have formed a quorum, the third MON
+    (while still on SUSE Enterprise Storage 5.5) will not rejoin the MON
+    cluster if it restarted for any reason, including a node reboot. Therefore,
+    when two MONs have been upgraded it is best to upgrade the rest as soon as
+    possible.
+   </p></div><p>
+   <span class="bold"><strong>Use the procedure described in
+   <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+  </p></section><section class="sect1" id="upgrade-mds" data-id-title="Upgrade Metadata Servers"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.8 </span><span class="title-name">Upgrade Metadata Servers</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-mds">#</a></h2></div></div></div><p>
+   You need to shrink the Metadata Server (MDS) cluster. Because of incompatible features
+   between the SUSE Enterprise Storage 5.5 and 6 versions,
+   the older MDS daemons will shut down as soon as they see a single SES
+   6 level MDS join the cluster. Therefore it is necessary to
+   shrink the MDS cluster to a single active MDS (and no standbys) for the
+   duration of the MDS node upgrades. As soon as the second node is upgraded,
+   you can extend the MDS cluster again.
+  </p><div id="id-1.4.4.3.12.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    On a heavily loaded MDS cluster, you may need to reduce the load (for
+    example by stopping clients) so that a single active MDS is able to handle
+    the workload.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Note the current value of the <code class="option">max_mds</code> option:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs get cephfs | grep max_mds</pre></div></li><li class="step"><p>
+     Shrink the MDS cluster if you have more then 1 active MDS daemon, i.e.
+     <code class="option">max_mds</code> is &gt; 1. To shrink the MDS cluster, run
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs set <em class="replaceable">FS_NAME</em> max_mds 1</pre></div><p>
+     where <em class="replaceable">FS_NAME</em> is the name of your CephFS
+     instance ('cephfs' by default).
+    </p></li><li class="step"><p>
+     Find the node hosting one of the standby MDS daemons. Consult the output
+     of the <code class="command">ceph fs status</code> command and start the upgrade of
+     the MDS cluster on this node.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs status
+cephfs - 2 clients
+======
++------+--------+--------+---------------+-------+-------+
+| Rank | State  |  MDS   |    Activity   |  dns  |  inos |
++------+--------+--------+---------------+-------+-------+
+|  0   | active | mon1-6 | Reqs:    0 /s |   13  |   16  |
++------+--------+--------+---------------+-------+-------+
++-----------------+----------+-------+-------+
+|       Pool      |   type   |  used | avail |
++-----------------+----------+-------+-------+
+| cephfs_metadata | metadata | 2688k | 96.8G |
+|   cephfs_data   |   data   |    0  | 96.8G |
++-----------------+----------+-------+-------+
++-------------+
+| Standby MDS |
++-------------+
+|    mon3-6   |
+|    mon2-6   |
++-------------+</pre></div><p>
+     In this example, you need to start the upgrade procedure either on node
+     'mon3-6' or 'mon2-6'.
+    </p></li><li class="step"><p>
+     Upgrade the node with the standby MDS daemon. After the upgraded MDS node
+     starts, the outdated MDS daemons will shut down automatically. At this
+     point, clients may experience a short downtime of the CephFS service.
+    </p><p>
+     <span class="bold"><strong>Use the procedure described in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+    </p></li><li class="step"><p>
+     Upgrade the remaining MDS nodes.
+    </p></li><li class="step"><p>
+     Reset <code class="option">max_mds</code> to the desired configuration:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs set <em class="replaceable">FS_NAME</em> max_mds <em class="replaceable">ACTIVE_MDS_COUNT</em></pre></div></li></ol></div></div></section><section class="sect1" id="upgrade-main-osd" data-id-title="Upgrade Ceph OSDs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.9 </span><span class="title-name">Upgrade Ceph OSDs</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-main-osd">#</a></h2></div></div></div><p>
+   For each storage node, follow these steps:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Identify which OSD daemons are running on a particular node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd tree</pre></div></li><li class="step"><p>
+     Set the <code class="option">noout</code> flag for each OSD daemon on the node that
+     is being upgraded:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd add-noout osd.<em class="replaceable">OSD_ID</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>for i in $(ceph osd ls-tree <em class="replaceable">OSD_NODE_NAME</em>);do echo "osd: $i"; ceph osd add-noout osd.$i; done</pre></div><p>
+     Verify with:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph health detail | grep noout</pre></div><p>
+     or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph –s
+cluster:
+ id:     44442296-033b-3275-a803-345337dc53da
+ health: HEALTH_WARN
+      6 OSDs or CRUSH {nodes, device-classes} have {NOUP,NODOWN,NOIN,NOOUT} flags set</pre></div></li><li class="step"><p>
+     Create <code class="filename">/etc/ceph/osd/*.json</code> files for all existing
+     OSDs by running the following command on the node that is going to be
+     upgraded:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume simple scan --force</pre></div></li><li class="step"><p>
+     Upgrade the OSD node. <span class="bold"><strong>Use the procedure described in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+    </p></li><li class="step"><p>
+     Activate all OSDs found in the system:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume simple activate --all</pre></div><div id="id-1.4.4.3.13.3.5.3" data-id-title="Activating Data Partitions Individually" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Activating Data Partitions Individually</h6><p>
+      If you want to activate data partitions individually, you need to find
+      the correct <code class="command">ceph-volume</code> command for each partition to
+      activate it. Replace <em class="replaceable">X1</em> with the partition's
+      correct letter/number:
+     </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephadm@osd &gt; </code>ceph-volume simple scan /dev/sd<em class="replaceable">X1</em></pre></div><p>
+      For example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume simple scan /dev/vdb1
+[...]
+--&gt; OSD 8 got scanned and metadata persisted to file:
+/etc/ceph/osd/8-d7bd2685-5b92-4074-8161-30d146cd0290.json
+--&gt; To take over management of this scanned OSD, and disable ceph-disk
+and udev, run:
+--&gt;     ceph-volume simple activate 8 d7bd2685-5b92-4074-8161-30d146cd0290</pre></div><p>
+      The last line of the output contains the command to activate the
+      partition:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume simple activate 8 d7bd2685-5b92-4074-8161-30d146cd0290
+[...]
+--&gt; All ceph-disk systemd units have been disabled to prevent OSDs
+getting triggered by UDEV events
+[...]
+Running command: /bin/systemctl start ceph-osd@8
+--&gt; Successfully activated OSD 8 with FSID
+d7bd2685-5b92-4074-8161-30d146cd0290</pre></div></div></li><li class="step"><p>
+     Verify that the OSD node will start properly after the reboot.
+    </p></li><li class="step"><p>
+     Address the 'Legacy BlueStore stats reporting detected on XX OSD(s)'
+     message:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph –s
+cluster:
+ id:     44442296-033b-3275-a803-345337dc53da
+ health: HEALTH_WARN
+ <span class="bold"><strong>Legacy BlueStore stats reporting detected on 6 OSD(s)</strong></span></pre></div><p>
+     The warning is normal when upgrading Ceph to 14.2.2. You can disable it
+     by setting:
+    </p><div class="verbatim-wrap"><pre class="screen">bluestore_warn_on_legacy_statfs = false</pre></div><p>
+     The proper fix is to run the following command on all OSDs while they are
+     stopped:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-bluestore-tool repair --path /var/lib/ceph/osd/ceph-XXX</pre></div><p>
+     Following is a helper script that runs the <code class="command">ceph-bluestore-tool
+     repair</code> for all OSDs on the <em class="replaceable">NODE_NAME</em>
+     node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>OSDNODE=<em class="replaceable">OSD_NODE_NAME</em>;\
+ for OSD in $(ceph osd ls-tree $OSDNODE);\
+ do echo "osd=" $OSD;\
+ salt $OSDNODE* cmd.run "systemctl stop ceph-osd@$OSD";\
+ salt $OSDNODE* cmd.run "ceph-bluestore-tool repair --path /var/lib/ceph/osd/ceph-$OSD";\
+ salt $OSDNODE* cmd.run "systemctl start ceph-osd@$OSD";\
+ done</pre></div></li><li class="step"><p>
+     Unset the 'noout' flag for each OSD daemon on the node that is upgraded:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd rm-noout osd.<em class="replaceable">OSD_ID</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>for i in $(ceph osd ls-tree <em class="replaceable">OSD_NODE_NAME</em>);do echo "osd: $i"; ceph osd rm-noout osd.$i; done</pre></div><p>
+     Verify with:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph health detail | grep noout</pre></div><p>
+     Note:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph –s
+cluster:
+ id:     44442296-033b-3275-a803-345337dc53da
+ health: HEALTH_WARN
+ <span class="bold"><strong>Legacy BlueStore stats reporting detected on 6 OSD(s)</strong></span></pre></div></li><li class="step"><p>
+     Verify the cluster status. It will be similar to the following output:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph status
+cluster:
+  id:     e0d53d64-6812-3dfe-8b72-fd454a6dcf12
+  health: HEALTH_WARN
+          3 monitors have not enabled msgr2
+
+services:
+  mon: 3 daemons, quorum mon1,mon2,mon3 (age 2h)
+  mgr: mon2(active, since 22m), standbys: mon1, mon3
+  osd: 30 osds: 30 up, 30 in
+
+data:
+  pools:   1 pools, 1024 pgs
+  objects: 0 objects, 0 B
+  usage:   31 GiB used, 566 GiB / 597 GiB avail
+  pgs:     1024 active+clean</pre></div></li><li class="step"><p>
+     Once the last OSD node has been upgraded, issue the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd require-osd-release nautilus</pre></div><p>
+     This disallows pre-SUSE Enterprise Storage 6 and Nautilus OSDs and
+     enables all new SUSE Enterprise Storage 6 and Nautilus-only OSD
+     functionality.
+    </p></li><li class="step"><p>
+     Enable the new <code class="literal">v2</code> network protocol by issuing the
+     following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mon enable-msgr2</pre></div><p>
+     This instructs all monitors that bind to the old default port for the
+     legacy <code class="literal">v1</code> Messenger protocol (6789) to also bind to the
+     new <code class="literal">v2</code> protocol port (3300). To see if all monitors
+     have been updated, run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mon dump</pre></div><p>
+     Verify that each monitor has both a <code class="literal">v2:</code> and
+     <code class="literal">v1:</code> address listed.
+    </p></li><li class="step"><p>
+     Verify that all OSD nodes were rebooted and that OSDs started
+     automatically after the reboot.
+    </p></li></ol></div></div></section><section class="sect1" id="upgrade-appnodes-order" data-id-title="Upgrade Gateway Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.10 </span><span class="title-name">Upgrade Gateway Nodes</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-appnodes-order">#</a></h2></div></div></div><p>
+   Upgrade gateway nodes in the following order:
+  </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+     Object Gateways
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       If the Object Gateways are fronted by a load balancer, then a rolling upgrade of
+       the Object Gateways should be possible without an outage.
+      </p></li><li class="listitem"><p>
+       Validate that the Object Gateway daemons are running after each upgrade, and test
+       with S3/Swift client.
+      </p></li><li class="listitem"><p>
+       <span class="bold"><strong>Use the procedure described in
+       <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+      </p></li></ul></div></li><li class="listitem"><p>
+     iSCSI Gateways
+    </p><div id="id-1.4.4.3.14.3.2.2" data-id-title="Package Dependency Conflict" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Package Dependency Conflict</h6><p>
+      After a package dependency is calculated, you need to resolve a package
+      dependency conflict. It applies to the
+      <code class="literal">patterns-ses-ceph_iscsi</code> version mismatch.
+     </p><div class="figure" id="id-1.4.4.3.14.3.2.2.3"><div class="figure-contents"><div class="mediaobject"><a href="images/igw_pkg_conflict.png" target="_blank"><img src="images/igw_pkg_conflict.png" width="" alt="Dependency Conflict Resolution"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 6.2: </span><span class="title-name">Dependency Conflict Resolution </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.4.4.3.14.3.2.2.3">#</a></h6></div></div><p>
+      From the four presented solutions, choose deinstalling the
+      <code class="literal">patterns-ses-ceph_iscsi</code> pattern. This way you will
+      keep the required <span class="package">lrbd</span> package installed.
+     </p></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       If iSCSI initiators are configured with multipath, then a rolling
+       upgrade of the iSCSI Gateways should be possible without an outage.
+      </p></li><li class="listitem"><p>
+       Validate that the <code class="systemitem">lrbd</code> daemon is
+       running after each upgrade, and test with initiator.
+      </p></li><li class="listitem"><p>
+       <span class="bold"><strong>Use the procedure described in
+       <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+      </p></li></ul></div></li><li class="listitem"><p>
+     NFS Ganesha. <span class="bold"><strong>Use the procedure described in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+    </p></li><li class="listitem"><p>
+     Samba Gateways. <span class="bold"><strong>Use the procedure described in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>.</strong></span>
+    </p></li></ol></div></section><section class="sect1" id="final-steps" data-id-title="Steps to Take after the Last Node Has Been Upgraded"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.11 </span><span class="title-name">Steps to Take after the Last Node Has Been Upgraded</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#final-steps">#</a></h2></div></div></div><section class="sect2" id="final-steps-update-conf" data-id-title="Update Ceph Monitor Setting"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.11.1 </span><span class="title-name">Update Ceph Monitor Setting</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#final-steps-update-conf">#</a></h3></div></div></div><p>
+    For each host that has been upgraded — OSD, MON, MGR, MDS, and
+    Gateway nodes, as well as client hosts — update your
+    <code class="filename">ceph.conf</code> file so that it either specifies no monitor
+    port (if you are running the monitors on the default ports) or references
+    both the <code class="literal">v2</code> and <code class="literal">v1</code> addresses and
+    ports explicitly.
+   </p><div id="id-1.4.4.3.15.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     Things will still work if only the <code class="literal">v1</code> IP and port are
+     listed, but each CLI instantiation or daemon will need to reconnect after
+     learning that the monitors also speak the <code class="literal">v2</code> protocol.
+     This slows things down and prevents a full transition to the
+     <code class="literal">v2</code> protocol.
+    </p></div></section><section class="sect2" id="final-steps-disable-insecure" data-id-title="Disable Insecure Clients"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.11.2 </span><span class="title-name">Disable Insecure Clients</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#final-steps-disable-insecure">#</a></h3></div></div></div><p>
+    Since Nautilus v14.2.20, a new health warning was introduced that informs
+    you that insecure clients are allowed to join the cluster. This warning is
+    <span class="emphasis"><em>on</em></span> by default. The Ceph Dashboard will show the cluster
+    in the <code class="literal">HEALTH_WARN</code> status and verifying the cluster
+    status on the command line informs you as follows:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph status
+cluster:
+  id:     3fe8b35a-689f-4970-819d-0e6b11f6707c
+  health: HEALTH_WARN
+  mons are allowing insecure global_id reclaim
+[...]</pre></div><p>
+    This warning means that the Ceph Monitors are still allowing old, unpatched
+    clients to connect to the cluster. This ensures existing clients can still
+    connect while the cluster is being upgraded, but warns you that there is a
+    problem that needs to be addressed. When the cluster and all clients are
+    upgraded to the latest version of Ceph, disallow unpatched clients by
+    running the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></section><section class="sect2" id="final-steps-meter" data-id-title="Enable the Telemetry Module"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.11.3 </span><span class="title-name">Enable the Telemetry Module</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#final-steps-meter">#</a></h3></div></div></div><p>
+    Finally, consider enabling the Telemetry module to send anonymized usage
+    statistics and crash information to the upstream Ceph developers. To see
+    what would be reported (without actually sending any information to
+    anyone):
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mgr module enable telemetry
+<code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show</pre></div><p>
+    If you are comfortable with the high-level cluster metadata that will be
+    reported, you can opt-in to automatically report it:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry on</pre></div></section></section><section class="sect1" id="upgrade-main-policy" data-id-title="Update policy.cfg and Deploy Ceph Dashboard Using DeepSea"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.12 </span><span class="title-name">Update <code class="filename">policy.cfg</code> and Deploy Ceph Dashboard Using DeepSea</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-main-policy">#</a></h2></div></div></div><p>
+   On the Admin Node, edit
+   <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> and apply the
+   following changes:
+  </p><div id="id-1.4.4.3.16.3" data-id-title="No New Services" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: No New Services</h6><p>
+    During cluster upgrade, do not add new services to the
+    <code class="filename">policy.cfg</code> file. Change the cluster architecture only
+    after the upgrade is completed.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Remove <code class="literal">role-openattic</code>.
+    </p></li><li class="step"><p>
+     Add <code class="literal">role-prometheus</code> and <code class="literal">role-grafana</code>
+     to the node that had Prometheus and Grafana installed, usually the
+     Admin Node.
+    </p></li><li class="step"><p>
+     Role <code class="literal">profile-<em class="replaceable">PROFILE_NAME</em></code> is
+     now ignored. Add new corresponding role, <code class="literal">role-storage</code>
+     line. For example, for existing
+    </p><div class="verbatim-wrap"><pre class="screen">profile-default/cluster/*.sls</pre></div><p>
+     add
+    </p><div class="verbatim-wrap"><pre class="screen">role-storage/cluster/*.sls</pre></div></li><li class="step"><p>
+     Synchronize all Salt modules:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.sync_all</pre></div></li><li class="step"><p>
+     Update the Salt pillar by running DeepSea stage 1 and stage 2:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2</pre></div></li><li class="step"><p>
+     Clean up openATTIC:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">OA_MINION</em> state.apply ceph.rescind.openattic
+<code class="prompt user">root@master # </code>salt <em class="replaceable">OA_MINION</em> state.apply ceph.remove.openattic</pre></div></li><li class="step"><p>
+     Unset the <code class="option">restart_igw</code> grain to prevent stage 0 from
+     restarting iSCSI Gateway, which is not installed yet:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' grains.delkey restart_igw</pre></div></li><li class="step"><p>
+     Finally, run through DeepSea stages 0-4:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4</pre></div><div id="id-1.4.4.3.16.4.8.3" data-id-title="subvolume missing Errors during Stage 3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: 'subvolume missing' Errors during Stage 3</h6><p>
+      DeepSea stage 3 may fail with an error similar to the following:
+     </p><div class="verbatim-wrap"><pre class="screen">subvolume : ['/var/lib/ceph subvolume missing on 4510-2', \
+'/var/lib/ceph subvolume missing on 4510-1', \
+[...]
+'See /srv/salt/ceph/subvolume/README.md']</pre></div><p>
+      In this case, you need to edit
+      <code class="filename">/srv/pillar/ceph/stack/global.yml</code> and
+      add the following line:
+     </p><div class="verbatim-wrap"><pre class="screen">subvolume_init: disabled</pre></div><p>
+      Then refresh the Salt pillar and re-run DeepSea stage.3:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.refresh_pillar
+ <code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div><p>
+      After DeepSea successfully finished stage.3, the Ceph Dashboard will be
+      running. Refer to <span class="intraxref">Book “Administration Guide”</span> for a detailed
+      overview of Ceph Dashboard features.
+     </p><p>
+      To list nodes running dashboard, run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mgr services | grep dashboard</pre></div><p>
+      To list admin credentials, run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-call grains.get dashboard_creds</pre></div></div></li><li class="step"><p>
+     Sequentially restart the Object Gateway services to use 'beast' Web server instead
+     of the outdated 'civetweb':
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.rgw.force</pre></div></li><li class="step"><p>
+     Before you continue, we strongly recommend enabling the Ceph telemetry
+     module. For more information, see <span class="intraxref">Book “Administration Guide”, Chapter 21 “Ceph Manager Modules”, Section 21.2 “Telemetry Module”</span>
+     for information and instructions.
+    </p></li></ol></div></div></section><section class="sect1" id="upgrade-drive-groups" data-id-title="Migration from Profile-based Deployments to DriveGroups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">6.13 </span><span class="title-name">Migration from Profile-based Deployments to DriveGroups</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-drive-groups">#</a></h2></div></div></div><p>
+   In SUSE Enterprise Storage 5.5, DeepSea offered so called 'profiles'
+   to describe the layout of your OSDs. Starting with SUSE Enterprise Storage
+   6, we moved to a different approach called
+   <span class="emphasis"><em>DriveGroups</em></span> (find more details in
+   <a class="xref" href="ceph-install-saltstack.html#ds-drive-groups" title="5.5.2. DriveGroups">Section 5.5.2, “DriveGroups”</a>).
+  </p><div id="id-1.4.4.3.17.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    Migrating to the new approach is not immediately mandatory. Destructive
+    operations, such as <code class="command">salt-run osd.remove</code>,
+    <code class="command">salt-run osd.replace</code>, or <code class="command">salt-run
+    osd.purge</code> are still available. However, adding new OSDs will
+    require your action.
+   </p></div><p>
+   Because of the different approach of these implementations, we do not offer
+   an automated migration path. However, we offer a variety of
+   tools—Salt runners—to make the migration as simple as
+   possible.
+  </p><section class="sect2" id="id-1.4.4.3.17.5" data-id-title="Analyze the Current Layout"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.13.1 </span><span class="title-name">Analyze the Current Layout</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.4.4.3.17.5">#</a></h3></div></div></div><p>
+    To view information about the currently deployed OSDs, synchronize all
+    Salt modules and run the <code class="command">disks.discover</code> command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.sync_all
+<code class="prompt user">root@master # </code>salt-run disks.discover</pre></div><p>
+    Alternatively, you can inspect the content of the files in the
+    <code class="filename">/srv/pillar/ceph/proposals/profile-*/</code> directories.
+    They have a similar structure to the following:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph:
+  storage:
+    osds:
+      /dev/disk/by-id/scsi-drive_name: format: bluestore
+      /dev/disk/by-id/scsi-drive_name2: format: bluestore</pre></div></section><section class="sect2" id="id-1.4.4.3.17.6" data-id-title="Create DriveGroups Matching the Current Layout"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.13.2 </span><span class="title-name">Create DriveGroups Matching the Current Layout</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.4.4.3.17.6">#</a></h3></div></div></div><p>
+    Refer to <a class="xref" href="ceph-install-saltstack.html#ds-drive-groups-specs" title="5.5.2.1. Specification">Section 5.5.2.1, “Specification”</a> for more details on
+    DriveGroups specification.
+   </p><p>
+    The difference between a fresh deployment and upgrade scenario is that the
+    drives to be migrated are already 'used'. Because
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disks.list</pre></div><p>
+    looks for unused disks only, use
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disks.list include_unavailable=True</pre></div><p>
+    Adjust DriveGroups until you match your current setup. For a more visual
+    representation of what will be happening, use the following command. Note
+    that it has no output if there are no free disks:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disks.report bypass_pillar=True</pre></div><p>
+    If you verified that your DriveGroups are properly configured and want to
+    apply the new approach, remove the files from the
+    <code class="filename">/srv/pillar/ceph/proposals/profile-<em class="replaceable">PROFILE_NAME</em>/</code>
+    directory, remove the corresponding
+    <code class="literal">profile-<em class="replaceable">PROFILE_NAME</em>/cluster/*.sls</code>
+    lines from the <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code>
+    file, and run DeepSea stage 2 to refresh the Salt pillar.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2</pre></div><p>
+    Verify the result by running the following commands:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt target_node pillar.get ceph:storage
+<code class="prompt user">root@master # </code>salt-run disks.report</pre></div><div id="id-1.4.4.3.17.6.13" data-id-title="Incorrect DriveGroups Configuration" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Incorrect DriveGroups Configuration</h6><p>
+     If your DriveGroups are not properly configured and there are spare disks in
+     your setup, they will be deployed in the way you specified them. We
+     recommend running:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disks.report</pre></div></div></section><section class="sect2" id="upgrade-osd-deployment" data-id-title="OSD Deployment"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.13.3 </span><span class="title-name">OSD Deployment</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-osd-deployment">#</a></h3></div></div></div><p>
+    As of the Ceph Mimic release (SES 5), the <code class="literal">ceph-disk</code>
+    tool is deprecated, and as of the Ceph Nautilus release (SES 6) it is no
+    longer shipped upstream.
+   </p><p>
+    <code class="literal">ceph-disk</code> is still supported in SUSE Enterprise Storage 6. Any
+    pre-deployed <code class="literal">ceph-disk</code> OSDs will continue to function
+    normally. However, when a disk breaks there is <span class="emphasis"><em>no</em></span>
+    migration path: a disk will need to be re-deployed.
+   </p><p>
+    For completeness, consider migrating OSDs on the whole node. There are two
+    paths for SUSE Enterprise Storage 6 users:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Keep OSDs deployed with <code class="literal">ceph-disk</code>: The
+      <code class="command">simple</code> command provides a way to take over the
+      management while disabling <code class="literal">ceph-disk</code> triggers.
+     </p></li><li class="listitem"><p>
+      Re-deploy existings OSDs with <code class="command">ceph-volume</code>. For more
+      information on replacing your OSDs, see <span class="intraxref">Book “Administration Guide”, Chapter 2 “Salt Cluster Administration”, Section 2.8 “Replacing an OSD Disk”</span>.
+     </p></li></ul></div><div id="id-1.4.4.3.17.7.6" data-id-title="Migrate to LVM Format" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Migrate to LVM Format</h6><p>
+     Whenever a single legacy OSD needs to be replaced on a node, all OSDs that
+     share devices with it need to be migrated to the LVM-based format.
+    </p></div></section><section class="sect2" id="id-1.4.4.3.17.8" data-id-title="More Complex Setups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.13.4 </span><span class="title-name">More Complex Setups</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.4.4.3.17.8">#</a></h3></div></div></div><p>
+    If you have a more sophisticated setup than just stand-alone OSDs, for
+    example dedicated WAL/DBs or encrypted OSDs, the migration can only happen
+    when all OSDs assigned to that WAL/DB device are removed. This is due to
+    the <code class="command">ceph-volume</code> command that creates Logical Volumes on
+    disks before deployment. This prevents the user from mixing partition based
+    deployments with LV based deployments. In such cases it is best to manually
+    remove all OSDs that are assigned to a WAL/DB device and re-deploy them
+    using the DriveGroups approach.
+   </p></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="ceph-install-saltstack.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 5 </span>Deploying with DeepSea/Salt</span></a> </div><div><a class="pagination-link next" href="ceph-deploy-ds-custom.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 7 </span>Customizing the Default Configuration</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-general-considerations"><span class="title-number">6.1 </span><span class="title-name">General Considerations</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#before-upgrade"><span class="title-number">6.2 </span><span class="title-name">Steps to Take before Upgrading the First Node</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-backup-order-of-nodes"><span class="title-number">6.3 </span><span class="title-name">Order in Which Nodes Must Be Upgraded</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-offline-ctdb-cluster"><span class="title-number">6.4 </span><span class="title-name">Offline Upgrade of CTDB Clusters</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-one-node"><span class="title-number">6.5 </span><span class="title-name">Per-Node Upgrade Instructions</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-adm"><span class="title-number">6.6 </span><span class="title-name">Upgrade the Admin Node</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-mons"><span class="title-number">6.7 </span><span class="title-name">Upgrade Ceph Monitor/Ceph Manager Nodes</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-mds"><span class="title-number">6.8 </span><span class="title-name">Upgrade Metadata Servers</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-main-osd"><span class="title-number">6.9 </span><span class="title-name">Upgrade Ceph OSDs</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-appnodes-order"><span class="title-number">6.10 </span><span class="title-name">Upgrade Gateway Nodes</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#final-steps"><span class="title-number">6.11 </span><span class="title-name">Steps to Take after the Last Node Has Been Upgraded</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-main-policy"><span class="title-number">6.12 </span><span class="title-name">Update <code class="filename">policy.cfg</code> and Deploy Ceph Dashboard Using DeepSea</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#upgrade-drive-groups"><span class="title-number">6.13 </span><span class="title-name">Migration from Profile-based Deployments to DriveGroups</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/admin_ceph_upgrade.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

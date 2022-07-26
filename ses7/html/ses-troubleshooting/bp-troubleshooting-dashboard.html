@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Troubleshooting the Ceph Dashboard | Troubleshooting Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Troubleshooting the Ceph Dashboard | SES 7"/>
+<meta name="description" content="If you are unsure of the location of the Ceph Dashboard, run the following command:"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Troubleshooting Guide"/>
+<meta name="chapter-title" content="Chapter 10. Troubleshooting the Ceph Dashboard"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Troubleshooting the Ceph Dashboard | SES 7"/>
+<meta property="og:description" content="If you are unsure of the location of the Ceph Dashboard, run the following command:"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Troubleshooting the Ceph Dashboard | SES 7"/>
+<meta name="twitter:description" content="If you are unsure of the location of the Ceph Dashboard, run the following command:"/>
+<link rel="prev" href="bp-troubleshooting-status.html" title="Chapter 9. Troubleshooting Ceph health status"/><link rel="next" href="bp-troubleshooting-objectgateway.html" title="Chapter 11. Troubleshooting Object Gateway"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Troubleshooting Guide</a><span> / </span><a class="crumb" href="bp-troubleshooting-dashboard.html">Troubleshooting the Ceph Dashboard</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Troubleshooting Guide</div><ol><li><a href="preface-troubleshooting.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="report-software.html" class=" "><span class="title-number">1 </span><span class="title-name">Reporting software problems</span></a></li><li><a href="bp-troubleshooting-logging.html" class=" "><span class="title-number">2 </span><span class="title-name">Troubleshooting logging and debugging</span></a></li><li><a href="bp-troubleshooting-cephadm.html" class=" "><span class="title-number">3 </span><span class="title-name">Troubleshooting cephadm</span></a></li><li><a href="bp-troubleshooting-osds.html" class=" "><span class="title-number">4 </span><span class="title-name">Troubleshooting OSDs</span></a></li><li><a href="bp-troubleshooting-pgs.html" class=" "><span class="title-number">5 </span><span class="title-name">Troubleshooting placement groups (PGs)</span></a></li><li><a href="bp-troubleshooting-monitors.html" class=" "><span class="title-number">6 </span><span class="title-name">Troubleshooting Ceph Monitors and Ceph Managers</span></a></li><li><a href="bp-troubleshooting-networking.html" class=" "><span class="title-number">7 </span><span class="title-name">Troubleshooting networking</span></a></li><li><a href="bp-troubleshooting-nfs.html" class=" "><span class="title-number">8 </span><span class="title-name">Troubleshooting NFS Ganesha</span></a></li><li><a href="bp-troubleshooting-status.html" class=" "><span class="title-number">9 </span><span class="title-name">Troubleshooting Ceph health status</span></a></li><li><a href="bp-troubleshooting-dashboard.html" class=" you-are-here"><span class="title-number">10 </span><span class="title-name">Troubleshooting the Ceph Dashboard</span></a></li><li><a href="bp-troubleshooting-objectgateway.html" class=" "><span class="title-number">11 </span><span class="title-name">Troubleshooting Object Gateway</span></a></li><li><a href="bp-troubleshooting-cephfs.html" class=" "><span class="title-number">12 </span><span class="title-name">Troubleshooting CephFS</span></a></li><li><a href="storage-tips.html" class=" "><span class="title-number">13 </span><span class="title-name">Hints and tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">14 </span><span class="title-name">Frequently asked questions</span></a></li><li><a href="bk03apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="bp-troubleshooting-dashboard" data-id-title="Troubleshooting the Ceph Dashboard"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h1 class="title"><span class="title-number">10 </span><span class="title-name">Troubleshooting the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#">#</a></h1></div></div></div><section class="sect1" id="bp-troubleshooting-locate-dashboard" data-id-title="Locating the Ceph Dashboard"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.1 </span><span class="title-name">Locating the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#bp-troubleshooting-locate-dashboard">#</a></h2></div></div></div><p>
+   If you are unsure of the location of the Ceph Dashboard, run the following
+   command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr services | grep dashboard
+"dashboard": "https://<em class="replaceable">host</em>:<em class="replaceable">port</em>"</pre></div><p>
+   The command returns the URL where the Ceph Dashboard is located:
+   (https://<em class="replaceable">host</em>:<em class="replaceable">port</em>/)
+  </p></section><section class="sect1" id="bp-troubleshooting-access-dashboard" data-id-title="Accessing the Ceph Dashboard"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.2 </span><span class="title-name">Accessing the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#bp-troubleshooting-access-dashboard">#</a></h2></div></div></div><p>
+   If you are unable to access the Ceph Dashboard, run through the following
+   commands.
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Verify the Ceph Dashboard module is enabled:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module ls</pre></div></li><li class="step"><p>
+     Ensure the Ceph Dashboard module is listed in the
+     <code class="literal">enabled_modules</code> section. Example snipped output from
+     the <code class="command">ceph mgr module ls</code> command:
+    </p><div class="verbatim-wrap"><pre class="screen">  {
+      "always_on_modules": [
+          "balancer",
+          "crash",
+          "devicehealth",
+          "orchestrator",
+          "osd_support",
+          "pg_autoscaler",
+          "progress",
+          "rbd_support",
+          "status",
+          "telemetry",
+          "volumes"
+      ],
+      "enabled_modules": [
+          "dashboard",
+          "iostat",
+          "restful"
+      ],
+      "disabled_modules": [
+          {
+               ...
+          }
+      ]
+  }</pre></div></li><li class="step"><p>
+     If it is not listed, activate the module with the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable dashboard</pre></div></li><li class="step"><p>
+     Check the Ceph Manager log file for any errors. To do this, first you will need
+     the name of the Ceph Manager daemon. Find this with the <code class="command"> cephadm
+     ls</code> command. It will return output similar to the following
+     snippet:
+    </p><div class="verbatim-wrap"><pre class="screen">{ ... ,
+  {
+    "style": "cephadm:v1",
+    "name": "mgr.master.jqxsqf",
+    "fsid": "f09a96d0-2a55-11eb-a87b-525400c955e8",
+    ...
+  },
+  ...
+}</pre></div><p>
+     You can then use the name given by the command above to view the log file:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm logs --name mgr.master.jqxsqf -- -f</pre></div></li><li class="step"><p>
+     Ensure the SSL/TSL support is configured properly:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config-key get mgr/dashboard/key
+<code class="prompt user">cephuser@adm &gt; </code>ceph config-key get mgr/dashboard/crt</pre></div></li><li class="step"><p>
+     Verify the self-signed certificate exists. If not, run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard create-self-signed-cert</pre></div><p>
+     See <span class="intraxref">Book “Administration and Operations Guide”, Chapter 10 “Manual configuration”, Section 10.1.1 “Creating self-signed certificates”</span> for more information on
+     self-signed certificates or <span class="intraxref">Book “Administration and Operations Guide”, Chapter 10 “Manual configuration”, Section 10.1.2 “Using certificates signed by CA”</span> for information
+     on self-signed certificates by CA.
+    </p></li></ol></div></div></section><section class="sect1" id="bp-troubleshooting-login-dashboard" data-id-title="Troubleshooting logging into the Ceph Dashboard"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.3 </span><span class="title-name">Troubleshooting logging into the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#bp-troubleshooting-login-dashboard">#</a></h2></div></div></div><p>
+   If you are unable to log into the Ceph Dashboard and you receive the following
+   error, run through the procedural checks below:
+  </p><div class="figure" id="dashboard-invalid-credentials"><div class="figure-contents"><div class="mediaobject"><a href="images/dashboard-invalid-credentials.png" target="_blank"><img src="images/dashboard-invalid-credentials.png" width="" alt="Failed to execute login"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 10.1: </span><span class="title-name">Failed to execute login </span><a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#dashboard-invalid-credentials">#</a></h6></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Check that your user credentials are correct. If you are seeing the
+     notification message above when trying to log into the Ceph Dashboard, it is
+     likely you are using the wrong credentials. Double check your username and
+     password, and ensure the caps lock key is not enabled by accident.
+    </p></li><li class="step"><p>
+     If your user credentials are correct, but you are experiencing the same
+     error, check that the user account exists:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard ac-user-show <em class="replaceable">USERNAME</em></pre></div><p>
+     This command returns your user data. If the user does not exist, it will
+     print:
+    </p><div class="verbatim-wrap"><pre class="screen">Error ENOENT: User <em class="replaceable">USERNAME</em> does not exist</pre></div><p>
+     In this case, you will need to create the user. See
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 11 “Manage users and roles on the command line”, Section 11.2 “Managing user accounts”</span> for more information on user
+     accounts.
+    </p></li><li class="step"><p>
+     Check if the user is enabled:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard ac-user-show <em class="replaceable">USERNAME</em> {..., "enabled": true, ..}</pre></div><p>
+     Check if <code class="literal">enabled</code> is set to <code class="option">true</code> for
+     your user. If not the user is not enabled, run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard ac-user-enable <em class="replaceable">USERNAME</em></pre></div></li></ol></div></div></section><section class="sect1" id="bp-troubleshooting-features-dashboard" data-id-title="Determining if a Ceph Dashboard feature is not working"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.4 </span><span class="title-name">Determining if a Ceph Dashboard feature is not working</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#bp-troubleshooting-features-dashboard">#</a></h2></div></div></div><p>
+   When an error occurs on the backend, you will usually receive an error
+   notification on the frontend. Run through the following scenarios to debug.
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Check the Ceph Dashboard/mgr logfile(s) for any errors. These can be
+     identified by searching for keywords, such as <span class="emphasis"><em>500 Internal
+     Server Error</em></span>, followed by <code class="literal">traceback</code>. The end
+     of a traceback contains more details about what exact error occurred.
+    </p></li><li class="step"><p>
+     Check your web browser's Javascript Console for any errors.
+    </p></li></ol></div></div></section><section class="sect1" id="bp-troubleshooting-logging-dashboard" data-id-title="Ceph Dashboard logs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.5 </span><span class="title-name">Ceph Dashboard logs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#bp-troubleshooting-logging-dashboard">#</a></h2></div></div></div><section class="sect2" id="debug-dashboard-flag" data-id-title="Debugging the Ceph Dashboard flag"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.5.1 </span><span class="title-name">Debugging the Ceph Dashboard flag</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#debug-dashboard-flag">#</a></h3></div></div></div><p>
+    With this flag enabled, traceback of errors are included in backend
+    responses.
+   </p><p>
+    To enable this flag via the Ceph Dashboard, navigate from
+    <span class="guimenu">Cluster</span> to <span class="guimenu">Manager modules</span>. Select
+    <span class="guimenu">Dashboard module</span> and click the edit button. Click the
+    <span class="guimenu">debug</span> checkbox and update.
+   </p><p>
+    To enable via the CLI, run the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard debug enable</pre></div><div id="id-1.5.12.7.2.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     Activating the debug flag temporarily causes a
+     <code class="literal">HEALTH_WARN</code> cluster state.
+    </p></div></section><section class="sect2" id="setting-log-level-dashboard-module" data-id-title="Setting logging level of Ceph Dashboard module"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.5.2 </span><span class="title-name">Setting logging level of Ceph Dashboard module</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#setting-log-level-dashboard-module">#</a></h3></div></div></div><p>
+    Setting the logging level to debug makes the log more verbose and helpful
+    for debugging.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Increase the logging level of manager daemons:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell mgr config set debug_mgr 20</pre></div></li><li class="step"><p>
+      Adjust the logging level of the Ceph Dashboard module via the Ceph Dashboard or
+      CLI:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        Navigate from <span class="guimenu">Cluster</span> to <span class="guimenu">Manager
+        modules</span>. Select <span class="guimenu">Dashboard module</span> and click
+        the edit button. Modify the <code class="literal">log_level</code> configuration.
+       </p></li><li class="listitem"><p>
+        To adjust via the CLI, run the following command:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>bin/ceph config set mgr mgr/dashboard/log_level debug</pre></div></li></ul></div></li></ol></div></div></section></section><section class="sect1" id="troubleshooting-dashboard-sslcert-exception" data-id-title="Adding exceptions for self-signed SSL certificates in the Ceph Dashboard"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.6 </span><span class="title-name">Adding exceptions for self-signed SSL certificates in the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-dashboard.html#troubleshooting-dashboard-sslcert-exception">#</a></h2></div></div></div><p>
+   The Web browser shows an error page when accessing any embedded Grafana
+   pages using self-signed SSL certificates. Most browsers do not display the
+   button to add an exception for those pages.
+  </p><p>
+   Follow the next steps to add the exception.
+  </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+     Open the frame in a separate browser tab to add an exception.
+    </p><p>
+     For example, open the context menu by clicking the right mouse button and
+     select the menu <span class="guimenu">This Frame</span> / <span class="guimenu">Open
+     Frame in New Tab</span>.
+    </p></li><li class="listitem"><p>
+     In the new opened browser tab, press the <span class="guimenu">Advanced</span>
+     button followed by the <span class="guimenu">Accept the risk and continue</span>
+     button.
+    </p></li><li class="listitem"><p>
+     Finally, reload the Ceph Dashboard page to see the embedded Grafana pages.
+    </p></li></ol></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bp-troubleshooting-status.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 9 </span>Troubleshooting Ceph health status</span></a> </div><div><a class="pagination-link next" href="bp-troubleshooting-objectgateway.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 11 </span>Troubleshooting Object Gateway</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="bp-troubleshooting-dashboard.html#bp-troubleshooting-locate-dashboard"><span class="title-number">10.1 </span><span class="title-name">Locating the Ceph Dashboard</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-dashboard.html#bp-troubleshooting-access-dashboard"><span class="title-number">10.2 </span><span class="title-name">Accessing the Ceph Dashboard</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-dashboard.html#bp-troubleshooting-login-dashboard"><span class="title-number">10.3 </span><span class="title-name">Troubleshooting logging into the Ceph Dashboard</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-dashboard.html#bp-troubleshooting-features-dashboard"><span class="title-number">10.4 </span><span class="title-name">Determining if a Ceph Dashboard feature is not working</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-dashboard.html#bp-troubleshooting-logging-dashboard"><span class="title-number">10.5 </span><span class="title-name">Ceph Dashboard logs</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-dashboard.html#troubleshooting-dashboard-sslcert-exception"><span class="title-number">10.6 </span><span class="title-name">Adding exceptions for self-signed SSL certificates in the Ceph Dashboard</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_dashboard.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

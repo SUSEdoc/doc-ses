@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Ceph for Microsoft Windows | SUSE Enterprise Storage for Windows guide | SUSE Enterprise Storage 7.1</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Ceph for Microsoft Windows | SES 7.1"/>
+<meta name="description" content="Ceph is a highly-resilient software-defined-storage offering, which has only been available to Microsoft Windows environments through the use of iSCSI or CIFS …"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7.1"/>
+<meta name="book-title" content="SUSE Enterprise Storage for Windows guide"/>
+<meta name="chapter-title" content="Chapter 1. Ceph for Microsoft Windows"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Ceph for Microsoft Windows | SES 7.1"/>
+<meta property="og:description" content="Ceph is a highly-resilient software-defined-storage offering, which has only been available to Microsoft Windows environments through the use of iSCSI or CIFS …"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ceph for Microsoft Windows | SES 7.1"/>
+<meta name="twitter:description" content="Ceph is a highly-resilient software-defined-storage offering, which has only been available to Microsoft Windows environments through the use of iSCSI or CIFS …"/>
+<link rel="prev" href="preface-windows.html" title="About this guide"/><link rel="next" href="windows-conffile.html" title="Appendix A. Sample configuration files"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">SUSE Enterprise Storage for Windows guide</a><span> / </span><a class="crumb" href="windows-ses.html">Ceph for Microsoft Windows</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">SUSE Enterprise Storage for Windows guide</div><ol><li><a href="preface-windows.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="windows-ses.html" class=" you-are-here"><span class="title-number">1 </span><span class="title-name">Ceph for Microsoft Windows</span></a></li><li><a href="windows-conffile.html" class=" "><span class="title-number">A </span><span class="title-name">Sample configuration files</span></a></li><li><a href="windows-trouble-tips.html" class=" "><span class="title-number">B </span><span class="title-name">Troubleshooting tips</span></a></li><li><a href="win-upstream-project.html" class=" "><span class="title-number">C </span><span class="title-name">Upstream projects</span></a></li><li><a href="bk06apd.html" class=" "><span class="title-number">D </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></li><li><a href="bk06go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="windows-ses" data-id-title="Ceph for Microsoft Windows"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h1 class="title"><span class="title-number">1 </span><span class="title-name">Ceph for Microsoft Windows</span> <a title="Permalink" class="permalink" href="windows-ses.html#">#</a></h1></div></div></div><section class="sect1" id="intro-windows" data-id-title="Introduction"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.1 </span><span class="title-name">Introduction</span> <a title="Permalink" class="permalink" href="windows-ses.html#intro-windows">#</a></h2></div></div></div><p>
+   Ceph is a highly-resilient software-defined-storage offering, which has
+   only been available to Microsoft Windows environments through the use of iSCSI or
+   CIFS gateways. This gateway architecture introduces a single point of
+   contact and limits fault-tolerance and bandwidth, in comparison to the
+   native I/O paths of Ceph with RADOS.
+  </p><p>
+   In order to bring the benefits of native Ceph to Microsoft Windows environments,
+   SUSE partnered with Cloudbase Solutions to port Ceph to the Microsoft Windows
+   platform. This work is nearing completion, and provides the following
+   functionality:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     RADOS Block Device (RBD)
+    </p></li><li class="listitem"><p>
+     CephFS
+    </p></li></ul></div><p>
+   You can find additional information on the background of this effort through
+   the following SUSECON Digital session:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Ceph in a Windows World
+     (<a class="link" href="https://www.youtube.com/watch?v=BWZIwXLcNts" target="_blank">TUT-1121</a>)
+     Presenters: Mike Latimer (SUSE) Alessandro Pilotti (Cloudbase Solutions)
+    </p></li></ul></div></section><section class="sect1" id="technology-preview" data-id-title="Technology preview"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.2 </span><span class="title-name">Technology preview</span> <a title="Permalink" class="permalink" href="windows-ses.html#technology-preview">#</a></h2></div></div></div><p>
+   SUSE Enterprise Storage Driver for Windows is currently being offered as a technology
+   preview. This is a necessary step toward full support as we continue work to
+   ensure this driver performs well in all environments and workloads. You can
+   contribute to this effort by reporting any issues you may encounter to
+   SUSE Support.
+  </p><p>
+   CephFS functionality requires a third party FUSE wrapper provided through
+   the <a class="link" href="https://github.com/dokan-dev/dokany" target="_blank">Dokany
+   project</a>. This functionality should be considered experimental, and is
+   not recommended for production use.
+  </p></section><section class="sect1" id="supported-platforms" data-id-title="Supported platforms"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.3 </span><span class="title-name">Supported platforms</span> <a title="Permalink" class="permalink" href="windows-ses.html#supported-platforms">#</a></h2></div></div></div><p>
+   Microsoft Windows Server 2016 and 2019 are supported. Previous Microsoft Windows Server
+   versions, including Microsoft Windows client versions such as Microsoft Windows 10, may work,
+   but for the purpose of this document have not been thoroughly tested.
+  </p><div id="id-1.8.3.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    Early builds of Microsoft Windows Server 2016 do not provide UNIX sockets, in which
+    case the Ceph admin socket feature is unavailable.
+   </p></div></section><section class="sect1" id="compatibility" data-id-title="Compatibility"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.4 </span><span class="title-name">Compatibility</span> <a title="Permalink" class="permalink" href="windows-ses.html#compatibility">#</a></h2></div></div></div><p>
+   RADOS Block Device images can be exposed to the OS and host Microsoft Windows partitions or they
+   can be attached to Hyper-V VMs in the same way as iSCSI disks.
+  </p><div id="id-1.8.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    At the moment, the Microsoft Failover Cluster refuses to use Windows Block
+    Device (WNBD) driver disks as Cluster Shared Volumes (CSVs) underlying
+    storage.
+   </p></div><p>
+   OpenStack integration has been proposed and may be included in the next
+   OpenStack release. This will allow RBD images managed by OpenStack
+   Cinder to be attached to Hyper-V VMs managed by OpenStack Nova.
+  </p></section><section class="sect1" id="install-config" data-id-title="Installing and configuring"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.5 </span><span class="title-name">Installing and configuring</span> <a title="Permalink" class="permalink" href="windows-ses.html#install-config">#</a></h2></div></div></div><p>
+   Ceph for Microsoft Windows can be easily installed through the
+   <code class="filename">SES4Win.msi</code> setup wizard. You can download this from
+   <a class="link" href="https://beta.suse.com/private/SLE15/SP3/download/SES7.1/SES4Win/" target="_blank">SES4Win</a>.
+   This wizard performs the following functions:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Installs Ceph-related code to the <code class="filename">C:\Program
+     Files\Ceph</code> directory.
+    </p></li><li class="listitem"><p>
+     Adds <code class="filename">C:\Program Files\Ceph\bin</code> to the
+     <em class="replaceable">%PATH%</em> environment variable.
+    </p></li><li class="listitem"><p>
+     Creates a Ceph RBD Mapping Service to automatically map RBD devices upon
+     machine restart (using <code class="filename">rbd-wnbd.exe</code>).
+    </p></li></ul></div><p>
+   After installing Ceph for Microsoft Windows, manual modifications are required to
+   provide access to a Ceph cluster. The files which must be created or
+   modified are as follows:
+  </p><div class="verbatim-wrap"><pre class="screen">C:\ProgramData\ceph\ceph.conf
+C:\ProgramData\ceph\keyring</pre></div><p>
+   These files can be copied directly from an existing OSD node in the cluster.
+   Sample configuration files are provided in
+   <a class="xref" href="windows-conffile.html" title="Appendix A. Sample configuration files">Appendix A, <em>Sample configuration files</em></a>.
+  </p></section><section class="sect1" id="rados-block-device" data-id-title="RADOS Block Device (RBD)"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.6 </span><span class="title-name">RADOS Block Device (RBD)</span> <a title="Permalink" class="permalink" href="windows-ses.html#rados-block-device">#</a></h2></div></div></div><p>
+   Support for RBD devices is possible through a combination of Ceph tools
+   and Microsoft Windows WNBD. This driver is in the process of being certified by the
+   Windows Hardware Quality Labs (WHQL).
+  </p><p>
+   Once installed, the WNBD SCSI Virtual Adapter driver can be seen in the
+   <code class="literal">Device Manager</code> as a storage controller. Multiple adapters
+   may be seen, in order to handle multiple RBD connections.
+  </p><p>
+   The <code class="command">rbd</code> command is used to create, remove, import,
+   export, map, or unmap images, exactly like it is used on Linux.
+  </p><section class="sect2" id="mapping-images" data-id-title="Mapping images"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.6.1 </span><span class="title-name">Mapping images</span> <a title="Permalink" class="permalink" href="windows-ses.html#mapping-images">#</a></h3></div></div></div><p>
+    The behavior of the <code class="command">rbd</code> command is similar to its Linux
+    counterpart, with a few notable differences:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Device paths cannot be requested. The disk number and path is picked by
+      Microsoft Windows. If a device path is provided by the user when mapping an image,
+      it is used as an identifier. This can also be used when unmapping the
+      image.
+     </p></li><li class="listitem"><p>
+      The <code class="command">show</code> command was added, which describes a specific
+      mapping. This can be used for retrieving the disk path.
+     </p></li><li class="listitem"><p>
+      The <code class="command">service</code> command was added, allowing
+      <code class="literal">rbd-wnbd</code> to run as a Microsoft Windows service. All mappings are
+      currently persistent and will be recreated when the service stops, unless
+      they are explicitly unmapped. The service disconnects the mappings when
+      being stopped.
+     </p></li><li class="listitem"><p>
+      The <code class="command">list</code> command also includes a
+      <code class="literal">status</code> column.
+     </p></li></ul></div><p>
+    The mapped images can either be consumed by the host directly or exposed to
+    Hyper-V VMs.
+   </p></section><section class="sect2" id="hyperv-vm-disks" data-id-title="Hyper-V VM disks"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.6.2 </span><span class="title-name">Hyper-V VM disks</span> <a title="Permalink" class="permalink" href="windows-ses.html#hyperv-vm-disks">#</a></h3></div></div></div><p>
+    The following sample imports an RBD image and boots a Hyper-V VM using it.
+   </p><div class="verbatim-wrap"><pre class="screen">      # Feel free to use any other image. This one is convenient to use for
+      # testing purposes because it's very small (~15MB) and the login prompt
+      # prints the pre-configured password.
+      wget http://download.cirros-cloud.net/0.5.1/cirros-0.5.1-x86_64-disk.img `
+           -OutFile cirros-0.5.1-x86_64-disk.img
+
+      # We'll need to make sure that the imported images are raw (so no qcow2 or vhdx).
+      # You may get qemu-img from https://cloudbase.it/qemu-img-windows/
+      # You can add the extracted location to $env:Path or update the path accordingly.
+      qemu-img convert -O raw cirros-0.5.1-x86_64-disk.img cirros-0.5.1-x86_64-disk.raw
+
+      rbd import cirros-0.5.1-x86_64-disk.raw
+      # Let's give it a hefty 100MB size.
+      rbd resize cirros-0.5.1-x86_64-disk.raw --size=100MB
+
+      rbd-wnbd map cirros-0.5.1-x86_64-disk.raw
+
+      # Let's have a look at the mappings.
+      rbd-wnbd list
+      Get-Disk
+
+      $mappingJson = rbd-wnbd show cirros-0.5.1-x86_64-disk.raw --format=json
+      $mappingJson = $mappingJson | ConvertFrom-Json
+
+      $diskNumber = $mappingJson.disk_number
+
+      New-VM -VMName BootFromRBD -MemoryStartupBytes 512MB
+      # The disk must be turned offline before it can be passed to Hyper-V VMs
+      Set-Disk -Number $diskNumber -IsOffline $true
+      Add-VMHardDiskDrive -VMName BootFromRBD -DiskNumber $diskNumber
+      Start-VM -VMName BootFromRBD</pre></div></section><section class="sect2" id="windows-partitions" data-id-title="Configuring Microsoft Windows partitions"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.6.3 </span><span class="title-name">Configuring Microsoft Windows partitions</span> <a title="Permalink" class="permalink" href="windows-ses.html#windows-partitions">#</a></h3></div></div></div><p>
+    The following sample creates an empty RBD image, attaches it to the host
+    and initializes a partition:
+   </p><div class="verbatim-wrap"><pre class="screen">  rbd create blank_image --size=1G
+  rbd-wnbd map blank_image
+
+  $mappingJson = rbd-wnbd show blank_image --format=json
+  $mappingJson = $mappingJson | ConvertFrom-Json
+
+  $diskNumber = $mappingJson.disk_number
+
+  # The disk must be online before creating or accessing partitions.
+  Set-Disk -Number $diskNumber -IsOffline $false
+
+  # Initialize the disk, partition it and create a fileystem.
+  Get-Disk -Number $diskNumber | `
+      Initialize-Disk -PassThru | `
+      New-Partition -AssignDriveLetter -UseMaximumSize | `
+      Format-Volume -Force -Confirm:$false</pre></div></section></section><section class="sect1" id="rbd-windows-service" data-id-title="RBD Microsoft Windows service"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.7 </span><span class="title-name">RBD Microsoft Windows service</span> <a title="Permalink" class="permalink" href="windows-ses.html#rbd-windows-service">#</a></h2></div></div></div><p>
+   In order to ensure that <code class="command">rbd-wnbd</code> mappings survive host
+   reboots, a new Microsoft Windows service, called the Ceph RBD Mapping Service has
+   been created. This service automatically maintains mappings as they are
+   added using the Ceph tools. All mappings are currently persistent and are
+   recreated when the service starts, unless they are explicitly unmapped. The
+   service disconnects all mappings when stopped.
+  </p><p>
+   This service also adjusts the Microsoft Windows service start order so that RBD images
+   can be mapped before starting any services that may depend on them. For
+   example, VMs.
+  </p><p>
+   RBD maps are stored in the Microsoft Windows registry at the following location:
+  </p><div class="verbatim-wrap"><pre class="screen">SYSTEM\CurrentControlSet\Services\rbd-wnbd</pre></div></section><section class="sect1" id="windows-cephfs" data-id-title="Configuring CephFS"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.8 </span><span class="title-name">Configuring CephFS</span> <a title="Permalink" class="permalink" href="windows-ses.html#windows-cephfs">#</a></h2></div></div></div><div id="id-1.8.3.10.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    The following feature is <span class="emphasis"><em>experimental</em></span>, and is not
+    intended for use in production environments.
+   </p></div><p>
+   Ceph for Microsoft Windows provides CephFS support through the Dokany FUSE
+   wrapper. In order to use CephFS, install Dokany v1.4.1 or newer using the
+   installers available here: https://github.com/dokan-dev/dokany/releases
+  </p><p>
+   With Dokany installed, and <code class="filename">ceph.conf</code> and
+   <code class="filename">ceph.client.admin.keyring</code> configuration files in place,
+   CephFS can be mounted using the <code class="command">ceph-dokan.exe</code> command.
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen">ceph-dokan.exe -l x</pre></div><p>
+   This command mounts the default Ceph file system using the drive letter
+   <code class="literal">X</code>. If <code class="filename">ceph.conf</code> is not placed at the
+   default location (<code class="filename">C:\ProgramData\ceph\ceph.conf</code>), a
+   <code class="option">-c</code> parameter can be used to specify the location of
+   <code class="filename">ceph.conf</code>.
+  </p><p>
+   The <code class="option">-l</code> argument also allows using an empty folder as a
+   mountpoint instead of a drive letter.
+  </p><p>
+   The UID and GID used for mounting the file system defaults to
+   <code class="literal">0</code> and may be changed using the following
+   <code class="filename">ceph.conf</code> options:
+  </p><div class="verbatim-wrap"><pre class="screen">[client]
+# client_permissions = true
+client_mount_uid = 1000
+client_mount_gid = 1000</pre></div><div id="id-1.8.3.10.10" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    Microsoft Windows Access Control Lists (ACLs) are ignored. Portable Operating System
+    Interface (POSIX) ACLs are supported but cannot be modified using the
+    current CLI.
+   </p></div><div id="id-1.8.3.10.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    CephFS does not support mandatory file locks, which Microsoft Windows heavily
+    relies upon. At the moment, we are letting Dokan handle file locks, which
+    are only enforced locally.
+   </p></div><p>
+   For debugging purposes, <code class="option">-d</code> and <code class="option">-s</code> may be
+   used. The former enables debug output and the latter enables
+   <code class="literal">stderr</code> logging. By default, debug messages are sent to a
+   connected debugger.
+  </p><p>
+   You may use <code class="option">--help</code> to get the full list of available
+   options. Additional information on this <span class="emphasis"><em>experimental</em></span>
+   feature may be found in the upstream Ceph documentation:
+   <a class="link" href="https://docs.ceph.com/en/latest/cephfs/ceph-dokan" target="_blank">https://docs.ceph.com/en/latest/cephfs/ceph-dokan</a>
+  </p></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="preface-windows.html"><span class="pagination-relation">Previous</span><span class="pagination-label">About this guide</span></a> </div><div><a class="pagination-link next" href="windows-conffile.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Appendix A </span>Sample configuration files</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="windows-ses.html#intro-windows"><span class="title-number">1.1 </span><span class="title-name">Introduction</span></a></span></li><li><span class="sect1"><a href="windows-ses.html#technology-preview"><span class="title-number">1.2 </span><span class="title-name">Technology preview</span></a></span></li><li><span class="sect1"><a href="windows-ses.html#supported-platforms"><span class="title-number">1.3 </span><span class="title-name">Supported platforms</span></a></span></li><li><span class="sect1"><a href="windows-ses.html#compatibility"><span class="title-number">1.4 </span><span class="title-name">Compatibility</span></a></span></li><li><span class="sect1"><a href="windows-ses.html#install-config"><span class="title-number">1.5 </span><span class="title-name">Installing and configuring</span></a></span></li><li><span class="sect1"><a href="windows-ses.html#rados-block-device"><span class="title-number">1.6 </span><span class="title-name">RADOS Block Device (RBD)</span></a></span></li><li><span class="sect1"><a href="windows-ses.html#rbd-windows-service"><span class="title-number">1.7 </span><span class="title-name">RBD Microsoft Windows service</span></a></span></li><li><span class="sect1"><a href="windows-ses.html#windows-cephfs"><span class="title-number">1.8 </span><span class="title-name">Configuring CephFS</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/windows-ses.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

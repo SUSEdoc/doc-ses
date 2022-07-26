@@ -1,0 +1,1242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>RADOS Block Device | Administration and Operations Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="RADOS Block Device | SES 7"/>
+<meta name="description" content="A block is a sequence of bytes, for example a 4 MB block of data. Block-based storage interfaces are the most common way to store data with rotating media, suc…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Administration and Operations Guide"/>
+<meta name="chapter-title" content="Chapter 20. RADOS Block Device"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="RADOS Block Device | SES 7"/>
+<meta property="og:description" content="A block is a sequence of bytes, for example a 4 MB block of data. Block-based storage interfaces are the most common way to store data with rotating media, suc…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RADOS Block Device | SES 7"/>
+<meta name="twitter:description" content="A block is a sequence of bytes, for example a 4 MB block of data. Block-based storage interfaces are the most common way to store data with rotating media, suc…"/>
+<link rel="prev" href="cha-ceph-erasure.html" title="Chapter 19. Erasure coded pools"/><link rel="next" href="part-accessing-data.html" title="Part IV. Accessing Cluster Data"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration and Operations Guide</a><span> / </span><a class="crumb" href="part-storing-data.html">Storing Data in a Cluster</a><span> / </span><a class="crumb" href="ceph-rbd.html">RADOS Block Device</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration and Operations Guide</div><ol><li><a href="preface-admin.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="part-dashboard.html" class="has-children "><span class="title-number">I </span><span class="title-name">Ceph Dashboard</span></a><ol><li><a href="dashboard-about.html" class=" "><span class="title-number">1 </span><span class="title-name">About the Ceph Dashboard</span></a></li><li><a href="dashboard-webui-general.html" class=" "><span class="title-number">2 </span><span class="title-name">Dashboard's Web user interface</span></a></li><li><a href="dashboard-user-mgmt.html" class=" "><span class="title-number">3 </span><span class="title-name">Manage Ceph Dashboard users and roles</span></a></li><li><a href="dashboard-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">View cluster internals</span></a></li><li><a href="dashboard-pools.html" class=" "><span class="title-number">5 </span><span class="title-name">Manage pools</span></a></li><li><a href="dashboard-rbds.html" class=" "><span class="title-number">6 </span><span class="title-name">Manage RADOS Block Device</span></a></li><li><a href="dash-webui-nfs.html" class=" "><span class="title-number">7 </span><span class="title-name">Manage NFS Ganesha</span></a></li><li><a href="dashboard-mds.html" class=" "><span class="title-number">8 </span><span class="title-name">Manage CephFS</span></a></li><li><a href="dashboard-ogw.html" class=" "><span class="title-number">9 </span><span class="title-name">Manage the Object Gateway</span></a></li><li><a href="dashboard-initial-configuration.html" class=" "><span class="title-number">10 </span><span class="title-name">Manual configuration</span></a></li><li><a href="dashboard-user-roles.html" class=" "><span class="title-number">11 </span><span class="title-name">Manage users and roles on the command line</span></a></li></ol></li><li><a href="part-cluster-operation.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Operation</span></a><ol><li><a href="ceph-monitor.html" class=" "><span class="title-number">12 </span><span class="title-name">Determine the cluster state</span></a></li><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">13 </span><span class="title-name">Operational tasks</span></a></li><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">14 </span><span class="title-name">Operation of Ceph services</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">15 </span><span class="title-name">Backup and restore</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">16 </span><span class="title-name">Monitoring and alerting</span></a></li></ol></li><li class="active"><a href="part-storing-data.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Storing Data in a Cluster</span></a><ol><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">17 </span><span class="title-name">Stored data management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">18 </span><span class="title-name">Manage storage pools</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">19 </span><span class="title-name">Erasure coded pools</span></a></li><li><a href="ceph-rbd.html" class=" you-are-here"><span class="title-number">20 </span><span class="title-name">RADOS Block Device</span></a></li></ol></li><li><a href="part-accessing-data.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">21 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">22 </span><span class="title-name">Ceph iSCSI gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">23 </span><span class="title-name">Clustered file system</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">24 </span><span class="title-name">Export Ceph data via Samba</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">25 </span><span class="title-name">NFS Ganesha</span></a></li></ol></li><li><a href="part-integration-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">26 </span><span class="title-name"><code class="systemitem">libvirt</code> and Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">27 </span><span class="title-name">Ceph as a back-end for QEMU KVM instance</span></a></li></ol></li><li><a href="part-cluster-configuration.html" class="has-children "><span class="title-number">VI </span><span class="title-name">Configuring a Cluster</span></a><ol><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">28 </span><span class="title-name">Ceph cluster configuration</span></a></li><li><a href="cha-mgr-modules.html" class=" "><span class="title-number">29 </span><span class="title-name">Ceph Manager modules</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">30 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="ceph-rbd" data-id-title="RADOS Block Device"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h2 class="title"><span class="title-number">20 </span><span class="title-name">RADOS Block Device</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#">#</a></h2></div></div></div><p>
+  A block is a sequence of bytes, for example a 4 MB block of data. Block-based
+  storage interfaces are the most common way to store data with rotating media,
+  such as hard disks, CDs, floppy disks. The ubiquity of block device
+  interfaces makes a virtual block device an ideal candidate to interact with a
+  mass data storage system like Ceph.
+ </p><p>
+  Ceph block devices allow sharing of physical resources, and are resizable.
+  They store data striped over multiple OSDs in a Ceph cluster. Ceph block
+  devices leverage RADOS capabilities such as snapshotting, replication, and
+  consistency. Ceph's RADOS Block Devices (RBD) interact with OSDs using kernel modules or
+  the <code class="systemitem">librbd</code> library.
+ </p><div class="figure" id="id-1.4.5.5.5"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_rbd_schema.png" target="_blank"><img src="images/ceph_rbd_schema.png" width="" alt="RADOS protocol"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 20.1: </span><span class="title-name">RADOS protocol </span><a title="Permalink" class="permalink" href="ceph-rbd.html#id-1.4.5.5.5">#</a></h6></div></div><p>
+  Ceph's block devices deliver high performance with infinite scalability to
+  kernel modules. They support virtualization solutions such as QEMU, or
+  cloud-based computing systems such as OpenStack that rely on <code class="systemitem">libvirt</code>. You
+  can use the same cluster to operate the Object Gateway, CephFS, and RADOS Block Devices
+  simultaneously.
+ </p><section class="sect1" id="ceph-rbd-commands" data-id-title="Block device commands"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.1 </span><span class="title-name">Block device commands</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-commands">#</a></h2></div></div></div><p>
+   The <code class="command">rbd</code> command enables you to create, list, introspect,
+   and remove block device images. You can also use it, for example, to clone
+   images, create snapshots, rollback an image to a snapshot, or view a
+   snapshot.
+  </p><section class="sect2" id="ceph-rbd-cmds-create" data-id-title="Creating a block device image in a replicated pool"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.1.1 </span><span class="title-name">Creating a block device image in a replicated pool</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-cmds-create">#</a></h3></div></div></div><p>
+    Before you can add a block device to a client, you need to create a related
+    image in an existing pool (see <a class="xref" href="ceph-pools.html" title="Chapter 18. Manage storage pools">Chapter 18, <em>Manage storage pools</em></a>):
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd create --size <em class="replaceable">MEGABYTES</em> <em class="replaceable">POOL-NAME</em>/<em class="replaceable">IMAGE-NAME</em></pre></div><p>
+    For example, to create a 1 GB image named 'myimage' that stores information
+    in a pool named 'mypool', execute the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd create --size 1024 mypool/myimage</pre></div><div id="id-1.4.5.5.7.3.6" data-id-title="Image size units" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Image size units</h6><p>
+     If you omit a size unit shortcut ('G' or 'T'), the image's size is in
+     megabytes. Use 'G' or 'T' after the size number to specify gigabytes or
+     terabytes.
+    </p></div></section><section class="sect2" id="ceph-rbd-cmds-create-ec" data-id-title="Creating a block device image in an erasure coded pool"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.1.2 </span><span class="title-name">Creating a block device image in an erasure coded pool</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-cmds-create-ec">#</a></h3></div></div></div><p>
+    It is possible to store data of a block device image directly in erasure
+    coded (EC) pools. A RADOS Block Device image consists of <span class="emphasis"><em>data</em></span> and
+    <span class="emphasis"><em>metadata</em></span> parts. You can store only the data part of a
+    RADOS Block Device image in an EC pool. The pool needs to have the
+    <code class="option">overwrite</code> flag set to <span class="emphasis"><em>true</em></span>, and that
+    is only possible if all OSDs where the pool is stored use BlueStore.
+   </p><p>
+    You cannot store the image's metadata part in an EC pool. You can specify
+    the replicated pool for storing the image's metadata with the
+    <code class="option">--pool=</code> option of the <code class="command">rbd create</code>
+    command or specify <code class="option">pool/</code> as a prefix to the image name.
+   </p><p>
+    Create an EC pool:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create <em class="replaceable">EC_POOL</em> 12 12 erasure
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">EC_POOL</em> allow_ec_overwrites true</pre></div><p>
+    Specify the replicated pool for storing metadata:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd create <em class="replaceable">IMAGE_NAME</em> --size=1G --data-pool <em class="replaceable">EC_POOL</em> --pool=<em class="replaceable">POOL</em></pre></div><p>
+    Or:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd create <em class="replaceable">POOL/IMAGE_NAME</em> --size=1G --data-pool EC_POOL</pre></div></section><section class="sect2" id="ceph-rbd-cmds-list" data-id-title="Listing block device images"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.1.3 </span><span class="title-name">Listing block device images</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-cmds-list">#</a></h3></div></div></div><p>
+    To list block devices in a pool named 'mypool', execute the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd ls mypool</pre></div></section><section class="sect2" id="ceph-rbd-cmds-info" data-id-title="Retrieving image information"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.1.4 </span><span class="title-name">Retrieving image information</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-cmds-info">#</a></h3></div></div></div><p>
+    To retrieve information from an image 'myimage' within a pool named
+    'mypool', run the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd info mypool/myimage</pre></div></section><section class="sect2" id="ceph-rbd-cmds-resize" data-id-title="Resizing a block device image"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.1.5 </span><span class="title-name">Resizing a block device image</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-cmds-resize">#</a></h3></div></div></div><p>
+    RADOS Block Device images are thin provisioned—they do not actually use any
+    physical storage until you begin saving data to them. However, they do have
+    a maximum capacity that you set with the <code class="option">--size</code> option. If
+    you want to increase (or decrease) the maximum size of the image, run the
+    following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd resize --size 2048 <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> # to increase
+<code class="prompt user">cephuser@adm &gt; </code>rbd resize --size 2048 <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> --allow-shrink # to decrease</pre></div></section><section class="sect2" id="ceph-rbd-cmds-rm" data-id-title="Removing a block device image"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.1.6 </span><span class="title-name">Removing a block device image</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-cmds-rm">#</a></h3></div></div></div><p>
+    To remove a block device that corresponds to an image 'myimage' in a pool
+    named 'mypool', run the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd rm mypool/myimage</pre></div></section></section><section class="sect1" id="storage-bp-integration-mount-rbd" data-id-title="Mounting and unmounting"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.2 </span><span class="title-name">Mounting and unmounting</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#storage-bp-integration-mount-rbd">#</a></h2></div></div></div><p>
+   After you create a RADOS Block Device, you can use it like any other disk device: format
+   it, mount it to be able to exchange files, and unmount it when done.
+  </p><p>
+   The <code class="command">rbd</code> command defaults to accessing the cluster using
+   the Ceph <code class="literal">admin</code> user account. This account has full
+   administrative access to the cluster. This runs the risk of accidentally
+   causing damage, similarly to logging into a Linux workstation as <code class="systemitem">root</code>.
+   Thus, it is preferable to create user accounts with fewer privileges and use
+   these accounts for normal read/write RADOS Block Device access.
+  </p><section class="sect2" id="ceph-rbd-creatuser" data-id-title="Creating a Ceph user account"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.2.1 </span><span class="title-name">Creating a Ceph user account</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-creatuser">#</a></h3></div></div></div><p>
+    To create a new user account with Ceph Manager, Ceph Monitor, and Ceph OSD capabilities, use
+    the <code class="command">ceph</code> command with the <code class="command">auth
+    get-or-create</code> subcommand:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth get-or-create client.<em class="replaceable">ID</em> mon 'profile rbd' osd 'profile <em class="replaceable">profile name</em> \
+  [pool=<em class="replaceable">pool-name</em>] [, profile ...]' mgr 'profile rbd [pool=<em class="replaceable">pool-name</em>]'</pre></div><p>
+    For example, to create a user called <em class="replaceable">qemu</em> with
+    read-write access to the pool <em class="replaceable">vms</em> and read-only
+    access to the pool <em class="replaceable">images</em>, execute the
+    following:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph auth get-or-create client.<em class="replaceable">qemu</em> mon 'profile rbd' osd 'profile rbd pool=<em class="replaceable">vms</em>, profile rbd-read-only pool=<em class="replaceable">images</em>' \
+  mgr 'profile rbd pool=<em class="replaceable">images</em>'</pre></div><p>
+    The output from the <code class="command">ceph auth get-or-create</code> command will
+    be the keyring for the specified user, which can be written to
+    <code class="filename">/etc/ceph/ceph.client.<em class="replaceable">ID</em>.keyring</code>.
+   </p><div id="id-1.4.5.5.8.4.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     When using the <code class="command">rbd</code> command, you can specify the user ID
+     by providing the optional <code class="command">--id</code>
+     <em class="replaceable">ID</em> argument.
+    </p></div><p>
+    For more details on managing Ceph user accounts, refer to
+    <a class="xref" href="cha-storage-cephx.html" title="Chapter 30. Authentication with cephx">Chapter 30, <em>Authentication with <code class="systemitem">cephx</code></em></a>.
+   </p></section><section class="sect2" id="ceph-rbd-auth" data-id-title="User authentication"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.2.2 </span><span class="title-name">User authentication</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-auth">#</a></h3></div></div></div><p>
+    To specify a user name, use <code class="option">--id
+    <em class="replaceable">user-name</em></code>. If you use
+    <code class="systemitem">cephx</code> authentication, you also need to specify a
+    secret. It may come from a keyring or a file containing the secret:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd device map --pool rbd myimage --id admin --keyring /path/to/keyring</pre></div><p>
+    or
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd device map --pool rbd myimage --id admin --keyfile /path/to/file</pre></div></section><section class="sect2" id="ceph-rbd-prep" data-id-title="Preparing a RADOS Block Device for use"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.2.3 </span><span class="title-name">Preparing a RADOS Block Device for use</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-prep">#</a></h3></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Make sure your Ceph cluster includes a pool with the disk image you
+      want to map. Assume the pool is called <code class="literal">mypool</code> and the
+      image is <code class="literal">myimage</code>.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd list mypool</pre></div></li><li class="step"><p>
+      Map the image to a new block device:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd device map --pool mypool myimage</pre></div></li><li class="step"><p>
+      List all mapped devices:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd device list
+id pool   image   snap device
+0  mypool myimage -    /dev/rbd0</pre></div><p>
+      The device we want to work on is <code class="filename">/dev/rbd0</code>.
+     </p><div id="id-1.4.5.5.8.6.2.3.4" data-id-title="RBD device path" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: RBD device path</h6><p>
+       Instead of
+       <code class="filename">/dev/rbd<em class="replaceable">DEVICE_NUMBER</em></code>,
+       you can use
+       <code class="filename">/dev/rbd/<em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></code>
+       as a persistent device path. For example:
+      </p><div class="verbatim-wrap"><pre class="screen">       /dev/rbd/mypool/myimage</pre></div></div></li><li class="step"><p>
+      Make an XFS file system on the <code class="filename">/dev/rbd0</code> device:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mkfs.xfs /dev/rbd0
+      log stripe unit (4194304 bytes) is too large (maximum is 256KiB)
+      log stripe unit adjusted to 32KiB
+      meta-data=/dev/rbd0              isize=256    agcount=9, agsize=261120 blks
+      =                       sectsz=512   attr=2, projid32bit=1
+      =                       crc=0        finobt=0
+      data     =                       bsize=4096   blocks=2097152, imaxpct=25
+      =                       sunit=1024   swidth=1024 blks
+      naming   =version 2              bsize=4096   ascii-ci=0 ftype=0
+      log      =internal log           bsize=4096   blocks=2560, version=2
+      =                       sectsz=512   sunit=8 blks, lazy-count=1
+      realtime =none                   extsz=4096   blocks=0, rtextents=0</pre></div></li><li class="step"><p>
+      Replacing <code class="filename">/mnt</code> with your mount point, mount the
+      device and check it is correctly mounted:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mount /dev/rbd0 /mnt
+      <code class="prompt root"># </code>mount | grep rbd0
+      /dev/rbd0 on /mnt type xfs (rw,relatime,attr2,inode64,sunit=8192,...</pre></div><p>
+      Now you can move data to and from the device as if it was a local
+      directory.
+     </p><div id="id-1.4.5.5.8.6.2.5.4" data-id-title="Increasing the size of RBD device" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Increasing the size of RBD device</h6><p>
+       If you find that the size of the RBD device is no longer enough, you can
+       easily increase it.
+      </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+         Increase the size of the RBD image, for example up to 10 GB.
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd resize --size 10000 mypool/myimage
+         Resizing image: 100% complete...done.</pre></div></li><li class="listitem"><p>
+         Grow the file system to fill up the new size of the device:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>xfs_growfs /mnt
+[...]
+data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></li><li class="step"><p>
+      After you finish accessing the device, you can unmap and unmount it.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd device unmap /dev/rbd0
+<code class="prompt root"># </code>unmount /mnt</pre></div></li></ol></div></div><div id="id-1.4.5.5.8.6.3" data-id-title="Manual mounting and unmounting" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Manual mounting and unmounting</h6><p>
+     A <code class="command">rbdmap</code> script and <code class="systemitem">systemd</code> unit is provided to make
+     the process of mapping and mounting RBDs after boot, and unmounting them
+     before shutdown, smoother. Refer to <a class="xref" href="ceph-rbd.html#ceph-rbd-rbdmap" title="20.2.4. rbdmap Map RBD devices at boot time">Section 20.2.4, “<code class="command">rbdmap</code> Map RBD devices at boot time”</a>.
+    </p></div></section><section class="sect2" id="ceph-rbd-rbdmap" data-id-title="rbdmap Map RBD devices at boot time"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.2.4 </span><span class="title-name"><code class="command">rbdmap</code> Map RBD devices at boot time</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-rbdmap">#</a></h3></div></div></div><p>
+    <code class="command">rbdmap</code> is a shell script that automates <code class="command">rbd
+    map</code> and <code class="command">rbd device unmap</code> operations on one or
+    more RBD images. Although you can run the script manually at any time, the
+    main advantage is automatic mapping and mounting of RBD images at boot time
+    (and unmounting and unmapping at shutdown), as triggered by the Init
+    system. A <code class="systemitem">systemd</code> unit file, <code class="filename">rbdmap.service</code> is
+    included with the <code class="systemitem">ceph-common</code> package for this
+    purpose.
+   </p><p>
+    The script takes a single argument, which can be either
+    <code class="option">map</code> or <code class="option">unmap</code>. In either case, the script
+    parses a configuration file. It defaults to
+    <code class="filename">/etc/ceph/rbdmap</code>, but can be overridden via an
+    environment variable <code class="literal">RBDMAPFILE</code>. Each line of the
+    configuration file corresponds to an RBD image which is to be mapped, or
+    unmapped.
+   </p><p>
+    The configuration file has the following format:
+   </p><div class="verbatim-wrap"><pre class="screen">image_specification rbd_options</pre></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.8.7.6.1"><span class="term"><code class="option">image_specification</code></span></dt><dd><p>
+       Path to an image within a pool. Specify as
+       <em class="replaceable">pool_name</em>/<em class="replaceable">image_name</em>.
+      </p></dd><dt id="id-1.4.5.5.8.7.6.2"><span class="term"><code class="option">rbd_options</code></span></dt><dd><p>
+       An optional list of parameters to be passed to the underlying
+       <code class="command">rbd device map</code> command. These parameters and their
+       values should be specified as a comma-separated string, for example:
+      </p><div class="verbatim-wrap"><pre class="screen">PARAM1=VAL1,PARAM2=VAL2,...</pre></div><p>
+       The example makes the <code class="command">rbdmap</code> script run the following
+       command:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd device map <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> --PARAM1 VAL1 --PARAM2 VAL2</pre></div><p>
+       In the following example you can see how to specify a user name and a
+       keyring with a corresponding secret:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbdmap device map mypool/myimage id=<em class="replaceable">rbd_user</em>,keyring=/etc/ceph/ceph.client.rbd.keyring</pre></div></dd></dl></div><p>
+    When run as <code class="command">rbdmap map</code>, the script parses the
+    configuration file, and for each specified RBD image, it attempts to first
+    map the image (using the <code class="command">rbd device map</code> command) and
+    then mount the image.
+   </p><p>
+    When run as <code class="command">rbdmap unmap</code>, images listed in the
+    configuration file will be unmounted and unmapped.
+   </p><p>
+    <code class="command">rbdmap unmap-all</code> attempts to unmount and subsequently
+    unmap all currently mapped RBD images, regardless of whether they are
+    listed in the configuration file.
+   </p><p>
+    If successful, the <code class="command">rbd device map</code> operation maps the
+    image to a <code class="filename">/dev/rbdX</code> device, at which point a udev
+    rule is triggered to create a friendly device name symbolic link
+    <code class="filename">/dev/rbd/<em class="replaceable">pool_name</em>/<em class="replaceable">image_name</em></code>
+    pointing to the real mapped device.
+   </p><p>
+    In order for mounting and unmounting to succeed, the 'friendly' device name
+    needs to have a corresponding entry in <code class="filename">/etc/fstab</code>.
+    When writing <code class="filename">/etc/fstab</code> entries for RBD images,
+    specify the 'noauto' (or 'nofail') mount option. This prevents the Init
+    system from trying to mount the device too early—before the device in
+    question even exists, as <code class="filename">rbdmap.service</code> is typically
+    triggered quite late in the boot sequence.
+   </p><p>
+    For a complete list of <code class="command">rbd</code> options, see the
+    <code class="command">rbd</code> manual page (<code class="command">man 8 rbd</code>).
+   </p><p>
+    For examples of the <code class="command">rbdmap</code> usage, see the
+    <code class="command">rbdmap</code> manual page (<code class="command">man 8 rbdmap</code>).
+   </p></section><section class="sect2" id="increasing-size-rbd-device" data-id-title="Increasing the size of RBD devices"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.2.5 </span><span class="title-name">Increasing the size of RBD devices</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#increasing-size-rbd-device">#</a></h3></div></div></div><p>
+    If you find that the size of the RBD device is no longer enough, you can
+    easily increase it.
+   </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+      Increase the size of the RBD image, for example up to 10GB.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd resize --size 10000 mypool/myimage
+ Resizing image: 100% complete...done.</pre></div></li><li class="listitem"><p>
+      Grow the file system to fill up the new size of the device.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>xfs_growfs /mnt
+ [...]
+ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></section></section><section class="sect1" id="cha-ceph-snapshots-rbd" data-id-title="Snapshots"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.3 </span><span class="title-name">Snapshots</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#cha-ceph-snapshots-rbd">#</a></h2></div></div></div><p>
+   An RBD snapshot is a snapshot of a RADOS Block Device image. With snapshots, you retain a
+   history of the image's state. Ceph also supports snapshot layering, which
+   allows you to clone VM images quickly and easily. Ceph supports block
+   device snapshots using the <code class="command">rbd</code> command and many
+   higher-level interfaces, including QEMU, <code class="systemitem">libvirt</code>,
+   OpenStack, and CloudStack.
+  </p><div id="id-1.4.5.5.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    Stop input and output operations and flush all pending writes before
+    snapshotting an image. If the image contains a file system, the file system
+    must be in a consistent state at the time of snapshotting.
+   </p></div><section class="sect2" id="rbd-enable-configure-cephx" data-id-title="Enabling and configuring cephx"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.3.1 </span><span class="title-name">Enabling and configuring <code class="systemitem">cephx</code></span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-enable-configure-cephx">#</a></h3></div></div></div><p>
+    When <code class="systemitem">cephx</code> is enabled, you must specify a user
+    name or ID and a path to the keyring containing the corresponding key for
+    the user. See <a class="xref" href="cha-storage-cephx.html" title="Chapter 30. Authentication with cephx">Chapter 30, <em>Authentication with <code class="systemitem">cephx</code></em></a> for more details. You may
+    also add the <code class="systemitem">CEPH_ARGS</code> environment variable to
+    avoid re-entry of the following parameters.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --id <em class="replaceable">user-ID</em> --keyring=/path/to/secret <em class="replaceable">commands</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd --name <em class="replaceable">username</em> --keyring=/path/to/secret <em class="replaceable">commands</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --id admin --keyring=/etc/ceph/ceph.keyring <em class="replaceable">commands</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd --name client.admin --keyring=/etc/ceph/ceph.keyring <em class="replaceable">commands</em></pre></div><div id="id-1.4.5.5.9.4.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     Add the user and secret to the <code class="systemitem">CEPH_ARGS</code>
+     environment variable so that you do not need to enter them each time.
+    </p></div></section><section class="sect2" id="rbd-snapshot-basics" data-id-title="Snapshot basics"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.3.2 </span><span class="title-name">Snapshot basics</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-snapshot-basics">#</a></h3></div></div></div><p>
+    The following procedures demonstrate how to create, list, and remove
+    snapshots using the <code class="command">rbd</code> command on the command line.
+   </p><section class="sect3" id="rbd-creating-snapshots" data-id-title="Creating snapshots"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.2.1 </span><span class="title-name">Creating snapshots</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-creating-snapshots">#</a></h4></div></div></div><p>
+     To create a snapshot with <code class="command">rbd</code>, specify the <code class="option">snap
+     create</code> option, the pool name, and the image name.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> snap create --snap <em class="replaceable">snap-name</em> <em class="replaceable">image-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap create <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snap-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool rbd snap create --snap snapshot1 image1
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap create rbd/image1@snapshot1</pre></div></section><section class="sect3" id="rbd-listing-snapshots" data-id-title="Listing snapshots"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.2.2 </span><span class="title-name">Listing snapshots</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-listing-snapshots">#</a></h4></div></div></div><p>
+     To list snapshots of an image, specify the pool name and the image name.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> snap ls <em class="replaceable">image-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap ls <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool rbd snap ls image1
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap ls rbd/image1</pre></div></section><section class="sect3" id="rbd-rollback-snapshots" data-id-title="Rolling back snapshots"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.2.3 </span><span class="title-name">Rolling back snapshots</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-rollback-snapshots">#</a></h4></div></div></div><p>
+     To rollback to a snapshot with <code class="command">rbd</code>, specify the
+     <code class="option">snap rollback</code> option, the pool name, the image name, and
+     the snapshot name.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> snap rollback --snap <em class="replaceable">snap-name</em> <em class="replaceable">image-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap rollback <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snap-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap rollback --snap snapshot1 image1
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap rollback pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.5.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Rolling back an image to a snapshot means overwriting the current version
+      of the image with data from a snapshot. The time it takes to execute a
+      rollback increases with the size of the image. It is <span class="emphasis"><em>faster to
+      clone</em></span> from a snapshot <span class="emphasis"><em>than to rollback</em></span> an
+      image to a snapshot, and it is the preferred method of returning to a
+      pre-existing state.
+     </p></div></section><section class="sect3" id="rbd-deleting-snapshots" data-id-title="Deleting a snapshot"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.2.4 </span><span class="title-name">Deleting a snapshot</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-deleting-snapshots">#</a></h4></div></div></div><p>
+     To delete a snapshot with <code class="command">rbd</code>, specify the <code class="option">snap
+     rm</code> option, the pool name, the image name, and the user name.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> snap rm --snap <em class="replaceable">snap-name</em> <em class="replaceable">image-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap rm <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snap-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap rm --snap snapshot1 image1
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap rm pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.5.6.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Ceph OSDs delete data asynchronously, so deleting a snapshot does not
+      free up the disk space immediately.
+     </p></div></section><section class="sect3" id="rbd-purging-snapshots" data-id-title="Purging snapshots"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.2.5 </span><span class="title-name">Purging snapshots</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-purging-snapshots">#</a></h4></div></div></div><p>
+     To delete all snapshots for an image with <code class="command">rbd</code>, specify
+     the <code class="option">snap purge</code> option and the image name.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> snap purge <em class="replaceable">image-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap purge <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap purge image1
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap purge pool1/image1</pre></div></section></section><section class="sect2" id="ceph-snapshoti-layering" data-id-title="Snapshot layering"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.3.3 </span><span class="title-name">Snapshot layering</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-snapshoti-layering">#</a></h3></div></div></div><p>
+    Ceph supports the ability to create multiple copy-on-write (COW) clones
+    of a block device snapshot. Snapshot layering enables Ceph block device
+    clients to create images very quickly. For example, you might create a
+    block device image with a Linux VM written to it, then, snapshot the image,
+    protect the snapshot, and create as many copy-on-write clones as you like.
+    A snapshot is read-only, so cloning a snapshot simplifies
+    semantics—making it possible to create clones rapidly.
+   </p><div id="id-1.4.5.5.9.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     The terms 'parent' and 'child' mentioned in the command line examples
+     below mean a Ceph block device snapshot (parent) and the corresponding
+     image cloned from the snapshot (child).
+    </p></div><p>
+    Each cloned image (child) stores a reference to its parent image, which
+    enables the cloned image to open the parent snapshot and read it.
+   </p><p>
+    A COW clone of a snapshot behaves exactly like any other Ceph block
+    device image. You can read to, write from, clone, and resize cloned images.
+    There are no special restrictions with cloned images. However, the
+    copy-on-write clone of a snapshot refers to the snapshot, so you
+    <span class="emphasis"><em>must</em></span> protect the snapshot before you clone it.
+   </p><div id="id-1.4.5.5.9.6.6" data-id-title="--image-format 1 not supported" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: <code class="option">--image-format 1</code> not supported</h6><p>
+     You cannot create snapshots of images created with the deprecated
+     <code class="command">rbd create --image-format 1</code> option. Ceph only
+     supports cloning of the default <span class="emphasis"><em>format 2</em></span> images.
+    </p></div><section class="sect3" id="rbd-start-layering" data-id-title="Getting started with layering"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.3.1 </span><span class="title-name">Getting started with layering</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-start-layering">#</a></h4></div></div></div><p>
+     Ceph block device layering is a simple process. You must have an image.
+     You must create a snapshot of the image. You must protect the snapshot.
+     After you have performed these steps, you can begin cloning the snapshot.
+    </p><p>
+     The cloned image has a reference to the parent snapshot, and includes the
+     pool ID, image ID, and snapshot ID. The inclusion of the pool ID means
+     that you may clone snapshots from one pool to images in another pool.
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <span class="emphasis"><em>Image Template</em></span>: A common use case for block device
+       layering is to create a master image and a snapshot that serves as a
+       template for clones. For example, a user may create an image for a Linux
+       distribution (for example, SUSE Linux Enterprise Server), and create a snapshot for it.
+       Periodically, the user may update the image and create a new snapshot
+       (for example, <code class="command">zypper ref &amp;&amp; zypper patch</code>
+       followed by <code class="command">rbd snap create</code>). As the image matures,
+       the user can clone any one of the snapshots.
+      </p></li><li class="listitem"><p>
+       <span class="emphasis"><em>Extended Template</em></span>: A more advanced use case
+       includes extending a template image that provides more information than
+       a base image. For example, a user may clone an image (a VM template) and
+       install other software (for example, a database, a content management
+       system, or an analytics system), and then snapshot the extended image,
+       which itself may be updated in the same way as the base image.
+      </p></li><li class="listitem"><p>
+       <span class="emphasis"><em>Template Pool</em></span>: One way to use block device layering
+       is to create a pool that contains master images that act as templates,
+       and snapshots of those templates. You may then extend read-only
+       privileges to users so that they may clone the snapshots without the
+       ability to write or execute within the pool.
+      </p></li><li class="listitem"><p>
+       <span class="emphasis"><em>Image Migration/Recovery</em></span>: One way to use block
+       device layering is to migrate or recover data from one pool into another
+       pool.
+      </p></li></ul></div></section><section class="sect3" id="rbd-protecting-snapshot" data-id-title="Protecting a snapshot"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.3.2 </span><span class="title-name">Protecting a snapshot</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-protecting-snapshot">#</a></h4></div></div></div><p>
+     Clones access the parent snapshots. All clones would break if a user
+     inadvertently deleted the parent snapshot. To prevent data loss, you need
+     to protect the snapshot before you can clone it.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> snap protect \
+ --image <em class="replaceable">image-name</em> --snap <em class="replaceable">snapshot-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap protect <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snapshot-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap protect --image image1 --snap snapshot1
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap protect pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.6.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      You cannot delete a protected snapshot.
+     </p></div></section><section class="sect3" id="rbd-cloning-snapshots" data-id-title="Cloning a snapshot"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.3.3 </span><span class="title-name">Cloning a snapshot</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-cloning-snapshots">#</a></h4></div></div></div><p>
+     To clone a snapshot, you need to specify the parent pool, image, snapshot,
+     the child pool, and the image name. You need to protect the snapshot
+     before you can clone it.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd clone --pool <em class="replaceable">pool-name</em> --image <em class="replaceable">parent-image</em> \
+ --snap <em class="replaceable">snap-name</em> --dest-pool <em class="replaceable">pool-name</em> \
+ --dest <em class="replaceable">child-image</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd clone <em class="replaceable">pool-name</em>/<em class="replaceable">parent-image</em>@<em class="replaceable">snap-name</em> \
+<em class="replaceable">pool-name</em>/<em class="replaceable">child-image-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd clone pool1/image1@snapshot1 pool1/image2</pre></div><div id="id-1.4.5.5.9.6.9.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      You may clone a snapshot from one pool to an image in another pool. For
+      example, you may maintain read-only images and snapshots as templates in
+      one pool, and writable clones in another pool.
+     </p></div></section><section class="sect3" id="rbd-unprotecting-snapshots" data-id-title="Unprotecting a snapshot"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.3.4 </span><span class="title-name">Unprotecting a snapshot</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-unprotecting-snapshots">#</a></h4></div></div></div><p>
+     Before you can delete a snapshot, you must unprotect it first.
+     Additionally, you may <span class="emphasis"><em>not</em></span> delete snapshots that have
+     references from clones. You need to flatten each clone of a snapshot
+     before you can delete the snapshot.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> snap unprotect --image <em class="replaceable">image-name</em> \
+ --snap <em class="replaceable">snapshot-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap unprotect <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snapshot-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap unprotect --image image1 --snap snapshot1
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap unprotect pool1/image1@snapshot1</pre></div></section><section class="sect3" id="rbd-list-children-snapshots" data-id-title="Listing children of a snapshot"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.3.5 </span><span class="title-name">Listing children of a snapshot</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-list-children-snapshots">#</a></h4></div></div></div><p>
+     To list the children of a snapshot, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> children --image <em class="replaceable">image-name</em> --snap <em class="replaceable">snap-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd children <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snapshot-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 children --image image1 --snap snapshot1
+<code class="prompt user">cephuser@adm &gt; </code>rbd children pool1/image1@snapshot1</pre></div></section><section class="sect3" id="rbd-flatten-cloned-image" data-id-title="Flattening a cloned image"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.3.6 </span><span class="title-name">Flattening a cloned image</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-flatten-cloned-image">#</a></h4></div></div></div><p>
+     Cloned images retain a reference to the parent snapshot. When you remove
+     the reference from the child clone to the parent snapshot, you effectively
+     'flatten' the image by copying the information from the snapshot to the
+     clone. The time it takes to flatten a clone increases with the size of the
+     snapshot. To delete a snapshot, you must flatten the child images first.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool <em class="replaceable">pool-name</em> flatten --image <em class="replaceable">image-name</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd flatten <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 flatten --image image1
+<code class="prompt user">cephuser@adm &gt; </code>rbd flatten pool1/image1</pre></div><div id="id-1.4.5.5.9.6.12.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Since a flattened image contains all the information from the snapshot, a
+      flattened image will take up more storage space than a layered clone.
+     </p></div></section></section></section><section class="sect1" id="ceph-rbd-mirror" data-id-title="RBD image mirrors"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.4 </span><span class="title-name">RBD image mirrors</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-mirror">#</a></h2></div></div></div><p>
+   RBD images can be asynchronously mirrored between two Ceph clusters. This
+   capability is available in two modes:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.10.3.1"><span class="term">Journal-based</span></dt><dd><p>
+      This mode uses the RBD journaling image feature to ensure point-in-time,
+      crash-consistent replication between clusters. Every write to the RBD
+      image is first recorded to the associated journal before modifying the
+      actual image. The <code class="literal">remote</code> cluster will read from the
+      journal and replay the updates to its local copy of the image. Since each
+      write to the RBD image will result in two writes to the Ceph cluster,
+      expect write latencies to nearly double when using the RBD journaling
+      image feature.
+     </p></dd><dt id="id-1.4.5.5.10.3.2"><span class="term">Snapshot-based</span></dt><dd><p>
+      This mode uses periodically-scheduled or manually-created RBD image
+      mirror-snapshots to replicate crash-consistent RBD images between
+      clusters. The <code class="literal">remote</code> cluster will determine any data
+      or metadata updates between two mirror-snapshots, and copy the deltas to
+      its local copy of the image. With the help of the RBD fast-diff image
+      feature, updated data blocks can be quickly computed without the need to
+      scan the full RBD image. Since this mode is not point-in-time consistent,
+      the full snapshot delta will need to be synchronized prior to use during
+      a failover scenario. Any partially-applied snapshot deltas will be rolled
+      back to the last fully synchronized snapshot prior to use.
+     </p></dd></dl></div><p>
+   Mirroring is configured on a per-pool basis within peer clusters. This can
+   be configured on a specific subset of images within the pool, or configured
+   to automatically mirror all images within a pool when using journal-based
+   mirroring only. Mirroring is configured using the <code class="command">rbd</code>
+   command. The <code class="systemitem">rbd-mirror</code> daemon is responsible for pulling image updates
+   from the <code class="literal">remote</code>, peer cluster and applying them to the
+   image within the <code class="literal">local</code> cluster.
+  </p><p>
+   Depending on the desired needs for replication, RBD mirroring can be
+   configured for either one- or two-way replication:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.10.6.1"><span class="term">One-way Replication</span></dt><dd><p>
+      When data is only mirrored from a primary cluster to a secondary cluster,
+      the <code class="systemitem">rbd-mirror</code> daemon runs only on the secondary cluster.
+     </p></dd><dt id="id-1.4.5.5.10.6.2"><span class="term">Two-way Replication</span></dt><dd><p>
+      When data is mirrored from primary images on one cluster to non-primary
+      images on another cluster (and vice-versa), the <code class="systemitem">rbd-mirror</code> daemon runs
+      on both clusters.
+     </p></dd></dl></div><div id="id-1.4.5.5.10.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    Each instance of the <code class="systemitem">rbd-mirror</code> daemon needs to be able to connect to both
+    the <code class="literal">local</code> and <code class="literal">remote</code> Ceph clusters
+    simultaneously. For example, all monitor and OSD hosts. Additionally, the
+    network needs to have sufficient bandwidth between the two data centers to
+    handle mirroring workload.
+   </p></div><section class="sect2" id="ceph-rbd-mirror-poolconfig" data-id-title="Pool configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.4.1 </span><span class="title-name">Pool configuration</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-mirror-poolconfig">#</a></h3></div></div></div><p>
+    The following procedures demonstrate how to perform the basic
+    administrative tasks to configure mirroring using the
+    <code class="command">rbd</code> command. Mirroring is configured on a per-pool basis
+    within the Ceph clusters.
+   </p><p>
+    You need to perform the pool configuration steps on both peer clusters.
+    These procedures assume two clusters, named <code class="literal">local</code> and
+    <code class="literal">remote</code>, are accessible from a single host for clarity.
+   </p><p>
+    See the <code class="command">rbd</code> manual page (<code class="command">man 8 rbd</code>)
+    for additional details on how to connect to different Ceph clusters.
+   </p><div id="id-1.4.5.5.10.8.5" data-id-title="Multiple clusters" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Multiple clusters</h6><p>
+     The cluster name in the following examples corresponds to a Ceph
+     configuration file of the same name
+     <code class="filename">/etc/ceph/remote.conf</code> and Ceph keyring file of the
+     same name <code class="filename">/etc/ceph/remote.client.admin.keyring</code>.
+    </p></div><section class="sect3" id="rbd-enable-mirroring-pool" data-id-title="Enable mirroring on a pool"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.1.1 </span><span class="title-name">Enable mirroring on a pool</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-enable-mirroring-pool">#</a></h4></div></div></div><p>
+     To enable mirroring on a pool, specify the <code class="command">mirror pool
+     enable</code> subcommand, the pool name, and the mirroring mode. The
+     mirroring mode can either be pool or image:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.10.8.6.3.1"><span class="term">pool</span></dt><dd><p>
+        All images in the pool with the journaling feature enabled are
+        mirrored.
+       </p></dd><dt id="id-1.4.5.5.10.8.6.3.2"><span class="term">image</span></dt><dd><p>
+        Mirroring needs to be explicitly enabled on each image. See
+        <a class="xref" href="ceph-rbd.html#rbd-mirror-enable-image-mirroring" title="20.4.2.1. Enabling image mirroring">Section 20.4.2.1, “Enabling image mirroring”</a> for more
+        information.
+       </p></dd></dl></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror pool enable <em class="replaceable">POOL_NAME</em> pool
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster remote mirror pool enable <em class="replaceable">POOL_NAME</em> pool</pre></div></section><section class="sect3" id="rbd-disable-mirroring-pool" data-id-title="Disable mirroring"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.1.2 </span><span class="title-name">Disable mirroring</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-disable-mirroring-pool">#</a></h4></div></div></div><p>
+     To disable mirroring on a pool, specify the <code class="command">mirror pool
+     disable</code> subcommand and the pool name. When mirroring is disabled
+     on a pool in this way, mirroring will also be disabled on any images
+     (within the pool) for which mirroring was enabled explicitly.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror pool disable <em class="replaceable">POOL_NAME</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster remote mirror pool disable <em class="replaceable">POOL_NAME</em></pre></div></section><section class="sect3" id="ceph-rbd-mirror-bootstrap-peer" data-id-title="Bootstrapping peers"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.1.3 </span><span class="title-name">Bootstrapping peers</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-mirror-bootstrap-peer">#</a></h4></div></div></div><p>
+     In order for the <code class="systemitem">rbd-mirror</code> daemon to discover its peer cluster, the peer
+     needs to be registered to the pool and a user account needs to be created.
+     This process can be automated with <code class="command">rbd</code> and the
+     <code class="command">mirror pool peer bootstrap create</code> and <code class="command">mirror
+     pool peer bootstrap import</code> commands.
+    </p><p>
+     To manually create a new bootstrap token with <code class="command">rbd</code>,
+     specify the <code class="command">mirror pool peer bootstrap create</code> command,
+     a pool name, along with an optional friendly site name to describe the
+     <code class="literal">local</code> cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@local &gt; </code>rbd mirror pool peer bootstrap create \
+ [--site-name <em class="replaceable">LOCAL_SITE_NAME</em>] <em class="replaceable">POOL_NAME</em></pre></div><p>
+     The output of <code class="command">mirror pool peer bootstrap create</code> will be
+     a token that should be provided to the <code class="command">mirror pool peer bootstrap
+     import</code> command. For example, on the <code class="literal">local</code>
+     cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@local &gt; </code>rbd --cluster local mirror pool peer bootstrap create --site-name local image-pool
+eyJmc2lkIjoiOWY1MjgyZGItYjg5OS00NTk2LTgwOTgtMzIwYzFmYzM5NmYzIiwiY2xpZW50X2lkIjoicmJkLW1pcnJvci1wZWVyIiwia2V5I \
+joiQVFBUnczOWQwdkhvQmhBQVlMM1I4RmR5dHNJQU50bkFTZ0lOTVE9PSIsIm1vbl9ob3N0IjoiW3YyOjE5Mi4xNjguMS4zOjY4MjAsdjE6MTkyLjE2OC4xLjM6NjgyMV0ifQ==</pre></div><p>
+     To manually import the bootstrap token created by another cluster with the
+     <code class="command">rbd</code> command, use the following syntax:
+    </p><div class="verbatim-wrap"><pre class="screen">rbd mirror pool peer bootstrap import \
+ [--site-name <em class="replaceable">LOCAL_SITE_NAME</em>] \
+ [--direction <em class="replaceable">DIRECTION</em> \
+ <em class="replaceable">POOL_NAME</em> <em class="replaceable">TOKEN_PATH</em></pre></div><p>
+     Where:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.10.8.8.10.1"><span class="term"><em class="replaceable">LOCAL_SITE_NAME</em></span></dt><dd><p>
+        An optional friendly site name to describe the <code class="literal">local</code>
+        cluster.
+       </p></dd><dt id="id-1.4.5.5.10.8.8.10.2"><span class="term"><em class="replaceable">DIRECTION</em></span></dt><dd><p>
+        A mirroring direction. Defaults to <code class="literal">rx-tx</code> for
+        bidirectional mirroring, but can also be set to
+        <code class="literal">rx-only</code> for unidirectional mirroring.
+       </p></dd><dt id="id-1.4.5.5.10.8.8.10.3"><span class="term"><em class="replaceable">POOL_NAME</em></span></dt><dd><p>
+        Name of the pool.
+       </p></dd><dt id="id-1.4.5.5.10.8.8.10.4"><span class="term"><em class="replaceable">TOKEN_PATH</em></span></dt><dd><p>
+        A file path to the created token (or <code class="literal">-</code> to read it
+        from the standard input).
+       </p></dd></dl></div><p>
+     For example, on the <code class="literal">remote</code> cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@remote &gt; </code>cat &lt;&lt;EOF &gt; token
+eyJmc2lkIjoiOWY1MjgyZGItYjg5OS00NTk2LTgwOTgtMzIwYzFmYzM5NmYzIiwiY2xpZW50X2lkIjoicmJkLW1pcnJvci1wZWVyIiwia2V5IjoiQVFBUnczOWQwdkhvQmhBQVlMM1I4RmR5dHNJQU50bkFTZ0lOTVE9PSIsIm1vbl9ob3N0IjoiW3YyOjE5Mi4xNjguMS4zOjY4MjAsdjE6MTkyLjE2OC4xLjM6NjgyMV0ifQ==
+EOF</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster remote mirror pool peer bootstrap import \
+ --site-name remote image-pool token</pre></div></section><section class="sect3" id="ceph-rbd-mirror-add-peer" data-id-title="Adding a cluster peer manually"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.1.4 </span><span class="title-name">Adding a cluster peer manually</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-mirror-add-peer">#</a></h4></div></div></div><p>
+     Alternatively to bootstrapping peers as described in
+     <a class="xref" href="ceph-rbd.html#ceph-rbd-mirror-bootstrap-peer" title="20.4.1.3. Bootstrapping peers">Section 20.4.1.3, “Bootstrapping peers”</a>, you can specify
+     peers manually. The remote <code class="systemitem">rbd-mirror</code> daemon will need access to the
+     local cluster to perform mirroring. Create a new local Ceph user that
+     the remote <code class="systemitem">rbd-mirror</code> daemon will use, for example
+     <code class="literal">rbd-mirror-peer</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth get-or-create client.rbd-mirror-peer \
+ mon 'profile rbd' osd 'profile rbd'</pre></div><p>
+     Use the following syntax to add a mirroring peer Ceph cluster with the
+     <code class="command">rbd</code> command:
+    </p><div class="verbatim-wrap"><pre class="screen">rbd mirror pool peer add <em class="replaceable">POOL_NAME</em> <em class="replaceable">CLIENT_NAME</em>@<em class="replaceable">CLUSTER_NAME</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster site-a mirror pool peer add image-pool client.rbd-mirror-peer@site-b
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster site-b mirror pool peer add image-pool client.rbd-mirror-peer@site-a</pre></div><p>
+     By default, the <code class="systemitem">rbd-mirror</code> daemon needs to have access to the Ceph
+     configuration file located at
+     <code class="filename">/etc/ceph/.<em class="replaceable">CLUSTER_NAME</em>.conf</code>.
+     It provides IP addresses of the peer cluster’s MONs and a keyring for a
+     client named <em class="replaceable">CLIENT_NAME</em> located in the default
+     or custom keyring search paths, for example
+     <code class="filename">/etc/ceph/<em class="replaceable">CLUSTER_NAME</em>.<em class="replaceable">CLIENT_NAME</em>.keyring</code>.
+    </p><p>
+     Alternatively, the peer cluster’s MON and/or client key can be securely
+     stored within the local Ceph config-key store. To specify the peer
+     cluster connection attributes when adding a mirroring peer, use the
+     <code class="option">--remote-mon-host</code> and <code class="option">--remote-key-file</code>
+     options. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster site-a mirror pool peer add image-pool \
+ client.rbd-mirror-peer@site-b --remote-mon-host 192.168.1.1,192.168.1.2 \
+ --remote-key-file <em class="replaceable">/PATH/TO/KEY_FILE</em>
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster site-a mirror pool info image-pool --all
+Mode: pool
+Peers:
+  UUID        NAME   CLIENT                 MON_HOST                KEY
+  587b08db... site-b client.rbd-mirror-peer 192.168.1.1,192.168.1.2 AQAeuZdb...</pre></div></section><section class="sect3" id="rbd-remove-cluster-peer" data-id-title="Remove cluster peer"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.1.5 </span><span class="title-name">Remove cluster peer</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-remove-cluster-peer">#</a></h4></div></div></div><p>
+     To remove a mirroring peer cluster, specify the <code class="command">mirror pool peer
+     remove</code> subcommand, the pool name, and the peer UUID (available
+     from the <code class="command">rbd mirror pool info</code> command):
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror pool peer remove <em class="replaceable">POOL_NAME</em> \
+ 55672766-c02b-4729-8567-f13a66893445
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster remote mirror pool peer remove <em class="replaceable">POOL_NAME</em> \
+ 60c0e299-b38f-4234-91f6-eed0a367be08</pre></div></section><section class="sect3" id="rbd-data-pools" data-id-title="Data pools"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.1.6 </span><span class="title-name">Data pools</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-data-pools">#</a></h4></div></div></div><p>
+     When creating images in the destination cluster, <code class="systemitem">rbd-mirror</code> selects a
+     data pool as follows:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       If the destination cluster has a default data pool configured (with the
+       <code class="option">rbd_default_data_pool</code> configuration option), it will be
+       used.
+      </p></li><li class="listitem"><p>
+       Otherwise, if the source image uses a separate data pool, and a pool
+       with the same name exists on the destination cluster, that pool will be
+       used.
+      </p></li><li class="listitem"><p>
+       If neither of the above is true, no data pool will be set.
+      </p></li></ul></div></section></section><section class="sect2" id="rbd-mirror-imageconfig" data-id-title="RBD Image configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.4.2 </span><span class="title-name">RBD Image configuration</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-mirror-imageconfig">#</a></h3></div></div></div><p>
+    Unlike pool configuration, image configuration only needs to be performed
+    against a single mirroring peer Ceph cluster.
+   </p><p>
+    Mirrored RBD images are designated as either <span class="emphasis"><em>primary</em></span>
+    or <span class="emphasis"><em>non-primary</em></span>. This is a property of the image and
+    not the pool. Images that are designated as non-primary cannot be modified.
+   </p><p>
+    Images are automatically promoted to primary when mirroring is first
+    enabled on an image (either implicitly if the pool mirror mode was 'pool'
+    and the image has the journaling image feature enabled, or explicitly (see
+    <a class="xref" href="ceph-rbd.html#rbd-mirror-enable-image-mirroring" title="20.4.2.1. Enabling image mirroring">Section 20.4.2.1, “Enabling image mirroring”</a>) by the
+    <code class="command">rbd</code> command).
+   </p><section class="sect3" id="rbd-mirror-enable-image-mirroring" data-id-title="Enabling image mirroring"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.2.1 </span><span class="title-name">Enabling image mirroring</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-mirror-enable-image-mirroring">#</a></h4></div></div></div><p>
+     If mirroring is configured in the <code class="literal">image</code> mode, then it
+     is necessary to explicitly enable mirroring for each image within the
+     pool. To enable mirroring for a specific image with
+     <code class="command">rbd</code>, specify the <code class="command">mirror image enable</code>
+     subcommand along with the pool and image name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror image enable \
+ <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div><p>
+     The mirror image mode can either be <code class="literal">journal</code> or
+     <code class="literal">snapshot</code>:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.10.9.5.5.1"><span class="term">journal (default)</span></dt><dd><p>
+        When configured in <code class="literal">journal</code> mode, mirroring will use
+        the RBD journaling image feature to replicate the image contents. If
+        the RBD journaling image feature is not yet enabled on the image, it
+        will be automatically enabled.
+       </p></dd><dt id="id-1.4.5.5.10.9.5.5.2"><span class="term">snapshot</span></dt><dd><p>
+        When configured in <code class="literal">snapshot</code> mode, mirroring will use
+        RBD image mirror-snapshots to replicate the image contents. Once
+        enabled, an initial mirror-snapshot will automatically be created.
+        Additional RBD image mirror-snapshots can be created by the
+        <code class="command">rbd</code> command.
+       </p></dd></dl></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror image enable image-pool/image-1 snapshot
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror image enable image-pool/image-2 journal</pre></div></section><section class="sect3" id="rbd-enable-image-jouranling" data-id-title="Enabling the image journaling feature"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.2.2 </span><span class="title-name">Enabling the image journaling feature</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-enable-image-jouranling">#</a></h4></div></div></div><p>
+     RBD mirroring uses the RBD journaling feature to ensure that the
+     replicated image always remains crash-consistent. When using the
+     <code class="literal">image</code> mirroring mode, the journaling feature will be
+     automatically enabled if mirroring is enabled on the image. When using the
+     <code class="literal">pool</code> mirroring mode, before an image can be mirrored to
+     a peer cluster, the RBD image journaling feature must be enabled. The
+     feature can be enabled at image creation time by providing the
+     <code class="option">--image-feature exclusive-lock,journaling</code> option to the
+     <code class="command">rbd</code> command.
+    </p><p>
+     Alternatively, the journaling feature can be dynamically enabled on
+     pre-existing RBD images. To enable journaling, specify the
+     <code class="command">feature enable</code> subcommand, the pool and image name, and
+     the feature name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local feature enable <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> exclusive-lock
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local feature enable <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> journaling</pre></div><div id="id-1.4.5.5.10.9.6.5" data-id-title="Option dependency" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Option dependency</h6><p>
+      The <code class="option">journaling</code> feature is dependent on the
+      <code class="option">exclusive-lock</code> feature. If the
+      <code class="option">exclusive-lock</code> feature is not already enabled, you need
+      to enable it prior to enabling the <code class="option">journaling</code> feature.
+     </p></div><div id="id-1.4.5.5.10.9.6.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      You can enable journaling on all new images by default by adding
+      <code class="option">rbd default features =
+      layering,exclusive-lock,object-map,deep-flatten,journaling</code> to
+      your Ceph configuration file.
+     </p></div></section><section class="sect3" id="rbd-create-image-mirror-snapshots" data-id-title="Creating image mirror-snapshots"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.2.3 </span><span class="title-name">Creating image mirror-snapshots</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-create-image-mirror-snapshots">#</a></h4></div></div></div><p>
+     When using snapshot-based mirroring, mirror-snapshots will need to be
+     created whenever it is desired to mirror the changed contents of the RBD
+     image. To create a mirror-snapshot manually with <code class="command">rbd</code>,
+     specify the <code class="command">mirror image snapshot</code> command along with
+     the pool and image name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror image snapshot <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror image snapshot image-pool/image-1</pre></div><p>
+     By default only three mirror-snapshots will be created per image. The most
+     recent mirror-snapshot is automatically pruned if the limit is reached.
+     The limit can be overridden via the
+     <code class="option">rbd_mirroring_max_mirroring_snapshots</code> configuration
+     option if required. Additionally, mirror-snapshots are automatically
+     deleted when the image is removed or when mirroring is disabled.
+    </p><p>
+     Mirror-snapshots can also be automatically created on a periodic basis if
+     mirror-snapshot schedules are defined. The mirror-snapshot can be
+     scheduled globally, per-pool, or per-image levels. Multiple
+     mirror-snapshot schedules can be defined at any level, but only the
+     most-specific snapshot schedules that match an individual mirrored image
+     will run.
+    </p><p>
+     To create a mirror-snapshot schedule with <code class="command">rbd</code>, specify
+     the <code class="command">mirror snapshot schedule add</code> command along with an
+     optional pool or image name, interval, and optional start time.
+    </p><p>
+     The interval can be specified in days, hours, or minutes using the
+     suffixes <code class="option">d</code>, <code class="option">h</code>, or <code class="option">m</code>
+     respectively. The optional start time can be specified using the ISO 8601
+     time format. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror snapshot schedule add --pool image-pool 24h 14:00:00-05:00
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror snapshot schedule add --pool image-pool --image image1 6h</pre></div><p>
+     To remove a mirror-snapshot schedule with <code class="command">rbd</code>, specify
+     the <code class="command">mirror snapshot schedule remove</code> command with
+     options that match the corresponding add schedule command.
+    </p><p>
+     To list all snapshot schedules for a specific level (global, pool, or
+     image) with <code class="command">rbd</code>, specify the <code class="command">mirror snapshot
+     schedule ls</code> command along with an optional pool or image name.
+     Additionally, the <code class="option">--recursive</code> option can be specified to
+     list all schedules at the specified level and below. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror schedule ls --pool image-pool --recursive
+POOL        NAMESPACE IMAGE  SCHEDULE
+image-pool  -         -      every 1d starting at 14:00:00-05:00
+image-pool            image1 every 6h</pre></div><p>
+     To find out when the next snapshots will be created for snapshot-based
+     mirroring RBD images with <code class="command">rbd</code>, specify the
+     <code class="command">mirror snapshot schedule status</code> command along with an
+     optional pool or image name. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror schedule status
+SCHEDULE TIME       IMAGE
+2020-02-26 18:00:00 image-pool/image1</pre></div></section><section class="sect3" id="rbd-disenable-image-mirroring" data-id-title="Disabling image mirroring"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.2.4 </span><span class="title-name">Disabling image mirroring</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-disenable-image-mirroring">#</a></h4></div></div></div><p>
+     To disable mirroring for a specific image, specify the <code class="command">mirror
+     image disable</code> subcommand along with the pool and image name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror image disable <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div></section><section class="sect3" id="rbd-image-promotion-demotion" data-id-title="Promoting and demoting images"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.2.5 </span><span class="title-name">Promoting and demoting images</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-image-promotion-demotion">#</a></h4></div></div></div><p>
+     In a failover scenario where the primary designation needs to be moved to
+     the image in the peer cluster, you need to stop access to the primary
+     image, demote the current primary image, promote the new primary image,
+     and resume access to the image on the alternate cluster.
+    </p><div id="id-1.4.5.5.10.9.9.3" data-id-title="Forced promotion" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Forced promotion</h6><p>
+      Promotion can be forced using the <code class="option">--force</code> option. Forced
+      promotion is needed when the demotion cannot be propagated to the peer
+      cluster (for example, in case of cluster failure or communication
+      outage). This will result in a split-brain scenario between the two
+      peers, and the image will no longer be synchronized until a
+      <code class="command">resync</code> subcommand is issued.
+     </p></div><p>
+     To demote a specific image to non-primary, specify the <code class="command">mirror
+     image demote</code> subcommand along with the pool and image name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror image demote <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div><p>
+     To demote all primary images within a pool to non-primary, specify the
+     <code class="command">mirror pool demote</code> subcommand along with the pool name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror pool demote <em class="replaceable">POOL_NAME</em></pre></div><p>
+     To promote a specific image to primary, specify the <code class="command">mirror image
+     promote</code> subcommand along with the pool and image name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster remote mirror image promote <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div><p>
+     To promote all non-primary images within a pool to primary, specify the
+     <code class="command">mirror pool promote</code> subcommand along with the pool
+     name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror pool promote <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.5.10.9.9.12" data-id-title="Split I/O load" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Split I/O load</h6><p>
+      Since the primary or non-primary status is per-image, it is possible to
+      have two clusters split the I/O load and stage failover or failback.
+     </p></div></section><section class="sect3" id="rbd-force-image-resync" data-id-title="Forcing image resync"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.2.6 </span><span class="title-name">Forcing image resync</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-force-image-resync">#</a></h4></div></div></div><p>
+     If a split-brain event is detected by the <code class="systemitem">rbd-mirror</code> daemon, it will not
+     attempt to mirror the affected image until corrected. To resume mirroring
+     for an image, first demote the image determined to be out of date and then
+     request a resync to the primary image. To request an image resync, specify
+     the <code class="command">mirror image resync</code> subcommand along with the pool
+     and image name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror image resync <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div></section></section><section class="sect2" id="rbd-mirror-status" data-id-title="Checking the mirror status"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.4.3 </span><span class="title-name">Checking the mirror status</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-mirror-status">#</a></h3></div></div></div><p>
+    The peer cluster replication status is stored for every primary mirrored
+    image. This status can be retrieved using the <code class="command">mirror image
+    status</code> and <code class="command">mirror pool status</code> subcommands:
+   </p><p>
+    To request the mirror image status, specify the <code class="command">mirror image
+    status</code> subcommand along with the pool and image name:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror image status <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div><p>
+    To request the mirror pool summary status, specify the <code class="command">mirror pool
+    status</code> subcommand along with the pool name:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror pool status <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.5.10.10.7" data-id-title="" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: </h6><p>
+     Adding the <code class="option">--verbose</code> option to the <code class="command">mirror pool
+     status</code> subcommand will additionally output status details for
+     every mirroring image in the pool.
+    </p></div></section></section><section class="sect1" id="rbd-cache-settings" data-id-title="Cache settings"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.5 </span><span class="title-name">Cache settings</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-cache-settings">#</a></h2></div></div></div><p>
+   The user space implementation of the Ceph block device
+   (<code class="systemitem">librbd</code>) cannot take advantage of the Linux page
+   cache. Therefore, it includes its own in-memory caching. RBD caching behaves
+   similar to hard disk caching. When the OS sends a barrier or a flush
+   request, all 'dirty' data is written to the OSDs. This means that using
+   write-back caching is just as safe as using a well-behaved physical hard
+   disk with a VM that properly sends flushes. The cache uses a <span class="emphasis"><em>Least
+   Recently Used</em></span> (LRU) algorithm, and in write-back mode it can
+   merge adjacent requests for better throughput.
+  </p><p>
+   Ceph supports write-back caching for RBD. To enable it, run
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set client rbd_cache true</pre></div><p>
+   By default, <code class="systemitem">librbd</code> does not perform any caching.
+   Writes and reads go directly to the storage cluster, and writes return only
+   when the data is on disk on all replicas. With caching enabled, writes
+   return immediately, unless there are more unflushed bytes than set in the
+   <code class="option">rbd cache max dirty</code> option. In such a case, the write
+   triggers writeback and blocks until enough bytes are flushed.
+  </p><p>
+   Ceph supports write-through caching for RBD. You can set the size of the
+   cache, and you can set targets and limits to switch from write-back caching
+   to write-through caching. To enable write-through mode, run
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set client rbd_cache_max_dirty 0</pre></div><p>
+   This means writes return only when the data is on disk on all replicas, but
+   reads may come from the cache. The cache is in memory on the client, and
+   each RBD image has its own cache. Since the cache is local to the client,
+   there is no coherency if there are others accessing the image. Running GFS
+   or OCFS on top of RBD will not work with caching enabled.
+  </p><p>
+   The following parameters affect the behavior of RADOS Block Devices. To set them, use the
+   <code class="literal">client</code> category:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set client <em class="replaceable">PARAMETER</em> <em class="replaceable">VALUE</em></pre></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.11.11.1"><span class="term"><code class="option">rbd cache</code></span></dt><dd><p>
+      Enable caching for RADOS Block Device (RBD). Default is 'true'.
+     </p></dd><dt id="id-1.4.5.5.11.11.2"><span class="term"><code class="option">rbd cache size</code></span></dt><dd><p>
+      The RBD cache size in bytes. Default is 32 MB.
+     </p></dd><dt id="id-1.4.5.5.11.11.3"><span class="term"><code class="option">rbd cache max dirty</code></span></dt><dd><p>
+      The 'dirty' limit in bytes at which the cache triggers write-back.
+      <code class="option">rbd cache max dirty</code> needs to be less than <code class="option">rbd
+      cache size</code>. If set to 0, uses write-through caching. Default is
+      24 MB.
+     </p></dd><dt id="id-1.4.5.5.11.11.4"><span class="term"><code class="option">rbd cache target dirty</code></span></dt><dd><p>
+      The 'dirty target' before the cache begins writing data to the data
+      storage. Does not block writes to the cache. Default is 16 MB.
+     </p></dd><dt id="id-1.4.5.5.11.11.5"><span class="term"><code class="option">rbd cache max dirty age</code></span></dt><dd><p>
+      The number of seconds dirty data is in the cache before writeback starts.
+      Default is 1.
+     </p></dd><dt id="id-1.4.5.5.11.11.6"><span class="term"><code class="option">rbd cache writethrough until flush</code></span></dt><dd><p>
+      Start out in write-through mode, and switch to write-back after the first
+      flush request is received. Enabling this is a conservative but safe
+      setting in case virtual machines running on <code class="systemitem">rbd</code>
+      are too old to send flushes (for example, the virtio driver in Linux
+      before kernel 2.6.32). Default is 'true'.
+     </p></dd></dl></div></section><section class="sect1" id="rbd-qos" data-id-title="QoS settings"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.6 </span><span class="title-name">QoS settings</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-qos">#</a></h2></div></div></div><p>
+   Generally, Quality of Service (QoS) refers to methods of traffic
+   prioritization and resource reservation. It is particularly important for
+   the transportation of traffic with special requirements.
+  </p><div id="id-1.4.5.5.12.3" data-id-title="Not supported by iSCSI" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Not supported by iSCSI</h6><p>
+    The following QoS settings are used only by the user space RBD
+    implementation <code class="systemitem">librbd</code> and
+    <span class="emphasis"><em>not</em></span> used by the <code class="systemitem">kRBD</code>
+    implementation. Because iSCSI uses <code class="systemitem">kRBD</code>, it does
+    not use the QoS settings. However, for iSCSI you can configure QoS on the
+    kernel block device layer using standard kernel facilities.
+   </p></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.12.4.1"><span class="term"><code class="option">rbd qos iops limit</code></span></dt><dd><p>
+      The desired limit of I/O operations per second. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.2"><span class="term"><code class="option">rbd qos bps limit</code></span></dt><dd><p>
+      The desired limit of I/O bytes per second. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.3"><span class="term"><code class="option">rbd qos read iops limit</code></span></dt><dd><p>
+      The desired limit of read operations per second. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.4"><span class="term"><code class="option">rbd qos write iops limit</code></span></dt><dd><p>
+      The desired limit of write operations per second. Default is 0 (no
+      limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.5"><span class="term"><code class="option">rbd qos read bps limit</code></span></dt><dd><p>
+      The desired limit of read bytes per second. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.6"><span class="term"><code class="option">rbd qos write bps limit</code></span></dt><dd><p>
+      The desired limit of write bytes per second. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.7"><span class="term"><code class="option">rbd qos iops burst</code></span></dt><dd><p>
+      The desired burst limit of I/O operations. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.8"><span class="term"><code class="option">rbd qos bps burst</code></span></dt><dd><p>
+      The desired burst limit of I/O bytes. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.9"><span class="term"><code class="option">rbd qos read iops burst</code></span></dt><dd><p>
+      The desired burst limit of read operations. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.10"><span class="term"><code class="option">rbd qos write iops burst</code></span></dt><dd><p>
+      The desired burst limit of write operations. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.11"><span class="term"><code class="option">rbd qos read bps burst</code></span></dt><dd><p>
+      The desired burst limit of read bytes. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.12"><span class="term"><code class="option">rbd qos write bps burst</code></span></dt><dd><p>
+      The desired burst limit of write bytes. Default is 0 (no limit).
+     </p></dd><dt id="id-1.4.5.5.12.4.13"><span class="term"><code class="option">rbd qos schedule tick min</code></span></dt><dd><p>
+      The minimum schedule tick (in milliseconds) for QoS. Default is 50.
+     </p></dd></dl></div></section><section class="sect1" id="rbd-readahead-settings" data-id-title="Read-ahead settings"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.7 </span><span class="title-name">Read-ahead settings</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-readahead-settings">#</a></h2></div></div></div><p>
+   RADOS Block Device supports read-ahead/prefetching to optimize small, sequential reads.
+   This should normally be handled by the guest OS in the case of a virtual
+   machine, but boot loaders may not issue efficient reads. Read-ahead is
+   automatically disabled if caching is disabled.
+  </p><div id="id-1.4.5.5.13.3" data-id-title="Not supported by iSCSI" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Not supported by iSCSI</h6><p>
+    The following read-ahead settings are used only by the user space RBD
+    implementation <code class="systemitem">librbd</code> and
+    <span class="emphasis"><em>not</em></span> used by the <code class="systemitem">kRBD</code>
+    implementation. Because iSCSI uses <code class="systemitem">kRBD</code>, it does
+    not use the read-ahead settings. However, for iSCSI you can configure
+    read-ahead on the kernel block device layer using standard kernel
+    facilities.
+   </p></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.13.4.1"><span class="term"><code class="option">rbd readahead trigger requests</code></span></dt><dd><p>
+      Number of sequential read requests necessary to trigger read-ahead.
+      Default is 10.
+     </p></dd><dt id="id-1.4.5.5.13.4.2"><span class="term"><code class="option">rbd readahead max bytes</code></span></dt><dd><p>
+      Maximum size of a read-ahead request. If set to 0, read-ahead is
+      disabled. Default is 512 kB.
+     </p></dd><dt id="id-1.4.5.5.13.4.3"><span class="term"><code class="option">rbd readahead disable after bytes</code></span></dt><dd><p>
+      After this many bytes have been read from an RBD image, read-ahead is
+      disabled for that image until it is closed. This allows the guest OS to
+      take over read-ahead when it is booted. If set to 0, read-ahead stays
+      enabled. Default is 50 MB.
+     </p></dd></dl></div></section><section class="sect1" id="rbd-features" data-id-title="Advanced features"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.8 </span><span class="title-name">Advanced features</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-features">#</a></h2></div></div></div><p>
+   RADOS Block Device supports advanced features that enhance the functionality of RBD
+   images. You can specify the features either on the command line when
+   creating an RBD image, or in the Ceph configuration file by using the
+   <code class="option">rbd_default_features</code> option.
+  </p><p>
+   You can specify the values of the <code class="option">rbd_default_features</code>
+   option in two ways:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     As a sum of features' internal values. Each feature has its own internal
+     value—for example 'layering' has 1 and 'fast-diff' has 16. Therefore
+     to activate these two feature by default, include the following:
+    </p><div class="verbatim-wrap"><pre class="screen">rbd_default_features = 17</pre></div></li><li class="listitem"><p>
+     As a comma-separated list of features. The previous example will look as
+     follows:
+    </p><div class="verbatim-wrap"><pre class="screen">rbd_default_features = layering,fast-diff</pre></div></li></ul></div><div id="id-1.4.5.5.14.5" data-id-title="Features not supported by iSCSI" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Features not supported by iSCSI</h6><p>
+    RBD images with the following features will not be supported by iSCSI:
+    <code class="option">deep-flatten</code>, <code class="option">object-map</code>,
+    <code class="option">journaling</code>, <code class="option">fast-diff</code>,
+    <code class="option">striping</code>
+   </p></div><p>
+   A list of advanced RBD features follows:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.14.7.1"><span class="term"><code class="option">layering</code></span></dt><dd><p>
+      Layering enables you to use cloning.
+     </p><p>
+      Internal value is 1, default is 'yes'.
+     </p></dd><dt id="id-1.4.5.5.14.7.2"><span class="term"><code class="option">striping</code></span></dt><dd><p>
+      Striping spreads data across multiple objects and helps with parallelism
+      for sequential read/write workloads. It prevents single node bottlenecks
+      for large or busy RADOS Block Devices.
+     </p><p>
+      Internal value is 2, default is 'yes'.
+     </p></dd><dt id="id-1.4.5.5.14.7.3"><span class="term"><code class="option">exclusive-lock</code></span></dt><dd><p>
+      When enabled, it requires a client to get a lock on an object before
+      making a write. Enable the exclusive lock only when a single client is
+      accessing an image at the same time. Internal value is 4. Default is
+      'yes'.
+     </p></dd><dt id="id-1.4.5.5.14.7.4"><span class="term"><code class="option">object-map</code></span></dt><dd><p>
+      Object map support depends on exclusive lock support. Block devices are
+      thin provisioned, meaning that they only store data that actually exists.
+      Object map support helps track which objects actually exist (have data
+      stored on a drive). Enabling object map support speeds up I/O operations
+      for cloning, importing and exporting a sparsely populated image, and
+      deleting.
+     </p><p>
+      Internal value is 8, default is 'yes'.
+     </p></dd><dt id="id-1.4.5.5.14.7.5"><span class="term"><code class="option">fast-diff</code></span></dt><dd><p>
+      Fast-diff support depends on object map support and exclusive lock
+      support. It adds another property to the object map, which makes it much
+      faster to generate diffs between snapshots of an image and the actual
+      data usage of a snapshot.
+     </p><p>
+      Internal value is 16, default is 'yes'.
+     </p></dd><dt id="id-1.4.5.5.14.7.6"><span class="term"><code class="option">deep-flatten</code></span></dt><dd><p>
+      Deep-flatten makes the <code class="command">rbd flatten</code> (see
+      <a class="xref" href="ceph-rbd.html#rbd-flatten-cloned-image" title="20.3.3.6. Flattening a cloned image">Section 20.3.3.6, “Flattening a cloned image”</a>) work on all the snapshots of
+      an image, in addition to the image itself. Without it, snapshots of an
+      image will still rely on the parent, therefore you will not be able to
+      delete the parent image until the snapshots are deleted. Deep-flatten
+      makes a parent independent of its clones, even if they have snapshots.
+     </p><p>
+      Internal value is 32, default is 'yes'.
+     </p></dd><dt id="id-1.4.5.5.14.7.7"><span class="term"><code class="option">journaling</code></span></dt><dd><p>
+      Journaling support depends on exclusive lock support. Journaling records
+      all modifications to an image in the order they occur. RBD mirroring (see
+      <a class="xref" href="ceph-rbd.html#ceph-rbd-mirror" title="20.4. RBD image mirrors">Section 20.4, “RBD image mirrors”</a>) uses the journal to replicate a crash
+      consistent image to a <code class="literal">remote</code> cluster.
+     </p><p>
+      Internal value is 64, default is 'no'.
+     </p></dd></dl></div></section><section class="sect1" id="rbd-old-clients-map" data-id-title="Mapping RBD using old kernel clients"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.9 </span><span class="title-name">Mapping RBD using old kernel clients</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-old-clients-map">#</a></h2></div></div></div><p>
+   Old clients (for example, SLE11 SP4) may not be able to map RBD images
+   because a cluster deployed with SUSE Enterprise Storage 7 forces some
+   features (both RBD image level features and RADOS level features) that these
+   old clients do not support. When this happens, the OSD logs will show
+   messages similar to the following:
+  </p><div class="verbatim-wrap"><pre class="screen">2019-05-17 16:11:33.739133 7fcb83a2e700  0 -- 192.168.122.221:0/1006830 &gt;&gt; \
+192.168.122.152:6789/0 pipe(0x65d4e0 sd=3 :57323 s=1 pgs=0 cs=0 l=1 c=0x65d770).connect \
+protocol feature mismatch, my 2fffffffffff &lt; peer 4010ff8ffacffff missing 401000000000000</pre></div><div id="id-1.4.5.5.15.4" data-id-title="Changing CRUSH Map bucket types causes massive rebalancing" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Changing CRUSH Map bucket types causes massive rebalancing</h6><p>
+    If you intend to switch the CRUSH Map bucket types between 'straw' and
+    'straw2', do it in a planned manner. Expect a significant impact on the
+    cluster load because changing bucket type will cause massive cluster
+    rebalancing.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Disable any RBD image features that are not supported. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd feature disable pool1/image1 object-map
+<code class="prompt user">cephuser@adm &gt; </code>rbd feature disable pool1/image1 exclusive-lock</pre></div></li><li class="step"><p>
+     Change the CRUSH Map bucket types from 'straw2' to 'straw':
+    </p><ol type="a" class="substeps"><li class="step"><p>
+       Save the CRUSH Map:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd getcrushmap -o crushmap.original</pre></div></li><li class="step"><p>
+       Decompile the CRUSH Map:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>crushtool -d crushmap.original -o crushmap.txt</pre></div></li><li class="step"><p>
+       Edit the CRUSH Map and replace 'straw2' with 'straw'.
+      </p></li><li class="step"><p>
+       Recompile the CRUSH Map:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>crushtool -c crushmap.txt -o crushmap.new</pre></div></li><li class="step"><p>
+       Set the new CRUSH Map:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd setcrushmap -i crushmap.new</pre></div></li></ol></li></ol></div></div></section><section class="sect1" id="rbd-kubernetes" data-id-title="Enabling block devices and Kubernetes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.10 </span><span class="title-name">Enabling block devices and Kubernetes</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-kubernetes">#</a></h2></div></div></div><p>
+   You can use Ceph RBD with Kubernetes v1.13 and higher through the
+   <code class="literal">ceph-csi</code> driver. This driver dynamically provisions RBD
+   images to back Kubernetes volumes, and maps these RBD images as block devices
+   (optionally mounting a file system contained within the image) on worker
+   nodes running pods that reference an RBD-backed volume.
+  </p><p>
+   To use Ceph block devices with Kubernetes, you must install and configure
+   <code class="literal">ceph-csi</code> within your Kubernetes environment.
+  </p><div id="id-1.4.5.5.16.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    <code class="literal">ceph-csi</code> uses the RBD kernel modules by default which
+    may not support all Ceph CRUSH tunables or RBD image features.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     By default, Ceph block devices use the RBD pool. Create a pool for
+     Kubernetes volume storage. Ensure your Ceph cluster is running, then create
+     the pool:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create kubernetes</pre></div></li><li class="step"><p>
+     Use the RBD tool to initialize the pool:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd pool init kubernetes</pre></div></li><li class="step"><p>
+     Create a new user for Kubernetes and <code class="literal">ceph-csi</code>. Execute the
+     following and record the generated key:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth get-or-create client.kubernetes mon 'profile rbd' osd 'profile rbd pool=kubernetes' mgr 'profile rbd pool=kubernetes'
+[client.kubernetes]
+    key = AQD9o0Fd6hQRChAAt7fMaSZXduT3NWEqylNpmg==</pre></div></li><li class="step"><p>
+     <code class="literal">ceph-csi</code> requires a ConfigMap object stored in Kubernetes
+     to define the Ceph monitor addresses for the Ceph cluster. Collect
+     both the Ceph cluster unique fsid and the monitor addresses:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mon dump
+&lt;...&gt;
+fsid b9127830-b0cc-4e34-aa47-9d1a2e9949a8
+&lt;...&gt;
+0: [v2:192.168.1.1:3300/0,v1:192.168.1.1:6789/0] mon.a
+1: [v2:192.168.1.2:3300/0,v1:192.168.1.2:6789/0] mon.b
+2: [v2:192.168.1.3:3300/0,v1:192.168.1.3:6789/0] mon.c</pre></div></li><li class="step"><p>
+     Generate a <code class="filename">csi-config-map.yaml</code> file similar to the
+     example below, substituting the FSID for <code class="literal">clusterID</code>, and
+     the monitor addresses for <code class="literal">monitors</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; csi-config-map.yaml
+---
+apiVersion: v1
+kind: ConfigMap
+data:
+  config.json: |-
+    [
+      {
+        "clusterID": "b9127830-b0cc-4e34-aa47-9d1a2e9949a8",
+        "monitors": [
+          "192.168.1.1:6789",
+          "192.168.1.2:6789",
+          "192.168.1.3:6789"
+        ]
+      }
+    ]
+metadata:
+  name: ceph-csi-config
+EOF</pre></div></li><li class="step"><p>
+     When generated, store the new ConfigMap object in Kubernetes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-config-map.yaml</pre></div></li><li class="step"><p>
+     <code class="literal">ceph-csi</code> requires the cephx credentials for
+     communicating with the Ceph cluster. Generate a
+     <code class="filename">csi-rbd-secret.yaml</code> file similar to the example
+     below, using the newly-created Kubernetes user ID and cephx key:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; csi-rbd-secret.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: csi-rbd-secret
+  namespace: default
+stringData:
+  userID: kubernetes
+  userKey: AQD9o0Fd6hQRChAAt7fMaSZXduT3NWEqylNpmg==
+EOF</pre></div></li><li class="step"><p>
+     When generated, store the new secret object in Kubernetes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-rbd-secret.yaml</pre></div></li><li class="step"><p>
+     Create the required ServiceAccount and RBAC ClusterRole/ClusterRoleBinding
+     Kubernetes objects. These objects do not necessarily need to be customized for
+     your Kubernetes environment, and therefore can be used directly from the
+     <code class="literal">ceph-csi</code> deployment YAML files:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-provisioner-rbac.yaml
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-nodeplugin-rbac.yaml</pre></div></li><li class="step"><p>
+     Create the <code class="literal">ceph-csi</code> provisioner and node plugins:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>wget https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-rbdplugin-provisioner.yaml
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-rbdplugin-provisioner.yaml
+<code class="prompt user">kubectl@adm &gt; </code>wget https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-rbdplugin.yaml
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-rbdplugin.yaml</pre></div><div id="id-1.4.5.5.16.5.10.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      By default, the provisioner and node plugin YAML files will pull the
+      development release of the <code class="literal">ceph-csi</code> container. The
+      YAML files should be updated to use a release version.
+     </p></div></li></ol></div></div><section class="sect2" id="using-rbd-kubernetes" data-id-title="Using Ceph block devices in Kubernetes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.10.1 </span><span class="title-name">Using Ceph block devices in Kubernetes</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#using-rbd-kubernetes">#</a></h3></div></div></div><p>
+    The Kubernetes StorageClass defines a class of storage. Multiple StorageClass
+    objects can be created to map to different quality-of-service levels and
+    features. For example, NVMe versus HDD-based pools.
+   </p><p>
+    To create a <code class="literal">ceph-csi</code> StorageClass that maps to the
+    Kubernetes pool created above, the following YAML file can be used, after
+    ensuring that the <code class="literal">clusterID</code> property matches your Ceph
+    cluster's FSID:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; csi-rbd-sc.yaml
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: csi-rbd-sc
+provisioner: rbd.csi.ceph.com
+parameters:
+   clusterID: b9127830-b0cc-4e34-aa47-9d1a2e9949a8
+   pool: kubernetes
+   csi.storage.k8s.io/provisioner-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/provisioner-secret-namespace: default
+   csi.storage.k8s.io/node-stage-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/node-stage-secret-namespace: default
+reclaimPolicy: Delete
+mountOptions:
+   - discard
+EOF
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-rbd-sc.yaml</pre></div><p>
+    A <code class="literal">PersistentVolumeClaim</code> is a request for abstract
+    storage resources by a user. The <code class="literal">PersistentVolumeClaim</code>
+    would then be associated to a pod resource to provision a
+    <code class="literal">PersistentVolume</code>, which would be backed by a Ceph
+    block image. An optional <code class="option">volumeMode</code> can be included to
+    select between a mounted file system (default) or raw block-device-based
+    volume.
+   </p><p>
+    Using <code class="literal">ceph-csi</code>, specifying <code class="option">Filesystem</code>
+    for <code class="option">volumeMode</code> can support both
+    <code class="literal">ReadWriteOnce</code> and <code class="literal">ReadOnlyMany
+    accessMode</code> claims, and specifying <code class="option">Block</code> for
+    <code class="option">volumeMode</code> can support <code class="literal">ReadWriteOnce</code>,
+    <code class="literal">ReadWriteMany</code>, and <code class="literal">ReadOnlyMany
+    accessMode</code> claims.
+   </p><p>
+    For example, to create a block-based
+    <code class="literal">PersistentVolumeClaim</code> that uses the
+    <code class="literal">ceph-csi-based StorageClass</code> created above, the following
+    YAML file can be used to request raw block storage from the
+    <code class="literal">csi-rbd-sc StorageClass</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; raw-block-pvc.yaml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: raw-block-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Block
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-rbd-sc
+EOF
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f raw-block-pvc.yaml</pre></div><p>
+    The following demonstrates and example of binding the above
+    <code class="literal">PersistentVolumeClaim</code> to a pod resource as a raw block
+    device:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; raw-block-pod.yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-raw-block-volume
+spec:
+  containers:
+    - name: fc-container
+      image: fedora:26
+      command: ["/bin/sh", "-c"]
+      args: ["tail -f /dev/null"]
+      volumeDevices:
+        - name: data
+          devicePath: /dev/xvda
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: raw-block-pvc
+EOF
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f raw-block-pod.yaml</pre></div><p>
+    To create a file-system-based <code class="literal">PersistentVolumeClaim</code> that
+    uses the <code class="literal">ceph-csi-based StorageClass</code> created above, the
+    following YAML file can be used to request a mounted file system (backed by
+    an RBD image) from the <code class="literal">csi-rbd-sc StorageClass</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; pvc.yaml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rbd-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-rbd-sc
+EOF
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f pvc.yaml</pre></div><p>
+    The following demonstrates an example of binding the above
+    <code class="literal">PersistentVolumeClaim</code> to a pod resource as a mounted
+    file system:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>cat &lt;&lt;EOF &gt; pod.yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: csi-rbd-demo-pod
+spec:
+  containers:
+    - name: web-server
+      image: nginx
+      volumeMounts:
+        - name: mypvc
+          mountPath: /var/lib/www/html
+  volumes:
+    - name: mypvc
+      persistentVolumeClaim:
+        claimName: rbd-pvc
+        readOnly: false
+EOF
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f pod.yaml</pre></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-erasure.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 19 </span>Erasure coded pools</span></a> </div><div><a class="pagination-link next" href="part-accessing-data.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Part IV </span>Accessing Cluster Data</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="ceph-rbd.html#ceph-rbd-commands"><span class="title-number">20.1 </span><span class="title-name">Block device commands</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#storage-bp-integration-mount-rbd"><span class="title-number">20.2 </span><span class="title-name">Mounting and unmounting</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#cha-ceph-snapshots-rbd"><span class="title-number">20.3 </span><span class="title-name">Snapshots</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#ceph-rbd-mirror"><span class="title-number">20.4 </span><span class="title-name">RBD image mirrors</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#rbd-cache-settings"><span class="title-number">20.5 </span><span class="title-name">Cache settings</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#rbd-qos"><span class="title-number">20.6 </span><span class="title-name">QoS settings</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#rbd-readahead-settings"><span class="title-number">20.7 </span><span class="title-name">Read-ahead settings</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#rbd-features"><span class="title-number">20.8 </span><span class="title-name">Advanced features</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#rbd-old-clients-map"><span class="title-number">20.9 </span><span class="title-name">Mapping RBD using old kernel clients</span></a></span></li><li><span class="sect1"><a href="ceph-rbd.html#rbd-kubernetes"><span class="title-number">20.10 </span><span class="title-name">Enabling block devices and Kubernetes</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_rbd.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

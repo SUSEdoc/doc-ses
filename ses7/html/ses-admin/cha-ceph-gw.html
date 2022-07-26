@@ -1,0 +1,1806 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Ceph Object Gateway | Administration and Operations Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Ceph Object Gateway | SES 7"/>
+<meta name="description" content="This chapter introduces details about administration tasks related to Object Gateway, such as checking status of the service, managing accounts, multisite gate…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Administration and Operations Guide"/>
+<meta name="chapter-title" content="Chapter 21. Ceph Object Gateway"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Ceph Object Gateway | SES 7"/>
+<meta property="og:description" content="This chapter introduces details about administration tasks related to Object Gateway, such as checking status of the service, managing accounts, multisite gate…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ceph Object Gateway | SES 7"/>
+<meta name="twitter:description" content="This chapter introduces details about administration tasks related to Object Gateway, such as checking status of the service, managing accounts, multisite gate…"/>
+<link rel="prev" href="part-accessing-data.html" title="Part IV. Accessing Cluster Data"/><link rel="next" href="cha-ceph-iscsi.html" title="Chapter 22. Ceph iSCSI gateway"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration and Operations Guide</a><span> / </span><a class="crumb" href="part-accessing-data.html">Accessing Cluster Data</a><span> / </span><a class="crumb" href="cha-ceph-gw.html">Ceph Object Gateway</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration and Operations Guide</div><ol><li><a href="preface-admin.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="part-dashboard.html" class="has-children "><span class="title-number">I </span><span class="title-name">Ceph Dashboard</span></a><ol><li><a href="dashboard-about.html" class=" "><span class="title-number">1 </span><span class="title-name">About the Ceph Dashboard</span></a></li><li><a href="dashboard-webui-general.html" class=" "><span class="title-number">2 </span><span class="title-name">Dashboard's Web user interface</span></a></li><li><a href="dashboard-user-mgmt.html" class=" "><span class="title-number">3 </span><span class="title-name">Manage Ceph Dashboard users and roles</span></a></li><li><a href="dashboard-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">View cluster internals</span></a></li><li><a href="dashboard-pools.html" class=" "><span class="title-number">5 </span><span class="title-name">Manage pools</span></a></li><li><a href="dashboard-rbds.html" class=" "><span class="title-number">6 </span><span class="title-name">Manage RADOS Block Device</span></a></li><li><a href="dash-webui-nfs.html" class=" "><span class="title-number">7 </span><span class="title-name">Manage NFS Ganesha</span></a></li><li><a href="dashboard-mds.html" class=" "><span class="title-number">8 </span><span class="title-name">Manage CephFS</span></a></li><li><a href="dashboard-ogw.html" class=" "><span class="title-number">9 </span><span class="title-name">Manage the Object Gateway</span></a></li><li><a href="dashboard-initial-configuration.html" class=" "><span class="title-number">10 </span><span class="title-name">Manual configuration</span></a></li><li><a href="dashboard-user-roles.html" class=" "><span class="title-number">11 </span><span class="title-name">Manage users and roles on the command line</span></a></li></ol></li><li><a href="part-cluster-operation.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Operation</span></a><ol><li><a href="ceph-monitor.html" class=" "><span class="title-number">12 </span><span class="title-name">Determine the cluster state</span></a></li><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">13 </span><span class="title-name">Operational tasks</span></a></li><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">14 </span><span class="title-name">Operation of Ceph services</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">15 </span><span class="title-name">Backup and restore</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">16 </span><span class="title-name">Monitoring and alerting</span></a></li></ol></li><li><a href="part-storing-data.html" class="has-children "><span class="title-number">III </span><span class="title-name">Storing Data in a Cluster</span></a><ol><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">17 </span><span class="title-name">Stored data management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">18 </span><span class="title-name">Manage storage pools</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">19 </span><span class="title-name">Erasure coded pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">20 </span><span class="title-name">RADOS Block Device</span></a></li></ol></li><li class="active"><a href="part-accessing-data.html" class="has-children you-are-here"><span class="title-number">IV </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" you-are-here"><span class="title-number">21 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">22 </span><span class="title-name">Ceph iSCSI gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">23 </span><span class="title-name">Clustered file system</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">24 </span><span class="title-name">Export Ceph data via Samba</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">25 </span><span class="title-name">NFS Ganesha</span></a></li></ol></li><li><a href="part-integration-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">26 </span><span class="title-name"><code class="systemitem">libvirt</code> and Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">27 </span><span class="title-name">Ceph as a back-end for QEMU KVM instance</span></a></li></ol></li><li><a href="part-cluster-configuration.html" class="has-children "><span class="title-number">VI </span><span class="title-name">Configuring a Cluster</span></a><ol><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">28 </span><span class="title-name">Ceph cluster configuration</span></a></li><li><a href="cha-mgr-modules.html" class=" "><span class="title-number">29 </span><span class="title-name">Ceph Manager modules</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">30 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-gw" data-id-title="Ceph Object Gateway"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h2 class="title"><span class="title-number">21 </span><span class="title-name">Ceph Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#">#</a></h2></div></div></div><p>
+  This chapter introduces details about administration tasks related to Object Gateway,
+  such as checking status of the service, managing accounts, multisite
+  gateways, or LDAP authentication.
+ </p><section class="sect1" id="sec-ceph-rgw-limits" data-id-title="Object Gateway restrictions and naming limitations"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.1 </span><span class="title-name">Object Gateway restrictions and naming limitations</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#sec-ceph-rgw-limits">#</a></h2></div></div></div><p>
+   Following is a list of important Object Gateway limits:
+  </p><section class="sect2" id="ogw-limits-bucket" data-id-title="Bucket limitations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.1.1 </span><span class="title-name">Bucket limitations</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-limits-bucket">#</a></h3></div></div></div><p>
+    When approaching Object Gateway via the S3 API, bucket names are limited to
+    DNS-compliant names with a dash character '-' allowed. When approaching
+    Object Gateway via the Swift API, you may use any combination of UTF-8 supported
+    characters except for a slash character '/'. The maximum length of a bucket
+    name is 255 characters. Bucket names must be unique.
+   </p><div id="id-1.4.6.2.4.3.3" data-id-title="Use DNS-compliant bucket names" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Use DNS-compliant bucket names</h6><p>
+     Although you may use any UTF-8 based bucket name via the Swift API, it
+     is recommended to name buckets with regard to the S3 naming limitations to
+     avoid problems accessing the same bucket via the S3 API.
+    </p></div></section><section class="sect2" id="ogw-limits-object" data-id-title="Stored object limitations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.1.2 </span><span class="title-name">Stored object limitations</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-limits-object">#</a></h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.4.4.2.1"><span class="term">Maximum number of objects per user</span></dt><dd><p>
+       No restriction by default (limited by ~ 2^63).
+      </p></dd><dt id="id-1.4.6.2.4.4.2.2"><span class="term">Maximum number of objects per bucket</span></dt><dd><p>
+       No restriction by default (limited by ~ 2^63).
+      </p></dd><dt id="id-1.4.6.2.4.4.2.3"><span class="term">Maximum size of an object to upload/store</span></dt><dd><p>
+       Single uploads are restricted to 5 GB. Use multipart for larger object
+       sizes. The maximum number of multipart chunks is 10000.
+      </p></dd></dl></div></section><section class="sect2" id="ogw-limits-http" data-id-title="HTTP header limitations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.1.3 </span><span class="title-name">HTTP header limitations</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-limits-http">#</a></h3></div></div></div><p>
+    HTTP header and request limitation depend on the Web front-end used. The
+    default Beast restricts the size of the HTTP header to 16 kB.
+   </p></section></section><section class="sect1" id="ogw-deploy" data-id-title="Deploying the Object Gateway"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.2 </span><span class="title-name">Deploying the Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-deploy">#</a></h2></div></div></div><p>
+   The Ceph Object Gateway deployment follows the same procedure as the deployment of other
+   Ceph services—by means of cephadm. For more details, refer to
+   <span class="intraxref">Book “Deployment Guide”, Chapter 8 “Deploying the remaining core services using cephadm”, Section 8.2 “Service and placement specification”</span>, specifically to
+   <span class="intraxref">Book “Deployment Guide”, Chapter 8 “Deploying the remaining core services using cephadm”, Section 8.3.4 “Deploying Object Gateways”</span>.
+  </p></section><section class="sect1" id="ceph-rgw-operating" data-id-title="Operating the Object Gateway service"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.3 </span><span class="title-name">Operating the Object Gateway service</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-operating">#</a></h2></div></div></div><p>
+   You can operate the Object Gateways same as other Ceph services by first
+   identifying the service name with the <code class="command">ceph orch ps</code>
+   command, and running the following command for operating services, for
+   example:
+  </p><div class="verbatim-wrap"><pre class="screen">ceph orch daemon restart <em class="replaceable">OGW_SERVICE_NAME</em></pre></div><p>
+   Refer to <a class="xref" href="cha-ceph-operating.html" title="Chapter 14. Operation of Ceph services">Chapter 14, <em>Operation of Ceph services</em></a> for complete information about
+   operating Ceph services.
+  </p></section><section class="sect1" id="ogw-config-parameters" data-id-title="Configuration options"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.4 </span><span class="title-name">Configuration options</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-config-parameters">#</a></h2></div></div></div><p>
+   Refer to <a class="xref" href="cha-ceph-configuration.html#config-ogw" title="28.5. Ceph Object Gateway">Section 28.5, “Ceph Object Gateway”</a> for a list of Object Gateway configuration
+   options.
+  </p></section><section class="sect1" id="ceph-rgw-access" data-id-title="Managing Object Gateway access"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.5 </span><span class="title-name">Managing Object Gateway access</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-access">#</a></h2></div></div></div><p>
+   You can communicate with Object Gateway using either S3- or Swift-compatible
+   interface. S3 interface is compatible with a large subset of the Amazon S3
+   RESTful API. Swift interface is compatible with a large subset of the
+   OpenStack Swift API.
+  </p><p>
+   Both interfaces require you to create a specific user, and install the
+   relevant client software to communicate with the gateway using the user's
+   secret key.
+  </p><section class="sect2" id="accessing-ragos-gateway" data-id-title="Accessing Object Gateway"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.5.1 </span><span class="title-name">Accessing Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#accessing-ragos-gateway">#</a></h3></div></div></div><section class="sect3" id="ogw-s3-interface-access" data-id-title="S3 interface access"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.5.1.1 </span><span class="title-name">S3 interface access</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-s3-interface-access">#</a></h4></div></div></div><p>
+     To access the S3 interface, you need a REST client.
+     <code class="command">S3cmd</code> is a command line S3 client. You can find it in
+     the
+     <a class="link" href="https://build.opensuse.org/package/show/Cloud:Tools/s3cmd" target="_blank">OpenSUSE
+     Build Service</a>. The repository contains versions for both SUSE Linux Enterprise and
+     openSUSE based distributions.
+    </p><p>
+     If you want to test your access to the S3 interface, you can also write a
+     small a Python script. The script will connect to Object Gateway, create a new
+     bucket, and list all buckets. The values for
+     <code class="option">aws_access_key_id</code> and
+     <code class="option">aws_secret_access_key</code> are taken from the values of
+     <code class="option">access_key</code> and <code class="option">secret_key</code> returned by
+     the <code class="command">radosgw_admin</code> command from
+     <a class="xref" href="cha-ceph-gw.html#adding-s3-swift-users" title="21.5.2.1. Adding S3 and Swift users">Section 21.5.2.1, “Adding S3 and Swift users”</a>.
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Install the <code class="systemitem">python-boto</code> package:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper in python-boto</pre></div></li><li class="step"><p>
+       Create a new Python script called <code class="filename">s3test.py</code> with
+       the following content:
+       
+      </p><div class="verbatim-wrap"><pre class="screen">import boto
+import boto.s3.connection
+access_key = '11BS02LGFB6AL6H1ADMW'
+secret_key = 'vzCEkuryfn060dfee4fgQPqFrncKEIkh3ZcdOANY'
+conn = boto.connect_s3(
+aws_access_key_id = access_key,
+aws_secret_access_key = secret_key,
+host = '<em class="replaceable">HOSTNAME</em>',
+is_secure=False,
+calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+)
+bucket = conn.create_bucket('my-new-bucket')
+for bucket in conn.get_all_buckets():
+  print "<em class="replaceable">NAME</em>\t<em class="replaceable">CREATED</em>".format(
+  name = bucket.name,
+  created = bucket.creation_date,
+  )</pre></div><p>
+       Replace <code class="literal"><em class="replaceable">HOSTNAME</em></code> with the
+       host name of the host where you configured the Object Gateway service, for
+       example <code class="literal">gateway_host</code>.
+      </p></li><li class="step"><p>
+       Run the script:
+      </p><div class="verbatim-wrap"><pre class="screen">python s3test.py</pre></div><p>
+       The script outputs something like the following:
+      </p><div class="verbatim-wrap"><pre class="screen">my-new-bucket 2015-07-22T15:37:42.000Z</pre></div></li></ol></div></div></section><section class="sect3" id="swift-interface-access" data-id-title="Swift interface access"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.5.1.2 </span><span class="title-name">Swift interface access</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#swift-interface-access">#</a></h4></div></div></div><p>
+     To access Object Gateway via Swift interface, you need the <code class="command">swift</code>
+     command line client. Its manual page <code class="command">man 1 swift</code> tells
+     you more about its command line options.
+    </p><p>
+     The package is included in the 'Public Cloud' module for SUSE Linux Enterprise 12 from SP3
+     and SUSE Linux Enterprise 15. Before installing the package, you need to activate the
+     module and refresh the software repository:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>SUSEConnect -p sle-module-public-cloud/12/<em class="replaceable">SYSTEM-ARCH</em>
+sudo zypper refresh</pre></div><p>
+     Or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>SUSEConnect -p sle-module-public-cloud/15/<em class="replaceable">SYSTEM-ARCH</em>
+<code class="prompt root"># </code>zypper refresh</pre></div><p>
+     To install the <code class="command">swift</code> command, run the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper in python-swiftclient</pre></div><p>
+     The swift access uses the following syntax:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>swift -A http://<em class="replaceable">IP_ADDRESS</em>/auth/1.0 \
+-U example_user:swift -K '<em class="replaceable">SWIFT_SECRET_KEY</em>' list</pre></div><p>
+     Replace <em class="replaceable">IP_ADDRESS</em> with the IP address of the
+     gateway server, and <em class="replaceable">SWIFT_SECRET_KEY</em> with its
+     value from the output of the <code class="command">radosgw-admin key create</code>
+     command executed for the <code class="systemitem">swift</code> user in
+     <a class="xref" href="cha-ceph-gw.html#adding-s3-swift-users" title="21.5.2.1. Adding S3 and Swift users">Section 21.5.2.1, “Adding S3 and Swift users”</a>.
+    </p><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>swift -A http://gateway.example.com/auth/1.0 -U example_user:swift \
+-K 'r5wWIxjOCeEO7DixD1FjTLmNYIViaC6JVhi3013h' list</pre></div><p>
+     The output is:
+    </p><div class="verbatim-wrap"><pre class="screen">my-new-bucket</pre></div></section></section><section class="sect2" id="s3-swift-accounts-managment" data-id-title="Manage S3 and Swift accounts"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.5.2 </span><span class="title-name">Manage S3 and Swift accounts</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#s3-swift-accounts-managment">#</a></h3></div></div></div><section class="sect3" id="adding-s3-swift-users" data-id-title="Adding S3 and Swift users"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.5.2.1 </span><span class="title-name">Adding S3 and Swift users</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#adding-s3-swift-users">#</a></h4></div></div></div><p>
+     You need to create a user, access key and secret to enable end users to
+     interact with the gateway. There are two types of users: a
+     <span class="emphasis"><em>user</em></span> and <span class="emphasis"><em>subuser</em></span>. While
+     <span class="emphasis"><em>users</em></span> are used when interacting with the S3
+     interface, <span class="emphasis"><em>subusers</em></span> are users of the Swift
+     interface. Each subuser is associated to a user.
+    </p><p>
+     To create a Swift user, follow the steps:
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       To create a Swift user—which is a <span class="emphasis"><em>subuser</em></span>
+       in our terminology—you need to create the associated
+       <span class="emphasis"><em>user</em></span> first.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user create --uid=<em class="replaceable">USERNAME</em> \
+ --display-name="<em class="replaceable">DISPLAY-NAME</em>" --email=<em class="replaceable">EMAIL</em></pre></div><p>
+       For example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user create \
+   --uid=example_user \
+   --display-name="Example User" \
+   --email=penguin@example.com</pre></div></li><li class="step"><p>
+       To create a subuser (Swift interface) for the user, you must specify
+       the user ID (--uid=<em class="replaceable">USERNAME</em>), a subuser ID,
+       and the access level for the subuser.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin subuser create --uid=<em class="replaceable">UID</em> \
+ --subuser=<em class="replaceable">UID</em> \
+ --access=[ <em class="replaceable">read | write | readwrite | full</em> ]</pre></div><p>
+       For example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin subuser create --uid=example_user \
+ --subuser=example_user:swift --access=full</pre></div></li><li class="step"><p>
+       Generate a secret key for the user.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin key create \
+   --gen-secret \
+   --subuser=example_user:swift \
+   --key-type=swift</pre></div></li><li class="step"><p>
+       Both commands will output JSON-formatted data showing the user state.
+       Notice the following lines, and remember the
+       <code class="literal">secret_key</code> value:
+      </p><div class="verbatim-wrap"><pre class="screen">"swift_keys": [
+   { "user": "example_user:swift",
+     "secret_key": "r5wWIxjOCeEO7DixD1FjTLmNYIViaC6JVhi3013h"}],</pre></div></li></ol></div></div><p>
+     When accessing Object Gateway through the S3 interface you need to create an S3
+     user by running:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user create --uid=<em class="replaceable">USERNAME</em> \
+ --display-name="<em class="replaceable">DISPLAY-NAME</em>" --email=<em class="replaceable">EMAIL</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user create \
+   --uid=example_user \
+   --display-name="Example User" \
+   --email=penguin@example.com</pre></div><p>
+     The command also creates the user's access and secret key. Check its
+     output for <code class="literal">access_key</code> and <code class="literal">secret_key</code>
+     keywords and their values:
+    </p><div class="verbatim-wrap"><pre class="screen">[...]
+ "keys": [
+       { "user": "example_user",
+         "access_key": "11BS02LGFB6AL6H1ADMW",
+         "secret_key": "vzCEkuryfn060dfee4fgQPqFrncKEIkh3ZcdOANY"}],
+ [...]</pre></div></section><section class="sect3" id="removing-s3-swift-users" data-id-title="Removing S3 and Swift users"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.5.2.2 </span><span class="title-name">Removing S3 and Swift users</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#removing-s3-swift-users">#</a></h4></div></div></div><p>
+     The procedure for deleting users is similar for S3 and Swift users. But
+     in case of Swift users you may need to delete the user including its
+     subusers.
+    </p><p>
+     To remove a S3 or Swift user (including all its subusers), specify
+     <code class="option">user rm</code> and the user ID in the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user rm --uid=example_user</pre></div><p>
+     To remove a subuser, specify <code class="option">subuser rm</code> and the subuser
+     ID.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin subuser rm --uid=example_user:swift</pre></div><p>
+     You can make use of the following options:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.8.5.3.8.1"><span class="term">--purge-data</span></dt><dd><p>
+        Purges all data associated to the user ID.
+       </p></dd><dt id="id-1.4.6.2.8.5.3.8.2"><span class="term">--purge-keys</span></dt><dd><p>
+        Purges all keys associated to the user ID.
+       </p></dd></dl></div><div id="id-1.4.6.2.8.5.3.9" data-id-title="Removing a subuser" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Removing a subuser</h6><p>
+      When you remove a subuser, you are removing access to the Swift
+      interface. The user will remain in the system.
+     </p></div></section><section class="sect3" id="changing-s3-swift-users-password" data-id-title="Changing S3 and Swift user access and secret keys"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.5.2.3 </span><span class="title-name">Changing S3 and Swift user access and secret keys</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#changing-s3-swift-users-password">#</a></h4></div></div></div><p>
+     The <code class="literal">access_key</code> and <code class="literal">secret_key</code>
+     parameters identify the Object Gateway user when accessing the gateway. Changing
+     the existing user keys is the same as creating new ones, as the old keys
+     get overwritten.
+    </p><p>
+     For S3 users, run the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin key create --uid=<em class="replaceable">EXAMPLE_USER</em> --key-type=s3 --gen-access-key --gen-secret</pre></div><p>
+     For Swift users, run the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin key create --subuser=<em class="replaceable">EXAMPLE_USER</em>:swift --key-type=swift --gen-secret</pre></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.8.5.4.7.1"><span class="term"><code class="option">--key-type=<em class="replaceable">TYPE</em></code></span></dt><dd><p>
+        Specifies the type of key. Either <code class="literal">swift</code> or
+        <code class="literal">s3</code>.
+       </p></dd><dt id="id-1.4.6.2.8.5.4.7.2"><span class="term"><code class="option">--gen-access-key</code></span></dt><dd><p>
+        Generates a random access key (for S3 user by default).
+       </p></dd><dt id="id-1.4.6.2.8.5.4.7.3"><span class="term"><code class="option">--gen-secret</code></span></dt><dd><p>
+        Generates a random secret key.
+       </p></dd><dt id="id-1.4.6.2.8.5.4.7.4"><span class="term"><code class="option">--secret=<em class="replaceable">KEY</em></code></span></dt><dd><p>
+        Specifies a secret key, for example manually generated.
+       </p></dd></dl></div></section><section class="sect3" id="user-quota-managment" data-id-title="Enabling user quota management"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.5.2.4 </span><span class="title-name">Enabling user quota management</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#user-quota-managment">#</a></h4></div></div></div><p>
+     The Ceph Object Gateway enables you to set quotas on users and buckets owned by users.
+     Quotas include the maximum number of objects in a bucket and the maximum
+     storage size in megabytes.
+    </p><p>
+     Before you enable a user quota, you first need to set its parameters:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin quota set --quota-scope=user --uid=<em class="replaceable">EXAMPLE_USER</em> \
+ --max-objects=1024 --max-size=1024</pre></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.8.5.5.5.1"><span class="term"><code class="option">--max-objects</code></span></dt><dd><p>
+        Specifies the maximum number of objects. A negative value disables the
+        check.
+       </p></dd><dt id="id-1.4.6.2.8.5.5.5.2"><span class="term"><code class="option">--max-size</code></span></dt><dd><p>
+        Specifies the maximum number of bytes. A negative value disables the
+        check.
+       </p></dd><dt id="id-1.4.6.2.8.5.5.5.3"><span class="term"><code class="option">--quota-scope</code></span></dt><dd><p>
+        Sets the scope for the quota. The options are <code class="literal">bucket</code>
+        and <code class="literal">user</code>. Bucket quotas apply to buckets a user
+        owns. User quotas apply to a user.
+       </p></dd></dl></div><p>
+     Once you set a user quota, you may enable it:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin quota enable --quota-scope=user --uid=<em class="replaceable">EXAMPLE_USER</em></pre></div><p>
+     To disable a quota:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin quota disable --quota-scope=user --uid=<em class="replaceable">EXAMPLE_USER</em></pre></div><p>
+     To list quota settings:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user info --uid=<em class="replaceable">EXAMPLE_USER</em></pre></div><p>
+     To update quota statistics:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user stats --uid=<em class="replaceable">EXAMPLE_USER</em> --sync-stats</pre></div></section></section></section><section class="sect1" id="ogw-http-frontends" data-id-title="HTTP front-ends"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.6 </span><span class="title-name">HTTP front-ends</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-http-frontends">#</a></h2></div></div></div><p>
+   The Ceph Object Gateway supports two embedded HTTP front-ends: <span class="emphasis"><em>Beast</em></span>
+   and <span class="emphasis"><em>Civetweb</em></span>.
+  </p><p>
+   The Beast front-end uses the Boost.Beast library for HTTP parsing and the
+   Boost.Asio library for asynchronous network I/O.
+  </p><p>
+   The Civetweb front-end uses the Civetweb HTTP library, which is a fork of
+   Mongoose.
+  </p><p>
+   You can configure them with the <code class="option">rgw_frontends</code> option. Refer
+   to <a class="xref" href="cha-ceph-configuration.html#config-ogw" title="28.5. Ceph Object Gateway">Section 28.5, “Ceph Object Gateway”</a> for a list of configuration options.
+  </p></section><section class="sect1" id="ceph-rgw-https" data-id-title="Enable HTTPS/SSL for Object Gateways"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.7 </span><span class="title-name">Enable HTTPS/SSL for Object Gateways</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-https">#</a></h2></div></div></div><p>
+   To enable the Object Gateway to communicate securely using SSL, you need to either
+   have a CA-issued certificate or create a self-signed one.
+  </p><section class="sect2" id="ogw-selfcert" data-id-title="Creating a self-signed certificate"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.7.1 </span><span class="title-name">Creating a self-signed certificate</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-selfcert">#</a></h3></div></div></div><div id="id-1.4.6.2.10.3.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     Skip this section if you already have a valid certificate signed by CA.
+    </p></div><p>
+    The following procedure describes how to generate a self-signed SSL
+    certificate on the Salt Master.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      If you need your Object Gateway to be known by additional subject identities, add
+      them to the <code class="option">subjectAltName</code> option in the
+      <code class="literal">[v3_req]</code> section of the
+      <code class="filename">/etc/ssl/openssl.cnf</code> file:
+     </p><div class="verbatim-wrap"><pre class="screen">[...]
+[ v3_req ]
+subjectAltName = DNS:server1.example.com DNS:server2.example.com
+[...]</pre></div><div id="id-1.4.6.2.10.3.4.1.3" data-id-title="IP addresses in subjectAltName" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: IP addresses in <code class="option">subjectAltName</code></h6><p>
+       To use IP addresses instead of domain names in the
+       <code class="option">subjectAltName</code> option, replace the example line with
+       the following:
+      </p><div class="verbatim-wrap"><pre class="screen">subjectAltName = IP:10.0.0.10 IP:10.0.0.11</pre></div></div></li><li class="step"><p>
+      Create the key and the certificate using <code class="command">openssl</code>.
+      Enter all data you need to include in your certificate. We recommend
+      entering the FQDN as the common name. Before signing the certificate,
+      verify that 'X509v3 Subject Alternative Name:' is included in requested
+      extensions, and that the resulting certificate has "X509v3 Subject
+      Alternative Name:" set.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>openssl req -x509 -nodes -days 1095 \
+ -newkey rsa:4096 -keyout rgw.key
+ -out rgw.pem</pre></div></li><li class="step"><p>
+      Append the key to the certificate file:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cat rgw.key &gt;&gt; rgw.pem</pre></div></li></ol></div></div></section><section class="sect2" id="ogw-sssl-config" data-id-title="Configuring Object Gateway with SSL"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.7.2 </span><span class="title-name">Configuring Object Gateway with SSL</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-sssl-config">#</a></h3></div></div></div><p>
+    To configure Object Gateway to use SSL certificates, use the
+    <code class="option">rgw_frontends</code> option. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set <em class="replaceable">WHO</em> rgw_frontends \
+ beast ssl_port=443 ssl_certificate=config://<em class="replaceable">CERT</em> ssl_key=config://<em class="replaceable">KEY</em></pre></div><p>
+    If you do not specify the <em class="replaceable">CERT</em> and
+    <em class="replaceable">KEY</em> configuration keys, then the Object Gateway service
+    will look for the SSL certificate and key under the following configuration
+    keys:
+   </p><div class="verbatim-wrap"><pre class="screen">rgw/cert/<em class="replaceable">RGW_REALM</em>/<em class="replaceable">RGW_ZONE</em>.key
+rgw/cert/<em class="replaceable">RGW_REALM</em>/<em class="replaceable">RGW_ZONE</em>.crt</pre></div><p>
+    If you want to override the default SSL key and certificate location,
+    import them to the configuration database by using the following command:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph config-key set <em class="replaceable">CUSTOM_CONFIG_KEY</em> -i <em class="replaceable">PATH_TO_CERT_FILE</em></pre></div><p>
+    Then use your custom configuration keys using the
+    <code class="literal">config://</code> directive.
+   </p></section></section><section class="sect1" id="ceph-rgw-sync" data-id-title="Synchronization modules"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.8 </span><span class="title-name">Synchronization modules</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync">#</a></h2></div></div></div><p>
+   Object Gateway is deployed as a multi-site service while you can mirror data and
+   metadata between the zones. <span class="emphasis"><em>Synchronization modules</em></span> are
+   built atop of the multisite framework that allows for forwarding data and
+   metadata to a different external tier. A synchronization module allows for a
+   set of actions to be performed whenever a change in data occurs (for
+   example, metadata operations such as bucket or user creation). As the Object Gateway
+   multisite changes are eventually consistent at remote sites, changes are
+   propagated asynchronously. This covers use cases such as backing up the
+   object storage to an external cloud cluster, a custom backup solution using
+   tape drives, or indexing metadata in ElasticSearch.
+  </p><section class="sect2" id="ogw-sync-general-config" data-id-title="Configuring synchronization modules"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.8.1 </span><span class="title-name">Configuring synchronization modules</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-sync-general-config">#</a></h3></div></div></div><p>
+    All synchronization modules are configured in a similar way. You need to
+    create a new zone (refer to <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed" title="21.13. Multisite Object Gateways">Section 21.13, “Multisite Object Gateways”</a> for more
+    details) and set its <code class="option">--tier_type</code> option, for example
+    <code class="option">--tier-type=cloud</code> for the cloud synchronization module:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=<em class="replaceable">ZONE-GROUP-NAME</em> \
+ --rgw-zone=<em class="replaceable">ZONE-NAME</em> \
+ --endpoints=http://endpoint1.example.com,http://endpoint2.example.com, [...] \
+ --tier-type=cloud</pre></div><p>
+    You can configure the specific tier by using the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zonegroup=<em class="replaceable">ZONE-GROUP-NAME</em> \
+ --rgw-zone=<em class="replaceable">ZONE-NAME</em> \
+ --tier-config=<em class="replaceable">KEY1</em>=<em class="replaceable">VALUE1</em>,<em class="replaceable">KEY2</em>=<em class="replaceable">VALUE2</em></pre></div><p>
+    The <em class="replaceable">KEY</em> in the configuration specifies the
+    configuration variable that you want to update, and the
+    <em class="replaceable">VALUE</em> specifies its new value. Nested values can
+    be accessed using period. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zonegroup=<em class="replaceable">ZONE-GROUP-NAME</em> \
+ --rgw-zone=<em class="replaceable">ZONE-NAME</em> \
+ --tier-config=connection.access_key=<em class="replaceable">KEY</em>,connection.secret=<em class="replaceable">SECRET</em></pre></div><p>
+    You can access array entries by appending square brackets '[]' with the
+    referenced entry. You can add a new array entry by using square brackets
+    '[]'. Index value of -1 references the last entry in the array. It is not
+    possible to create a new entry and reference it again in the same command.
+    For example, a command to create a new profile for buckets starting with
+    <em class="replaceable">PREFIX</em> follows:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zonegroup=<em class="replaceable">ZONE-GROUP-NAME</em> \
+ --rgw-zone=<em class="replaceable">ZONE-NAME</em> \
+ --tier-config=profiles[].source_bucket=<em class="replaceable">PREFIX</em>'*'
+<code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zonegroup=<em class="replaceable">ZONE-GROUP-NAME</em> \
+ --rgw-zone=<em class="replaceable">ZONE-NAME</em> \
+ --tier-config=profiles[-1].connection_id=<em class="replaceable">CONNECTION_ID</em>,profiles[-1].acls_id=<em class="replaceable">ACLS_ID</em></pre></div><div id="id-1.4.6.2.11.3.10" data-id-title="Adding and removing configuration entries" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Adding and removing configuration entries</h6><p>
+     You can add a new tier configuration entry by using the
+     <code class="option">--tier-config-add=<em class="replaceable">KEY</em>=<em class="replaceable">VALUE</em></code>
+     parameter.
+    </p><p>
+     You can remove an existing entry by using
+     <code class="option">--tier-config-rm=<em class="replaceable">KEY</em></code>.
+    </p></div></section><section class="sect2" id="ceph-rgw-sync-zones" data-id-title="Synchronizing zones"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.8.2 </span><span class="title-name">Synchronizing zones</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync-zones">#</a></h3></div></div></div><p>
+    A synchronization module configuration is local to a zone. The
+    synchronization module determines whether the zone exports data or can only
+    consume data that was modified in another zone. As of Luminous the
+    supported synchronization plug-ins are <code class="literal">ElasticSearch</code>,
+    <code class="literal">rgw</code>, which is the default synchronization plug-in that
+    synchronizes data between the zones and <code class="literal">log</code> which is a
+    trivial synchronization plug-in that logs the metadata operation that
+    happens in the remote zones. The following sections are written with the
+    example of a zone using <code class="literal">ElasticSearch</code> synchronization
+    module. The process would be similar for configuring any other
+    synchronization plug-in.
+   </p><div id="id-1.4.6.2.11.4.3" data-id-title="Default synchronization plug-in" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Default synchronization plug-in</h6><p>
+     <code class="literal">rgw</code> is the default synchronization plug-in and there is
+     no need to explicitly configure this.
+    </p></div><section class="sect3" id="ceph-rgw-sync-zones-req" data-id-title="Requirements and assumptions"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.2.1 </span><span class="title-name">Requirements and assumptions</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync-zones-req">#</a></h4></div></div></div><p>
+     Let us assume a simple multisite configuration as described in
+     <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed" title="21.13. Multisite Object Gateways">Section 21.13, “Multisite Object Gateways”</a> consists of 2 zones:
+     <code class="literal">us-east</code> and <code class="literal">us-west</code>. Now we add a
+     third zone <code class="literal">us-east-es</code> which is a zone that only
+     processes metadata from the other sites. This zone can be in the same or a
+     different Ceph cluster than <code class="literal">us-east</code>. This zone would
+     only consume metadata from other zones and Object Gateways in this zone will not
+     serve any end user requests directly.
+    </p></section><section class="sect3" id="ceph-rgw-sync-zones-configure" data-id-title="Configuring zones"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.2.2 </span><span class="title-name">Configuring zones</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync-zones-configure">#</a></h4></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Create the third zone similar to the ones described in
+       <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed" title="21.13. Multisite Object Gateways">Section 21.13, “Multisite Object Gateways”</a>, for example
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">radosgw-admin</code> zone create --rgw-zonegroup=us --rgw-zone=us-east-es \
+--access-key=<em class="replaceable">SYSTEM-KEY</em> --secret=<em class="replaceable">SECRET</em> --endpoints=http://rgw-es:80</pre></div></li><li class="step"><p>
+       A synchronization module can be configured for this zone via the
+       following:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">radosgw-admin</code> zone modify --rgw-zone=<em class="replaceable">ZONE-NAME</em> --tier-type=<em class="replaceable">TIER-TYPE</em> \
+--tier-config={set of key=value pairs}</pre></div></li><li class="step"><p>
+       For example in the <code class="literal">ElasticSearch</code> synchronization
+       module
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">radosgw-admin</code> zone modify --rgw-zone=<em class="replaceable">ZONE-NAME</em> --tier-type=elasticsearch \
+--tier-config=endpoint=http://localhost:9200,num_shards=10,num_replicas=1</pre></div><p>
+       For the various supported tier-config options refer to
+       <a class="xref" href="cha-ceph-gw.html#ceph-rgw-sync-elastic" title="21.8.3. ElasticSearch synchronization module">Section 21.8.3, “ElasticSearch synchronization module”</a>.
+      </p></li><li class="step"><p>
+       Finally update the period
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">radosgw-admin</code> period update --commit</pre></div></li><li class="step"><p>
+       Now start the Object Gateway in the zone
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch start rgw.<em class="replaceable">REALM-NAME</em>.<em class="replaceable">ZONE-NAME</em></pre></div></li></ol></div></div></section></section><section class="sect2" id="ceph-rgw-sync-elastic" data-id-title="ElasticSearch synchronization module"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.8.3 </span><span class="title-name">ElasticSearch synchronization module</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync-elastic">#</a></h3></div></div></div><p>
+    This synchronization module writes the metadata from other zones to
+    ElasticSearch. As of Luminous this is JSON of data fields we currently
+    store in ElasticSearch.
+   </p><div class="verbatim-wrap"><pre class="screen">{
+  "_index" : "rgw-gold-ee5863d6",
+  "_type" : "object",
+  "_id" : "34137443-8592-48d9-8ca7-160255d52ade.34137.1:object1:null",
+  "_score" : 1.0,
+  "_source" : {
+    "bucket" : "testbucket123",
+    "name" : "object1",
+    "instance" : "null",
+    "versioned_epoch" : 0,
+    "owner" : {
+      "id" : "user1",
+      "display_name" : "user1"
+    },
+    "permissions" : [
+      "user1"
+    ],
+    "meta" : {
+      "size" : 712354,
+      "mtime" : "2017-05-04T12:54:16.462Z",
+      "etag" : "7ac66c0f148de9519b8bd264312c4d64"
+    }
+  }
+}</pre></div><section class="sect3" id="ceph-rgw-sync-elastic-config" data-id-title="ElasticSearch tier type configuration parameters"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.3.1 </span><span class="title-name">ElasticSearch tier type configuration parameters</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync-elastic-config">#</a></h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.11.5.4.2.1"><span class="term">endpoint</span></dt><dd><p>
+        Specifies the ElasticSearch server endpoint to access.
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.2"><span class="term">num_shards</span></dt><dd><p>
+        <span class="emphasis"><em>(integer)</em></span> The number of shards that ElasticSearch
+        will be configured with on data synchronization initialization. Note
+        that this cannot be changed after initialization. Any change here
+        requires rebuild of the ElasticSearch index and reinitialization of the
+        data synchronization process.
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.3"><span class="term">num_replicas</span></dt><dd><p>
+        <span class="emphasis"><em>(integer)</em></span> The number of replicas that
+        ElasticSearch will be configured with on data synchronization
+        initialization.
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.4"><span class="term">explicit_custom_meta</span></dt><dd><p>
+        <span class="emphasis"><em>(true | false)</em></span> Specifies whether all user custom
+        metadata will be indexed, or whether user will need to configure (at
+        the bucket level) what customer metadata entries should be indexed.
+        This is false by default
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.5"><span class="term">index_buckets_list</span></dt><dd><p>
+        <span class="emphasis"><em>(comma separated list of strings)</em></span> If empty, all
+        buckets will be indexed. Otherwise, only buckets specified here will be
+        indexed. It is possible to provide bucket prefixes (for example
+        'foo*'), or bucket suffixes (for example '*bar').
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.6"><span class="term">approved_owners_list</span></dt><dd><p>
+        <span class="emphasis"><em>(comma separated list of strings)</em></span> If empty,
+        buckets of all owners will be indexed (subject to other restrictions),
+        otherwise, only buckets owned by specified owners will be indexed.
+        Suffixes and prefixes can also be provided.
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.7"><span class="term">override_index_path</span></dt><dd><p>
+        <span class="emphasis"><em>(string)</em></span> if not empty, this string will be used as
+        the ElasticSearch index path. Otherwise the index path will be
+        determined and generated on synchronization initialization.
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.8"><span class="term">username</span></dt><dd><p>
+        Specifies a user name for ElasticSearch if authentication is required.
+       </p></dd><dt id="id-1.4.6.2.11.5.4.2.9"><span class="term">password</span></dt><dd><p>
+        Specifies a password for ElasticSearch if authentication is required.
+       </p></dd></dl></div></section><section class="sect3" id="ceph-rgw-sync-elastic-query" data-id-title="Metadata queries"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.3.2 </span><span class="title-name">Metadata queries</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync-elastic-query">#</a></h4></div></div></div><p>
+     Since the ElasticSearch cluster now stores object metadata, it is
+     important that the ElasticSearch endpoint is not exposed to the public and
+     only accessible to the cluster administrators. For exposing metadata
+     queries to the end user itself this poses a problem since we'd want the
+     user to only query their metadata and not of any other users, this would
+     require the ElasticSearch cluster to authenticate users in a way similar
+     to RGW does which poses a problem.
+    </p><p>
+     As of Luminous RGW in the metadata master zone can now service end user
+     requests. This allows for not exposing the ElasticSearch endpoint in
+     public and also solves the authentication and authorization problem since
+     RGW itself can authenticate the end user requests. For this purpose RGW
+     introduces a new query in the bucket APIs that can service ElasticSearch
+     requests. All these requests must be sent to the metadata master zone.
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.11.5.5.4.1"><span class="term">Get an ElasticSearch Query</span></dt><dd><div class="verbatim-wrap"><pre class="screen">GET /<em class="replaceable">BUCKET</em>?query=<em class="replaceable">QUERY-EXPR</em></pre></div><p>
+        request params:
+       </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+          max-keys: max number of entries to return
+         </p></li><li class="listitem"><p>
+          marker: pagination marker
+         </p></li></ul></div><div class="verbatim-wrap"><pre class="screen">expression := [(]&lt;arg&gt; &lt;op&gt; &lt;value&gt; [)][&lt;and|or&gt; ...]</pre></div><p>
+        op is one of the following: &lt;, &lt;=, ==, &gt;=, &gt;
+       </p><p>
+        For example:
+       </p><div class="verbatim-wrap"><pre class="screen">GET /?query=name==foo</pre></div><p>
+        Will return all the indexed keys that user has read permission to, and
+        are named 'foo'. The output will be a list of keys in XML that is
+        similar to the S3 list buckets response.
+       </p></dd><dt id="id-1.4.6.2.11.5.5.4.2"><span class="term">Configure custom metadata fields</span></dt><dd><p>
+        Define which custom metadata entries should be indexed (under the
+        specified bucket), and what are the types of these keys. If explicit
+        custom metadata indexing is configured, this is needed so that rgw will
+        index the specified custom metadata values. Otherwise it is needed in
+        cases where the indexed metadata keys are of a type other than string.
+       </p><div class="verbatim-wrap"><pre class="screen">POST /<em class="replaceable">BUCKET</em>?mdsearch
+x-amz-meta-search: &lt;key [; type]&gt; [, ...]</pre></div><p>
+        Multiple metadata fields must be comma separated, a type can be forced
+        for a field with a `;`. The currently allowed types are
+        string(default), integer and date, for example, if you want to index a
+        custom object metadata x-amz-meta-year as int, x-amz-meta-date as type
+        date and x-amz-meta-title as string, you would do
+       </p><div class="verbatim-wrap"><pre class="screen">POST /mybooks?mdsearch
+x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta-title;string</pre></div></dd><dt id="id-1.4.6.2.11.5.5.4.3"><span class="term">Delete custom metadata configuration</span></dt><dd><p>
+        Delete custom metadata bucket configuration.
+       </p><div class="verbatim-wrap"><pre class="screen">DELETE /<em class="replaceable">BUCKET</em>?mdsearch</pre></div></dd><dt id="id-1.4.6.2.11.5.5.4.4"><span class="term">Get custom metadata configuration</span></dt><dd><p>
+        Retrieve custom metadata bucket configuration.
+       </p><div class="verbatim-wrap"><pre class="screen">GET /<em class="replaceable">BUCKET</em>?mdsearch</pre></div></dd></dl></div></section></section><section class="sect2" id="ogw-cloud-sync" data-id-title="Cloud synchronization module"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.8.4 </span><span class="title-name">Cloud synchronization module</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-cloud-sync">#</a></h3></div></div></div><p>
+    This section introduces a module that synchronizes the zone data to a
+    remote cloud service. The synchronization is only unidirectional—the
+    date is not synchronized back from the remote zone. The main goal of this
+    module is to enable synchronizing data to multiple cloud service providers.
+    Currently it supports cloud providers that are compatible with AWS (S3).
+   </p><p>
+    To synchronize data to a remote cloud service, you need to configure user
+    credentials. Because many cloud services introduce limits on the number of
+    buckets that each user can create, you can configure the mapping of source
+    objects and buckets, different targets to different buckets and bucket
+    prefixes. Note that source access lists (ACLs) will not be preserved. It is
+    possible to map permissions of specific source users to specific
+    destination users.
+   </p><p>
+    Because of API limitations, there is no way to preserve original object
+    modification time and HTTP entity tag (ETag). The cloud synchronization
+    module stores these as metadata attributes on the destination objects.
+   </p><section class="sect3" id="cloud-sync-module" data-id-title="Configuring the cloud synchronization module"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.4.1 </span><span class="title-name">Configuring the cloud synchronization module</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#cloud-sync-module">#</a></h4></div></div></div><p>
+     Following are examples of a trivial and non-trivial configuration for the
+     cloud synchronization module. Note that the trivial configuration can
+     collide with the non-trivial one.
+    </p><div class="example" id="id-1.4.6.2.11.6.5.3" data-id-title="Trivial configuration"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 21.1: </span><span class="title-name">Trivial configuration </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.11.6.5.3">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">{
+  "connection": {
+    "access_key": <em class="replaceable">ACCESS</em>,
+    "secret": <em class="replaceable">SECRET</em>,
+    "endpoint": <em class="replaceable">ENDPOINT</em>,
+    "host_style": <em class="replaceable">path | virtual</em>,
+  },
+  "acls": [ { "type": <em class="replaceable">id | email | uri</em>,
+    "source_id": <em class="replaceable">SOURCE_ID</em>,
+    "dest_id": <em class="replaceable">DEST_ID</em> } ... ],
+  "target_path": <em class="replaceable">TARGET_PATH</em>,
+}</pre></div></div></div><div class="example" id="id-1.4.6.2.11.6.5.4" data-id-title="Non-trivial configuration"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 21.2: </span><span class="title-name">Non-trivial configuration </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.11.6.5.4">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">{
+  "default": {
+    "connection": {
+      "access_key": <em class="replaceable">ACCESS</em>,
+      "secret": <em class="replaceable">SECRET</em>,
+      "endpoint": <em class="replaceable">ENDPOINT</em>,
+      "host_style" <em class="replaceable">path | virtual</em>,
+    },
+    "acls": [
+    {
+      "type": <em class="replaceable">id | email | uri</em>,   #  optional, default is id
+      "source_id": <em class="replaceable">ID</em>,
+      "dest_id": <em class="replaceable">ID</em>
+    } ... ]
+    "target_path": <em class="replaceable">PATH</em> # optional
+  },
+  "connections": [
+  {
+    "connection_id": <em class="replaceable">ID</em>,
+    "access_key": <em class="replaceable">ACCESS</em>,
+    "secret": <em class="replaceable">SECRET</em>,
+    "endpoint": <em class="replaceable">ENDPOINT</em>,
+    "host_style": <em class="replaceable">path | virtual</em>,  # optional
+  } ... ],
+  "acl_profiles": [
+  {
+    "acls_id": <em class="replaceable">ID</em>, # acl mappings
+    "acls": [ {
+      "type": <em class="replaceable">id | email | uri</em>,
+      "source_id": <em class="replaceable">ID</em>,
+      "dest_id": <em class="replaceable">ID</em>
+    } ... ]
+  }
+  ],
+  "profiles": [
+  {
+   "source_bucket": <em class="replaceable">SOURCE</em>,
+   "connection_id": <em class="replaceable">CONNECTION_ID</em>,
+   "acls_id": <em class="replaceable">MAPPINGS_ID</em>,
+   "target_path": <em class="replaceable">DEST</em>,          # optional
+  } ... ],
+}</pre></div></div></div><p>
+     Explanation of used configuration terms follows:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.11.6.5.6.1"><span class="term">connection</span></dt><dd><p>
+        Represents a connection to the remote cloud service. Contains
+        'connection_id', 'access_key', 'secret', 'endpoint', and 'host_style'.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.2"><span class="term">access_key</span></dt><dd><p>
+        The remote cloud access key that will be used for the specific
+        connection.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.3"><span class="term">secret</span></dt><dd><p>
+        The secret key for the remote cloud service.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.4"><span class="term">endpoint</span></dt><dd><p>
+        URL of remote cloud service endpoint.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.5"><span class="term">host_style</span></dt><dd><p>
+        Type of host style ('path' or 'virtual') to be used when accessing
+        remote cloud endpoint. Default is 'path'.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.6"><span class="term">acls</span></dt><dd><p>
+        Array of access list mappings.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.7"><span class="term">acl_mapping</span></dt><dd><p>
+        Each 'acl_mapping' structure contains 'type', 'source_id', and
+        'dest_id'. These will define the ACL mutation for each object. An ACL
+        mutation allows converting source user ID to a destination ID.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.8"><span class="term">type</span></dt><dd><p>
+        ACL type: 'id' defines user ID, 'email' defines user by email, and
+        'uri' defines user by uri (group).
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.9"><span class="term">source_id</span></dt><dd><p>
+        ID of user in the source zone.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.10"><span class="term">dest_id</span></dt><dd><p>
+        ID of user in the destination.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.11"><span class="term">target_path</span></dt><dd><p>
+        A string that defines how the target path is created. The target path
+        specifies a prefix to which the source object name is appended. The
+        target path configurable can include any of the following variables:
+       </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.11.6.5.6.11.2.2.1"><span class="term">SID</span></dt><dd><p>
+           A unique string that represents the synchronization instance ID.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.11.2.2.2"><span class="term">ZONEGROUP</span></dt><dd><p>
+           Zonegroup name.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.11.2.2.3"><span class="term">ZONEGROUP_ID</span></dt><dd><p>
+           Zonegroup ID.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.11.2.2.4"><span class="term">ZONE</span></dt><dd><p>
+           Zone name.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.11.2.2.5"><span class="term">ZONE_ID</span></dt><dd><p>
+           Zone ID.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.11.2.2.6"><span class="term">BUCKET</span></dt><dd><p>
+           Source bucket name.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.11.2.2.7"><span class="term">OWNER</span></dt><dd><p>
+           Source bucket owner ID.
+          </p></dd></dl></div><p>
+        For example: target_path =
+        rgwx-<em class="replaceable">ZONE</em>-<em class="replaceable">SID</em>/<em class="replaceable">OWNER</em>/<em class="replaceable">BUCKET</em>
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.12"><span class="term">acl_profiles</span></dt><dd><p>
+        An array of access list profiles.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.13"><span class="term">acl_profile</span></dt><dd><p>
+        Each profile contains 'acls_id' that represents the profile, and an
+        'acls' array that holds a list of 'acl_mappings'.
+       </p></dd><dt id="id-1.4.6.2.11.6.5.6.14"><span class="term">profiles</span></dt><dd><p>
+        A list of profiles. Each profile contains the following:
+       </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.11.6.5.6.14.2.2.1"><span class="term">source_bucket</span></dt><dd><p>
+           Either a bucket name, or a bucket prefix (if ends with *) that
+           defines the source bucket(s) for this profile.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.14.2.2.2"><span class="term">target_path</span></dt><dd><p>
+           See above for the explanation.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.14.2.2.3"><span class="term">connection_id</span></dt><dd><p>
+           ID of the connection that will be used for this profile.
+          </p></dd><dt id="id-1.4.6.2.11.6.5.6.14.2.2.4"><span class="term">acls_id</span></dt><dd><p>
+           ID of ACL's profile that will be used for this profile.
+          </p></dd></dl></div></dd></dl></div></section><section class="sect3" id="s3-specific-configurables" data-id-title="S3 specific configurables"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.4.2 </span><span class="title-name">S3 specific configurables</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#s3-specific-configurables">#</a></h4></div></div></div><p>
+     The cloud synchronization module will only work with back-ends that are
+     compatible with AWS S3. There are a few configurables that can be used to
+     tweak its behavior when accessing S3 cloud services:
+    </p><div class="verbatim-wrap"><pre class="screen">{
+  "multipart_sync_threshold": <em class="replaceable">OBJECT_SIZE</em>,
+  "multipart_min_part_size": <em class="replaceable">PART_SIZE</em>
+}</pre></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.11.6.6.4.1"><span class="term">multipart_sync_threshold</span></dt><dd><p>
+        Objects whose size is equal to or larger than this value will be
+        synchronized with the cloud service using multipart upload.
+       </p></dd><dt id="id-1.4.6.2.11.6.6.4.2"><span class="term">multipart_min_part_size</span></dt><dd><p>
+        Minimum parts size to use when synchronizing objects using multipart
+        upload.
+       </p></dd></dl></div></section></section><section class="sect2" id="archive-sync-module" data-id-title="Archive synchronization module"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.8.5 </span><span class="title-name">Archive synchronization module</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#archive-sync-module">#</a></h3></div></div></div><p>
+    The <span class="emphasis"><em>archive sync module</em></span> uses the versioning feature of
+    S3 objects in Object Gateway. You can configure an <span class="emphasis"><em>archive zone</em></span>
+    that captures the different versions of S3 objects as they occur over time
+    in other zones. The history of versions that the archive zone keeps can
+    only be eliminated via gateways associated with the archive zone.
+   </p><p>
+    With such an architecture, several non-versioned zones can mirror their
+    data and metadata via their zone gateways providing high availability to
+    the end users, while the archive zone captures all the data updates to
+    consolidate them as versions of S3 objects.
+   </p><p>
+    By including the archive zone in a multi-zone configuration, you gain the
+    flexibility of an S3 object history in one zone while saving the space that
+    the replicas of the versioned S3 objects would consume in the remaining
+    zones.
+   </p><section class="sect3" id="archive-sync-module-configuration" data-id-title="Configuring the archive synchronization module"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.5.1 </span><span class="title-name">Configuring the archive synchronization module</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#archive-sync-module-configuration">#</a></h4></div></div></div><div id="id-1.4.6.2.11.7.5.2" data-id-title="More information" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: More information</h6><p>
+      Refer to <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed" title="21.13. Multisite Object Gateways">Section 21.13, “Multisite Object Gateways”</a> for details on configuring
+      multisite gateways.
+     </p><p>
+      Refer to <a class="xref" href="cha-ceph-gw.html#ceph-rgw-sync" title="21.8. Synchronization modules">Section 21.8, “Synchronization modules”</a> for details on configuring
+      synchronization modules.
+     </p></div><p>
+     To use the archive sync module, you need to create a new zone whose tier
+     type is set to <code class="literal">archive</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=<em class="replaceable">ZONE_GROUP_NAME</em> \
+ --rgw-zone=<em class="replaceable">OGW_ZONE_NAME</em> \
+ --endpoints=<em class="replaceable">http://OGW_ENDPOINT1_URL[,http://OGW_ENDPOINT2_URL,...]</em>
+ --tier-type=archive</pre></div></section></section></section><section class="sect1" id="ceph-rgw-ldap" data-id-title="LDAP authentication"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.9 </span><span class="title-name">LDAP authentication</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-ldap">#</a></h2></div></div></div><p>
+   Apart from the default local user authentication, Object Gateway can use LDAP server
+   services to authenticate users as well.
+  </p><section class="sect2" id="ceph-rgw-ldap-how-works" data-id-title="Authentication mechanism"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.9.1 </span><span class="title-name">Authentication mechanism</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-ldap-how-works">#</a></h3></div></div></div><p>
+    The Object Gateway extracts the user's LDAP credentials from a token. A search
+    filter is constructed from the user name. The Object Gateway uses the configured
+    service account to search the directory for a matching entry. If an entry
+    is found, the Object Gateway attempts to bind to the found distinguished name with
+    the password from the token. If the credentials are valid, the bind will
+    succeed, and the Object Gateway grants access.
+   </p><p>
+    You can limit the allowed users by setting the base for the search to a
+    specific organizational unit or by specifying a custom search filter, for
+    example requiring specific group membership, custom object classes, or
+    attributes.
+   </p></section><section class="sect2" id="ceph-rgw-ldap-reqs" data-id-title="Requirements"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.9.2 </span><span class="title-name">Requirements</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-ldap-reqs">#</a></h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      <span class="emphasis"><em>LDAP or Active Directory</em></span>: A running LDAP instance
+      accessible by the Object Gateway.
+     </p></li><li class="listitem"><p>
+      <span class="emphasis"><em>Service account</em></span>: LDAP credentials to be used by the
+      Object Gateway with search permissions.
+     </p></li><li class="listitem"><p>
+      <span class="emphasis"><em>User account</em></span>: At least one user account in the LDAP
+      directory.
+     </p></li></ul></div><div id="id-1.4.6.2.12.4.3" data-id-title="Do not overlap LDAP and local users" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Do not overlap LDAP and local users</h6><p>
+     You should not use the same user names for local users and for users being
+     authenticated by using LDAP. The Object Gateway cannot distinguish them and it
+     treats them as the same user.
+    </p></div><div id="id-1.4.6.2.12.4.4" data-id-title="Sanity checks" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Sanity checks</h6><p>
+     Use the <code class="command">ldapsearch</code> utility to verify the service
+     account or the LDAP connection. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>ldapsearch -x -D "uid=ceph,ou=system,dc=example,dc=com" -W \
+-H ldaps://example.com -b "ou=users,dc=example,dc=com" 'uid=*' dn</pre></div><p>
+     Make sure to use the same LDAP parameters as in the Ceph configuration
+     file to eliminate possible problems.
+    </p></div></section><section class="sect2" id="ceph-rgw-ldap-config" data-id-title="Configuring Object Gateway to use LDAP authentication"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.9.3 </span><span class="title-name">Configuring Object Gateway to use LDAP authentication</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-ldap-config">#</a></h3></div></div></div><p>
+    The following parameters are related to the LDAP authentication:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.12.5.3.1"><span class="term"><code class="option">rgw_s3_auth_use_ldap</code></span></dt><dd><p>
+       Set this option to <code class="literal">true</code> to enable S3 authentication
+       with LDAP.
+      </p></dd><dt id="id-1.4.6.2.12.5.3.2"><span class="term"><code class="option">rgw_ldap_uri</code></span></dt><dd><p>
+       Specifies the LDAP server to use. Make sure to use the
+       <code class="literal">ldaps://<em class="replaceable">FQDN</em>:<em class="replaceable">PORT</em></code>
+       parameter to avoid transmitting the plain text credentials openly.
+      </p></dd><dt id="id-1.4.6.2.12.5.3.3"><span class="term"><code class="option">rgw_ldap_binddn</code></span></dt><dd><p>
+       The Distinguished Name (DN) of the service account used by the Object Gateway.
+      </p></dd><dt id="id-1.4.6.2.12.5.3.4"><span class="term"><code class="option">rgw_ldap_secret</code></span></dt><dd><p>
+       The password for the service account.
+      </p></dd><dt id="id-1.4.6.2.12.5.3.5"><span class="term">rgw_ldap_searchdn</span></dt><dd><p>
+       Specifies the base in the directory information tree for searching
+       users. This might be your users organizational unit or some more
+       specific Organizational Unit (OU).
+      </p></dd><dt id="id-1.4.6.2.12.5.3.6"><span class="term"><code class="option">rgw_ldap_dnattr</code></span></dt><dd><p>
+       The attribute being used in the constructed search filter to match a
+       user name. Depending on your Directory Information Tree (DIT) this would
+       probably be <code class="literal">uid</code> or <code class="literal">cn</code>.
+      </p></dd><dt id="id-1.4.6.2.12.5.3.7"><span class="term"><code class="option">rgw_search_filter</code></span></dt><dd><p>
+       If not specified, the Object Gateway automatically constructs the search filter
+       with the <code class="option">rgw_ldap_dnattr</code> setting. Use this parameter to
+       narrow the list of allowed users in very flexible ways. Consult
+       <a class="xref" href="cha-ceph-gw.html#ceph-rgw-ldap-filter" title="21.9.4. Using a custom search filter to limit user access">Section 21.9.4, “Using a custom search filter to limit user access”</a> for details.
+      </p></dd></dl></div></section><section class="sect2" id="ceph-rgw-ldap-filter" data-id-title="Using a custom search filter to limit user access"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.9.4 </span><span class="title-name">Using a custom search filter to limit user access</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-ldap-filter">#</a></h3></div></div></div><p>
+    There are two ways you can use the <code class="option">rgw_search_filter</code>
+    parameter.
+   </p><section class="sect3" id="partial-filter-search-filter" data-id-title="Partial filter to further limit the constructed search filter"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.9.4.1 </span><span class="title-name">Partial filter to further limit the constructed search filter</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#partial-filter-search-filter">#</a></h4></div></div></div><p>
+     An example of a partial filter:
+    </p><div class="verbatim-wrap"><pre class="screen">"objectclass=inetorgperson"</pre></div><p>
+     The Object Gateway will generate the search filter as usual with the user name from
+     the token and the value of <code class="option">rgw_ldap_dnattr</code>. The
+     constructed filter is then combined with the partial filter from the
+     <code class="option">rgw_search_filter</code> attribute. Depending on the user name
+     and the settings the final search filter may become:
+    </p><div class="verbatim-wrap"><pre class="screen">"(&amp;(uid=hari)(objectclass=inetorgperson))"</pre></div><p>
+     In that case, user 'hari' will only be granted access if he is found in
+     the LDAP directory, has an object class of 'inetorgperson', and did
+     specify a valid password.
+    </p></section><section class="sect3" id="complete-filter" data-id-title="Complete filter"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.9.4.2 </span><span class="title-name">Complete filter</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#complete-filter">#</a></h4></div></div></div><p>
+     A complete filter must contain a <code class="option">USERNAME</code> token which
+     will be substituted with the user name during the authentication attempt.
+     The <code class="option">rgw_ldap_dnattr</code> parameter is not used anymore in this
+     case. For example, to limit valid users to a specific group, use the
+     following filter:
+    </p><div class="verbatim-wrap"><pre class="screen">"(&amp;(uid=USERNAME)(memberOf=cn=ceph-users,ou=groups,dc=mycompany,dc=com))"</pre></div><div id="id-1.4.6.2.12.6.4.4" data-id-title="memberOf attribute" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: <code class="literal">memberOf</code> attribute</h6><p>
+      Using the <code class="literal">memberOf</code> attribute in LDAP searches requires
+      server side support from you specific LDAP server implementation.
+     </p></div></section></section><section class="sect2" id="ceph-rgw-ldap-token" data-id-title="Generating an access token for LDAP authentication"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.9.5 </span><span class="title-name">Generating an access token for LDAP authentication</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-ldap-token">#</a></h3></div></div></div><p>
+    The <code class="command">radosgw-token</code> utility generates the access token
+    based on the LDAP user name and password. It outputs a base-64 encoded
+    string which is the actual access token. Use your favorite S3 client (refer
+    to <a class="xref" href="cha-ceph-gw.html#accessing-ragos-gateway" title="21.5.1. Accessing Object Gateway">Section 21.5.1, “Accessing Object Gateway”</a>) and specify the token as the
+    access key and use an empty secret key.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>export RGW_ACCESS_KEY_ID="<em class="replaceable">USERNAME</em>"
+<code class="prompt user">&gt; </code>export RGW_SECRET_ACCESS_KEY="<em class="replaceable">PASSWORD</em>"
+<code class="prompt user">cephuser@adm &gt; </code>radosgw-token --encode --ttype=ldap</pre></div><div id="id-1.4.6.2.12.7.4" data-id-title="Clear text credentials" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Clear text credentials</h6><p>
+     The access token is a base-64 encoded JSON structure and contains the LDAP
+     credentials as a clear text.
+    </p></div><div id="id-1.4.6.2.12.7.5" data-id-title="Active Directory" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Active Directory</h6><p>
+     For Active Directory, use the <code class="option">--ttype=ad</code> parameter.
+    </p></div></section></section><section class="sect1" id="ogw-bucket-sharding" data-id-title="Bucket index sharding"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.10 </span><span class="title-name">Bucket index sharding</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-sharding">#</a></h2></div></div></div><p>
+   The Object Gateway stores bucket index data in an index pool, which defaults to
+   <code class="literal">.rgw.buckets.index</code>. If you put too many (hundreds of
+   thousands) objects into a single bucket and the quota for maximum number of
+   objects per bucket (<code class="option">rgw bucket default quota max objects</code>)
+   is not set, the performance of the index pool may degrade. <span class="emphasis"><em>Bucket
+   index sharding</em></span> prevents such performance decreases and allows a
+   high number of objects per bucket.
+  </p><section class="sect2" id="ogw-bucket-reshard" data-id-title="Bucket index resharding"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.10.1 </span><span class="title-name">Bucket index resharding</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-reshard">#</a></h3></div></div></div><p>
+    If a bucket has grown large and its initial configuration is not sufficient
+    anymore, the bucket's index pool needs to be resharded. You can either use
+    automatic online bucket index resharding (refer to
+    <a class="xref" href="cha-ceph-gw.html#ogw-bucket-sharding-dyn" title="21.10.1.1. Dynamic resharding">Section 21.10.1.1, “Dynamic resharding”</a>), or reshard the bucket index
+    offline manually (refer to <a class="xref" href="cha-ceph-gw.html#ogw-bucket-sharding-re" title="21.10.1.2. Resharding manually">Section 21.10.1.2, “Resharding manually”</a>).
+   </p><section class="sect3" id="ogw-bucket-sharding-dyn" data-id-title="Dynamic resharding"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.10.1.1 </span><span class="title-name">Dynamic resharding</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-sharding-dyn">#</a></h4></div></div></div><p>
+     From SUSE Enterprise Storage 5, we support online bucket resharding. This detects if
+     the number of objects per bucket reaches a certain threshold, and
+     automatically increases the number of shards used by the bucket index.
+     This process reduces the number of entries in each bucket index shard.
+    </p><p>
+     The detection process runs:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       When new objects are added to the bucket.
+      </p></li><li class="listitem"><p>
+       In a background process that periodically scans all the buckets. This is
+       needed in order to deal with existing buckets that are not being
+       updated.
+      </p></li></ul></div><p>
+     A bucket that requires resharding is added to the
+     <code class="option">reshard_log</code> queue and will be scheduled to be resharded
+     later. The reshard threads run in the background and execute the scheduled
+     resharding, one at a time.
+    </p><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Configuring dynamic resharding </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.3.6">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.6.2.13.3.3.6.2"><span class="term"><code class="option">rgw_dynamic_resharding</code></span></dt><dd><p>
+        Enables or disables dynamic bucket index resharding. Possible values
+        are 'true' or 'false'. Defaults to 'true'.
+       </p></dd><dt id="id-1.4.6.2.13.3.3.6.3"><span class="term"><code class="option">rgw_reshard_num_logs</code></span></dt><dd><p>
+        Number of shards for the resharding log. Defaults to 16.
+       </p></dd><dt id="id-1.4.6.2.13.3.3.6.4"><span class="term"><code class="option">rgw_reshard_bucket_lock_duration</code></span></dt><dd><p>
+        Duration of lock on the bucket object during resharding. Defaults to
+        120 seconds.
+       </p></dd><dt id="id-1.4.6.2.13.3.3.6.5"><span class="term"><code class="option">rgw_max_objs_per_shard</code></span></dt><dd><p>
+        Maximum number of objects per bucket index shard. Defaults to 100000
+        objects.
+       </p></dd><dt id="id-1.4.6.2.13.3.3.6.6"><span class="term"><code class="option">rgw_reshard_thread_interval</code></span></dt><dd><p>
+        Maximum time between rounds of reshard thread processing. Defaults to
+        600 seconds.
+       </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Commands to administer the resharding process </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.3.7">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.6.2.13.3.3.7.2"><span class="term">Add a bucket to the resharding queue:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard add \
+ --bucket <em class="replaceable">BUCKET_NAME</em> \
+ --num-shards <em class="replaceable">NEW_NUMBER_OF_SHARDS</em></pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.3"><span class="term">List resharding queue:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard list</pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.4"><span class="term">Process/schedule a bucket resharding:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard process</pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.5"><span class="term">Display the bucket resharding status:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard status --bucket <em class="replaceable">BUCKET_NAME</em></pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.6"><span class="term">Cancel pending bucket resharding:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard cancel --bucket <em class="replaceable">BUCKET_NAME</em></pre></div></dd></dl></div></section><section class="sect3" id="ogw-bucket-sharding-re" data-id-title="Resharding manually"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.10.1.2 </span><span class="title-name">Resharding manually</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-sharding-re">#</a></h4></div></div></div><p>
+     Dynamic resharding as mentioned in
+     <a class="xref" href="cha-ceph-gw.html#ogw-bucket-sharding-dyn" title="21.10.1.1. Dynamic resharding">Section 21.10.1.1, “Dynamic resharding”</a> is supported only for simple
+     Object Gateway configurations. For multisite configurations, use manual resharding
+     as described in this section.
+    </p><p>
+     To reshard the bucket index manually offline, use the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket reshard</pre></div><p>
+     The <code class="command">bucket reshard</code> command performs the following:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Creates a new set of bucket index objects for the specified object.
+      </p></li><li class="listitem"><p>
+       Spreads all entries of these index objects.
+      </p></li><li class="listitem"><p>
+       Creates a new bucket instance.
+      </p></li><li class="listitem"><p>
+       Links the new bucket instance with the bucket so that all new index
+       operations go through the new bucket indexes.
+      </p></li><li class="listitem"><p>
+       Prints the old and the new bucket ID to the standard output.
+      </p></li></ul></div><div id="id-1.4.6.2.13.3.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      When choosing a number of shards, note the following: aim for no more
+      than 100000 entries per shard. Bucket index shards that are prime numbers
+      tend to work better in evenly distributing bucket index entries across
+      the shards. For example, 503 bucket index shards is better than 500 since
+      the former is prime.
+     </p></div><div id="id-1.4.6.2.13.3.4.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+      Multi-site configurations do not support resharding a bucket index.
+     </p><p>
+      For multi-site configurations, resharding a bucket index requires
+      resynchronizing all data from the master zone to all slave zones.
+      Depending on the bucket size, this can take a considerable amount of time
+      and resources.
+     </p></div><div class="procedure" id="id-1.4.6.2.13.3.4.9" data-id-title="Resharding the bucket index"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 21.1: </span><span class="title-name">Resharding the bucket index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.4.9">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Make sure that all operations to the bucket are stopped.
+      </p></li><li class="step"><p>
+       Back up the original bucket index:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bi list \
+ --bucket=<em class="replaceable">BUCKET_NAME</em> \
+ &gt; <em class="replaceable">BUCKET_NAME</em>.list.backup</pre></div></li><li class="step"><p>
+       Reshard the bucket index:
+      </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket reshard \
+ --bucket=<em class="replaceable">BUCKET_NAME</em> \
+ --num-shards=<em class="replaceable">NEW_SHARDS_NUMBER</em></pre></div><div id="id-1.4.6.2.13.3.4.9.4.3" data-id-title="Old bucket ID" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Old bucket ID</h6><p>
+        As part of its output, this command also prints the new and the old
+        bucket ID.
+       </p></div></li></ol></div></div></section></section><section class="sect2" id="ogw-bucket-sharding-new" data-id-title="Bucket index sharding for new buckets"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.10.2 </span><span class="title-name">Bucket index sharding for new buckets</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-sharding-new">#</a></h3></div></div></div><p>
+    There are two options that affect bucket index sharding:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Use the <code class="option">rgw_override_bucket_index_max_shards</code> option for
+      simple configurations.
+     </p></li><li class="listitem"><p>
+      Use the <code class="option">bucket_index_max_shards</code> option for multisite
+      configurations.
+     </p></li></ul></div><p>
+    Setting the options to <code class="literal">0</code> disables bucket index sharding.
+    A value greater than <code class="literal">0</code> enables bucket index sharding and
+    sets the maximum number of shards.
+   </p><p>
+    The following formula helps you calculate the recommended number of shards:
+   </p><div class="verbatim-wrap"><pre class="screen">number_of_objects_expected_in_a_bucket / 100000</pre></div><p>
+    Be aware that the maximum number of shards is 7877.
+   </p><section class="sect3" id="multisite-config-bucket" data-id-title="Multisite configurations"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.10.2.1 </span><span class="title-name">Multisite configurations</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#multisite-config-bucket">#</a></h4></div></div></div><p>
+     Multisite configurations can have a different index pool to manage
+     failover. To configure a consistent shard count for zones in one zone
+     group, set the <code class="option">bucket_index_max_shards</code> option in the zone
+     group's configuration:
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Export the zonegroup configuration to the
+       <code class="filename">zonegroup.json</code> file:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup get &gt; zonegroup.json</pre></div></li><li class="step"><p>
+       Edit the <code class="filename">zonegroup.json</code> file and set the
+       <code class="option">bucket_index_max_shards</code> option for each named zone.
+      </p></li><li class="step"><p>
+       Reset the zonegroup:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup set &lt; zonegroup.json</pre></div></li><li class="step"><p>
+       Update the period. See
+       <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-updateperiod" title="21.13.3.6. Update the period">Section 21.13.3.6, “Update the period”</a>.
+      </p></li></ol></div></div></section></section></section><section class="sect1" id="ogw-keystone" data-id-title="OpenStack Keystone integration"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.11 </span><span class="title-name">OpenStack Keystone integration</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-keystone">#</a></h2></div></div></div><p>
+   OpenStack Keystone is an identity service for the OpenStack product. You can
+   integrate the Object Gateway with Keystone to set up a gateway that accepts a
+   Keystone authentication token. A user authorized by Keystone to access
+   the gateway will be verified on the Ceph Object Gateway side and automatically created if
+   needed. The Object Gateway queries Keystone periodically for a list of revoked
+   tokens.
+  </p><section class="sect2" id="ogw-keystone-ostack" data-id-title="Configuring OpenStack"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.11.1 </span><span class="title-name">Configuring OpenStack</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-keystone-ostack">#</a></h3></div></div></div><p>
+    Before configuring the Ceph Object Gateway, you need to configure the OpenStack Keystone to
+    enable the Swift service and point it to the Ceph Object Gateway:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      <span class="emphasis"><em>Set the Swift service.</em></span> To use OpenStack to validate
+      Swift users, first create the Swift service:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>openstack service create \
+ --name=swift \
+ --description="Swift Service" \
+ object-store</pre></div></li><li class="step"><p>
+      <span class="emphasis"><em>Set the endpoints.</em></span> After you create the Swift
+      service, point to the Ceph Object Gateway. Replace
+      <em class="replaceable">REGION_NAME</em> with the name of the gateway’s
+      zonegroup name or region name.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>openstack endpoint create --region <em class="replaceable">REGION_NAME</em> \
+ --publicurl   "http://radosgw.example.com:8080/swift/v1" \
+ --adminurl    "http://radosgw.example.com:8080/swift/v1" \
+ --internalurl "http://radosgw.example.com:8080/swift/v1" \
+ swift</pre></div></li><li class="step"><p>
+      <span class="emphasis"><em>Verify the settings.</em></span> After you create the Swift
+      service and set the endpoints, show the endpoints to verify that all the
+      settings are correct.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>openstack endpoint show object-store</pre></div></li></ol></div></div></section><section class="sect2" id="ogw-keystone-ogw" data-id-title="Configuring the Ceph Object Gateway"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.11.2 </span><span class="title-name">Configuring the Ceph Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-keystone-ogw">#</a></h3></div></div></div><section class="sect3" id="id-1.4.6.2.14.4.2" data-id-title="Configure SSL certificates"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.11.2.1 </span><span class="title-name">Configure SSL certificates</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.14.4.2">#</a></h4></div></div></div><p>
+     The Ceph Object Gateway queries Keystone periodically for a list of revoked tokens.
+     These requests are encoded and signed. Keystone may be also configured
+     to provide self-signed tokens, which are also encoded and signed. You need
+     to configure the gateway so that it can decode and verify these signed
+     messages. Therefore, the OpenSSL certificates that Keystone uses to
+     create the requests need to be converted to the 'nss db' format:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mkdir /var/ceph/nss
+<code class="prompt root"># </code>openssl x509 -in /etc/keystone/ssl/certs/ca.pem \
+ -pubkey | certutil -d /var/ceph/nss -A -n ca -t "TCu,Cu,Tuw"
+<code class="systemitem">root</code>openssl x509 -in /etc/keystone/ssl/certs/signing_cert.pem \
+ -pubkey | certutil -A -d /var/ceph/nss -n signing_cert -t "P,P,P"</pre></div><p>
+     To allow Ceph Object Gateway to interact with OpenStack Keystone, OpenStack Keystone can use a
+     self-signed SSL certificate. Either install Keystone’s SSL certificate
+     on the node running the Ceph Object Gateway, or alternatively set the value of the
+     option <code class="option">rgw keystone verify ssl</code> to 'false'. Setting
+     <code class="option">rgw keystone verify ssl</code> to 'false' means that the gateway
+     will not attempt to verify the certificate.
+    </p></section><section class="sect3" id="config-ogw-options" data-id-title="Configure the Object Gateways options"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.11.2.2 </span><span class="title-name">Configure the Object Gateway's options</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#config-ogw-options">#</a></h4></div></div></div><p>
+     You can configure Keystone integration using the following options:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.14.4.3.3.1"><span class="term"><code class="option">rgw keystone api version</code></span></dt><dd><p>
+        Version of the Keystone API. Valid options are 2 or 3. Defaults to 2.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.2"><span class="term"><code class="option">rgw keystone url</code></span></dt><dd><p>
+        The URL and port number of the administrative RESTful API on the
+        Keystone server. Follows the pattern
+        <em class="replaceable">SERVER_URL:PORT_NUMBER</em>.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.3"><span class="term"><code class="option">rgw keystone admin token</code></span></dt><dd><p>
+        The token or shared secret that is configured internally in Keystone
+        for administrative requests.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.4"><span class="term"><code class="option">rgw keystone accepted roles</code></span></dt><dd><p>
+        The roles required to serve requests. Defaults to 'Member, admin'.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.5"><span class="term"><code class="option">rgw keystone accepted admin roles</code></span></dt><dd><p>
+        The list of roles allowing a user to gain administrative privileges.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.6"><span class="term"><code class="option">rgw keystone token cache size</code></span></dt><dd><p>
+        The maximum number of entries in the Keystone token cache.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.7"><span class="term"><code class="option">rgw keystone revocation interval</code></span></dt><dd><p>
+        The number of seconds before checking revoked tokens. Defaults to 15 *
+        60.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.8"><span class="term"><code class="option">rgw keystone implicit tenants</code></span></dt><dd><p>
+        Create new users in their own tenants of the same name. Defaults to
+        'false'.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.9"><span class="term"><code class="option">rgw s3 auth use keystone</code></span></dt><dd><p>
+        If set to 'true', the Ceph Object Gateway will authenticate users using Keystone.
+        Defaults to 'false'.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.3.10"><span class="term"><code class="option">nss db path</code></span></dt><dd><p>
+        The path to the NSS database.
+       </p></dd></dl></div><p>
+     It is also possible to configure the Keystone service tenant, user, and
+     password for Keystone (for version 2.0 of the OpenStack Identity API),
+     similar to the way OpenStack services tend to be configured. This way you
+     can avoid setting the shared secret <code class="option">rgw keystone admin
+     token</code> in the configuration file, which should be disabled in
+     production environments. The service tenant credentials should have admin
+     privileges. For more details refer to the
+     <a class="link" href="https://docs.openstack.org/keystone/latest/#setting-up-projects-users-and-roles" target="_blank">official
+     OpenStack Keystone documentation</a>. The related configuration options
+     follow:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.14.4.3.5.1"><span class="term"><code class="option">rgw keystone admin user</code></span></dt><dd><p>
+        The Keystone administrator user name.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.5.2"><span class="term"><code class="option">rgw keystone admin password</code></span></dt><dd><p>
+        The keystone administrator user password.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.5.3"><span class="term"><code class="option">rgw keystone admin tenant</code></span></dt><dd><p>
+        The Keystone version 2.0 administrator user tenant.
+       </p></dd></dl></div><p>
+     A Ceph Object Gateway user is mapped to a Keystone tenant. A Keystone user has
+     different roles assigned to it, possibly on more than one tenant. When the
+     Ceph Object Gateway gets the ticket, it looks at the tenant and the user roles that are
+     assigned to that ticket, and accepts or rejects the request according to
+     the setting of the <code class="option">rgw keystone accepted roles</code> option.
+    </p><div id="id-1.4.6.2.14.4.3.7" data-id-title="Mapping to OpenStack tenants" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Mapping to OpenStack tenants</h6><p>
+      Although Swift tenants are mapped to the Object Gateway user by default, they
+      can be also mapped to OpenStack tenants via the <code class="option">rgw keystone
+      implicit tenants</code> option. This will make containers use the
+      tenant namespace instead of the S3 like global namespace that the Object Gateway
+      defaults to. We recommend deciding on the mapping method at the planning
+      stage to avoid confusion. The reason for this is that toggling the option
+      later affects only newer requests which get mapped under a tenant, while
+      older buckets created before still continue to be in a global namespace.
+     </p></div><p>
+     For version 3 of the OpenStack Identity API, you should replace the
+     <code class="option">rgw keystone admin tenant</code> option with:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.14.4.3.9.1"><span class="term"><code class="option">rgw keystone admin domain</code></span></dt><dd><p>
+        The Keystone administrator user domain.
+       </p></dd><dt id="id-1.4.6.2.14.4.3.9.2"><span class="term"><code class="option">rgw keystone admin project</code></span></dt><dd><p>
+        The Keystone administrator user project.
+       </p></dd></dl></div></section></section></section><section class="sect1" id="ogw-storage-classes" data-id-title="Pool placement and storage classes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.12 </span><span class="title-name">Pool placement and storage classes</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes">#</a></h2></div></div></div><section class="sect2" id="ogw-storage-classes-placement-targets" data-id-title="Displaying placement targets"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.12.1 </span><span class="title-name">Displaying placement targets</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-placement-targets">#</a></h3></div></div></div><p>
+    Placement targets control which pools are associated with a particular
+    bucket. A bucket’s placement target is selected on creation, and cannot be
+    modified. You can display its <code class="literal">placement_rule</code> by running
+    the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket stats</pre></div><p>
+    The zonegroup configuration contains a list of placement targets with an
+    initial target named 'default-placement'. The zone configuration then maps
+    each zonegroup placement target name onto its local storage. This zone
+    placement information includes the 'index_pool' name for the bucket index,
+    the 'data_extra_pool' name for metadata about incomplete multipart uploads,
+    and a 'data_pool' name for each storage class.
+   </p></section><section class="sect2" id="ogw-storage-classes-itself" data-id-title="Storage classes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.12.2 </span><span class="title-name">Storage classes</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-itself">#</a></h3></div></div></div><p>
+    Storage classes help customizing the placement of object data. S3 Bucket
+    Lifecycle rules can automate the transition of objects between storage
+    classes.
+   </p><p>
+    Storage classes are defined in terms of placement targets. Each zonegroup
+    placement target lists its available storage classes with an initial class
+    named 'STANDARD'. The zone configuration is responsible for providing a
+    'data_pool' pool name for each of the zonegroup’s storage classes.
+   </p></section><section class="sect2" id="ogw-storage-classes-zone-config" data-id-title="Configuring zonegroups and zones"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.12.3 </span><span class="title-name">Configuring zonegroups and zones</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-zone-config">#</a></h3></div></div></div><p>
+    Use the <code class="command">radosgw-admin</code> command on the zonegroups and zones
+    to configure their placement. You can query the zonegroup placement
+    configuration using the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup get
+{
+    "id": "ab01123f-e0df-4f29-9d71-b44888d67cd5",
+    "name": "default",
+    "api_name": "default",
+    ...
+    "placement_targets": [
+        {
+            "name": "default-placement",
+            "tags": [],
+            "storage_classes": [
+                "STANDARD"
+            ]
+        }
+    ],
+    "default_placement": "default-placement",
+    ...
+}</pre></div><p>
+    To query the zone placement configuration, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone get
+{
+    "id": "557cdcee-3aae-4e9e-85c7-2f86f5eddb1f",
+    "name": "default",
+    "domain_root": "default.rgw.meta:root",
+    ...
+    "placement_pools": [
+        {
+            "key": "default-placement",
+            "val": {
+                "index_pool": "default.rgw.buckets.index",
+                "storage_classes": {
+                    "STANDARD": {
+                        "data_pool": "default.rgw.buckets.data"
+                    }
+                },
+                "data_extra_pool": "default.rgw.buckets.non-ec",
+                "index_type": 0
+            }
+        }
+    ],
+    ...
+}</pre></div><div id="id-1.4.6.2.15.4.6" data-id-title="No previous multisite configuration" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: No previous multisite configuration</h6><p>
+     If you have not done any previous multisite configuration, a 'default'
+     zone and zonegroup are created for you, and changes to the zone/zonegroup
+     will not take effect until you restart the Ceph Object Gateways. If you have created a
+     realm for multisite, the zone/zonegroup changes will take effect after you
+     commit the changes with the <code class="command">radosgw-admin period update
+     --commit</code> command.
+    </p></div><section class="sect3" id="adding-placement-target" data-id-title="Adding a placement target"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.12.3.1 </span><span class="title-name">Adding a placement target</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#adding-placement-target">#</a></h4></div></div></div><p>
+     To create a new placement target named 'temporary', start by adding it to
+     the zonegroup:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup placement add \
+      --rgw-zonegroup default \
+      --placement-id temporary</pre></div><p>
+     Then provide the zone placement info for that target:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone placement add \
+      --rgw-zone default \
+      --placement-id temporary \
+      --data-pool default.rgw.temporary.data \
+      --index-pool default.rgw.temporary.index \
+      --data-extra-pool default.rgw.temporary.non-ec</pre></div></section><section class="sect3" id="adding-storage-class" data-id-title="Adding a storage class"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.12.3.2 </span><span class="title-name">Adding a storage class</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#adding-storage-class">#</a></h4></div></div></div><p>
+     To add a new storage class named 'COLD' to the 'default-placement' target,
+     start by adding it to the zonegroup:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup placement add \
+      --rgw-zonegroup default \
+      --placement-id default-placement \
+      --storage-class COLD</pre></div><p>
+     Then provide the zone placement info for that storage class:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone placement add \
+      --rgw-zone default \
+      --placement-id default-placement \
+      --storage-class COLD \
+      --data-pool default.rgw.cold.data \
+      --compression lz4</pre></div></section></section><section class="sect2" id="ogw-storage-classes-customizing-placement" data-id-title="Placement customization"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.12.4 </span><span class="title-name">Placement customization</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-customizing-placement">#</a></h3></div></div></div><section class="sect3" id="edit-default-zgroup-placement" data-id-title="Editing default zonegroup placement"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.12.4.1 </span><span class="title-name">Editing default zonegroup placement</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#edit-default-zgroup-placement">#</a></h4></div></div></div><p>
+     By default, new buckets will use the zonegroup’s
+     <code class="literal">default_placement</code> target. You can change this zonegroup
+     setting with:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup placement default \
+      --rgw-zonegroup default \
+      --placement-id new-placement</pre></div></section><section class="sect3" id="edit-default-user-placement" data-id-title="Editing default user placement"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.12.4.2 </span><span class="title-name">Editing default user placement</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#edit-default-user-placement">#</a></h4></div></div></div><p>
+     A Ceph Object Gateway user can override the zonegroup’s default placement target by
+     setting a non-empty <code class="literal">default_placement</code> field in the user
+     info. Similarly, the <code class="literal">default_storage_class</code> can override
+     the <code class="option">STANDARD</code> storage class applied to objects by default.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user info --uid testid
+{
+    ...
+    "default_placement": "",
+    "default_storage_class": "",
+    "placement_tags": [],
+    ...
+}</pre></div><p>
+     If a zonegroup’s placement target contains any tags, users will be unable
+     to create buckets with that placement target unless their user info
+     contains at least one matching tag in its 'placement_tags' field. This can
+     be useful to restrict access to certain types of storage.
+    </p><p>
+     The <code class="command">radosgw-admin</code> command cannot modify these fields
+     directly, therefore you need to edit the JSON format manually:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin metadata get user:<em class="replaceable">USER-ID</em> &gt; user.json
+<code class="prompt user">&gt; </code>vi user.json     # edit the file as required
+<code class="prompt user">cephuser@adm &gt; </code>radosgw-admin metadata put user:<em class="replaceable">USER-ID</em> &lt; user.json</pre></div></section><section class="sect3" id="s3-bucket-default-placement" data-id-title="Editing the S3 default bucket placement"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.12.4.3 </span><span class="title-name">Editing the S3 default bucket placement</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#s3-bucket-default-placement">#</a></h4></div></div></div><p>
+     When creating a bucket with the S3 protocol, a placement target can be
+     provided as part of the <code class="option">LocationConstraint</code> to override
+     the default placement targets from the user and zonegroup.
+    </p><p>
+     Normally, the <code class="option">LocationConstraint</code> needs to match the
+     zonegroup’s <code class="option">api_name</code>:
+    </p><div class="verbatim-wrap"><pre class="screen">&lt;LocationConstraint&gt;default&lt;/LocationConstraint&gt;</pre></div><p>
+     You can add a custom placement target to the <code class="option">api_name</code>
+     following a colon:
+    </p><div class="verbatim-wrap"><pre class="screen">&lt;LocationConstraint&gt;default:new-placement&lt;/LocationConstraint&gt;</pre></div></section><section class="sect3" id="swift-default-bucket-placement" data-id-title="Editing the Swift bucket placement"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.12.4.4 </span><span class="title-name">Editing the Swift bucket placement</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#swift-default-bucket-placement">#</a></h4></div></div></div><p>
+     When creating a bucket with the Swift protocol, you can provide a
+     placement target in the HTTP header's <code class="literal">X-Storage-Policy</code>:
+    </p><div class="verbatim-wrap"><pre class="screen">X-Storage-Policy: <em class="replaceable">NEW-PLACEMENT</em></pre></div></section></section><section class="sect2" id="ogw-storage-classes-usage" data-id-title="Using storage classes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.12.5 </span><span class="title-name">Using storage classes</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-storage-classes-usage">#</a></h3></div></div></div><p>
+    All placement targets have a <code class="option">STANDARD</code> storage class which
+    is applied to new objects by default. You can override this default with
+    its <code class="literal">default_storage_class</code>.
+   </p><p>
+    To create an object in a non-default storage class, provide that storage
+    class name in an HTTP header with the request. The S3 protocol uses the
+    <code class="literal">X-Amz-Storage-Class</code> header, while the Swift protocol
+    uses the <code class="literal">X-Object-Storage-Class</code> header.
+   </p><p>
+    You can use <span class="emphasis"><em>S3 Object Lifecycle Management</em></span> to move
+    object data between storage classes using <code class="option">Transition</code>
+    actions.
+   </p></section></section><section class="sect1" id="ceph-rgw-fed" data-id-title="Multisite Object Gateways"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.13 </span><span class="title-name">Multisite Object Gateways</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed">#</a></h2></div></div></div><p>
+   Ceph supports several multi-site configuration options for the Ceph Object Gateway:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.16.3.1"><span class="term">Multi-zone</span></dt><dd><p>
+      A configuration consisting of one zonegroup and multiple zones, each zone
+      with one or more <code class="systemitem">ceph-radosgw</code>
+      instances. Each zone is backed by its own Ceph Storage Cluster.
+      Multiple zones in a zone group provide disaster recovery for the zonegroup
+      should one of the zones experience a significant failure. Each zone is
+      active and may receive write operations. In addition to disaster
+      recovery, multiple active zones may also serve as a foundation for
+      content delivery networks.
+     </p></dd><dt id="id-1.4.6.2.16.3.2"><span class="term">Multi-zone-group</span></dt><dd><p>
+      Ceph Object Gateway supports multiple zonegroups, each zonegroup with one or more zones.
+      Objects stored to zones in one zonegroup within the same realm as another
+      zonegroup share a global object namespace, ensuring unique object IDs
+      across zonegroups and zones.
+     </p><div id="id-1.4.6.2.16.3.2.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       It is important to note that zonegroups <span class="emphasis"><em>only</em></span> sync
+       metadata amongst themselves. Data and metadata are replicated between
+       the zones within the zonegroup. No data or metadata is shared across a
+       realm.
+      </p></div></dd><dt id="id-1.4.6.2.16.3.3"><span class="term">Multiple realms</span></dt><dd><p>
+      Ceph Object Gateway supports the notion of realms; a globally unique namespace.
+      Multiple realms are supported which may encompass single or multiple
+      zonegroups.
+     </p></dd></dl></div><p>
+   You can configure each Object Gateway to work in an active-active zone configuration,
+   allowing for writes to non-master zones. The multi-site configuration is
+   stored within a container called a realm. The realm stores zonegroups, zones,
+   and a time period with multiple epochs for tracking changes to the
+   configuration. The <code class="systemitem">rgw</code> daemons
+   handle the synchronization, eliminating the need for a separate
+   synchronization agent. This approach to synchronization allows the Ceph Object Gateway to
+   operate with an active-active configuration instead of active-passive.
+  </p><section class="sect2" id="ceph-rgw-multi-req-assump" data-id-title="Requirements and assumptions"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.13.1 </span><span class="title-name">Requirements and assumptions</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-multi-req-assump">#</a></h3></div></div></div><p>
+    A multi-site configuration requires at least two Ceph storage clusters,
+    and at least two Ceph Object Gateway instances, one for each Ceph storage cluster. The
+    following configuration assumes at least two Ceph storage clusters are in
+    geographically separate locations. However, the configuration can work on
+    the same site. For example, named <code class="literal">rgw1</code> and
+    <code class="literal">rgw2</code>.
+   </p><p>
+    A multi-site configuration requires a master zonegroup and a master zone. A
+    master zone is the source of truth with regard to all metadata operations
+    in a multisite cluster. Additionally, each zonegroup requires a master zone.
+    zonegroups may have one or more secondary or non-master zones. In this
+    guide, the <code class="literal">rgw1</code> host serves as the master zone of the
+    master zonegroup and the <code class="literal">rgw2</code> host serves as the
+    secondary zone of the master zonegroup.
+   </p></section><section class="sect2" id="ceph-rgw-multi-limitations" data-id-title="Limitations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.13.2 </span><span class="title-name">Limitations</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-multi-limitations">#</a></h3></div></div></div><p>
+    Multi-site configurations do not support resharding a bucket index.
+   </p><p>
+    As a workaround, the bucket can be purged from the slave zones, resharded
+    on the master zone, and then resynchronized. Depending on the contents of
+    the bucket, this can be a time- and resource-intensive operation.
+   </p></section><section class="sect2" id="ceph-rgw-config-master-zone" data-id-title="Configuring a master zone"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.13.3 </span><span class="title-name">Configuring a master zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-config-master-zone">#</a></h3></div></div></div><p>
+    All gateways in a multi-site configuration retrieve their configuration
+    from a <code class="systemitem">ceph-radosgw</code> daemon on a
+    host within the master zonegroup and master zone. To configure your gateways
+    in a multi-site configuration, select a
+    <code class="systemitem">ceph-radosgw</code> instance to configure
+    the master zonegroup and master zone.
+   </p><section class="sect3" id="ceph-rgw-fed-realm" data-id-title="Creating a realm"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.1 </span><span class="title-name">Creating a realm</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-realm">#</a></h4></div></div></div><p>
+     A realm represents a globally unique namespace consisting of one or more
+     zonegroups containing one or more zones. Zones contain buckets, which in
+     turn contain objects. A realm enables the Ceph Object Gateway to support multiple
+     namespaces and their configuration on the same hardware. A realm contains
+     the notion of periods. Each period represents the state of the zonegroup
+     and zone configuration in time. Each time you make a change to a zonegroup
+     or zone, update the period and commit it. By default, the Ceph Object Gateway does not
+     create a realm for backward compatibility. As a best practice, we
+     recommend creating realms for new clusters.
+    </p><p>
+     Create a new realm called <code class="literal">gold</code> for the multi-site
+     configuration by opening a command line interface on a host identified to
+     serve in the master zonegroup and zone. Then, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm create --rgw-realm=gold --default</pre></div><p>
+     If the cluster has a single realm, specify the <code class="option">--default</code>
+     flag. If <code class="option">--default</code> is specified,
+     <code class="command">radosgw-admin</code> uses this realm by default. If
+     <code class="option">--default</code> is not specified, adding zone-groups and zones
+     requires specifying either the <code class="option">--rgw-realm</code> flag or the
+     <code class="option">--realm-id</code> flag to identify the realm when adding
+     zonegroups and zones.
+    </p><p>
+     After creating the realm, <code class="command">radosgw-admin</code> returns the
+     realm configuration:
+    </p><div class="verbatim-wrap"><pre class="screen">{
+  "id": "4a367026-bd8f-40ee-b486-8212482ddcd7",
+  "name": "gold",
+  "current_period": "09559832-67a4-4101-8b3f-10dfcd6b2707",
+  "epoch": 1
+}</pre></div><div id="id-1.4.6.2.16.7.3.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Ceph generates a unique ID for the realm, which allows the renaming of
+      a realm if the need arises.
+     </p></div></section><section class="sect3" id="ceph-rgw-fed-createmasterzonegrp" data-id-title="Creating a master zonegroup"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.2 </span><span class="title-name">Creating a master zonegroup</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-createmasterzonegrp">#</a></h4></div></div></div><p>
+     A realm must have at least one zonegroup to serve as the master zonegroup
+     for the realm. Create a new master zonegroup for the multi-site
+     configuration by opening a command line interface on a host identified to
+     serve in the master zonegroup and zone. Create a master zonegroup called
+     <code class="literal">us</code> by executing the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup create --rgw-zonegroup=us \
+--endpoints=http://rgw1:80 --master --default</pre></div><p>
+     If the realm only has a single zonegroup, specify the
+     <code class="option">--default</code> flag. If <code class="option">--default</code> is
+     specified, <code class="command">radosgw-admin</code> uses this zonegroup by default
+     when adding new zones. If <code class="option">--default</code> is not specified,
+     adding zones requires either the <code class="option">--rgw-zonegroup</code> flag or
+     the <code class="option">--zonegroup-id</code> flag to identify the zonegroup when
+     adding or modifying zones.
+    </p><p>
+     After creating the master zonegroup, <code class="command">radosgw-admin</code>
+     returns the zonegroup configuration. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">{
+ "id": "d4018b8d-8c0d-4072-8919-608726fa369e",
+ "name": "us",
+ "api_name": "us",
+ "is_master": "true",
+ "endpoints": [
+     "http:\/\/rgw1:80"
+ ],
+ "hostnames": [],
+ "hostnames_s3website": [],
+ "master_zone": "",
+ "zones": [],
+ "placement_targets": [],
+ "default_placement": "",
+ "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7"
+}</pre></div></section><section class="sect3" id="ceph-rgw-fed-masterzone" data-id-title="Creating a master zone"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.3 </span><span class="title-name">Creating a master zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone">#</a></h4></div></div></div><div id="id-1.4.6.2.16.7.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      Zones need to be created on a Ceph Object Gateway node that will be within the zone.
+     </p></div><p>
+     Create a new master zone for the multi-site configuration by opening a
+     command line interface on a host identified to serve in the master
+     zonegroup and zone. Execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --rgw-zone=us-east-1 \
+--endpoints=http://rgw1:80 --access-key=<em class="replaceable">SYSTEM_ACCESS_KEY</em> --secret=<em class="replaceable">SYSTEM_SECRET_KEY</em></pre></div><div id="id-1.4.6.2.16.7.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      The <code class="option">--access-key</code> and <code class="option">--secret</code> options
+      are not specified in the above example. These settings are added to the
+      zone when the user is created in the next section.
+     </p></div><p>
+     After creating the master zone, <code class="command">radosgw-admin</code> returns
+     the zone configuration. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">  {
+      "id": "56dfabbb-2f4e-4223-925e-de3c72de3866",
+      "name": "us-east-1",
+      "domain_root": "us-east-1.rgw.meta:root",
+      "control_pool": "us-east-1.rgw.control",
+      "gc_pool": "us-east-1.rgw.log:gc",
+      "lc_pool": "us-east-1.rgw.log:lc",
+      "log_pool": "us-east-1.rgw.log",
+      "intent_log_pool": "us-east-1.rgw.log:intent",
+      "usage_log_pool": "us-east-1.rgw.log:usage",
+      "reshard_pool": "us-east-1.rgw.log:reshard",
+      "user_keys_pool": "us-east-1.rgw.meta:users.keys",
+      "user_email_pool": "us-east-1.rgw.meta:users.email",
+      "user_swift_pool": "us-east-1.rgw.meta:users.swift",
+      "user_uid_pool": "us-east-1.rgw.meta:users.uid",
+      "otp_pool": "us-east-1.rgw.otp",
+      "system_key": {
+          "access_key": "1555b35654ad1656d804",
+          "secret_key": "h7GhxuBLTrlhVUyxSPUKUV8r/2EI4ngqJxD7iBdBYLhwluN30JaT3Q=="
+      },
+      "placement_pools": [
+          {
+              "key": "us-east-1-placement",
+              "val": {
+                  "index_pool": "us-east-1.rgw.buckets.index",
+                  "storage_classes": {
+                      "STANDARD": {
+                          "data_pool": "us-east-1.rgw.buckets.data"
+                      }
+                  },
+                  "data_extra_pool": "us-east-1.rgw.buckets.non-ec",
+                  "index_type": 0
+              }
+          }
+      ],
+      "metadata_heap": "",
+      "realm_id": ""
+  }</pre></div></section><section class="sect3" id="ceph-rgw-fed-deldefzonegrp" data-id-title="Deleting the default zone and group"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.4 </span><span class="title-name">Deleting the default zone and group</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-deldefzonegrp">#</a></h4></div></div></div><div id="id-1.4.6.2.16.7.6.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      The following steps assume a multi-site configuration using newly
+      installed systems that are not storing data yet. <span class="bold"><strong>Do
+      not delete</strong></span> the default zone and its pools if you are already
+      using it to store data, or the data will be deleted and unrecoverable.
+     </p></div><p>
+     The default installation of Object Gateway creates the default zonegroup called
+     <code class="literal">default</code>. Delete the default zone if it exists. Make
+     sure to remove it from the default zonegroup first.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup delete --rgw-zonegroup=default</pre></div><p>
+     Delete the default pools in your Ceph storage cluster if they exist:
+    </p><div id="id-1.4.6.2.16.7.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      The following step assumes a multi-site configuration using newly
+      installed systems that are not currently storing data.
+      <span class="bold"><strong>Do not delete</strong></span> the default zonegroup if
+      you are already using it to store data.
+     </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.control default.rgw.control --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.data.root default.rgw.data.root --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.gc default.rgw.gc --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.log default.rgw.log --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.meta default.rgw.meta --yes-i-really-really-mean-it</pre></div><div id="id-1.4.6.2.16.7.6.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+      If you delete the default zonegroup, you are also deleting the system
+      user. If your admin user keys are not propagated, the Object Gateway management
+      functionality of the Ceph Dashboard will fail. Follow on to the next section
+      to re-create your system user if you go ahead with this step.
+     </p></div></section><section class="sect3" id="ceph-rgw-fed-masterzone-createuser" data-id-title="Creating system users"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.5 </span><span class="title-name">Creating system users</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-createuser">#</a></h4></div></div></div><p>
+     The <code class="systemitem">ceph-radosgw</code> daemons must
+     authenticate before pulling realm and period information. In the master
+     zone, create a system user to simplify authentication between daemons:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user create --uid=zone.user \
+--display-name="Zone User" --access-key=<em class="replaceable">SYSTEM_ACCESS_KEY</em> \
+--secret=<em class="replaceable">SYSTEM_SECRET_KEY</em> --system</pre></div><p>
+     Make a note of the <code class="option">access_key</code> and
+     <code class="option">secret_key</code> as the secondary zones require them to
+     authenticate with the master zone.
+    </p><p>
+     Add the system user to the master zone:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zone=us-east-1 \
+--access-key=<em class="replaceable">ACCESS-KEY</em> --secret=<em class="replaceable">SECRET</em></pre></div><p>
+     Update the period to make the changes take effect:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit</pre></div></section><section class="sect3" id="ceph-rgw-fed-masterzone-updateperiod" data-id-title="Update the period"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.6 </span><span class="title-name">Update the period</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-updateperiod">#</a></h4></div></div></div><p>
+     After updating the master zone configuration, update the period:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit</pre></div><p>
+     After updating the period, <code class="command">radosgw-admin</code> returns the
+     period configuration. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">{
+  "id": "09559832-67a4-4101-8b3f-10dfcd6b2707", "epoch": 1, "predecessor_uuid": "", "sync_status": [], "period_map":
+  {
+    "id": "09559832-67a4-4101-8b3f-10dfcd6b2707", "zonegroups": [], "short_zone_ids": []
+  }, "master_zonegroup": "", "master_zone": "", "period_config":
+  {
+     "bucket_quota": {
+     "enabled": false, "max_size_kb": -1, "max_objects": -1
+     }, "user_quota": {
+       "enabled": false, "max_size_kb": -1, "max_objects": -1
+     }
+  }, "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7", "realm_name": "gold", "realm_epoch": 1
+}</pre></div><div id="id-1.4.6.2.16.7.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Updating the period changes the epoch and ensures that other zones
+      receive the updated configuration.
+     </p></div></section><section class="sect3" id="ceph-rgw-fed-masterzone-startrgw" data-id-title="Start the gateway"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.7 </span><span class="title-name">Start the gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-startrgw">#</a></h4></div></div></div><p>
+     On the Object Gateway host, start and enable the Ceph Object Gateway service. To identify the
+     unique FSID of the cluster, run <code class="command">ceph fsid</code>. To identify
+     the Object Gateway daemon name, run <code class="command">ceph orch ps --hostname
+     <em class="replaceable">HOSTNAME</em></code>.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@ogw &gt; </code>systemctl start ceph-<em class="replaceable">FSID</em>@<em class="replaceable">DAEMON_NAME</em>
+<code class="prompt user">cephuser@ogw &gt; </code>systemctl enable ceph-<em class="replaceable">FSID</em>@<em class="replaceable">DAEMON_NAME</em></pre></div></section></section><section class="sect2" id="ceph-rgw-config-secondaryzone" data-id-title="Configure secondary zones"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.13.4 </span><span class="title-name">Configure secondary zones</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-config-secondaryzone">#</a></h3></div></div></div><p>
+    Zones within a zonegroup replicate all data to ensure that each zone has the
+    same data. When creating the secondary zone, execute all of the following
+    operations on a host identified to serve the secondary zone.
+   </p><div id="id-1.4.6.2.16.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     To add a third zone, follow the same procedures as for adding the
+     secondary zone. Use different zone name.
+    </p></div><div id="id-1.4.6.2.16.8.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     You must execute metadata operations, such as user creation, on a host
+     within the master zone. The master zone and the secondary zone can receive
+     bucket operations, but the secondary zone redirects bucket operations to
+     the master zone. If the master zone is down, bucket operations will fail.
+    </p></div><section class="sect3" id="ceph-rgw-pull-realm" data-id-title="Pulling the realm"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.1 </span><span class="title-name">Pulling the realm</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-pull-realm">#</a></h4></div></div></div><p>
+     Using the URL path, access key, and secret of the master zone in the
+     master zonegroup, pull the realm configuration to the host. To pull a
+     non-default realm, specify the realm using the
+     <code class="option">--rgw-realm</code> or <code class="option">--realm-id</code> configuration
+     options.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable">url-to-master-zone-gateway</em> --access-key=<em class="replaceable">access-key</em> --secret=<em class="replaceable">secret</em></pre></div><div id="id-1.4.6.2.16.8.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Pulling the realm also retrieves the remote's current period
+      configuration, and makes it the current period on this host as well.
+     </p></div><p>
+     If this realm is the default realm or the only realm, make the realm the
+     default realm.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm default --rgw-realm=<em class="replaceable">REALM-NAME</em></pre></div></section><section class="sect3" id="cceph-rgw-create-secondaryzone" data-id-title="Creating a secondary zone"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.2 </span><span class="title-name">Creating a secondary zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#cceph-rgw-create-secondaryzone">#</a></h4></div></div></div><p>
+     Create a secondary zone for the multi-site configuration by opening a
+     command line interface on a host identified to serve the secondary zone.
+     Specify the zonegroup ID, the new zone name and an endpoint for the zone.
+     <span class="emphasis"><em>Do not</em></span> use the <code class="option">--master</code> flag. All
+     zones run in an active-active configuration by default. If the secondary
+     zone should not accept write operations, specify the
+     <code class="option">--read-only</code> flag to create an active-passive
+     configuration between the master zone and the secondary zone.
+     Additionally, provide the <code class="option">access_key</code> and
+     <code class="option">secret_key</code> of the generated system user stored in the
+     master zone of the master zonegroup. Execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=<em class="replaceable">ZONE-GROUP-NAME</em>\
+ --rgw-zone=<em class="replaceable">ZONE-NAME</em> --endpoints=<em class="replaceable">URL</em> \
+ --access-key=<em class="replaceable">SYSTEM-KEY</em> --secret=<em class="replaceable">SECRET</em>\
+ --endpoints=http://<em class="replaceable">FQDN</em>:80 \
+ [--read-only]</pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --endpoints=http://rgw2:80 \
+--rgw-zone=us-east-2 --access-key=<em class="replaceable">SYSTEM_ACCESS_KEY</em> --secret=<em class="replaceable">SYSTEM_SECRET_KEY</em>
+{
+  "id": "950c1a43-6836-41a2-a161-64777e07e8b8",
+  "name": "us-east-2",
+  "domain_root": "us-east-2.rgw.data.root",
+  "control_pool": "us-east-2.rgw.control",
+  "gc_pool": "us-east-2.rgw.gc",
+  "log_pool": "us-east-2.rgw.log",
+  "intent_log_pool": "us-east-2.rgw.intent-log",
+  "usage_log_pool": "us-east-2.rgw.usage",
+  "user_keys_pool": "us-east-2.rgw.users.keys",
+  "user_email_pool": "us-east-2.rgw.users.email",
+  "user_swift_pool": "us-east-2.rgw.users.swift",
+  "user_uid_pool": "us-east-2.rgw.users.uid",
+  "system_key": {
+      "access_key": "1555b35654ad1656d804",
+      "secret_key": "h7GhxuBLTrlhVUyxSPUKUV8r\/2EI4ngqJxD7iBdBYLhwluN30JaT3Q=="
+  },
+  "placement_pools": [
+      {
+          "key": "default-placement",
+          "val": {
+              "index_pool": "us-east-2.rgw.buckets.index",
+              "data_pool": "us-east-2.rgw.buckets.data",
+              "data_extra_pool": "us-east-2.rgw.buckets.non-ec",
+              "index_type": 0
+          }
+      }
+  ],
+  "metadata_heap": "us-east-2.rgw.meta",
+  "realm_id": "815d74c2-80d6-4e63-8cfc-232037f7ff5c"
+}</pre></div><div id="id-1.4.6.2.16.8.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      The following steps assume a multi-site configuration using
+      newly-installed systems that are not yet storing data.
+      <span class="bold"><strong>Do not delete</strong></span> the default zone
+      and its pools if you are already using it to store data, or the data will
+      be lost and unrecoverable.
+     </p></div><p>
+     Delete the default zone if needed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone delete --rgw-zone=default</pre></div><p>
+     Delete the default pools in your Ceph storage cluster if needed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.control default.rgw.control --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.data.root default.rgw.data.root --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.gc default.rgw.gc --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.log default.rgw.log --yes-i-really-really-mean-it
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.users.uid default.rgw.users.uid --yes-i-really-really-mean-it</pre></div></section><section class="sect3" id="ceph-rgw-secondzone-update-config" data-id-title="Updating the Ceph configuration file"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.3 </span><span class="title-name">Updating the Ceph configuration file</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-secondzone-update-config">#</a></h4></div></div></div><p>
+     Update the Ceph configuration file on the secondary zone hosts by adding
+     the <code class="literal">rgw_zone</code> configuration option and the name of the
+     secondary zone to the instance entry.
+    </p><p>
+     To do so, execute the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set <em class="replaceable">SERVICE_NAME</em> rgw_zone us-west</pre></div></section><section class="sect3" id="ceph-rgw-fed-secondzone-updateperiod" data-id-title="Updating the period"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.4 </span><span class="title-name">Updating the period</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-secondzone-updateperiod">#</a></h4></div></div></div><p>
+     After updating the master zone configuration, update the period:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit
+{
+  "id": "b5e4d3ec-2a62-4746-b479-4b2bc14b27d1",
+  "epoch": 2,
+  "predecessor_uuid": "09559832-67a4-4101-8b3f-10dfcd6b2707",
+  "sync_status": [ "[...]"
+  ],
+  "period_map": {
+      "id": "b5e4d3ec-2a62-4746-b479-4b2bc14b27d1",
+      "zonegroups": [
+          {
+              "id": "d4018b8d-8c0d-4072-8919-608726fa369e",
+              "name": "us",
+              "api_name": "us",
+              "is_master": "true",
+              "endpoints": [
+                  "http:\/\/rgw1:80"
+              ],
+              "hostnames": [],
+              "hostnames_s3website": [],
+              "master_zone": "83859a9a-9901-4f00-aa6d-285c777e10f0",
+              "zones": [
+                  {
+                      "id": "83859a9a-9901-4f00-aa6d-285c777e10f0",
+                      "name": "us-east-1",
+                      "endpoints": [
+                          "http:\/\/rgw1:80"
+                      ],
+                      "log_meta": "true",
+                      "log_data": "false",
+                      "bucket_index_max_shards": 0,
+                      "read_only": "false"
+                  },
+                  {
+                      "id": "950c1a43-6836-41a2-a161-64777e07e8b8",
+                      "name": "us-east-2",
+                      "endpoints": [
+                          "http:\/\/rgw2:80"
+                      ],
+                      "log_meta": "false",
+                      "log_data": "true",
+                      "bucket_index_max_shards": 0,
+                      "read_only": "false"
+                  }
+
+              ],
+              "placement_targets": [
+                  {
+                      "name": "default-placement",
+                      "tags": []
+                  }
+              ],
+              "default_placement": "default-placement",
+              "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7"
+          }
+      ],
+      "short_zone_ids": [
+          {
+              "key": "83859a9a-9901-4f00-aa6d-285c777e10f0",
+              "val": 630926044
+          },
+          {
+              "key": "950c1a43-6836-41a2-a161-64777e07e8b8",
+              "val": 4276257543
+          }
+
+      ]
+  },
+  "master_zonegroup": "d4018b8d-8c0d-4072-8919-608726fa369e",
+  "master_zone": "83859a9a-9901-4f00-aa6d-285c777e10f0",
+  "period_config": {
+      "bucket_quota": {
+          "enabled": false,
+          "max_size_kb": -1,
+          "max_objects": -1
+      },
+      "user_quota": {
+          "enabled": false,
+          "max_size_kb": -1,
+          "max_objects": -1
+      }
+  },
+  "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7",
+  "realm_name": "gold",
+  "realm_epoch": 2
+}</pre></div><div id="id-1.4.6.2.16.8.8.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Updating the period changes the epoch and ensures that other zones
+      receive the updated configuration.
+     </p></div></section><section class="sect3" id="ceph-rgw-fed-secondzone-startrgw" data-id-title="Starting the Object Gateway"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.5 </span><span class="title-name">Starting the Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-secondzone-startrgw">#</a></h4></div></div></div><p>
+     On the Object Gateway host, start and enable the Ceph Object Gateway service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch start rgw.us-east-2</pre></div></section><section class="sect3" id="ceph-rgw-check-sync-status" data-id-title="Checking the synchronization status"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.6 </span><span class="title-name">Checking the synchronization status</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-check-sync-status">#</a></h4></div></div></div><p>
+     When the secondary zone is up and running, check the synchronization
+     status. Synchronization copies users and buckets created in the master
+     zone to the secondary zone.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin sync status</pre></div><p>
+     The output provides the status of synchronization operations. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">realm f3239bc5-e1a8-4206-a81d-e1576480804d (gold)
+    zonegroup c50dbb7e-d9ce-47cc-a8bb-97d9b399d388 (us)
+         zone 4c453b70-4a16-4ce8-8185-1893b05d346e (us-west)
+metadata sync syncing
+              full sync: 0/64 shards
+              metadata is caught up with master
+              incremental sync: 64/64 shards
+    data sync source: 1ee9da3e-114d-4ae3-a8a4-056e8a17f532 (us-east)
+                      syncing
+                      full sync: 0/128 shards
+                      incremental sync: 128/128 shards
+                      data is caught up with source</pre></div><div id="id-1.4.6.2.16.8.10.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Secondary zones accept bucket operations; however, secondary zones
+      redirect bucket operations to the master zone and then synchronize with
+      the master zone to receive the result of the bucket operations. If the
+      master zone is down, bucket operations executed on the secondary zone
+      will fail, but object operations should succeed.
+     </p></div></section><section class="sect3" id="ceph-rgw-object-verification" data-id-title="Verification of an Object"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.7 </span><span class="title-name">Verification of an Object</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-object-verification">#</a></h4></div></div></div><p>
+     By default, objects are not verified again after the synchronization of an
+     object was successful. To enable verification, set the
+     <code class="option">rgw_sync_obj_etag_verify</code> option to <code class="option">true</code>.
+     After enabling, the optional objects will be synchronized. An additional
+     MD5 checksum will verify that it is computed on the source and the
+     destination. This is to ensure the integrity of the objects fetched from a
+     remote server over HTTP including multisite sync. This option can decrease
+     the performance of RGWs as more computation is needed.
+    </p></section></section><section class="sect2" id="ceph-rgw-maintenance" data-id-title="General Object Gateway maintenance"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.13.5 </span><span class="title-name">General Object Gateway maintenance</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-maintenance">#</a></h3></div></div></div><section class="sect3" id="ceph-rgw-check-sync" data-id-title="Checking the synchronization status"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.1 </span><span class="title-name">Checking the synchronization status</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-check-sync">#</a></h4></div></div></div><p>
+     Information about the replication status of a zone can be queried with:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin sync status
+        realm b3bc1c37-9c44-4b89-a03b-04c269bea5da (gold)
+    zonegroup f54f9b22-b4b6-4a0e-9211-fa6ac1693f49 (us)
+         zone adce11c9-b8ed-4a90-8bc5-3fc029ff0816 (us-west)
+        metadata sync syncing
+              full sync: 0/64 shards
+              incremental sync: 64/64 shards
+              metadata is behind on 1 shards
+              oldest incremental change not applied: 2017-03-22 10:20:00.0.881361s
+data sync source: 341c2d81-4574-4d08-ab0f-5a2a7b168028 (us-east)
+                  syncing
+                  full sync: 0/128 shards
+                  incremental sync: 128/128 shards
+                  data is caught up with source
+          source: 3b5d1a3f-3f27-4e4a-8f34-6072d4bb1275 (us-3)
+                  syncing
+                  full sync: 0/128 shards
+                  incremental sync: 128/128 shards
+                  data is caught up with source</pre></div><p>
+     The output can differ depending on the sync status. The shards are
+     described as two different types during sync:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.6.2.16.9.2.5.1"><span class="term">Behind shards</span></dt><dd><p>
+        Behind shards are shards that need a full data sync and shards needing
+        an incremental data sync because they are not up-to-date.
+       </p></dd><dt id="id-1.4.6.2.16.9.2.5.2"><span class="term">Recovery shards</span></dt><dd><p>
+        Recovery shards are shards that encountered an error during sync and
+        marked for retry. The error mostly occurs on minor issues like
+        acquiring a lock on a bucket. This will typically resolve itself.
+       </p></dd></dl></div></section><section class="sect3" id="ceph-rgw-multisite-logs" data-id-title="Check the logs"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.2 </span><span class="title-name">Check the logs</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-multisite-logs">#</a></h4></div></div></div><p>
+     For multi-site only, you can check out the metadata log
+     (<code class="option">mdlog</code>), the bucket index log (<code class="option">bilog</code>)
+     and the data log (<code class="option">datalog</code>). You can list them and also
+     trim them. This is not needed in most cases as
+     <code class="option">rgw_sync_log_trim_interval</code> option is set to 20 minutes as
+     default. If it is not manually set to 0, you will not have to trim it at
+     any time as it could cause side effects otherwise.
+    </p></section><section class="sect3" id="ceph-rgw-metadata-master" data-id-title="Changing the metadata master zone"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.3 </span><span class="title-name">Changing the metadata master zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-metadata-master">#</a></h4></div></div></div><div id="id-1.4.6.2.16.9.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      Be careful when changing which zone is the metadata master. If a zone has
+      not finished syncing metadata from the current master zone, it is unable
+      to serve any remaining entries when promoted to master and those changes
+      will be lost. For this reason, we recommend waiting for a zone's
+      <code class="command">radosgw-admin</code> synchronization status to catch up on
+      metadata sync before promoting it to master. Similarly, if changes to
+      metadata are being processed by the current master zone while another
+      zone is being promoted to master, those changes are likely to be lost. To
+      avoid this, we recommend shutting down any Object Gateway instances on the
+      previous master zone. After promoting another zone, its new period can be
+      fetched with <code class="command">radosgw-admin</code> period pull and the
+      gateway(s) can be restarted.
+     </p></div><p>
+     To promote a zone (for example, zone <code class="literal">us-west</code> in
+     zonegroup <code class="literal">us</code>) to metadata master, run the following
+     commands on that zone:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@ogw &gt; </code>radosgw-admin zone modify --rgw-zone=us-west --master
+<code class="prompt user">cephuser@ogw &gt; </code>radosgw-admin zonegroup modify --rgw-zonegroup=us --master
+<code class="prompt user">cephuser@ogw &gt; </code>radosgw-admin period update --commit</pre></div><p>
+     This generates a new period, and the Object Gateway instance(s) in zone
+     <code class="literal">us-west</code> sends this period to other zones.
+    </p></section><section class="sect3" id="ceph-rgw-multisite-bucket-reshard" data-id-title="Resharding a bucket index"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.4 </span><span class="title-name">Resharding a bucket index</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-multisite-bucket-reshard">#</a></h4></div></div></div><div id="id-1.4.6.2.16.9.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      Resharding a bucket index in a multi-site setup requires a full
+      resynchronization of the bucket content. Depending on the size and number
+      of objects in the bucket, this is a time- and resource-intensive
+      operation.
+     </p></div><div class="procedure" id="id-1.4.6.2.16.9.5.3" data-id-title="Resharding the bucket index"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 21.2: </span><span class="title-name">Resharding the bucket index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.16.9.5.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Make sure that all operations to the bucket are stopped.
+      </p></li><li class="step"><p>
+       Back up the original bucket index:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bi list \
+ --bucket=<em class="replaceable">BUCKET_NAME</em> \
+ &gt; <em class="replaceable">BUCKET_NAME</em>.list.backup</pre></div></li><li class="step"><p>
+       Disable bucket synchronization for the affected bucket:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket sync disable --bucket=<em class="replaceable">BUCKET_NAME</em></pre></div></li><li class="step"><p>
+       Wait for the synchronization to finish on all zones. Check on master and
+       slave zones with the following command:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin sync status</pre></div></li><li class="step"><p>
+       Stop the Object Gateway instances. First on all slave zones, then on the master
+       zone, too.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@ogw &gt; </code>systemctl stop ceph-radosgw@rgw.<em class="replaceable">NODE</em>.service</pre></div></li><li class="step"><p>
+       Reshard the bucket index on the master zone:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket reshard \
+  --bucket=<em class="replaceable">BUCKET_NAME</em> \
+  --num-shards=<em class="replaceable">NEW_SHARDS_NUMBER</em></pre></div><div id="id-1.4.6.2.16.9.5.3.7.3" data-id-title="Old bucket ID" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Old bucket ID</h6><p>
+        As part of its output, this command also prints the new and the old
+        bucket ID.
+       </p></div></li><li class="step"><p>
+       Purge the bucket on all slave zones:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket rm \
+  --purge-objects \
+  --bucket=<em class="replaceable">BUCKET_NAME</em> \
+  --yes-i-really-mean-it</pre></div></li><li class="step"><p>
+       Restart the Object Gateway on the master zone first, then on the slave zones as
+       well.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@ogw &gt; </code>systemctl restart ceph-radosgw.target</pre></div></li><li class="step"><p>
+       On the master zone, re-enable bucket synchronization.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket sync enable --bucket=<em class="replaceable">BUCKET_NAME</em></pre></div></li></ol></div></div></section></section><section class="sect2" id="ceph-rgw-failover-dr" data-id-title="Performing failover and disaster recovery"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.13.6 </span><span class="title-name">Performing failover and disaster recovery</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-failover-dr">#</a></h3></div></div></div><p>
+    If the master zone should fail, failover to the secondary zone for disaster
+    recovery.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Make the secondary zone the master and default zone. For example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable">ZONE-NAME</em> --master --default</pre></div><p>
+      By default, Ceph Object Gateway runs in an active-active configuration. If the cluster
+      was configured to run in an active-passive configuration, the secondary
+      zone is a read-only zone. Remove the <code class="option">--read-only</code> status
+      to allow the zone to receive write operations. For example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable">ZONE-NAME</em> --master --default \
+                                                   --read-only=false</pre></div></li><li class="step"><p>
+      Update the period to make the changes take effect:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step"><p>
+      Restart the Ceph Object Gateway:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch restart rgw</pre></div></li></ol></div></div><p>
+    If the former master zone recovers, revert the operation.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      From the recovered zone, pull the latest realm configuration from the
+      current master zone.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable">URL-TO-MASTER-ZONE-GATEWAY</em> \
+                           --access-key=<em class="replaceable">ACCESS-KEY</em> --secret=<em class="replaceable">SECRET</em></pre></div></li><li class="step"><p>
+      Make the recovered zone the master and default zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable">ZONE-NAME</em> --master --default</pre></div></li><li class="step"><p>
+      Update the period to make the changes take effect:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step"><p>
+      Restart the Ceph Object Gateway in the recovered zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch restart rgw@rgw</pre></div></li><li class="step"><p>
+      If the secondary zone needs to be a read-only configuration, update the
+      secondary zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zone=<em class="replaceable">ZONE-NAME</em> --read-only</pre></div></li><li class="step"><p>
+      Update the period to make the changes take effect:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit</pre></div></li><li class="step"><p>
+      Restart the Ceph Object Gateway in the secondary zone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch restart@rgw</pre></div></li></ol></div></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="part-accessing-data.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part IV </span>Accessing Cluster Data</span></a> </div><div><a class="pagination-link next" href="cha-ceph-iscsi.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 22 </span>Ceph iSCSI gateway</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-gw.html#sec-ceph-rgw-limits"><span class="title-number">21.1 </span><span class="title-name">Object Gateway restrictions and naming limitations</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ogw-deploy"><span class="title-number">21.2 </span><span class="title-name">Deploying the Object Gateway</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ceph-rgw-operating"><span class="title-number">21.3 </span><span class="title-name">Operating the Object Gateway service</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ogw-config-parameters"><span class="title-number">21.4 </span><span class="title-name">Configuration options</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ceph-rgw-access"><span class="title-number">21.5 </span><span class="title-name">Managing Object Gateway access</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ogw-http-frontends"><span class="title-number">21.6 </span><span class="title-name">HTTP front-ends</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ceph-rgw-https"><span class="title-number">21.7 </span><span class="title-name">Enable HTTPS/SSL for Object Gateways</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ceph-rgw-sync"><span class="title-number">21.8 </span><span class="title-name">Synchronization modules</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ceph-rgw-ldap"><span class="title-number">21.9 </span><span class="title-name">LDAP authentication</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ogw-bucket-sharding"><span class="title-number">21.10 </span><span class="title-name">Bucket index sharding</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ogw-keystone"><span class="title-number">21.11 </span><span class="title-name">OpenStack Keystone integration</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ogw-storage-classes"><span class="title-number">21.12 </span><span class="title-name">Pool placement and storage classes</span></a></span></li><li><span class="sect1"><a href="cha-ceph-gw.html#ceph-rgw-fed"><span class="title-number">21.13 </span><span class="title-name">Multisite Object Gateways</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_gateway.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Hints and Tips | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Hints and Tips | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="The chapter provides information to help you enhance performance of your Ceph cluster and provides tips how to set the cluster up."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Chapter 20. Hints and Tips"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Hints and Tips | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="The chapter provides information to help you enhance performance of your Ceph cluster and provides tips how to set the cluster up."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hints and Tips | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="The chapter provides information to help you enhance performance of your Ceph cluster and provides tips how to set the cluster up."/>
+<link rel="prev" href="part-troubleshooting.html" title="Part VI. FAQs, Tips and Troubleshooting"/><link rel="next" href="storage-faqs.html" title="Chapter 21. Frequently Asked Questions"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="part-troubleshooting.html">FAQs, Tips and Troubleshooting</a><span> / </span><a class="crumb" href="storage-tips.html">Hints and Tips</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-cluster-managment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span></a></li></ol></li><li><a href="part-operate.html" class="has-children "><span class="title-number">II </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">2 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" "><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">4 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">6 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">7 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">9 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">10 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">11 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">12 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li><a href="part-dataccess.html" class="has-children "><span class="title-number">III </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">15 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">16 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-gui.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Managing Cluster with GUI Tools</span></a><ol><li><a href="ceph-oa.html" class=" "><span class="title-number">17 </span><span class="title-name">openATTIC</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">18 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">19 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li class="active"><a href="part-troubleshooting.html" class="has-children you-are-here"><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" you-are-here"><span class="title-number">20 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">21 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">22 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="gloss-storage-glossary.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="app-alerting-default.html" class=" "><span class="title-number">B </span><span class="title-name">Default Alerts for SUSE Enterprise Storage</span></a></li><li><a href="app-storage-manual-inst.html" class=" "><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">D </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="storage-tips" data-id-title="Hints and Tips"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">20 </span><span class="title-name">Hints and Tips</span> <a title="Permalink" class="permalink" href="storage-tips.html#">#</a></h2></div></div></div><p>
+  The chapter provides information to help you enhance performance of your
+  Ceph cluster and provides tips how to set the cluster up.
+ </p><section class="sect1" id="tips-orphaned-partitions" data-id-title="Identifying Orphaned Partitions"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.1 </span><span class="title-name">Identifying Orphaned Partitions</span> <a title="Permalink" class="permalink" href="storage-tips.html#tips-orphaned-partitions">#</a></h2></div></div></div><p>
+   To identify possibly orphaned journal/WAL/DB devices, follow these steps:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Pick the device that may have orphaned partitions and save the list of its
+     partitions to a file:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>ls /dev/sdd?* &gt; /tmp/partitions</pre></div></li><li class="step"><p>
+     Run <code class="command">readlink</code> against all block.wal, block.db, and
+     journal devices, and compare the output to the previously saved list of
+     partitions:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>readlink -f /var/lib/ceph/osd/ceph-*/{block.wal,block.db,journal} \
+ | sort | comm -23 /tmp/partitions -</pre></div><p>
+     The output is the list of partitions that are <span class="emphasis"><em>not</em></span>
+     used by Ceph.
+    </p></li><li class="step"><p>
+     Remove the orphaned partitions that do not belong to Ceph with your
+     preferred command (for example <code class="command">fdisk</code>,
+     <code class="command">parted</code>, or <code class="command">sgdisk</code>).
+    </p></li></ol></div></div></section><section class="sect1" id="tips-scrubbing" data-id-title="Adjusting Scrubbing"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.2 </span><span class="title-name">Adjusting Scrubbing</span> <a title="Permalink" class="permalink" href="storage-tips.html#tips-scrubbing">#</a></h2></div></div></div><p>
+   By default, Ceph performs light scrubbing (find more details in
+   <a class="xref" href="cha-storage-datamgm.html#scrubbing" title="7.5. Scrubbing">Section 7.5, “Scrubbing”</a>) daily and deep scrubbing weekly.
+   <span class="emphasis"><em>Light</em></span> scrubbing checks object sizes and checksums to
+   ensure that placement groups are storing the same object data.
+   <span class="emphasis"><em>Deep</em></span> scrubbing checks an object’s content with that
+   of its replicas to ensure that the actual contents are the same. The price
+   for checking data integrity is increased I/O load on the cluster during the
+   scrubbing procedure.
+  </p><p>
+   The default settings allow Ceph OSDs to initiate scrubbing at inappropriate
+   times, such as during periods of heavy loads. Customers may experience
+   latency and poor performance when scrubbing operations conflict with their
+   operations. Ceph provides several scrubbing settings that can limit
+   scrubbing to periods with lower loads or during off-peak hours.
+  </p><p>
+   If the cluster experiences high loads during the day and low loads late at
+   night, consider restricting scrubbing to night time hours, such as 11pm till
+   6am:
+  </p><div class="verbatim-wrap"><pre class="screen">[osd]
+osd_scrub_begin_hour = 23
+osd_scrub_end_hour = 6</pre></div><p>
+   If time restriction is not an effective method of determining a scrubbing
+   schedule, consider using the <code class="option">osd_scrub_load_threshold</code>
+   option. The default value is 0.5, but it could be modified for low load
+   conditions:
+  </p><div class="verbatim-wrap"><pre class="screen">[osd]
+osd_scrub_load_threshold = 0.25</pre></div></section><section class="sect1" id="tips-stopping-osd-without-rebalancing" data-id-title="Stopping OSDs without Rebalancing"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.3 </span><span class="title-name">Stopping OSDs without Rebalancing</span> <a title="Permalink" class="permalink" href="storage-tips.html#tips-stopping-osd-without-rebalancing">#</a></h2></div></div></div><p>
+   You may need to stop OSDs for maintenance periodically. If you do not want
+   CRUSH to automatically rebalance the cluster in order to avoid huge data
+   transfers, set the cluster to <code class="literal">noout</code> first:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>ceph osd set noout</pre></div><p>
+   When the cluster is set to <code class="literal">noout</code>, you can begin stopping
+   the OSDs within the failure domain that requires maintenance work:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl stop ceph-osd@<em class="replaceable">OSD_NUMBER</em>.service</pre></div><p>
+   Find more information in
+   <a class="xref" href="ceph-operating-services.html#ceph-operating-services-individual" title="3.1.2. Starting, Stopping, and Restarting Individual Services">Section 3.1.2, “Starting, Stopping, and Restarting Individual Services”</a>.
+  </p><p>
+   After you complete the maintenance, start OSDs again:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl start ceph-osd@<em class="replaceable">OSD_NUMBER</em>.service</pre></div><p>
+   After OSD services are started, unset the cluster from
+   <code class="literal">noout</code>:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd unset noout</pre></div></section><section class="sect1" id="Cluster-Time-Setting" data-id-title="Time Synchronization of Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.4 </span><span class="title-name">Time Synchronization of Nodes</span> <a title="Permalink" class="permalink" href="storage-tips.html#Cluster-Time-Setting">#</a></h2></div></div></div><p>
+   Ceph requires precise time synchronization between all nodes.
+  </p><p>
+   We recommend synchronizing all Ceph cluster nodes with at least three
+   reliable time sources that are located on the internal network. The internal
+   time sources can point to a public time server or have their own time
+   source.
+  </p><div id="id-1.3.8.2.7.4" data-id-title="Public Time Servers" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Public Time Servers</h6><p>
+    Do not synchronize all Ceph cluster nodes directly with remote public
+    time servers. With such a configuration, each node in the cluster has its
+    own NTP daemon that communicates continually over the Internet with a set
+    of three or four time servers that may provide slightly different time.
+    This solution introduces a large degree of latency variability that makes
+    it difficult or impossible to keep the clock drift under 0.05 seconds which
+    is what the Ceph monitors require.
+   </p></div><p>
+   For details how to set up the NTP server refer to
+   <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-admin/#cha-netz-xntp" target="_blank">SUSE Linux Enterprise Server
+   Administration Guide</a>.
+  </p><p>
+   Then to change the time on your cluster, do the following:
+  </p><div id="id-1.3.8.2.7.7" data-id-title="Setting Time" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Setting Time</h6><p>
+    You may face a situation when you need to set the time back, for example if
+    the time changes from the summer to the standard time. We do not recommend
+    to move the time backward for a longer period than the cluster is down.
+    Moving the time forward does not cause any trouble.
+   </p></div><div class="procedure" id="id-1.3.8.2.7.8" data-id-title="Time Synchronization on the Cluster"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 20.1: </span><span class="title-name">Time Synchronization on the Cluster </span><a title="Permalink" class="permalink" href="storage-tips.html#id-1.3.8.2.7.8">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Stop all clients accessing the Ceph cluster, especially those using
+     iSCSI.
+    </p></li><li class="step"><p>
+     Shut down your Ceph cluster. On each node run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl stop ceph.target</pre></div><div id="id-1.3.8.2.7.8.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      If you use Ceph and SUSE OpenStack Cloud, stop also the SUSE OpenStack Cloud.
+     </p></div></li><li class="step"><p>
+     Verify that your NTP server is set up correctly—all ntpd daemons get
+     their time from a source or sources in the local network.
+    </p></li><li class="step"><p>
+     Set the correct time on your NTP server.
+    </p></li><li class="step"><p>
+     Verify that NTP is running and working properly, on all nodes run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl status ntpd.service</pre></div><p>
+     or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ntpq -p</pre></div></li><li class="step"><p>
+     Start all monitoring nodes and verify that there is no clock skew:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl start <em class="replaceable">target</em></pre></div></li><li class="step"><p>
+     Start all OSD nodes.
+    </p></li><li class="step"><p>
+     Start other Ceph services.
+    </p></li><li class="step"><p>
+     Start the SUSE OpenStack Cloud if you have it.
+    </p></li></ol></div></div></section><section class="sect1" id="storage-bp-cluster-mntc-unbalanced" data-id-title="Checking for Unbalanced Data Writing"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.5 </span><span class="title-name">Checking for Unbalanced Data Writing</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-cluster-mntc-unbalanced">#</a></h2></div></div></div><p>
+   When data is written to OSDs evenly, the cluster is considered balanced.
+   Each OSD within a cluster is assigned its <span class="emphasis"><em>weight</em></span>. The
+   weight is a relative number and tells Ceph how much of the data should be
+   written to the related OSD. The higher the weight, the more data will be
+   written. If an OSD has zero weight, no data will be written to it. If the
+   weight of an OSD is relatively high compared to other OSDs, a large portion
+   of the data will be written there, which makes the cluster unbalanced.
+  </p><p>
+   Unbalanced clusters have poor performance, and in the case that an OSD with
+   a high weight suddenly crashes, a lot of data needs to be moved to other
+   OSDs, which slows down the cluster as well.
+  </p><p>
+   To avoid this, you should regularly check OSDs for the amount of data
+   writing. If the amount is between 30% and 50% of the capacity of a group of
+   OSDs specified by a given rule set, you need to reweight the OSDs. Check for
+   individual disks and find out which of them fill up faster than the others
+   (or are generally slower), and lower their weight. The same is valid for
+   OSDs where not enough data is written—you can increase their weight to
+   have Ceph write more data to them. In the following example, you will find
+   out the weight of an OSD with ID 13, and reweight it from 3 to 3.05:
+  </p><div class="verbatim-wrap"><pre class="screen">$ ceph osd tree | grep osd.13
+ 13  3                   osd.13  up  1
+
+ $ ceph osd crush reweight osd.13 3.05
+ reweighted item id 13 name 'osd.13' to 3.05 in crush map
+
+ $ ceph osd tree | grep osd.13
+ 13  3.05                osd.13  up  1</pre></div><div id="id-1.3.8.2.8.7" data-id-title="OSD Reweight by Utilization" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: OSD Reweight by Utilization</h6><p>
+    The <code class="command">ceph osd reweight-by-utilization</code>
+    <em class="replaceable">threshold</em> command automates the process of
+    reducing the weight of OSDs which are heavily overused. By default it will
+    adjust the weights downward on OSDs which reached 120% of the average
+    usage, but if you include threshold it will use that percentage instead.
+   </p></div></section><section class="sect1" id="storage-tips-ceph-btrfs-subvol" data-id-title="Btrfs Sub-volume for /var/lib/ceph"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.6 </span><span class="title-name">Btrfs Sub-volume for /var/lib/ceph</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-tips-ceph-btrfs-subvol">#</a></h2></div></div></div><p>
+   SUSE Linux Enterprise by default is installed on a Btrfs partition. The directory
+   <code class="filename">/var/lib/ceph</code> should be excluded from Btrfs snapshots
+   and rollbacks, especially when a MON is running on the node. DeepSea
+   provides the <code class="literal">fs</code> runner that can set up a sub-volume for
+   this path.
+  </p><section class="sect2" id="storage-tips-ceph-btrfs-subvol-req-new" data-id-title="Requirements for new Installation"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.6.1 </span><span class="title-name">Requirements for new Installation</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-tips-ceph-btrfs-subvol-req-new">#</a></h3></div></div></div><p>
+    If you are setting up the cluster the first time, the following
+    requirements must be met before you can use the DeepSea runner:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Salt and DeepSea are properly installed and working according to this
+      documentation.
+     </p></li><li class="listitem"><p>
+      <code class="command">salt-run state.orch ceph.stage.0</code> has been invoked to
+      synchronize all the Salt and DeepSea modules to the minions.
+     </p></li><li class="listitem"><p>
+      Ceph is not yet installed, thus ceph.stage.3 has not yet been run and
+      <code class="filename">/var/lib/ceph</code> does not yet exist.
+     </p></li></ul></div></section><section class="sect2" id="storage-tips-ceph-btrfs-subvol-req-existing" data-id-title="Requirements for Existing Installation"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.6.2 </span><span class="title-name">Requirements for Existing Installation</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-tips-ceph-btrfs-subvol-req-existing">#</a></h3></div></div></div><p>
+    If your cluster is already installed, the following requirements must be
+    met before you can use the DeepSea runner:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Nodes are upgraded to SUSE Enterprise Storage 5.5 and cluster is under
+      DeepSea control.
+     </p></li><li class="listitem"><p>
+      Ceph cluster is up and healthy.
+     </p></li><li class="listitem"><p>
+      Upgrade process has synchronized Salt and DeepSea modules to all
+      minion nodes.
+     </p></li></ul></div></section><section class="sect2" id="storage-tips-ceph-btrfs-subvol-automatic" data-id-title="Automatic Setup"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.6.3 </span><span class="title-name">Automatic Setup</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-tips-ceph-btrfs-subvol-automatic">#</a></h3></div></div></div><div class="procedure"><div class="procedure-contents"><ul class="procedure"><li class="step"><p>
+      On the Salt master run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.migrate.subvolume</pre></div><p>
+      On nodes without an existing <code class="filename">/var/lib/ceph</code>
+      directory, this will, one node at a time:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        create <code class="filename">/var/lib/ceph</code> as a
+        <code class="literal">@/var/lib/ceph</code> Btrfs sub-volume.
+       </p></li><li class="listitem"><p>
+        mount the new sub-volume and update <code class="filename">/etc/fstab</code>
+        appropriately.
+       </p></li><li class="listitem"><p>
+        disable copy-on-write for <code class="filename">/var/lib/ceph</code>.
+       </p></li></ul></div><p>
+      On nodes with an existing Ceph installation, this will, one node at a
+      time:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        terminate running Ceph processes.
+       </p></li><li class="listitem"><p>
+        unmount OSDs on the node.
+       </p></li><li class="listitem"><p>
+        create <code class="literal">@/var/lib/ceph</code> Btrfs sub-volume and migrate
+        existing <code class="filename">/var/lib/ceph</code> data.
+       </p></li><li class="listitem"><p>
+        mount the new sub-volume and update <code class="filename">/etc/fstab</code>
+        appropriately.
+       </p></li><li class="listitem"><p>
+        disable copy-on-write for <code class="filename">/var/lib/ceph/*</code>,
+        omitting <code class="filename">/var/lib/ceph/osd/*</code>.
+       </p></li><li class="listitem"><p>
+        re-mount OSDs.
+       </p></li><li class="listitem"><p>
+        re-start Ceph daemons.
+       </p></li></ul></div></li></ul></div></div></section><section class="sect2" id="storage-tips-ceph-btrfs-subvol-manually" data-id-title="Manual Setup"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.6.4 </span><span class="title-name">Manual Setup</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-tips-ceph-btrfs-subvol-manually">#</a></h3></div></div></div><p>
+    This uses the new <code class="literal">fs</code> runner.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Inspects the state of <code class="filename">/var/lib/ceph</code> on all nodes and
+      print suggestions about how to proceed:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> fs.inspect_var</pre></div><p>
+      This will return one of the following commands:
+     </p><div class="verbatim-wrap"><pre class="screen">salt-run fs.create_var
+salt-run fs.migrate_var
+salt-run fs.correct_var_attrs</pre></div></li><li class="step"><p>
+      Run the command that was returned in the previous step.
+     </p><p>
+      If an error occurs on one of the nodes, the execution for other nodes
+      will stop as well and the runner will try to revert performed changes.
+      Consult the log files on the minions with the problem to determine the
+      problem. The runner can be re-run after the problem has been solved.
+     </p></li></ol></div></div><p>
+    The command <code class="command">salt-run fs.help</code> provides a list of all
+    runner and module commands for the <code class="literal">fs</code> module.
+   </p></section></section><section class="sect1" id="storage-bp-srv-maint-fds-inc" data-id-title="Increasing File Descriptors"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.7 </span><span class="title-name">Increasing File Descriptors</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-srv-maint-fds-inc">#</a></h2></div></div></div><p>
+   For OSD daemons, the read/write operations are critical to keep the Ceph
+   cluster balanced. They often need to have many files open for reading and
+   writing at the same time. On the OS level, the maximum number of
+   simultaneously open files is called 'maximum number of file descriptors'.
+  </p><p>
+   To prevent OSDs from running out of file descriptors, you can override the
+   OS default value and specify the number in
+   <code class="filename">/etc/ceph/ceph.conf</code>, for example:
+  </p><div class="verbatim-wrap"><pre class="screen">max_open_files = 131072</pre></div><p>
+   After you change <code class="option">max_open_files</code>, you need to restart the
+   OSD service on the relevant Ceph node.
+  </p></section><section class="sect1" id="bp-osd-on-exisitng-partitions" data-id-title="How to Use Existing Partitions for OSDs Including OSD Journals"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.8 </span><span class="title-name">How to Use Existing Partitions for OSDs Including OSD Journals</span> <a title="Permalink" class="permalink" href="storage-tips.html#bp-osd-on-exisitng-partitions">#</a></h2></div></div></div><div id="id-1.3.8.2.11.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    This section describes an advanced topic that only storage experts and
+    developers should examine. It is mostly needed when using non-standard OSD
+    journal sizes. If the OSD partition's size is less than 10GB, its initial
+    weight is rounded to 0 and because no data are therefore placed on it, you
+    should increase its weight. We take no responsibility for overfilled
+    journals.
+   </p></div><p>
+   If you need to use existing disk partitions as an OSD node, the OSD journal
+   and data partitions need to be in a GPT partition table.
+  </p><p>
+   You need to set the correct partition types to the OSD partitions so that
+   <code class="systemitem">udev</code> recognizes them correctly and sets their
+   ownership to <code class="literal">ceph:ceph</code>.
+  </p><p>
+   For example, to set the partition type for the journal partition
+   <code class="filename">/dev/vdb1</code> and data partition
+   <code class="filename">/dev/vdb2</code>, run the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>sgdisk --typecode=1:45b0969e-9b03-4f30-b4c6-b4b80ceff106 /dev/vdb
+<code class="prompt user">root # </code>sgdisk --typecode=2:4fbd7e29-9d25-41b8-afd0-062c0ceff05d /dev/vdb</pre></div><div id="id-1.3.8.2.11.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    The Ceph partition table types are listed in
+    <code class="filename">/usr/lib/udev/rules.d/95-ceph-osd.rules</code>:
+   </p><div class="verbatim-wrap"><pre class="screen">cat /usr/lib/udev/rules.d/95-ceph-osd.rules
+# OSD_UUID
+ACTION=="add", SUBSYSTEM=="block", \
+  ENV{DEVTYPE}=="partition", \
+  ENV{ID_PART_ENTRY_TYPE}=="4fbd7e29-9d25-41b8-afd0-062c0ceff05d", \
+  OWNER:="ceph", GROUP:="ceph", MODE:="660", \
+  RUN+="/usr/sbin/ceph-disk --log-stdout -v trigger /dev/$name"
+ACTION=="change", SUBSYSTEM=="block", \
+  ENV{ID_PART_ENTRY_TYPE}=="4fbd7e29-9d25-41b8-afd0-062c0ceff05d", \
+  OWNER="ceph", GROUP="ceph", MODE="660"
+
+# JOURNAL_UUID
+ACTION=="add", SUBSYSTEM=="block", \
+  ENV{DEVTYPE}=="partition", \
+  ENV{ID_PART_ENTRY_TYPE}=="45b0969e-9b03-4f30-b4c6-b4b80ceff106", \
+  OWNER:="ceph", GROUP:="ceph", MODE:="660", \
+  RUN+="/usr/sbin/ceph-disk --log-stdout -v trigger /dev/$name"
+ACTION=="change", SUBSYSTEM=="block", \
+  ENV{ID_PART_ENTRY_TYPE}=="45b0969e-9b03-4f30-b4c6-b4b80ceff106", \
+  OWNER="ceph", GROUP="ceph", MODE="660"
+[...]</pre></div></div></section><section class="sect1" id="storage-admin-integration" data-id-title="Integration with Virtualization Software"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.9 </span><span class="title-name">Integration with Virtualization Software</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-admin-integration">#</a></h2></div></div></div><section class="sect2" id="storage-bp-integration-kvm" data-id-title="Storing KVM Disks in Ceph Cluster"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.9.1 </span><span class="title-name">Storing KVM Disks in Ceph Cluster</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-integration-kvm">#</a></h3></div></div></div><p>
+    You can create a disk image for KVM-driven virtual machine, store it in a
+    Ceph pool, optionally convert the content of an existing image to it, and
+    then run the virtual machine with <code class="command">qemu-kvm</code> making use of
+    the disk image stored in the cluster. For more detailed information, see
+    <a class="xref" href="cha-ceph-kvm.html" title="Chapter 19. Ceph as a Back-end for QEMU KVM Instance">Chapter 19, <em>Ceph as a Back-end for QEMU KVM Instance</em></a>.
+   </p></section><section class="sect2" id="storage-bp-integration-libvirt" data-id-title="Storing libvirt Disks in Ceph Cluster"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.9.2 </span><span class="title-name">Storing <code class="systemitem">libvirt</code> Disks in Ceph Cluster</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-integration-libvirt">#</a></h3></div></div></div><p>
+    Similar to KVM (see <a class="xref" href="storage-tips.html#storage-bp-integration-kvm" title="20.9.1. Storing KVM Disks in Ceph Cluster">Section 20.9.1, “Storing KVM Disks in Ceph Cluster”</a>), you
+    can use Ceph to store virtual machines driven by <code class="systemitem">libvirt</code>. The advantage
+    is that you can run any <code class="systemitem">libvirt</code>-supported virtualization solution, such
+    as KVM, Xen, or LXC. For more information, see
+    <a class="xref" href="cha-ceph-libvirt.html" title="Chapter 18. Using libvirt with Ceph">Chapter 18, <em>Using <code class="systemitem">libvirt</code> with Ceph</em></a>.
+   </p></section><section class="sect2" id="storage-bp-integration-xen" data-id-title="Storing Xen Disks in Ceph Cluster"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.9.3 </span><span class="title-name">Storing Xen Disks in Ceph Cluster</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-integration-xen">#</a></h3></div></div></div><p>
+    One way to use Ceph for storing Xen disks is to make use of <code class="systemitem">libvirt</code>
+    as described in <a class="xref" href="cha-ceph-libvirt.html" title="Chapter 18. Using libvirt with Ceph">Chapter 18, <em>Using <code class="systemitem">libvirt</code> with Ceph</em></a>.
+   </p><p>
+    Another option is to make Xen talk to the <code class="systemitem">rbd</code>
+    block device driver directly:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      If you have no disk image prepared for Xen, create a new one:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>rbd create myimage --size 8000 --pool mypool</pre></div></li><li class="step"><p>
+      List images in the pool <code class="literal">mypool</code> and check if your new
+      image is there:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>rbd list mypool</pre></div></li><li class="step"><p>
+      Create a new block device by mapping the <code class="literal">myimage</code> image
+      to the <code class="systemitem">rbd</code> kernel module:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>rbd map --pool mypool myimage</pre></div><div id="id-1.3.8.2.12.4.4.3.3" data-id-title="User Name and Authentication" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: User Name and Authentication</h6><p>
+       To specify a user name, use <code class="option">--id
+       <em class="replaceable">user-name</em></code>. Moreover, if you use
+       <code class="systemitem">cephx</code> authentication, you must also specify a
+       secret. It may come from a keyring or a file containing the secret:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>rbd map --pool rbd myimage --id admin --keyring /path/to/keyring</pre></div><p>
+       or
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="systemitem">cephadm</code>rbd map --pool rbd myimage --id admin --keyfile /path/to/file</pre></div></div></li><li class="step"><p>
+      List all mapped devices:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="command">rbd showmapped</code>
+ id pool   image   snap device
+ 0  mypool myimage -    /dev/rbd0</pre></div></li><li class="step"><p>
+      Now you can configure Xen to use this device as a disk for running a
+      virtual machine. You can for example add the following line to the
+      <code class="command">xl</code>-style domain configuration file:
+     </p><div class="verbatim-wrap"><pre class="screen">disk = [ '/dev/rbd0,,sda', '/dev/cdrom,,sdc,cdrom' ]</pre></div></li></ol></div></div></section></section><section class="sect1" id="storage-bp-net-firewall" data-id-title="Firewall Settings for Ceph"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.10 </span><span class="title-name">Firewall Settings for Ceph</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-net-firewall">#</a></h2></div></div></div><div id="id-1.3.8.2.13.2" data-id-title="DeepSea Stages Fail with Firewall" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: DeepSea Stages Fail with Firewall</h6><p>
+    DeepSea deployment stages fail when firewall is active (and even
+    configured). To pass the stages correctly, you need to either turn the
+    firewall off by running
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl stop SuSEfirewall2.service</pre></div><p>
+    or set the <code class="option">FAIL_ON_WARNING</code> option to 'False' in
+    <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+   </p><div class="verbatim-wrap"><pre class="screen">FAIL_ON_WARNING: False</pre></div></div><p>
+   We recommend protecting the network cluster communication with SUSE
+   Firewall. You can edit its configuration by selecting
+   <span class="guimenu">YaST</span> / <span class="guimenu">Security and
+   Users</span> / <span class="guimenu">Firewall</span> / <span class="guimenu">Allowed
+   Services</span>.
+  </p><p>
+   Following is a list of Ceph related services and numbers of the ports that
+   they normally use:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.8.2.13.5.1"><span class="term">Ceph Monitor</span></dt><dd><p>
+      Enable the <span class="guimenu">Ceph MON</span> service or port 6789 (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.2"><span class="term">Ceph OSD or Metadata Server</span></dt><dd><p>
+      Enable the <span class="guimenu">Ceph OSD/MDS</span> service, or ports 6800-7300
+      (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.3"><span class="term">iSCSI Gateway</span></dt><dd><p>
+      Open port 3260 (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.4"><span class="term">Object Gateway</span></dt><dd><p>
+      Open the port where Object Gateway communication occurs. It is set in
+      <code class="filename">/etc/ceph.conf</code> on the line starting with
+      <code class="literal">rgw frontends =</code>. Default is 80 for HTTP and 443 for
+      HTTPS (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.5"><span class="term">NFS Ganesha</span></dt><dd><p>
+      By default, NFS Ganesha uses ports 2049 (NFS service, TCP) and 875 (rquota
+      support, TCP). Refer to <a class="xref" href="cha-ceph-nfsganesha.html#ganesha-nfsport" title="16.2.3. Changing Default NFS Ganesha Ports">Section 16.2.3, “Changing Default NFS Ganesha Ports”</a> for more
+      information on changing the default NFS Ganesha ports.
+     </p></dd><dt id="id-1.3.8.2.13.5.6"><span class="term">Apache based services, such as openATTIC, SMT, or SUSE Manager</span></dt><dd><p>
+      Open ports 80 for HTTP and 443 for HTTPS (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.7"><span class="term">SSH</span></dt><dd><p>
+      Open port 22 (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.8"><span class="term">NTP</span></dt><dd><p>
+      Open port 123 (UDP).
+     </p></dd><dt id="id-1.3.8.2.13.5.9"><span class="term">Salt</span></dt><dd><p>
+      Open ports 4505 and 4506 (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.10"><span class="term">Grafana</span></dt><dd><p>
+      Open port 3000 (TCP).
+     </p></dd><dt id="id-1.3.8.2.13.5.11"><span class="term">Prometheus</span></dt><dd><p>
+      Open port 9100 (TCP).
+     </p></dd></dl></div></section><section class="sect1" id="storage-bp-network-test" data-id-title="Testing Network Performance"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.11 </span><span class="title-name">Testing Network Performance</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bp-network-test">#</a></h2></div></div></div><p>
+   To test the network performance the DeepSea <code class="literal">net</code> runner
+   provides the following commands.
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     A simple ping to all nodes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> net.ping
+Succeeded: 9 addresses from 9 minions average rtt 1.35 ms</pre></div></li><li class="listitem"><p>
+     A jumbo ping to all nodes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> net.jumbo_ping
+Succeeded: 9 addresses from 9 minions average rtt 2.13 ms</pre></div></li><li class="listitem"><p>
+     A bandwidth test:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> net.iperf
+Fastest 2 hosts:
+    |_
+      - 192.168.58.106
+      - 2981 Mbits/sec
+    |_
+      - 192.168.58.107
+      - 2967 Mbits/sec
+Slowest 2 hosts:
+    |_
+      - 192.168.58.102
+      - 2857 Mbits/sec
+    |_
+      - 192.168.58.103
+      - 2842 Mbits/sec</pre></div><div id="id-1.3.8.2.14.3.3.3" data-id-title="Stop iperf3 Processes Manually" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Stop 'iperf3' Processes Manually</h6><p>
+      When running a test using the <code class="command">net.iperf</code> runner, the
+      'iperf3' server processes that are started do not stop automatically when
+      a test is completed. To stop the processes, use the following runner:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' multi.kill_iperf_cmd</pre></div></div></li></ul></div></section><section class="sect1" id="storage-bd-replacing-disk" data-id-title="Replacing Storage Disk"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.12 </span><span class="title-name">Replacing Storage Disk</span> <a title="Permalink" class="permalink" href="storage-tips.html#storage-bd-replacing-disk">#</a></h2></div></div></div><p>
+   If you need to replace a storage disk in a Ceph cluster, you can do so
+   during the cluster's full operation. The replacement will cause temporary
+   increase in data transfer.
+  </p><p>
+   If the disk fails entirely, Ceph needs to rewrite at least the same amount
+   of data as the capacity of the failed disk is. If the disk is properly
+   evacuated and then re-added to avoid loss of redundancy during the process,
+   the amount of rewritten data will be twice as big. If the new disk has a
+   different size as the replaced one, it will cause some additional data to be
+   redistributed to even out the usage of all OSDs.
+  </p></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="part-troubleshooting.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part VI </span>FAQs, Tips and Troubleshooting</span></a> </div><div><a class="pagination-link next" href="storage-faqs.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 21 </span>Frequently Asked Questions</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="storage-tips.html#tips-orphaned-partitions"><span class="title-number">20.1 </span><span class="title-name">Identifying Orphaned Partitions</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#tips-scrubbing"><span class="title-number">20.2 </span><span class="title-name">Adjusting Scrubbing</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#tips-stopping-osd-without-rebalancing"><span class="title-number">20.3 </span><span class="title-name">Stopping OSDs without Rebalancing</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#Cluster-Time-Setting"><span class="title-number">20.4 </span><span class="title-name">Time Synchronization of Nodes</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#storage-bp-cluster-mntc-unbalanced"><span class="title-number">20.5 </span><span class="title-name">Checking for Unbalanced Data Writing</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#storage-tips-ceph-btrfs-subvol"><span class="title-number">20.6 </span><span class="title-name">Btrfs Sub-volume for /var/lib/ceph</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#storage-bp-srv-maint-fds-inc"><span class="title-number">20.7 </span><span class="title-name">Increasing File Descriptors</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#bp-osd-on-exisitng-partitions"><span class="title-number">20.8 </span><span class="title-name">How to Use Existing Partitions for OSDs Including OSD Journals</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#storage-admin-integration"><span class="title-number">20.9 </span><span class="title-name">Integration with Virtualization Software</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#storage-bp-net-firewall"><span class="title-number">20.10 </span><span class="title-name">Firewall Settings for Ceph</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#storage-bp-network-test"><span class="title-number">20.11 </span><span class="title-name">Testing Network Performance</span></a></span></li><li><span class="sect1"><a href="storage-tips.html#storage-bd-replacing-disk"><span class="title-number">20.12 </span><span class="title-name">Replacing Storage Disk</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_ceph_tips.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

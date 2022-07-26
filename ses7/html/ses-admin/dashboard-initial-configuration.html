@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Manual configuration | Administration and Operations Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Manual configuration | SES 7"/>
+<meta name="description" content="This section introduces advanced information for users that prefer configuring dashboard settings manually on the command line."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Administration and Operations Guide"/>
+<meta name="chapter-title" content="Chapter 10. Manual configuration"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Manual configuration | SES 7"/>
+<meta property="og:description" content="This section introduces advanced information for users that prefer configuring dashboard settings manually on the command line."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Manual configuration | SES 7"/>
+<meta name="twitter:description" content="This section introduces advanced information for users that prefer configuring dashboard settings manually on the command line."/>
+<link rel="prev" href="dashboard-ogw.html" title="Chapter 9. Manage the Object Gateway"/><link rel="next" href="dashboard-user-roles.html" title="Chapter 11. Manage users and roles on the command line"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration and Operations Guide</a><span> / </span><a class="crumb" href="part-dashboard.html">Ceph Dashboard</a><span> / </span><a class="crumb" href="dashboard-initial-configuration.html">Manual configuration</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration and Operations Guide</div><ol><li><a href="preface-admin.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li class="active"><a href="part-dashboard.html" class="has-children you-are-here"><span class="title-number">I </span><span class="title-name">Ceph Dashboard</span></a><ol><li><a href="dashboard-about.html" class=" "><span class="title-number">1 </span><span class="title-name">About the Ceph Dashboard</span></a></li><li><a href="dashboard-webui-general.html" class=" "><span class="title-number">2 </span><span class="title-name">Dashboard's Web user interface</span></a></li><li><a href="dashboard-user-mgmt.html" class=" "><span class="title-number">3 </span><span class="title-name">Manage Ceph Dashboard users and roles</span></a></li><li><a href="dashboard-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">View cluster internals</span></a></li><li><a href="dashboard-pools.html" class=" "><span class="title-number">5 </span><span class="title-name">Manage pools</span></a></li><li><a href="dashboard-rbds.html" class=" "><span class="title-number">6 </span><span class="title-name">Manage RADOS Block Device</span></a></li><li><a href="dash-webui-nfs.html" class=" "><span class="title-number">7 </span><span class="title-name">Manage NFS Ganesha</span></a></li><li><a href="dashboard-mds.html" class=" "><span class="title-number">8 </span><span class="title-name">Manage CephFS</span></a></li><li><a href="dashboard-ogw.html" class=" "><span class="title-number">9 </span><span class="title-name">Manage the Object Gateway</span></a></li><li><a href="dashboard-initial-configuration.html" class=" you-are-here"><span class="title-number">10 </span><span class="title-name">Manual configuration</span></a></li><li><a href="dashboard-user-roles.html" class=" "><span class="title-number">11 </span><span class="title-name">Manage users and roles on the command line</span></a></li></ol></li><li><a href="part-cluster-operation.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Operation</span></a><ol><li><a href="ceph-monitor.html" class=" "><span class="title-number">12 </span><span class="title-name">Determine the cluster state</span></a></li><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">13 </span><span class="title-name">Operational tasks</span></a></li><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">14 </span><span class="title-name">Operation of Ceph services</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">15 </span><span class="title-name">Backup and restore</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">16 </span><span class="title-name">Monitoring and alerting</span></a></li></ol></li><li><a href="part-storing-data.html" class="has-children "><span class="title-number">III </span><span class="title-name">Storing Data in a Cluster</span></a><ol><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">17 </span><span class="title-name">Stored data management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">18 </span><span class="title-name">Manage storage pools</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">19 </span><span class="title-name">Erasure coded pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">20 </span><span class="title-name">RADOS Block Device</span></a></li></ol></li><li><a href="part-accessing-data.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">21 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">22 </span><span class="title-name">Ceph iSCSI gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">23 </span><span class="title-name">Clustered file system</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">24 </span><span class="title-name">Export Ceph data via Samba</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">25 </span><span class="title-name">NFS Ganesha</span></a></li></ol></li><li><a href="part-integration-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">26 </span><span class="title-name"><code class="systemitem">libvirt</code> and Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">27 </span><span class="title-name">Ceph as a back-end for QEMU KVM instance</span></a></li></ol></li><li><a href="part-cluster-configuration.html" class="has-children "><span class="title-number">VI </span><span class="title-name">Configuring a Cluster</span></a><ol><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">28 </span><span class="title-name">Ceph cluster configuration</span></a></li><li><a href="cha-mgr-modules.html" class=" "><span class="title-number">29 </span><span class="title-name">Ceph Manager modules</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">30 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="dashboard-initial-configuration" data-id-title="Manual configuration"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h2 class="title"><span class="title-number">10 </span><span class="title-name">Manual configuration</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#">#</a></h2></div></div></div><p>
+  This section introduces advanced information for users that prefer
+  configuring dashboard settings manually on the command line.
+ </p><section class="sect1" id="dashboard-ssl" data-id-title="Configuring TLS/SSL support"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.1 </span><span class="title-name">Configuring TLS/SSL support</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#dashboard-ssl">#</a></h2></div></div></div><p>
+   All HTTP connections to the dashboard are secured with TLS/SSL by default. A
+   secure connection requires an SSL certificate. You can either use a
+   self-signed certificate, or generate a certificate and have a well known
+   certificate authority (CA) sign it.
+  </p><div id="id-1.4.3.11.4.3" data-id-title="Disabling SSL" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Disabling SSL</h6><p>
+    You may want to disable the SSL support for a specific reason. For example,
+    if the dashboard is running behind a proxy that does not support SSL.
+   </p><p>
+    Use caution when disabling SSL as <span class="bold"><strong>user names and
+    passwords</strong></span> will be sent to the dashboard
+    <span class="bold"><strong>unencrypted</strong></span>.
+   </p><p>
+    To disable SSL, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/ssl false</pre></div></div><div id="id-1.4.3.11.4.4" data-id-title="Restarting the Ceph Manager processes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Restarting the Ceph Manager processes</h6><p>
+    You need to restart the Ceph Manager processes manually after changing the SSL
+    certificate and key. You can do so by either running
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr fail <em class="replaceable">ACTIVE-MANAGER-NAME</em></pre></div><p>
+    or by disabling and re-enabling the dashboard module, which also triggers
+    the manager to respawn itself:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module disable dashboard
+<code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable dashboard</pre></div></div><section class="sect2" id="self-sign-certificates" data-id-title="Creating self-signed certificates"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1.1 </span><span class="title-name">Creating self-signed certificates</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#self-sign-certificates">#</a></h3></div></div></div><p>
+    Creating a self-signed certificate for secure communication is simple. This
+    way you can get the dashboard running quickly.
+   </p><div id="id-1.4.3.11.4.5.3" data-id-title="Web browsers complaint" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Web browsers complaint</h6><p>
+     Most Web browsers will complain about a self-signed certificate and
+     require explicit confirmation before establishing a secure connection to
+     the dashboard.
+    </p></div><p>
+    To generate and install a self-signed certificate, use the following
+    built-in command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard create-self-signed-cert</pre></div></section><section class="sect2" id="cert-sign-CA" data-id-title="Using certificates signed by CA"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1.2 </span><span class="title-name">Using certificates signed by CA</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#cert-sign-CA">#</a></h3></div></div></div><p>
+    To properly secure the connection to the dashboard and to eliminate Web
+    browser complaints about a self-signed certificate, we recommend using a
+    certificate that is signed by a CA.
+   </p><p>
+    You can generate a certificate key pair with a command similar to the
+    following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>openssl req -new -nodes -x509 \
+  -subj "/O=IT/CN=ceph-mgr-dashboard" -days 3650 \
+  -keyout dashboard.key -out dashboard.crt -extensions v3_ca</pre></div><p>
+    The above command outputs <code class="filename">dashboard.key</code> and
+    <code class="filename">dashboard.crt</code> files. After you get the
+    <code class="filename">dashboard.crt</code> file signed by a CA, enable it for all
+    Ceph Manager instances by running the following commands:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-ssl-certificate -i dashboard.crt
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-ssl-certificate-key -i dashboard.key</pre></div><div id="id-1.4.3.11.4.6.7" data-id-title="Different certificates for each manager instance" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Different certificates for each manager instance</h6><p>
+     If you require different certificates for each Ceph Manager instance, modify the
+     commands and include the name of the instance as follows. Replace
+     <em class="replaceable">NAME</em> with the name of the Ceph Manager instance
+     (usually the related host name):
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-ssl-certificate <em class="replaceable">NAME</em> -i dashboard.crt
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-ssl-certificate-key <em class="replaceable">NAME</em> -i dashboard.key</pre></div></div></section></section><section class="sect1" id="dashboard-hostname-port" data-id-title="Changing host name and port number"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.2 </span><span class="title-name">Changing host name and port number</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#dashboard-hostname-port">#</a></h2></div></div></div><p>
+   The Ceph Dashboard binds to a specific TCP/IP address and TCP port. By default,
+   the currently active Ceph Manager that hosts the dashboard binds to TCP port 8443
+   (or 8080 when SSL is disabled).
+  </p><div id="id-1.4.3.11.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    If a firewall is enabled on the hosts running Ceph Manager (and thus the
+    Ceph Dashboard), you may need to change the configuration to enable access to
+    these ports. For more information on firewall settings for Ceph, see
+    <span class="intraxref">Book “Troubleshooting Guide”, Chapter 13 “Hints and tips”, Section 13.7 “Firewall settings for Ceph”</span>.
+   </p></div><p>
+   The Ceph Dashboard binds to "::" by default, which corresponds to all available
+   IPv4 and IPv6 addresses. You can change the IP address and port number of
+   the Web application so that they apply to all Ceph Manager instances by using the
+   following commands:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/server_addr <em class="replaceable">IP_ADDRESS</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/server_port <em class="replaceable">PORT_NUMBER</em></pre></div><div id="id-1.4.3.11.5.6" data-id-title="Configuring Ceph Manager instances separately" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Configuring Ceph Manager instances separately</h6><p>
+    Since each <code class="systemitem">ceph-mgr</code> daemon hosts
+    its own instance of the dashboard, you may need to configure them
+    separately. Change the IP address and port number for a specific manager
+    instance by using the following commands (replace
+    <em class="replaceable">NAME</em> with the ID of the
+    <code class="systemitem">ceph-mgr</code> instance):
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/<em class="replaceable">NAME</em>/server_addr <em class="replaceable">IP_ADDRESS</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/<em class="replaceable">NAME</em>/server_port <em class="replaceable">PORT_NUMBER</em></pre></div></div><div id="id-1.4.3.11.5.7" data-id-title="Listing configured endpoints" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Listing configured endpoints</h6><p>
+    The <code class="command">ceph mgr services</code> command displays all endpoints
+    that are currently configured. Look for the <code class="literal">dashboard</code>
+    key to obtain the URL for accessing the dashboard.
+   </p></div></section><section class="sect1" id="dashboard-username-password" data-id-title="Adjusting user names and passwords"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.3 </span><span class="title-name">Adjusting user names and passwords</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#dashboard-username-password">#</a></h2></div></div></div><p>
+   If you do not want to use the default administrator account, create a
+   different user account and associate it with at least one role. We provide a
+   set of predefined system roles that you can use. For more details refer to
+   <a class="xref" href="dashboard-user-roles.html" title="Chapter 11. Manage users and roles on the command line">Chapter 11, <em>Manage users and roles on the command line</em></a>.
+  </p><p>
+   To create a user with administrator privileges, use the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard ac-user-create <em class="replaceable">USER_NAME</em> <em class="replaceable">PASSWORD</em> administrator</pre></div></section><section class="sect1" id="dashboard-ogw-enabling" data-id-title="Enabling the Object Gateway management front-end"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.4 </span><span class="title-name">Enabling the Object Gateway management front-end</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#dashboard-ogw-enabling">#</a></h2></div></div></div><p>
+   To use the Object Gateway management functionality of the dashboard, you need to
+   provide the login credentials of a user with the <code class="option">system</code>
+   flag enabled:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     If you do not have a user with the <code class="option">system</code> flag, create
+     one:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user create --uid=<em class="replaceable">USER_ID</em> --display-name=<em class="replaceable">DISPLAY_NAME</em> --system</pre></div><p>
+     Take note of the <em class="replaceable">access_key</em> and
+     <em class="replaceable">secret_key</em> keys in the output of the command.
+    </p></li><li class="step"><p>
+     You can also obtain the credentials of an existing user by using the
+     <code class="command">radosgw-admin</code> command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user info --uid=<em class="replaceable">USER_ID</em></pre></div></li><li class="step"><p>
+     Provide the received credentials to the dashboard in separate files:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-access-key <em class="replaceable">ACCESS_KEY_FILE</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-secret-key <em class="replaceable">SECRET_KEY_FILE</em></pre></div></li></ol></div></div><div id="id-1.4.3.11.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    By default the firewall is enabled in SUSE Linux Enterprise Server 15 SP2. For more information on
+    firewall configuration, see <span class="intraxref">Book “Troubleshooting Guide”, Chapter 13 “Hints and tips”, Section 13.7 “Firewall settings for Ceph”</span>.
+   </p></div><p>
+   There are several points to consider:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     The host name and port number of the Object Gateway are determined automatically.
+    </p></li><li class="listitem"><p>
+     If multiple zones are used, it will automatically determine the host
+     within the master zonegroup and master zone. This is sufficient for most
+     setups, but in some circumstances you may want to set the host name and
+     port manually:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-host <em class="replaceable">HOST</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-port <em class="replaceable">PORT</em></pre></div></li><li class="listitem"><p>
+     These are additional settings that you may need:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-scheme <em class="replaceable">SCHEME</em>  # http or https
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-admin-resource <em class="replaceable">ADMIN_RESOURCE</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-user-id <em class="replaceable">USER_ID</em></pre></div></li><li class="listitem"><p>
+     If you are using a self-signed certificate
+     (<a class="xref" href="dashboard-initial-configuration.html#dashboard-ssl" title="10.1. Configuring TLS/SSL support">Section 10.1, “Configuring TLS/SSL support”</a>) in your Object Gateway setup, disable
+     certificate verification in the dashboard to avoid refused connections
+     caused by certificates signed by an unknown CA or not matching the host
+     name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-ssl-verify False</pre></div></li><li class="listitem"><p>
+     If the Object Gateway takes too long to process requests and the dashboard runs
+     into timeouts, the timeout value can be adjusted (default is 45 seconds):
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rest-requests-timeout <em class="replaceable">SECONDS</em></pre></div></li></ul></div></section><section class="sect1" id="dashboard-iscsi-management" data-id-title="Enabling iSCSI management"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.5 </span><span class="title-name">Enabling iSCSI management</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#dashboard-iscsi-management">#</a></h2></div></div></div><p>
+   The Ceph Dashboard manages iSCSI targets using the REST API provided by the
+   <code class="systemitem">rbd-target-api</code> service of the
+   Ceph iSCSI gateway. Ensure it is installed and enabled on iSCSI
+   gateways.
+  </p><div id="id-1.4.3.11.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    The iSCSI management functionality of the Ceph Dashboard depends on the
+    latest version 3 of the <code class="literal">ceph-iscsi</code> project. Ensure that
+    your operating system provides the correct version, otherwise the
+    Ceph Dashboard will not enable the management features.
+   </p></div><p>
+   If the <code class="literal">ceph-iscsi</code> REST API is configured in HTTPS mode
+   and it is using a self-signed certificate, configure the dashboard to avoid
+   SSL certificate verification when accessing ceph-iscsi API.
+  </p><p>
+   Disable API SSL verification:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-iscsi-api-ssl-verification false</pre></div><p>
+   Define the available iSCSI gateways:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard iscsi-gateway-list
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard iscsi-gateway-add <em class="replaceable">scheme</em>://<em class="replaceable">username</em>:<em class="replaceable">password</em>@<em class="replaceable">host</em>[:port]
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard iscsi-gateway-rm <em class="replaceable">gateway_name</em></pre></div></section><section class="sect1" id="dashboard-sso" data-id-title="Enabling Single Sign-On"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.6 </span><span class="title-name">Enabling Single Sign-On</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#dashboard-sso">#</a></h2></div></div></div><p>
+   <span class="emphasis"><em>Single Sign-On</em></span> (SSO) is an access control method that enables
+   users to log in with a single ID and password to multiple applications
+   simultaneously.
+  </p><p>
+   The Ceph Dashboard supports external authentication of users via the SAML 2.0
+   protocol. Because <span class="emphasis"><em>authorization</em></span> is still performed by
+   the dashboard, you first need to create user accounts and associate them
+   with the desired roles. However, the <span class="emphasis"><em>authentication</em></span>
+   process can be performed by an existing <span class="emphasis"><em>Identity
+   Provider</em></span> (IdP).
+  </p><p>
+   To configure Single Sign-On, use the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard sso setup saml2 <em class="replaceable">CEPH_DASHBOARD_BASE_URL</em> \
+ <em class="replaceable">IDP_METADATA</em> <em class="replaceable">IDP_USERNAME_ATTRIBUTE</em> \
+ <em class="replaceable">IDP_ENTITY_ID</em> <em class="replaceable">SP_X_509_CERT</em> \
+ <em class="replaceable">SP_PRIVATE_KEY</em></pre></div><p>
+   Parameters:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.3.11.9.7.1"><span class="term"><em class="replaceable">CEPH_DASHBOARD_BASE_URL</em></span></dt><dd><p>
+      Base URL where Ceph Dashboard is accessible (for example,
+      'https://cephdashboard.local').
+     </p></dd><dt id="id-1.4.3.11.9.7.2"><span class="term"><em class="replaceable">IDP_METADATA</em></span></dt><dd><p>
+      URL, file path, or content of the IdP metadata XML (for example,
+      'https://myidp/metadata').
+     </p></dd><dt id="id-1.4.3.11.9.7.3"><span class="term"><em class="replaceable">IDP_USERNAME_ATTRIBUTE</em></span></dt><dd><p>
+      Optional. Attribute that will be used to get the user name from the
+      authentication response. Defaults to 'uid'.
+     </p></dd><dt id="id-1.4.3.11.9.7.4"><span class="term"><em class="replaceable">IDP_ENTITY_ID</em></span></dt><dd><p>
+      Optional. Use when more than one entity ID exists on the IdP metadata.
+     </p></dd><dt id="id-1.4.3.11.9.7.5"><span class="term"><em class="replaceable">SP_X_509_CERT</em> / <em class="replaceable">SP_PRIVATE_KEY</em></span></dt><dd><p>
+      Optional. File path or content of the certificate that will be used by
+      Ceph Dashboard (Service Provider) for signing and encryption. These file
+      paths need to be accessible from the active Ceph Manager instance.
+     </p></dd></dl></div><div id="id-1.4.3.11.9.8" data-id-title="SAML requests" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: SAML requests</h6><p>
+    The issuer value of SAML requests will follow this pattern:
+   </p><div class="verbatim-wrap"><pre class="screen"><em class="replaceable">CEPH_DASHBOARD_BASE_URL</em>/auth/saml2/metadata</pre></div></div><p>
+   To display the current SAML 2.0 configuration, run:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard sso show saml2</pre></div><p>
+   To disable Single Sign-On, run:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard sso disable</pre></div><p>
+   To check if SSO is enabled, run:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard sso status</pre></div><p>
+   To enable SSO, run:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard sso enable saml2</pre></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="dashboard-ogw.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 9 </span>Manage the Object Gateway</span></a> </div><div><a class="pagination-link next" href="dashboard-user-roles.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 11 </span>Manage users and roles on the command line</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="dashboard-initial-configuration.html#dashboard-ssl"><span class="title-number">10.1 </span><span class="title-name">Configuring TLS/SSL support</span></a></span></li><li><span class="sect1"><a href="dashboard-initial-configuration.html#dashboard-hostname-port"><span class="title-number">10.2 </span><span class="title-name">Changing host name and port number</span></a></span></li><li><span class="sect1"><a href="dashboard-initial-configuration.html#dashboard-username-password"><span class="title-number">10.3 </span><span class="title-name">Adjusting user names and passwords</span></a></span></li><li><span class="sect1"><a href="dashboard-initial-configuration.html#dashboard-ogw-enabling"><span class="title-number">10.4 </span><span class="title-name">Enabling the Object Gateway management front-end</span></a></span></li><li><span class="sect1"><a href="dashboard-initial-configuration.html#dashboard-iscsi-management"><span class="title-number">10.5 </span><span class="title-name">Enabling iSCSI management</span></a></span></li><li><span class="sect1"><a href="dashboard-initial-configuration.html#dashboard-sso"><span class="title-number">10.6 </span><span class="title-name">Enabling Single Sign-On</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/dashboard_manual_config.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

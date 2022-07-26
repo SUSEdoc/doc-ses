@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Improving Performance with LVM cache | Tuning Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Improving Performance with LVM cache | SES 6"/>
+<meta name="description" content="LVM cache is currently a technology preview."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Tuning Guide"/>
+<meta name="chapter-title" content="Chapter 8. Improving Performance with LVM cache"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Improving Performance with LVM cache | SES 6"/>
+<meta property="og:description" content="LVM cache is currently a technology preview."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Improving Performance with LVM cache | SES 6"/>
+<meta name="twitter:description" content="LVM cache is currently a technology preview."/>
+<link rel="prev" href="cha-ceph-tiered.html" title="Chapter 7. Cache Tiering"/><link rel="next" href="tuning-appendix-a.html" title="Appendix A. Salt State for Kernel Tuning"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Tuning Guide</a><span> / </span><a class="crumb" href="part-tuning-guide.html">SUSE Enterprise Storage Tuning</a><span> / </span><a class="crumb" href="lvmcache.html">Improving Performance with LVM cache</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Tuning Guide</div><ol><li><a href="part-intro.html" class="has-children "><span class="title-number">I </span><span class="title-name">Introduction</span></a><ol><li><a href="bk03pt01ch01.html" class=" "><span class="title-number">1 </span><span class="title-name">User Privileges and Command Prompts</span></a></li><li><a href="tuning-how.html" class=" "><span class="title-number">2 </span><span class="title-name">General Notes on System Tuning</span></a></li><li><a href="tuning-intro.html" class=" "><span class="title-number">3 </span><span class="title-name">Introduction to Tuning SUSE Enterprise Storage Clusters</span></a></li></ol></li><li class="active"><a href="part-tuning-guide.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">SUSE Enterprise Storage Tuning</span></a><ol><li><a href="tuning-architecture.html" class=" "><span class="title-number">4 </span><span class="title-name">Architecture and Hardware Tuning</span></a></li><li><a href="tuning-os.html" class=" "><span class="title-number">5 </span><span class="title-name">Operating System Level Tuning</span></a></li><li><a href="tuning-ceph.html" class=" "><span class="title-number">6 </span><span class="title-name">Ceph Tuning</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">7 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="lvmcache.html" class=" you-are-here"><span class="title-number">8 </span><span class="title-name">Improving Performance with LVM cache</span></a></li></ol></li><li><a href="tuning-appendix-a.html" class=" "><span class="title-number">A </span><span class="title-name">Salt State for Kernel Tuning</span></a></li><li><a href="tuning-appendix-b.html" class=" "><span class="title-number">B </span><span class="title-name">Ring Buffer Max Value Script</span></a></li><li><a href="tuning-appendix-c.html" class=" "><span class="title-number">C </span><span class="title-name">Network Tuning</span></a></li><li><a href="bk03apd.html" class=" "><span class="title-number">D </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="lvmcache" data-id-title="Improving Performance with LVM cache"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h2 class="title"><span class="title-number">8 </span><span class="title-name">Improving Performance with LVM cache</span> <a title="Permalink" class="permalink" href="lvmcache.html#">#</a></h2></div></div></div><div id="id-1.5.3.6.3" data-id-title="Technology Preview" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Technology Preview</h6><p>
+   LVM cache is currently a technology preview.
+  </p></div><p>
+  LVM cache is a caching mechanism used to improve the performance of a
+  logical volume (LV). Typically, a smaller and faster device is used to
+  improve I/O performance of a larger and slower LV. Refer to its manual page
+  (<code class="command">man 7 lvmcache</code>) to find more details about LVM cache.
+ </p><p>
+  In SUSE Enterprise Storage, LVM cache can improve the performance of OSDs. Support for
+  LVM cache is provided via a <code class="command">ceph-volume</code> plugin. You can
+  find detailed information about its usage by running <code class="command">ceph-volume
+  lvmcache</code>.
+ </p><section class="sect1" id="lvmcache-prerequisites" data-id-title="Prerequisites"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.1 </span><span class="title-name">Prerequisites</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-prerequisites">#</a></h2></div></div></div><p>
+   To use LVM cache features to improve the performance of a Ceph cluster,
+   you need to have:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     A running Ceph cluster in a stable state ('HEALTH_OK').
+    </p></li><li class="listitem"><p>
+     OSDs deployed with BlueStore and LVM. This is the default if the OSDs
+     were deployed using SUSE Enterprise Storage 6 or later.
+    </p></li><li class="listitem"><p>
+     Empty disks or partitions that will be used for caching.
+    </p></li></ul></div></section><section class="sect1" id="lvmcache-planning" data-id-title="Points to Consider"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.2 </span><span class="title-name">Points to Consider</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-planning">#</a></h2></div></div></div><p>
+   Consider the following points before configuring your OSDs to use
+   LVM cache:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     <span class="bold"><strong>Verify that LVM cache is suitable for your use
+     case.</strong></span> If you have only a few fast drives available that are
+     <span class="bold"><strong>not</strong></span> used for OSDs, the general
+     recommendation is to use them as WAL/DB devices for the OSDs. In such a
+     case, WAL and DB operations (small and rare operations) are applied on the
+     fast drive while data operations are applied on the slower OSD drive.
+    </p><div id="id-1.5.3.6.7.3.1.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      If latency is more important for your deployment than IOPS or throughput,
+      you can use the fast drives as LVM cache rather than WAL/DB partitions.
+     </p></div></li><li class="listitem"><p>
+     If you plan to use a fast drive as an LVM cache for multiple OSDs, be
+     aware that <span class="bold"><strong>all OSD operations (including
+     replication) will go through the caching device</strong></span>. All reads will
+     be queried from the caching device, and are only served from the slow
+     device in case of a cache miss. Writes are always applied to the caching
+     device first, and are flushed to the slow device at a later time
+     ('writeback' is the default caching mode).
+    </p><p>
+     When deciding whether to utilize an LVM cache, verify whether the fast
+     drive can serve as a front for multiple OSDs while still providing an
+     acceptable amount of IOPS. You can test it by measuring the maximum amount
+     of IOPS that the fast device can serve, and then dividing the result by
+     the number of OSDs behind the fast device. If the result is lower or close
+     to the maximum amount of IOPS that the OSD can provide without the cache,
+     LVM cache is probably not suited for this setup.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>The interaction of the LVM cache device with OSDs
+     is important.</strong></span> Writes are periodically flushed from the caching
+     device to the slow device. If the incoming traffic is sustained and
+     significant, the caching device will struggle to keep up with incoming
+     requests as well as the flushing process, resulting in performance drop.
+     Unless the fast device can provide much more IOPS with better latency than
+     the slow device, do not use LVM cache with a sustained high volume
+     workload. Traffic in a burst pattern is more suited for LVM cache as it
+     gives the cache time to flush its dirty data without interfering with
+     client traffic. For a sustained low traffic workload, it is difficult to
+     guess in advance whether using LVM cache will improve performance. The
+     best test is to benchmark and compare the LVM cache setup against the
+     WAL/DB setup. Moreover, as small writes are heavy on the WAL partition, it
+     is suggested to use the fast device for the DB and/or WAL instead of an
+     LVM cache.
+    </p></li><li class="listitem"><p>
+     If you are not sure whether to use LVM cache, use the fast device as a
+     WAL and/or DB device.
+    </p></li></ul></div></section><section class="sect1" id="lvmcache-preparation" data-id-title="Preparation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.3 </span><span class="title-name">Preparation</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-preparation">#</a></h2></div></div></div><p>
+   You need to split the fast device into multiple partitions. Each OSD needs
+   two partitions for its cache: one for the cache data, and one for the cache
+   metadata. The minimum size of either partition is 2 GB. You can use a single
+   fast device to cache multiple OSDs. It simply needs to be partitioned
+   accordingly.
+  </p></section><section class="sect1" id="lvmcache-configuring" data-id-title="Configuring LVM cache"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.4 </span><span class="title-name">Configuring LVM cache</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-configuring">#</a></h2></div></div></div><p>
+   You can find detailed information about adding, removing, and configuring
+   LVM cache by running the <code class="command">ceph-volume lvmcache</code> command.
+  </p><section class="sect2" id="lvmcache-adding" data-id-title="Adding LVM cache"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.4.1 </span><span class="title-name">Adding LVM cache</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-adding">#</a></h3></div></div></div><p>
+    To add LVM cache to an existing OSD, use the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume lvmcache add
+ --cachemetadata <em class="replaceable">METADATA-PARTITION</em>
+ --cachedata <em class="replaceable">DATA-PARTITION</em>
+ --osd-id <em class="replaceable">OSD-ID</em></pre></div><p>
+    The optional <code class="option">--data</code>, <code class="option">--db</code> or
+    <code class="option">--wal</code> specifies which partition to cache. Default is
+    <code class="option">--data</code>.
+   </p><div id="id-1.5.3.6.9.3.5" data-id-title="Specify Logical Volume (LV)" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Specify Logical Volume (LV)</h6><p>
+     Alternatively, you can use the <code class="option">--origin</code> instead of the
+     <code class="option">--osd-id</code> option to specify which LV to cache:
+    </p><div class="verbatim-wrap"><pre class="screen">[...]
+--origin <em class="replaceable">VOLUME-GROUP</em>/<em class="replaceable">LOGICAL-VOLUME</em></pre></div></div></section><section class="sect2" id="lvmcache-removing" data-id-title="Removing LVM cache"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.4.2 </span><span class="title-name">Removing LVM cache</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-removing">#</a></h3></div></div></div><p>
+    To remove existing LVM cache from an OSD, use the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume lvmcache rm --osd-id <em class="replaceable">OSD-ID</em></pre></div></section><section class="sect2" id="lvmcache-mode" data-id-title="Setting LVM cache Mode"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.4.3 </span><span class="title-name">Setting LVM cache Mode</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-mode">#</a></h3></div></div></div><p>
+    To specify caching mode, use the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>ceph-volume lvmcache mode --set <em class="replaceable">CACHING-MODE</em> --osd-id <em class="replaceable">OSD-ID</em></pre></div><p>
+    <em class="replaceable">CACHING-MODE</em> is either 'writeback' (default) or
+    'writethrough'
+   </p></section></section><section class="sect1" id="lvmcache-failures" data-id-title="Handling Failures"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.5 </span><span class="title-name">Handling Failures</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-failures">#</a></h2></div></div></div><p>
+   If the caching device fails, all OSDs behind the caching device need to be
+   removed from the cluster (see <span class="intraxref">Book “Administration Guide”, Chapter 2 “Salt Cluster Administration”, Section 2.7 “Removing an OSD”</span>), purged,
+   and redeployed. If the OSD drive fails, the OSD's LV as well as its cache's
+   LV will be active but not functioning. Use <code class="command">pvremove
+   <em class="replaceable">PARTITION</em></code> to purge the partitions
+   (physical volumes) used for the OSD's cache data and metadata partitions.
+   You can use <code class="command">pvs</code> to list all physical volumes.
+  </p></section><section class="sect1" id="lvmcache-faq" data-id-title="Frequently Asked Questions"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.6 </span><span class="title-name">Frequently Asked Questions</span> <a title="Permalink" class="permalink" href="lvmcache.html#lvmcache-faq">#</a></h2></div></div></div><div class="qandaset" id="id-1.5.3.6.11.2"><div class="free-id" id="id-1.5.3.6.11.2.1"> </div><dl class="qandaentry"><dt class="question" id="id-1.5.3.6.11.2.1.1"><strong>Q: 1.</strong>
+      What happens if an OSD is removed?
+     </dt><dd class="answer" id="id-1.5.3.6.11.2.1.2"><p>
+      When removing the OSD's LV using <code class="command">lvremove</code>, the cache
+      LVs will be removed as well. However, you will still need to call
+      <code class="command">pvremove</code> on the partitions to make sure all labels
+      have been wiped out.
+     </p></dd></dl><div class="free-id" id="id-1.5.3.6.11.2.2"> </div><dl class="qandaentry"><dt class="question" id="id-1.5.3.6.11.2.2.1"><strong>Q: 2.</strong>
+      What happens if the OSD is zapped using <code class="command">ceph-volume
+      zap</code>?
+     </dt><dd class="answer" id="id-1.5.3.6.11.2.2.2"><p>
+      The same answer applies as to the question <span class="bold"><strong>What
+      happens if an OSD is removed?</strong></span>
+     </p></dd></dl><div class="free-id" id="id-1.5.3.6.11.2.3"> </div><dl class="qandaentry"><dt class="question" id="id-1.5.3.6.11.2.3.1"><strong>Q: 3.</strong>
+      What happens if the origin drive fails?
+     </dt><dd class="answer" id="id-1.5.3.6.11.2.3.2"><p>
+      The cache LVs still exist and <code class="command">cache info</code> still shows
+      them as being available. You will not be able to uncache because LVM will
+      fail to flush the cache as the origin LV's device is gone. The situation
+      now is that the origin LV exists, but its backing device does not. You
+      can fix it by using the <code class="command">pvs</code> command and locating the
+      devices that are associated with the origin LV. You can then remove them
+      using
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>sudo pvremove /dev/<em class="replaceable">DEVICE</em> or <em class="replaceable">PARTITION</em></pre></div><p>
+      You can do the same for the cache partitions. This procedure will make
+      the origin LV as well as the cache LVs disappear. You can also use
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@osd &gt; </code>sudo dd if=/dev/zero of=/dev/<em class="replaceable">DEVICE</em> or <em class="replaceable">PARTITION</em></pre></div><p>
+      to wipe them out before using <code class="command">pvremove</code>.
+     </p></dd></dl></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-tiered.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 7 </span>Cache Tiering</span></a> </div><div><a class="pagination-link next" href="tuning-appendix-a.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Appendix A </span>Salt State for Kernel Tuning</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="lvmcache.html#lvmcache-prerequisites"><span class="title-number">8.1 </span><span class="title-name">Prerequisites</span></a></span></li><li><span class="sect1"><a href="lvmcache.html#lvmcache-planning"><span class="title-number">8.2 </span><span class="title-name">Points to Consider</span></a></span></li><li><span class="sect1"><a href="lvmcache.html#lvmcache-preparation"><span class="title-number">8.3 </span><span class="title-name">Preparation</span></a></span></li><li><span class="sect1"><a href="lvmcache.html#lvmcache-configuring"><span class="title-number">8.4 </span><span class="title-name">Configuring LVM cache</span></a></span></li><li><span class="sect1"><a href="lvmcache.html#lvmcache-failures"><span class="title-number">8.5 </span><span class="title-name">Handling Failures</span></a></span></li><li><span class="sect1"><a href="lvmcache.html#lvmcache-faq"><span class="title-number">8.6 </span><span class="title-name">Frequently Asked Questions</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-lvmcache.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Updating Rook | Deploying and Administering SUSE Enterprise Storage with Rook | SUSE Enterprise Storage 7.1</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Updating Rook | SES 7.1"/>
+<meta name="description" content="This chapter describes how to update containerized SUSE Enterprise Storage 7 on top of a SUSE CaaS Platform 4.5 Kubernetes cluster."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7.1"/>
+<meta name="book-title" content="Deploying and Administering SUSE Enterprise Storage with Rook"/>
+<meta name="chapter-title" content="Chapter 2. Updating Rook"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Updating Rook | SES 7.1"/>
+<meta property="og:description" content="This chapter describes how to update containerized SUSE Enterprise Storage 7 on top of a SUSE CaaS Platform 4.5 Kubernetes cluster."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Updating Rook | SES 7.1"/>
+<meta name="twitter:description" content="This chapter describes how to update containerized SUSE Enterprise Storage 7 on top of a SUSE CaaS Platform 4.5 Kubernetes cluster."/>
+<link rel="prev" href="deploy-rook.html" title="Chapter 1. Quick start"/><link rel="next" href="rook-ses-admin.html" title="Part II. Administrating Ceph on SUSE CaaS Platform"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deploying and Administering SUSE Enterprise Storage with Rook</a><span> / </span><a class="crumb" href="rook-ses-deployment.html">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</a><span> / </span><a class="crumb" href="update-rook.html">Updating Rook</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deploying and Administering SUSE Enterprise Storage with Rook</div><ol><li><a href="preface-rook.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li class="active"><a href="rook-ses-deployment.html" class="has-children you-are-here"><span class="title-number">I </span><span class="title-name">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</span></a><ol><li><a href="deploy-rook.html" class=" "><span class="title-number">1 </span><span class="title-name">Quick start</span></a></li><li><a href="update-rook.html" class=" you-are-here"><span class="title-number">2 </span><span class="title-name">Updating Rook</span></a></li></ol></li><li><a href="rook-ses-admin.html" class="has-children "><span class="title-number">II </span><span class="title-name">Administrating Ceph on SUSE CaaS Platform</span></a><ol><li><a href="admin-intro-caasp.html" class=" "><span class="title-number">3 </span><span class="title-name">Rook-Ceph administration</span></a></li><li><a href="admin-caasp-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">Ceph cluster administration</span></a></li><li><a href="admin-caasp-block-storage.html" class=" "><span class="title-number">5 </span><span class="title-name">Block Storage</span></a></li><li><a href="admin-caasp-cephfs.html" class=" "><span class="title-number">6 </span><span class="title-name">CephFS</span></a></li><li><a href="admin-caasp-crd.html" class=" "><span class="title-number">7 </span><span class="title-name">Ceph cluster custom resource definitions</span></a></li><li><a href="admin-caasp-cephconfig.html" class=" "><span class="title-number">8 </span><span class="title-name">Configuration</span></a></li><li><a href="admin-caasp-cephtoolbox.html" class=" "><span class="title-number">9 </span><span class="title-name">Toolboxes</span></a></li><li><a href="admin-caasp-cephosd.html" class=" "><span class="title-number">10 </span><span class="title-name">Ceph OSD management</span></a></li><li><a href="admin-caasp-ceph-examples.html" class=" "><span class="title-number">11 </span><span class="title-name">Ceph examples</span></a></li><li><a href="admin-caasp-advanced-config.html" class=" "><span class="title-number">12 </span><span class="title-name">Advanced configuration</span></a></li><li><a href="admin-caasp-object-storage.html" class=" "><span class="title-number">13 </span><span class="title-name">Object Storage</span></a></li><li><a href="admin-caasp-dashboard.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph Dashboard</span></a></li></ol></li><li><a href="rook-ses-troubleshooting.html" class="has-children "><span class="title-number">III </span><span class="title-name">Troubleshooting Ceph on SUSE CaaS Platform</span></a><ol><li><a href="atroubleshooting-caasp-debugging-rook.html" class=" "><span class="title-number">15 </span><span class="title-name">Troubleshooting</span></a></li><li><a href="admin-caasp-ceph-common-issues.html" class=" "><span class="title-number">16 </span><span class="title-name">Common issues</span></a></li></ol></li><li><a href="bk05apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></li><li><a href="bk05go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="update-rook" data-id-title="Updating Rook"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h2 class="title"><span class="title-number">2 </span><span class="title-name">Updating Rook</span> <a title="Permalink" class="permalink" href="update-rook.html#">#</a></h2></div></div></div><p>
+  This chapter describes how to update containerized SUSE Enterprise Storage
+  7 on top of a SUSE CaaS Platform 4.5 Kubernetes cluster.
+ </p><p>
+  This chapter takes you through the steps to update the software in a
+  Rook-Ceph cluster from one version to the next. This includes both the
+  Rook-Ceph Operator software itself as well as the Ceph cluster software.
+ </p><div id="id-1.7.3.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   Version
+  </p></div><section class="sect1" id="rook-update-hardware-specs" data-id-title="Recommended hardware specifications"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.1 </span><span class="title-name">Recommended hardware specifications</span> <a title="Permalink" class="permalink" href="update-rook.html#rook-update-hardware-specs">#</a></h2></div></div></div><p>
+   For SUSE Enterprise Storage deployed with Rook, the minimal configuration is
+   preliminary, we will update it based on real customer needs.
+  </p><p>
+   For the purpose of this document, consider the following minimum
+   configuration:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     A highly available Kubernetes cluster with 3 master nodes
+    </p></li><li class="listitem"><p>
+     Four physical Kubernetes worker nodes, each with two OSD disks and 5 GB of RAM
+     per OSD disk
+    </p></li><li class="listitem"><p>
+     Allow additional 4 GB of RAM per additional daemon deployed on a node
+    </p></li><li class="listitem"><p>
+     Dual-10 Gb ethernet as bonded network
+    </p></li><li class="listitem"><p>
+     If you are running a hyper-converged infrastructure (HCI), ensure you add
+     any additional requirements for your workloads.
+    </p></li></ul></div></section><section class="sect1" id="patch-release-upgrades" data-id-title="Patch release upgrades"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.2 </span><span class="title-name">Patch release upgrades</span> <a title="Permalink" class="permalink" href="update-rook.html#patch-release-upgrades">#</a></h2></div></div></div><p>
+   To update a patch release of Rook to another, you need to update the
+   common resources and the image of the Rook Operator.
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Get the latest common resource manifests that contain the relevant changes
+     to the latest version:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>zypper in rook-k8s-yaml
+<code class="prompt user">&gt; </code>cd /usr/share/k8s-yaml/rook/ceph/</pre></div></li><li class="step"><p>
+     Apply the latest changes from the next version and update the Rook
+     Operator image:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>helm upgrade -n rook-ceph rook-ceph ./rook-ceph/ -f myvalues.yaml
+<code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph set image deploy/rook-ceph-operator registry.suse.com/ses/7.1/rook/ceph:<em class="replaceable">version-number</em></pre></div></li><li class="step"><p>
+     Upgrade the Ceph version:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n <em class="replaceable">ROOK_CLUSTER_NAMESPACE</em> patch CephCluster <em class="replaceable">CLUSTER_NAME</em> --type=merge -p "{\"spec\": {\"cephVersion\": {\"image\": \"registry.suse.com/ses/7.1/ceph/ceph:<em class="replaceable">version-number</em>\"}}}"</pre></div></li><li class="step"><p>
+     Mark the Ceph cluster to only support the updated version:
+    </p><div class="verbatim-wrap"><pre class="screen"># from a ceph-toolbox
+<code class="prompt root"># </code>ceph osd require-osd-release <em class="replaceable">version-name</em></pre></div></li></ol></div></div><div id="id-1.7.3.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    We recommend updating the Rook-Ceph common resources from the example
+    manifests before any update. The common resources and CRDs might not be
+    updated with every release, but K8s will only apply updates to the ones
+    that changed.
+   </p></div></section><section class="sect1" id="rook-update-procedure" data-id-title="Rook-Ceph Updates"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.3 </span><span class="title-name">Rook-Ceph Updates</span> <a title="Permalink" class="permalink" href="update-rook.html#rook-update-procedure">#</a></h2></div></div></div><p>
+   This is a general guide for updating your Rook cluster. For detailed
+   instructions on updating to each supported version, refer to the upstream
+   Rook upgrade documentation:
+   <a class="link" href="https://rook.io/docs/rook/v1.8/ceph-upgrade.html" target="_blank">https://rook.io/docs/rook/v1.8/ceph-upgrade.html</a>.
+  </p><p>
+   To successfully upgrade a Rook cluster, the following prerequisites must
+   be met:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Cluster health status is healthy with full functionality.
+    </p></li><li class="listitem"><p>
+     All pods consuming Rook storage should be created, running, and in a
+     steady state.
+    </p></li></ul></div><p>
+   Each version upgrade has specific details outlined in the Rook
+   documentation. Use the following steps as a base guideline.
+  </p><div id="id-1.7.3.3.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    These methods should work for any number of Rook-Ceph clusters and Rook
+    Operators as long as you parameterize the environment correctly. Merely
+    repeat these steps for each Rook-Ceph cluster
+    (<code class="literal">ROOK_CLUSTER_NAMESPACE</code>), and be sure to update the
+    <code class="literal">ROOK_OPERATOR_NAMESPACE</code> parameter each time if
+    applicable.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Update common resources and CRDs.
+    </p></li><li class="step"><p>
+     Update Ceph CSI versions.
+    </p></li><li class="step"><p>
+     Update the Rook Operator.
+    </p></li><li class="step"><p>
+     Wait for the upgrade to complete and verify the updated cluster.
+    </p></li><li class="step"><p>
+     Update <code class="option">CephRBDMirror</code> and <code class="option">CephBlockPool</code>
+     configuration options.
+    </p></li></ol></div></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="deploy-rook.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 1 </span>Quick start</span></a> </div><div><a class="pagination-link next" href="rook-ses-admin.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Part II </span>Administrating Ceph on SUSE CaaS Platform</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="update-rook.html#rook-update-hardware-specs"><span class="title-number">2.1 </span><span class="title-name">Recommended hardware specifications</span></a></span></li><li><span class="sect1"><a href="update-rook.html#patch-release-upgrades"><span class="title-number">2.2 </span><span class="title-name">Patch release upgrades</span></a></span></li><li><span class="sect1"><a href="update-rook.html#rook-update-procedure"><span class="title-number">2.3 </span><span class="title-name">Rook-Ceph Updates</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/update_caasp.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

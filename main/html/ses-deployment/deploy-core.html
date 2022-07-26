@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Deploying the remaining core services using cephadm | Deployment Guide | SUSE Enterprise Storage 7.1</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Deploying the remaining core services using cephadm | …"/>
+<meta name="description" content="After deploying the basic Ceph cluster, deploy core services to more cluster nodes. To make the cluster data accessible to clients, deploy additional services …"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7.1"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 8. Deploying the remaining core services using cephadm"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Deploying the remaining core services using cephadm | …"/>
+<meta property="og:description" content="After deploying the basic Ceph cluster, deploy core services to more cluster nodes. To make the cluster data accessible to clients, deploy additional services …"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deploying the remaining core services using cephadm | …"/>
+<meta name="twitter:description" content="After deploying the basic Ceph cluster, deploy core services to more cluster nodes. To make the cluster data accessible to clients, deploy additional services …"/>
+<link rel="prev" href="deploy-bootstrap.html" title="Chapter 7. Deploying the bootstrap cluster using ceph-salt"/><link rel="next" href="deploy-additional.html" title="Chapter 9. Deployment of additional services"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="ses-deployment.html">Deploying Ceph Cluster</a><span> / </span><a class="crumb" href="deploy-core.html">Deploying the remaining core services using cephadm</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="preface-deployment.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></li></ol></li><li class="active"><a href="ses-deployment.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a><ol><li><a href="deploy-intro.html" class=" "><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></li><li><a href="deploy-sles.html" class=" "><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></li><li><a href="deploy-salt.html" class=" "><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></li><li><a href="deploy-bootstrap.html" class=" "><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></li><li><a href="deploy-core.html" class=" you-are-here"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></li><li><a href="deploy-additional.html" class=" "><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></li></ol></li><li><a href="ses-upgrade.html" class="has-children "><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a><ol><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></li><li><a href="upgrade-to-pacific.html" class=" "><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></li></ol></li><li><a href="bk01apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></li><li><a href="bk01go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="deploy-core" data-id-title="Deploying the remaining core services using cephadm"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h2 class="title"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span> <a title="Permalink" class="permalink" href="deploy-core.html#">#</a></h2></div></div></div><p>
+  After deploying the basic Ceph cluster, deploy core services to more
+  cluster nodes. To make the cluster data accessible to clients, deploy
+  additional services as well.
+ </p><p>
+  Currently, we support deployment of Ceph services on the command line by
+  using the Ceph orchestrator (<code class="command">ceph orch</code> subcommands).
+ </p><section class="sect1" id="deploy-cephadm-day2-orch" data-id-title="The ceph orch command"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-orch">#</a></h2></div></div></div><p>
+   The Ceph orchestrator command <code class="command">ceph orch</code>—which is
+   an interface to the cephadm module—will take care of listing cluster
+   components and deploying Ceph services on new cluster nodes.
+  </p><section class="sect2" id="deploy-cephadm-day2-orch-status" data-id-title="Displaying the orchestrator status"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.1.1 </span><span class="title-name">Displaying the orchestrator status</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-orch-status">#</a></h3></div></div></div><p>
+    The following command shows the current mode and status of the Ceph
+    orchestrator.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch status</pre></div></section><section class="sect2" id="deploy-cephadm-day2-orch-list" data-id-title="Listing devices, services, and daemons"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.1.2 </span><span class="title-name">Listing devices, services, and daemons</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-orch-list">#</a></h3></div></div></div><p>
+    To list all disk devices, run the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device ls
+Hostname   Path      Type  Serial  Size   Health   Ident  Fault  Available
+ses-master /dev/vdb  hdd   0d8a... 10.7G  Unknown  N/A    N/A    No
+ses-min1   /dev/vdc  hdd   8304... 10.7G  Unknown  N/A    N/A    No
+ses-min1   /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
+[...]</pre></div><div id="id-1.3.4.6.4.4.4" data-id-title="Services and daemons" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Services and daemons</h6><p>
+     <span class="emphasis"><em>Service</em></span> is a general term for a Ceph service of a
+     specific type, for example Ceph Manager.
+    </p><p>
+     <span class="emphasis"><em>Daemon</em></span> is a specific instance of a service, for
+     example a process <code class="literal">mgr.ses-min1.gdlcik</code> running on a node
+     called <code class="literal">ses-min1</code>.
+    </p></div><p>
+    To list all services known to cephadm, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls
+NAME  RUNNING  REFRESHED  AGE  PLACEMENT  IMAGE NAME                  IMAGE ID
+mgr       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd
+mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd</pre></div><div id="id-1.3.4.6.4.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     You can limit the list to services on a particular node with the optional
+     <code class="option">-–host</code> parameter, and services of a particular type with
+     the optional <code class="option">--service-type</code> parameter. Acceptable types
+     are <code class="literal">mon</code>, <code class="literal">osd</code>,
+     <code class="literal">mgr</code>, <code class="literal">mds</code>, and
+     <code class="literal">rgw</code>.
+    </p></div><p>
+    To list all running daemons deployed by cephadm, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps
+NAME            HOST     STATUS   REFRESHED AGE VERSION    IMAGE ID     CONTAINER ID
+mgr.ses-min1.gd ses-min1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd b8104e09814c
+mon.ses-min1    ses-min1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     To query the status of a particular daemon, use
+     <code class="option">--daemon_type</code> and <code class="option">--daemon_id</code>. For OSDs,
+     the ID is the numeric OSD ID. For MDS, the ID is the file system name:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --daemon_type osd --daemon_id 0
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --daemon_type mds --daemon_id my_cephfs</pre></div></div></section></section><section class="sect1" id="cephadm-service-and-placement-specs" data-id-title="Service and placement specification"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-service-and-placement-specs">#</a></h2></div></div></div><p>
+   The recommended way to specify the deployment of Ceph services is to
+   create a YAML-formatted file with the specification of the services that you
+   intend to deploy.
+  </p><section class="sect2" id="cephadm-service-spec" data-id-title="Creating service specifications"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.2.1 </span><span class="title-name">Creating service specifications</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-service-spec">#</a></h3></div></div></div><p>
+    You can create a separate specification file for each type of service, for
+    example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cat nfs.yml
+service_type: nfs
+service_id: <em class="replaceable">EXAMPLE_NFS</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+spec:
+  pool: <em class="replaceable">EXAMPLE_POOL</em>
+  namespace: <em class="replaceable">EXAMPLE_NAMESPACE</em></pre></div><p>
+    Alternatively, you can specify multiple (or all) service types in one
+    file—for example, <code class="filename">cluster.yml</code>—that
+    describes which nodes will run specific services. Remember to separate
+    individual service types with three dashes (<code class="literal">---</code>):
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cat cluster.yml
+service_type: nfs
+service_id: <em class="replaceable">EXAMPLE_NFS</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+spec:
+  pool: <em class="replaceable">EXAMPLE_POOL</em>
+  namespace: <em class="replaceable">EXAMPLE_NAMESPACE</em>
+---
+service_type: rgw
+service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+  - ses-min3
+---
+[...]</pre></div><p>
+    The aforementioned properties have the following meaning:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.6.5.3.7.1"><span class="term"><code class="literal">service_type</code></span></dt><dd><p>
+       The type of the service. It can be either a Ceph service
+       (<code class="literal">mon</code>, <code class="literal">mgr</code>, <code class="literal">mds</code>,
+       <code class="literal">crash</code>, <code class="literal">osd</code>, or
+       <code class="literal">rbd-mirror</code>), a gateway (<code class="literal">nfs</code> or
+       <code class="literal">rgw</code>), or part of the monitoring stack
+       (<code class="literal">alertmanager</code>, <code class="literal">grafana</code>,
+       <code class="literal">node-exporter</code>, or <code class="literal">prometheus</code>).
+      </p></dd><dt id="id-1.3.4.6.5.3.7.2"><span class="term"><code class="literal">service_id</code></span></dt><dd><p>
+       The name of the service. Specifications of type <code class="literal">mon</code>,
+       <code class="literal">mgr</code>, <code class="literal">alertmanager</code>,
+       <code class="literal">grafana</code>, <code class="literal">node-exporter</code>, and
+       <code class="literal">prometheus</code> do not require the
+       <code class="literal">service_id</code> property.
+      </p></dd><dt id="id-1.3.4.6.5.3.7.3"><span class="term"><code class="literal">placement</code></span></dt><dd><p>
+       Specifies which nodes will be running the service. Refer to
+       <a class="xref" href="deploy-core.html#cephadm-placement-specs" title="8.2.2. Creating placement specification">Section 8.2.2, “Creating placement specification”</a> for more details.
+      </p></dd><dt id="id-1.3.4.6.5.3.7.4"><span class="term"><code class="literal">spec</code></span></dt><dd><p>
+       Additional specification relevant for the service type.
+      </p></dd></dl></div><div id="id-1.3.4.6.5.3.8" data-id-title="Applying specific services" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Applying specific services</h6><p>
+     Ceph cluster services have usually a number of properties specific to
+     them. For examples and details of individual services' specification,
+     refer to <a class="xref" href="deploy-core.html#deploy-cephadm-day2-services" title="8.3. Deploy Ceph services">Section 8.3, “Deploy Ceph services”</a>.
+    </p></div></section><section class="sect2" id="cephadm-placement-specs" data-id-title="Creating placement specification"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.2.2 </span><span class="title-name">Creating placement specification</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-placement-specs">#</a></h3></div></div></div><p>
+    To deploy Ceph services, cephadm needs to know on which nodes to deploy
+    them. Use the <code class="literal">placement</code> property and list the short host
+    names of the nodes that the service applies to:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cat cluster.yml
+[...]
+placement:
+  hosts:
+  - host1
+  - host2
+  - host3
+[...]</pre></div><section class="sect3" id="cephadm-placement-specs-label" data-id-title="Placement by labels"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.2.2.1 </span><span class="title-name">Placement by labels</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-placement-specs-label">#</a></h4></div></div></div><p>
+     You can limit the placement of Ceph services to hosts that match a
+     specific <span class="emphasis"><em>label</em></span>. In the following example, we create a
+     label <code class="literal">prometheus</code>, assign it to specific hosts, and
+     apply the service Prometheus to the group of hosts with the
+     <code class="literal">prometheus</code> label.
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Add the <code class="literal">prometheus</code> label to <code class="literal">host1</code>,
+       <code class="literal">host2</code>, and <code class="literal">host3</code>:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host label add host1 prometheus
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch host label add host2 prometheus
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch host label add host3 prometheus</pre></div></li><li class="step"><p>
+       Verify that the labels were correctly assigned:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host ls
+HOST   ADDR   LABELS      STATUS
+host1         prometheus
+host2         prometheus
+host3         prometheus
+[...]</pre></div></li><li class="step"><p>
+       Create a placement specification using the <code class="literal">label</code>
+       property:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cat cluster.yml
+[...]
+placement:
+  label: "prometheus"
+[...]</pre></div></li></ol></div></div></section></section><section class="sect2" id="cephadm-apply-cluster-specs" data-id-title="Applying cluster specification"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.2.3 </span><span class="title-name">Applying cluster specification</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-apply-cluster-specs">#</a></h3></div></div></div><p>
+    After you have created a full <code class="filename">cluster.yml</code> file with
+    specifications of all services and their placement, you can apply the
+    cluster by running the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i cluster.yml</pre></div><p>
+    To view the status of the cluster, run the <code class="command">ceph orch
+    status</code> command. For more details, see
+    <a class="xref" href="deploy-core.html#deploy-cephadm-day2-orch-status" title="8.1.1. Displaying the orchestrator status">Section 8.1.1, “Displaying the orchestrator status”</a>.
+   </p></section><section class="sect2" id="cephadm-apply-cluster-specs-" data-id-title="Exporting the specification of a running cluster"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.2.4 </span><span class="title-name">Exporting the specification of a running cluster</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-apply-cluster-specs-">#</a></h3></div></div></div><p>
+    Although you deployed services to the Ceph cluster by using the
+    specification files as described in
+    <a class="xref" href="deploy-core.html#cephadm-service-and-placement-specs" title="8.2. Service and placement specification">Section 8.2, “Service and placement specification”</a>, the
+    configuration of the cluster may diverge from the original specification
+    during its operation. Also, you may have removed the specification files
+    accidentally.
+   </p><p>
+    To retrieve a complete specification of a running cluster, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls --export
+placement:
+  hosts:
+  - hostname: ses-min1
+    name: ''
+    network: ''
+service_id: my_cephfs
+service_name: mds.my_cephfs
+service_type: mds
+---
+placement:
+  count: 2
+service_name: mgr
+service_type: mgr
+---
+[...]</pre></div><div id="id-1.3.4.6.5.6.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     You can append the <code class="option">--format</code> option to change the default
+     <code class="literal">yaml</code> output format. You can select from
+     <code class="literal">json</code>, <code class="literal">json-pretty</code>, or
+     <code class="literal">yaml</code>. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">ceph orch ls --export --format json</pre></div></div></section></section><section class="sect1" id="deploy-cephadm-day2-services" data-id-title="Deploy Ceph services"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-services">#</a></h2></div></div></div><p>
+   After the basic cluster is running, you can deploy Ceph services to
+   additional nodes.
+  </p><section class="sect2" id="deploy-cephadm-day2-service-mon" data-id-title="Deploying Ceph Monitors and Ceph Managers"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.1 </span><span class="title-name">Deploying Ceph Monitors and Ceph Managers</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-mon">#</a></h3></div></div></div><p>
+    Ceph cluster has three or five MONs deployed across different nodes. If
+    there are five or more nodes in the cluster, we recommend deploying five
+    MONs. A good practice is to have MGRs deployed on the same nodes as MONs.
+   </p><div id="id-1.3.4.6.6.3.3" data-id-title="Include Bootstrap MON" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Include Bootstrap MON</h6><p>
+     When deploying MONs and MGRs, remember to include the first MON that you
+     added when configuring the basic cluster in
+     <a class="xref" href="deploy-bootstrap.html#deploy-cephadm-configure-mon" title="7.2.5. Specifying first MON/MGR node">Section 7.2.5, “Specifying first MON/MGR node”</a>.
+    </p></div><p>
+    To deploy MONs, apply the following specification:
+   </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+  - ses-min3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     If you need to add another node, append the host name to the same YAML
+     list. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
+placement:
+ hosts:
+ - ses-min1
+ - ses-min2
+ - ses-min3
+ - ses-min4</pre></div></div><p>
+    Similarly, to deploy MGRs, apply the following specification:
+   </p><div id="id-1.3.4.6.6.3.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     Ensure your deployment has at least three Ceph Managers in each deployment.
+    </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mgr
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+  - ses-min3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     If MONs or MGRs are <span class="emphasis"><em>not</em></span> on the same subnet, you need
+     to append the subnet addresses. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
+placement:
+  hosts:
+  - ses-min1:10.1.2.0/24
+  - ses-min2:10.1.5.0/24
+  - ses-min3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: When Storage Device is Available</h6><p>
+     A storage device is considered <span class="emphasis"><em>available</em></span> if all of
+     the following conditions are met:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       The device has no partitions.
+      </p></li><li class="listitem"><p>
+       The device does not have any LVM state.
+      </p></li><li class="listitem"><p>
+       The device is not be mounted.
+      </p></li><li class="listitem"><p>
+       The device does not contain a file system.
+      </p></li><li class="listitem"><p>
+       The device does not contain a BlueStore OSD.
+      </p></li><li class="listitem"><p>
+       The device is larger than 5 GB.
+      </p></li></ul></div><p>
+     If the above conditions are not met, Ceph refuses to provision such
+     OSDs.
+    </p></div><p>
+    There are two ways you can deploy OSDs:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Tell Ceph to consume all available and unused storage devices:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply osd --all-available-devices</pre></div></li><li class="listitem"><p>
+      Use DriveGroups (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.4.3 “Adding OSDs using DriveGroups specification”</span>) to create OSD
+      specification describing devices that will be deployed based on their
+      properties, such as device type (SSD or HDD), device model names, size,
+      or the nodes on which the devices exist. Then apply the specification by
+      running the following command:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply osd -i drive_groups.yml</pre></div></li></ul></div></section><section class="sect2" id="deploy-cephadm-day2-service-mds" data-id-title="Deploying Metadata Servers"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.3 </span><span class="title-name">Deploying Metadata Servers</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-mds">#</a></h3></div></div></div><p>
+    CephFS requires one or more Metadata Server (MDS) services. To create a CephFS,
+    first create MDS servers by applying the following specification:
+   </p><div id="id-1.3.4.6.6.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     Ensure you have at least two pools, one for CephFS data and one for
+     CephFS metadata, created before applying the following specification.
+    </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mds
+service_id: <em class="replaceable">CEPHFS_NAME</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+  - ses-min3</pre></div><p>
+    After MDSs are functional, create the CephFS:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph fs new <em class="replaceable">CEPHFS_NAME</em> <em class="replaceable">metadata_pool</em> <em class="replaceable">data_pool</em></pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-ogw" data-id-title="Deploying Object Gateways"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.4 </span><span class="title-name">Deploying Object Gateways</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-ogw">#</a></h3></div></div></div><p>
+    cephadm deploys an Object Gateway as a collection of daemons that manage a
+    particular <span class="emphasis"><em>realm</em></span> and <span class="emphasis"><em>zone</em></span>.
+   </p><p>
+    You can either relate an Object Gateway service to already existing realm and zone,
+    (refer to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.13 “Multisite Object Gateways”</span> for more details), or you can
+    specify a non-existing <em class="replaceable">REALM_NAME</em> and
+    <em class="replaceable">ZONE_NAME</em> and they will be created automatically
+    after you apply the following configuration:
+   </p><div class="verbatim-wrap"><pre class="screen">service_type: rgw
+service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+  - ses-min3
+spec:
+  rgw_realm: <em class="replaceable">RGW_REALM</em>
+  rgw_zone: <em class="replaceable">RGW_ZONE</em></pre></div><section class="sect3" id="cephadm-deploy-using-secure-ssl-access" data-id-title="Using secure SSL access"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.4.1 </span><span class="title-name">Using secure SSL access</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-deploy-using-secure-ssl-access">#</a></h4></div></div></div><p>
+     To use a secure SSL connection to the Object Gateway, you need a file containing
+     both the valid SSL certificate and the key (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.7 “Enable HTTPS/SSL for Object Gateways”</span>
+     for more details). You need to enable SSL, specify a port number for SSL
+     connections, and the SSL certificate file.
+    </p><p>
+     To enable SSL and specify the port number, include the following in your
+     specification:
+    </p><div class="verbatim-wrap"><pre class="screen">spec:
+  ssl: true
+  rgw_frontend_port: 443</pre></div><p>
+     To specify the SSL certificate and key, you can paste their contents
+     directly into the YAML specification file. The pipe sign
+     (<code class="literal">|</code>) at the end of line tells the parser to expect a
+     multi-line string as a value. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">spec:
+  ssl: true
+  rgw_frontend_port: 443
+  rgw_frontend_ssl_certificate: |
+   -----BEGIN CERTIFICATE-----
+   MIIFmjCCA4KgAwIBAgIJAIZ2n35bmwXTMA0GCSqGSIb3DQEBCwUAMGIxCzAJBgNV
+   BAYTAkFVMQwwCgYDVQQIDANOU1cxHTAbBgNVBAoMFEV4YW1wbGUgUkdXIFNTTCBp
+   [...]
+   -----END CERTIFICATE-----
+   -----BEGIN PRIVATE KEY-----
+   MIIJRAIBADANBgkqhkiG9w0BAQEFAASCCS4wggkqAgEAAoICAQDLtFwg6LLl2j4Z
+   BDV+iL4AO7VZ9KbmWIt37Ml2W6y2YeKX3Qwf+3eBz7TVHR1dm6iPpCpqpQjXUsT9
+   [...]
+   -----END PRIVATE KEY-----</pre></div><div id="id-1.3.4.6.6.6.5.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      Instead of pasting the content of a SSL certificate file, you can
+      omit the <code class="literal">rgw_frontend_ssl_certificate:</code> directive and
+      upload the certificate file to the configuration database:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config-key set rgw/cert/<em class="replaceable">REALM_NAME</em>/<em class="replaceable">ZONE_NAME</em>.crt \
+ -i <em class="replaceable">SSL_CERT_FILE</em></pre></div></div><section class="sect4" id="cephadm-deploy-ogw-ports" data-id-title="Configure the Object Gateway to listen on both ports 443 and 80"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">8.3.4.1.1 </span><span class="title-name">Configure the Object Gateway to listen on both ports 443 and 80</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-deploy-ogw-ports">#</a></h5></div></div></div><p>
+      To configure the Object Gateway to listen on both ports 443 (HTTPS) and 80 (HTTP),
+      follow these steps:
+     </p><div id="id-1.3.4.6.6.6.5.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       The commands in the procedure use realm and zone
+       <code class="literal">default</code>.
+      </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+        Deploy the Object Gateway by supplying a specification file. Refer to
+        <a class="xref" href="deploy-core.html#deploy-cephadm-day2-service-ogw" title="8.3.4. Deploying Object Gateways">Section 8.3.4, “Deploying Object Gateways”</a> for more
+        details on the Object Gateway specification. Use the following command:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">SPEC_FILE</em></pre></div></li><li class="step"><p>
+        If SSL certificates are not supplied in the specification file, add
+        them by using the following command:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config-key set rgw/cert/default/default.crt -i certificate.pem
+<code class="prompt user">cephuser@adm &gt; </code>ceph config-key set rgw/cert/default/default.key -i key.pem</pre></div></li><li class="step"><p>
+        Change the default value of the <code class="option">rgw_frontends</code> option:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set client.rgw.default.default rgw_frontends \
+ "beast port=80 ssl_port=443"</pre></div></li><li class="step"><p>
+        Remove the specific configuration created by cephadm. Identify for
+        which target the <code class="option">rgw_frontends</code> option was configured
+        by running the command:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config dump | grep rgw</pre></div><p>
+        For example, the target is
+        <code class="literal">client.rgw.default.default.node4.yiewdu</code>. Remove the
+        current specific <code class="option">rgw_frontends</code> value:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config rm client.rgw.default.default.node4.yiewdu rgw_frontends</pre></div><div id="id-1.3.4.6.6.6.5.8.4.4.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+         Instead of removing a value for <code class="option">rgw_frontends</code>, you
+         can specify it. For example:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set client.rgw.default.default.node4.yiewdu \
+ rgw_frontends "beast port=80 ssl_port=443"</pre></div></div></li><li class="step"><p>
+        Restart Object Gateways:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch restart rgw.default.default</pre></div></li></ol></div></div></section></section><section class="sect3" id="cephadm-deploy-with-subcluster" data-id-title="Deploying with a subcluster"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.4.2 </span><span class="title-name">Deploying with a subcluster</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-deploy-with-subcluster">#</a></h4></div></div></div><p>
+     <span class="emphasis"><em>Subclusters</em></span> help you organize the nodes in your
+     clusters to isolate workloads and make elastic scaling easier. If you are
+     deploying with a subcluster, apply the following configuration:
+    </p><div class="verbatim-wrap"><pre class="screen">service_type: rgw
+service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>.<em class="replaceable">SUBCLUSTER</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+  - ses-min3
+spec:
+  rgw_realm: <em class="replaceable">RGW_REALM</em>
+  rgw_zone: <em class="replaceable">RGW_ZONE</em>
+  subcluster: <em class="replaceable">SUBCLUSTER</em></pre></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-igw" data-id-title="Deploying iSCSI Gateways"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.5 </span><span class="title-name">Deploying iSCSI Gateways</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-igw">#</a></h3></div></div></div><p>
+    cephadm deploys an iSCSI Gateway which is a storage area network (SAN) protocol
+    that allows clients (called initiators) to send SCSI commands to SCSI
+    storage devices (targets) on remote servers.
+   </p><p>
+    Apply the following configuration to deploy. Ensure
+    <code class="literal">trusted_ip_list</code> contains the IP addresses of all iSCSI Gateway
+    and Ceph Manager nodes (see the example output below).
+   </p><div id="id-1.3.4.6.6.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     Ensure the pool is created before applying the following specification.
+    </p></div><div class="verbatim-wrap"><pre class="screen">service_type: iscsi
+service_id: <em class="replaceable">EXAMPLE_ISCSI</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2
+  - ses-min3
+spec:
+  pool: <em class="replaceable">EXAMPLE_POOL</em>
+  api_user: <em class="replaceable">EXAMPLE_USER</em>
+  api_password: <em class="replaceable">EXAMPLE_PASSWORD</em>
+  trusted_ip_list: "<em class="replaceable">IP_ADDRESS_1</em>,<em class="replaceable">IP_ADDRESS_2</em>"</pre></div><div id="id-1.3.4.6.6.7.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     Ensure the IPs listed for <code class="literal">trusted_ip_list</code> do
+     <span class="emphasis"><em>not</em></span> have a space after the comma separation.
+    </p></div><section class="sect3" id="id-1.3.4.6.6.7.7" data-id-title="Secure SSL configuration"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.5.1 </span><span class="title-name">Secure SSL configuration</span> <a title="Permalink" class="permalink" href="deploy-core.html#id-1.3.4.6.6.7.7">#</a></h4></div></div></div><p>
+     To use a secure SSL connection between the Ceph Dashboard and the iSCSI
+     target API, you need a pair of valid SSL certificate and key files. These
+     can be either CA-issued or self-signed (see
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 10 “Manual configuration”, Section 10.1.1 “Creating self-signed certificates”</span>). To enable SSL, include
+     the <code class="literal">api_secure: true</code> setting in your specification
+     file:
+    </p><div class="verbatim-wrap"><pre class="screen">spec:
+  api_secure: true</pre></div><p>
+     To specify the SSL certificate and key, you can paste the content directly
+     into the YAML specification file. The pipe sign (<code class="literal">|</code>) at
+     the end of line tells the parser to expect a multi-line string as a value.
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen">spec:
+  pool: EXAMPLE_POOL
+  api_user: EXAMPLE_USER
+  api_password: EXAMPLE_PASSWORD
+  trusted_ip_list: "IP_ADDRESS_1,IP_ADDRESS_2"
+  api_secure: true
+  ssl_cert: |
+    -----BEGIN CERTIFICATE-----
+    MIIDtTCCAp2gAwIBAgIYMC4xNzc1NDQxNjEzMzc2MjMyXzxvQ7EcMA0GCSqGSIb3
+    DQEBCwUAMG0xCzAJBgNVBAYTAlVTMQ0wCwYDVQQIDARVdGFoMRcwFQYDVQQHDA5T
+    [...]
+    -----END CERTIFICATE-----
+  ssl_key: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5jdYbjtNTAKW4
+    /CwQr/7wOiLGzVxChn3mmCIF3DwbL/qvTFTX2d8bDf6LjGwLYloXHscRfxszX/4h
+    [...]
+    -----END PRIVATE KEY-----</pre></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-nfs" data-id-title="Deploying NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.6 </span><span class="title-name">Deploying NFS Ganesha</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-nfs">#</a></h3></div></div></div><div id="id-1.3.4.6.6.8.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  NFS Ganesha supports NFS version 4.1 and newer.
+  It does not support NFS version 3.
+ </p></div><p>
+    cephadm deploys NFS Ganesha using a standard pool <code class="filename">.nfs</code>
+    instead of a user-predefined pool. To deploy NFS Ganesha, apply the following
+    specification:
+   </p><div class="verbatim-wrap"><pre class="screen">service_type: nfs
+service_id: <em class="replaceable">EXAMPLE_NFS</em>
+placement:
+  hosts:
+  - ses-min1
+  - ses-min2</pre></div><p>
+    <em class="replaceable">EXAMPLE_NFS</em> should be replaced with an arbitrary
+    string that identifies the NFS export.
+   </p><p>
+    Enable the <code class="literal">nfs</code> module in the Ceph Manager daemon. This allows
+    defining NFS exports through the NFS section in the Ceph Dashboard:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable nfs</pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-rbdmirror" data-id-title="Deploying rbd-mirror"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.7 </span><span class="title-name">Deploying <code class="systemitem">rbd-mirror</code></span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-rbdmirror">#</a></h3></div></div></div><p>
+    The <code class="systemitem">rbd-mirror</code> service takes care of synchronizing RADOS Block Device images between
+    two Ceph clusters (for more details, see
+    <span class="intraxref">Book “Administration and Operations Guide”, Chapter 20 “RADOS Block Device”, Section 20.4 “RBD image mirrors”</span>). To deploy <code class="systemitem">rbd-mirror</code>, use the
+    following specification:
+   </p><div class="verbatim-wrap"><pre class="screen">service_type: rbd-mirror
+service_id: <em class="replaceable">EXAMPLE_RBD_MIRROR</em>
+placement:
+  hosts:
+  - ses-min3</pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-monitoring" data-id-title="Deploying the monitoring stack"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.8 </span><span class="title-name">Deploying the monitoring stack</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-monitoring">#</a></h3></div></div></div><p>
+    The monitoring stack consists of Prometheus, Prometheus exporters,
+    Prometheus Alertmanager, and Grafana. Ceph Dashboard makes use of these
+    components to store and visualize detailed metrics on cluster usage and
+    performance.
+   </p><div id="id-1.3.4.6.6.10.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     If your deployment requires custom or locally served container images of
+     the monitoring stack services, refer to
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
+    </p></div><p>
+    To deploy the monitoring stack, follow these steps:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Enable the <code class="literal">prometheus</code> module in the Ceph Manager daemon. This
+      exposes the internal Ceph metrics so that Prometheus can read them:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable prometheus</pre></div><div id="id-1.3.4.6.6.10.5.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       Ensure this command is run before Prometheus is deployed. If the
+       command was not run before the deployment, you must redeploy
+       Prometheus to update Prometheus' configuration:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch redeploy prometheus</pre></div></div></li><li class="step"><p>
+      Create a specification file (for example
+      <code class="filename">monitoring.yaml</code>) with a content similar to the
+      following:
+     </p><div class="verbatim-wrap"><pre class="screen">service_type: prometheus
+placement:
+  hosts:
+  - ses-min2
+---
+service_type: node-exporter
+---
+service_type: alertmanager
+placement:
+  hosts:
+  - ses-min4
+---
+service_type: grafana
+placement:
+  hosts:
+  - ses-min3</pre></div></li><li class="step"><p>
+      Apply monitoring services by running:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i monitoring.yaml</pre></div><p>
+      It may take a minute or two for the monitoring services to be deployed.
+     </p></li></ol></div></div><div id="id-1.3.4.6.6.10.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     Prometheus, Grafana, and the Ceph Dashboard are all automatically
+     configured to talk to each other, resulting in a fully functional
+     Grafana integration in the Ceph Dashboard when deployed as described above.
+    </p><p>
+     The only exception to this rule is monitoring with RBD images. See
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.5.4 “Enabling RBD-image monitoring”</span> for more information.
+    </p></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="deploy-bootstrap.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 7 </span>Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a> </div><div><a class="pagination-link next" href="deploy-additional.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 9 </span>Deployment of additional services</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="deploy-core.html#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="deploy-core.html#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="deploy-core.html#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_core.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

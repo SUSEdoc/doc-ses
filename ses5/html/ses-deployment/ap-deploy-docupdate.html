@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Documentation Updates | Deployment Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Documentation Updates | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="This chapter lists content changes for this document since the initial release of SUSE Enterprise Storage 4. You can find changes related to the cluster deploy…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Appendix A. Documentation Updates"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Documentation Updates | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="This chapter lists content changes for this document since the initial release of SUSE Enterprise Storage 4. You can find changes related to the cluster deploy…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Documentation Updates | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="This chapter lists content changes for this document since the initial release of SUSE Enterprise Storage 4. You can find changes related to the cluster deploy…"/>
+<link rel="prev" href="cha-ses-cifs.html" title="Chapter 13. Exporting Ceph Data via Samba"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="ap-deploy-docupdate.html">Documentation Updates</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 5.5 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Ceph Admin Node HA Setup</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">4 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">5 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">6 </span><span class="title-name">Backing Up the Cluster Configuration</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li><a href="additional-software.html" class="has-children "><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">13 </span><span class="title-name">Exporting Ceph Data via Samba</span></a></li></ol></li><li><a href="ap-deploy-docupdate.html" class=" you-are-here"><span class="title-number">A </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="appendix" id="ap-deploy-docupdate" data-id-title="Documentation Updates"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h1 class="title"><span class="title-number">A </span><span class="title-name">Documentation Updates</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#">#</a></h1></div></div></div><p>
+  This chapter lists content changes for this document since the initial
+  release of SUSE Enterprise Storage 4. You can find changes related to the cluster
+  deployment that apply to previous versions in
+  <a class="link" href="https://documentation.suse.com/ses/5.5/single-html/ses-deployment/#ap-deploy-docupdate" target="_blank">https://documentation.suse.com/ses/5.5/single-html/ses-deployment/#ap-deploy-docupdate</a>.
+ </p><p>
+  The document was updated on the following dates:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <a class="xref" href="ap-deploy-docupdate.html#sec-depl-docupdates-5maint3" title="A.1. The Latest Documentation Update">Section A.1, “The Latest Documentation Update”</a>
+   </p></li><li class="listitem"><p>
+    <a class="xref" href="ap-deploy-docupdate.html#sec-depl-docupdates-5-5" title="A.2. October, 2018 (Documentation Maintenance Update)">Section A.2, “October, 2018 (Documentation Maintenance Update)”</a>
+   </p></li><li class="listitem"><p>
+    <a class="xref" href="ap-deploy-docupdate.html#sec-depl-docupdates-5maint1" title="A.3. November, 2017 (Maintenance Update)">Section A.3, “November, 2017 (Maintenance Update)”</a>
+   </p></li><li class="listitem"><p>
+    <a class="xref" href="ap-deploy-docupdate.html#sec-depl-docupdates-5" title="A.4. October, 2017 (Release of SUSE Enterprise Storage 5)">Section A.4, “October, 2017 (Release of SUSE Enterprise Storage 5)”</a>
+   </p></li></ul></div><section class="sect1" id="sec-depl-docupdates-5maint3" data-id-title="The Latest Documentation Update"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">A.1 </span><span class="title-name">The Latest Documentation Update</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#sec-depl-docupdates-5maint3">#</a></h2></div></div></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">Bugfixes </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.6.6.2">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Added an important box stating that encrypted OSDs boot longer than
+     unencrypted in <a class="xref" href="ceph-install-saltstack.html#ds-profile-osd-encrypted" title="4.5.1.6. Deploying Encrypted OSDs">Section 4.5.1.6, “Deploying Encrypted OSDs”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1124813" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1124813</a>).
+    </p></li><li class="listitem"><p>
+     Added a step to disable AppArmor profiles in <a class="xref" href="cha-ceph-upgrade.html#u4to5-softreq" title="Important: Software Requirements">Important: Software Requirements</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1127297" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1127297</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-as-iscsi.html#iscsi-lrbd-autentication" title="10.4.4. Authentication and Access Control">Section 10.4.4, “Authentication and Access Control”</a> and extended
+     <a class="xref" href="cha-ceph-as-iscsi.html#ceph-iscsi-rbd-advanced" title="10.4.6. Advanced Settings">Section 10.4.6, “Advanced Settings”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1114705" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1114705</a>).
+    </p></li><li class="listitem"><p>
+     Added DeepSea stage 2 to the deployment process in
+     <a class="xref" href="cha-as-ganesha.html#proc-as-ganesha-ha-ap">Procedure 12.0, “”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1119167" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1119167</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-storage-about.html#sec-privileges-and-prompts" title="1.3. User Privileges and Command Prompts">Section 1.3, “User Privileges and Command Prompts”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1116537" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1116537</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#ceph-maintenance-upgrade-details" title="5.4.2. Details on the salt target ceph.maintenance.upgrade Command">Section 5.4.2, “Details on the <code class="command">salt <em class="replaceable">target</em> ceph.maintenance.upgrade</code> Command”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1104794" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1104794</a>).
+    </p></li></ul></div></section><section class="sect1" id="sec-depl-docupdates-5-5" data-id-title="October, 2018 (Documentation Maintenance Update)"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">A.2 </span><span class="title-name">October, 2018 (Documentation Maintenance Update)</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#sec-depl-docupdates-5-5">#</a></h2></div></div></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">General Updates </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.6.7.2">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Added <a class="xref" href="cha-admin-ha.html" title="Chapter 3. Ceph Admin Node HA Setup">Chapter 3, <em>Ceph Admin Node HA Setup</em></a> (Fate#325622).
+    </p></li><li class="listitem"><p>
+     Encrypted OSDs during deployment and upgrade in
+     <a class="xref" href="ceph-install-saltstack.html#ds-profile-osd-encrypted" title="4.5.1.6. Deploying Encrypted OSDs">Section 4.5.1.6, “Deploying Encrypted OSDs”</a> and
+     <a class="xref" href="cha-ceph-upgrade.html#ds-migrate-osd-encrypted" title="5.3. Encrypting OSDs during Upgrade">Section 5.3, “Encrypting OSDs during Upgrade”</a> (Fate#321665).
+    </p></li></ul></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">Bugfixes </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.6.7.3">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Cleaned the update repository sections in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1109377" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1109377</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="ceph-install-saltstack.html#stage1-override-devices" title="4.5.1.5. Overriding Default Search for Disk Devices">Section 4.5.1.5, “Overriding Default Search for Disk Devices”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1105967" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1105967</a>).
+    </p></li><li class="listitem"><p>
+     Prepended DeepSea Stage 0 execution in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1110440" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1110440</a>).
+    </p></li><li class="listitem"><p>
+     Fixed creation of demo users in
+     <a class="xref" href="cha-as-ganesha.html#sec-as-ganesha-basic-example" title="12.2. Example Installation">Section 12.2, “Example Installation”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1105739" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1105739</a>).
+    </p></li><li class="listitem"><p>
+     Removed the default <code class="option">stage_prep_master</code> and
+     <code class="option">stage_prep_minion</code> values in
+     <a class="xref" href="ceph-deploy-ds-custom.html#ds-disable-reboots" title="7.1.5. Updates and Reboots during Stage 0">Section 7.1.5, “Updates and Reboots during Stage 0”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1103242" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1103242</a>).
+    </p></li><li class="listitem"><p>
+     Updated various parts of <a class="xref" href="cha-ses-cifs.html" title="Chapter 13. Exporting Ceph Data via Samba">Chapter 13, <em>Exporting Ceph Data via Samba</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1101478" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1101478</a>).
+    </p></li><li class="listitem"><p>
+     Added information on preconfiguring network settings by a custom
+     <code class="filename">cluster.yml</code> in <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1099448" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1099448</a>).
+    </p></li><li class="listitem"><p>
+     Removed spare <code class="literal">role-igw</code> definitions
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1099687" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1099687</a>).
+    </p></li><li class="listitem"><p>
+     Added a tip on running a second terminal session for the monitor mode in
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-cli-monitor" title="4.4.1. DeepSea CLI: Monitor Mode">Section 4.4.1, “DeepSea CLI: Monitor Mode”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1099453" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1099453</a>).
+    </p></li><li class="listitem"><p>
+     Non-data Object Gateway pools need to be replicated in
+     <a class="xref" href="cha-ceph-additional-software-installation.html#ogw-pool-create" title="9.1.1.2. Create Pools (Optional)">Section 9.1.1.2, “Create Pools (Optional)”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1095743" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1095743</a>).
+    </p></li><li class="listitem"><p>
+     FQDN of all nodes must be resolvable to the public network IP. See
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1067113" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1067113</a>).
+    </p></li><li class="listitem"><p>
+     Added a tip on sharing multiple roles in
+     <a class="xref" href="ceph-install-saltstack.html" title="Chapter 4. Deploying with DeepSea/Salt">Chapter 4, <em>Deploying with DeepSea/Salt</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1093824" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1093824</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="storage-bp-hwreq.html#sysreq-mds" title="2.4. Metadata Server Nodes">Section 2.4, “Metadata Server Nodes”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1047230" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1047230</a>).
+    </p></li><li class="listitem"><p>
+     Manually edit <code class="filename">policy.cfg</code> for openATTIC
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073331" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073331</a>).
+    </p></li><li class="listitem"><p>
+     Recommended <span class="guimenu">/var/lib/ceph</span> on SSD in
+     <a class="xref" href="storage-bp-hwreq.html#sysreq-mon" title="2.2. Monitor Nodes">Section 2.2, “Monitor Nodes”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1056322" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1056322</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-storage-about.html#about-bluestore" title="1.5. BlueStore">Section 1.5, “BlueStore”</a> and
+     <a class="xref" href="storage-bp-hwreq.html#rec-waldb-size" title="2.1.3. Recommended Size for the BlueStore's WAL and DB Device">Section 2.1.3, “Recommended Size for the BlueStore's WAL and DB Device”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1072502" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1072502</a>).
+    </p></li><li class="listitem"><p>
+     Extended the deployment of encrypted OSDs in
+     <a class="xref" href="ceph-install-saltstack.html#ds-profile-osd-encrypted" title="4.5.1.6. Deploying Encrypted OSDs">Section 4.5.1.6, “Deploying Encrypted OSDs”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1093003" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1093003</a>).
+    </p></li><li class="listitem"><p>
+     Increased the number of bytes to erase to 4M in
+     <a class="xref" href="ceph-install-saltstack.html#deploy-wiping-disk" title="Step 12">Step 12</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1093331" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1093331</a>).
+    </p></li><li class="listitem"><p>
+     Firewall breaks DeepSea stages, in <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1090683" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1090683</a>).
+    </p></li><li class="listitem"><p>
+     Added the list of repositories in <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1088170" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1088170</a>).
+    </p></li><li class="listitem"><p>
+     Added instructions to manually add repositories using
+     <code class="command">zypper</code> <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>,
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5cephdeloy" title="5.5. Upgrade from SUSE Enterprise Storage 4 (ceph-deploy Deployment) to 5">Section 5.5, “Upgrade from SUSE Enterprise Storage 4 (<code class="command">ceph-deploy</code> Deployment) to 5”</a>, and
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5crowbar" title="5.6. Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5">Section 5.6, “Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073308" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073308</a>).
+    </p></li><li class="listitem"><p>
+     Added a list of upgrade repositories + brief explanation of the
+     DeepSea's <code class="option">upgrade_init</code> option in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073372" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073372</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="ceph-deploy-ds-custom.html#ds-disable-reboots" title="7.1.5. Updates and Reboots during Stage 0">Section 7.1.5, “Updates and Reboots during Stage 0”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1081524" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1081524</a>).
+    </p></li><li class="listitem"><p>
+     Fixed prompts in <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1084307" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1084307</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="storage-bp-hwreq.html#req-ses-other" title="2.12. SUSE Enterprise Storage 5.5 and Other SUSE Products">Section 2.12, “SUSE Enterprise Storage 5.5 and Other SUSE Products”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1089717" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1089717</a>).
+    </p></li><li class="listitem"><p>
+     Added a note on the Object Gateway configuration sections in
+     <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1089300" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1089300</a>).
+    </p></li><li class="listitem"><p>
+     Added WAL/DB snippets to <a class="xref" href="storage-bp-hwreq.html#ses-bp-mindisk" title="2.1.2. Minimum Disk Size">Section 2.1.2, “Minimum Disk Size”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1057797" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1057797</a>).
+    </p></li><li class="listitem"><p>
+     MONs' public addresses are calculated dynamically
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1089151" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1089151</a>).
+    </p></li><li class="listitem"><p>
+     Fixed keyrings location in <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5cephdeloy" title="5.5. Upgrade from SUSE Enterprise Storage 4 (ceph-deploy Deployment) to 5">Section 5.5, “Upgrade from SUSE Enterprise Storage 4 (<code class="command">ceph-deploy</code> Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073368" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073368</a>).
+    </p></li><li class="listitem"><p>
+     Provided several helper snippets in
+     <a class="xref" href="ceph-install-saltstack.html#policy-role-assignment" title="4.5.1.2. Role Assignment">Section 4.5.1.2, “Role Assignment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1061629" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1061629</a>).
+    </p></li><li class="listitem"><p>
+     Engulfing custom <code class="filename">ceph.conf</code> in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1085443" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1085443</a>).
+    </p></li><li class="listitem"><p>
+     Updated RAM value recommended for BlueStore deployment in
+     <a class="xref" href="storage-bp-hwreq.html#sysreq-osd" title="2.1.1. Minimum Requirements">Section 2.1.1, “Minimum Requirements”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1076385)" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1076385)</a>).
+    </p></li><li class="listitem"><p>
+     Added manual steps to upgrade the iSCSI Gateways after the engulf command in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5cephdeloy" title="5.5. Upgrade from SUSE Enterprise Storage 4 (ceph-deploy Deployment) to 5">Section 5.5, “Upgrade from SUSE Enterprise Storage 4 (<code class="command">ceph-deploy</code> Deployment) to 5”</a> and
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5crowbar" title="5.6. Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5">Section 5.6, “Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073327)" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073327)</a>).
+    </p></li><li class="listitem"><p>
+     The iSCSI Gateway deployment updated to the DeepSea way in
+     <a class="xref" href="cha-ceph-as-iscsi.html#ceph-iscsi-install" title="10.4. Installation and Configuration">Section 10.4, “Installation and Configuration”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073327" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073327</a>).
+    </p></li><li class="listitem"><p>
+     CephFS quotas are not supported. See
+     <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-limitations" title="11.1. Supported CephFS Scenarios and Guidance">Section 11.1, “Supported CephFS Scenarios and Guidance”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1077269" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1077269</a>).
+     CephFS quotas are not supported. See
+     <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-limitations" title="11.1. Supported CephFS Scenarios and Guidance">Section 11.1, “Supported CephFS Scenarios and Guidance”</a>.
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1077269)" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1077269)</a>)
+    </p></li><li class="listitem"><p>
+     Include partitions with higher numbers than 9 in zeroing step, see
+     <a class="xref" href="ceph-install-saltstack.html#deploy-wiping-disk" title="Step 12">Step 12</a>.
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1050230" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1050230</a>).
+    </p></li></ul></div></section><section class="sect1" id="sec-depl-docupdates-5maint1" data-id-title="November, 2017 (Maintenance Update)"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">A.3 </span><span class="title-name">November, 2017 (Maintenance Update)</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#sec-depl-docupdates-5maint1">#</a></h2></div></div></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">General Updates </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.6.8.2">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-multimds" title="11.3.2. MDS Cluster Size">Section 11.3.2, “MDS Cluster Size”</a> and
+     <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-multimds-updates" title="11.3.3. MDS Cluster and Updates">Section 11.3.3, “MDS Cluster and Updates”</a>.
+    </p></li></ul></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">Bugfixes </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.6.8.3">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Enhanced the disk wiping strategy in <a class="xref" href="ceph-install-saltstack.html#deploy-wiping-disk" title="Step 12">Step 12</a>
+     of <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073897" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073897</a>).
+    </p></li><li class="listitem"><p>
+     Added tip on disengaging safety measures in
+     <a class="xref" href="cha-ceph-upgrade.html#filestore2bluestore" title="5.4.1. OSD Migration to BlueStore">Section 5.4.1, “OSD Migration to BlueStore”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073720" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073720</a>).
+    </p></li><li class="listitem"><p>
+     Referred to <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting-name" title="4.2.2.1. Matching the Minion Name">Section 4.2.2.1, “Matching the Minion Name”</a> in
+     <a class="xref" href="ceph-install-saltstack.html#ds-depl-stages" title="Running Deployment Stages">Procedure 4.1, “Running Deployment Stages”</a> and <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.1 “Adding New Cluster Nodes”</span>
+     to unify the information source
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073374" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073374</a>).
+    </p></li><li class="listitem"><p>
+     In <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-general" title="5.2. General Upgrade Procedure">Section 5.2, “General Upgrade Procedure”</a> only update Salt master and
+     minion and not all packages. Therefore replace <code class="command">salt target
+     state.apply ceph.updates</code> with <code class="command">salt target state.apply
+     ceph.updates.salt</code>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073373" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073373</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5crowbar" title="5.6. Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5">Section 5.6, “Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073317" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073317</a>
+     and
+     <a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1073701" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1073701</a>).
+    </p></li><li class="listitem"><p>
+     Replaced '*' with <em class="replaceable">target</em> and extended the
+     targeting introduction in <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting" title="4.2.2. Targeting the Minions">Section 4.2.2, “Targeting the Minions”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1068956" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1068956</a>).
+    </p></li><li class="listitem"><p>
+     Added verification of Salt minions' fingerprints in
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1064045" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1064045</a>).
+    </p></li><li class="listitem"><p>
+     Removed advice to copy the example refactor.conf file in
+     <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.9 “Automated Installation via Salt”</span>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1065926" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1065926</a>).
+    </p></li><li class="listitem"><p>
+     Fixed path to network configuration YAML file in
+     <a class="xref" href="ceph-install-saltstack.html#ds-depl-stages" title="Running Deployment Stages">Procedure 4.1, “Running Deployment Stages”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1067730" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1067730</a>).
+    </p></li><li class="listitem"><p>
+     Verify the cluster layout in <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1067189" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1067189</a>).
+    </p></li><li class="listitem"><p>
+     Added <code class="command">ceph osd set sortbitwise</code> to
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a> and
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1067146" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1067146</a>).
+    </p></li><li class="listitem"><p>
+     <code class="option">osd crush location</code> is gone,
+     <code class="filename">ceph.conf</code> is customized differently in
+     <a class="xref" href="cha-ceph-upgrade.html#u4to5-softreq" title="Important: Software Requirements">Important: Software Requirements</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1067381" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1067381</a>).
+    </p></li><li class="listitem"><p>
+     Fixed 'role-admin' from 'role-master' in
+     <a class="xref" href="ceph-install-saltstack.html#policy-role-assignment" title="4.5.1.2. Role Assignment">Section 4.5.1.2, “Role Assignment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1064056" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1064056</a>).
+    </p></li><li class="listitem"><p>
+     Fixed path to <code class="filename">cluster.yml</code> in
+     <a class="xref" href="ceph-install-saltstack.html#ds-depl-stages" title="Running Deployment Stages">Procedure 4.1, “Running Deployment Stages”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1066711" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1066711</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-as-ganesha.html#ganesha-ha-deepsea" title="12.3.5. NFS Ganesha HA and DeepSea">Section 12.3.5, “NFS Ganesha HA and DeepSea”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1058313" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1058313</a>).
+    </p></li><li class="listitem"><p>
+     Re-added <a class="xref" href="storage-bp-hwreq.html#storage-bp-net-subnets" title="2.7.2. Monitor Nodes on Different Subnets">Section 2.7.2, “Monitor Nodes on Different Subnets”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1050115" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1050115</a>).
+    </p></li><li class="listitem"><p>
+     The file <code class="filename">deepsea_minions.sls</code> must contain only one
+     <code class="literal">deepsea_minions</code> entry. See
+     <a class="xref" href="ceph-install-saltstack.html#ds-depl-stages" title="Running Deployment Stages">Procedure 4.1, “Running Deployment Stages”</a>.
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1065403" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1065403</a>)
+    </p></li><li class="listitem"><p>
+     Changed order of steps in first procedure of
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>.
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1064770" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1064770</a>)
+    </p></li><li class="listitem"><p>
+     Clarified <a class="xref" href="cha-ceph-upgrade.html#filestore2bluestore" title="5.4.1. OSD Migration to BlueStore">Section 5.4.1, “OSD Migration to BlueStore”</a>.
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1063250" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1063250</a>)
+    </p></li></ul></div></section><section class="sect1" id="sec-depl-docupdates-5" data-id-title="October, 2017 (Release of SUSE Enterprise Storage 5)"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">A.4 </span><span class="title-name">October, 2017 (Release of SUSE Enterprise Storage 5)</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#sec-depl-docupdates-5">#</a></h2></div></div></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">General Updates </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.6.9.2">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-3to5" title="5.7. Upgrade from SUSE Enterprise Storage 3 to 5">Section 5.7, “Upgrade from SUSE Enterprise Storage 3 to 5”</a> (Fate #323072).
+    </p></li><li class="listitem"><p>
+     Removed the obsolete <code class="command">Crowbar</code> installation tool in favor
+     of DeepSea.
+    </p></li><li class="listitem"><p>
+     Removed the obsolete <code class="command">ceph-deploy</code> tool in favor of
+     DeepSea.
+    </p></li><li class="listitem"><p>
+     Updated <a class="xref" href="storage-bp-hwreq.html" title="Chapter 2. Hardware Requirements and Recommendations">Chapter 2, <em>Hardware Requirements and Recommendations</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1029544" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1029544</a>
+     and
+     <a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1042283" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1042283</a>).
+    </p></li><li class="listitem"><p>
+     Updated <a class="xref" href="cha-as-ganesha.html" title="Chapter 12. Installation of NFS Ganesha">Chapter 12, <em>Installation of NFS Ganesha</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1036495" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1036495</a>,
+     <a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1031444" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1031444</a>,
+     FATE#322464).
+    </p></li><li class="listitem"><p>
+     DeepSea naming schema of profiles changed. See
+     <a class="xref" href="ceph-install-saltstack.html#policy-profile-assignment" title="4.5.1.4. Profile Assignment">Section 4.5.1.4, “Profile Assignment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1046108" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1046108</a>).
+    </p></li><li class="listitem"><p>
+     CephFS can be used on EC pools, see
+     <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-cephfs-create" title="11.3.1. Creating CephFS">Section 11.3.1, “Creating CephFS”</a> (FATE#321617).
+    </p></li></ul></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">Bugfixes </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.6.9.3">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-as-iscsi.html#iscsi-tcmu" title="10.5. Exporting RADOS Block Device Images using tcmu-runner">Section 10.5, “Exporting RADOS Block Device Images using <code class="systemitem">tcmu-runner</code>”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1064467" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1064467</a>).
+    </p></li><li class="listitem"><p>
+     Improved the upgrade procedure to include the openATTIC role in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1064621" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1064621</a>).
+    </p></li><li class="listitem"><p>
+     Added a reference to <a class="xref" href="ceph-install-saltstack.html#ds-depl-stages" title="Running Deployment Stages">Procedure 4.1, “Running Deployment Stages”</a> in
+     <a class="xref" href="cha-ceph-upgrade.html#step-updatepillar" title="Step 4">Step 4</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1064276" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1064276</a>).
+    </p></li><li class="listitem"><p>
+     Modified the upgrade procedure in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1061608" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1061608</a>
+     and
+     <a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1048959" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1048959</a>).
+    </p></li><li class="listitem"><p>
+     Added <code class="filename">rgw.conf</code> in
+     <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1062109" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1062109</a>).
+    </p></li><li class="listitem"><p>
+     Moved DeepSea installation to the very end in
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1056292" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1056292</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="ceph-install-saltstack.html#ds-profile-osd-encrypted" title="4.5.1.6. Deploying Encrypted OSDs">Section 4.5.1.6, “Deploying Encrypted OSDs”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1061751" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1061751</a>).
+    </p></li><li class="listitem"><p>
+     Updated and simplified the upgrade procedure in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1059362" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1059362</a>).
+    </p></li><li class="listitem"><p>
+     Check for DeepSea version before upgrade in
+     <a class="xref" href="cha-ceph-upgrade.html#u4to5-softreq" title="Important: Software Requirements">Important: Software Requirements</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1059331" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1059331</a>).
+    </p></li><li class="listitem"><p>
+     Prefixing custom .sls files with <code class="filename">custom-</code> in
+     <a class="xref" href="ceph-deploy-ds-custom.html#using-customized-files" title="7.1. Using Customized Configuration Files">Section 7.1, “Using Customized Configuration Files”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1048568" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1048568</a>).
+    </p></li><li class="listitem"><p>
+     Added a note about key caps mismatch in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1054186" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1054186</a>).
+    </p></li><li class="listitem"><p>
+     Merged redundant list items in <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1055140" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1055140</a>).
+    </p></li><li class="listitem"><p>
+     Added a note about the long time the cluster upgrade may take in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1054079" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1054079</a>).
+    </p></li><li class="listitem"><p>
+     Salt minions targeting with <code class="literal">deepsea_minions:</code> is mandatory
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1054229" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1054229</a>).
+    </p></li><li class="listitem"><p>
+     Inserted Stage 1 after engulfing in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1054155" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1054155</a>).
+    </p></li><li class="listitem"><p>
+     Added <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1052806" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1052806</a>).
+    </p></li><li class="listitem"><p>
+     Added missing steps in <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1052597" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1052597</a>).
+    </p></li><li class="listitem"><p>
+     Fixed <code class="command">radosgw-admin</code> command syntax in
+     <a class="xref" href="cha-as-ganesha.html#sec-as-ganesha-basic-example" title="12.2. Example Installation">Section 12.2, “Example Installation”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1052698" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1052698</a>).
+    </p></li><li class="listitem"><p>
+     'salt' is not the required host name of the Salt master during the upgrade
+     in <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-all" title="Steps to Apply to All Cluster Nodes (including the Calamari Node)">Procedure 5.1, “Steps to Apply to All Cluster Nodes (including the Calamari Node)”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1052907" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1052907</a>).
+    </p></li><li class="listitem"><p>
+     Better wording and text flow in the 'important' section of
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1052147" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1052147</a>).
+    </p></li><li class="listitem"><p>
+     Added a note about manual role assignment during engulfment in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1050554" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1050554</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#filestore2bluestore" title="5.4.1. OSD Migration to BlueStore">Section 5.4.1, “OSD Migration to BlueStore”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1052210" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1052210</a>).
+    </p></li><li class="listitem"><p>
+     Explained <code class="command">salt-run populate.engulf_existing_cluster</code> in
+     detail in <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1051258" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1051258</a>).
+    </p></li><li class="listitem"><p>
+     Added openATTIC role in <a class="xref" href="ceph-install-saltstack.html#deepsea-example-policy-cfg" title="4.5.1.8. Example policy.cfg File">Section 4.5.1.8, “Example <code class="filename">policy.cfg</code> File”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1052076" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1052076</a>).
+    </p></li><li class="listitem"><p>
+     Fixed <code class="filename">profile-default</code> paths in
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-example-policy-cfg" title="4.5.1.8. Example policy.cfg File">Section 4.5.1.8, “Example <code class="filename">policy.cfg</code> File”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1051760" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1051760</a>).
+    </p></li><li class="listitem"><p>
+     Detached previous section into a new chapter
+     <a class="xref" href="ceph-deploy-ds-custom.html" title="Chapter 7. Customizing the Default Configuration">Chapter 7, <em>Customizing the Default Configuration</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1050238" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1050238</a>).
+    </p></li><li class="listitem"><p>
+     Referencing to <a class="xref" href="cha-storage-about.html#storage-intro-core-nodes" title="1.2.3. Ceph Nodes and Daemons">Section 1.2.3, “Ceph Nodes and Daemons”</a> from
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-stage-description" title="DeepSea Stages Description">DeepSea Stages Description</a> to keep the list of Ceph
+     services up-to-date
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1050221" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1050221</a>).
+    </p></li><li class="listitem"><p>
+     Improved Salt master description and wording in
+     <a class="xref" href="ceph-install-saltstack.html" title="Chapter 4. Deploying with DeepSea/Salt">Chapter 4, <em>Deploying with DeepSea/Salt</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1050214" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1050214</a>).
+    </p></li><li class="listitem"><p>
+     Added optional node roles description in
+     <a class="xref" href="cha-storage-about.html#storage-intro-core-nodes" title="1.2.3. Ceph Nodes and Daemons">Section 1.2.3, “Ceph Nodes and Daemons”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1050085" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1050085</a>).
+    </p></li><li class="listitem"><p>
+     Updated the upgrade procedure in general
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1048436" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1048436</a>,
+     <a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1048959" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1048959</a>,
+     and
+     <a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=104i7085" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=104i7085</a>).
+    </p></li><li class="listitem"><p>
+     Added a new DeepSea role Ceph Manager
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1047472" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1047472</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5cephdeloy" title="5.5. Upgrade from SUSE Enterprise Storage 4 (ceph-deploy Deployment) to 5">Section 5.5, “Upgrade from SUSE Enterprise Storage 4 (<code class="command">ceph-deploy</code> Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1048436" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1048436</a>).
+    </p></li><li class="listitem"><p>
+     Made Stage 0 fully optional in <a class="xref" href="ceph-install-saltstack.html#deepsea-stage-description" title="DeepSea Stages Description">DeepSea Stages Description</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1045845" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1045845</a>).
+    </p></li><li class="listitem"><p>
+     Updated the list of default pools in <a class="xref" href="cha-ceph-additional-software-installation.html#ses-rgw-config" title="9.1.1. Object Gateway Configuration">Section 9.1.1, “Object Gateway Configuration”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1034039" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1034039</a>).
+    </p></li><li class="listitem"><p>
+     Added an 'important' snippet about Object Gateway being deployed by DeepSea now
+     in <a class="xref" href="cha-ceph-additional-software-installation.html" title="Chapter 9. Ceph Object Gateway">Chapter 9, <em>Ceph Object Gateway</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1044928" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1044928</a>).
+    </p></li><li class="listitem"><p>
+     Fixed shell script in <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1044684" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1044684</a>).
+    </p></li><li class="listitem"><p>
+     Added "Set <code class="option">require-osd-release luminous</code> Flag" to
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-general" title="5.2. General Upgrade Procedure">Section 5.2, “General Upgrade Procedure”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1040750" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1040750</a>).
+    </p></li><li class="listitem"><p>
+     Added annotation to the example <code class="filename">policy.cfg</code> in
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-example-policy-cfg" title="4.5.1.8. Example policy.cfg File">Section 4.5.1.8, “Example <code class="filename">policy.cfg</code> File”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1042691" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1042691</a>).
+    </p></li><li class="listitem"><p>
+     Improved commands for OSD disk zapping in
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1042074" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1042074</a>).
+    </p></li><li class="listitem"><p>
+     Removed advice to install <code class="literal">salt-minion</code> on Salt master in
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1041590" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1041590</a>).
+    </p></li><li class="listitem"><p>
+     Added firewall recommendation to <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1039344" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1039344</a>).
+    </p></li><li class="listitem"><p>
+     Removed XML-RPC references from openATTIC <code class="systemitem">systemd</code> command lines in
+     <a class="xref" href="ceph-deploy-ds-custom.html#using-customized-files" title="7.1. Using Customized Configuration Files">Section 7.1, “Using Customized Configuration Files”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1037371" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1037371</a>).
+    </p></li><li class="listitem"><p>
+     Fixed YAML syntax in <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1035498" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1035498</a>).
+    </p></li><li class="listitem"><p>
+     Added the 'ganesha' role explanation in
+     <a class="xref" href="ceph-install-saltstack.html#policy-role-assignment" title="4.5.1.2. Role Assignment">Section 4.5.1.2, “Role Assignment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1037365" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1037365</a>).
+    </p></li><li class="listitem"><p>
+     Clarified and improved text flow in <a class="xref" href="ceph-install-saltstack.html#policy-configuration" title="4.5.1. The policy.cfg File">Section 4.5.1, “The <code class="filename">policy.cfg</code> File”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1037360" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1037360</a>).
+    </p></li><li class="listitem"><p>
+     Added the SUSE Enterprise Storage 4 to 5 upgrade procedure in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1036266" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1036266</a>).
+    </p></li><li class="listitem"><p>
+     Replaced the term 'provisioning' with 'preparation' in
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1036400" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1036400</a>
+     and
+     <a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1036492" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1036492</a>).
+    </p></li><li class="listitem"><p>
+     Added warning about advanced techniques in
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-policy-filtering" title="4.5.1.7. Item Filtering">Section 4.5.1.7, “Item Filtering”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1036278" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1036278</a>).
+    </p></li><li class="listitem"><p>
+     Replaced redundant <code class="literal">role-admin</code> assignment in
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-example-policy-cfg" title="4.5.1.8. Example policy.cfg File">Section 4.5.1.8, “Example <code class="filename">policy.cfg</code> File”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1036506" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1036506</a>).
+    </p></li><li class="listitem"><p>
+     Improved <a class="xref" href="ceph-install-saltstack.html#deepsea-stage-description" title="DeepSea Stages Description">DeepSea Stages Description</a> and
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1036278" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1036278</a>).
+    </p></li><li class="listitem"><p>
+     Added deployment steps modifications in
+     <a class="xref" href="ceph-deploy-ds-custom.html#using-customized-files" title="7.1. Using Customized Configuration Files">Section 7.1, “Using Customized Configuration Files”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1026782" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1026782</a>).
+    </p></li><li class="listitem"><p>
+     Clarified and enhanced <a class="xref" href="ceph-install-saltstack.html" title="Chapter 4. Deploying with DeepSea/Salt">Chapter 4, <em>Deploying with DeepSea/Salt</em></a> as
+     suggested by
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1020920" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1020920</a>).
+    </p></li><li class="listitem"><p>
+     Recommended enabling custom openATTIC services in
+     <a class="xref" href="ceph-deploy-ds-custom.html#using-customized-files" title="7.1. Using Customized Configuration Files">Section 7.1, “Using Customized Configuration Files”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=989349" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=989349</a>).
+    </p></li><li class="listitem"><p>
+     Moved network recommendations to <a class="xref" href="storage-bp-hwreq.html" title="Chapter 2. Hardware Requirements and Recommendations">Chapter 2, <em>Hardware Requirements and Recommendations</em></a> and
+     included <a class="xref" href="storage-bp-hwreq.html#storage-bp-net-private" title="2.7.1. Adding a Private Network to a Running Cluster">Section 2.7.1, “Adding a Private Network to a Running Cluster”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1026569" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1026569</a>).
+    </p></li></ul></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ses-cifs.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 13 </span>Exporting Ceph Data via Samba</span></a> </div><div> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="ap-deploy-docupdate.html#sec-depl-docupdates-5maint3"><span class="title-number">A.1 </span><span class="title-name">The Latest Documentation Update</span></a></span></li><li><span class="sect1"><a href="ap-deploy-docupdate.html#sec-depl-docupdates-5-5"><span class="title-number">A.2 </span><span class="title-name">October, 2018 (Documentation Maintenance Update)</span></a></span></li><li><span class="sect1"><a href="ap-deploy-docupdate.html#sec-depl-docupdates-5maint1"><span class="title-number">A.3 </span><span class="title-name">November, 2017 (Maintenance Update)</span></a></span></li><li><span class="sect1"><a href="ap-deploy-docupdate.html#sec-depl-docupdates-5"><span class="title-number">A.4 </span><span class="title-name">October, 2017 (Release of SUSE Enterprise Storage 5)</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/deployment_docupdates.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

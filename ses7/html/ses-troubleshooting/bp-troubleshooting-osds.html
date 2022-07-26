@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Troubleshooting OSDs | Troubleshooting Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Troubleshooting OSDs | SES 7"/>
+<meta name="description" content="Before troubleshooting your OSDs, check your monitors and network first. If you execute ceph health or ceph -s on the command line and Ceph returns a health st…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Troubleshooting Guide"/>
+<meta name="chapter-title" content="Chapter 4. Troubleshooting OSDs"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Troubleshooting OSDs | SES 7"/>
+<meta property="og:description" content="Before troubleshooting your OSDs, check your monitors and network first. If you execute ceph health or ceph -s on the command line and Ceph returns a health st…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Troubleshooting OSDs | SES 7"/>
+<meta name="twitter:description" content="Before troubleshooting your OSDs, check your monitors and network first. If you execute ceph health or ceph -s on the command line and Ceph returns a health st…"/>
+<link rel="prev" href="bp-troubleshooting-cephadm.html" title="Chapter 3. Troubleshooting cephadm"/><link rel="next" href="bp-troubleshooting-pgs.html" title="Chapter 5. Troubleshooting placement groups (PGs)"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Troubleshooting Guide</a><span> / </span><a class="crumb" href="bp-troubleshooting-osds.html">Troubleshooting OSDs</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Troubleshooting Guide</div><ol><li><a href="preface-troubleshooting.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="report-software.html" class=" "><span class="title-number">1 </span><span class="title-name">Reporting software problems</span></a></li><li><a href="bp-troubleshooting-logging.html" class=" "><span class="title-number">2 </span><span class="title-name">Troubleshooting logging and debugging</span></a></li><li><a href="bp-troubleshooting-cephadm.html" class=" "><span class="title-number">3 </span><span class="title-name">Troubleshooting cephadm</span></a></li><li><a href="bp-troubleshooting-osds.html" class=" you-are-here"><span class="title-number">4 </span><span class="title-name">Troubleshooting OSDs</span></a></li><li><a href="bp-troubleshooting-pgs.html" class=" "><span class="title-number">5 </span><span class="title-name">Troubleshooting placement groups (PGs)</span></a></li><li><a href="bp-troubleshooting-monitors.html" class=" "><span class="title-number">6 </span><span class="title-name">Troubleshooting Ceph Monitors and Ceph Managers</span></a></li><li><a href="bp-troubleshooting-networking.html" class=" "><span class="title-number">7 </span><span class="title-name">Troubleshooting networking</span></a></li><li><a href="bp-troubleshooting-nfs.html" class=" "><span class="title-number">8 </span><span class="title-name">Troubleshooting NFS Ganesha</span></a></li><li><a href="bp-troubleshooting-status.html" class=" "><span class="title-number">9 </span><span class="title-name">Troubleshooting Ceph health status</span></a></li><li><a href="bp-troubleshooting-dashboard.html" class=" "><span class="title-number">10 </span><span class="title-name">Troubleshooting the Ceph Dashboard</span></a></li><li><a href="bp-troubleshooting-objectgateway.html" class=" "><span class="title-number">11 </span><span class="title-name">Troubleshooting Object Gateway</span></a></li><li><a href="bp-troubleshooting-cephfs.html" class=" "><span class="title-number">12 </span><span class="title-name">Troubleshooting CephFS</span></a></li><li><a href="storage-tips.html" class=" "><span class="title-number">13 </span><span class="title-name">Hints and tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">14 </span><span class="title-name">Frequently asked questions</span></a></li><li><a href="bk03apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="bp-troubleshooting-osds" data-id-title="Troubleshooting OSDs"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h1 class="title"><span class="title-number">4 </span><span class="title-name">Troubleshooting OSDs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#">#</a></h1></div></div></div><p>
+  Before troubleshooting your OSDs, check your monitors and network first. If
+  you execute <code class="command">ceph health</code> or <code class="command">ceph -s</code> on
+  the command line and Ceph returns a health status, it means that the
+  monitors have a quorum. If you do not have a monitor quorum or if there are
+  errors with the monitor status, see
+  <a class="xref" href="bp-troubleshooting-monitors.html" title="Chapter 6. Troubleshooting Ceph Monitors and Ceph Managers">Chapter 6, <em>Troubleshooting Ceph Monitors and Ceph Managers</em></a>. Check your networks to ensure
+  they are running properly, because networks may have a significant impact on
+  OSD operation and performance.
+ </p><section class="sect1" id="bp-troubleshooting-osd-data" data-id-title="Obtain OSD data"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.1 </span><span class="title-name">Obtain OSD data</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#bp-troubleshooting-osd-data">#</a></h2></div></div></div><p>
+   To begin troubleshooting the OSDs, obtain any information including the
+   information collected from <span class="intraxref">Book “Administration and Operations Guide”, Chapter 12 “Determine the cluster state”, Section 12.9 “Monitoring OSDs and placement groups”</span>.
+  </p><section class="sect2" id="troubleshooting-ceph-logs" data-id-title="Finding Ceph logs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1.1 </span><span class="title-name">Finding Ceph logs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-ceph-logs">#</a></h3></div></div></div><p>
+    If you have not changed the default path, you can find Ceph log files at
+    <code class="filename">/var/log/ceph</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ls /var/log/ceph</pre></div><p>
+    If you do not get enough detail, change your logging level. See
+    <a class="xref" href="bp-troubleshooting-logging.html" title="Chapter 2. Troubleshooting logging and debugging">Chapter 2, <em>Troubleshooting logging and debugging</em></a> for more information.
+   </p></section><section class="sect2" id="troubleshooting-admin-socket" data-id-title="Using the admin socket tool"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1.2 </span><span class="title-name">Using the admin socket tool</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-admin-socket">#</a></h3></div></div></div><p>
+    Use the admin socket tool to retrieve runtime information. For details,
+    list the sockets for your Ceph processes:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ls /var/run/ceph</pre></div><p>
+    Execute the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph daemon <em class="replaceable">DAEMON-NAME</em> help</pre></div><p>
+    Alternatively, specify a <code class="literal">SOCKET-FILE</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph daemon <em class="replaceable">SOCKET-FILE</em> help</pre></div><p>
+    The admin socket, among other things, allows you to:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      List your configuration at runtime
+     </p></li><li class="listitem"><p>
+      Dump historic operations
+     </p></li><li class="listitem"><p>
+      Dump the operation priority queue state
+     </p></li><li class="listitem"><p>
+      Dump operations in flight
+     </p></li><li class="listitem"><p>
+      Dump perfcounters
+     </p></li></ul></div></section><section class="sect2" id="troubleshooting-display-freespace" data-id-title="Displaying freespace"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1.3 </span><span class="title-name">Displaying freespace</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-display-freespace">#</a></h3></div></div></div><p>
+    Filesystem issues may arise. To display your file system’s free space,
+    execute <code class="command">df</code>.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>df -h</pre></div><p>
+    Execute <code class="command">df --help</code> for additional usage.
+   </p></section><section class="sect2" id="troubleshooting-admin-statistics" data-id-title="Identifying I/O statistics"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1.4 </span><span class="title-name">Identifying I/O statistics</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-admin-statistics">#</a></h3></div></div></div><p>
+    Use iostat to identify I/O-related issues.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>iostat -x</pre></div></section><section class="sect2" id="troubleshooting-admin-diagnostic" data-id-title="Retrieving diagnostic messages"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1.5 </span><span class="title-name">Retrieving diagnostic messages</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-admin-diagnostic">#</a></h3></div></div></div><p>
+    To retrieve diagnostic messages, use <code class="command">dmesg</code> with
+    <code class="option">less</code>, <code class="option">more</code>, <code class="option">grep</code> or
+    <code class="option">tail</code>. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>dmesg | grep scsi</pre></div></section></section><section class="sect1" id="bp-troubleshooting-rebalancing" data-id-title="Stopping without rebalancing"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.2 </span><span class="title-name">Stopping without rebalancing</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#bp-troubleshooting-rebalancing">#</a></h2></div></div></div><p>
+   Periodically you may need to perform maintenance on a subset of your cluster
+   or resolve a problem that affects a failure domain. If you do not want CRUSH
+   to automatically rebalance the cluster as you stop OSDs for maintenance, set
+   the cluster to <code class="option">noout</code> first:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set noout</pre></div><p>
+   Once the cluster is set to <code class="option">noout</code>, you can begin stopping
+   the OSDs within the failure domain that requires maintenance work:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon stop osd.<em class="replaceable">ID</em></pre></div><div id="id-1.5.6.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    Placement groups within the OSDs you stop will become degraded while you
+    are addressing issues with within the failure domain.
+   </p></div><p>
+   Once you have completed your maintenance, restart the OSDs:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon start osd.<em class="replaceable">ID</em></pre></div><p>
+   Finally, unset the cluster from <code class="option">noout</code>:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd unset noout</pre></div></section><section class="sect1" id="bp-troubleshooting-not-running" data-id-title="OSDs not running"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.3 </span><span class="title-name">OSDs not running</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#bp-troubleshooting-not-running">#</a></h2></div></div></div><p>
+   Under normal circumstances, restarting the <code class="literal">ceph-osd</code>
+   daemon will allow it to rejoin the cluster and recover. If this is not true,
+   continue on to the next section.
+  </p><section class="sect2" id="troubleshooting-osd-start" data-id-title="An OSD will not start"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.3.1 </span><span class="title-name">An OSD will not start</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-osd-start">#</a></h3></div></div></div><p>
+    If an OSD will not start when you start your cluster and you are unable to
+    determine the reason, we recommend generating a supportconfig and open a
+    support ticket. For more information, see
+    <a class="link" href="https://scc.suse.com/docs/help#submit-support-case" target="_blank"><em class="citetitle">How
+    do I submit a support case?</em></a>
+   </p></section><section class="sect2" id="troubleshooting-osd-fail" data-id-title="Failing OSD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.3.2 </span><span class="title-name">Failing OSD</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-osd-fail">#</a></h3></div></div></div><p>
+    When a <code class="literal">ceph-osd</code> process dies, the monitor learns about
+    the failure from surviving <code class="literal">ceph-osd</code> daemons and reports
+    it via the <code class="command">ceph health</code> command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health
+HEALTH_WARN 1/3 in osds are down</pre></div><p>
+    A warning displays whenever there are <code class="literal">ceph-osd</code> processes
+    that are marked <code class="option">in</code> and <code class="option">down</code>. Identify
+    which <code class="literal">ceph-osd</code>s are down with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail
+HEALTH_WARN 1/3 in osds are down
+osd.0 is down since epoch 23, last address 192.168.106.220:6800/11080</pre></div><p>
+    If there is a disk failure or other fault preventing
+    <code class="literal">ceph-osd</code> from functioning or restarting, an error
+    message should be present in its log file. You can monitor the cephadm
+    log in real time with the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -W cephadm</pre></div><p>
+    You can view the last few messages with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph log last cephadm</pre></div><p>
+    If the daemon stopped because of a heartbeat failure, the underlying kernel
+    file system may be unresponsive. Check <code class="command">dmesg</code> output for
+    disk or other kernel errors.
+   </p></section><section class="sect2" id="troubleshooting-osd-space" data-id-title="Preventing write action to OSD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.3.3 </span><span class="title-name">Preventing write action to OSD</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-osd-space">#</a></h3></div></div></div><p>
+    Ceph prevents writing to a full OSD so that you do not lose data. In an
+    operational cluster, you should receive a warning when your cluster is
+    getting near its full ratio. The <code class="literal">mon osd full ratio</code>
+    defaults to 0.95, or 95% of capacity before it stops clients from writing
+    data. The <code class="literal">mon osd backfillfull ratio</code> defaults to 0.90,
+    or 90% of capacity when it blocks backfills from starting. The OSD nearfull
+    ratio defaults to 0.85, or 85% of capacity when it generates a health
+    warning. Change this using the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-nearfull-ratio &lt;float[0.0-1.0]&gt;</pre></div><p>
+    Full cluster issues usually arise when testing how Ceph handles an OSD
+    failure on a small cluster. When one node has a high percentage of the
+    cluster’s data, the cluster can easily eclipse its nearfull and full
+    ratio immediately. If you are testing how Ceph reacts to OSD failures on
+    a small cluster, you should leave ample free disk space and consider
+    temporarily lowering the OSD <code class="option">full ratio</code>, OSD
+    <code class="option">backfillfull</code> ratio and OSD <code class="option">nearfull</code> ratio
+    using these commands:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-nearfull-ratio &lt;float[0.0-1.0]&gt;
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd set-full-ratio &lt;float[0.0-1.0]&gt;
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd set-backfillfull-ratio &lt;float[0.0-1.0]&gt;</pre></div><p>
+    Full <code class="literal">ceph-osds</code> will be reported by <code class="command">ceph
+    health</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health
+  HEALTH_WARN 1 nearfull osd(s)</pre></div><p>
+    Or:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail
+  HEALTH_ERR 1 full osd(s); 1 backfillfull osd(s); 1 nearfull osd(s)
+  osd.3 is full at 97%
+  osd.4 is backfill full at 91%
+  osd.2 is near full at 87%</pre></div><p>
+    We recommend adding new <code class="literal">ceph-osds</code> to deal with a full
+    cluster, allowing the cluster to redistribute data to the newly available
+    storage. If you cannot start an OSD because it is full, you may delete some
+    data by deleting some placement group directories in the full OSD.
+   </p><div id="id-1.5.6.6.5.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     If you choose to delete a placement group directory on a full OSD, do not
+     delete the same placement group directory on another full OSD, or you may
+     loose data. You must maintain at least one copy of your data on at least
+     one OSD.
+    </p></div></section></section><section class="sect1" id="bp-troubleshooting-osd-slow" data-id-title="Unresponsive or slow OSDs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.4 </span><span class="title-name">Unresponsive or slow OSDs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#bp-troubleshooting-osd-slow">#</a></h2></div></div></div><p>
+   A commonly recurring issue involves slow or unresponsive OSDs. Ensure that
+   you have eliminated other troubleshooting possibilities before delving into
+   OSD performance issues. For example, ensure that your network(s) is working
+   properly and your OSDs are running. Check to see if OSDs are throttling
+   recovery traffic.
+  </p><section class="sect2" id="troubleshooting-bad-sector" data-id-title="Identifying bad sectors and fragmented disks"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.1 </span><span class="title-name">Identifying bad sectors and fragmented disks</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-bad-sector">#</a></h3></div></div></div><p>
+    Check your disks for bad sectors and fragmentation. This can cause total
+    throughput to drop substantially.
+   </p></section><section class="sect2" id="troubleshooting-monitor-osd" data-id-title="Co-resident monitors and OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.2 </span><span class="title-name">Co-resident monitors and OSDs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-monitor-osd">#</a></h3></div></div></div><p>
+    Monitors are generally light-weight processes but often perform fsync().
+    This can interfere with other workloads, particularly if monitors run on
+    the same drive as the OSDs. Additionally, if you run monitors on the same
+    host as the OSDs, you may incur performance issues related to:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Running an older kernel (pre-3.0)
+     </p></li><li class="listitem"><p>
+      Running a kernel with no syncfs(2) syscall.
+     </p></li></ul></div><p>
+    In these cases, multiple OSDs running on the same host can drag each other
+    down by doing lots of commits. That often leads to the bursty writes.
+   </p></section><section class="sect2" id="troubleshooting-coresident-process" data-id-title="Co-resident processes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.3 </span><span class="title-name">Co-resident processes</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-coresident-process">#</a></h3></div></div></div><p>
+    Spinning up co-resident processes such as a cloud-based solution, virtual
+    machines and other applications that write data to Ceph while operating
+    on the same hardware as OSDs can introduce significant OSD latency. We
+    recommend optimizing a host for use with Ceph and using other hosts for
+    other processes. The practice of separating Ceph operations from other
+    applications may help improve performance and may streamline
+    troubleshooting and maintenance.
+   </p></section><section class="sect2" id="troubleshooting-log-levels" data-id-title="Logging levels"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.4 </span><span class="title-name">Logging levels</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-log-levels">#</a></h3></div></div></div><p>
+    If you turned logging levels up to track an issue and then forgot to turn
+    logging levels back down, the OSD may be putting a lot of logs onto the
+    disk. If you intend to keep logging levels high, you may consider mounting
+    a drive to the default path for logging. For example,
+    <code class="filename">/var/log/ceph/$cluster-$name.log</code>.
+   </p></section><section class="sect2" id="troubleshooting-recovery" data-id-title="Recovery throttling"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.5 </span><span class="title-name">Recovery throttling</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-recovery">#</a></h3></div></div></div><p>
+    Depending upon your configuration, Ceph may reduce recovery rates to
+    maintain performance or it may increase recovery rates to the point that
+    recovery impacts OSD performance. Check to see if the OSD is recovering.
+   </p></section><section class="sect2" id="troubleshooting-kernel-version" data-id-title="Kernel version"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.6 </span><span class="title-name">Kernel version</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-kernel-version">#</a></h3></div></div></div><p>
+    Check the kernel version you are running. Older kernels may not receive new
+    backports that Ceph depends upon for better performance.
+   </p></section><section class="sect2" id="troubleshooting-kernal-issues" data-id-title="Kernel issues with syncfs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.7 </span><span class="title-name">Kernel issues with syncfs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-kernal-issues">#</a></h3></div></div></div><p>
+    Try running one OSD per host to see if performance improves. Old kernels
+    might not have a recent enough version of glibc to support
+    <code class="command">syncfs(2)</code>.
+   </p></section><section class="sect2" id="troubleshooting-filesystem-issues" data-id-title="Filesystem issues"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.8 </span><span class="title-name">Filesystem issues</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-filesystem-issues">#</a></h3></div></div></div><p>
+    Currently, we recommend deploying clusters with XFS.
+   </p></section><section class="sect2" id="troubleshooting-ram" data-id-title="Insufficient RAM"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.9 </span><span class="title-name">Insufficient RAM</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-ram">#</a></h3></div></div></div><p>
+    We recommend 1.5 GB of RAM per TB of raw OSD capacity for each Object
+    Storage Node. You may notice that during normal operations, the OSD only
+    uses a fraction of that amount. Unused RAM makes it tempting to use the
+    excess RAM for co-resident applications, VMs and so forth. However, when
+    OSDs go into recovery mode, their memory utilization spikes. If there is no
+    RAM available, the OSD performance will slow considerably.
+   </p></section><section class="sect2" id="troubleshooting-requests" data-id-title="Complaining about old or slow requests"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.10 </span><span class="title-name">Complaining about old or slow requests</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-requests">#</a></h3></div></div></div><p>
+    If a <code class="literal">ceph-osd</code> daemon is slow to respond to a request,
+    log messages will generate complaining about requests that are taking too
+    long. The warning threshold defaults to 30 seconds, and is configurable via
+    the <code class="option">osd op complaint time</code> option. When this happens, the
+    cluster log receives messages. Legacy versions of Ceph complain about old
+    requests:
+   </p><div class="verbatim-wrap"><pre class="screen">osd.0 192.168.106.220:6800/18813 312 : [WRN] old request \
+  osd_op(client.5099.0:790 fatty_26485_object789 [write 0~4096] 2.5e54f643) \
+  v4 received at 2012-03-06 15:42:56.054801 currently waiting for sub ops</pre></div><p>
+    Newer versions of Ceph complain about <code class="literal">slow requests</code>:
+   </p><div class="verbatim-wrap"><pre class="screen">{date} {osd.num} [WRN] 1 slow requests, 1 included below; oldest blocked for &gt; 30.005692 secs
+{date} {osd.num}  [WRN] slow request 30.005692 seconds old, received at \
+{date-time}: osd_op(client.4240.0:8 benchmark_data_ceph-1_39426_object7 \
+[write 0~4194304] 0.69848840) v4 currently waiting for subops from [610]</pre></div><p>
+    Possible causes include:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      A bad drive (check <code class="command">dmesg</code> output)
+     </p></li><li class="listitem"><p>
+      A bug in the kernel file system (check <code class="command">dmesg</code> output)
+     </p></li><li class="listitem"><p>
+      An overloaded cluster (check system load, iostat, etc.)
+     </p></li><li class="listitem"><p>
+      A bug in the <code class="literal">ceph-osd</code> daemon.
+     </p></li></ul></div><p>
+    Possible solutions:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Remove VMs from Ceph hosts
+     </p></li><li class="listitem"><p>
+      Upgrade kernel
+     </p></li><li class="listitem"><p>
+      Upgrade Ceph
+     </p></li><li class="listitem"><p>
+      Restart OSDs
+     </p></li></ul></div></section><section class="sect2" id="troubleshooting-slow-requests" data-id-title="Debugging slow requests"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.11 </span><span class="title-name">Debugging slow requests</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#troubleshooting-slow-requests">#</a></h3></div></div></div><p>
+    If you run <code class="command">ceph daemon osd.&lt;id&gt; dump_historic_ops</code> or
+    <code class="command">ceph daemon osd.&lt;id&gt; dump_ops_in_flight</code>, you see a
+    set of operations and a list of events each operation went through. These
+    are briefly described below.
+   </p><p>
+    Events from the Messenger layer:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.6.7.13.4.1"><span class="term"><code class="literal">header_read</code></span></dt><dd><p>
+       When the messenger first started reading the message off the wire.
+      </p></dd><dt id="id-1.5.6.7.13.4.2"><span class="term"><code class="literal">throttled</code></span></dt><dd><p>
+       When the messenger tried to acquire memory throttle space to read the
+       message into memory.
+      </p></dd><dt id="id-1.5.6.7.13.4.3"><span class="term"><code class="literal">all_read</code></span></dt><dd><p>
+       When the messenger finished reading the message off the wire.
+      </p></dd><dt id="id-1.5.6.7.13.4.4"><span class="term"><code class="literal">dispatched</code></span></dt><dd><p>
+       When the messenger gave the message to the OSD.
+      </p></dd><dt id="id-1.5.6.7.13.4.5"><span class="term"><code class="literal">initiated</code></span></dt><dd><p>
+       This is identical to <code class="literal">header_read</code>. The existence of
+       both is a historical oddity.
+      </p></dd></dl></div><p>
+    Events from the OSD as it prepares operations:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.6.7.13.6.1"><span class="term"><code class="literal">queued_for_pg</code></span></dt><dd><p>
+       The op has been put into the queue for processing by its PG.
+      </p></dd><dt id="id-1.5.6.7.13.6.2"><span class="term"><code class="literal">reached_pg</code></span></dt><dd><p>
+       The PG has started doing the op.
+      </p></dd><dt id="id-1.5.6.7.13.6.3"><span class="term"><code class="literal">waiting for \*</code></span></dt><dd><p>
+       The op is waiting for some other work to complete before it can proceed
+       (e.g. a new OSDMap; for its object target to scrub; for the PG to finish
+       peering; all as specified in the message).
+      </p></dd><dt id="id-1.5.6.7.13.6.4"><span class="term"><code class="literal">started</code></span></dt><dd><p>
+       The op has been accepted as something the OSD should do and is now being
+       performed.
+      </p></dd><dt id="id-1.5.6.7.13.6.5"><span class="term"><code class="literal">waiting for subops from</code></span></dt><dd><p>
+       The op has been sent to replica OSDs.
+      </p></dd></dl></div><p>
+    Events from the FileStore:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.6.7.13.8.1"><span class="term"><code class="literal">commit_queued_for_journal_write:</code></span></dt><dd><p>
+       The op has been given to the FileStore.
+      </p></dd><dt id="id-1.5.6.7.13.8.2"><span class="term"><code class="literal">write_thread_in_journal_buffer</code></span></dt><dd><p>
+       The op is in the journal’s buffer and waiting to be persisted (as the
+       next disk write).
+      </p></dd><dt id="id-1.5.6.7.13.8.3"><span class="term"><code class="literal">journaled_completion_queued</code></span></dt><dd><p>
+       The op was journaled to disk and its callback queued for invocation.
+      </p></dd></dl></div><p>
+    Events from the OSD after stuff has been given to local disk:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.6.7.13.10.1"><span class="term"><code class="literal">op_commit</code></span></dt><dd><p>
+       The op has been committed by the primary OSD.
+      </p></dd><dt id="id-1.5.6.7.13.10.2"><span class="term"><code class="literal">op_applied</code></span></dt><dd><p>
+       The op has been <code class="literal">write()’en</code> to the backing FS on the
+       primary.
+      </p></dd><dt id="id-1.5.6.7.13.10.3"><span class="term"><code class="literal">sub_op_applied: op_applied</code></span></dt><dd><p>
+       For a replica’s “subop”.
+      </p></dd><dt id="id-1.5.6.7.13.10.4"><span class="term"><code class="literal">sub_op_committed: op_commit</code></span></dt><dd><p>
+       For a replica’s sub-op (only for EC pools).
+      </p></dd><dt id="id-1.5.6.7.13.10.5"><span class="term"><code class="literal">sub_op_commit_rec/sub_op_apply_rec from &lt;X&gt;</code></span></dt><dd><p>
+       The primary marks this when it hears about the above, but for a
+       particular replica (i.e. &lt;X&gt;).
+      </p></dd><dt id="id-1.5.6.7.13.10.6"><span class="term"><code class="literal">commit_sent</code></span></dt><dd><p>
+       We sent a reply back to the client (or primary OSD, for sub ops).
+      </p></dd></dl></div><p>
+    Many of these events are seemingly redundant, but cross important
+    boundaries in the internal code (such as passing data across locks into new
+    threads).
+   </p></section></section><section class="sect1" id="storage-bp-recover-osdweight" data-id-title="OSD weight is 0"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.5 </span><span class="title-name">OSD weight is 0</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#storage-bp-recover-osdweight">#</a></h2></div></div></div><p>
+   When OSD starts, it is assigned a weight. The higher the weight, the bigger
+   the chance that the cluster writes data to the OSD. The weight is either
+   specified in a cluster CRUSH Map, or calculated by the OSDs' start-up
+   script.
+  </p></section><section class="sect1" id="storage-bp-recover-osddown" data-id-title="OSD is down"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.6 </span><span class="title-name">OSD is down</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#storage-bp-recover-osddown">#</a></h2></div></div></div><p>
+   OSD daemon is either running, or stopped/down. There are 3 general reasons
+   why an OSD is down:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Hard disk failure.
+    </p></li><li class="listitem"><p>
+     The OSD crashed.
+    </p></li><li class="listitem"><p>
+     The server crashed.
+    </p></li></ul></div><p>
+   You can see the detailed status of OSDs by running
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tree
+# id  weight  type name up/down reweight
+ -1    0.02998  root default
+ -2    0.009995   host doc-ceph1
+ 0     0.009995      osd.0 up  1
+ -3    0.009995   host doc-ceph2
+ 1     0.009995      osd.1 up  1
+ -4    0.009995   host doc-ceph3
+ 2     0.009995      osd.2 down</pre></div><p>
+   The example listing shows that the <code class="literal">osd.2</code> is down. Then
+   you may check if the disk where the OSD is located is mounted:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>lsblk -f
+NAME                                                                                                  FSTYPE      LABEL UUID                                   FSAVAIL FSUSE% MOUNTPOINT
+vda
+├─vda1
+├─vda2                                                                                                vfat        EFI   7BDD-40C3                                18.8M     6% /boot/efi
+└─vda3                                                                                                ext4        ROOT  144d3eec-c193-4793-b6a9-1ac295259f4b     36.7G     5% /
+vdb                                                                                                   LVM2_member       Fj8nlY-Dnmm-8Y0w-tJrO-8rAe-SUTH-lA2Ux2
+└─ceph--6dc6f71f--ff02--4316--b145--c7804d5fb2f4-osd--block--2cb16f65--c87d--405d--a913--4e4ea6037ca1
+vdc                                                                                                   LVM2_member       0101m1-mc83-K8ce-j4Dv-yxUO-5KPj-6FpuSu
+└─ceph--1082eac0--4478--48cf--b8ab--4d3a62ca1c27-osd--data--185c9dd6--ce28--4b98--a9b6--9d5b1f444a4f
+vdd                                                                                                   LVM2_member       wqE8sC-w5mx-J9t1-FoM1-vIRC-0xxq-5FPyuL
+└─ceph--9e71d81a--e394--49b7--bef9--b639083be779-osd--data--eb94f8e6--af6d--4ef6--911b--7f44f7484c85</pre></div><p>
+   You can track the reason why the OSD is down by inspecting its log file. See
+   <a class="xref" href="bp-troubleshooting-osds.html#troubleshooting-osd-fail" title="4.3.2. Failing OSD">Section 4.3.2, “Failing OSD”</a> for instructions on how to source
+   the log files. After you find and fix the reason why the OSD is not running,
+   start it with the following command. To identify the unique FSID of the
+   cluster, run <code class="command">ceph fsid</code>. To identify the Object Gateway daemon
+   name, run <code class="command">ceph orch ps ---hostname
+   <em class="replaceable">HOSTNAME</em></code>.
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>systemctl start ceph-<em class="replaceable">FSID</em>@<em class="replaceable">osd.2</em></pre></div><p>
+   Do not forget to replace <code class="literal">2</code> with the actual number of your
+   stopped OSD.
+  </p></section><section class="sect1" id="storage-bp-performance-slowosd" data-id-title="Finding slow OSDs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.7 </span><span class="title-name">Finding slow OSDs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#storage-bp-performance-slowosd">#</a></h2></div></div></div><p>
+   When tuning the cluster performance, it is very important to identify slow
+   storage/OSDs within the cluster. The reason is that if the data is written
+   to the slow(est) disk, the complete write operation slows down as it always
+   waits until it is finished on all the related disks.
+  </p><p>
+   It is not trivial to locate the storage bottleneck. You need to examine each
+   and every OSD to find out the ones slowing down the write process. To do a
+   benchmark on a single OSD, run:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="command">ceph tell</code> osd.<em class="replaceable">OSD_ID_NUMBER</em> bench</pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell osd.0 bench
+ { "bytes_written": 1073741824,
+   "blocksize": 4194304,
+   "bytes_per_sec": "19377779.000000"}</pre></div><p>
+   Then you need to run this command on each OSD and compare the
+   <code class="literal">bytes_per_sec</code> value to get the slow(est) OSDs.
+  </p></section><section class="sect1" id="bp-troubleshooting-flapping-osds" data-id-title="Flapping OSDs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.8 </span><span class="title-name">Flapping OSDs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-osds.html#bp-troubleshooting-flapping-osds">#</a></h2></div></div></div><p>
+   We recommend using both a public (front-end) network and a cluster
+   (back-end) network so that you can better meet the capacity requirements of
+   object replication. Another advantage is that you can run a cluster network
+   such that it is not connected to the internet, thereby preventing some
+   denial of service attacks. When OSDs peer and check heartbeats, they use the
+   cluster (back-end) network when it’s available.
+  </p><p>
+   However, if the cluster (back-end) network fails or develops significant
+   latency while the public (front-end) network operates optimally, OSDs
+   currently do not handle this situation well. What happens is that OSDs mark
+   each other down on the monitor, while marking themselves up. This is called
+   <span class="emphasis"><em>flapping</em></span>.
+  </p><p>
+   If something is causing OSDs to flap (repeatedly getting marked down and
+   then up again), you can force the monitors to stop the flapping with:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set noup      # prevent OSDs from getting marked up
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd set nodown    # prevent OSDs from getting marked down</pre></div><p>
+   These flags are recorded in the osdmap structure:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd dump | grep flags
+flags no-up,no-down</pre></div><p>
+   You can clear the flags with:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd unset noup
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd unset nodown</pre></div><p>
+   Two other flags are supported, <code class="option">noin</code> and
+   <code class="option">noout</code>, which prevent booting OSDs from being marked in
+   (allocated data) or protect OSDs from eventually being marked out
+   (regardless of what the current value for <code class="command">mon osd down
+   out</code> interval is).
+  </p><div id="id-1.5.6.11.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    <code class="option">noup</code>, <code class="option">noout</code>, and <code class="option">nodown</code>
+    are temporary in the sense that once the flags are cleared, the action they
+    were blocking should occur shortly after. The <code class="option">noin</code> flag,
+    on the other hand, prevents OSDs from being marked <code class="option">in</code> on
+    boot, and any daemons that started while the flag was set will remain that
+    way.
+   </p></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bp-troubleshooting-cephadm.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 3 </span>Troubleshooting cephadm</span></a> </div><div><a class="pagination-link next" href="bp-troubleshooting-pgs.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 5 </span>Troubleshooting placement groups (PGs)</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="bp-troubleshooting-osds.html#bp-troubleshooting-osd-data"><span class="title-number">4.1 </span><span class="title-name">Obtain OSD data</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-osds.html#bp-troubleshooting-rebalancing"><span class="title-number">4.2 </span><span class="title-name">Stopping without rebalancing</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-osds.html#bp-troubleshooting-not-running"><span class="title-number">4.3 </span><span class="title-name">OSDs not running</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-osds.html#bp-troubleshooting-osd-slow"><span class="title-number">4.4 </span><span class="title-name">Unresponsive or slow OSDs</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-osds.html#storage-bp-recover-osdweight"><span class="title-number">4.5 </span><span class="title-name">OSD weight is 0</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-osds.html#storage-bp-recover-osddown"><span class="title-number">4.6 </span><span class="title-name">OSD is down</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-osds.html#storage-bp-performance-slowosd"><span class="title-number">4.7 </span><span class="title-name">Finding slow OSDs</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-osds.html#bp-troubleshooting-flapping-osds"><span class="title-number">4.8 </span><span class="title-name">Flapping OSDs</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_osds.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

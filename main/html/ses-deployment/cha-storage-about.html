@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>SES and Ceph | Deployment Guide | SUSE Enterprise Storage 7.1</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="SES and Ceph | SES 7.1"/>
+<meta name="description" content="SUSE Enterprise Storage is a distributed storage system designed for scalability, reliability and performance which is based on the Ceph technology. A Ceph clu…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7.1"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 1. SES and Ceph"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="SES and Ceph | SES 7.1"/>
+<meta property="og:description" content="SUSE Enterprise Storage is a distributed storage system designed for scalability, reliability and performance which is based on the Ceph technology. A Ceph clu…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SES and Ceph | SES 7.1"/>
+<meta name="twitter:description" content="SUSE Enterprise Storage is a distributed storage system designed for scalability, reliability and performance which is based on the Ceph technology. A Ceph clu…"/>
+<link rel="prev" href="part-ses.html" title="Part I. Introducing SUSE Enterprise Storage (SES)"/><link rel="next" href="storage-bp-hwreq.html" title="Chapter 2. Hardware requirements and recommendations"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="part-ses.html">Introducing SUSE Enterprise Storage (SES)</a><span> / </span><a class="crumb" href="cha-storage-about.html">SES and Ceph</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="preface-deployment.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li class="active"><a href="part-ses.html" class="has-children you-are-here"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a><ol><li><a href="cha-storage-about.html" class=" you-are-here"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a><ol><li><a href="deploy-intro.html" class=" "><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></li><li><a href="deploy-sles.html" class=" "><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></li><li><a href="deploy-salt.html" class=" "><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></li><li><a href="deploy-bootstrap.html" class=" "><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></li><li><a href="deploy-core.html" class=" "><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></li><li><a href="deploy-additional.html" class=" "><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></li></ol></li><li><a href="ses-upgrade.html" class="has-children "><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a><ol><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></li><li><a href="upgrade-to-pacific.html" class=" "><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></li></ol></li><li><a href="bk01apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></li><li><a href="bk01go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-storage-about" data-id-title="SES and Ceph"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#">#</a></h2></div></div></div><p>
+  SUSE Enterprise Storage is a distributed storage system designed for scalability,
+  reliability and performance which is based on the Ceph technology. A Ceph
+  cluster can be run on commodity servers in a common network like Ethernet.
+  The cluster scales up well to thousands of servers (later on referred to as
+  nodes) and into the petabyte range. As opposed to conventional systems which
+  have allocation tables to store and fetch data, Ceph uses a deterministic
+  algorithm to allocate storage for data and has no centralized information
+  structure. Ceph assumes that in storage clusters the addition or removal of
+  hardware is the rule, not the exception. The Ceph cluster automates
+  management tasks such as data distribution and redistribution, data
+  replication, failure detection and recovery. Ceph is both self-healing and
+  self-managing which results in a reduction of administrative and budget
+  overhead.
+ </p><p>
+  This chapter provides a high level overview of SUSE Enterprise Storage 7.1
+  and briefly describes the most important components.
+ </p><section class="sect1" id="storage-intro-features" data-id-title="Ceph features"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-features">#</a></h2></div></div></div><p>
+   The Ceph environment has the following features:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.3.2.5.3.1"><span class="term">Scalability</span></dt><dd><p>
+      Ceph can scale to thousands of nodes and manage storage in the range of
+      petabytes.
+     </p></dd><dt id="id-1.3.3.2.5.3.2"><span class="term">Commodity Hardware</span></dt><dd><p>
+      No special hardware is required to run a Ceph cluster. For details, see
+      <a class="xref" href="storage-bp-hwreq.html" title="Chapter 2. Hardware requirements and recommendations">Chapter 2, <em>Hardware requirements and recommendations</em></a>
+     </p></dd><dt id="id-1.3.3.2.5.3.3"><span class="term">Self-managing</span></dt><dd><p>
+      The Ceph cluster is self-managing. When nodes are added, removed or
+      fail, the cluster automatically redistributes the data. It is also aware
+      of overloaded disks.
+     </p></dd><dt id="id-1.3.3.2.5.3.4"><span class="term">No Single Point of Failure</span></dt><dd><p>
+      No node in a cluster stores important information alone. The number of
+      redundancies can be configured.
+     </p></dd><dt id="id-1.3.3.2.5.3.5"><span class="term">Open Source Software</span></dt><dd><p>
+      Ceph is an open source software solution and independent of specific
+      hardware or vendors.
+     </p></dd></dl></div></section><section class="sect1" id="storage-intro-core" data-id-title="Ceph core components"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-core">#</a></h2></div></div></div><p>
+   To make full use of Ceph's power, it is necessary to understand some of
+   the basic components and concepts. This section introduces some parts of
+   Ceph that are often referenced in other chapters.
+  </p><section class="sect2" id="storage-intro-core-rados" data-id-title="RADOS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.2.1 </span><span class="title-name">RADOS</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-core-rados">#</a></h3></div></div></div><p>
+    The basic component of Ceph is called <span class="emphasis"><em>RADOS</em></span>
+    <span class="emphasis"><em>(Reliable Autonomic Distributed Object Store)</em></span>. It is
+    responsible for managing the data stored in the cluster. Data in Ceph is
+    usually stored as objects. Each object consists of an identifier and the
+    data.
+   </p><p>
+    RADOS provides the following access methods to the stored objects that
+    cover many use cases:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.3.2.6.3.4.1"><span class="term">Object Gateway</span></dt><dd><p>
+       Object Gateway is an HTTP REST gateway for the RADOS object store. It enables
+       direct access to objects stored in the Ceph cluster.
+      </p></dd><dt id="id-1.3.3.2.6.3.4.2"><span class="term">RADOS Block Device</span></dt><dd><p>
+       RADOS Block Device (RBD) can be accessed like any other block device. These can be
+       used for example in combination with <code class="systemitem">libvirt</code> for virtualization
+       purposes.
+      </p></dd><dt id="id-1.3.3.2.6.3.4.3"><span class="term">CephFS</span></dt><dd><p>
+       The Ceph File System is a POSIX-compliant file system.
+      </p></dd><dt id="id-1.3.3.2.6.3.4.4"><span class="term"><code class="systemitem">librados</code></span></dt><dd><p>
+       <code class="systemitem">librados</code> is a library that can
+       be used with many programming languages to create an application capable
+       of directly interacting with the storage cluster.
+      </p></dd></dl></div><p>
+    <code class="systemitem">librados</code> is used by Object Gateway and RBD
+    while CephFS directly interfaces with RADOS
+    <a class="xref" href="cha-storage-about.html#storage-intro-core-rados-figure" title="Interfaces to the Ceph object store">Figure 1.1, “Interfaces to the Ceph object store”</a>.
+   </p><div class="figure" id="storage-intro-core-rados-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/rados-structure.png" target="_blank"><img src="images/rados-structure.png" width="" alt="Interfaces to the Ceph object store"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 1.1: </span><span class="title-name">Interfaces to the Ceph object store </span><a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-core-rados-figure">#</a></h6></div></div></section><section class="sect2" id="storage-intro-core-crush" data-id-title="CRUSH"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.2.2 </span><span class="title-name">CRUSH</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-core-crush">#</a></h3></div></div></div><p>
+    At the core of a Ceph cluster is the <span class="emphasis"><em>CRUSH</em></span>
+    algorithm. CRUSH is the acronym for <span class="emphasis"><em>Controlled Replication Under
+    Scalable Hashing</em></span>. CRUSH is a function that handles the storage
+    allocation and needs comparably few parameters. That means only a small
+    amount of information is necessary to calculate the storage position of an
+    object. The parameters are a current map of the cluster including the
+    health state, some administrator-defined placement rules and the name of
+    the object that needs to be stored or retrieved. With this information, all
+    nodes in the Ceph cluster are able to calculate where an object and its
+    replicas are stored. This makes writing or reading data very efficient.
+    CRUSH tries to evenly distribute data over all nodes in the cluster.
+   </p><p>
+    The <span class="emphasis"><em>CRUSH Map</em></span> contains all storage nodes and
+    administrator-defined placement rules for storing objects in the cluster.
+    It defines a hierarchical structure that usually corresponds to the
+    physical structure of the cluster. For example, the data-containing disks
+    are in hosts, hosts are in racks, racks in rows and rows in data centers.
+    This structure can be used to define <span class="emphasis"><em>failure domains</em></span>.
+    Ceph then ensures that replications are stored on different branches of a
+    specific failure domain.
+   </p><p>
+    If the failure domain is set to rack, replications of objects are
+    distributed over different racks. This can mitigate outages caused by a
+    failed switch in a rack. If one power distribution unit supplies a row of
+    racks, the failure domain can be set to row. When the power distribution
+    unit fails, the replicated data is still available on other rows.
+   </p></section><section class="sect2" id="storage-intro-core-nodes" data-id-title="Ceph nodes and daemons"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.2.3 </span><span class="title-name">Ceph nodes and daemons</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-core-nodes">#</a></h3></div></div></div><p>
+    In Ceph, nodes are servers working for the cluster. They can run several
+    different types of daemons. We recommend running only one type of daemon on
+    each node, except for Ceph Manager daemons which can be co-located with Ceph Monitors.
+    Each cluster requires at least Ceph Monitor, Ceph Manager, and Ceph OSD daemons:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.3.2.6.5.3.1"><span class="term">Admin Node</span></dt><dd><p>
+       The <span class="emphasis"><em>Admin Node</em></span> is a Ceph cluster node from which you
+       run commands to manage the cluster. The Admin Node is a central point of the
+       Ceph cluster because it manages the rest of the cluster nodes by
+       querying and instructing their Salt Minion services.
+      </p></dd><dt id="id-1.3.3.2.6.5.3.2"><span class="term">Ceph Monitor</span></dt><dd><p>
+       <span class="emphasis"><em>Ceph Monitor</em></span> (often abbreviated as
+       <span class="emphasis"><em>MON</em></span>) nodes maintain information about the cluster
+       health state, a map of all nodes and data distribution rules (see
+       <a class="xref" href="cha-storage-about.html#storage-intro-core-crush" title="1.2.2. CRUSH">Section 1.2.2, “CRUSH”</a>).
+      </p><p>
+       If failures or conflicts occur, the Ceph Monitor nodes in the cluster decide by
+       majority which information is correct. To form a qualified majority, it
+       is recommended to have an odd number of Ceph Monitor nodes, and at least three
+       of them.
+      </p><p>
+       If more than one site is used, the Ceph Monitor nodes should be distributed
+       over an odd number of sites. The number of Ceph Monitor nodes per site should
+       be such that more than 50% of the Ceph Monitor nodes remain functional if one
+       site fails.
+      </p></dd><dt id="id-1.3.3.2.6.5.3.3"><span class="term">Ceph Manager</span></dt><dd><p>
+       The Ceph Manager collects the state information from the whole cluster. The
+       Ceph Manager daemon runs alongside the Ceph Monitor daemons. It provides additional
+       monitoring, and interfaces the external monitoring and management
+       systems. It includes other services as well. For example, the
+       Ceph Dashboard Web UI runs on the same node as the Ceph Manager.
+      </p><p>
+       The Ceph Manager requires no additional configuration, beyond ensuring it is
+       running.
+      </p></dd><dt id="id-1.3.3.2.6.5.3.4"><span class="term">Ceph OSD</span></dt><dd><p>
+       A <span class="emphasis"><em>Ceph OSD</em></span> is a daemon handling <span class="emphasis"><em>Object
+       Storage Devices</em></span> which are a physical or logical storage units
+       (hard disks or partitions). Object Storage Devices can be physical
+       disks/partitions or logical volumes. The daemon additionally takes care
+       of data replication and rebalancing in case of added or removed nodes.
+      </p><p>
+       Ceph OSD daemons communicate with monitor daemons and provide them
+       with the state of the other OSD daemons.
+      </p></dd></dl></div><p>
+    To use CephFS, Object Gateway, NFS Ganesha, or iSCSI Gateway, additional nodes are required:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.3.2.6.5.5.1"><span class="term">Metadata Server (MDS)</span></dt><dd><p>
+       CephFS metadata is stored in its own RADOS pool (see
+       <a class="xref" href="cha-storage-about.html#storage-intro-structure-pool" title="1.3.1. Pools">Section 1.3.1, “Pools”</a>). The Metadata Servers act as a
+       smart caching layer for the metadata and serializes access when needed.
+       This allows concurrent access from many clients without explicit
+       synchronization.
+      </p></dd><dt id="id-1.3.3.2.6.5.5.2"><span class="term">Object Gateway</span></dt><dd><p>
+       The Object Gateway is an HTTP REST gateway for the RADOS object store. It is
+       compatible with OpenStack Swift and Amazon S3 and has its own user
+       management.
+      </p></dd><dt id="id-1.3.3.2.6.5.5.3"><span class="term">NFS Ganesha</span></dt><dd><p>
+       NFS Ganesha provides an NFS access to either the Object Gateway or the CephFS. It
+       runs in the user instead of the kernel space and directly interacts with
+       the Object Gateway or CephFS.
+      </p></dd><dt id="id-1.3.3.2.6.5.5.4"><span class="term">iSCSI Gateway</span></dt><dd><p>
+       iSCSI is a storage network protocol that allows clients to send SCSI
+       commands to SCSI storage devices (targets) on remote servers.
+      </p></dd><dt id="id-1.3.3.2.6.5.5.5"><span class="term">Samba Gateway</span></dt><dd><p>
+       The Samba Gateway provides a Samba access to data stored on CephFS.
+      </p></dd></dl></div></section></section><section class="sect1" id="storage-intro-structure" data-id-title="Ceph storage structure"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-structure">#</a></h2></div></div></div><section class="sect2" id="storage-intro-structure-pool" data-id-title="Pools"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.3.1 </span><span class="title-name">Pools</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-structure-pool">#</a></h3></div></div></div><p>
+    Objects that are stored in a Ceph cluster are put into
+    <span class="emphasis"><em>pools</em></span>. Pools represent logical partitions of the
+    cluster to the outside world. For each pool a set of rules can be defined,
+    for example, how many replications of each object must exist. The standard
+    configuration of pools is called <span class="emphasis"><em>replicated pool</em></span>.
+   </p><p>
+    Pools usually contain objects but can also be configured to act similar to
+    a RAID 5. In this configuration, objects are stored in chunks along with
+    additional coding chunks. The coding chunks contain the redundant
+    information. The number of data and coding chunks can be defined by the
+    administrator. In this configuration, pools are referred to as
+    <span class="emphasis"><em>erasure coded pools</em></span> or <span class="emphasis"><em>EC pools</em></span>.
+   </p></section><section class="sect2" id="storage-intro-structure-pg" data-id-title="Placement groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.3.2 </span><span class="title-name">Placement groups</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-structure-pg">#</a></h3></div></div></div><p>
+    <span class="emphasis"><em>Placement Groups</em></span> (PGs) are used for the distribution
+    of data within a pool. When creating a pool, a certain number of placement
+    groups is set. The placement groups are used internally to group objects
+    and are an important factor for the performance of a Ceph cluster. The PG
+    for an object is determined by the object's name.
+   </p></section><section class="sect2" id="storage-intro-structure-example" data-id-title="Example"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.3.3 </span><span class="title-name">Example</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-structure-example">#</a></h3></div></div></div><p>
+    This section provides a simplified example of how Ceph manages data (see
+    <a class="xref" href="cha-storage-about.html#storage-intro-structure-example-figure" title="Small scale Ceph example">Figure 1.2, “Small scale Ceph example”</a>). This example
+    does not represent a recommended configuration for a Ceph cluster. The
+    hardware setup consists of three storage nodes or Ceph OSDs
+    (<code class="literal">Host 1</code>, <code class="literal">Host 2</code>, <code class="literal">Host
+    3</code>). Each node has three hard disks which are used as OSDs
+    (<code class="literal">osd.1</code> to <code class="literal">osd.9</code>). The Ceph Monitor nodes are
+    neglected in this example.
+   </p><div id="id-1.3.3.2.7.4.3" data-id-title="Difference between Ceph OSD and OSD" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Difference between Ceph OSD and OSD</h6><p>
+     While <span class="emphasis"><em>Ceph OSD</em></span> or <span class="emphasis"><em>Ceph OSD
+     daemon</em></span> refers to a daemon that is run on a node, the word
+     <span class="emphasis"><em>OSD</em></span> refers to the logical disk that the daemon
+     interacts with.
+    </p></div><p>
+    The cluster has two pools, <code class="literal">Pool A</code> and <code class="literal">Pool
+    B</code>. While Pool A replicates objects only two times, resilience for
+    Pool B is more important and it has three replications for each object.
+   </p><p>
+    When an application puts an object into a pool, for example via the REST
+    API, a Placement Group (<code class="literal">PG1</code> to <code class="literal">PG4</code>)
+    is selected based on the pool and the object name. The CRUSH algorithm then
+    calculates on which OSDs the object is stored, based on the Placement Group
+    that contains the object.
+   </p><p>
+    In this example the failure domain is set to host. This ensures that
+    replications of objects are stored on different hosts. Depending on the
+    replication level set for a pool, the object is stored on two or three OSDs
+    that are used by the Placement Group.
+   </p><p>
+    An application that writes an object only interacts with one Ceph OSD,
+    the primary Ceph OSD. The primary Ceph OSD takes care of replication
+    and confirms the completion of the write process after all other OSDs have
+    stored the object.
+   </p><p>
+    If <code class="literal">osd.5</code> fails, all object in <code class="literal">PG1</code> are
+    still available on <code class="literal">osd.1</code>. As soon as the cluster
+    recognizes that an OSD has failed, another OSD takes over. In this example
+    <code class="literal">osd.4</code> is used as a replacement for
+    <code class="literal">osd.5</code>. The objects stored on <code class="literal">osd.1</code>
+    are then replicated to <code class="literal">osd.4</code> to restore the replication
+    level.
+   </p><div class="figure" id="storage-intro-structure-example-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/data-structure-example.png" target="_blank"><img src="images/data-structure-example.png" width="" alt="Small scale Ceph example"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 1.2: </span><span class="title-name">Small scale Ceph example </span><a title="Permalink" class="permalink" href="cha-storage-about.html#storage-intro-structure-example-figure">#</a></h6></div></div><p>
+    If a new node with new OSDs is added to the cluster, the cluster map is
+    going to change. The CRUSH function then returns different locations for
+    objects. Objects that receive new locations will be relocated. This process
+    results in a balanced usage of all OSDs.
+   </p></section></section><section class="sect1" id="about-bluestore" data-id-title="BlueStore"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#about-bluestore">#</a></h2></div></div></div><p>
+   BlueStore is a new default storage back-end for Ceph from SES 5. It has
+   better performance than FileStore, full data check-summing, and built-in
+   compression.
+  </p><p>
+   BlueStore manages either one, two, or three storage devices. In the
+   simplest case, BlueStore consumes a single primary storage device. The
+   storage device is normally partitioned into two parts:
+  </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+     A small partition named BlueFS that implements file system-like
+     functionalities required by RocksDB.
+    </p></li><li class="listitem"><p>
+     The rest of the device is normally a large partition occupying the rest of
+     the device. It is managed directly by BlueStore and contains all of the
+     actual data. This primary device is normally identified by a block
+     symbolic link in the data directory.
+    </p></li></ol></div><p>
+   It is also possible to deploy BlueStore across two additional devices:
+  </p><p>
+   A <span class="emphasis"><em>WAL device</em></span> can be used for BlueStore’s internal
+   journal or write-ahead log. It is identified by the
+   <code class="literal">block.wal</code> symbolic link in the data directory. It is only
+   useful to use a separate WAL device if the device is faster than the primary
+   device or the DB device, for example when:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     The WAL device is an NVMe, and the DB device is an SSD, and the data
+     device is either SSD or HDD.
+    </p></li><li class="listitem"><p>
+     Both the WAL and DB devices are separate SSDs, and the data device is an
+     SSD or HDD.
+    </p></li></ul></div><p>
+   A <span class="emphasis"><em>DB device</em></span> can be used for storing BlueStore’s
+   internal metadata. BlueStore (or rather, the embedded RocksDB) will put as
+   much metadata as it can on the DB device to improve performance. Again, it
+   is only helpful to provision a shared DB device if it is faster than the
+   primary device.
+  </p><div id="id-1.3.3.2.8.9" data-id-title="Plan for the DB size" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Plan for the DB size</h6><p>
+    Plan thoroughly to ensure sufficient size of the DB device. If the DB
+    device fills up, metadata will spill over to the primary device, which
+    badly degrades the OSD's performance.
+   </p><p>
+    You can check if a WAL/DB partition is getting full and spilling over with
+    the <code class="command">ceph daemon osd<em class="replaceable">.ID</em> perf
+    dump</code> command. The <code class="option">slow_used_bytes</code> value shows
+    the amount of data being spilled out:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph daemon osd<em class="replaceable">.ID</em> perf dump | jq '.bluefs'
+"db_total_bytes": 1073741824,
+"db_used_bytes": 33554432,
+"wal_total_bytes": 0,
+"wal_used_bytes": 0,
+"slow_total_bytes": 554432,
+"slow_used_bytes": 554432,</pre></div></div></section><section class="sect1" id="storage-moreinfo" data-id-title="Additional information"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.5 </span><span class="title-name">Additional information</span> <a title="Permalink" class="permalink" href="cha-storage-about.html#storage-moreinfo">#</a></h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Ceph as a community project has its own extensive online documentation.
+     For topics not found in this manual, refer to
+     <a class="link" href="https://docs.ceph.com/en/pacific/" target="_blank">https://docs.ceph.com/en/pacific/</a>.
+    </p></li><li class="listitem"><p>
+     The original publication <span class="emphasis"><em>CRUSH: Controlled, Scalable,
+     Decentralized Placement of Replicated Data</em></span> by <span class="emphasis"><em>S.A.
+     Weil, S.A. Brandt, E.L. Miller, C. Maltzahn</em></span> provides helpful
+     insight into the inner workings of Ceph. Especially when deploying large
+     scale clusters it is a recommended reading. The publication can be found
+     at <a class="link" href="http://www.ssrc.ucsc.edu/papers/weil-sc06.pdf" target="_blank">http://www.ssrc.ucsc.edu/papers/weil-sc06.pdf</a>.
+    </p></li><li class="listitem"><p>
+     SUSE Enterprise Storage can be used with non-SUSE OpenStack distributions. The Ceph
+     clients need to be at a level that is compatible with SUSE Enterprise Storage.
+    </p><div id="id-1.3.3.2.9.2.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      SUSE supports the server component of the Ceph deployment and the
+      client is supported by the OpenStack distribution vendor.
+     </p></div></li></ul></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="part-ses.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part I </span>Introducing SUSE Enterprise Storage (SES)</span></a> </div><div><a class="pagination-link next" href="storage-bp-hwreq.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 2 </span>Hardware requirements and recommendations</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-storage-about.html#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="cha-storage-about.html#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="cha-storage-about.html#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="cha-storage-about.html#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="cha-storage-about.html#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_about.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

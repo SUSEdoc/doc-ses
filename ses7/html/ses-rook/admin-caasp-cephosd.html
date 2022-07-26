@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Ceph OSD management | Deploying and Administering SUSE Enterprise Storage with Rook | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Ceph OSD management | SES 7"/>
+<meta name="description" content="Ceph Object Storage Daemons (OSDs) are the heart and soul of the Ceph storage platform. Each OSD manages a local device and together they provide the distribut…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Deploying and Administering SUSE Enterprise Storage with Rook"/>
+<meta name="chapter-title" content="Chapter 9. Ceph OSD management"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Ceph OSD management | SES 7"/>
+<meta property="og:description" content="Ceph Object Storage Daemons (OSDs) are the heart and soul of the Ceph storage platform. Each OSD manages a local device and together they provide the distribut…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ceph OSD management | SES 7"/>
+<meta name="twitter:description" content="Ceph Object Storage Daemons (OSDs) are the heart and soul of the Ceph storage platform. Each OSD manages a local device and together they provide the distribut…"/>
+<link rel="prev" href="admin-caasp-cephtoolbox.html" title="Chapter 8. Toolboxes"/><link rel="next" href="admin-caasp-ceph-examples.html" title="Chapter 10. Ceph examples"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deploying and Administering SUSE Enterprise Storage with Rook</a><span> / </span><a class="crumb" href="rook-ses-admin.html">Administrating Ceph on SUSE CaaS Platform</a><span> / </span><a class="crumb" href="admin-caasp-cephosd.html">Ceph OSD management</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deploying and Administering SUSE Enterprise Storage with Rook</div><ol><li><a href="preface-rook.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="rook-ses-deployment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Quick Start: Deploying Ceph on SUSE CaaS Platform</span></a><ol><li><a href="deploy-rook.html" class=" "><span class="title-number">1 </span><span class="title-name">Quick start</span></a></li></ol></li><li class="active"><a href="rook-ses-admin.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Administrating Ceph on SUSE CaaS Platform</span></a><ol><li><a href="admin-intro-caasp.html" class=" "><span class="title-number">2 </span><span class="title-name">Rook-Ceph administration</span></a></li><li><a href="admin-caasp-cluster.html" class=" "><span class="title-number">3 </span><span class="title-name">Ceph cluster administration</span></a></li><li><a href="admin-caasp-block-storage.html" class=" "><span class="title-number">4 </span><span class="title-name">Block Storage</span></a></li><li><a href="admin-caasp-cephfs.html" class=" "><span class="title-number">5 </span><span class="title-name">CephFS</span></a></li><li><a href="admin-caasp-crd.html" class=" "><span class="title-number">6 </span><span class="title-name">Ceph cluster custom resource definitions</span></a></li><li><a href="admin-caasp-cephconfig.html" class=" "><span class="title-number">7 </span><span class="title-name">Configuration</span></a></li><li><a href="admin-caasp-cephtoolbox.html" class=" "><span class="title-number">8 </span><span class="title-name">Toolboxes</span></a></li><li><a href="admin-caasp-cephosd.html" class=" you-are-here"><span class="title-number">9 </span><span class="title-name">Ceph OSD management</span></a></li><li><a href="admin-caasp-ceph-examples.html" class=" "><span class="title-number">10 </span><span class="title-name">Ceph examples</span></a></li><li><a href="admin-caasp-advanced-config.html" class=" "><span class="title-number">11 </span><span class="title-name">Advanced configuration</span></a></li><li><a href="admin-caasp-object-storage.html" class=" "><span class="title-number">12 </span><span class="title-name">Object Storage</span></a></li><li><a href="admin-caasp-dashboard.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Dashboard</span></a></li></ol></li><li><a href="rook-ses-troubleshooting.html" class="has-children "><span class="title-number">III </span><span class="title-name">Troubleshooting Ceph on SUSE CaaS Platform</span></a><ol><li><a href="atroubleshooting-caasp-debugging-rook.html" class=" "><span class="title-number">14 </span><span class="title-name">Troubleshooting</span></a></li><li><a href="admin-caasp-ceph-common-issues.html" class=" "><span class="title-number">15 </span><span class="title-name">Common issues</span></a></li></ol></li><li><a href="bk05apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk05go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="admin-caasp-cephosd" data-id-title="Ceph OSD management"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h2 class="title"><span class="title-number">9 </span><span class="title-name">Ceph OSD management</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#">#</a></h2></div></div></div><section class="sect1" id="ceph-osd-management" data-id-title="Ceph OSD management"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">9.1 </span><span class="title-name">Ceph OSD management</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#ceph-osd-management">#</a></h2></div></div></div><p>
+   Ceph Object Storage Daemons (OSDs) are the heart and soul of the Ceph
+   storage platform. Each OSD manages a local device and together they provide
+   the distributed storage. Rook will automate creation and management of
+   OSDs to hide the complexity based on the desired state in the CephCluster CR
+   as much as possible. This guide will walk through some of the scenarios to
+   configure OSDs where more configuration may be required.
+  </p><section class="sect2" id="osd-health" data-id-title="Analyzing OSD health"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.1 </span><span class="title-name">Analyzing OSD health</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#osd-health">#</a></h3></div></div></div><p>
+    The <code class="literal">rook-ceph-tools</code> pod provides a simple environment to
+    run Ceph tools. The Ceph commands mentioned in this document should be
+    run from the toolbox.
+   </p><p>
+    Once created, connect to the pod to execute the <code class="command">ceph</code>
+    commands to analyze the health of the cluster, in particular the OSDs and
+    placement groups (PGs). Some common commands to analyze OSDs include:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph status
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd tree
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd status
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd df
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd utilization</pre></div><div class="verbatim-wrap"><pre class="screen">kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash</pre></div></section><section class="sect2" id="add-an-osd" data-id-title="Adding an OSD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.2 </span><span class="title-name">Adding an OSD</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#add-an-osd">#</a></h3></div></div></div><p>
+    To add more OSDs, Rook automatically watches for new nodes and devices
+    being added to your cluster. If they match the filters or other settings in
+    the <code class="literal">storage</code> section of the cluster CR, the operator will
+    create new OSDs.
+   </p></section><section class="sect2" id="add-an-osd-on-a-pvc" data-id-title="Adding an OSD on a PVC"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.3 </span><span class="title-name">Adding an OSD on a PVC</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#add-an-osd-on-a-pvc">#</a></h3></div></div></div><p>
+    In more dynamic environments where storage can be dynamically provisioned
+    with a raw block storage provider, the OSDs can be backed by PVCs.
+   </p><p>
+    To add more OSDs, you can either increase the <code class="literal">count</code> of
+    the OSDs in an existing device set or you can add more device sets to the
+    cluster CR. The operator will then automatically create new OSDs according
+    to the updated cluster CR.
+   </p></section><section class="sect2" id="remove-an-osd" data-id-title="Removing an OSD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.4 </span><span class="title-name">Removing an OSD</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#remove-an-osd">#</a></h3></div></div></div><p>
+    Removal of OSDs is intentionally not automated. Rook’s charter is to
+    keep your data safe, not to delete it. If you are sure you need to remove
+    OSDs, it can be done. We just want you to be in control of this action.
+   </p><p>
+    To remove an OSD due to a failed disk or other re-configuration, consider
+    the following to ensure the health of the data through the removal process:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Confirm you will have enough space on your cluster after removing your
+      OSDs to properly handle the deletion.
+     </p></li><li class="step"><p>
+      Confirm the remaining OSDs and their placement groups (PGs) are healthy
+      in order to handle the rebalancing of the data
+     </p></li><li class="step"><p>
+      Do not remove too many OSDs at once, wait for rebalancing between
+      removing multiple OSDs
+     </p></li><li class="step"><p>
+      On host-based clusters, you may need to stop the Rook Operator while
+      performing OSD removal steps in order to prevent Rook from detecting
+      the old OSD and trying to re-create it before the disk is wiped or
+      removed.
+     </p></li></ol></div></div><p>
+    If all the PGs are <code class="literal">active+clean</code> and there are no
+    warnings about being low on space, this means the data is fully replicated
+    and it is safe to proceed. If an OSD is failing, the PGs will not be
+    perfectly clean, and you will need to proceed anyway.
+   </p><section class="sect3" id="from-the-toolbox" data-id-title="From the toolbox"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.1.4.1 </span><span class="title-name">From the toolbox</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#from-the-toolbox">#</a></h4></div></div></div><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+       Determine the OSD ID for the OSD to be removed. The OSD pod may be in an
+       error state, such as <code class="literal">CrashLoopBackoff</code>, or the
+       <code class="command">ceph</code> commands in the toolbox may show which OSD is
+       <code class="literal">down</code>.
+      </p></li><li class="listitem"><p>
+       Mark the OSD as <code class="literal">out</code> if not already marked as such by
+       Ceph. This signals Ceph to start moving (backfilling) the data that
+       was on that OSD to another OSD.
+      </p><div class="verbatim-wrap"><pre class="screen">ceph osd out osd.<em class="replaceable">ID</em></pre></div><p>
+       For example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="systemitem">cephuser</code>ceph osd out osd.23</pre></div></li><li class="listitem"><p>
+       Wait for the data to finish backfilling to other OSDs.
+      </p><p>
+       <code class="command">ceph status</code> will indicate the backfilling is done
+       when all of the PGs are <code class="literal">active+clean</code>. It’s safe to
+       remove the disk after that.
+      </p></li><li class="listitem"><p>
+       Update your CephCluster CR such that the operator will not create an OSD
+       on the device anymore. Depending on your CR settings, you may need to
+       remove the device from the list or update the device filter. If you are
+       using <code class="option">useAllDevices: true</code>, no change to the CR is
+       necessary.
+      </p></li><li class="listitem"><p>
+       Remove the OSD from the Ceph cluster
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd purge <em class="replaceable">ID</em> --yes-i-really-mean-it</pre></div></li><li class="listitem"><p>
+       Verify the OSD is removed from the node in the CRUSH map:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tree</pre></div></li></ol></div></section><section class="sect3" id="remove-the-osd-deployment" data-id-title="Removing the OSD deployment"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.1.4.2 </span><span class="title-name">Removing the OSD deployment</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#remove-the-osd-deployment">#</a></h4></div></div></div><p>
+     The operator can automatically remove OSD deployments that are considered
+     <span class="quote">“<span class="quote">safe-to-destroy</span>”</span> by Ceph. After the steps above, the OSD
+     will be considered safe to remove since the data has all been moved to
+     other OSDs. But this will only be done automatically by the operator if
+     you have this setting in the cluster CR:
+    </p><div class="verbatim-wrap"><pre class="screen">removeOSDsIfOutAndSafeToRemove: true</pre></div><p>
+     Otherwise, you will need to delete the deployment directly:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl delete deployment -n rook-ceph rook-ceph-osd-<em class="replaceable">ID</em></pre></div></section></section><section class="sect2" id="replace-an-osd" data-id-title="Replacing an OSD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.5 </span><span class="title-name">Replacing an OSD</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#replace-an-osd">#</a></h3></div></div></div><p>
+    To replace a disk that has failed:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Run the steps in the previous section to <a class="xref" href="admin-caasp-cephosd.html#remove-an-osd" title="9.1.4. Removing an OSD">Section 9.1.4, “Removing an OSD”</a>.
+     </p></li><li class="step"><p>
+      Replace the physical device and verify the new device is attached.
+     </p></li><li class="step"><p>
+      Check if your cluster CR will find the new device. If you are using
+      <code class="option">useAllDevices: true</code> you can skip this step. If your
+      cluster CR lists individual devices or uses a device filter you may need
+      to update the CR.
+     </p></li><li class="step"><p>
+      The operator ideally will automatically create the new OSD within a few
+      minutes of adding the new device or updating the CR. If you do not see a
+      new OSD automatically created, restart the operator (by deleting the
+      operator pod) to trigger the OSD creation.
+     </p></li><li class="step"><p>
+      Verify if the OSD is created on the node by running <code class="command">ceph osd
+      tree</code> from the toolbox.
+     </p></li></ol></div></div><div id="id-1.7.4.9.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     The OSD might have a different ID than the previous OSD that was replaced.
+    </p></div></section><section class="sect2" id="remove-an-osd-from-a-pvc" data-id-title="Removing an OSD from a PVC"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.6 </span><span class="title-name">Removing an OSD from a PVC</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#remove-an-osd-from-a-pvc">#</a></h3></div></div></div><p>
+    If you have installed your OSDs on top of PVCs and you desire to reduce the
+    size of your cluster by removing OSDs:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Shrink the number of OSDs in the <code class="literal">storageClassDeviceSet</code>
+      in the CephCluster CR.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph edit cephcluster rook-ceph</pre></div><p>
+      Reduce the <code class="literal">count</code> of the OSDs to the desired number.
+      Rook will not take any action to automatically remove the extra OSD(s),
+      but will effectively stop managing the orphaned OSD.
+     </p></li><li class="step"><p>
+      Identify the orphaned PVC that belongs to the orphaned OSD.
+     </p><div id="id-1.7.4.9.3.8.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       The orphaned PVC will have the highest index among the PVCs for the
+       device set.
+      </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pvc -l ceph.rook.io/DeviceSet=<em class="replaceable">deviceSet</em></pre></div><p>
+      For example if the device set is named <code class="literal">set1</code> and the
+      <code class="literal">count</code> was reduced from <code class="literal">3</code> to
+      <code class="literal">2</code>, the orphaned PVC would have the index
+      <code class="literal">2</code> and might be named
+      <code class="literal">set1-2-data-vbwcf</code>
+     </p></li><li class="step"><p>
+      Identify the orphaned OSD.
+     </p><div id="id-1.7.4.9.3.8.3.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       The OSD assigned to the PVC can be found in the labels on the PVC.
+      </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l ceph.rook.io/pvc=<em class="replaceable">ORPHANED_PVC</em> -o yaml | grep ceph-osd-id</pre></div><p>
+      For example, this might return:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-osd-id: "0"</pre></div></li><li class="step"><p>
+      Now proceed with the steps in the section above to
+      <a class="xref" href="admin-caasp-cephosd.html#remove-an-osd" title="9.1.4. Removing an OSD">Section 9.1.4, “Removing an OSD”</a> for the orphaned OSD ID.
+     </p></li><li class="step"><p>
+      If desired, delete the orphaned PVC after the OSD is removed.
+     </p></li></ol></div></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="admin-caasp-cephtoolbox.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 8 </span>Toolboxes</span></a> </div><div><a class="pagination-link next" href="admin-caasp-ceph-examples.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 10 </span>Ceph examples</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="admin-caasp-cephosd.html#ceph-osd-management"><span class="title-number">9.1 </span><span class="title-name">Ceph OSD management</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_cephosd.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

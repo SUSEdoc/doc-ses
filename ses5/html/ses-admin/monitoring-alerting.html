@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Monitoring and Alerting | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Monitoring and Alerting | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="By default, DeepSea deploys a monitoring and alerting stack on the Salt master. It consists of the following components:"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Chapter 5. Monitoring and Alerting"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Monitoring and Alerting | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="By default, DeepSea deploys a monitoring and alerting stack on the Salt master. It consists of the following components:"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitoring and Alerting | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="By default, DeepSea deploys a monitoring and alerting stack on the Salt master. It consists of the following components:"/>
+<link rel="prev" href="ceph-monitor.html" title="Chapter 4. Determining Cluster State"/><link rel="next" href="cha-storage-cephx.html" title="Chapter 6. Authentication with cephx"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="part-operate.html">Operating a Cluster</a><span> / </span><a class="crumb" href="monitoring-alerting.html">Monitoring and Alerting</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-cluster-managment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span></a></li></ol></li><li class="active"><a href="part-operate.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">2 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" "><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">4 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" you-are-here"><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">6 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">7 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">9 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">10 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">11 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">12 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li><a href="part-dataccess.html" class="has-children "><span class="title-number">III </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">15 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">16 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-gui.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Managing Cluster with GUI Tools</span></a><ol><li><a href="ceph-oa.html" class=" "><span class="title-number">17 </span><span class="title-name">openATTIC</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">18 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">19 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li><a href="part-troubleshooting.html" class="has-children "><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" "><span class="title-number">20 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">21 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">22 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="gloss-storage-glossary.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="app-alerting-default.html" class=" "><span class="title-number">B </span><span class="title-name">Default Alerts for SUSE Enterprise Storage</span></a></li><li><a href="app-storage-manual-inst.html" class=" "><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">D </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="monitoring-alerting" data-id-title="Monitoring and Alerting"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#">#</a></h2></div></div></div><p>
+  By default, DeepSea deploys a monitoring and alerting stack on the
+  Salt master. It consists of the following components:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <span class="bold"><strong>Prometheus</strong></span> monitoring and alerting
+    toolkit.
+   </p></li><li class="listitem"><p>
+    <span class="bold"><strong>Grafana</strong></span> visualization and alerting
+    software.
+   </p></li><li class="listitem"><p>
+    The <code class="systemitem">prometheus-ceph_exporter</code>
+    service running on the Salt master.
+   </p></li><li class="listitem"><p>
+    The <code class="systemitem">prometheus-node_exporter</code>
+    service running on all Salt minions.
+   </p></li></ul></div><p>
+  The Prometheus configuration and <span class="emphasis"><em>scrape</em></span> targets
+  (exporting daemons) are setup automatically by DeepSea. DeepSea also
+  deploys a list of default alerts, for example <code class="literal">health
+  error</code>, <code class="literal">10% OSDs down</code>, or <code class="literal">pgs
+  inactive</code>.
+ </p><p>
+   The Alertmanager handles alerts sent by the Prometheus server. It takes
+   care of de-duplicating, grouping, and routing them to the correct receiver.
+   It also takes care of silencing of alerts. Alertmanager is configured via
+   the command line flags and a configuration file that defines inhibition
+   rules, notification routing and notification receivers.
+  </p><section class="sect1" id="config-file" data-id-title="Configuration File"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.1 </span><span class="title-name">Configuration File</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#config-file">#</a></h2></div></div></div><p>
+    Alertmanager's configuration is different for each deployment. Therefore,
+    DeepSea does not ship any related defaults. You need to provide your own
+    <code class="filename">alertmanager.yml</code> configuration file. The
+    <span class="package">alertmanager</span> package by default installs a
+    configuration file <code class="filename">/etc/prometheus/alertmanager.yml</code>
+    which can serve as an example configuration. If you prefer to have your
+    Alertmanager configuration managed by DeepSea, add the following key to
+    your pillar, for example to the
+    <code class="filename">/srv/pillar/ceph/stack/ceph/minions/<em class="replaceable">YOUR_SALT_MASTER_MINION_ID</em>.sls</code>
+    file:
+   </p><p>
+    For a complete example of Alertmanager's configuration file, see
+    <a class="xref" href="app-alerting-default.html" title="Appendix B. Default Alerts for SUSE Enterprise Storage">Appendix B, <em>Default Alerts for SUSE Enterprise Storage</em></a>.
+   </p><div class="verbatim-wrap"><pre class="screen">monitoring:
+ alertmanager_config:
+   /path/to/your/alertmanager/config.yml</pre></div><p>
+    Alertmanager's configuration file is written in the YAML format. It
+    follows the scheme described below. Parameters in brackets are optional.
+    For non-list parameters the default value is used. The following generic
+    placeholders are used in the scheme:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.5.6.6.1"><span class="term"><em class="replaceable">DURATION</em></span></dt><dd><p>
+       A duration matching the regular expression
+       <code class="literal">[0-9]+(ms|[smhdwy])</code>
+      </p></dd><dt id="id-1.3.4.5.6.6.2"><span class="term"><em class="replaceable">LABELNAME</em></span></dt><dd><p>
+       A string matching the regular expression
+       <code class="literal">[a-zA-Z_][a-zA-Z0-9_]*</code>
+      </p></dd><dt id="id-1.3.4.5.6.6.3"><span class="term"><em class="replaceable">LABELVALUE</em></span></dt><dd><p>
+       A string of unicode characters.
+      </p></dd><dt id="id-1.3.4.5.6.6.4"><span class="term"><em class="replaceable">FILEPATH</em></span></dt><dd><p>
+       A valid path in the current working directory.
+      </p></dd><dt id="id-1.3.4.5.6.6.5"><span class="term"><em class="replaceable">BOOLEAN</em></span></dt><dd><p>
+       A boolean that can take the values <code class="literal">true</code>
+       or <code class="literal">false</code>.
+      </p></dd><dt id="id-1.3.4.5.6.6.6"><span class="term"><em class="replaceable">STRING</em></span></dt><dd><p>
+       A regular string.
+      </p></dd><dt id="id-1.3.4.5.6.6.7"><span class="term"><em class="replaceable">SECRET</em></span></dt><dd><p>
+       A regular string that is a secret. For example, a password.
+      </p></dd><dt id="id-1.3.4.5.6.6.8"><span class="term"><em class="replaceable">TMPL_STRING</em></span></dt><dd><p>
+       A string which is template-expanded before usage.
+      </p></dd><dt id="id-1.3.4.5.6.6.9"><span class="term"><em class="replaceable">TMPL_SECRET</em></span></dt><dd><p>
+       A secret string which is template-expanded before usage.
+      </p></dd></dl></div><div class="complex-example"><div class="example" id="id-1.3.4.5.6.7" data-id-title="Global Configuration"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.1: </span><span class="title-name">Global Configuration </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.7">#</a></h6></div><div class="example-contents"><p>
+     Parameters in the <code class="literal">global:</code> configuration are valid in
+     all other configuration contexts. They also serve as defaults for other
+     configuration sections.
+    </p><div class="verbatim-wrap"><pre class="screen">global:
+# the time after which an alert is declared resolved if it has not been updated
+[ resolve_timeout: <em class="replaceable">DURATION</em> | default = 5m ]
+
+# The default SMTP From header field.
+[ smtp_from: <em class="replaceable">TMPL_STRING</em> ]
+# The default SMTP smarthost used for sending emails, including port number.
+# Port number usually is 25, or 587 for SMTP over TLS
+# (sometimes referred to as STARTTLS).
+# Example: smtp.example.org:587
+[ smtp_smarthost: <em class="replaceable">STRING</em> ]
+# The default host name to identify to the SMTP server.
+[ smtp_hello: <em class="replaceable">STRING</em> | default = "localhost" ]
+[ smtp_auth_username: <em class="replaceable">STRING</em> ]
+# SMTP Auth using LOGIN and PLAIN.
+[ smtp_auth_password: <em class="replaceable">SECRET</em> ]
+# SMTP Auth using PLAIN.
+[ smtp_auth_identity: <em class="replaceable">STRING</em> ]
+# SMTP Auth using CRAM-MD5.
+[ smtp_auth_secret: <em class="replaceable">SECRET</em> ]
+# The default SMTP TLS requirement.
+[ smtp_require_tls: <em class="replaceable">BOOL</em> | default = true ]
+
+# The API URL to use for Slack notifications.
+[ slack_api_url: <em class="replaceable">STRING</em> ]
+[ victorops_api_key: <em class="replaceable">STRING</em> ]
+[ victorops_api_url: <em class="replaceable">STRING</em> | default = "https://victorops.example.com/integrations/alert/" ]
+[ pagerduty_url: <em class="replaceable">STRING</em> | default = "https://pagerduty.example.com/v2/enqueue" ]
+[ opsgenie_api_key: <em class="replaceable">STRING</em> ]
+[ opsgenie_api_url: <em class="replaceable">STRING</em> | default = "https://opsgenie.example.com/" ]
+[ hipchat_api_url: <em class="replaceable">STRING</em> | default = "https://hipchat.example.com/" ]
+[ hipchat_auth_token: <em class="replaceable">SECRET</em> ]
+[ wechat_api_url: <em class="replaceable">STRING</em> | default = "https://wechat.example.com/cgi-bin/" ]
+[ wechat_api_secret: <em class="replaceable">SECRET</em> ]
+[ wechat_api_corp_id: <em class="replaceable">STRING</em> ]
+
+# The default HTTP client configuration
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> ]
+
+# Files from which custom notification template definitions are read.
+# The last component may use a wildcard matcher, e.g. 'templates/*.tmpl'.
+templates:
+[ - <em class="replaceable">FILEPATH</em> ... ]
+
+# The root node of the routing tree.
+route: <em class="replaceable">ROUTE</em>
+
+# A list of notification receivers.
+receivers:
+- <em class="replaceable">RECEIVER</em> ...
+
+# A list of inhibition rules.
+inhibit_rules:
+[ - <em class="replaceable">INHIBIT_RULE</em> ... ]</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.6.8" data-id-title="ROUTE"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.2: </span><span class="title-name"><em class="replaceable">ROUTE</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.8">#</a></h6></div><div class="example-contents"><p>
+     A <em class="replaceable">ROUTE</em> block defines a node in a routing
+     tree. Unspecified parameters are inherited from its parent node. Every
+     alert enters the routing tree at the configured top-level route, which
+     needs to match all alerts, then traversing the child nodes. If the
+     <code class="option">continue</code> option is set to <code class="literal">false</code>,
+     the traversing stops after the first matched child. Setting the option to
+     <code class="literal">true</code> on a matched node, the alert continues to match
+     against subsequent siblings. If an alert does not match any children of a
+     node, the alert is handled based on the configuration parameters of the
+     current node.
+    </p><div class="verbatim-wrap"><pre class="screen">[ receiver: <em class="replaceable">STRING</em> ]
+[ group_by: '[' <em class="replaceable">LABELNAME</em>, ... ']' ]
+
+# If an alert should continue matching subsequent sibling nodes.
+[ continue: <em class="replaceable">BOOLEAN</em> | default = false ]
+
+# A set of equality matchers an alert has to fulfill to match a node.
+match:
+ [ <em class="replaceable">LABELNAME</em>: <em class="replaceable">LABELVALUE</em>, ... ]
+
+# A set of regex-matchers an alert has to fulfill to match a node.
+match_re:
+ [ <em class="replaceable">LABELNAME</em>: <em class="replaceable">REGEX</em>, ... ]
+
+# Time to wait before sending a notification for a group of alerts.
+[ group_wait: <em class="replaceable">DURATION</em> | default = 30s ]
+
+# Time to wait before sending a notification about new alerts
+# added to a group of alerts for which an initial notification has
+# already been sent.
+[ group_interval: <em class="replaceable">DURATION</em> | default = 5m ]
+
+# Time to wait before re-sending a notification
+[ repeat_interval: <em class="replaceable">DURATION</em> | default = 4h ]
+
+# Possible child routes.
+routes:
+ [ - <em class="replaceable">ROUTE</em> ... ]</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.6.9" data-id-title="INHIBIT_RULE"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.3: </span><span class="title-name"><em class="replaceable">INHIBIT_RULE</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.9">#</a></h6></div><div class="example-contents"><p>
+     An inhibition rule mutes a target alert that matches a set of matchers
+     when a source alert exists that matches another set of matchers. Both
+     alerts need to share the same label values for the label names in the
+     <code class="option">equal</code> list.
+    </p><p>
+     Alerts can match and therefore inhibit themselves. Do not write
+     inhibition rules where an alert matches both source and target.
+    </p><div class="verbatim-wrap"><pre class="screen"># Matchers that need to be fulfilled for the alerts to be muted.
+target_match:
+ [ <em class="replaceable">LABELNAME</em>: <em class="replaceable">LABELVALUE</em>, ... ]
+target_match_re:
+ [ <em class="replaceable">LABELNAME</em>: <em class="replaceable">REGEX</em>, ... ]
+
+# Matchers for which at least one alert needs to exist so that the
+# inhibition occurs.
+source_match:
+ [ <em class="replaceable">LABELNAME</em>: <em class="replaceable">LABELVALUE</em>, ... ]
+source_match_re:
+ [ <em class="replaceable">LABELNAME</em>: <em class="replaceable">REGEX</em>, ... ]
+
+# Labels with an equal value in the source and target
+# alert for the inhibition to take effect.
+[ equal: '[' <em class="replaceable">LABELNAME</em>, ... ']' ]</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.6.10" data-id-title="HTTP_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.4: </span><span class="title-name"><em class="replaceable">HTTP_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.10">#</a></h6></div><div class="example-contents"><p>
+     <em class="replaceable">HTTP_CONFIG</em> configures the HTTP client used by
+     the receiver to communicate with API services.
+    </p><p>
+     Note that <code class="option">basic_auth</code>, <code class="option">bearer_token</code> and
+     <code class="option">bearer_token_file</code> options are mutually exclusive.
+    </p><div class="verbatim-wrap"><pre class="screen"># Sets the 'Authorization' header with the user name and password.
+basic_auth:
+[ username: <em class="replaceable">STRING</em> ]
+[ password: <em class="replaceable">SECRET</em> ]
+
+# Sets the 'Authorization' header with the bearer token.
+[ bearer_token: <em class="replaceable">SECRET</em> ]
+
+# Sets the 'Authorization' header with the bearer token read from a file.
+[ bearer_token_file: <em class="replaceable">FILEPATH</em> ]
+
+# TLS settings.
+tls_config:
+# CA certificate to validate the server certificate with.
+[ ca_file: <em class="replaceable">FILEPATH</em> ]
+# Certificate and key files for client cert authentication to the server.
+[ cert_file: <em class="replaceable">FILEPATH</em> ]
+[ key_file: <em class="replaceable">FILEPATH</em> ]
+# ServerName extension to indicate the name of the server.
+# http://tools.ietf.org/html/rfc4366#section-3.1
+[ server_name: <em class="replaceable">STRING</em> ]
+# Disable validation of the server certificate.
+[ insecure_skip_verify: <em class="replaceable">BOOLEAN</em> | default = false]
+
+# Optional proxy URL.
+[ proxy_url: <em class="replaceable">STRING</em> ]</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.6.11" data-id-title="RECEIVER"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.5: </span><span class="title-name"><em class="replaceable">RECEIVER</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.11">#</a></h6></div><div class="example-contents"><p>
+     Receiver is a named configuration for one or more notification
+     integrations.
+    </p><p>
+     Instead of adding new receivers, we recommend implementing custom
+     notification integrations using the webhook receiver (see
+     <a class="xref" href="monitoring-alerting.html#alert-webhook" title="WEBHOOK_CONFIG">Example 5.15, “<em class="replaceable">WEBHOOK_CONFIG</em>”</a>).
+    </p><div class="verbatim-wrap"><pre class="screen"># The unique name of the receiver.
+name: <em class="replaceable">STRING</em>
+
+# Configurations for several notification integrations.
+email_configs:
+[ - <em class="replaceable">EMAIL_CONFIG</em>, ... ]
+hipchat_configs:
+[ - <em class="replaceable">HIPCHAT_CONFIG</em>, ... ]
+pagerduty_configs:
+[ - <em class="replaceable">PAGERDUTY_CONFIG</em>, ... ]
+pushover_configs:
+[ - <em class="replaceable">PUSHOVER_CONFIG</em>, ... ]
+slack_configs:
+[ - <em class="replaceable">SLACK_CONFIG</em>, ... ]
+opsgenie_configs:
+[ - <em class="replaceable">OPSGENIE_CONFIG</em>, ... ]
+webhook_configs:
+[ - <em class="replaceable">WEBHOOK_CONFIG</em>, ... ]
+victorops_configs:
+[ - <em class="replaceable">VICTOROPS_CONFIG</em>, ... ]
+wechat_configs:
+[ - <em class="replaceable">WECHAT_CONFIG</em>, ... ]</pre></div></div></div></div><div class="example" id="id-1.3.4.5.6.12" data-id-title="EMAIL_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.6: </span><span class="title-name"><em class="replaceable">EMAIL_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.12">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Whether to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = false ]
+
+# The email address to send notifications to.
+to: <em class="replaceable">TMPL_STRING</em>
+
+# The sender address.
+[ from: <em class="replaceable">TMPL_STRING</em> | default = global.smtp_from ]
+
+# The SMTP host through which emails are sent.
+[ smarthost: <em class="replaceable">STRING</em> | default = global.smtp_smarthost ]
+
+# The host name to identify to the SMTP server.
+[ hello: <em class="replaceable">STRING</em> | default = global.smtp_hello ]
+
+# SMTP authentication details.
+[ auth_username: <em class="replaceable">STRING</em> | default = global.smtp_auth_username ]
+[ auth_password: <em class="replaceable">SECRET</em> | default = global.smtp_auth_password ]
+[ auth_secret: <em class="replaceable">SECRET</em> | default = global.smtp_auth_secret ]
+[ auth_identity: <em class="replaceable">STRING</em> | default = global.smtp_auth_identity ]
+
+# The SMTP TLS requirement.
+[ require_tls: <em class="replaceable">BOOL</em> | default = global.smtp_require_tls ]
+
+# The HTML body of the email notification.
+[ html: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "email.default.html" . }}' ]
+# The text body of the email notification.
+[ text: <em class="replaceable">TMPL_STRING</em> ]
+
+# Further headers email header key/value pairs. Overrides any headers
+# previously set by the notification implementation.
+[ headers: { <em class="replaceable">STRING</em>: <em class="replaceable">TMPL_STRING</em>, ... } ]</pre></div></div></div><div class="example" id="id-1.3.4.5.6.13" data-id-title="HIPCHAT_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.7: </span><span class="title-name"><em class="replaceable">HIPCHAT_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.13">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = false ]
+
+# The HipChat Room ID.
+room_id: <em class="replaceable">TMPL_STRING</em>
+# The authentication token.
+[ auth_token: <em class="replaceable">SECRET</em> | default = global.hipchat_auth_token ]
+# The URL to send API requests to.
+[ api_url: <em class="replaceable">STRING</em> | default = global.hipchat_api_url ]
+
+# A label to be shown in addition to the sender's name.
+[ from:  <em class="replaceable">TMPL_STRING</em> | default = '{{ template "hipchat.default.from" . }}' ]
+# The message body.
+[ message:  <em class="replaceable">TMPL_STRING</em> | default = '{{ template "hipchat.default.message" . }}' ]
+# Whether this message will trigger a user notification.
+[ notify:  <em class="replaceable">BOOLEAN</em> | default = false ]
+# Determines how the message is treated by the alertmanager and rendered inside HipChat. Valid values are 'text' and 'html'.
+[ message_format:  <em class="replaceable">STRING</em> | default = 'text' ]
+# Background color for message.
+[ color:  <em class="replaceable">TMPL_STRING</em> | default = '{{ if eq .Status "firing" }}red{{ else }}green{{ end }}' ]
+
+# Configuration of the HTTP client.
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> | default = global.http_config ]</pre></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.6.14" data-id-title="PAGERDUTY_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.8: </span><span class="title-name"><em class="replaceable">PAGERDUTY_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.14">#</a></h6></div><div class="example-contents"><p>
+     The <code class="option">routing_key</code> and <code class="option">service_key</code> options
+     are mutually exclusive.
+    </p><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = true ]
+
+# The PagerDuty integration key (when using 'Events API v2').
+routing_key: <em class="replaceable">TMPL_SECRET</em>
+# The PagerDuty integration key (when using 'Prometheus').
+service_key: <em class="replaceable">TMPL_SECRET</em>
+
+# The URL to send API requests to.
+[ url: <em class="replaceable">STRING</em> | default = global.pagerduty_url ]
+
+# The client identification of the Alertmanager.
+[ client:  <em class="replaceable">TMPL_STRING</em> | default = '{{ template "pagerduty.default.client" . }}' ]
+# A backlink to the notification sender.
+[ client_url:  <em class="replaceable">TMPL_STRING</em> | default = '{{ template "pagerduty.default.clientURL" . }}' ]
+
+# The incident description.
+[ description: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "pagerduty.default.description" .}}' ]
+
+# Severity of the incident.
+[ severity: <em class="replaceable">TMPL_STRING</em> | default = 'error' ]
+
+# A set of arbitrary key/value pairs that provide further details.
+[ details: { <em class="replaceable">STRING</em>: <em class="replaceable">TMPL_STRING</em>, ... } | default = {
+ firing:       '{{ template "pagerduty.default.instances" .Alerts.Firing }}'
+ resolved:     '{{ template "pagerduty.default.instances" .Alerts.Resolved }}'
+ num_firing:   '{{ .Alerts.Firing | len }}'
+ num_resolved: '{{ .Alerts.Resolved | len }}'
+} ]
+
+# The HTTP client's configuration.
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> | default = global.http_config ]</pre></div></div></div></div><div class="example" id="id-1.3.4.5.6.15" data-id-title="PUSHOVER_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.9: </span><span class="title-name"><em class="replaceable">PUSHOVER_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.15">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = true ]
+
+# The recipient user key.
+user_key: <em class="replaceable">SECRET</em>
+
+# Registered application’s API token.
+token: <em class="replaceable">SECRET</em>
+
+# Notification title.
+[ title: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "pushover.default.title" . }}' ]
+
+# Notification message.
+[ message: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "pushover.default.message" . }}' ]
+
+# A supplementary URL displayed together with the message.
+[ url: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "pushover.default.url" . }}' ]
+
+# Priority.
+[ priority: <em class="replaceable">TMPL_STRING</em> | default = '{{ if eq .Status "firing" }}2{{ else }}0{{ end }}' ]
+
+# How often the Pushover servers will send the same notification (at least 30 seconds).
+[ retry: <em class="replaceable">DURATION</em> | default = 1m ]
+
+# How long your notification will continue to be retried (unless the user
+# acknowledges the notification).
+[ expire: <em class="replaceable">DURATION</em> | default = 1h ]
+
+# Configuration of the HTTP client.
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> | default = global.http_config ]</pre></div></div></div><div class="example" id="id-1.3.4.5.6.16" data-id-title="SLACK_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.10: </span><span class="title-name"><em class="replaceable">SLACK_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.16">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = false ]
+
+# The Slack webhook URL.
+[ api_url: <em class="replaceable">SECRET</em> | default = global.slack_api_url ]
+
+# The channel or user to send notifications to.
+channel: <em class="replaceable">TMPL_STRING</em>
+
+# API request data as defined by the Slack webhook API.
+[ icon_emoji: <em class="replaceable">TMPL_STRING</em> ]
+[ icon_url: <em class="replaceable">TMPL_STRING</em> ]
+[ link_names: <em class="replaceable">BOOLEAN</em> | default = false ]
+[ username: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "slack.default.username" . }}' ]
+# The following parameters define the attachment.
+actions:
+[ <em class="replaceable">ACTION_CONFIG</em> ... ]
+[ color: <em class="replaceable">TMPL_STRING</em> | default = '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}' ]
+[ fallback: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "slack.default.fallback" . }}' ]
+fields:
+[ <em class="replaceable">FIELD_CONFIG</em> ... ]
+[ footer: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "slack.default.footer" . }}' ]
+[ pretext: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "slack.default.pretext" . }}' ]
+[ short_fields: <em class="replaceable">BOOLEAN</em> | default = false ]
+[ text: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "slack.default.text" . }}' ]
+[ title: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "slack.default.title" . }}' ]
+[ title_link: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "slack.default.titlelink" . }}' ]
+[ image_url: <em class="replaceable">TMPL_STRING</em> ]
+[ thumb_url: <em class="replaceable">TMPL_STRING</em> ]
+
+# Configuration of the HTTP client.
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> | default = global.http_config ]</pre></div></div></div><div class="example" id="id-1.3.4.5.6.17" data-id-title="ACTION_CONFIG for SLACK_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.11: </span><span class="title-name"><em class="replaceable">ACTION_CONFIG</em> for <em class="replaceable">SLACK_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.17">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Provide a button to tell Slack you want to render a button.
+type: <em class="replaceable">TMPL_STRING</em>
+# Label for the button.
+text: <em class="replaceable">TMPL_STRING</em>
+# http or https URL to deliver users to. If you specify invalid URLs, the message will be posted with no button.
+url: <em class="replaceable">TMPL_STRING</em>
+#  If set to 'primary', the button will be green, indicating the best forward action to take
+#  'danger' turns the button red, indicating a destructive action.
+[ style: <em class="replaceable">TMPL_STRING</em> [ default = '' ]</pre></div></div></div><div class="example" id="id-1.3.4.5.6.18" data-id-title="FIELD_CONFIG for SLACK_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.12: </span><span class="title-name"><em class="replaceable">FIELD_CONFIG</em> for <em class="replaceable">SLACK_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.18">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># A bold heading without markup above the <code class="option">value</code> text.
+title: <em class="replaceable">TMPL_STRING</em>
+# The text of the field. It can span across several lines.
+value: <em class="replaceable">TMPL_STRING</em>
+# A flag indicating if <code class="option">value</code> is short enough to be displayed together with other values.
+[ short: <em class="replaceable">BOOLEAN</em> | default = slack_config.short_fields ]</pre></div></div></div><div class="example" id="id-1.3.4.5.6.19" data-id-title="OPSGENIE_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.13: </span><span class="title-name"><em class="replaceable">OPSGENIE_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.19">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = true ]
+
+# The API key to use with the OpsGenie API.
+[ api_key: <em class="replaceable">SECRET</em> | default = global.opsgenie_api_key ]
+
+# The host to send OpsGenie API requests to.
+[ api_url: <em class="replaceable">STRING</em> | default = global.opsgenie_api_url ]
+
+# Alert text (maximum is 130 characters).
+[ message: <em class="replaceable">TMPL_STRING</em> ]
+
+# A description of the incident.
+[ description: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "opsgenie.default.description" . }}' ]
+
+# A backlink to the sender.
+[ source: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "opsgenie.default.source" . }}' ]
+
+# A set of arbitrary key/value pairs that provide further detail.
+[ details: { <em class="replaceable">STRING</em>: <em class="replaceable">TMPL_STRING</em>, ... } ]
+
+# Comma separated list of team responsible for notifications.
+[ teams: <em class="replaceable">TMPL_STRING</em> ]
+
+# Comma separated list of tags attached to the notifications.
+[ tags: <em class="replaceable">TMPL_STRING</em> ]
+
+# Additional alert note.
+[ note: <em class="replaceable">TMPL_STRING</em> ]
+
+# Priority level of alert, one of P1, P2, P3, P4, and P5.
+[ priority: <em class="replaceable">TMPL_STRING</em> ]
+
+# Configuration of the HTTP.
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> | default = global.http_config ]</pre></div></div></div><div class="example" id="id-1.3.4.5.6.20" data-id-title="VICTOROPS_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.14: </span><span class="title-name"><em class="replaceable">VICTOROPS_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.20">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = true ]
+
+# The API key for talking to the VictorOps API.
+[ api_key: <em class="replaceable">SECRET</em> | default = global.victorops_api_key ]
+
+# The VictorOps API URL.
+[ api_url: <em class="replaceable">STRING</em> | default = global.victorops_api_url ]
+
+# A key used to map the alert to a team.
+routing_key: <em class="replaceable">TMPL_STRING</em>
+
+# Describes the behavior of the alert (one of 'CRITICAL', 'WARNING', 'INFO').
+[ message_type: <em class="replaceable">TMPL_STRING</em> | default = 'CRITICAL' ]
+
+# Summary of the alerted problem.
+[ entity_display_name: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "victorops.default.entity_display_name" . }}' ]
+
+# Long explanation of the alerted problem.
+[ state_message: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "victorops.default.state_message" . }}' ]
+
+# The monitoring tool the state message is from.
+[ monitoring_tool: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "victorops.default.monitoring_tool" . }}' ]
+
+# Configuration of the HTTP client.
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> | default = global.http_config ]</pre></div></div></div><div class="complex-example"><div class="example" id="alert-webhook" data-id-title="WEBHOOK_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.15: </span><span class="title-name"><em class="replaceable">WEBHOOK_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#alert-webhook">#</a></h6></div><div class="example-contents"><p>
+     You can utilize the webhook receiver to configure a generic receiver.
+    </p><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = true ]
+
+# The endpoint for sending HTTP POST requests.
+url: <em class="replaceable">STRING</em>
+
+# Configuration of the HTTP client.
+[ http_config: <em class="replaceable">HTTP_CONFIG</em> | default = global.http_config ]</pre></div><p>
+     Alertmanager sends HTTP POST requests in the following JSON format:
+    </p><div class="verbatim-wrap"><pre class="screen">{
+ "version": "4",
+ "groupKey": <em class="replaceable">STRING</em>, // identifycation of the group of alerts (to deduplicate)
+ "status": "&lt;resolved|firing&gt;",
+ "receiver": <em class="replaceable">STRING</em>,
+ "groupLabels": <em class="replaceable">OBJECT</em>,
+ "commonLabels": <em class="replaceable">OBJECT</em>,
+ "commonAnnotations": <em class="replaceable">OBJECT</em>,
+ "externalURL": <em class="replaceable">STRING</em>, // backlink to Alertmanager.
+ "alerts": [
+   {
+     "status": "&lt;resolved|firing&gt;",
+     "labels": <em class="replaceable">OBJECT</em>,
+     "annotations": <em class="replaceable">OBJECT</em>,
+     "startsAt": "&lt;rfc3339&gt;",
+     "endsAt": "&lt;rfc3339&gt;",
+     "generatorURL": <em class="replaceable">STRING</em> // identifies the entity that caused the alert
+   },
+   ...
+ ]
+}</pre></div><p>
+     The webhook receiver allows for integration with the following
+     notification mechanisms:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       DingTalk (https://github.com/timonwong/prometheus-webhook-dingtalk)
+      </p></li><li class="listitem"><p>
+       IRC Bot (https://github.com/multimfi/bot)
+      </p></li><li class="listitem"><p>
+       JIRAlert (https://github.com/free/jiralert)
+      </p></li><li class="listitem"><p>
+       Phabricator / Maniphest (https://github.com/knyar/phalerts)
+      </p></li><li class="listitem"><p>
+       prom2teams: forwards notifications to Microsoft Teams
+       (https://github.com/idealista/prom2teams)
+      </p></li><li class="listitem"><p>
+       SMS: supports multiple providers
+       (https://github.com/messagebird/sachet)
+      </p></li><li class="listitem"><p>
+       Telegram bot (https://github.com/inCaller/prometheus_bot)
+      </p></li></ul></div></div></div></div><div class="example" id="id-1.3.4.5.6.22" data-id-title="WECHAT_CONFIG"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.16: </span><span class="title-name"><em class="replaceable">WECHAT_CONFIG</em> </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.6.22">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"># Whether or not to notify about resolved alerts.
+[ send_resolved: <em class="replaceable">BOOLEAN</em> | default = false ]
+
+# The API key to use for the WeChat API.
+[ api_secret: <em class="replaceable">SECRET</em> | default = global.wechat_api_secret ]
+
+# The WeChat API URL.
+[ api_url: <em class="replaceable">STRING</em> | default = global.wechat_api_url ]
+
+# The corp id used to authenticate.
+[ corp_id: <em class="replaceable">STRING</em> | default = global.wechat_api_corp_id ]
+
+# API request data as defined by the WeChat API.
+[ message: <em class="replaceable">TMPL_STRING</em> | default = '{{ template "wechat.default.message" . }}' ]
+[ agent_id: <em class="replaceable">STRING</em> | default = '{{ template "wechat.default.agent_id" . }}' ]
+[ to_user: <em class="replaceable">STRING</em> | default = '{{ template "wechat.default.to_user" . }}' ]
+[ to_party: <em class="replaceable">STRING</em> | default = '{{ template "wechat.default.to_party" . }}' ]
+[ to_tag: <em class="replaceable">STRING</em> | default = '{{ template "wechat.default.to_tag" . }}' ]</pre></div></div></div></section><section class="sect1" id="custom-alerts" data-id-title="Custom Alerts"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.2 </span><span class="title-name">Custom Alerts</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#custom-alerts">#</a></h2></div></div></div><p>
+    You can define your custom alert conditions to send notifications to an
+    external service. Prometheus uses its own expression language for defining
+    custom alerts. Following is an example of a rule with an alert:
+   </p><div class="verbatim-wrap"><pre class="screen">groups:
+- name: example
+ rules:
+  # alert on high deviation from average PG count
+  - alert: high pg count deviation
+   expr: abs(((ceph_osd_pgs &gt; 0) - on (job) group_left avg(ceph_osd_pgs &gt; 0) by (job)) / on (job) group_left avg(ceph_osd_pgs &gt; 0) by (job)) &gt; 0.35
+   for: 5m
+   labels:
+    severity: warning
+    type: ses_default
+   annotations:
+   description: &gt;
+    OSD {{ $labels.osd }} deviates by more then 30% from average PG count</pre></div><p>
+    The optional <code class="literal">for</code> clause specifies the time Prometheus
+    waits between first encountering a new expression output vector
+    element and counting an alert as firing. In this case, Prometheus
+    checks that the alert continues to be active for 5 minutes before firing
+    the alert. Elements in a pending state are active, but not firing yet.
+   </p><p>
+    The <code class="literal">labels</code> clause specifies a set of additional labels
+    attached to the alert. Conflicting labels will be overwritten. Labels can
+    be templated (see <a class="xref" href="monitoring-alerting.html#alertmanager-templates" title="5.2.1. Templates">Section 5.2.1, “Templates”</a> for more
+    details on templating).
+   </p><p>
+    The <code class="literal">annotations</code> clause specifies informational labels.
+    You can use them to store additional information, for example alert
+    descriptions or runbook links. Annotations can be templated (see
+    <a class="xref" href="monitoring-alerting.html#alertmanager-templates" title="5.2.1. Templates">Section 5.2.1, “Templates”</a> for more details on templating).
+   </p><p>
+    To add your custom alerts to SUSE Enterprise Storage, either...
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      place your YAML files with custom alerts in the
+      <code class="filename">/etc/prometheus/alerts</code> directory
+     </p></li></ul></div><p>
+    or
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      provide a list of paths to your custom alert files in the pillar under
+      the <code class="option">monitoring:custom_alerts</code> key. DeepSea Stage 2 or
+      the <code class="command">salt <em class="replaceable">SALT_MASTER</em> state.apply
+      ceph.monitoring.prometheus</code> command adds your alert files
+      in the right place.
+     </p><div class="complex-example"><div class="example" id="id-1.3.4.5.7.10.1.2" data-id-title="Adding Custom Alerts to SUSE Enterprise Storage"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 5.17: </span><span class="title-name">Adding Custom Alerts to SUSE Enterprise Storage </span><a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.7.10.1.2">#</a></h6></div><div class="example-contents"><p>
+       A file with custom alerts is in
+       <code class="filename">/root/my_alerts/my_alerts.yml</code> on the Salt master.
+       If you add
+      </p><div class="verbatim-wrap"><pre class="screen">monitoring:
+ custom_alerts:
+   - /root/my_alerts/my_alerts.yml</pre></div><p>
+       to the
+       <code class="filename">/srv/pillar/ceph/cluster/<em class="replaceable">YOUR_SALT_MASTER_MINION_ID</em>.sls</code>
+       file, DeepSea creates the
+       <code class="filename">/etc/prometheus/alerts/my_alerts.yml</code> file and
+       restarts Prometheus.
+      </p></div></div></div></li></ul></div><section class="sect2" id="alertmanager-templates" data-id-title="Templates"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2.1 </span><span class="title-name">Templates</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#alertmanager-templates">#</a></h3></div></div></div><p>
+     You can use templates for label and annotation values. The
+     <code class="varname">$labels</code> variable includes the label key and value pairs of
+     an alert instance, while <code class="varname">$value</code> holds the evaluated
+     value of an alert instance.
+    </p><p>
+     The following example inserts a firing element label and value:
+    </p><div class="verbatim-wrap"><pre class="screen">{{ $labels.<em class="replaceable">LABELNAME</em> }}
+{{ $value }}</pre></div></section><section class="sect2" id="id-1.3.4.5.7.12" data-id-title="Inspecting Alerts at Runtime"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2.2 </span><span class="title-name">Inspecting Alerts at Runtime</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#id-1.3.4.5.7.12">#</a></h3></div></div></div><p>
+     If you need to verify which alerts are active, you have several options:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Navigate to the <span class="guimenu">Alerts</span> tab of Prometheus. It
+       shows you the exact label sets for which defined alerts are active.
+       Prometheus also stores synthetic time series for pending and firing
+       alerts. They have the following form:
+      </p><div class="verbatim-wrap"><pre class="screen">ALERTS{alertname="<em class="replaceable">ALERT_NAME</em>", alertstate="pending|firing", <em class="replaceable">ADDITIONAL_ALERT_LABELS</em>}</pre></div><p>
+       The sample value is 1 if the alert is active (pending or firing). The
+       series is marked <code class="literal">stale</code> when the alert is inactive.
+      </p></li><li class="listitem"><p>
+       In the Prometheus web interface at the URL address
+       http://<em class="replaceable">PROMETHEUS_HOST_IP</em>:9090/alerts,
+       inspect alerts and their state (<code class="literal">INACTIVE</code>,
+       <code class="literal">PENDING</code> or <code class="literal">FIRING</code>).
+      </p></li><li class="listitem"><p>
+       In the Alertmanager web interface at the URL address
+       http://:<em class="replaceable">PROMETHEUS_HOST_IP</em>9093/#/alerts,
+       inspect alerts and silence them if desired.
+      </p></li></ul></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="ceph-monitor.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 4 </span>Determining Cluster State</span></a> </div><div><a class="pagination-link next" href="cha-storage-cephx.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 6 </span>Authentication with <code class="systemitem">cephx</code></span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="monitoring-alerting.html#config-file"><span class="title-number">5.1 </span><span class="title-name">Configuration File</span></a></span></li><li><span class="sect1"><a href="monitoring-alerting.html#custom-alerts"><span class="title-number">5.2 </span><span class="title-name">Custom Alerts</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin-monitoring-alerting.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

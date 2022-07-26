@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Troubleshooting logging and debugging | Troubleshooting Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Troubleshooting logging and debugging | SES 7"/>
+<meta name="description" content="Typically, when you add debugging to your Ceph configuration, you do so at runtime. You can also add Ceph debug logging to your Ceph configuration file if you …"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Troubleshooting Guide"/>
+<meta name="chapter-title" content="Chapter 2. Troubleshooting logging and debugging"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Troubleshooting logging and debugging | SES 7"/>
+<meta property="og:description" content="Typically, when you add debugging to your Ceph configuration, you do so at runtime. You can also add Ceph debug logging to your Ceph configuration file if you …"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Troubleshooting logging and debugging | SES 7"/>
+<meta name="twitter:description" content="Typically, when you add debugging to your Ceph configuration, you do so at runtime. You can also add Ceph debug logging to your Ceph configuration file if you …"/>
+<link rel="prev" href="report-software.html" title="Chapter 1. Reporting software problems"/><link rel="next" href="bp-troubleshooting-cephadm.html" title="Chapter 3. Troubleshooting cephadm"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Troubleshooting Guide</a><span> / </span><a class="crumb" href="bp-troubleshooting-logging.html">Troubleshooting logging and debugging</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Troubleshooting Guide</div><ol><li><a href="preface-troubleshooting.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="report-software.html" class=" "><span class="title-number">1 </span><span class="title-name">Reporting software problems</span></a></li><li><a href="bp-troubleshooting-logging.html" class=" you-are-here"><span class="title-number">2 </span><span class="title-name">Troubleshooting logging and debugging</span></a></li><li><a href="bp-troubleshooting-cephadm.html" class=" "><span class="title-number">3 </span><span class="title-name">Troubleshooting cephadm</span></a></li><li><a href="bp-troubleshooting-osds.html" class=" "><span class="title-number">4 </span><span class="title-name">Troubleshooting OSDs</span></a></li><li><a href="bp-troubleshooting-pgs.html" class=" "><span class="title-number">5 </span><span class="title-name">Troubleshooting placement groups (PGs)</span></a></li><li><a href="bp-troubleshooting-monitors.html" class=" "><span class="title-number">6 </span><span class="title-name">Troubleshooting Ceph Monitors and Ceph Managers</span></a></li><li><a href="bp-troubleshooting-networking.html" class=" "><span class="title-number">7 </span><span class="title-name">Troubleshooting networking</span></a></li><li><a href="bp-troubleshooting-nfs.html" class=" "><span class="title-number">8 </span><span class="title-name">Troubleshooting NFS Ganesha</span></a></li><li><a href="bp-troubleshooting-status.html" class=" "><span class="title-number">9 </span><span class="title-name">Troubleshooting Ceph health status</span></a></li><li><a href="bp-troubleshooting-dashboard.html" class=" "><span class="title-number">10 </span><span class="title-name">Troubleshooting the Ceph Dashboard</span></a></li><li><a href="bp-troubleshooting-objectgateway.html" class=" "><span class="title-number">11 </span><span class="title-name">Troubleshooting Object Gateway</span></a></li><li><a href="bp-troubleshooting-cephfs.html" class=" "><span class="title-number">12 </span><span class="title-name">Troubleshooting CephFS</span></a></li><li><a href="storage-tips.html" class=" "><span class="title-number">13 </span><span class="title-name">Hints and tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">14 </span><span class="title-name">Frequently asked questions</span></a></li><li><a href="bk03apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="bp-troubleshooting-logging" data-id-title="Troubleshooting logging and debugging"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h1 class="title"><span class="title-number">2 </span><span class="title-name">Troubleshooting logging and debugging</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#">#</a></h1></div></div></div><p>
+  Typically, when you add debugging to your Ceph configuration, you do so at
+  runtime. You can also add Ceph debug logging to your Ceph configuration
+  file if you are encountering issues when starting your cluster. You may view
+  Ceph log files under <code class="filename">/var/log/ceph</code> (the default
+  location).
+ </p><div id="id-1.5.4.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   When debug output slows down your system, the latency can hide race
+   conditions.
+  </p></div><p>
+  Logging is resource intensive. If you are encountering a problem in a
+  specific area of your cluster, enable logging for that area of the cluster.
+  For example, if your OSDs are running fine, but your metadata servers are
+  not, you should start by enabling debug logging for the specific metadata
+  server instance(s) giving you trouble. Enable logging for each subsystem as
+  needed.
+ </p><div id="id-1.5.4.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   Verbose logging can generate over 1GB of data per hour. If your OS disk
+   reaches its capacity, the node will stop working.
+  </p></div><p>
+  If you enable or increase the rate of Ceph logging, ensure that you have
+  sufficient disk space on your OS disk. See
+  <a class="xref" href="bp-troubleshooting-logging.html#bp-troubleshooting-accelerating" title="2.3. Accelerating log rotation">Section 2.3, “Accelerating log rotation”</a> for details on rotating log
+  files. When your system is running well, remove unnecessary debugging
+  settings to ensure your cluster runs optimally. Logging debug output messages
+  is relatively slow, and a waste of resources when operating your cluster. See
+  <a class="xref" href="bp-troubleshooting-logging.html#bp-troubleshooting-system-log" title="2.5. Enable system, log, and debug settings">Section 2.5, “Enable system, log, and debug settings”</a> for details on available
+  settings.
+ </p><section class="sect1" id="bp-troubleshooting-runtime" data-id-title="Accessing configuration settings at runtime"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.1 </span><span class="title-name">Accessing configuration settings at runtime</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#bp-troubleshooting-runtime">#</a></h2></div></div></div><p>
+   If you would like to see the configuration settings at runtime, you must log
+   in to a host with a running daemon and execute the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">ID</em> -- ceph daemon osd.<em class="replaceable">ID</em> config show | less</pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.0 -- ceph daemon osd.0 config show | less</pre></div><p>
+   To activate Ceph’s debugging output (i.e., <code class="literal">dout()</code>) at
+   runtime, use the <code class="command">ceph tell</code> command to inject arguments
+   into the runtime configuration:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell {daemon-type}.{daemon id or *} config set {name} {value}</pre></div><p>
+   Replace <code class="option">{daemon-type}</code> with one of osd, mon or mds. You may
+   apply the runtime setting to all daemons of a particular type with
+   <code class="literal">*</code>, or specify a specific daemon’s ID. For example, to
+   increase debug logging for a ceph-osd daemon named <code class="literal">osd.0</code>,
+   execute the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell osd.0 config set debug_osd 0/5</pre></div><p>
+   The <code class="command">ceph tell</code> command goes through the monitors. If you
+   cannot bind to the monitor, you can make the change by logging into the
+   daemon host using ceph daemon. For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.0 -- ceph daemon osd.0 config set debug_osd 0/5</pre></div><p>
+   See <a class="xref" href="bp-troubleshooting-logging.html#bp-troubleshooting-system-log" title="2.5. Enable system, log, and debug settings">Section 2.5, “Enable system, log, and debug settings”</a> for details on available
+   settings.
+  </p></section><section class="sect1" id="bp-troubleshooting-boottime" data-id-title="Activating Ceph debugging at boot time"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.2 </span><span class="title-name">Activating Ceph debugging at boot time</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#bp-troubleshooting-boottime">#</a></h2></div></div></div><p>
+   To activate Ceph’s debugging output (i.e., <code class="literal">dout()</code>) at
+   boot time, you must add settings to your Ceph configuration file. Subsystems
+   common to each daemon may be set under <code class="literal">[global]</code> in your
+   configuration file. Subsystems for particular daemons are set under the
+   daemon section in your configuration file (e.g., <code class="literal">[mon]</code>,
+   <code class="literal">[osd]</code>, <code class="literal">[mds]</code>). For example:
+  </p><div class="verbatim-wrap"><pre class="screen">  [global]
+          debug ms = 1/5
+
+  [mon]
+          debug mon = 20
+          debug paxos = 1/5
+          debug auth = 2
+
+  [osd]
+          debug osd = 1/5
+          debug filestore = 1/5
+          debug journal = 1
+          debug monc = 5/20
+
+  [mds]
+          debug mds = 1
+          debug mds balancer = 1</pre></div><p>
+   See <a class="xref" href="bp-troubleshooting-logging.html#bp-troubleshooting-system-log" title="2.5. Enable system, log, and debug settings">Section 2.5, “Enable system, log, and debug settings”</a> for details.
+  </p></section><section class="sect1" id="bp-troubleshooting-accelerating" data-id-title="Accelerating log rotation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.3 </span><span class="title-name">Accelerating log rotation</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#bp-troubleshooting-accelerating">#</a></h2></div></div></div><p>
+   If your OS disk is relatively full, you can accelerate log rotation by
+   modifying the Ceph log rotation file at
+   <code class="filename">etc/logrotate.d/ceph</code>. Add a size setting after the
+   rotation frequency to accelerate log rotation (via cronjob) if your logs
+   exceed the size setting. For example, the default setting looks like this:
+  </p><div class="verbatim-wrap"><pre class="screen">  rotate 7
+  weekly
+  compress
+  sharedscripts</pre></div><p>
+   Modify it by adding a size setting:
+  </p><div class="verbatim-wrap"><pre class="screen">  rotate 7
+  weekly
+  size 500M
+  compress
+  sharedscripts</pre></div><p>
+   Then, start the crontab editor for your user space:
+  </p><div class="verbatim-wrap"><pre class="screen">crontab -e</pre></div><p>
+   Finally, add an entry to check the <code class="filename">etc/logrotate.d/ceph</code>
+   file:
+  </p><div class="verbatim-wrap"><pre class="screen">30 * * * * /usr/sbin/logrotate /etc/logrotate.d/ceph &gt;/dev/null 2&gt;&lt;&amp;1</pre></div><p>
+   The preceding example checks the <code class="filename">etc/logrotate.d/ceph</code>
+   file every 30 minutes.
+  </p></section><section class="sect1" id="bp-troubleshooting-memory-util" data-id-title="Monitoring memory utilization"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.4 </span><span class="title-name">Monitoring memory utilization</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#bp-troubleshooting-memory-util">#</a></h2></div></div></div><p>
+   To monitor the memory utilization of the Ceph processes, pay attention to
+   the <code class="command">top</code> command's VIRT or the output of <code class="command">ps -u
+   ceph -l</code> in the <code class="literal">VSZ</code> column. While some
+   fluctuation of memory utilization over time is normal, it should not
+   constantly increase and this will help you pinpoint the problematic process
+   if facing low- or out-of-memory concerns.
+  </p></section><section class="sect1" id="bp-troubleshooting-system-log" data-id-title="Enable system, log, and debug settings"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.5 </span><span class="title-name">Enable system, log, and debug settings</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#bp-troubleshooting-system-log">#</a></h2></div></div></div><p>
+   In most cases, you will enable debug logging output via subsystems.
+  </p><section class="sect2" id="troubleshooting-ceph-subsystems" data-id-title="Enabling Ceph subsystems"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.5.1 </span><span class="title-name">Enabling Ceph subsystems</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#troubleshooting-ceph-subsystems">#</a></h3></div></div></div><p>
+    Each subsystem has a logging level for its output logs, and for its logs
+    in-memory. You may set different values for each of these subsystems by
+    setting a log file level and a memory level for debug logging. Ceph’s
+    logging levels operate on a scale of 1 to 20, where 1 is terse and 20 is
+    verbose 1. In general, the logs in-memory are not sent to the output log
+    unless:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      a fatal signal is raised or
+     </p></li><li class="listitem"><p>
+      an <code class="literal">assert</code> in source code is triggered or
+     </p></li><li class="listitem"><p>
+      upon request.
+     </p></li></ul></div><p>
+    A debug logging setting can take a single value for the log level and the
+    memory level, which sets them both as the same value. For example, if you
+    specify debug ms = 5, Ceph will treat it as a log level and a memory level
+    of 5. You may also specify them separately. The first setting is the log
+    level, and the second setting is the memory level. You must separate them
+    with a forward slash (/). For example, if you want to set the ms
+    subsystem’s debug logging level to 1 and its memory level to 5, you would
+    specify it as debug ms = 1/5. For example:
+   </p><div class="verbatim-wrap"><pre class="screen">debug {subsystem} = {log-level}/{memory-level}
+#for example
+debug mds balancer = 1/20</pre></div><p>
+    The following table provides a list of Ceph subsystems and their default
+    log and memory levels. Once you complete your logging efforts, restore the
+    subsystems to their default level or to a level suitable for normal
+    operations.
+   </p><div class="table" id="id-1.5.4.12.3.7" data-id-title="Ceph subsystems"><div class="table-title-wrap"><h6 class="table-title"><span class="title-number">Table 2.1: </span><span class="title-name">Ceph subsystems </span><a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#id-1.5.4.12.3.7">#</a></h6></div><div class="table-contents"><table style="border-collapse: collapse; border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col class="col1"/><col class="col2"/><col class="col3"/></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     Subsystem
+    </th><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     Log Level
+    </th><th style="border-bottom: 1px solid ; ">
+     Memory Level
+    </th></tr></thead><tbody><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">default</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">lockdep</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">context</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">crush</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mds</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mds balancer</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mds locker</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mds log</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mds log expire</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mds migrator</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">buffer</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">timer</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">filer</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">striper</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">objector</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">rados</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">rbd</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">rbd mirror</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">rbd replay</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">journaler</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">objectcacher</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">client</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">osd</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">optracker</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">optracker</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">objclass</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">filestore</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     3
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">journal</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     3
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">ms</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mon</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">monc</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     10
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">paxos</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">tp</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">auth</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">crypto</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">finisher</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">reserver</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">heartbeatmap</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">perfcounter</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">rgw</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">rgw sync</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">civetweb</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     10
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">javaclient</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">asok</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">throttle</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     1
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">refs</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     0
+    </td><td style="border-bottom: 1px solid ; ">
+     0
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">compressor</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">bluestore</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">bluefs</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">bdev</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     3
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">kstore</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">rocksdb</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     4
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">leveldb</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     4
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">memdb</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     4
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">fuse</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mgr</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">mgrc</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; "><code class="literal">dpdk</code>
+       </td><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+     1
+    </td><td style="border-bottom: 1px solid ; ">
+     5
+    </td></tr><tr><td style="border-right: 1px solid ; "><code class="literal">eventtrace</code>
+       </td><td style="border-right: 1px solid ; ">
+     1
+    </td><td>
+     5
+    </td></tr></tbody></table></div></div></section><section class="sect2" id="troubleshooting-logging-settings" data-id-title="Logging settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.5.2 </span><span class="title-name">Logging settings</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#troubleshooting-logging-settings">#</a></h3></div></div></div><p>
+    Logging and debugging settings are not required in a Ceph configuration
+    file, but you may override default settings as needed. Ceph supports the
+    following settings:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.4.12.4.3.1"><span class="term"><code class="literal">log file</code></span></dt><dd><p>
+       Description: The location of the logging file for your cluster.
+      </p><p>
+       Type: String
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="filename">/var/log/ceph/$cluster-$name.log</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.2"><span class="term"><code class="literal">log max new</code></span></dt><dd><p>
+       Description: The maximum number of new log files.
+      </p><p>
+       Type: Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 1000
+      </p></dd><dt id="id-1.5.4.12.4.3.3"><span class="term"><code class="literal">log max recent</code></span></dt><dd><p>
+       Description: The maximum number of recent events to include in a log
+       file.
+      </p><p>
+       Type: Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 10000
+      </p></dd><dt id="id-1.5.4.12.4.3.4"><span class="term"><code class="literal">log to stderr</code></span></dt><dd><p>
+       Description: Determines if logging messages should appear in
+       <code class="literal">stderr</code>.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">true</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.5"><span class="term"><code class="literal">err to stderr</code></span></dt><dd><p>
+       Description: Determines if error messages should appear in
+       <code class="literal">stderr</code>.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">true</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.6"><span class="term"><code class="literal">log to syslog</code></span></dt><dd><p>
+       Description: Determines if logging messages should appear in
+       <code class="literal">syslog</code>.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.7"><span class="term"><code class="literal">err to syslog</code></span></dt><dd><p>
+       Description: Determines if error messages should appear in
+       <code class="literal">syslog</code>.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.8"><span class="term"><code class="literal">log flush on exit</code></span></dt><dd><p>
+       Description: Determines if Ceph should flush the log files after exit.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">true</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.9"><span class="term"><code class="literal">clog to monitors</code></span></dt><dd><p>
+       Description: Determines if <code class="literal">clog</code> messages should be
+       sent to monitors.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">true</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.10"><span class="term"><code class="literal">clog to syslog</code></span></dt><dd><p>
+       Description: Determines if <code class="literal">clog</code> messages should be
+       sent to syslog.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.11"><span class="term"><code class="literal">mon cluster log to syslog</code></span></dt><dd><p>
+       Description: Determines if the cluster log messages should be output to
+       the syslog.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.4.3.12"><span class="term"><code class="literal">mon cluster log file</code></span></dt><dd><p>
+       Description: The locations of the cluster’s log files. There are two
+       channels in Ceph: <code class="literal">cluster</code> and
+       <code class="literal">audit</code>. This option represents a mapping from channels
+       to log files, where the log entries of that channel are sent to. The
+       default entry is a fallback mapping for channels not explicitly
+       specified. So, the following default setting will send cluster log to
+       <code class="literal">$cluster.log</code>, and send audit log to
+       <code class="literal">$cluster.audit.log</code>, where <code class="literal">$cluster</code>
+       will be replaced with the actual cluster name.
+      </p><p>
+       Type: String
+      </p><p>
+       Required: No
+      </p><p>
+       Default:
+       <code class="filename">default=/var/log/ceph/$cluster.$channel.log,cluster=/var/log/ceph/$cluster.log</code>
+      </p></dd></dl></div></section><section class="sect2" id="troubleshooting-osd" data-id-title="OSD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.5.3 </span><span class="title-name">OSD</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#troubleshooting-osd">#</a></h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.4.12.5.2.1"><span class="term"><code class="literal">osd debug drop ping probability</code></span></dt><dd><p>
+       Description: ?
+      </p><p>
+       Type: Double
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 0
+      </p></dd><dt id="id-1.5.4.12.5.2.2"><span class="term"><code class="literal">osd debug drop ping duration</code></span></dt><dd><p>
+       Description:
+      </p><p>
+       Type: Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 0
+      </p></dd><dt id="id-1.5.4.12.5.2.3"><span class="term"><code class="literal">osd debug drop pg create probability</code></span></dt><dd><p>
+       Description:
+      </p><p>
+       Type: Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 0
+      </p></dd><dt id="id-1.5.4.12.5.2.4"><span class="term"><code class="literal">osd debug drop pg create duration</code></span></dt><dd><p>
+       Description: ?
+      </p><p>
+       Type: Double
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 1
+      </p></dd><dt id="id-1.5.4.12.5.2.5"><span class="term"><code class="literal">osd min pg log entries</code></span></dt><dd><p>
+       Description: The minimum number of log entries for placement groups.
+      </p><p>
+       Type: 32-bit Unsigned Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 250
+      </p></dd><dt id="id-1.5.4.12.5.2.6"><span class="term"><code class="literal">osd op log threshold</code></span></dt><dd><p>
+       Description: How many op log messages to show up in one pass.
+      </p><p>
+       Type: Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 5
+      </p></dd></dl></div></section><section class="sect2" id="troubleshooting-filestore" data-id-title="Filestore"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.5.4 </span><span class="title-name">Filestore</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#troubleshooting-filestore">#</a></h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.4.12.6.2.1"><span class="term"><code class="literal">filestore debug omap check</code></span></dt><dd><p>
+       Description: Debugging check on synchronization. This is an expensive
+       operation.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd></dl></div></section><section class="sect2" id="troubleshooting-mds" data-id-title="MDS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.5.5 </span><span class="title-name">MDS</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#troubleshooting-mds">#</a></h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.4.12.7.2.1"><span class="term"><code class="literal">mds debug scatterstat</code></span></dt><dd><p>
+       Description: Ceph will assert that various recursive stat invariants
+       are true (for developers only).
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.7.2.2"><span class="term"><code class="literal">mds debug frag</code></span></dt><dd><p>
+       Description: Ceph will verify directory fragmentation invariants when
+       convenient (developers only).
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.7.2.3"><span class="term"><code class="literal">mds debug auth pins</code></span></dt><dd><p>
+       Description: The debug auth pin invariants (for developers only).
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.7.2.4"><span class="term"><code class="literal">mds debug subtrees</code></span></dt><dd><p>
+       Description: The debug subtree invariants (for developers only).
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd></dl></div></section><section class="sect2" id="troubleshooting-rados-gateway" data-id-title="RADOS gateway (RGW)"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.5.6 </span><span class="title-name">RADOS gateway (RGW)</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#troubleshooting-rados-gateway">#</a></h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.4.12.8.2.1"><span class="term"><code class="literal">rgw log nonexistent bucket</code></span></dt><dd><p>
+       Description: Should we log a non-existent buckets?
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.8.2.2"><span class="term"><code class="literal">rgw log object name</code></span></dt><dd><p>
+       Description: Should an object’s name be logged. // man date to see
+       codes (a subset are supported)
+      </p><p>
+       Type: String
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">%Y-%m-%d-%H-%i-%n</code>
+      </p></dd><dt id="id-1.5.4.12.8.2.3"><span class="term"><code class="literal">rgw log object name utc</code></span></dt><dd><p>
+       Description: Object log name contains UTC?
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.8.2.4"><span class="term"><code class="literal">rgw enable ops log</code></span></dt><dd><p>
+       Description: Enables logging of every RGW operation.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">true</code>
+      </p></dd><dt id="id-1.5.4.12.8.2.5"><span class="term"><code class="literal">rgw enable usage log</code></span></dt><dd><p>
+       Description: Enable logging of RGW’s bandwidth usage.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd><dt id="id-1.5.4.12.8.2.6"><span class="term"><code class="literal">rgw usage log flush threshold</code></span></dt><dd><p>
+       Description: Threshold to flush pending log data.
+      </p><p>
+       Type: Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 1024
+      </p></dd><dt id="id-1.5.4.12.8.2.7"><span class="term"><code class="literal">rgw usage log tick interval</code></span></dt><dd><p>
+       Description: Flush pending log data every s seconds.
+      </p><p>
+       Type: Integer
+      </p><p>
+       Required: No
+      </p><p>
+       Default: 30
+      </p></dd><dt id="id-1.5.4.12.8.2.8"><span class="term"><code class="literal">rgw intent log object name</code></span></dt><dd><p>
+       Description:
+      </p><p>
+       Type: String
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">%Y-%m-%d-%i-%n</code>
+      </p></dd><dt id="id-1.5.4.12.8.2.9"><span class="term"><code class="literal">rgw intent log object name utc</code></span></dt><dd><p>
+       Description: Include a UTC timestamp in the intent log object name.
+      </p><p>
+       Type: Boolean
+      </p><p>
+       Required: No
+      </p><p>
+       Default: <code class="literal">false</code>
+      </p></dd></dl></div></section></section><section class="sect1" id="logging-kernelrbd-cephfs-clients" data-id-title="Logging kernel RBD and CephFS clients"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.6 </span><span class="title-name">Logging kernel RBD and CephFS clients</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#logging-kernelrbd-cephfs-clients">#</a></h2></div></div></div><p>
+   The RBD and CephFS kernel clients provide means to enable runtime logging
+   that allow low-level debugging. However, the performance penalty may be
+   high, which is why dynamic debugging is turned off by default. Also,
+   analysing these logs requires comparing them with the kernel source code.
+  </p><p>
+   For example, to see the debug messages related with CephFS snapshot
+   handling, you could try the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>echo "file fs/ceph/snap.c +pf" &gt; /sys/kernel/debug/dynamic_debug/control</pre></div><p>
+   The kernel logs would now include any debug messages in file
+   <code class="filename">fs/ceph/snap.c</code>. In order to disable dynamic debugging:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>echo "file fs/ceph/snap.c -p" &gt; /sys/kernel/debug/dynamic_debug/control</pre></div></section><section class="sect1" id="logging-service-daemons-events" data-id-title="Per-service and per-daemon events"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.7 </span><span class="title-name">Per-service and per-daemon events</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#logging-service-daemons-events">#</a></h2></div></div></div><p>
+   In order to simplify debugging failed daemon deployments, cephadm stores
+   events on a per-service and per-daemon basis. To view the list of events for
+   a specific <span class="emphasis"><em>service</em></span>, run the following example command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls --service_name=<em class="replaceable">alertmanager</em> --format yaml
+  service_type: alertmanager
+  service_name: alertmanager
+  placement:
+    hosts:
+    - unknown_host
+[...]
+  events:
+  - 2021-02-01T08:58:02.741162 service:alertmanager [INFO] "service was created"
+  - 2021-02-01T12:09:25.264584 service:alertmanager [ERROR] "Failed to apply: \
+   Cannot place &lt;AlertManagerSpec for service_name=alertmanager&gt; on \
+   unknown_host: Unknown hosts"'</pre></div><p>
+   As opposed to a specific service, to view the list of events for a specific
+   <span class="emphasis"><em>daemon</em></span>, for example, run the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ceph --service-type <em class="replaceable">mds</em> \
+ --daemon-id=<em class="replaceable">hostname.ppdhsz</em> --format yaml
+  daemon_type: mds
+  daemon_id: cephfs.hostname.ppdhsz
+  hostname: hostname
+[...]
+  events:
+  - 2021-02-01T08:59:43.845866 daemon:mds.cephfs.hostname.ppdhsz [INFO] \
+   "Reconfigured mds.cephfs.hostname.ppdhsz on host 'hostname'"</pre></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="report-software.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 1 </span>Reporting software problems</span></a> </div><div><a class="pagination-link next" href="bp-troubleshooting-cephadm.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 3 </span>Troubleshooting cephadm</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="bp-troubleshooting-logging.html#bp-troubleshooting-runtime"><span class="title-number">2.1 </span><span class="title-name">Accessing configuration settings at runtime</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-logging.html#bp-troubleshooting-boottime"><span class="title-number">2.2 </span><span class="title-name">Activating Ceph debugging at boot time</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-logging.html#bp-troubleshooting-accelerating"><span class="title-number">2.3 </span><span class="title-name">Accelerating log rotation</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-logging.html#bp-troubleshooting-memory-util"><span class="title-number">2.4 </span><span class="title-name">Monitoring memory utilization</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-logging.html#bp-troubleshooting-system-log"><span class="title-number">2.5 </span><span class="title-name">Enable system, log, and debug settings</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-logging.html#logging-kernelrbd-cephfs-clients"><span class="title-number">2.6 </span><span class="title-name">Logging kernel RBD and CephFS clients</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-logging.html#logging-service-daemons-events"><span class="title-number">2.7 </span><span class="title-name">Per-service and per-daemon events</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_logging.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

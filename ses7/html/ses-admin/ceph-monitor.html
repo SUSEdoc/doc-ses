@@ -1,0 +1,1026 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Determine the cluster state | Administration and Operations Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Determine the cluster state | SES 7"/>
+<meta name="description" content="When you have a running cluster, you may use the ceph tool to monitor it. Determining the cluster state typically involves checking the status of Ceph OSDs, Ce…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Administration and Operations Guide"/>
+<meta name="chapter-title" content="Chapter 12. Determine the cluster state"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Determine the cluster state | SES 7"/>
+<meta property="og:description" content="When you have a running cluster, you may use the ceph tool to monitor it. Determining the cluster state typically involves checking the status of Ceph OSDs, Ce…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Determine the cluster state | SES 7"/>
+<meta name="twitter:description" content="When you have a running cluster, you may use the ceph tool to monitor it. Determining the cluster state typically involves checking the status of Ceph OSDs, Ce…"/>
+<link rel="prev" href="part-cluster-operation.html" title="Part II. Cluster Operation"/><link rel="next" href="storage-salt-cluster.html" title="Chapter 13. Operational tasks"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration and Operations Guide</a><span> / </span><a class="crumb" href="part-cluster-operation.html">Cluster Operation</a><span> / </span><a class="crumb" href="ceph-monitor.html">Determine the cluster state</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration and Operations Guide</div><ol><li><a href="preface-admin.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="part-dashboard.html" class="has-children "><span class="title-number">I </span><span class="title-name">Ceph Dashboard</span></a><ol><li><a href="dashboard-about.html" class=" "><span class="title-number">1 </span><span class="title-name">About the Ceph Dashboard</span></a></li><li><a href="dashboard-webui-general.html" class=" "><span class="title-number">2 </span><span class="title-name">Dashboard's Web user interface</span></a></li><li><a href="dashboard-user-mgmt.html" class=" "><span class="title-number">3 </span><span class="title-name">Manage Ceph Dashboard users and roles</span></a></li><li><a href="dashboard-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">View cluster internals</span></a></li><li><a href="dashboard-pools.html" class=" "><span class="title-number">5 </span><span class="title-name">Manage pools</span></a></li><li><a href="dashboard-rbds.html" class=" "><span class="title-number">6 </span><span class="title-name">Manage RADOS Block Device</span></a></li><li><a href="dash-webui-nfs.html" class=" "><span class="title-number">7 </span><span class="title-name">Manage NFS Ganesha</span></a></li><li><a href="dashboard-mds.html" class=" "><span class="title-number">8 </span><span class="title-name">Manage CephFS</span></a></li><li><a href="dashboard-ogw.html" class=" "><span class="title-number">9 </span><span class="title-name">Manage the Object Gateway</span></a></li><li><a href="dashboard-initial-configuration.html" class=" "><span class="title-number">10 </span><span class="title-name">Manual configuration</span></a></li><li><a href="dashboard-user-roles.html" class=" "><span class="title-number">11 </span><span class="title-name">Manage users and roles on the command line</span></a></li></ol></li><li class="active"><a href="part-cluster-operation.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Cluster Operation</span></a><ol><li><a href="ceph-monitor.html" class=" you-are-here"><span class="title-number">12 </span><span class="title-name">Determine the cluster state</span></a></li><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">13 </span><span class="title-name">Operational tasks</span></a></li><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">14 </span><span class="title-name">Operation of Ceph services</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">15 </span><span class="title-name">Backup and restore</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">16 </span><span class="title-name">Monitoring and alerting</span></a></li></ol></li><li><a href="part-storing-data.html" class="has-children "><span class="title-number">III </span><span class="title-name">Storing Data in a Cluster</span></a><ol><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">17 </span><span class="title-name">Stored data management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">18 </span><span class="title-name">Manage storage pools</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">19 </span><span class="title-name">Erasure coded pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">20 </span><span class="title-name">RADOS Block Device</span></a></li></ol></li><li><a href="part-accessing-data.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">21 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">22 </span><span class="title-name">Ceph iSCSI gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">23 </span><span class="title-name">Clustered file system</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">24 </span><span class="title-name">Export Ceph data via Samba</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">25 </span><span class="title-name">NFS Ganesha</span></a></li></ol></li><li><a href="part-integration-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">26 </span><span class="title-name"><code class="systemitem">libvirt</code> and Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">27 </span><span class="title-name">Ceph as a back-end for QEMU KVM instance</span></a></li></ol></li><li><a href="part-cluster-configuration.html" class="has-children "><span class="title-number">VI </span><span class="title-name">Configuring a Cluster</span></a><ol><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">28 </span><span class="title-name">Ceph cluster configuration</span></a></li><li><a href="cha-mgr-modules.html" class=" "><span class="title-number">29 </span><span class="title-name">Ceph Manager modules</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">30 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="ceph-monitor" data-id-title="Determine the cluster state"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h2 class="title"><span class="title-number">12 </span><span class="title-name">Determine the cluster state</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#">#</a></h2></div></div></div><p>
+  When you have a running cluster, you may use the <code class="command">ceph</code> tool
+  to monitor it. Determining the cluster state typically involves checking the
+  status of Ceph OSDs, Ceph Monitors, placement groups, and Metadata Servers.
+ </p><div id="id-1.4.4.2.4" data-id-title="Interactive mode" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Interactive mode</h6><p>
+   To run the <code class="command">ceph</code> tool in an interactive mode, type
+   <code class="command">ceph</code> at the command line with no arguments. The
+   interactive mode is more convenient if you are going to enter more
+   <code class="command">ceph</code> commands in a row. For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph
+ceph&gt; health
+ceph&gt; status
+ceph&gt; quorum_status
+ceph&gt; mon stat</pre></div></div><section class="sect1" id="monitor-status" data-id-title="Checking a clusters status"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.1 </span><span class="title-name">Checking a cluster's status</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#monitor-status">#</a></h2></div></div></div><p>
+   You can find the immediate state of the cluster using <code class="command">ceph
+   status</code> or <code class="command">ceph -s</code>:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -s
+cluster:
+    id:     b4b30c6e-9681-11ea-ac39-525400d7702d
+    health: HEALTH_OK
+
+  services:
+    mon: 5 daemons, quorum ses-min1,ses-master,ses-min2,ses-min4,ses-min3 (age 2m)
+    mgr: ses-min1.gpijpm(active, since 3d), standbys: ses-min2.oopvyh
+    mds: my_cephfs:1 {0=my_cephfs.ses-min1.oterul=up:active}
+    osd: 3 osds: 3 up (since 3d), 3 in (since 11d)
+    rgw: 2 daemons active (myrealm.myzone.ses-min1.kwwazo, myrealm.myzone.ses-min2.jngabw)
+
+  task status:
+    scrub status:
+        mds.my_cephfs.ses-min1.oterul: idle
+
+  data:
+    pools:   7 pools, 169 pgs
+    objects: 250 objects, 10 KiB
+    usage:   3.1 GiB used, 27 GiB / 30 GiB avail
+    pgs:     169 active+clean</pre></div><p>
+   The output provides the following information:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Cluster ID
+    </p></li><li class="listitem"><p>
+     Cluster health status
+    </p></li><li class="listitem"><p>
+     The monitor map epoch and the status of the monitor quorum
+    </p></li><li class="listitem"><p>
+     The OSD map epoch and the status of OSDs
+    </p></li><li class="listitem"><p>
+     The status of Ceph Managers
+    </p></li><li class="listitem"><p>
+     The status of Object Gateways
+    </p></li><li class="listitem"><p>
+     The placement group map version
+    </p></li><li class="listitem"><p>
+     The number of placement groups and pools
+    </p></li><li class="listitem"><p>
+     The <span class="emphasis"><em>notional</em></span> amount of data stored and the number of
+     objects stored
+    </p></li><li class="listitem"><p>
+     The total amount of data stored.
+    </p></li></ul></div><div id="id-1.4.4.2.5.6" data-id-title="How Ceph calculates data usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: How Ceph calculates data usage</h6><p>
+    The <code class="literal">used</code> value reflects the actual amount of raw storage
+    used. The <code class="literal">xxx GB / xxx GB</code> value means the amount
+    available (the lesser number) of the overall storage capacity of the
+    cluster. The notional number reflects the size of the stored data before it
+    is replicated, cloned or snapshot. Therefore, the amount of data actually
+    stored typically exceeds the notional amount stored, because Ceph creates
+    replicas of the data and may also use storage capacity for cloning and
+    snapshotting.
+   </p></div><p>
+   Other commands that display immediate status information are:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     <code class="command">ceph pg stat</code>
+    </p></li><li class="listitem"><p>
+     <code class="command">ceph osd pool stats</code>
+    </p></li><li class="listitem"><p>
+     <code class="command">ceph df</code>
+    </p></li><li class="listitem"><p>
+     <code class="command">ceph df detail</code>
+    </p></li></ul></div><p>
+   To get the information updated in real time, put any of these commands
+   (including <code class="command">ceph -s</code>) as an argument of the
+   <code class="command">watch</code> command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>watch -n 10 'ceph -s'</pre></div><p>
+   Press <span class="keycap">Ctrl</span><span class="key-connector">–</span><span class="keycap">C</span>
+   when you are tired of watching.
+  </p></section><section class="sect1" id="monitor-health" data-id-title="Checking cluster health"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.2 </span><span class="title-name">Checking cluster health</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#monitor-health">#</a></h2></div></div></div><p>
+   After you start your cluster and before you start reading and/or writing
+   data, check your cluster's health:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health
+HEALTH_WARN 10 pgs degraded; 100 pgs stuck unclean; 1 mons down, quorum 0,2 \
+node-1,node-2,node-3</pre></div><div id="id-1.4.4.2.6.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    If you specified non-default locations for your configuration or keyring,
+    you may specify their locations:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -c <em class="replaceable">/path/to/conf</em> -k <em class="replaceable">/path/to/keyring</em> health</pre></div></div><p>
+   The Ceph cluster returns one of the following health codes:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.2.6.6.1"><span class="term">OSD_DOWN</span></dt><dd><p>
+      One or more OSDs are marked down. The OSD daemon may have been stopped,
+      or peer OSDs may be unable to reach the OSD over the network. Common
+      causes include a stopped or crashed daemon, a down host, or a network
+      outage.
+     </p><p>
+      Verify the host is healthy, the daemon is started, and network is
+      functioning. If the daemon has crashed, the daemon log file
+      (<code class="filename">/var/log/ceph/ceph-osd.*</code>) may contain debugging
+      information.
+     </p></dd><dt id="id-1.4.4.2.6.6.2"><span class="term">OSD_<em class="replaceable">crush type</em>_DOWN, for example OSD_HOST_DOWN</span></dt><dd><p>
+      All the OSDs within a particular CRUSH subtree are marked down, for
+      example all OSDs on a host.
+     </p></dd><dt id="id-1.4.4.2.6.6.3"><span class="term">OSD_ORPHAN</span></dt><dd><p>
+      An OSD is referenced in the CRUSH map hierarchy but does not exist. The
+      OSD can be removed from the CRUSH hierarchy with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush rm osd.<em class="replaceable">ID</em></pre></div></dd><dt id="id-1.4.4.2.6.6.4"><span class="term">OSD_OUT_OF_ORDER_FULL</span></dt><dd><p>
+      The usage thresholds for <span class="emphasis"><em>backfillfull</em></span> (defaults to
+      0.90), <span class="emphasis"><em>nearfull</em></span> (defaults to 0.85),
+      <span class="emphasis"><em>full</em></span> (defaults to 0.95), and/or
+      <span class="emphasis"><em>failsafe_full</em></span> are not ascending. In particular, we
+      expect <span class="emphasis"><em>backfillfull</em></span> &lt;
+      <span class="emphasis"><em>nearfull</em></span>, <span class="emphasis"><em>nearfull</em></span> &lt;
+      <span class="emphasis"><em>full</em></span>, and <span class="emphasis"><em>full</em></span> &lt;
+      <span class="emphasis"><em>failsafe_full</em></span>.
+     </p><p>
+      To read the current values, run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail
+HEALTH_ERR 1 full osd(s); 1 backfillfull osd(s); 1 nearfull osd(s)
+osd.3 is full at 97%
+osd.4 is backfill full at 91%
+osd.2 is near full at 87%</pre></div><p>
+      The thresholds can be adjusted with the following commands:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-backfillfull-ratio <em class="replaceable">ratio</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd set-nearfull-ratio <em class="replaceable">ratio</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd set-full-ratio <em class="replaceable">ratio</em></pre></div></dd><dt id="id-1.4.4.2.6.6.5"><span class="term">OSD_FULL</span></dt><dd><p>
+      One or more OSDs has exceeded the <span class="emphasis"><em>full</em></span> threshold and
+      is preventing the cluster from servicing writes. Usage by pool can be
+      checked with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph df</pre></div><p>
+      The currently defined <span class="emphasis"><em>full</em></span> ratio can be seen with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd dump | grep full_ratio</pre></div><p>
+      A short-term workaround to restore write availability is to raise the
+      full threshold by a small amount:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-full-ratio <em class="replaceable">ratio</em></pre></div><p>
+      Add new storage to the cluster by deploying more OSDs, or delete existing
+      data in order to free up space.
+     </p></dd><dt id="id-1.4.4.2.6.6.6"><span class="term">OSD_BACKFILLFULL</span></dt><dd><p>
+      One or more OSDs has exceeded the <span class="emphasis"><em>backfillfull</em></span>
+      threshold, which prevents data from being allowed to rebalance to this
+      device. This is an early warning that rebalancing may not be able to
+      complete and that the cluster is approaching full. Usage by pool can be
+      checked with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph df</pre></div></dd><dt id="id-1.4.4.2.6.6.7"><span class="term">OSD_NEARFULL</span></dt><dd><p>
+      One or more OSDs has exceeded the <span class="emphasis"><em>nearfull</em></span>
+      threshold. This is an early warning that the cluster is approaching full.
+      Usage by pool can be checked with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph df</pre></div></dd><dt id="id-1.4.4.2.6.6.8"><span class="term">OSDMAP_FLAGS</span></dt><dd><p>
+      One or more cluster flags of interest has been set. With the exception of
+      <span class="emphasis"><em>full</em></span>, these flags can be set or cleared with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set <em class="replaceable">flag</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd unset <em class="replaceable">flag</em></pre></div><p>
+      These flags include:
+     </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.2.6.6.8.2.4.1"><span class="term">full</span></dt><dd><p>
+         The cluster is flagged as full and cannot service writes.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.2"><span class="term">pauserd, pausewr</span></dt><dd><p>
+         Paused reads or writes.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.3"><span class="term">noup</span></dt><dd><p>
+         OSDs are not allowed to start.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.4"><span class="term">nodown</span></dt><dd><p>
+         OSD failure reports are being ignored, such that the monitors will not
+         mark OSDs <span class="emphasis"><em>down</em></span>.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.5"><span class="term">noin</span></dt><dd><p>
+         OSDs that were previously marked <span class="emphasis"><em>out</em></span> will not be
+         marked back <span class="emphasis"><em>in</em></span> when they start.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.6"><span class="term">noout</span></dt><dd><p>
+         <span class="emphasis"><em>Down</em></span> OSDs will not automatically be marked
+         <span class="emphasis"><em>out</em></span> after the configured interval.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.7"><span class="term">nobackfill, norecover, norebalance</span></dt><dd><p>
+         Recovery or data rebalancing is suspended.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.8"><span class="term">noscrub, nodeep_scrub</span></dt><dd><p>
+         Scrubbing (see <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a>) is disabled.
+        </p></dd><dt id="id-1.4.4.2.6.6.8.2.4.9"><span class="term">notieragent</span></dt><dd><p>
+         Cache tiering activity is suspended.
+        </p></dd></dl></div></dd><dt id="id-1.4.4.2.6.6.9"><span class="term">OSD_FLAGS</span></dt><dd><p>
+      One or more OSDs has a per-OSD flag of interest set. These flags include:
+     </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.2.6.6.9.2.2.1"><span class="term">noup</span></dt><dd><p>
+         OSD is not allowed to start.
+        </p></dd><dt id="id-1.4.4.2.6.6.9.2.2.2"><span class="term">nodown</span></dt><dd><p>
+         Failure reports for this OSD will be ignored.
+        </p></dd><dt id="id-1.4.4.2.6.6.9.2.2.3"><span class="term">noin</span></dt><dd><p>
+         If this OSD was previously marked <span class="emphasis"><em>out</em></span>
+         automatically after a failure, it will not be marked
+         <span class="emphasis"><em>in</em></span> when it starts.
+        </p></dd><dt id="id-1.4.4.2.6.6.9.2.2.4"><span class="term">noout</span></dt><dd><p>
+         If this OSD is down, it will not be automatically marked
+         <span class="emphasis"><em>out</em></span> after the configured interval.
+        </p></dd></dl></div><p>
+      Per-OSD flags can be set and cleared with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd add-<em class="replaceable">flag</em> <em class="replaceable">osd-ID</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd rm-<em class="replaceable">flag</em> <em class="replaceable">osd-ID</em></pre></div></dd><dt id="id-1.4.4.2.6.6.10"><span class="term">OLD_CRUSH_TUNABLES</span></dt><dd><p>
+      The CRUSH Map is using very old settings and should be updated. The
+      oldest tunables that can be used (that is the oldest client version that
+      can connect to the cluster) without triggering this health warning is
+      determined by the <code class="option">mon_crush_min_required_version</code>
+      configuration option.
+     </p></dd><dt id="id-1.4.4.2.6.6.11"><span class="term">OLD_CRUSH_STRAW_CALC_VERSION</span></dt><dd><p>
+      The CRUSH Map is using an older, non-optimal method for calculating
+      intermediate weight values for straw buckets. The CRUSH Map should be
+      updated to use the newer method (<code class="option">straw_calc_version</code>=1).
+     </p></dd><dt id="id-1.4.4.2.6.6.12"><span class="term">CACHE_POOL_NO_HIT_SET</span></dt><dd><p>
+      One or more cache pools is not configured with a hit set to track usage,
+      which prevents the tiering agent from identifying cold objects to flush
+      and evict from the cache. Hit sets can be configured on the cache pool
+      with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">poolname</em> hit_set_type <em class="replaceable">type</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">poolname</em> hit_set_period <em class="replaceable">period-in-seconds</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">poolname</em> hit_set_count <em class="replaceable">number-of-hitsets</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">poolname</em> hit_set_fpp <em class="replaceable">target-false-positive-rate</em></pre></div></dd><dt id="id-1.4.4.2.6.6.13"><span class="term">OSD_NO_SORTBITWISE</span></dt><dd><p>
+      No pre-Luminous v12 OSDs are running but the <code class="option">sortbitwise</code>
+      flag has not been set. You need to set the <code class="option">sortbitwise</code>
+      flag before Luminous v12 or newer OSDs can start:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set sortbitwise</pre></div></dd><dt id="id-1.4.4.2.6.6.14"><span class="term">POOL_FULL</span></dt><dd><p>
+      One or more pools has reached its quota and is no longer allowing writes.
+      You can set pool quotas and usage with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph df detail</pre></div><p>
+      You can either raise the pool quota with
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set-quota <em class="replaceable">poolname</em> max_objects <em class="replaceable">num-objects</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set-quota <em class="replaceable">poolname</em> max_bytes <em class="replaceable">num-bytes</em></pre></div><p>
+      or delete some existing data to reduce usage.
+     </p></dd><dt id="id-1.4.4.2.6.6.15"><span class="term">PG_AVAILABILITY</span></dt><dd><p>
+      Data availability is reduced, meaning that the cluster is unable to
+      service potential read or write requests for some data in the cluster.
+      Specifically, one or more PGs is in a state that does not allow I/O
+      requests to be serviced. Problematic PG states include
+      <span class="emphasis"><em>peering</em></span>, <span class="emphasis"><em>stale</em></span>,
+      <span class="emphasis"><em>incomplete</em></span>, and the lack of
+      <span class="emphasis"><em>active</em></span> (if those conditions do not clear quickly).
+      Detailed information about which PGs are affected is available from:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail</pre></div><p>
+      In most cases the root cause is that one or more OSDs is currently down.
+      The state of specific problematic PGs can be queried with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell <em class="replaceable">pgid</em> query</pre></div></dd><dt id="id-1.4.4.2.6.6.16"><span class="term">PG_DEGRADED</span></dt><dd><p>
+      Data redundancy is reduced for some data, meaning the cluster does not
+      have the desired number of replicas for all data (for replicated pools)
+      or erasure code fragments (for erasure coded pools). Specifically, one or
+      more PGs have either the <span class="emphasis"><em>degraded</em></span> or
+      <span class="emphasis"><em>undersized</em></span> flag set (there are not enough instances
+      of that placement group in the cluster), or have not had the
+      <span class="emphasis"><em>clean</em></span> flag set for some time. Detailed information
+      about which PGs are affected is available from:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail</pre></div><p>
+      In most cases the root cause is that one or more OSDs is currently down.
+      The state of specific problematic PGs can be queried with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell <em class="replaceable">pgid</em> query</pre></div></dd><dt id="id-1.4.4.2.6.6.17"><span class="term">PG_DEGRADED_FULL</span></dt><dd><p>
+      Data redundancy may be reduced or at risk for some data because of a lack
+      of free space in the cluster. Specifically, one or more PGs has the
+      <span class="emphasis"><em>backfill_toofull</em></span> or
+      <span class="emphasis"><em>recovery_toofull</em></span> flag set, meaning that the cluster
+      is unable to migrate or recover data because one or more OSDs is above
+      the <span class="emphasis"><em>backfillfull</em></span> threshold.
+     </p></dd><dt id="id-1.4.4.2.6.6.18"><span class="term">PG_DAMAGED</span></dt><dd><p>
+      Data scrubbing (see <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a>) has discovered some
+      problems with data consistency in the cluster. Specifically, one or more
+      PGs has the <span class="emphasis"><em>inconsistent</em></span> or
+      <span class="emphasis"><em>snaptrim_error</em></span> flag is set, indicating an earlier
+      scrub operation found a problem, or that the <span class="emphasis"><em>repair</em></span>
+      flag is set, meaning a repair for such an inconsistency is currently in
+      progress.
+     </p></dd><dt id="id-1.4.4.2.6.6.19"><span class="term">OSD_SCRUB_ERRORS</span></dt><dd><p>
+      Recent OSD scrubs have uncovered inconsistencies.
+     </p></dd><dt id="id-1.4.4.2.6.6.20"><span class="term">CACHE_POOL_NEAR_FULL</span></dt><dd><p>
+      A cache tier pool is nearly full. Full in this context is determined by
+      the <span class="emphasis"><em>target_max_bytes</em></span> and
+      <span class="emphasis"><em>target_max_objects</em></span> properties on the cache pool.
+      When the pool reaches the target threshold, write requests to the pool
+      may block while data is flushed and evicted from the cache, a state that
+      normally leads to very high latencies and poor performance. The cache
+      pool target size can be adjusted with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">cache-pool-name</em> target_max_bytes <em class="replaceable">bytes</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">cache-pool-name</em> target_max_objects <em class="replaceable">objects</em></pre></div><p>
+      Normal cache flush and evict activity may also be throttled because of
+      reduced availability or performance of the base tier, or overall cluster
+      load.
+     </p></dd><dt id="id-1.4.4.2.6.6.21"><span class="term">TOO_FEW_PGS</span></dt><dd><p>
+      The number of PGs in use is below the configurable threshold of
+      <code class="option">mon_pg_warn_min_per_osd</code> PGs per OSD. This can lead to
+      suboptimal distribution and balance of data across the OSDs in the
+      cluster reduce overall performance.
+     </p></dd><dt id="id-1.4.4.2.6.6.22"><span class="term">TOO_MANY_PGS</span></dt><dd><p>
+      The number of PGs in use is above the configurable threshold of
+      <code class="option">mon_pg_warn_max_per_osd</code> PGs per OSD. This can lead to
+      higher memory usage for OSD daemons, slower peering after cluster state
+      changes (for example OSD restarts, additions, or removals), and higher
+      load on the Ceph Managers and Ceph Monitors.
+     </p><p>
+      While the <code class="option">pg_num</code> value for existing pools cannot be
+      reduced, the <code class="option">pgp_num</code> value can. This effectively
+      co-locates some PGs on the same sets of OSDs, mitigating some of the
+      negative impacts described above. The <code class="option">pgp_num</code> value can
+      be adjusted with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">pool</em> pgp_num <em class="replaceable">value</em></pre></div></dd><dt id="id-1.4.4.2.6.6.23"><span class="term">SMALLER_PGP_NUM</span></dt><dd><p>
+      One or more pools has a <code class="option">pgp_num</code> value less than
+      <code class="option">pg_num</code>. This is normally an indication that the PG count
+      was increased without also increasing the placement behavior. This is
+      normally resolved by setting <code class="option">pgp_num</code> to match
+      <code class="option">pg_num</code>, triggering the data migration, with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">pool</em> pgp_num <em class="replaceable">pg_num_value</em></pre></div></dd><dt id="id-1.4.4.2.6.6.24"><span class="term">MANY_OBJECTS_PER_PG</span></dt><dd><p>
+      One or more pools have an average number of objects per PG that is
+      significantly higher than the overall cluster average. The specific
+      threshold is controlled by the
+      <code class="option">mon_pg_warn_max_object_skew</code> configuration value. This is
+      usually an indication that the pool(s) containing most of the data in the
+      cluster have too few PGs, and/or that other pools that do not contain as
+      much data have too many PGs. The threshold can be raised to silence the
+      health warning by adjusting the
+      <code class="option">mon_pg_warn_max_object_skew</code> configuration option on the
+      monitors.
+     </p></dd><dt id="id-1.4.4.2.6.6.25"><span class="term">POOL_APP_NOT_ENABLED¶</span></dt><dd><p>
+      A pool exists that contains one or more objects but has not been tagged
+      for use by a particular application. Resolve this warning by labeling the
+      pool for use by an application. For example, if the pool is used by RBD:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd pool init <em class="replaceable">pool_name</em></pre></div><p>
+      If the pool is being used by a custom application 'foo', you can also
+      label it using the low-level command:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool application enable foo</pre></div></dd><dt id="id-1.4.4.2.6.6.26"><span class="term">POOL_FULL</span></dt><dd><p>
+      One or more pools have reached (or is very close to reaching) its quota.
+      The threshold to trigger this error condition is controlled by the
+      <code class="option">mon_pool_quota_crit_threshold</code> configuration option. Pool
+      quotas can be adjusted up or down (or removed) with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set-quota <em class="replaceable">pool</em> max_bytes <em class="replaceable">bytes</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set-quota <em class="replaceable">pool</em> max_objects <em class="replaceable">objects</em></pre></div><p>
+      Setting the quota value to 0 will disable the quota.
+     </p></dd><dt id="id-1.4.4.2.6.6.27"><span class="term">POOL_NEAR_FULL</span></dt><dd><p>
+      One or more pools are approaching their quota. The threshold to trigger
+      this warning condition is controlled by the
+      <code class="option">mon_pool_quota_warn_threshold</code> configuration option. Pool
+      quotas can be adjusted up or down (or removed) with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd osd pool set-quota <em class="replaceable">pool</em> max_bytes <em class="replaceable">bytes</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd osd pool set-quota <em class="replaceable">pool</em> max_objects <em class="replaceable">objects</em></pre></div><p>
+      Setting the quota value to 0 will disable the quota.
+     </p></dd><dt id="id-1.4.4.2.6.6.28"><span class="term">OBJECT_MISPLACED</span></dt><dd><p>
+      One or more objects in the cluster are not stored on the node where the
+      cluster wants them to be. This is an indication that data migration
+      caused by a recent cluster change has not yet completed. Misplaced data
+      is not a dangerous condition in itself. Data consistency is never at
+      risk, and old copies of objects are never removed until the desired
+      number of new copies (in the desired locations) are present.
+     </p></dd><dt id="id-1.4.4.2.6.6.29"><span class="term">OBJECT_UNFOUND</span></dt><dd><p>
+      One or more objects in the cluster cannot be found. Specifically, the
+      OSDs know that a new or updated copy of an object should exist, but a
+      copy of that version of the object has not been found on the OSDs that
+      are currently up. Read or write requests to the 'unfound' objects will be
+      blocked. Ideally, the down OSD that has the most recent copy of the
+      unfound object can be brought back up. Candidate OSDs can be identified
+      from the peering state for the PG(s) responsible for the unfound object:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell <em class="replaceable">pgid</em> query</pre></div></dd><dt id="id-1.4.4.2.6.6.30"><span class="term">REQUEST_SLOW</span></dt><dd><p>
+      One or more OSD requests is taking a long time to process. This can be an
+      indication of extreme load, a slow storage device, or a software bug. You
+      can query the request queue on the OSD(s) in question with the following
+      command executed from the OSD host:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">ID</em> -- ceph daemon osd.<em class="replaceable">ID</em> ops</pre></div><p>
+      You can see a summary of the slowest recent requests:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">ID</em> -- ceph daemon osd.<em class="replaceable">ID</em> dump_historic_ops</pre></div><p>
+      You can find the location of an OSD with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd find osd.<em class="replaceable">id</em></pre></div></dd><dt id="id-1.4.4.2.6.6.31"><span class="term">REQUEST_STUCK</span></dt><dd><p>
+      One or more OSD requests have been blocked for a relatively long time,
+      for example 4096 seconds. This is an indication that either the cluster
+      has been unhealthy for an extended period of time (for example, not
+      enough running OSDs or inactive PGs) or there is some internal problem
+      with the OSD.
+     </p></dd><dt id="id-1.4.4.2.6.6.32"><span class="term">PG_NOT_SCRUBBED</span></dt><dd><p>
+      One or more PGs have not been scrubbed (see
+      <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a>) recently. PGs are normally scrubbed
+      every <code class="option">mon_scrub_interval</code> seconds, and this warning
+      triggers when <code class="option">mon_warn_not_scrubbed</code> such intervals have
+      elapsed without a scrub. PGs will not scrub if they are not flagged as
+      clean, which may happen if they are misplaced or degraded (see
+      PG_AVAILABILITY and PG_DEGRADED above). You can manually initiate a scrub
+      of a clean PG with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg scrub <em class="replaceable">pgid</em></pre></div></dd><dt id="id-1.4.4.2.6.6.33"><span class="term">PG_NOT_DEEP_SCRUBBED</span></dt><dd><p>
+      One or more PGs has not been deep scrubbed (see
+      <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a>) recently. PGs are normally scrubbed
+      every <code class="option">osd_deep_mon_scrub_interval</code> seconds, and this
+      warning triggers when <code class="option">mon_warn_not_deep_scrubbed</code> seconds
+      have elapsed without a scrub. PGs will not (deep) scrub if they are not
+      flagged as clean, which may happen if they are misplaced or degraded (see
+      PG_AVAILABILITY and PG_DEGRADED above). You can manually initiate a scrub
+      of a clean PG with:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg deep-scrub <em class="replaceable">pgid</em></pre></div></dd></dl></div><div id="id-1.4.4.2.6.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    If you specified non-default locations for your configuration or keyring,
+    you may specify their locations:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>ceph -c <em class="replaceable">/path/to/conf</em> -k <em class="replaceable">/path/to/keyring</em> health</pre></div></div></section><section class="sect1" id="monitor-stats" data-id-title="Checking a clusters usage stats"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.3 </span><span class="title-name">Checking a cluster's usage stats</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#monitor-stats">#</a></h2></div></div></div><p>
+   To check a cluster’s data usage and distribution among pools, use the
+   <code class="command">ceph df</code> command. To get more details, use <code class="command">ceph
+   df detail</code>.
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph df
+--- RAW STORAGE ---
+CLASS  SIZE    AVAIL   USED     RAW USED  %RAW USED
+hdd    30 GiB  27 GiB  121 MiB   3.1 GiB      10.40
+TOTAL  30 GiB  27 GiB  121 MiB   3.1 GiB      10.40
+
+--- POOLS ---
+POOL                   ID  STORED   OBJECTS  USED     %USED  MAX AVAIL
+device_health_metrics   1      0 B        0      0 B      0    8.5 GiB
+cephfs.my_cephfs.meta   2  1.0 MiB       22  4.5 MiB   0.02    8.5 GiB
+cephfs.my_cephfs.data   3      0 B        0      0 B      0    8.5 GiB
+.rgw.root               4  1.9 KiB       13  2.2 MiB      0    8.5 GiB
+myzone.rgw.log          5  3.4 KiB      207    6 MiB   0.02    8.5 GiB
+myzone.rgw.control      6      0 B        8      0 B      0    8.5 GiB
+myzone.rgw.meta         7      0 B        0      0 B      0    8.5 GiB</pre></div><p>
+   The <code class="literal">RAW STORAGE</code> section of the output provides an
+   overview of the amount of storage your cluster uses for your data.
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     <code class="literal">CLASS</code>: The storage class of the device. Refer to
+     <a class="xref" href="cha-storage-datamgm.html#crush-devclasses" title="17.1.1. Device classes">Section 17.1.1, “Device classes”</a> for more details on device classes.
+    </p></li><li class="listitem"><p>
+     <code class="literal">SIZE</code>: The overall storage capacity of the cluster.
+    </p></li><li class="listitem"><p>
+     <code class="literal">AVAIL</code>: The amount of free space available in the
+     cluster.
+    </p></li><li class="listitem"><p>
+     <code class="literal">USED</code>: The space (accumulated over all OSDs) allocated
+     purely for data objects kept at block device.
+    </p></li><li class="listitem"><p>
+     <code class="literal">RAW USED</code>: The sum of 'USED' space and space
+     allocated/reserved at block device for Ceph purposes, for example BlueFS
+     part for BlueStore.
+    </p></li><li class="listitem"><p>
+     <code class="literal">% RAW USED</code>: The percentage of raw storage used. Use
+     this number in conjunction with the <code class="literal">full ratio</code> and
+     <code class="literal">near full ratio</code> to ensure that you are not reaching
+     your cluster’s capacity. See <a class="xref" href="ceph-monitor.html#storage-capacity" title="12.8. Storage capacity">Section 12.8, “Storage capacity”</a> for
+     additional details.
+    </p><div id="id-1.4.4.2.7.5.6.2" data-id-title="Cluster fill level" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Cluster fill level</h6><p>
+      When a raw storage fill level is getting close to 100%, you need to add
+      new storage to the cluster. A higher usage may lead to single full OSDs
+      and cluster health problems.
+     </p><p>
+      Use the command <code class="command">ceph osd df tree</code> to list the fill
+      level of all OSDs.
+     </p></div></li></ul></div><p>
+   The <code class="literal">POOLS</code> section of the output provides a list of pools
+   and the notional usage of each pool. The output from this section
+   <span class="emphasis"><em>does not</em></span> reflect replicas, clones or snapshots. For
+   example, if you store an object with 1MB of data, the notional usage will be
+   1MB, but the actual usage may be 2MB or more depending on the number of
+   replicas, clones and snapshots.
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     <code class="literal">POOL</code>: The name of the pool.
+    </p></li><li class="listitem"><p>
+     <code class="literal">ID</code>: The pool ID.
+    </p></li><li class="listitem"><p>
+     <code class="literal">STORED</code>: The amount of data stored by the user.
+    </p></li><li class="listitem"><p>
+     <code class="literal">OBJECTS</code>: The notional number of objects stored per
+     pool.
+    </p></li><li class="listitem"><p>
+     <code class="literal">USED</code>: The amount of space allocated purely for data by
+     all OSD nodes in kB.
+    </p></li><li class="listitem"><p>
+     <code class="literal">%USED</code>: The notional percentage of storage used per
+     pool.
+    </p></li><li class="listitem"><p>
+     <code class="literal">MAX AVAIL</code>: The maximum available space in the given
+     pool.
+    </p></li></ul></div><div id="id-1.4.4.2.7.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    The numbers in the POOLS section are notional. They are not inclusive of
+    the number of replicas, snapshots or clones. As a result, the sum of the
+    <code class="literal">USED</code>and %<code class="literal">USED</code> amounts will not add up
+    to the <code class="literal">RAW USED</code> and <code class="literal">%RAW USED</code> amounts
+    in the <code class="literal">RAW STORAGE</code> section of the output.
+   </p></div></section><section class="sect1" id="monitor-osdstatus" data-id-title="Checking OSD status"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.4 </span><span class="title-name">Checking OSD status</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#monitor-osdstatus">#</a></h2></div></div></div><p>
+   You can check OSDs to ensure they are up and on by executing:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd stat</pre></div><p>
+   or
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd dump</pre></div><p>
+   You can also view OSDs according to their position in the CRUSH map.
+  </p><p>
+   <code class="command">ceph osd tree</code> will print a CRUSH tree with a host, its
+   OSDs, whether they are up, and their weight:
+  </p><div class="verbatim-wrap"><pre class="screen">   <code class="prompt user">cephuser@adm &gt; </code>ceph osd tree
+ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
+-1      3  0.02939  root default
+-3      3  0.00980    rack mainrack
+-2      3  0.00980            host osd-host
+0       1  0.00980                    osd.0   up   1.00000   1.00000
+1       1  0.00980                    osd.1   up   1.00000   1.00000
+2       1  0.00980                    osd.2   up   1.00000   1.00000</pre></div></section><section class="sect1" id="storage-bp-monitoring-fullosd" data-id-title="Checking for full OSDs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.5 </span><span class="title-name">Checking for full OSDs</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#storage-bp-monitoring-fullosd">#</a></h2></div></div></div><p>
+   Ceph prevents you from writing to a full OSD so that you do not lose data.
+   In an operational cluster, you should receive a warning when your cluster is
+   getting near its full ratio. The <code class="command">mon osd full ratio</code>
+   defaults to 0.95, or 95% of capacity before it stops clients from writing
+   data. The <code class="command">mon osd nearfull ratio</code> defaults to 0.85, or 85%
+   of capacity, when it generates a health warning.
+  </p><p>
+   Full OSD nodes will be reported by <code class="command">ceph health</code>:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health
+  HEALTH_WARN 1 nearfull osds
+  osd.2 is near full at 85%</pre></div><p>
+   or
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health
+  HEALTH_ERR 1 nearfull osds, 1 full osds
+  osd.2 is near full at 85%
+  osd.3 is full at 97%</pre></div><p>
+   The best way to deal with a full cluster is to add new OSD hosts/disks
+   allowing the cluster to redistribute data to the newly available storage.
+  </p><div id="id-1.4.4.2.9.8" data-id-title="Preventing full OSDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Preventing full OSDs</h6><p>
+    After an OSD becomes full—it uses 100% of its disk space—it
+    will normally crash quickly without warning. Following are a few tips to
+    remember when administering OSD nodes.
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Each OSD's disk space (usually mounted under
+      <code class="filename">/var/lib/ceph/osd/osd-{1,2..}</code>) needs to be placed on
+      a dedicated underlying disk or partition.
+     </p></li><li class="listitem"><p>
+      Check the Ceph configuration files and make sure that Ceph does not
+      store its log file to the disks/partitions dedicated for use by OSDs.
+     </p></li><li class="listitem"><p>
+      Make sure that no other process writes to the disks/partitions dedicated
+      for use by OSDs.
+     </p></li></ul></div></div></section><section class="sect1" id="monitor-monstatus" data-id-title="Checking the monitor status"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.6 </span><span class="title-name">Checking the monitor status</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#monitor-monstatus">#</a></h2></div></div></div><p>
+   After you start the cluster and before first reading and/or writing data,
+   check the Ceph Monitors' quorum status. When the cluster is already serving
+   requests, check the Ceph Monitors' status periodically to ensure that they are
+   running.
+  </p><p>
+   To display the monitor map, execute the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mon stat</pre></div><p>
+   or
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mon dump</pre></div><p>
+   To check the quorum status for the monitor cluster, execute the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph quorum_status</pre></div><p>
+   Ceph will return the quorum status. For example, a Ceph cluster
+   consisting of three monitors may return the following:
+  </p><div class="verbatim-wrap"><pre class="screen">{ "election_epoch": 10,
+  "quorum": [
+        0,
+        1,
+        2],
+  "monmap": { "epoch": 1,
+      "fsid": "444b489c-4f16-4b75-83f0-cb8097468898",
+      "modified": "2011-12-12 13:28:27.505520",
+      "created": "2011-12-12 13:28:27.505520",
+      "mons": [
+            { "rank": 0,
+              "name": "a",
+              "addr": "192.168.1.10:6789\/0"},
+            { "rank": 1,
+              "name": "b",
+              "addr": "192.168.1.11:6789\/0"},
+            { "rank": 2,
+              "name": "c",
+              "addr": "192.168.1.12:6789\/0"}
+           ]
+    }
+}</pre></div></section><section class="sect1" id="monitor-pgroupstatus" data-id-title="Checking placement group states"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.7 </span><span class="title-name">Checking placement group states</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#monitor-pgroupstatus">#</a></h2></div></div></div><p>
+   Placement groups map objects to OSDs. When you monitor your placement
+   groups, you will want them to be <code class="literal">active</code> and
+   <code class="literal">clean</code>. For a detailed discussion, refer to
+   <a class="xref" href="ceph-monitor.html#op-mon-osd-pg" title="12.9. Monitoring OSDs and placement groups">Section 12.9, “Monitoring OSDs and placement groups”</a>.
+  </p></section><section class="sect1" id="storage-capacity" data-id-title="Storage capacity"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.8 </span><span class="title-name">Storage capacity</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#storage-capacity">#</a></h2></div></div></div><p>
+   When a Ceph storage cluster gets close to its maximum capacity, Ceph
+   prevents you from writing to or reading from Ceph OSDs as a safety measure to
+   prevent data loss. Therefore, letting a production cluster approach its full
+   ratio is not a good practice, because it sacrifices high availability. The
+   default full ratio is set to .95, meaning 95% of capacity. This a very
+   aggressive setting for a test cluster with a small number of OSDs.
+  </p><div id="id-1.4.4.2.12.3" data-id-title="Increase Storage Capacity" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Increase Storage Capacity</h6><p>
+    When monitoring your cluster, be alert to warnings related to the
+    <code class="literal">nearfull</code> ratio. It means that a failure of some OSDs
+    could result in a temporary service disruption if one or more OSDs fails.
+    Consider adding more OSDs to increase storage capacity.
+   </p></div><p>
+   A common scenario for test clusters involves a system administrator removing
+   a Ceph OSD from the Ceph storage cluster to watch the cluster rebalance. Then
+   removing another Ceph OSD, and so on until the cluster eventually reaches the
+   full ratio and locks up. We recommend a bit of capacity planning even with a
+   test cluster. Planning enables you to estimate how much spare capacity you
+   will need in order to maintain high availability. Ideally, you want to plan
+   for a series of Ceph OSD failures where the cluster can recover to an
+   <code class="literal">active + clean</code> state without replacing those Ceph OSDs
+   immediately. You can run a cluster in an <code class="literal">active +
+   degraded</code> state, but this is not ideal for normal operating
+   conditions.
+  </p><p>
+   The following diagram depicts a simplistic Ceph storage cluster containing
+   33 Ceph nodes with one Ceph OSD per host, each of them reading from and
+   writing to a 3 TB drive. This exemplary cluster has a maximum actual
+   capacity of 99 TB. The <code class="option">mon osd full ratio</code> option is set to
+   0.95. If the cluster falls to 5 TB of the remaining capacity, it will not
+   allow the clients to read and write data. Therefore the storage cluster’s
+   operating capacity is 95 TB, not 99 TB.
+  </p><div class="figure" id="id-1.4.4.2.12.6"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_cluster.png" target="_blank"><img src="images/ceph_cluster.png" width="" alt="Ceph cluster"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 12.1: </span><span class="title-name">Ceph cluster </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.12.6">#</a></h6></div></div><p>
+   It is normal in such a cluster for one or two OSDs to fail. A less frequent
+   but reasonable scenario involves a rack’s router or power supply failing,
+   which brings down multiple OSDs simultaneously (for example, OSDs 7-12). In
+   such a scenario, you should still strive for a cluster that can remain
+   operational and achieve an <code class="literal">active + clean</code>
+   state—even if that means adding a few hosts with additional OSDs in
+   short order. If your capacity usage is too high, you may not lose data. But
+   you could still sacrifice data availability while resolving an outage within
+   a failure domain if capacity usage of the cluster exceeds the full ratio.
+   For this reason, we recommend at least some rough capacity planning.
+  </p><p>
+   Identify two numbers for your cluster:
+  </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+     The number of OSDs.
+    </p></li><li class="listitem"><p>
+     The total capacity of the cluster.
+    </p></li></ol></div><p>
+   If you divide the total capacity of your cluster by the number of OSDs in
+   your cluster, you will find the mean average capacity of an OSD within your
+   cluster. Consider multiplying that number by the number of OSDs you expect
+   will fail simultaneously during normal operations (a relatively small
+   number). Finally, multiply the capacity of the cluster by the full ratio to
+   arrive at a maximum operating capacity. Then, subtract the number of the
+   amount of data from the OSDs you expect to fail to arrive at a reasonable
+   full ratio. Repeat the foregoing process with a higher number of OSD
+   failures (a rack of OSDs) to arrive at a reasonable number for a near full
+   ratio.
+  </p><p>
+   The following settings only apply on cluster creation and are then stored in
+   the OSD map:
+  </p><div class="verbatim-wrap"><pre class="screen">[global]
+ mon osd full ratio = .80
+ mon osd backfillfull ratio = .75
+ mon osd nearfull ratio = .70</pre></div><div id="id-1.4.4.2.12.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    These settings only apply during cluster creation. Afterward they need to
+    be changed in the OSD Map using the <code class="command">ceph osd
+    set-nearfull-ratio</code> and <code class="command">ceph osd set-full-ratio</code>
+    commands.
+   </p></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.2.12.14.1"><span class="term">mon osd full ratio</span></dt><dd><p>
+      The percentage of disk space used before an OSD is considered
+      <code class="literal">full</code>. Default is .95
+     </p></dd><dt id="id-1.4.4.2.12.14.2"><span class="term">mon osd backfillfull ratio</span></dt><dd><p>
+      The percentage of disk space used before an OSD is considered too
+      <code class="literal">full</code> to backfill. Default is .90
+     </p></dd><dt id="id-1.4.4.2.12.14.3"><span class="term">mon osd nearfull ratio</span></dt><dd><p>
+      The percentage of disk space used before an OSD is considered
+      <code class="literal">nearfull</code>. Default is .85
+     </p></dd></dl></div><div id="id-1.4.4.2.12.15" data-id-title="Check OSD weight" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Check OSD weight</h6><p>
+    If some OSDs are <code class="literal">nearfull</code>, but others have plenty of
+    capacity, you may have a problem with the CRUSH weight for the
+    <code class="literal">nearfull</code> OSDs.
+   </p></div></section><section class="sect1" id="op-mon-osd-pg" data-id-title="Monitoring OSDs and placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.9 </span><span class="title-name">Monitoring OSDs and placement groups</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-mon-osd-pg">#</a></h2></div></div></div><p>
+   High availability and high reliability require a fault-tolerant approach to
+   managing hardware and software issues. Ceph has no single
+   point-of-failure, and can service requests for data in a 'degraded' mode.
+   Ceph’s data placement introduces a layer of indirection to ensure that
+   data does not bind directly to particular OSD addresses. This means that
+   tracking down system faults requires finding the placement group and the
+   underlying OSDs at root of the problem.
+  </p><div id="id-1.4.4.2.13.3" data-id-title="Access in case of failure" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Access in case of failure</h6><p>
+    A fault in one part of the cluster may prevent you from accessing a
+    particular object. That does not mean that you cannot access other objects.
+    When you run into a fault, follow the steps for monitoring your OSDs and
+    placement groups. Then begin troubleshooting.
+   </p></div><p>
+   Ceph is generally self-repairing. However, when problems persist,
+   monitoring OSDs and placement groups will help you identify the problem.
+  </p><section class="sect2" id="op-mon-osds" data-id-title="Monitoring OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.9.1 </span><span class="title-name">Monitoring OSDs</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-mon-osds">#</a></h3></div></div></div><p>
+    An OSD’s status is either <span class="emphasis"><em>in the cluster</em></span> ('in') or
+    <span class="emphasis"><em>out of the cluster</em></span> ('out'). At the same time, it is
+    either <span class="emphasis"><em>up and running</em></span> ('up') or it is <span class="emphasis"><em>down
+    and not running</em></span> ('down'). If an OSD is 'up', it may be either in
+    the cluster (you can read and write data) or out of the cluster. If it was
+    in the cluster and recently moved out of the cluster, Ceph will migrate
+    placement groups to other OSDs. If an OSD is out of the cluster, CRUSH will
+    not assign placement groups to it. If an OSD is 'down', it should also be
+    'out'.
+   </p><div id="id-1.4.4.2.13.5.3" data-id-title="Unhealthy state" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Unhealthy state</h6><p>
+     If an OSD is 'down' and 'in', there is a problem and the cluster will not
+     be in a healthy state.
+    </p></div><p>
+    If you execute a command such as <code class="command">ceph health</code>,
+    <code class="command">ceph -s</code> or <code class="command">ceph -w</code>, you may notice
+    that the cluster does not always echo back <code class="literal">HEALTH OK</code>.
+    With regard to OSDs, you should expect that the cluster will
+    <span class="emphasis"><em>not</em></span> echo <code class="literal">HEALTH OK</code> under the
+    following circumstances:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      You have not started the cluster yet (it will not respond).
+     </p></li><li class="listitem"><p>
+      You have started or restarted the cluster and it is not ready yet,
+      because the placement groups are being created and the OSDs are in the
+      process of peering.
+     </p></li><li class="listitem"><p>
+      You have added or removed an OSD.
+     </p></li><li class="listitem"><p>
+      You have modified your cluster map.
+     </p></li></ul></div><p>
+    An important aspect of monitoring OSDs is to ensure that when the cluster
+    is up and running, all the OSDs in the cluster are up and running, too. To
+    see if all the OSDs are running, execute:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>ceph osd stat
+x osds: y up, z in; epoch: eNNNN</pre></div><p>
+    The result should tell you the total number of OSDs (x), how many are 'up'
+    (y), how many are 'in' (z), and the map epoch (eNNNN). If the number of
+    OSDs that are 'in' the cluster is more than the number of OSDs that are
+    'up', execute the following command to identify the
+    <code class="literal">ceph-osd</code> daemons that are not running:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>ceph osd tree
+#ID CLASS WEIGHT  TYPE NAME             STATUS REWEIGHT PRI-AFF
+-1       2.00000 pool openstack
+-3       2.00000 rack dell-2950-rack-A
+-2       2.00000 host dell-2950-A1
+0   ssd 1.00000      osd.0                up  1.00000 1.00000
+1   ssd 1.00000      osd.1              down  1.00000 1.00000</pre></div><p>
+    For example, if an OSD with ID 1 is down, start it:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>sudo systemctl start ceph-<em class="replaceable">CLUSTER_ID</em>@osd.0.service</pre></div><p>
+    See <span class="intraxref">Book “Troubleshooting Guide”, Chapter 4 “Troubleshooting OSDs”, Section 4.3 “OSDs not running”</span> for problems
+    associated with OSDs that have stopped or that will not restart.
+   </p></section><section class="sect2" id="op-pgsets" data-id-title="Assigning placement group sets"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.9.2 </span><span class="title-name">Assigning placement group sets</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-pgsets">#</a></h3></div></div></div><p>
+    When CRUSH assigns placement groups to OSDs, it looks at the number of
+    replicas for the pool and assigns the placement group to OSDs such that
+    each replica of the placement group gets assigned to a different OSD. For
+    example, if the pool requires three replicas of a placement group, CRUSH
+    may assign them to <code class="literal">osd.1</code>, <code class="literal">osd.2</code> and
+    <code class="literal">osd.3</code> respectively. CRUSH actually seeks a pseudo-random
+    placement that will take into account failure domains you set in your
+    CRUSH Map, so you will rarely see placement groups assigned to nearest
+    neighbor OSDs in a large cluster. We refer to the set of OSDs that should
+    contain the replicas of a particular placement group as the <span class="emphasis"><em>acting set</em></span>. In
+    some cases, an OSD in the acting set is down or otherwise not able to
+    service requests for objects in the placement group. When these situations
+    arise, it may match one of the following scenarios:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      You added or removed an OSD. Then, CRUSH reassigned the placement group
+      to other OSDs and therefore changed the composition of the <span class="emphasis"><em>acting set</em></span>,
+      causing the migration of data with a 'backfill' process.
+     </p></li><li class="listitem"><p>
+      An OSD was 'down', was restarted, and is now recovering.
+     </p></li><li class="listitem"><p>
+      An OSD in the <span class="emphasis"><em>acting set</em></span> is 'down' or unable to service requests, and
+      another OSD has temporarily assumed its duties.
+     </p><p>
+      Ceph processes a client request using the <span class="emphasis"><em>up set</em></span>, which is the set of
+      OSDs that will actually handle the requests. In most cases, the <span class="emphasis"><em>up set</em></span>
+      and the <span class="emphasis"><em>acting set</em></span> are virtually identical. When they are not, it may
+      indicate that Ceph is migrating data, an OSD is recovering, or that
+      there is a problem (for example, Ceph usually echoes a <code class="literal">HEALTH
+      WARN</code> state with a 'stuck stale' message in such scenarios).
+     </p></li></ul></div><p>
+    To retrieve a list of placement groups, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg dump</pre></div><p>
+    To view which OSDs are within the <span class="emphasis"><em>acting set</em></span> or the <span class="emphasis"><em>up set</em></span> for a given
+    placement group, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg map <em class="replaceable">PG_NUM</em>
+osdmap eNNN pg <em class="replaceable">RAW_PG_NUM</em> (<em class="replaceable">PG_NUM</em>) -&gt; up [0,1,2] acting [0,1,2]</pre></div><p>
+    The result should tell you the osdmap epoch (eNNN), the placement group
+    number (<em class="replaceable">PG_NUM</em>), the OSDs in the <span class="emphasis"><em>up set</em></span> ('up'),
+    and the OSDs in the <span class="emphasis"><em>acting set</em></span> ('acting'):
+   </p><div id="id-1.4.4.2.13.6.9" data-id-title="Cluster problem indicator" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Cluster problem indicator</h6><p>
+     If the <span class="emphasis"><em>up set</em></span> and <span class="emphasis"><em>acting set</em></span> do not match, this may be an indicator
+     either of the cluster rebalancing itself, or of a potential problem with
+     the cluster.
+    </p></div></section><section class="sect2" id="op-peering" data-id-title="Peering"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.9.3 </span><span class="title-name">Peering</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-peering">#</a></h3></div></div></div><p>
+    Before you can write data to a placement group, it must be in an
+    <code class="literal">active</code> state, and it should be in a
+    <code class="literal">clean</code> state. For Ceph to determine the current state
+    of a placement group, the primary OSD of the placement group (the first OSD
+    in the <span class="emphasis"><em>acting set</em></span>), peers with the secondary and tertiary OSDs to
+    establish agreement on the current state of the placement group (assuming a
+    pool with three replicas of the PG).
+   </p><div class="figure" id="id-1.4.4.2.13.7.3"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_peering.png" target="_blank"><img src="images/ceph_peering.png" width="" alt="Peering schema"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 12.2: </span><span class="title-name">Peering schema </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.7.3">#</a></h6></div></div></section><section class="sect2" id="op-mon-pg-states" data-id-title="Monitoring placement group states"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.9.4 </span><span class="title-name">Monitoring placement group states</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-mon-pg-states">#</a></h3></div></div></div><p>
+    If you execute a command such as <code class="command">ceph health</code>,
+    <code class="command">ceph -s</code> or <code class="command">ceph -w</code>, you may notice
+    that the cluster does not always echo back the <code class="literal">HEALTH OK</code>
+    message. After you check to see if the OSDs are running, you should also
+    check placement group states.
+   </p><p>
+    Expect that the cluster will <span class="bold"><strong>not</strong></span> echo
+    <code class="literal">HEALTH OK</code> in a number of placement group peering-related
+    circumstances:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      You have created a pool and placement groups have not peered yet.
+     </p></li><li class="listitem"><p>
+      The placement groups are recovering.
+     </p></li><li class="listitem"><p>
+      You have added an OSD to or removed an OSD from the cluster.
+     </p></li><li class="listitem"><p>
+      You have modified your CRUSH Map and your placement groups are
+      migrating.
+     </p></li><li class="listitem"><p>
+      There is inconsistent data in different replicas of a placement group.
+     </p></li><li class="listitem"><p>
+      Ceph is scrubbing a placement group’s replicas.
+     </p></li><li class="listitem"><p>
+      Ceph does not have enough storage capacity to complete backfilling
+      operations.
+     </p></li></ul></div><p>
+    If one of the above mentioned circumstances causes Ceph to echo
+    <code class="literal">HEALTH WARN</code>, do not panic. In many cases, the cluster
+    will recover on its own. In some cases, you may need to take action. An
+    important aspect of monitoring placement groups is to ensure that when the
+    cluster is up and running, all placement groups are 'active' and preferably
+    in the 'clean state'. To see the status of all placement groups, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg stat
+x pgs: y active+clean; z bytes data, aa MB used, bb GB / cc GB avail</pre></div><p>
+    The result should tell you the total number of placement groups (x), how
+    many placement groups are in a particular state such as 'active+clean' (y)
+    and the amount of data stored (z).
+   </p><p>
+    In addition to the placement group states, Ceph will also echo back the
+    amount of storage capacity used (aa), the amount of storage capacity
+    remaining (bb), and the total storage capacity for the placement group.
+    These numbers can be important in a few cases:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      You are reaching your <code class="option">near full ratio</code> or <code class="option">full
+      ratio</code>.
+     </p></li><li class="listitem"><p>
+      Your data is not getting distributed across the cluster because of an
+      error in your CRUSH configuration.
+     </p></li></ul></div><div id="id-1.4.4.2.13.8.10" data-id-title="Placement group IDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Placement group IDs</h6><p>
+     Placement group IDs consist of the pool number (not pool name) followed by
+     a period (.) and the placement group ID—a hexadecimal number. You
+     can view pool numbers and their names from the output of <code class="command">ceph osd
+     lspools</code>. For example, the default pool <code class="literal">rbd</code>
+     corresponds to pool number 0. A fully qualified placement group ID has the
+     following form:
+    </p><div class="verbatim-wrap"><pre class="screen"><em class="replaceable">POOL_NUM</em>.<em class="replaceable">PG_ID</em></pre></div><p>
+     And it typically looks like this:
+    </p><div class="verbatim-wrap"><pre class="screen">0.1f</pre></div></div><p>
+    To retrieve a list of placement groups, run the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg dump</pre></div><p>
+    You can also format the output in JSON format and save it to a file:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg dump -o <em class="replaceable">FILE_NAME</em> --format=json</pre></div><p>
+    To query a particular placement group, run the following:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg <em class="replaceable">POOL_NUM</em>.<em class="replaceable">PG_ID</em> query</pre></div><p>
+    The following list describes the common placement group states in detail.
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.2.13.8.18.1"><span class="term">CREATING</span></dt><dd><p>
+       When you create a pool, it will create the number of placement groups
+       you specified. Ceph will echo 'creating' when it is creating one or
+       more placement groups. When they are created, the OSDs that are part of
+       the placement group’s <span class="emphasis"><em>acting set</em></span> will peer. When peering is complete,
+       the placement group status should be 'active+clean', which means that a
+       Ceph client can begin writing to the placement group.
+      </p><div class="figure" id="id-1.4.4.2.13.8.18.1.2.2"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_pg_creating.png" target="_blank"><img src="images/ceph_pg_creating.png" width="" alt="Placement groups status"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 12.3: </span><span class="title-name">Placement groups status </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.8.18.1.2.2">#</a></h6></div></div></dd><dt id="id-1.4.4.2.13.8.18.2"><span class="term">PEERING</span></dt><dd><p>
+       When Ceph is peering a placement group, it is bringing the OSDs that
+       store the replicas of the placement group into agreement about the state
+       of the objects and metadata in the placement group. When Ceph
+       completes peering, this means that the OSDs that store the placement
+       group agree about the current state of the placement group. However,
+       completion of the peering process does
+       <span class="bold"><strong>not</strong></span> mean that each replica has the
+       latest contents.
+      </p><div id="id-1.4.4.2.13.8.18.2.2.2" data-id-title="Authoritative history" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Authoritative history</h6><p>
+        Ceph will <span class="bold"><strong>not</strong></span> acknowledge a write
+        operation to a client until all OSDs of the <span class="emphasis"><em>acting set</em></span> persist the
+        write operation. This practice ensures that at least one member of the
+        <span class="emphasis"><em>acting set</em></span> will have a record of every acknowledged write operation
+        since the last successful peering operation.
+       </p><p>
+        With an accurate record of each acknowledged write operation, Ceph
+        can construct and enlarge a new authoritative history of the placement
+        group—a complete and fully ordered set of operations that, if
+        performed, would bring an OSD’s copy of a placement group up to date.
+       </p></div></dd><dt id="id-1.4.4.2.13.8.18.3"><span class="term">ACTIVE</span></dt><dd><p>
+       When Ceph completes the peering process, a placement group may become
+       <code class="literal">active</code>. The <code class="literal">active</code> state means
+       that the data in the placement group is generally available in the
+       primary placement group and the replicas for read and write operations.
+      </p></dd><dt id="id-1.4.4.2.13.8.18.4"><span class="term">CLEAN</span></dt><dd><p>
+       When a placement group is in the <code class="literal">clean</code> state, the
+       primary OSD and the replica OSDs have successfully peered and there are
+       no stray replicas for the placement group. Ceph replicated all objects
+       in the placement group the correct number of times.
+      </p></dd><dt id="id-1.4.4.2.13.8.18.5"><span class="term">DEGRADED</span></dt><dd><p>
+       When a client writes an object to the primary OSD, the primary OSD is
+       responsible for writing the replicas to the replica OSDs. After the
+       primary OSD writes the object to storage, the placement group will
+       remain in a 'degraded' state until the primary OSD has received an
+       acknowledgement from the replica OSDs that Ceph created the replica
+       objects successfully.
+      </p><p>
+       The reason a placement group can be 'active+degraded' is that an OSD may
+       be 'active' even though it does not hold all of the objects yet. If an
+       OSD goes down, Ceph marks each placement group assigned to the OSD as
+       'degraded'. The OSDs must peer again when the OSD comes back up.
+       However, a client can still write a new object to a degraded placement
+       group if it is 'active'.
+      </p><p>
+       If an OSD is 'down' and the 'degraded' condition persists, Ceph may
+       mark the down OSD as 'out' of the cluster and remap the data from the
+       'down' OSD to another OSD. The time between being marked 'down' and
+       being marked 'out' is controlled by the <code class="option">mon osd down out
+       interval</code> option, which is set to 600 seconds by default.
+      </p><p>
+       A placement group can also be 'degraded' because Ceph cannot find one
+       or more objects that should be in the placement group. While you cannot
+       read or write to unfound objects, you can still access all of the other
+       objects in the 'degraded' placement group.
+      </p></dd><dt id="id-1.4.4.2.13.8.18.6"><span class="term">RECOVERING</span></dt><dd><p>
+       Ceph was designed for fault-tolerance at a scale where hardware and
+       software problems are ongoing. When an OSD goes 'down', its contents may
+       fall behind the current state of other replicas in the placement groups.
+       When the OSD is back 'up', the contents of the placement groups must be
+       updated to reflect the current state. During that time period, the OSD
+       may reflect a 'recovering' state.
+      </p><p>
+       Recovery is not always trivial, because a hardware failure may cause a
+       cascading failure of multiple OSDs. For example, a network switch for a
+       rack or cabinet may fail, which can cause the OSDs of a number of host
+       machines to fall behind the current state of the cluster. Each of the
+       OSDs must recover when the fault is resolved.
+      </p><p>
+       Ceph provides a number of settings to balance the resource contention
+       between new service requests and the need to recover data objects and
+       restore the placement groups to the current state. The <code class="option">osd
+       recovery delay start</code> setting allows an OSD to restart, re-peer
+       and even process some replay requests before starting the recovery
+       process. The <code class="option">osd recovery thread timeout</code> sets a thread
+       timeout, because multiple OSDs may fail, restart and re-peer at
+       staggered rates. The <code class="option">osd recovery max active</code> setting
+       limits the number of recovery requests an OSD will process
+       simultaneously to prevent the OSD from failing to serve. The <code class="option">osd
+       recovery max chunk</code> setting limits the size of the recovered
+       data chunks to prevent network congestion.
+      </p></dd><dt id="id-1.4.4.2.13.8.18.7"><span class="term">BACK FILLING</span></dt><dd><p>
+       When a new OSD joins the cluster, CRUSH will reassign placement groups
+       from OSDs in the cluster to the newly added OSD. Forcing the new OSD to
+       accept the reassigned placement groups immediately can put excessive
+       load on the new OSD. Backfilling the OSD with the placement groups
+       allows this process to begin in the background. When backfilling is
+       complete, the new OSD will begin serving requests when it is ready.
+      </p><p>
+       During the backfill operations, you may see one of several states:
+       'backfill_wait' indicates that a backfill operation is pending, but is
+       not yet in progress; 'backfill' indicates that a backfill operation is
+       in progress; 'backfill_too_full' indicates that a backfill operation was
+       requested, but could not be completed because of insufficient storage
+       capacity. When a placement group cannot be backfilled, it may be
+       considered 'incomplete'.
+      </p><p>
+       Ceph provides a number of settings to manage the load associated with
+       reassigning placement groups to an OSD (especially a new OSD). By
+       default, <code class="option">osd max backfills</code> sets the maximum number of
+       concurrent backfills to or from an OSD to 10. The <code class="option">backfill full
+       ratio</code> enables an OSD to refuse a backfill request if the OSD is
+       approaching its full ratio (90%, by default) and change with
+       <code class="command">ceph osd set-backfillfull-ratio</code> command. If an OSD
+       refuses a backfill request, the <code class="option">osd backfill retry
+       interval</code> enables an OSD to retry the request (after 10 seconds,
+       by default). OSDs can also set <code class="option">osd backfill scan min</code>
+       and <code class="option">osd backfill scan max</code> to manage scan intervals (64
+       and 512, by default).
+      </p></dd><dt id="id-1.4.4.2.13.8.18.8"><span class="term">REMAPPED</span></dt><dd><p>
+       When the <span class="emphasis"><em>acting set</em></span> that services a placement group changes, the data
+       migrates from the old <span class="emphasis"><em>acting set</em></span> to the new <span class="emphasis"><em>acting set</em></span>. It may take
+       some time for a new primary OSD to service requests. So it may ask the
+       old primary to continue to service requests until the placement group
+       migration is complete. When data migration completes, the mapping uses
+       the primary OSD of the new <span class="emphasis"><em>acting set</em></span>.
+      </p></dd><dt id="id-1.4.4.2.13.8.18.9"><span class="term">STALE</span></dt><dd><p>
+       While Ceph uses heartbeats to ensure that hosts and daemons are
+       running, the <code class="literal">ceph-osd</code> daemons may also get into a
+       'stuck' state where they are not reporting statistics in a timely manner
+       (for example, a temporary network fault). By default, OSD daemons report
+       their placement group, boot and failure statistics every half second
+       (0.5), which is more frequent than the heartbeat thresholds. If the
+       primary OSD of a placement group’s <span class="emphasis"><em>acting set</em></span> fails to report to the
+       monitor or if other OSDs have reported the primary OSD as 'down', the
+       monitors will mark the placement group as 'stale'.
+      </p><p>
+       When you start your cluster, it is common to see the 'stale' state until
+       the peering process completes. After your cluster has been running for a
+       while, seeing placement groups in the 'stale' state indicates that the
+       primary OSD for those placement groups is down or not reporting
+       placement group statistics to the monitor.
+      </p></dd></dl></div></section><section class="sect2" id="op-pg-objectfinding" data-id-title="Finding an object location"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.9.5 </span><span class="title-name">Finding an object location</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-pg-objectfinding">#</a></h3></div></div></div><p>
+    To store object data in the Ceph Object Store, a Ceph client needs to
+    set an object name and specify a related pool. The Ceph client retrieves
+    the latest cluster map and the CRUSH algorithm calculates how to map the
+    object to a placement group, and then calculates how to assign the
+    placement group to an OSD dynamically. To find the object location, all you
+    need is the object name and the pool name. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd map <em class="replaceable">POOL_NAME</em> <em class="replaceable">OBJECT_NAME</em> [<em class="replaceable">NAMESPACE</em>]</pre></div><div class="complex-example"><div class="example" id="id-1.4.4.2.13.9.4" data-id-title="Locating an object"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 12.1: </span><span class="title-name">Locating an object </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.9.4">#</a></h6></div><div class="example-contents"><p>
+     As an example, let us create an object. Specify an object name
+     'test-object-1', a path to an example file 'testfile.txt' containing some
+     object data, and a pool name 'data' using the <code class="command">rados put</code>
+     command on the command line:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados put test-object-1 testfile.txt --pool=data</pre></div><p>
+     To verify that the Ceph Object Store stored the object, run the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados -p data ls</pre></div><p>
+     Now, identify the object location. Ceph will output the object’s
+     location:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd map data test-object-1
+osdmap e537 pool 'data' (0) object 'test-object-1' -&gt; pg 0.d1743484 \
+(0.4) -&gt; up ([1,0], p0) acting ([1,0], p0)</pre></div><p>
+     To remove the example object, simply delete it using the <code class="command">rados
+     rm</code> command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados rm test-object-1 --pool=data</pre></div></div></div></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="part-cluster-operation.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part II </span>Cluster Operation</span></a> </div><div><a class="pagination-link next" href="storage-salt-cluster.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 13 </span>Operational tasks</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="ceph-monitor.html#monitor-status"><span class="title-number">12.1 </span><span class="title-name">Checking a cluster's status</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#monitor-health"><span class="title-number">12.2 </span><span class="title-name">Checking cluster health</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#monitor-stats"><span class="title-number">12.3 </span><span class="title-name">Checking a cluster's usage stats</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#monitor-osdstatus"><span class="title-number">12.4 </span><span class="title-name">Checking OSD status</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#storage-bp-monitoring-fullosd"><span class="title-number">12.5 </span><span class="title-name">Checking for full OSDs</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#monitor-monstatus"><span class="title-number">12.6 </span><span class="title-name">Checking the monitor status</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#monitor-pgroupstatus"><span class="title-number">12.7 </span><span class="title-name">Checking placement group states</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#storage-capacity"><span class="title-number">12.8 </span><span class="title-name">Storage capacity</span></a></span></li><li><span class="sect1"><a href="ceph-monitor.html#op-mon-osd-pg"><span class="title-number">12.9 </span><span class="title-name">Monitoring OSDs and placement groups</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_operating_monitor.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

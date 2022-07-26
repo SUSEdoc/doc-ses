@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Advanced configuration | Deploying and Administering SUSE Enterprise Storage with Rook | SUSE Enterprise Storage 7.1</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Advanced configuration | SES 7.1"/>
+<meta name="description" content="These examples show how to perform advanced configuration tasks on your Rook storage cluster."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7.1"/>
+<meta name="book-title" content="Deploying and Administering SUSE Enterprise Storage with Rook"/>
+<meta name="chapter-title" content="Chapter 12. Advanced configuration"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Advanced configuration | SES 7.1"/>
+<meta property="og:description" content="These examples show how to perform advanced configuration tasks on your Rook storage cluster."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Advanced configuration | SES 7.1"/>
+<meta name="twitter:description" content="These examples show how to perform advanced configuration tasks on your Rook storage cluster."/>
+<link rel="prev" href="admin-caasp-ceph-examples.html" title="Chapter 11. Ceph examples"/><link rel="next" href="admin-caasp-object-storage.html" title="Chapter 13. Object Storage"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deploying and Administering SUSE Enterprise Storage with Rook</a><span> / </span><a class="crumb" href="rook-ses-admin.html">Administrating Ceph on SUSE CaaS Platform</a><span> / </span><a class="crumb" href="admin-caasp-advanced-config.html">Advanced configuration</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deploying and Administering SUSE Enterprise Storage with Rook</div><ol><li><a href="preface-rook.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="rook-ses-deployment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</span></a><ol><li><a href="deploy-rook.html" class=" "><span class="title-number">1 </span><span class="title-name">Quick start</span></a></li><li><a href="update-rook.html" class=" "><span class="title-number">2 </span><span class="title-name">Updating Rook</span></a></li></ol></li><li class="active"><a href="rook-ses-admin.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Administrating Ceph on SUSE CaaS Platform</span></a><ol><li><a href="admin-intro-caasp.html" class=" "><span class="title-number">3 </span><span class="title-name">Rook-Ceph administration</span></a></li><li><a href="admin-caasp-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">Ceph cluster administration</span></a></li><li><a href="admin-caasp-block-storage.html" class=" "><span class="title-number">5 </span><span class="title-name">Block Storage</span></a></li><li><a href="admin-caasp-cephfs.html" class=" "><span class="title-number">6 </span><span class="title-name">CephFS</span></a></li><li><a href="admin-caasp-crd.html" class=" "><span class="title-number">7 </span><span class="title-name">Ceph cluster custom resource definitions</span></a></li><li><a href="admin-caasp-cephconfig.html" class=" "><span class="title-number">8 </span><span class="title-name">Configuration</span></a></li><li><a href="admin-caasp-cephtoolbox.html" class=" "><span class="title-number">9 </span><span class="title-name">Toolboxes</span></a></li><li><a href="admin-caasp-cephosd.html" class=" "><span class="title-number">10 </span><span class="title-name">Ceph OSD management</span></a></li><li><a href="admin-caasp-ceph-examples.html" class=" "><span class="title-number">11 </span><span class="title-name">Ceph examples</span></a></li><li><a href="admin-caasp-advanced-config.html" class=" you-are-here"><span class="title-number">12 </span><span class="title-name">Advanced configuration</span></a></li><li><a href="admin-caasp-object-storage.html" class=" "><span class="title-number">13 </span><span class="title-name">Object Storage</span></a></li><li><a href="admin-caasp-dashboard.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph Dashboard</span></a></li></ol></li><li><a href="rook-ses-troubleshooting.html" class="has-children "><span class="title-number">III </span><span class="title-name">Troubleshooting Ceph on SUSE CaaS Platform</span></a><ol><li><a href="atroubleshooting-caasp-debugging-rook.html" class=" "><span class="title-number">15 </span><span class="title-name">Troubleshooting</span></a></li><li><a href="admin-caasp-ceph-common-issues.html" class=" "><span class="title-number">16 </span><span class="title-name">Common issues</span></a></li></ol></li><li><a href="bk05apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></li><li><a href="bk05go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="admin-caasp-advanced-config" data-id-title="Advanced configuration"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h2 class="title"><span class="title-number">12 </span><span class="title-name">Advanced configuration</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#">#</a></h2></div></div></div><section class="sect1" id="advanced-configuration" data-id-title="Performing advanced configuration tasks"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.1 </span><span class="title-name">Performing advanced configuration tasks</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#advanced-configuration">#</a></h2></div></div></div><p>
+   These examples show how to perform advanced configuration tasks on your
+   Rook storage cluster.
+  </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#advanced-config-prerequisites" title="12.1.1. Prerequisites">Section 12.1.1, “Prerequisites”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#use-custom-ceph-user-and-secret-for-mounting" title="12.1.2. Using custom Ceph user and secret for mounting">Section 12.1.2, “Using custom Ceph user and secret for mounting”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#log-collection" title="12.1.3. Collecting logs">Section 12.1.3, “Collecting logs”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#osd-information" title="12.1.4. OSD information">Section 12.1.4, “OSD information”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#separate-storage-groups" title="12.1.5. Separate storage groups">Section 12.1.5, “Separate storage groups”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#configuring-pools" title="12.1.6. Configure pools">Section 12.1.6, “Configure pools”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#custom-cephconf-settings" title="12.1.7. Creating custom ceph.conf settings">Section 12.1.7, “Creating custom <code class="filename">ceph.conf</code> settings”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#osd-crush-settings" title="12.1.8. OSD CRUSH settings">Section 12.1.8, “OSD CRUSH settings”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#phantom-osd-removal" title="12.1.9. Removing phantom OSD">Section 12.1.9, “Removing phantom OSD”</a>
+    </p></li><li class="listitem"><p>
+     <a class="xref" href="admin-caasp-advanced-config.html#change-failure-domain" title="12.1.10. Changing the failure domain">Section 12.1.10, “Changing the failure domain”</a>
+    </p></li></ul></div><section class="sect2" id="advanced-config-prerequisites" data-id-title="Prerequisites"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.1 </span><span class="title-name">Prerequisites</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#advanced-config-prerequisites">#</a></h3></div></div></div><p>
+    Most of the examples make use of the <code class="command">ceph</code> client
+    command. A quick way to use the Ceph client suite is from a
+    <a class="link" href="https://github.com/rook/rook/blob/master/Documentation/ceph-toolbox.md" target="_blank">Rook
+    Toolbox container</a>.
+   </p><p>
+    The Kubernetes based examples assume Rook OSD pods are in the
+    <code class="literal">rook-ceph</code> namespace. If you run them in a different
+    namespace, modify <code class="command">kubectl -n rook-ceph [...]</code> to fit your
+    situation.
+   </p></section><section class="sect2" id="use-custom-ceph-user-and-secret-for-mounting" data-id-title="Using custom Ceph user and secret for mounting"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.2 </span><span class="title-name">Using custom Ceph user and secret for mounting</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#use-custom-ceph-user-and-secret-for-mounting">#</a></h3></div></div></div><div id="id-1.7.4.11.3.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     For extensive info about creating Ceph users, refer to
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.2.2 “Managing users”</span>
+    </p></div><p>
+    Using a custom Ceph user and secret key can be done for both file system
+    and block storage.
+   </p><p>
+    Create a custom user in Ceph with read-write access in the
+    <code class="filename">/bar</code> directory on CephFS (For Ceph Mimic or newer,
+    use <code class="literal">data=POOL_NAME</code> instead of
+    <code class="literal">pool=POOL_NAME</code>):
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth get-or-create-key client.user1 mon \
+ 'allow r' osd 'allow rw tag cephfs <em class="replaceable">pool=YOUR_FS_DATA_POOL</em>' \
+ mds 'allow r, allow rw path=/bar'</pre></div><p>
+    The command will return a Ceph secret key. This key should be added as a
+    secret in Kubernetes like this:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create secret generic ceph-user1-secret --from-literal=key=YOUR_CEPH_KEY</pre></div><div id="id-1.7.4.11.3.5.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     This secret key must be created with the same name in each namespace where
+     the StorageClass will be used.
+    </p></div><p>
+    In addition to this secret key, you must create a RoleBinding to allow the
+    Rook Ceph agent to get the secret from each namespace. The RoleBinding is
+    optional if you are using a ClusterRoleBinding for the Rook Ceph agent
+    secret-key access. A ClusterRole which contains the permissions which are
+    needed and used for the Bindings is shown as an example after the next
+    step.
+   </p><p>
+    On a StorageClass <code class="literal">parameters</code> set the following options:
+   </p><div class="verbatim-wrap"><pre class="screen">mountUser: user1
+mountSecret: ceph-user1-secret</pre></div><p>
+    If you want the Rook-Ceph agent to require a <code class="literal">mountUser</code>
+    and <code class="literal">mountSecret</code> to be set in StorageClasses using
+    Rook, you need to set the environment variable
+    <code class="varname">AGENT_MOUNT_SECURITY_MODE</code> to
+    <code class="literal">Restricted</code> on the Rook-Ceph Operator deployment.
+   </p><p>
+    For more information on using the Ceph feature to limit access to
+    CephFS paths, see
+    <a class="link" href="http://docs.ceph.com/docs/mimic/cephfs/client-auth/#path-restriction" target="_blank">http://docs.ceph.com/docs/mimic/cephfs/client-auth/#path-restriction</a>.
+   </p><section class="sect3" id="clusterrole" data-id-title="Creating the ClusterRole"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.2.1 </span><span class="title-name">Creating the <code class="literal">ClusterRole</code></span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#clusterrole">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.14.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      When you are using the Helm chart to install the Rook-Ceph Operator, and
+      have set <code class="literal">mountSecurityMode</code> to, for example,
+      <code class="literal">Restricted</code>, then the below
+      <code class="literal">ClusterRole</code> has already been created for you.
+     </p></div><p>
+     <span class="strong"><strong>This <code class="literal">ClusterRole</code> is needed no
+     matter whether you want to use one <code class="literal">RoleBinding</code> per
+     namespace or a <code class="literal">ClusterRoleBinding</code>.</strong></span>
+    </p><div class="verbatim-wrap"><pre class="screen">apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rook-ceph-agent-mount
+  labels:
+    operator: rook
+    storage-backend: ceph
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get</pre></div></section><section class="sect3" id="rolebinding" data-id-title="Creating the RoleBinding"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.2.2 </span><span class="title-name">Creating the <code class="literal">RoleBinding</code></span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#rolebinding">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.15.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      You either need a <code class="literal">RoleBinding</code> in each namespace in
+      which a mount secret resides in, or create a
+      <code class="literal">ClusterRoleBinding</code> with which the Rook Ceph agent
+      has access to Kubernetes secrets in all namespaces.
+     </p></div><p>
+     Create the <code class="literal">RoleBinding</code> shown here in each namespace for
+     which the Rook Ceph agent should read secrets for mounting. The
+     <code class="literal">RoleBinding</code> subjects' <code class="literal">namespace</code> must
+     be the one the Rook-Ceph agent runs in (default
+     <code class="literal">rook-ceph</code> for version 1.0 and newer; for previous
+     versions, the default namespace was <code class="literal">rook-ceph-system</code>).
+    </p><p>
+     Replace <code class="literal">namespace:
+     <em class="replaceable">name-of-namespace-with-mountsecret</em></code>
+     according to the name of all namespaces a <code class="literal">mountSecret</code>
+     can be in.
+    </p><div class="verbatim-wrap"><pre class="screen">kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rook-ceph-agent-mount
+  namespace: <em class="replaceable">name-of-namespace-with-mountsecret</em>
+  labels:
+    operator: rook
+    storage-backend: ceph
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rook-ceph-agent-mount
+subjects:
+- kind: ServiceAccount
+  name: rook-ceph-system
+  namespace: rook-ceph</pre></div></section><section class="sect3" id="clusterrolebinding" data-id-title="Creating the ClusterRoleBinding"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.2.3 </span><span class="title-name">Creating the <code class="literal">ClusterRoleBinding</code></span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#clusterrolebinding">#</a></h4></div></div></div><p>
+     This <code class="literal">ClusterRoleBinding</code> only needs to be created once,
+     as it covers the whole cluster.
+    </p><div class="verbatim-wrap"><pre class="screen">kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rook-ceph-agent-mount
+  labels:
+    operator: rook
+    storage-backend: ceph
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rook-ceph-agent-mount
+subjects:
+- kind: ServiceAccount
+  name: rook-ceph-system
+  namespace: rook-ceph</pre></div></section></section><section class="sect2" id="log-collection" data-id-title="Collecting logs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.3 </span><span class="title-name">Collecting logs</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#log-collection">#</a></h3></div></div></div><p>
+    All Rook logs can be collected in a Kubernetes environment with the following
+    command:
+   </p><div class="verbatim-wrap"><pre class="screen">for p in $(kubectl -n rook-ceph get pods -o jsonpath='{.items[*].metadata.name}')
+do
+  for c in $(kubectl -n rook-ceph get pod ${p} -o jsonpath='{.spec.containers[*].name}')
+  do
+    echo "BEGIN logs from pod: ${p} ${c}"
+    kubectl -n rook-ceph logs -c ${c} ${p}
+    echo "END logs from pod: ${p} ${c}"
+  done
+done</pre></div><p>
+    This gets the logs for every container in every Rook pod, and then
+    compresses them into a <code class="literal">.gz</code> archive for easy sharing.
+    Note that instead of <code class="literal">gzip</code>, you could instead pipe to
+    <code class="command">less</code> or to a single text file.
+   </p></section><section class="sect2" id="osd-information" data-id-title="OSD information"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.4 </span><span class="title-name">OSD information</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#osd-information">#</a></h3></div></div></div><p>
+    Keeping track of OSDs and their underlying storage devices can be
+    difficult. The following scripts will clear things up quickly.
+   </p><section class="sect3" id="kubernetes" data-id-title="Kubernetes"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.4.1 </span><span class="title-name">Kubernetes</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#kubernetes">#</a></h4></div></div></div><div class="verbatim-wrap"><pre class="screen"># Get OSD Pods
+# This uses the example/default cluster name "rook"
+OSD_PODS=$(kubectl get pods --all-namespaces -l \
+app=rook-ceph-osd,rook_cluster=rook-ceph -o jsonpath='{.items[*].metadata.name}')
+
+# Find node and drive associations from OSD pods
+for pod in $(echo ${OSD_PODS})
+do
+  echo "Pod:  ${pod}"
+  echo "Node: $(kubectl -n rook-ceph get pod ${pod} -o jsonpath='{.spec.nodeName}')"
+  kubectl -n rook-ceph exec ${pod} -- sh -c '\
+  for i in /var/lib/ceph/osd/ceph-*; do
+    [ -f ${i}/ready ] || continue
+    echo -ne "-$(basename ${i}) "
+    echo $(lsblk -n -o NAME,SIZE ${i}/block 2&gt; /dev/null || \
+    findmnt -n -v -o SOURCE,SIZE -T ${i}) $(cat ${i}/type)
+  done | sort -V
+  echo'
+done</pre></div><p>
+     The output should look as follows:
+    </p><div class="verbatim-wrap"><pre class="screen">Pod:  osd-m2fz2
+Node: node1.zbrbdl
+-osd0  sda3  557.3G  bluestore
+-osd1  sdf3  110.2G  bluestore
+-osd2  sdd3  277.8G  bluestore
+-osd3  sdb3  557.3G  bluestore
+-osd4  sde3  464.2G  bluestore
+-osd5  sdc3  557.3G  bluestore
+
+Pod:  osd-nxxnq
+Node: node3.zbrbdl
+-osd6   sda3  110.7G  bluestore
+-osd17  sdd3  1.8T    bluestore
+-osd18  sdb3  231.8G  bluestore
+-osd19  sdc3  231.8G  bluestore
+
+Pod:  osd-tww1h
+Node: node2.zbrbdl
+-osd7   sdc3  464.2G  bluestore
+-osd8   sdj3  557.3G  bluestore
+-osd9   sdf3  66.7G   bluestore
+-osd10  sdd3  464.2G  bluestore
+-osd11  sdb3  147.4G  bluestore
+-osd12  sdi3  557.3G  bluestore
+-osd13  sdk3  557.3G  bluestore
+-osd14  sde3  66.7G   bluestore
+-osd15  sda3  110.2G  bluestore
+-osd16  sdh3  135.1G  bluestore</pre></div></section></section><section class="sect2" id="separate-storage-groups" data-id-title="Separate storage groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.5 </span><span class="title-name">Separate storage groups</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#separate-storage-groups">#</a></h3></div></div></div><div id="id-1.7.4.11.3.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     Instead of manually needing to set this, the
+     <code class="literal">deviceClass</code> property can be used on pool structures in
+     <code class="literal">CephBlockPool</code>, <code class="literal">CephFilesystem</code> and
+     <code class="literal">CephObjectStore</code> CRD objects.
+    </p></div><p>
+    By default Rook-Ceph puts all storage under one replication rule in the
+    CRUSH Map which provides the maximum amount of storage capacity for a
+    cluster. If you would like to use different storage endpoints for different
+    purposes, you need to create separate storage groups.
+   </p><p>
+    In the following example we will separate SSD drives from spindle-based
+    drives, a common practice for those looking to target certain workloads
+    onto faster (database) or slower (file archive) storage.
+   </p></section><section class="sect2" id="configuring-pools" data-id-title="Configure pools"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.6 </span><span class="title-name">Configure pools</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#configuring-pools">#</a></h3></div></div></div><section class="sect3" id="placement-group-sizing" data-id-title="Sizing placement groups"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.6.1 </span><span class="title-name">Sizing placement groups</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#placement-group-sizing">#</a></h4></div></div></div><div id="id-1.7.4.11.3.9.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Since Ceph Nautilus (v14.x), you can use the Ceph Manager
+      <code class="literal">pg_autoscaler</code> module to auto-scale the PGs as needed.
+      If you want to enable this feature, refer to
+      <a class="xref" href="admin-caasp-cephconfig.html#default-pg-and-pgp-counts" title="8.1.1.1. Default PG and PGP counts">Section 8.1.1.1, “Default PG and PGP counts”</a>.
+     </p></div><p>
+     The general rules for deciding how many PGs your pool(s) should contain
+     is:
+    </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+       Less than five OSDs: set <code class="option">pg_num</code> to 128.
+      </p></li><li class="listitem"><p>
+       Between 5 and 10 OSDs: set <code class="option">pg_num</code> to 512.
+      </p></li><li class="listitem"><p>
+       Between 10 and 50 OSDs: set <code class="option">pg_num</code> to 1024.
+      </p></li></ul></div><p>
+     If you have more than 50 OSDs, you need to know how to calculate the
+     <code class="option">pg_num</code> value by yourself. For calculating
+     <code class="option">pg_num</code> yourself, please make use of the <span class="emphasis"><em>pgcalc
+     </em></span> tool at <a class="link" href="http://ceph.com/pgcalc/" target="_blank">http://ceph.com/pgcalc/</a>.
+    </p><p>
+     If you are already using a pool, it is generally safe to set
+     <code class="option">pg_count</code> on the fly (see
+     <a class="xref" href="admin-caasp-advanced-config.html#setting-pg-count" title="12.1.6.2. Setting PG count">Section 12.1.6.2, “Setting PG count”</a>). Decreasing the PG count is not
+     recommended on a pool that is in use. The safest way to decrease the PG
+     count is to back up the data, delete the pool, and recreate it.
+    </p></section><section class="sect3" id="setting-pg-count" data-id-title="Setting PG count"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.6.2 </span><span class="title-name">Setting PG count</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#setting-pg-count">#</a></h4></div></div></div><p>
+     Be sure to read the <a class="xref" href="admin-caasp-advanced-config.html#placement-group-sizing" title="12.1.6.1. Sizing placement groups">Section 12.1.6.1, “Sizing placement groups”</a> section
+     before changing the number of PGs.
+    </p><div class="verbatim-wrap"><pre class="screen"># Set the number of PGs in the rbd pool to 512
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set rbd pg_num 512</pre></div></section></section><section class="sect2" id="custom-cephconf-settings" data-id-title="Creating custom ceph.conf settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.7 </span><span class="title-name">Creating custom <code class="filename">ceph.conf</code> settings</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#custom-cephconf-settings">#</a></h3></div></div></div><div id="id-1.7.4.11.3.10.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+     The advised method for controlling Ceph configuration is to manually use
+     the Ceph CLI or the Ceph Dashboard, because this offers the most
+     flexibility. We recommend that this is used only when absolutely
+     necessary, and that the <code class="literal">config</code> is reset to an empty
+     string if or when the configurations are no longer necessary.
+     Configurations in the config file will make the Ceph cluster less
+     configurable from the CLI and Ceph Dashboard and may make future tuning or
+     debugging difficult.
+    </p></div><p>
+    Setting configs via Ceph's CLI requires that at least one MON is
+    available for the configs to be set, and setting configs via Ceph Dashboard
+    requires at least one MGR to be available. Ceph may also have a small
+    number of very advanced settings that are not able to be modified easily
+    via CLI or Ceph Dashboard. In order to set configurations before MONs are
+    available or to set problematic configuration settings, the
+    <code class="literal">rook-config-override</code> ConfigMap exists, and the
+    <code class="literal">config</code> field can be set with the contents of a
+    <code class="filename">ceph.conf</code> file. The contents will be propagated to all
+    MON, MGR, OSD, MDS, and RGW daemons as an
+    <code class="filename">/etc/ceph/ceph.conf</code> file.
+   </p><div id="id-1.7.4.11.3.10.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+     Rook performs no validation on the config, so the validity of the
+     settings is the user's responsibility.
+    </p></div><p>
+    If the <code class="literal">rook-config-override</code> ConfigMap is created before
+    the cluster is started, the Ceph daemons will automatically pick up the
+    settings. If you add the settings to the ConfigMap after the cluster has
+    been initialized, each daemon will need to be restarted where you want the
+    settings applied:
+   </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+      MONs: ensure all three MONs are online and healthy before restarting each
+      mon pod, one at a time.
+     </p></li><li class="listitem"><p>
+      MGRs: the pods are stateless and can be restarted as needed, but note
+      that this will disrupt the Ceph dashboard during restart.
+     </p></li><li class="listitem"><p>
+      OSDs: restart your the pods by deleting them, one at a time, and running
+      <code class="command">ceph -s</code> between each restart to ensure the cluster
+      goes back to <span class="quote">“<span class="quote">active/clean</span>”</span> state.
+     </p></li><li class="listitem"><p>
+      RGW: the pods are stateless and can be restarted as needed.
+     </p></li><li class="listitem"><p>
+      MDS: the pods are stateless and can be restarted as needed.
+     </p></li></ul></div><p>
+    After the pod restart, the new settings should be in effect. Note that if
+    the ConfigMap in the Ceph cluster's namespace is created before the
+    cluster is created, the daemons will pick up the settings at first launch.
+   </p><section class="sect3" id="example" data-id-title="Custom ceph.conf example"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.7.1 </span><span class="title-name">Custom <code class="filename">ceph.conf</code> example</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#example">#</a></h4></div></div></div><p>
+     In this example we will set the default pool <code class="literal">size</code> to
+     two, and tell OSD daemons not to change the weight of OSDs on startup.
+    </p><div id="id-1.7.4.11.3.10.8.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+      Modify Ceph settings carefully. You are leaving the sandbox tested by
+      Rook. Changing the settings could result in unhealthy daemons or even
+      data loss if used incorrectly.
+     </p></div><p>
+     When the Rook Operator creates a cluster, a placeholder ConfigMap is
+     created that will allow you to override Ceph configuration settings.
+     When the daemon pods are started, the settings specified in this ConfigMap
+     will be merged with the default settings generated by Rook.
+    </p><p>
+     The default override settings are blank. Cutting out the extraneous
+     properties, we would see the following defaults after creating a cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get ConfigMap rook-config-override -o yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: rook-config-override
+  namespace: rook-ceph
+data:
+  config: ""</pre></div><p>
+     To apply your desired configuration, you will need to update this
+     ConfigMap. The next time the daemon pod(s) start, they will use the
+     updated configs.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph edit configmap rook-config-override</pre></div><p>
+     Modify the settings and save. Each line you add should be indented from
+     the <code class="literal">config</code> property as such:
+    </p><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rook-config-override
+  namespace: rook-ceph
+data:
+  config: |
+    [global]
+    osd crush update on start = false
+    osd pool default size = 2</pre></div></section></section><section class="sect2" id="osd-crush-settings" data-id-title="OSD CRUSH settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.8 </span><span class="title-name">OSD CRUSH settings</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#osd-crush-settings">#</a></h3></div></div></div><p>
+    A useful view of the CRUSH Map (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”</span>
+    for more details) is generated with the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tree</pre></div><p>
+    In this section we will be tweaking some of the values seen in the output.
+   </p><section class="sect3" id="osd-weight" data-id-title="OSD weight"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.8.1 </span><span class="title-name">OSD weight</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#osd-weight">#</a></h4></div></div></div><p>
+     The CRUSH weight controls the ratio of data that should be distributed to
+     each OSD. This also means a higher or lower amount of disk I/O operations
+     for an OSD with higher or lower weight, respectively.
+    </p><p>
+     By default, OSDs get a weight relative to their storage capacity, which
+     maximizes overall cluster capacity by filling all drives at the same rate,
+     even if drive sizes vary. This should work for most use-cases, but the
+     following situations could warrant weight changes:
+    </p><div class="itemizedlist"><ul class="itemizedlist compact"><li class="listitem"><p>
+       Your cluster has some relatively slow OSDs or nodes. Lowering their
+       weight can reduce the impact of this bottleneck.
+      </p></li><li class="listitem"><p>
+       You are using BlueStore drives provisioned with Rook v0.3.1 or
+       older. In this case, you may notice OSD weights did not get set relative
+       to their storage capacity. Changing the weight can fix this and maximize
+       cluster capacity.
+      </p></li></ul></div><p>
+     This example sets the weight of <code class="literal">osd.0</code> which is
+     600 GiB.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush reweight osd.0 .600</pre></div></section><section class="sect3" id="osd-primary-affinity" data-id-title="OSD primary affinity"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.8.2 </span><span class="title-name">OSD primary affinity</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#osd-primary-affinity">#</a></h4></div></div></div><p>
+     When pools are set with a size setting greater than one, data is
+     replicated between nodes and OSDs. For every chunk of data a Primary OSD
+     is selected to be used for reading that data to be sent to clients. You
+     can control how likely it is for an OSD to become a Primary using the
+     Primary Affinity setting. This is similar to the OSD weight setting,
+     except it only affects reads on the storage device, not capacity or
+     writes.
+    </p><p>
+     In this example, we will make sure <code class="literal">osd.0</code> is only
+     selected as Primary if all other OSDs holding replica data are
+     unavailable:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code> osd primary-affinity osd.0 0</pre></div></section></section><section class="sect2" id="phantom-osd-removal" data-id-title="Removing phantom OSD"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.9 </span><span class="title-name">Removing phantom OSD</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#phantom-osd-removal">#</a></h3></div></div></div><p>
+    If you have OSDs in which are not showing any disks, you can remove those
+    <span class="quote">“<span class="quote">Phantom OSDs</span>”</span> by following the instructions below. To check
+    for <span class="quote">“<span class="quote">Phantom OSDs</span>”</span>, you can run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tree</pre></div><p>
+    An example output looks like this:
+   </p><div class="verbatim-wrap"><pre class="screen">ID  CLASS WEIGHT   TYPE NAME                STATUS REWEIGHT PRI-AFF
+-1        57.38062 root default
+-13        7.17258 host node1.example.com
+2   hdd    3.61859      osd.2               up     1.00000  1.00000
+-7              0  host node2.example.com   down   0        1.00000</pre></div><p>
+    The host <code class="literal">node2.example.com</code> in the output has no disks,
+    so it is most likely a <span class="quote">“<span class="quote">Phantom OSD</span>”</span>.
+   </p><p>
+    Now to remove it, use the ID in the first column of the output and replace
+    <code class="literal">&lt;ID&gt;</code> with it. In the example output above the ID
+    would be <code class="literal">-7</code>. The commands are:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd out <em class="replaceable">ID</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd crush remove osd.<em class="replaceable">ID</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph auth del osd.<em class="replaceable">ID</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd rm <em class="replaceable">ID</em></pre></div><p>
+    To recheck that the phantom OSD was removed, re-run the following command
+    and check if the OSD with the ID does not show up anymore:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph osd tree</pre></div></section><section class="sect2" id="change-failure-domain" data-id-title="Changing the failure domain"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.10 </span><span class="title-name">Changing the failure domain</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#change-failure-domain">#</a></h3></div></div></div><p>
+    In Rook, it is now possible to indicate how the default CRUSH failure
+    domain rule must be configured in order to ensure that replicas or erasure
+    code shards are separated across hosts, and a single host failure does not
+    affect availability. For instance, this is an example manifest of a block
+    pool named <code class="literal">replicapool</code> configured with a
+    <code class="literal">failureDomain</code> set to <code class="literal">osd</code>:
+   </p><div class="verbatim-wrap"><pre class="screen">apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: replicapool
+  namespace: rook
+spec:
+  # The failure domain will spread the replicas of the data across different failure zones
+  failureDomain: osd
+[...]</pre></div><p>
+    However, due to several reasons, we may need to change such failure domain
+    to its other value: <code class="literal">host</code>. Unfortunately, changing it
+    directly in the YAML manifest is not currently handled by Rook, so we
+    need to perform the change directly using Ceph commands using the Rook
+    tools pod, for instance:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool get replicapool crush_rule
+crush_rule: replicapool
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd crush rule create-replicated replicapool_host_rule default host</pre></div><p>
+    Notice that the suffix <code class="literal">host_rule</code> in the name of the rule
+    is just for clearness about the type of rule we are creating here, and can
+    be anything else as long as it is different from the existing one. Once the
+    new rule has been created, we simply apply it to our block pool:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set replicapool crush_rule replicapool_host_rule</pre></div><p>
+    And validate that it has been actually applied properly:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool get replicapool crush_rule
+crush_rule: replicapool_host_rule</pre></div><p>
+    If the cluster's health was <code class="literal">HEALTH_OK</code> when we performed
+    this change, immediately, the new rule is applied to the cluster
+    transparently without service disruption.
+   </p><p>
+    Exactly the same approach can be used to change from
+    <code class="literal">host</code> back to <code class="literal">osd</code>.
+   </p></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="admin-caasp-ceph-examples.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 11 </span>Ceph examples</span></a> </div><div><a class="pagination-link next" href="admin-caasp-object-storage.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 13 </span>Object Storage</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="admin-caasp-advanced-config.html#advanced-configuration"><span class="title-number">12.1 </span><span class="title-name">Performing advanced configuration tasks</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_caasp_advanced_config.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

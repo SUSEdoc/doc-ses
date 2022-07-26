@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Managing Users and Roles on the Command Line | Administration Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Managing Users and Roles on the Command Line | SES 6"/>
+<meta name="description" content="This section describes how to manage user accounts used by the Ceph Dashboard. It helps you create or modify user accounts, as well as set proper user roles an…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Chapter 14. Managing Users and Roles on the Command Line"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Managing Users and Roles on the Command Line | SES 6"/>
+<meta property="og:description" content="This section describes how to manage user accounts used by the Ceph Dashboard. It helps you create or modify user accounts, as well as set proper user roles an…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Managing Users and Roles on the Command Line | SES 6"/>
+<meta name="twitter:description" content="This section describes how to manage user accounts used by the Ceph Dashboard. It helps you create or modify user accounts, as well as set proper user roles an…"/>
+<link rel="prev" href="dashboard-initial-configuration.html" title="Chapter 13. Manual Configuration"/><link rel="next" href="part-operate.html" title="Part III. Operating a Cluster"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="part-dashboard.html">Ceph Dashboard</a><span> / </span><a class="crumb" href="dashboard-user-roles.html">Managing Users and Roles on the Command Line</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-cluster-managment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="bk01pt01ch01.html" class=" "><span class="title-number">1 </span><span class="title-name">User Privileges and Command Prompts</span></a></li><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">2 </span><span class="title-name">Salt Cluster Administration</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">3 </span><span class="title-name">Backing Up Cluster Configuration and Data</span></a></li></ol></li><li class="active"><a href="part-dashboard.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Ceph Dashboard</span></a><ol><li><a href="dashboard-about.html" class=" "><span class="title-number">4 </span><span class="title-name">About Ceph Dashboard</span></a></li><li><a href="dashboard-webui-general.html" class=" "><span class="title-number">5 </span><span class="title-name">Dashboard's Web User Interface</span></a></li><li><a href="dashboard-user-mgmt.html" class=" "><span class="title-number">6 </span><span class="title-name">Managing Dashboard Users and Roles</span></a></li><li><a href="dashboard-cluster.html" class=" "><span class="title-number">7 </span><span class="title-name">Viewing Cluster Internals</span></a></li><li><a href="dashboard-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Pools</span></a></li><li><a href="dashboard-rbds.html" class=" "><span class="title-number">9 </span><span class="title-name">Managing RADOS Block Devices</span></a></li><li><a href="dash-webui-nfs.html" class=" "><span class="title-number">10 </span><span class="title-name">Managing NFS Ganesha</span></a></li><li><a href="dashboard-mds.html" class=" "><span class="title-number">11 </span><span class="title-name">Managing Ceph File Systems</span></a></li><li><a href="dashboard-ogw.html" class=" "><span class="title-number">12 </span><span class="title-name">Managing Object Gateways</span></a></li><li><a href="dashboard-initial-configuration.html" class=" "><span class="title-number">13 </span><span class="title-name">Manual Configuration</span></a></li><li><a href="dashboard-user-roles.html" class=" you-are-here"><span class="title-number">14 </span><span class="title-name">Managing Users and Roles on the Command Line</span></a></li></ol></li><li><a href="part-operate.html" class="has-children "><span class="title-number">III </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">15 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" "><span class="title-number">16 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">17 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">18 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">19 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">20 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="cha-mgr-modules.html" class=" "><span class="title-number">21 </span><span class="title-name">Ceph Manager Modules</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">22 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">23 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">24 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">25 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li><a href="part-dataccess.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">26 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">27 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">28 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">29 </span><span class="title-name">Exporting Ceph Data via Samba</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">30 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">31 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">32 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li><a href="part-troubleshooting.html" class="has-children "><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" "><span class="title-number">33 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">34 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">35 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="bk01apb.html" class=" "><span class="title-number">B </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk01go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">C </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="dashboard-user-roles" data-id-title="Managing Users and Roles on the Command Line"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h2 class="title"><span class="title-number">14 </span><span class="title-name">Managing Users and Roles on the Command Line</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#">#</a></h2></div></div></div><p>
+  This section describes how to manage user accounts used by the Ceph Dashboard.
+  It helps you create or modify user accounts, as well as set proper user roles
+  and permissions.
+ </p><section class="sect1" id="dashboard-user-accounts" data-id-title="User Accounts"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">14.1 </span><span class="title-name">User Accounts</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#dashboard-user-accounts">#</a></h2></div></div></div><p>
+   The Ceph Dashboard supports managing multiple user accounts. Each user account
+   consists of a user name, a password (stored in encrypted form using
+   <code class="literal">bcrypt</code>), an optional name, and an optional e-mail
+   address.
+  </p><p>
+   User accounts are stored in Ceph Monitor’s configuration database and are
+   globally shared across all Ceph Manager instances.
+  </p><p>
+   Use the following commands to manage user accounts:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.12.4.5.1"><span class="term">Show existing users:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-show [<em class="replaceable">USERNAME</em>]</pre></div></dd><dt id="id-1.3.4.12.4.5.2"><span class="term">Create a new user:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-create <em class="replaceable">USERNAME</em> [<em class="replaceable">PASSWORD</em>] [<em class="replaceable">ROLENAME</em>] [<em class="replaceable">NAME</em>] [<em class="replaceable">EMAIL</em>]</pre></div></dd><dt id="id-1.3.4.12.4.5.3"><span class="term">Delete a user:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-delete <em class="replaceable">USERNAME</em></pre></div></dd><dt id="id-1.3.4.12.4.5.4"><span class="term">Change a user's password:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-set-password <em class="replaceable">USERNAME</em> <em class="replaceable">PASSWORD</em></pre></div></dd><dt id="id-1.3.4.12.4.5.5"><span class="term">Modify a user's name and email:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-set-info <em class="replaceable">USERNAME</em> <em class="replaceable">NAME</em> <em class="replaceable">EMAIL</em></pre></div></dd></dl></div></section><section class="sect1" id="dashboard-permissions" data-id-title="User Roles and Permissions"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">14.2 </span><span class="title-name">User Roles and Permissions</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#dashboard-permissions">#</a></h2></div></div></div><p>
+   This section describes what security scopes you can assign to a user role,
+   how to manage user roles and assign them to user accounts.
+  </p><section class="sect2" id="id-1.3.4.12.5.3" data-id-title="Security Scopes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">14.2.1 </span><span class="title-name">Security Scopes</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#id-1.3.4.12.5.3">#</a></h3></div></div></div><p>
+    User accounts are associated with a set of roles that define which parts of
+    the dashboard can be accessed by the user. The dashboard parts are grouped
+    within a <span class="emphasis"><em>security</em></span> scope. Security scopes are
+    predefined and static. The following security scopes are currently
+    available:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.12.5.3.3.1"><span class="term">hosts</span></dt><dd><p>
+       Includes all features related to the <span class="guimenu">Hosts</span> menu
+       entry.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.2"><span class="term">config-opt</span></dt><dd><p>
+       Includes all features related to the management of Ceph configuration
+       options.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.3"><span class="term">pool</span></dt><dd><p>
+       Includes all features related to pool management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.4"><span class="term">osd</span></dt><dd><p>
+       Includes all features related to the Ceph OSD management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.5"><span class="term">monitor</span></dt><dd><p>
+       Includes all features related to the Ceph Monitor management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.6"><span class="term">rbd-image</span></dt><dd><p>
+       Includes all features related to the RADOS Block Device image management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.7"><span class="term">rbd-mirroring</span></dt><dd><p>
+       Includes all features related to the RADOS Block Device mirroring management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.8"><span class="term">iscsi</span></dt><dd><p>
+       Includes all features related to iSCSI management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.9"><span class="term">rgw</span></dt><dd><p>
+       Includes all features related to the Object Gateway management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.10"><span class="term">cephfs</span></dt><dd><p>
+       Includes all features related to CephFS management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.11"><span class="term">manager</span></dt><dd><p>
+       Includes all features related to the Ceph Manager management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.12"><span class="term">log</span></dt><dd><p>
+       Includes all features related to Ceph logs management.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.13"><span class="term">grafana</span></dt><dd><p>
+       Includes all features related to the Grafana proxy.
+      </p></dd><dt id="id-1.3.4.12.5.3.3.14"><span class="term">dashboard-settings</span></dt><dd><p>
+       Allows changing dashboard settings.
+      </p></dd></dl></div></section><section class="sect2" id="id-1.3.4.12.5.4" data-id-title="User Roles"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">14.2.2 </span><span class="title-name">User Roles</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#id-1.3.4.12.5.4">#</a></h3></div></div></div><p>
+    A <span class="emphasis"><em>role</em></span> specifies a set of mappings between a
+    <span class="emphasis"><em>security scope</em></span> and a set of
+    <span class="emphasis"><em>permissions</em></span>. There are four types of permissions:
+    'read', 'create', 'update', and 'delete'.
+   </p><p>
+    The following example specifies a role where a user has 'read' and 'create'
+    permissions for features related to pool management, and has full
+    permissions for features related to RBD image management:
+   </p><div class="verbatim-wrap"><pre class="screen">{
+  'role': 'my_new_role',
+  'description': 'My new role',
+  'scopes_permissions': {
+    'pool': ['read', 'create'],
+    'rbd-image': ['read', 'create', 'update', 'delete']
+  }
+}</pre></div><p>
+    The dashboard already provides a set of predefined roles that we call
+    <span class="emphasis"><em>system roles</em></span>. You can instantly use them after a fresh
+    Ceph Dashboard installation:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.12.5.4.6.1"><span class="term">administrator</span></dt><dd><p>
+       Provides full permissions for all security scopes.
+      </p></dd><dt id="id-1.3.4.12.5.4.6.2"><span class="term">read-only</span></dt><dd><p>
+       Provides read permission for all security scopes except the dashboard
+       settings.
+      </p></dd><dt id="id-1.3.4.12.5.4.6.3"><span class="term">block-manager</span></dt><dd><p>
+       Provides full permissions for 'rbd-image', 'rbd-mirroring', and 'iscsi'
+       scopes.
+      </p></dd><dt id="id-1.3.4.12.5.4.6.4"><span class="term">rgw-manager</span></dt><dd><p>
+       Provides full permissions for the 'rgw' scope.
+      </p></dd><dt id="id-1.3.4.12.5.4.6.5"><span class="term">cluster-manager</span></dt><dd><p>
+       Provides full permissions for the 'hosts', 'osd', 'monitor', 'manager',
+       and 'config-opt' scopes.
+      </p></dd><dt id="id-1.3.4.12.5.4.6.6"><span class="term">pool-manager</span></dt><dd><p>
+       Provides full permissions for the 'pool' scope.
+      </p></dd><dt id="id-1.3.4.12.5.4.6.7"><span class="term">cephfs-manager</span></dt><dd><p>
+       Provides full permissions for the 'cephfs' scope.
+      </p></dd></dl></div><section class="sect3" id="id-1.3.4.12.5.4.7" data-id-title="Managing Custom Roles"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">14.2.2.1 </span><span class="title-name">Managing Custom Roles</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#id-1.3.4.12.5.4.7">#</a></h4></div></div></div><p>
+     You can create new user roles by using the following commands:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.12.5.4.7.3.1"><span class="term">Create a new role:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-role-create <em class="replaceable">ROLENAME</em> [<em class="replaceable">DESCRIPTION</em>]</pre></div></dd><dt id="id-1.3.4.12.5.4.7.3.2"><span class="term">Delete a role:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-role-delete <em class="replaceable">ROLENAME</em></pre></div></dd><dt id="id-1.3.4.12.5.4.7.3.3"><span class="term">Add scope permissions to a role:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-role-add-scope-perms <em class="replaceable">ROLENAME</em> <em class="replaceable">SCOPENAME</em> <em class="replaceable">PERMISSION</em> [<em class="replaceable">PERMISSION</em>...]</pre></div></dd><dt id="id-1.3.4.12.5.4.7.3.4"><span class="term">Delete scope permissions from a role:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-role-del-perms <em class="replaceable">ROLENAME</em> <em class="replaceable">SCOPENAME</em></pre></div></dd></dl></div></section><section class="sect3" id="id-1.3.4.12.5.4.8" data-id-title="Assigning Roles to User Accounts"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">14.2.2.2 </span><span class="title-name">Assigning Roles to User Accounts</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#id-1.3.4.12.5.4.8">#</a></h4></div></div></div><p>
+     Use the following commands to assign roles to users:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.12.5.4.8.3.1"><span class="term">Set user roles:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-set-roles <em class="replaceable">USERNAME</em> <em class="replaceable">ROLENAME</em> [<em class="replaceable">ROLENAME</em> ...]</pre></div></dd><dt id="id-1.3.4.12.5.4.8.3.2"><span class="term">Add additional roles to a user:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-add-roles <em class="replaceable">USERNAME</em> <em class="replaceable">ROLENAME</em> [<em class="replaceable">ROLENAME</em> ...]</pre></div></dd><dt id="id-1.3.4.12.5.4.8.3.3"><span class="term">Delete roles from a user:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-del-roles <em class="replaceable">USERNAME</em> <em class="replaceable">ROLENAME</em> [<em class="replaceable">ROLENAME</em> ...]</pre></div></dd></dl></div><div id="id-1.3.4.12.5.4.8.4" data-id-title="Purging Custom Roles" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Purging Custom Roles</h6><p>
+      If you create custom user roles and intend to remove the Ceph cluster
+      with the <code class="command">ceph.purge</code> runner later on, you need to purge
+      the custom roles first. Find more details in
+      <a class="xref" href="storage-salt-cluster.html#deepsea-ceph-purge" title="2.17. Removing an Entire Ceph Cluster">Section 2.17, “Removing an Entire Ceph Cluster”</a>.
+     </p></div></section><section class="sect3" id="id-1.3.4.12.5.4.9" data-id-title="Example: Creating a User and a Custom Role"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">14.2.2.3 </span><span class="title-name">Example: Creating a User and a Custom Role</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#id-1.3.4.12.5.4.9">#</a></h4></div></div></div><p>
+     This section illustrates a procedure for creating a user account capable
+     of managing RBD images, viewing and creating Ceph pools, and having
+     read-only access to any other scopes.
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Create a new user named 'tux':
+      </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-create tux <em class="replaceable">PASSWORD</em></pre></div></li><li class="step"><p>
+       Create a role and specify scope permissions:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-role-create rbd/pool-manager
+<code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-role-add-scope-perms rbd/pool-manager \
+ rbd-image read create update delete
+<code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-role-add-scope-perms rbd/pool-manager pool read create</pre></div></li><li class="step"><p>
+       Associate the roles with the 'tux' user:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard ac-user-set-roles tux rbd/pool-manager read-only</pre></div></li></ol></div></div></section></section></section><section class="sect1" id="dashboard-proxy" data-id-title="Reverse Proxies"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">14.3 </span><span class="title-name">Reverse Proxies</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#dashboard-proxy">#</a></h2></div></div></div><p>
+   If you are accessing the dashboard via a reverse proxy configuration, you
+   may need to service it under a URL prefix. To get the dashboard to use
+   hyperlinks that include your prefix, you can set the
+   <code class="option">url_prefix</code> setting:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/dashboard/url_prefix <em class="replaceable">URL_PREFIX</em></pre></div><p>
+   Then you can access the dashboard at
+   <code class="literal">http://<em class="replaceable">HOST_NAME</em>:<em class="replaceable">PORT_NUMBER</em>/<em class="replaceable">URL_PREFIX</em>/</code>.
+  </p></section><section class="sect1" id="dashboard-auditing" data-id-title="Auditing"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">14.4 </span><span class="title-name">Auditing</span> <a title="Permalink" class="permalink" href="dashboard-user-roles.html#dashboard-auditing">#</a></h2></div></div></div><p>
+   The Ceph Dashboard's REST API can log PUT, POST, and DELETE requests to the
+   Ceph audit log. Logging is disabled by default, but you can enable it with
+   the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard set-audit-api-enabled true</pre></div><p>
+   If enabled, the following parameters are logged per each request:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.12.7.5.1"><span class="term">from</span></dt><dd><p>
+      The origin of the request, for example 'https://[::1]:44410'.
+     </p></dd><dt id="id-1.3.4.12.7.5.2"><span class="term">path</span></dt><dd><p>
+      The REST API path, for example '/api/auth'.
+     </p></dd><dt id="id-1.3.4.12.7.5.3"><span class="term">method</span></dt><dd><p>
+      'PUT', 'POST', or 'DELETE'.
+     </p></dd><dt id="id-1.3.4.12.7.5.4"><span class="term">user</span></dt><dd><p>
+      The name of the user (or ‘None’).
+     </p></dd></dl></div><p>
+   An example log entry looks like this:
+  </p><div class="verbatim-wrap"><pre class="screen">2019-02-06 10:33:01.302514 mgr.x [INF] [DASHBOARD] \
+ from='https://[::ffff:127.0.0.1]:37022' path='/api/rgw/user/exu' method='PUT' \
+ user='admin' params='{"max_buckets": "1000", "display_name": "Example User", "uid": "exu", "suspended": "0", "email": "user@example.com"}'</pre></div><div id="id-1.3.4.12.7.8" data-id-title="Disable Logging of Request Payload" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Disable Logging of Request Payload</h6><p>
+    The logging of the request payload (the list of arguments and their values)
+    is enabled by default. You can disable it as follows:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph dashboard set-audit-api-log-payload false</pre></div></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="dashboard-initial-configuration.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 13 </span>Manual Configuration</span></a> </div><div><a class="pagination-link next" href="part-operate.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Part III </span>Operating a Cluster</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="dashboard-user-roles.html#dashboard-user-accounts"><span class="title-number">14.1 </span><span class="title-name">User Accounts</span></a></span></li><li><span class="sect1"><a href="dashboard-user-roles.html#dashboard-permissions"><span class="title-number">14.2 </span><span class="title-name">User Roles and Permissions</span></a></span></li><li><span class="sect1"><a href="dashboard-user-roles.html#dashboard-proxy"><span class="title-number">14.3 </span><span class="title-name">Reverse Proxies</span></a></span></li><li><span class="sect1"><a href="dashboard-user-roles.html#dashboard-auditing"><span class="title-number">14.4 </span><span class="title-name">Auditing</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/dashboard_user_cmdline.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

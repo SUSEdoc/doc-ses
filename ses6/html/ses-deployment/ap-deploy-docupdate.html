@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Documentation Updates | Deployment Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Documentation Updates | SES 6"/>
+<meta name="description" content="This chapter lists content changes for this document since the release of the latest maintenance update of SUSE Enterprise Storage 5. You can find changes rela…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Appendix B. Documentation Updates"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Documentation Updates | SES 6"/>
+<meta property="og:description" content="This chapter lists content changes for this document since the release of the latest maintenance update of SUSE Enterprise Storage 5. You can find changes rela…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Documentation Updates | SES 6"/>
+<meta name="twitter:description" content="This chapter lists content changes for this document since the release of the latest maintenance update of SUSE Enterprise Storage 5. You can find changes rela…"/>
+<link rel="prev" href="bk02go01.html" title="Glossary"/><link rel="next" href="book-storage-tuning.html" title="Tuning Guide"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="ap-deploy-docupdate.html">Documentation Updates</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 6 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Admin Node HA Setup</span></a></li><li><a href="bk02pt01ch04.html" class=" "><span class="title-number">4 </span><span class="title-name">User Privileges and Command Prompts</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">5 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">6 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li><a href="additional-software.html" class="has-children "><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li></ol></li><li><a href="containerized-ses-on-caasp.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Cluster Deployment on Top of SUSE CaaS Platform 4 (Technology Preview)</span></a><ol><li><a href="cha-container-kubernetes.html" class=" "><span class="title-number">13 </span><span class="title-name">SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster</span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="ap-deploy-docupdate.html" class=" you-are-here"><span class="title-number">B </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="appendix" id="ap-deploy-docupdate" data-id-title="Documentation Updates"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h1 class="title"><span class="title-number">B </span><span class="title-name">Documentation Updates</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#">#</a></h1></div></div></div><p>
+  This chapter lists content changes for this document since the release of the
+  latest maintenance update of SUSE Enterprise Storage 5. You can find changes related to
+  the cluster deployment that apply to previous versions in
+  <a class="link" href="https://documentation.suse.com/ses/5.5/html/ses-all/ap-deploy-docupdate.html" target="_blank">https://documentation.suse.com/ses/5.5/html/ses-all/ap-deploy-docupdate.html</a>.
+ </p><p>
+  The document was updated on the following dates:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <a class="xref" href="ap-deploy-docupdate.html#sec-depl-docupdates-6mu" title="B.1. Maintenance update of SUSE Enterprise Storage 6 documentation">Section B.1, “Maintenance update of SUSE Enterprise Storage 6 documentation”</a>
+   </p></li><li class="listitem"><p>
+    <a class="xref" href="ap-deploy-docupdate.html#sec-depl-docupdates-6" title="B.2. June 2019 (Release of SUSE Enterprise Storage 6)">Section B.2, “June 2019 (Release of SUSE Enterprise Storage 6)”</a>
+   </p></li></ul></div><section class="sect1" id="sec-depl-docupdates-6mu" data-id-title="Maintenance update of SUSE Enterprise Storage 6 documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">B.1 </span><span class="title-name">Maintenance update of SUSE Enterprise Storage 6 documentation</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#sec-depl-docupdates-6mu">#</a></h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Added a list of new features for Ceph 14.2.5 in the 'Ceph Maintenance
+     Updates Based on Upstream 'Nautilus' Point Releases' appendix.
+    </p></li><li class="listitem"><p>
+     Suggested running <code class="command">rpmconfigcheck</code> to prevent losing
+     local changes in <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>
+     (<a class="link" href="https://jira.suse.com/browse/SES-348" target="_blank">https://jira.suse.com/browse/SES-348</a>).
+    </p></li><li class="listitem"><p>
+     Added <span class="intraxref">Book “Tuning Guide”, Chapter 8 “Improving Performance with LVM cache”</span>
+     (<a class="link" href="https://jira.suse.com/browse/SES-269" target="_blank">https://jira.suse.com/browse/SES-269</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-container-kubernetes.html" title="Chapter 13. SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster">Chapter 13, <em>SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster</em></a>
+     (<a class="link" href="https://jira.suse.com/browse/SES-720" target="_blank">https://jira.suse.com/browse/SES-720</a>).
+    </p></li><li class="listitem"><p>
+     Added a tip on monitoring cluster nodes' status during upgrade in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-adm" title="6.6. Upgrade the Admin Node">Section 6.6, “Upgrade the Admin Node”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1154568" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1154568</a>).
+    </p></li><li class="listitem"><p>
+     Made the network recommendations synchronized and more specific in
+     <a class="xref" href="storage-bp-hwreq.html#ceph-install-ceph-deploy-network" title="2.1.1. Network Recommendations">Section 2.1.1, “Network Recommendations”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1156631" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1156631</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node-auto" title="6.5.2. Node Upgrade Using the SUSE Distribution Migration System">Section 6.5.2, “Node Upgrade Using the SUSE Distribution Migration System”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1154438" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1154438</a>).
+    </p></li><li class="listitem"><p>
+     Made the upgrade chapter sequential, <a class="xref" href="cha-ceph-upgrade.html" title="Chapter 6. Upgrading from Previous Releases">Chapter 6, <em>Upgrading from Previous Releases</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1144709" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1144709</a>).
+    </p></li><li class="listitem"><p>
+     Added changelog entry for Ceph 14.2.4
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1151881" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1151881</a>).
+    </p></li><li class="listitem"><p>
+     Unified the pool name 'cephfs_metadata' in examples in
+     <a class="xref" href="cha-as-ganesha.html" title="Chapter 12. Installation of NFS Ganesha">Chapter 12, <em>Installation of NFS Ganesha</em></a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1148548" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1148548</a>).
+    </p></li><li class="listitem"><p>
+     Updated <a class="xref" href="ceph-install-saltstack.html#ds-drive-groups-specs" title="5.5.2.1. Specification">Section 5.5.2.1, “Specification”</a> to include more realistic
+     values
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1148216" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1148216</a>).
+    </p></li><li class="listitem"><p>
+     Added two new repositories for 'Module-Desktop' as our customers use
+     mostly GUI in <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node-manual" title="6.5.1. Manual Node Upgrade Using the Installer DVD">Section 6.5.1, “Manual Node Upgrade Using the Installer DVD”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1144897" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1144897</a>).
+    </p></li><li class="listitem"><p>
+     <span class="package">deepsea-cli</span> is not a dependency of
+     <span class="package">deepsea</span> in <a class="xref" href="ceph-install-saltstack.html#deepsea-cli" title="5.4. DeepSea CLI">Section 5.4, “DeepSea CLI”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1143602" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1143602</a>).
+    </p></li><li class="listitem"><p>
+     Added a hint to migrate <code class="systemitem">ntpd</code> to
+     <code class="systemitem">chronyd</code> in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-ntp" title="6.2.9. Migrate from ntpd to chronyd">Section 6.2.9, “Migrate from <code class="systemitem">ntpd</code> to <code class="systemitem">chronyd</code>”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1135185" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1135185</a>).
+    </p></li><li class="listitem"><p>
+     Added <span class="intraxref">Book “Administration Guide”, Chapter 2 “Salt Cluster Administration”, Section 2.16 “Deactivating Tuned Profiles”</span>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1130430" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1130430</a>).
+    </p></li><li class="listitem"><p>
+     Consider migrating whole OSD node in
+     <a class="xref" href="cha-ceph-upgrade.html#upgrade-osd-deployment" title="6.13.3. OSD Deployment">Section 6.13.3, “OSD Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1138691" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1138691</a>).
+    </p></li><li class="listitem"><p>
+     Added a point about migrating MDS names in
+     <a class="xref" href="cha-ceph-upgrade.html#before-upgrade-mds-names" title="6.2.6. Verify MDS Names">Section 6.2.6, “Verify MDS Names”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1138804" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1138804</a>).
+    </p></li></ul></div></section><section class="sect1" id="sec-depl-docupdates-6" data-id-title="June 2019 (Release of SUSE Enterprise Storage 6)"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">B.2 </span><span class="title-name">June 2019 (Release of SUSE Enterprise Storage 6)</span> <a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#sec-depl-docupdates-6">#</a></h2></div></div></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">General Updates </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.9.7.2">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Added <a class="xref" href="ceph-install-saltstack.html#ds-drive-groups" title="5.5.2. DriveGroups">Section 5.5.2, “DriveGroups”</a> (jsc#SES-548).
+    </p></li><li class="listitem"><p>
+     Rewrote <a class="xref" href="cha-ceph-upgrade.html" title="Chapter 6. Upgrading from Previous Releases">Chapter 6, <em>Upgrading from Previous Releases</em></a> (jsc#SES-88).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="ceph-deploy-ds-custom.html#ds-modify-ipv6" title="7.2.1. Enabling IPv6 for Ceph Cluster Deployment">Section 7.2.1, “Enabling IPv6 for Ceph Cluster Deployment”</a> (jsc#SES-409).
+    </p></li><li class="listitem"><p>
+     Made Block Storage the default storage back-end (Fate#325658).
+    </p></li><li class="listitem"><p>
+     Removed all references to external online documentation, replaced with the
+     relevant content (Fate#320121).
+    </p></li></ul></div><div class="itemizedlist"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">Bugfixes </span><a title="Permalink" class="permalink" href="ap-deploy-docupdate.html#id-1.4.9.7.3">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     Added information about AppArmor during upgrade in
+     <a class="xref" href="cha-ceph-upgrade.html#before-upgrade-apparmor" title="6.2.5. Adjust AppArmor">Section 6.2.5, “Adjust AppArmor”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1137945" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1137945</a>).
+    </p></li><li class="listitem"><p>
+     Added a tip about orphaned packages in <a class="xref" href="cha-ceph-upgrade.html#upgrade-one-node" title="6.5. Per-Node Upgrade Instructions">Section 6.5, “Per-Node Upgrade Instructions”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1136624" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1136624</a>).
+    </p></li><li class="listitem"><p>
+     Updated <code class="filename">profile-*</code> with
+     <code class="filename">role-storage</code> in <a class="xref" href="ceph-install-saltstack.html#dev-env" title="Tip: Deploying Monitor Nodes without Defining OSD Profiles">Tip: Deploying Monitor Nodes without Defining OSD Profiles</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1138181" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1138181</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#upgrade-drive-groups" title="6.13. Migration from Profile-based Deployments to DriveGroups">Section 6.13, “Migration from Profile-based Deployments to DriveGroups”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1135340" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1135340</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#upgrade-drive-groups" title="6.13. Migration from Profile-based Deployments to DriveGroups">Section 6.13, “Migration from Profile-based Deployments to DriveGroups”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1135340" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1135340</a>).
+    </p></li><li class="listitem"><p>
+     Added <a class="xref" href="cha-ceph-upgrade.html#upgrade-mds" title="6.8. Upgrade Metadata Servers">Section 6.8, “Upgrade Metadata Servers”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1135064" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1135064</a>).
+    </p></li><li class="listitem"><p>
+     MDS cluster needs to be shrunk in <a class="xref" href="cha-ceph-upgrade.html#upgrade-mds" title="6.8. Upgrade Metadata Servers">Section 6.8, “Upgrade Metadata Servers”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1134826" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1134826</a>).
+    </p></li><li class="listitem"><p>
+     Changed configuration file to
+     <code class="filename">/srv/pillar/ceph/stack/global.yml</code>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1129191" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1129191</a>).
+    </p></li><li class="listitem"><p>
+     Updated various parts of <span class="intraxref">Book “Administration Guide”, Chapter 29 “Exporting Ceph Data via Samba”</span>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1101478" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1101478</a>).
+    </p></li><li class="listitem"><p>
+     <code class="filename">master_minion.sls</code> is gone in
+     <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="5.3. Cluster Deployment">Section 5.3, “Cluster Deployment”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1090921" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1090921</a>).
+    </p></li><li class="listitem"><p>
+     Mentioned the <span class="package">deepsea-cli</span> package in
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-cli" title="5.4. DeepSea CLI">Section 5.4, “DeepSea CLI”</a>
+     (<a class="link" href="https://bugzilla.suse.com/show_bug.cgi?id=1087454" target="_blank">https://bugzilla.suse.com/show_bug.cgi?id=1087454</a>).
+    </p></li></ul></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bk02go01.html"><span class="pagination-relation">Previous</span><span class="pagination-label">Glossary</span></a> </div><div> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="ap-deploy-docupdate.html#sec-depl-docupdates-6mu"><span class="title-number">B.1 </span><span class="title-name">Maintenance update of SUSE Enterprise Storage 6 documentation</span></a></span></li><li><span class="sect1"><a href="ap-deploy-docupdate.html#sec-depl-docupdates-6"><span class="title-number">B.2 </span><span class="title-name">June 2019 (Release of SUSE Enterprise Storage 6)</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_docupdates.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

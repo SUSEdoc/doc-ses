@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Installation of NFS Ganesha | Deployment Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Installation of NFS Ganesha | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="NFS Ganesha provides NFS access to either the Object Gateway or the CephFS. In SUSE Enterprise Storage 5.5, NFS versions 3 and 4 are supported. NFS Ganesha run…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 12. Installation of NFS Ganesha"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Installation of NFS Ganesha | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="NFS Ganesha provides NFS access to either the Object Gateway or the CephFS. In SUSE Enterprise Storage 5.5, NFS versions 3 and 4 are supported. NFS Ganesha run…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Installation of NFS Ganesha | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="NFS Ganesha provides NFS access to either the Object Gateway or the CephFS. In SUSE Enterprise Storage 5.5, NFS versions 3 and 4 are supported. NFS Ganesha run…"/>
+<link rel="prev" href="cha-ceph-as-cephfs.html" title="Chapter 11. Installation of CephFS"/><link rel="next" href="cha-ses-cifs.html" title="Chapter 13. Exporting Ceph Data via Samba"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="additional-software.html">Installation of Additional Services</a><span> / </span><a class="crumb" href="cha-as-ganesha.html">Installation of NFS Ganesha</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 5.5 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Ceph Admin Node HA Setup</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">4 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">5 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">6 </span><span class="title-name">Backing Up the Cluster Configuration</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li class="active"><a href="additional-software.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" you-are-here"><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">13 </span><span class="title-name">Exporting Ceph Data via Samba</span></a></li></ol></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">A </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-as-ganesha" data-id-title="Installation of NFS Ganesha"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#">#</a></h2></div></div></div><p>
+  NFS Ganesha provides NFS access to either the Object Gateway or the CephFS. In
+  SUSE Enterprise Storage 5.5, NFS versions 3 and 4 are supported. NFS Ganesha runs in the
+  user space instead of the kernel space and directly interacts with the Object Gateway
+  or CephFS.
+ </p><div id="id-1.4.5.6.4" data-id-title="Cross Protocol Access" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Cross Protocol Access</h6><p>
+   Native CephFS and NFS clients are not restricted by file locks obtained
+   via Samba, and vice-versa. Applications that rely on cross protocol file
+   locking may experience data corruption if CephFS backed Samba share paths
+   are accessed via other means.
+  </p></div><section class="sect1" id="sec-as-ganesha-preparation" data-id-title="Preparation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.1 </span><span class="title-name">Preparation</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-preparation">#</a></h2></div></div></div><section class="sect2" id="sec-as-ganesha-preparation-general" data-id-title="General Information"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.1 </span><span class="title-name">General Information</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-preparation-general">#</a></h3></div></div></div><p>
+    To successfully deploy NFS Ganesha, you need to add a
+    <code class="literal">role-ganesha</code> to your
+    <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code>. For details,
+    see <a class="xref" href="ceph-install-saltstack.html#policy-configuration" title="4.5.1. The policy.cfg File">Section 4.5.1, “The <code class="filename">policy.cfg</code> File”</a>. NFS Ganesha also needs either a
+    <code class="literal">role-rgw</code> or a <code class="literal">role-mds</code> present in the
+    <code class="filename">policy.cfg</code>.
+   </p><p>
+    Although it is possible to install and run the NFS Ganesha server on an
+    already existing Ceph node, we recommend running it on a dedicated host
+    with access to the Ceph cluster. The client hosts are typically not part
+    of the cluster, but they need to have network access to the NFS Ganesha
+    server.
+   </p><p>
+    To enable the NFS Ganesha server at any point after the initial installation,
+    add the <code class="literal">role-ganesha</code> to the
+    <code class="filename">policy.cfg</code> and re-run at least DeepSea stages 2 and
+    4. For details, see <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>.
+   </p><p>
+    NFS Ganesha is configured via the file
+    <code class="filename">/etc/ganesha/ganesha.conf</code> that exists on the NFS Ganesha
+    node. However, this file is overwritten each time DeepSea stage 4 is
+    executed. Therefore we recommend to edit the template used by Salt, which
+    is the file
+    <code class="filename">/srv/salt/ceph/ganesha/files/ganesha.conf.j2</code> on the
+    Salt master. For details about the configuration file, see
+    <span class="intraxref">Book “Administration Guide”, Chapter 16 “NFS Ganesha: Export Ceph Data via NFS”, Section 16.2 “Configuration”</span>.
+   </p></section><section class="sect2" id="sec-as-ganesha-preparation-requirements" data-id-title="Summary of Requirements"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.2 </span><span class="title-name">Summary of Requirements</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-preparation-requirements">#</a></h3></div></div></div><p>
+    The following requirements need to be met before DeepSea stages 2 and 4
+    can be executed to install NFS Ganesha:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      At least one node needs to be assigned the
+      <code class="literal">role-ganesha</code>.
+     </p></li><li class="listitem"><p>
+      You can define only one <code class="literal">role-ganesha</code> per minion.
+     </p></li><li class="listitem"><p>
+      NFS Ganesha needs either an Object Gateway or CephFS to work.
+     </p></li><li class="listitem"><p>
+      If NFS Ganesha is supposed to use the Object Gateway to interface with the cluster,
+      the <code class="filename">/srv/pillar/ceph/rgw.sls</code> on the Salt master needs
+      to be populated.
+     </p></li><li class="listitem"><p>
+      The kernel based NFS needs to be disabled on minions with the
+      <code class="literal">role-ganesha</code> role.
+     </p></li></ul></div></section></section><section class="sect1" id="sec-as-ganesha-basic-example" data-id-title="Example Installation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.2 </span><span class="title-name">Example Installation</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-basic-example">#</a></h2></div></div></div><p>
+   This procedure provides an example installation that uses both the Object Gateway and
+   CephFS File System Abstraction Layers (FSAL) of NFS Ganesha.
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     If you have not done so, execute DeepSea stages 0 and 1 before
+     continuing with this procedure.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.0
+<code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.1</pre></div></li><li class="step"><p>
+     After having executed stage 1 of DeepSea, edit the
+     <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> and add the
+     line
+    </p><div class="verbatim-wrap"><pre class="screen">role-ganesha/cluster/<em class="replaceable">NODENAME</em></pre></div><p>
+     Replace <em class="replaceable">NODENAME</em> with the name of a node in
+     your cluster.
+    </p><p>
+     Also make sure that a <code class="literal">role-mds</code> and a
+     <code class="literal">role-rgw</code> are assigned.
+    </p></li><li class="step"><p>
+     Create a file with '.yml' extension in the
+     <code class="filename">/srv/salt/ceph/rgw/users/users.d</code> directory and insert
+     the following content:
+    </p><div class="verbatim-wrap"><pre class="screen">- { uid: "demo", name: "Demo", email: "demo@demo.nil" }
+- { uid: "demo1", name: "Demo1", email: "demo1@demo.nil" }</pre></div><p>
+     These users are later created as Object Gateway users, and API keys are generated.
+     On the Object Gateway node, you can later run <code class="command">radosgw-admin user
+     list</code> to list all created users and <code class="command">radosgw-admin user
+     info --uid=demo</code> to obtain details about single users.
+    </p><p>
+     DeepSea makes sure that Object Gateway and NFS Ganesha both receive the credentials
+     of all users listed in the <code class="literal">rgw</code> section of the
+     <code class="filename">rgw.sls</code>.
+    </p><p>
+     The exported NFS uses these user names on the first level of the file
+     system, in this example the paths <code class="filename">/demo</code> and
+     <code class="filename">/demo1</code> would be exported.
+    </p></li><li class="step"><p>
+     Execute at least stages 2 and 4 of DeepSea. Running stage 3 in between
+     is recommended.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.2
+<code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.3 # optional but recommended
+<code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.4</pre></div></li><li class="step"><p>
+     Verify that NFS Ganesha is working by mounting the NFS share from a client
+     node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code><code class="command">mount</code> -o sync -t nfs <em class="replaceable">GANESHA_NODE</em>:/ /mnt
+<code class="prompt user">root # </code><code class="command">ls</code> /mnt
+cephfs  demo  demo1</pre></div><p>
+     <code class="filename">/mnt</code> should contain all exported paths. Directories
+     for CephFS and both Object Gateway users should exist. For each bucket a user
+     owns, a path
+     <code class="filename">/mnt/<em class="replaceable">USERNAME</em>/<em class="replaceable">BUCKETNAME</em></code>
+     would be exported.
+    </p></li></ol></div></div></section><section class="sect1" id="sec-as-ganesha-ha-ap" data-id-title="High Availability Active-Passive Configuration"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.3 </span><span class="title-name">High Availability Active-Passive Configuration</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-ha-ap">#</a></h2></div></div></div><p>
+   This section provides an example of how to set up a two-node active-passive
+   configuration of NFS Ganesha servers. The setup requires the SUSE Linux Enterprise High Availability Extension. The
+   two nodes are called <code class="systemitem">earth</code> and <code class="systemitem">mars</code>.
+  </p><p>
+   For details about SUSE Linux Enterprise High Availability Extension, see
+   <a class="link" href="https://documentation.suse.com/sle-ha/12-SP5/" target="_blank">https://documentation.suse.com/sle-ha/12-SP5/</a>.
+  </p><section class="sect2" id="sec-as-ganesha-ha-ap-basic" data-id-title="Basic Installation"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.3.1 </span><span class="title-name">Basic Installation</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-ha-ap-basic">#</a></h3></div></div></div><p>
+    In this setup <code class="systemitem">earth</code> has the IP address
+    <code class="systemitem">192.168.1.1</code> and <code class="systemitem">mars</code> has
+    the address <code class="systemitem">192.168.1.2</code>.
+   </p><p>
+    Additionally, two floating virtual IP addresses are used, allowing clients
+    to connect to the service independent of which physical node it is running
+    on. <code class="systemitem">192.168.1.10</code> is used for
+    cluster administration with Hawk2 and
+    <code class="systemitem">192.168.2.1</code> is used exclusively
+    for the NFS exports. This makes it easier to apply security restrictions
+    later.
+   </p><p>
+    The following procedure describes the example installation. More details
+    can be found at
+    <a class="link" href="https://documentation.suse.com/sle-ha/12-SP5/single-html/SLE-HA-install-quick/" target="_blank">https://documentation.suse.com/sle-ha/12-SP5/single-html/SLE-HA-install-quick/</a>.
+   </p><div class="procedure" id="proc-as-ganesha-ha-ap"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Prepare the NFS Ganesha nodes on the Salt master:
+     </p><ol type="a" class="substeps"><li class="step"><p>
+        Run DeepSea stages 0 and 1.
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.0
+<code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.1</pre></div></li><li class="step"><p>
+        Assign the nodes <code class="systemitem">earth</code> and <code class="systemitem">mars</code> the
+        <code class="literal">role-ganesha</code> in the
+        <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code>:
+       </p><div class="verbatim-wrap"><pre class="screen">role-ganesha/cluster/earth*.sls
+role-ganesha/cluster/mars*.sls</pre></div></li><li class="step"><p>
+        Run DeepSea stages 2 to 4.
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.2
+<code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.3
+<code class="prompt user">root@master # </code><code class="command">salt-run</code> state.orch ceph.stage.4</pre></div></li></ol></li><li class="step"><p>
+      Register the SUSE Linux Enterprise High Availability Extension on <code class="systemitem">earth</code> and <code class="systemitem">mars</code>.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code><code class="command">SUSEConnect</code> -r <em class="replaceable">ACTIVATION_CODE</em> -e <em class="replaceable">E_MAIL</em></pre></div></li><li class="step"><p>
+      Install <span class="package">ha-cluster-bootstrap</span> on both nodes:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code><code class="command">zypper</code> in ha-cluster-bootstrap</pre></div></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
+        Initialize the cluster on <code class="systemitem">earth</code>:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">ha-cluster-init</code></pre></div></li><li class="step"><p>
+        Let <code class="systemitem">mars</code> join the cluster:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@mars # </code><code class="command">ha-cluster-join</code> -c earth</pre></div></li></ol></li><li class="step"><p>
+      Check the status of the cluster. You should see two nodes added to the
+      cluster:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> status</pre></div></li><li class="step"><p>
+      On both nodes, disable the automatic start of the NFS Ganesha service at
+      boot time:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code><code class="command">systemctl</code> disable nfs-ganesha</pre></div></li><li class="step"><p>
+      Start the <code class="command">crm</code> shell on <code class="systemitem">earth</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> configure</pre></div><p>
+      The next commands are executed in the crm shell.
+     </p></li><li class="step"><p>
+      On <code class="systemitem">earth</code>, run the crm shell to execute the following commands to
+      configure the resource for NFS Ganesha daemons as clone of systemd resource
+      type:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>primitive nfs-ganesha-server systemd:nfs-ganesha \
+op monitor interval=30s
+<code class="prompt user">crm(live)configure# </code>clone nfs-ganesha-clone nfs-ganesha-server meta interleave=true
+<code class="prompt user">crm(live)configure# </code>commit
+<code class="prompt user">crm(live)configure# </code>status
+    2 nodes configured
+    2 resources configured
+
+    Online: [ earth mars ]
+
+    Full list of resources:
+         Clone Set: nfs-ganesha-clone [nfs-ganesha-server]
+         Started:  [ earth mars ]</pre></div></li><li class="step"><p>
+      Create a primitive IPAddr2 with the crm shell:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>primitive ganesha-ip IPaddr2 \
+params ip=192.168.2.1 cidr_netmask=24 nic=eth0 \
+op monitor interval=10 timeout=20
+
+<code class="prompt user">crm(live)# </code>status
+Online: [ earth mars  ]
+Full list of resources:
+ Clone Set: nfs-ganesha-clone [nfs-ganesha-server]
+     Started: [ earth mars ]
+ ganesha-ip    (ocf::heartbeat:IPaddr2):    Started earth</pre></div></li><li class="step"><p>
+      To set up a relationship between the NFS Ganesha server and the floating
+      Virtual IP, we use collocation and ordering.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>colocation ganesha-ip-with-nfs-ganesha-server inf: ganesha-ip nfs-ganesha-clone
+<code class="prompt user">crm(live)configure# </code>order ganesha-ip-after-nfs-ganesha-server Mandatory: nfs-ganesha-clone ganesha-ip</pre></div></li><li class="step"><p>
+      Use the <code class="command">mount</code> command from the client to ensure that
+      cluster setup is complete:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code><code class="command">mount</code> -t nfs -v -o sync,nfsvers=4 192.168.2.1:/ /mnt</pre></div></li></ol></div></div></section><section class="sect2" id="sec-as-ganesha-ha-ap-cleanup" data-id-title="Clean Up Resources"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.3.2 </span><span class="title-name">Clean Up Resources</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-ha-ap-cleanup">#</a></h3></div></div></div><p>
+    In the event of an NFS Ganesha failure at one of the node, for example
+    <code class="systemitem">earth</code>, fix the issue and clean up the resource. Only after the
+    resource is cleaned up can the resource fail back to <code class="systemitem">earth</code> in case
+    NFS Ganesha fails at <code class="systemitem">mars</code>.
+   </p><p>
+    To clean up the resource:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> resource cleanup nfs-ganesha-clone earth
+<code class="prompt user">root@earth # </code><code class="command">crm</code> resource cleanup ganesha-ip earth</pre></div></section><section class="sect2" id="sec-as-ganesha-ha-ap-ping-resource" data-id-title="Setting Up Ping Resource"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.3.3 </span><span class="title-name">Setting Up Ping Resource</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-ha-ap-ping-resource">#</a></h3></div></div></div><p>
+    It may happen that the server is unable to reach the client because of a
+    network issue. A ping resource can detect and mitigate this problem.
+    Configuring this resource is optional.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Define the ping resource:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>primitive ganesha-ping ocf:pacemaker:ping \
+        params name=ping dampen=3s multiplier=100 host_list="<em class="replaceable">CLIENT1</em> <em class="replaceable">CLIENT2</em>" \
+        op monitor interval=60 timeout=60 \
+        op start interval=0 timeout=60 \
+        op stop interval=0 timeout=60</pre></div><p>
+      <code class="literal">host_list</code> is a list of IP addresses separated by space
+      characters. The IP addresses will be pinged regularly to check for
+      network outages. If a client must always have access to the NFS server,
+      add it to <code class="literal">host_list</code>.
+     </p></li><li class="step"><p>
+      Create a clone:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>clone ganesha-ping-clone ganesha-ping \
+        meta interleave=true</pre></div></li><li class="step"><p>
+      The following command creates a constraint for the NFS Ganesha service. It
+      forces the service to move to another node when
+      <code class="literal">host_list</code> is unreachable.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code>location nfs-ganesha-server-with-ganesha-ping
+        nfs-ganesha-clone \
+        rule -inf: not_defined ping or ping lte 0</pre></div></li></ol></div></div></section><section class="sect2" id="setup-portblock-resource" data-id-title="Setting Up PortBlock Resource"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.3.4 </span><span class="title-name">Setting Up PortBlock Resource</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#setup-portblock-resource">#</a></h3></div></div></div><p>When a service goes down, the TCP connection that is in use by
+      NFS Ganesha is required to be closed otherwise it
+      continues to run until a system-specific timeout occurs. This timeout
+      can take upwards of 3 minutes.</p><p>To shorten the timeout time, the TCP connection needs to be reset.
+      We recommend configuring <code class="literal">portblock</code> to reset stale TCP
+      connections.</p><p>You can choose to use portblock with or without the
+      <code class="literal">tickle_dir</code> parameters that could unblock and
+      reconnect clients to the new service faster. We recommend to
+      have <code class="literal">tickle_dir</code> as the shared CephFS mount
+      between two HA nodes (where NFS Ganesha services are running).</p><div class="procedure"><div class="procedure-contents"><div id="id-1.4.5.6.7.7.5.1" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>Configuring the following resource is optional.</p></div><ol class="procedure" type="1"><li class="step"><p>On <code class="systemitem">earth</code>, run the crm shell to execute the following
+            commands to configure the resource for NFS Ganesha daemons:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> configure</pre></div></li><li class="step"><p>Configure the <code class="literal">block</code> action for
+          <code class="literal">portblock</code> and omit the <code class="literal">tickle_dir</code>
+          option if you have not configured a shared directory:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-block ocf:portblock \
+protocol=tcp portno=2049 action=block ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step"><p>Configure the <code class="literal">unblock</code> action for
+          <code class="literal">portblock</code> and omit the <code class="literal">reset_local_on_unblock_stop</code>
+          option if you have not configured a shared directory:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> primitive nfs-ganesha-unblock ocf:portblock \
+protocol=tcp portno=2049 action=unblock ip=192.168.2.1 op monitor depth="0" timeout="10" interval="10" reset_local_on_unblock_stop=true tickle_dir="/tmp/ganesha/tickle/"</pre></div></li><li class="step"><p>Configure the <code class="literal">IPAddr2</code> resource with <code class="literal">portblock</code>:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> colocation ganesha-portblock inf: ganesha-ip nfs-ganesha-block nfs-ganesha-unblock
+<code class="prompt user">crm(live)configure# </code> edit ganesha-ip-after-nfs-ganesha-server
+order ganesha-ip-after-nfs-ganesha-server Mandatory: nfs-ganesha-block nfs-ganesha-clone ganesha-ip nfs-ganesha-unblock</pre></div></li><li class="step"><p>Save your changes:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> commit</pre></div></li><li class="step"><p>Your configuration should look like this:</p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code> show</pre></div><div class="verbatim-wrap"><pre class="screen">"
+node 1084782956: nfs1
+node 1084783048: nfs2
+primitive ganesha-ip IPaddr2 \
+        params ip=192.168.2.1 cidr_netmask=24 nic=eth0 \
+        op monitor interval=10 timeout=20
+primitive nfs-ganesha-block portblock \
+        params protocol=tcp portno=2049 action=block ip=192.168.2.1 \
+        tickle_dir="/tmp/ganesha/tickle/" op monitor timeout=10 interval=10 depth=0
+primitive nfs-ganesha-server systemd:nfs-ganesha \
+        op monitor interval=30s
+primitive nfs-ganesha-unblock portblock \
+        params protocol=tcp portno=2049 action=unblock ip=192.168.2.1 \
+        reset_local_on_unblock_stop=true tickle_dir="/tmp/ganesha/tickle/" \
+        op monitor timeout=10 interval=10 depth=0
+clone nfs-ganesha-clone nfs-ganesha-server \
+        meta interleave=true
+location cli-prefer-ganesha-ip ganesha-ip role=Started inf: nfs1
+order ganesha-ip-after-nfs-ganesha-server Mandatory: nfs-ganesha-block nfs-ganesha-clone ganesha-ip nfs-ganesha-unblock
+colocation ganesha-ip-with-nfs-ganesha-server inf: ganesha-ip nfs-ganesha-clone
+colocation ganesha-portblock inf: ganesha-ip nfs-ganesha-block nfs-ganesha-unblock
+property cib-bootstrap-options: \
+        have-watchdog=false \
+        dc-version=1.1.16-6.5.1-77ea74d \
+        cluster-infrastructure=corosync \
+        cluster-name=hacluster \
+        stonith-enabled=false \
+        placement-strategy=balanced \
+        last-lrm-refresh=1544793779
+rsc_defaults rsc-options: \
+        resource-stickiness=1 \
+        migration-threshold=3
+op_defaults op-options: \
+        timeout=600 \
+        record-pending=true
+"</pre></div><p>In this example <code class="filename">/tmp/ganesha/</code> is the CephFS
+        mount on both nodes (nfs1 and nfs2):</p><div class="verbatim-wrap"><pre class="screen">172.16.1.11:6789:/ganesha on /tmp/ganesha type ceph (rw,relatime,name=admin,secret=...hidden...,acl,wsize=16777216)</pre></div><p>The <code class="literal">tickle</code> directory has been initially
+        created.</p></li></ol></div></div></section><section class="sect2" id="ganesha-ha-deepsea" data-id-title="NFS Ganesha HA and DeepSea"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.3.5 </span><span class="title-name">NFS Ganesha HA and DeepSea</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#ganesha-ha-deepsea">#</a></h3></div></div></div><p>
+    DeepSea does not support configuring NFS Ganesha HA. To prevent DeepSea
+    from failing after NFS Ganesha HA was configured, exclude starting and
+    stopping the NFS Ganesha service from DeepSea Stage 4:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Copy <code class="filename">/srv/salt/ceph/ganesha/default.sls</code> to
+      <code class="filename">/srv/salt/ceph/ganesha/ha.sls</code>.
+     </p></li><li class="step"><p>
+      Remove the <code class="literal">.service</code> entry from
+      <code class="filename">/srv/salt/ceph/ganesha/ha.sls</code> so that it looks as
+      follows:
+     </p><div class="verbatim-wrap"><pre class="screen">include:
+- .keyring
+- .install
+- .configure</pre></div></li><li class="step"><p>
+      Add the following line to
+      <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+     </p><div class="verbatim-wrap"><pre class="screen">ganesha_init: ha</pre></div></li></ol></div></div><p>
+     To prevent DeepSea from restarting NFS Ganesha service on stage 4:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+         Copy <code class="filename">/srv/salt/ceph/stage/ganesha/default.sls</code> to
+         <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code>.
+       </p></li><li class="step"><p>
+         Remove the line <code class="literal">  - ...restart.ganesha.lax</code> from the
+         <code class="filename">/srv/salt/ceph/stage/ganesha/ha.sls</code> so it looks as follows:
+       </p><div class="verbatim-wrap"><pre class="screen">include:
+  - .migrate
+  - .core</pre></div></li><li class="step"><p>
+         Add the following line to <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+       </p><div class="verbatim-wrap"><pre class="screen">stage_ganesha: ha</pre></div></li></ol></div></div></section></section><section class="sect1" id="sec-as-ganesha-info" data-id-title="More Information"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.4 </span><span class="title-name">More Information</span> <a title="Permalink" class="permalink" href="cha-as-ganesha.html#sec-as-ganesha-info">#</a></h2></div></div></div><p>
+   More information can be found in <span class="intraxref">Book “Administration Guide”, Chapter 16 “NFS Ganesha: Export Ceph Data via NFS”</span>.
+  </p></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-as-cephfs.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 11 </span>Installation of CephFS</span></a> </div><div><a class="pagination-link next" href="cha-ses-cifs.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 13 </span>Exporting Ceph Data via Samba</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-as-ganesha.html#sec-as-ganesha-preparation"><span class="title-number">12.1 </span><span class="title-name">Preparation</span></a></span></li><li><span class="sect1"><a href="cha-as-ganesha.html#sec-as-ganesha-basic-example"><span class="title-number">12.2 </span><span class="title-name">Example Installation</span></a></span></li><li><span class="sect1"><a href="cha-as-ganesha.html#sec-as-ganesha-ha-ap"><span class="title-number">12.3 </span><span class="title-name">High Availability Active-Passive Configuration</span></a></span></li><li><span class="sect1"><a href="cha-as-ganesha.html#sec-as-ganesha-info"><span class="title-number">12.4 </span><span class="title-name">More Information</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/deployment_ganesha.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

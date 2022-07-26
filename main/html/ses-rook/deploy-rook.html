@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Quick start | Deploying and Administering SUSE Enterprise Storage with Rook | SUSE Enterprise Storage 7.1</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Quick start | SES 7.1"/>
+<meta name="description" content="SUSE Enterprise Storage is a distributed storage system designed for scalability, reliability, and performance, which is based on the Ceph technology. The trad…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7.1"/>
+<meta name="book-title" content="Deploying and Administering SUSE Enterprise Storage with Rook"/>
+<meta name="chapter-title" content="Chapter 1. Quick start"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Quick start | SES 7.1"/>
+<meta property="og:description" content="SUSE Enterprise Storage is a distributed storage system designed for scalability, reliability, and performance, which is based on the Ceph technology. The trad…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Quick start | SES 7.1"/>
+<meta name="twitter:description" content="SUSE Enterprise Storage is a distributed storage system designed for scalability, reliability, and performance, which is based on the Ceph technology. The trad…"/>
+<link rel="prev" href="rook-ses-deployment.html" title="Part I. Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform"/><link rel="next" href="update-rook.html" title="Chapter 2. Updating Rook"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deploying and Administering SUSE Enterprise Storage with Rook</a><span> / </span><a class="crumb" href="rook-ses-deployment.html">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</a><span> / </span><a class="crumb" href="deploy-rook.html">Quick start</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deploying and Administering SUSE Enterprise Storage with Rook</div><ol><li><a href="preface-rook.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li class="active"><a href="rook-ses-deployment.html" class="has-children you-are-here"><span class="title-number">I </span><span class="title-name">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</span></a><ol><li><a href="deploy-rook.html" class=" you-are-here"><span class="title-number">1 </span><span class="title-name">Quick start</span></a></li><li><a href="update-rook.html" class=" "><span class="title-number">2 </span><span class="title-name">Updating Rook</span></a></li></ol></li><li><a href="rook-ses-admin.html" class="has-children "><span class="title-number">II </span><span class="title-name">Administrating Ceph on SUSE CaaS Platform</span></a><ol><li><a href="admin-intro-caasp.html" class=" "><span class="title-number">3 </span><span class="title-name">Rook-Ceph administration</span></a></li><li><a href="admin-caasp-cluster.html" class=" "><span class="title-number">4 </span><span class="title-name">Ceph cluster administration</span></a></li><li><a href="admin-caasp-block-storage.html" class=" "><span class="title-number">5 </span><span class="title-name">Block Storage</span></a></li><li><a href="admin-caasp-cephfs.html" class=" "><span class="title-number">6 </span><span class="title-name">CephFS</span></a></li><li><a href="admin-caasp-crd.html" class=" "><span class="title-number">7 </span><span class="title-name">Ceph cluster custom resource definitions</span></a></li><li><a href="admin-caasp-cephconfig.html" class=" "><span class="title-number">8 </span><span class="title-name">Configuration</span></a></li><li><a href="admin-caasp-cephtoolbox.html" class=" "><span class="title-number">9 </span><span class="title-name">Toolboxes</span></a></li><li><a href="admin-caasp-cephosd.html" class=" "><span class="title-number">10 </span><span class="title-name">Ceph OSD management</span></a></li><li><a href="admin-caasp-ceph-examples.html" class=" "><span class="title-number">11 </span><span class="title-name">Ceph examples</span></a></li><li><a href="admin-caasp-advanced-config.html" class=" "><span class="title-number">12 </span><span class="title-name">Advanced configuration</span></a></li><li><a href="admin-caasp-object-storage.html" class=" "><span class="title-number">13 </span><span class="title-name">Object Storage</span></a></li><li><a href="admin-caasp-dashboard.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph Dashboard</span></a></li></ol></li><li><a href="rook-ses-troubleshooting.html" class="has-children "><span class="title-number">III </span><span class="title-name">Troubleshooting Ceph on SUSE CaaS Platform</span></a><ol><li><a href="atroubleshooting-caasp-debugging-rook.html" class=" "><span class="title-number">15 </span><span class="title-name">Troubleshooting</span></a></li><li><a href="admin-caasp-ceph-common-issues.html" class=" "><span class="title-number">16 </span><span class="title-name">Common issues</span></a></li></ol></li><li><a href="bk05apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></li><li><a href="bk05go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="deploy-rook" data-id-title="Quick start"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Quick start</span> <a title="Permalink" class="permalink" href="deploy-rook.html#">#</a></h2></div></div></div><p>
+  SUSE Enterprise Storage is a distributed storage system designed for scalability,
+  reliability, and performance, which is based on the Ceph technology. The
+  traditional way to run a Ceph cluster is setting up a dedicated cluster to
+  provide block, file, and object storage to a variety of clients.
+ </p><p>
+  Rook manages Ceph as a containerized application on Kubernetes and allows a
+  hyper-converged setup, in which a single Kubernetes cluster runs applications and
+  storage together. The primary purpose of SUSE Enterprise Storage deployed with Rook
+  is to provide storage to other applications running in the Kubernetes cluster.
+  This can be block, file, or object storage.
+ </p><p>
+  This chapter describes how to quickly deploy containerized SUSE Enterprise Storage
+  7.1 on top of a SUSE CaaS Platform 4.5 Kubernetes cluster.
+ </p><section class="sect1" id="rook-deploy-hardware-specs" data-id-title="Recommended hardware specifications"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.1 </span><span class="title-name">Recommended hardware specifications</span> <a title="Permalink" class="permalink" href="deploy-rook.html#rook-deploy-hardware-specs">#</a></h2></div></div></div><p>
+   For SUSE Enterprise Storage deployed with Rook, the minimal configuration is
+   preliminary, we will update it based on real customer needs.
+  </p><p>
+   For the purpose of this document, consider the following minimum
+   configuration:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     A highly available Kubernetes cluster with 3 master nodes
+    </p></li><li class="listitem"><p>
+     Four physical Kubernetes worker nodes, each with two OSD disks and 5GB of RAM
+     per OSD disk
+    </p></li><li class="listitem"><p>
+     Allow additional 4GB of RAM per additional daemon deployed on a node
+    </p></li><li class="listitem"><p>
+     Dual-10 Gb ethernet as bonded network
+    </p></li><li class="listitem"><p>
+     If you are running a hyper-converged infrastructure (HCI), ensure you add
+     any additional requirements for your workloads.
+    </p></li></ul></div></section><section class="sect1" id="rook-deploy-before-begin" data-id-title="Prerequisites"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.2 </span><span class="title-name">Prerequisites</span> <a title="Permalink" class="permalink" href="deploy-rook.html#rook-deploy-before-begin">#</a></h2></div></div></div><p>
+   Ensure the following prerequisites are met before continuing with this
+   quickstart guide:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Installation of SUSE CaaS Platform 4.5. See the SUSE CaaS Platform documentation for more
+     details on how to install:
+     <a class="link" href="https://documentation.suse.com/en-us/suse-caasp/4.5/" target="_blank">https://documentation.suse.com/en-us/suse-caasp/4.5/</a>.
+    </p></li><li class="listitem"><p>
+     Ensure <code class="literal">ceph-csi</code> (and required sidecars) are running in
+     your Kubernetes cluster.
+    </p></li><li class="listitem"><p>
+     Installation of the LVM2 package on the host where the OSDs are running.
+    </p></li><li class="listitem"><p>
+     Ensure you have one of the following storage options to configure Ceph
+     properly:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Raw devices (no partitions or formatted file systems)
+      </p></li><li class="listitem"><p>
+       Raw partitions (no formatted file system)
+      </p></li></ul></div></li><li class="listitem"><p>
+     Ensure the SUSE CaaS Platform 4.5 repository is enabled for the installation of Helm
+     3.
+    </p></li></ul></div></section><section class="sect1" id="getting-started-rook" data-id-title="Getting started with Rook"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.3 </span><span class="title-name">Getting started with Rook</span> <a title="Permalink" class="permalink" href="deploy-rook.html#getting-started-rook">#</a></h2></div></div></div><div id="id-1.7.3.2.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    The following instructions are designed for a quick start deployment only.
+    For more information on installing Helm, see
+    <a class="link" href="https://documentation.suse.com/en-us/suse-caasp/4.5/" target="_blank">https://documentation.suse.com/en-us/suse-caasp/4.5/</a>.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Install Helm v3:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper in helm</pre></div></li><li class="step"><p>
+     On a node with access to the Kubernetes cluster, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>export HELM_EXPERIMENTAL_OCI=1</pre></div></li><li class="step"><p>
+     Create a local copy of the Helm chart to your local registry:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm chart pull registry.suse.com/ses/7.1/charts/rook-ceph:latest</pre></div><p>
+     If you are using a version of Helm &gt;= 3.7, you do not need to specify the subcommand <code class="command">chart</code>.
+     The protocol is also explicit and the version is presumed to be <code class="literal">latest</code>.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm pull oci://registry.suse.com/ses/7.1/charts/rook-ceph</pre></div></li><li class="step"><p>
+     Export the Helm charts to a Rook-Ceph sub-directory under your current
+     working directory:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm chart export registry.suse.com/ses/7.1/charts/rook-ceph:latest</pre></div><p>
+     For Helm versions &gt;= 3.7, you just need to extract the tarball yourself:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>tar -xzf rook-ceph-1.8.6.tar.gz</pre></div></li><li class="step"><p>
+     Create a file named <code class="filename">myvalues.yaml</code> based off the
+     <code class="filename">rook-ceph/values.yaml file</code>.
+    </p></li><li class="step"><p>
+     Set local parameters in <code class="filename">myvalues.yaml</code>.
+    </p></li><li class="step"><p>
+     Create the namespace:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create namespace rook-ceph</pre></div></li><li class="step"><p>
+     Install the helm charts:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm install -n rook-ceph rook-ceph ./rook-ceph/ -f myvalues.yaml</pre></div></li><li class="step"><p>
+     Verify the <code class="literal">rook-operator</code> is running:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l app=rook-ceph-operator</pre></div></li></ol></div></div></section><section class="sect1" id="rook-deploy-ceph" data-id-title="Deploying Ceph with Rook"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.4 </span><span class="title-name">Deploying Ceph with Rook</span> <a title="Permalink" class="permalink" href="deploy-rook.html#rook-deploy-ceph">#</a></h2></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     You need to apply labels to your Kubernetes nodes before deploying your Ceph
+     cluster. The key <code class="literal">node-role.rook-ceph/cluster</code> accepts
+     one of the following values:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <code class="literal">any</code>
+      </p></li><li class="listitem"><p>
+       <code class="literal">mon</code>
+      </p></li><li class="listitem"><p>
+       <code class="literal">mon-mgr</code>
+      </p></li><li class="listitem"><p>
+       <code class="literal">mon-mgr-osd</code>
+      </p></li></ul></div><p>
+     Run the following the get the names of your cluster's nodes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl get nodes</pre></div></li><li class="step"><p>
+     On the Master node, run the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl label nodes <em class="replaceable">node-name</em> <em class="replaceable">label-key</em>=<em class="replaceable">label-value</em></pre></div><p>
+     For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl label node <em class="replaceable">k8s-worker-node-1</em> <em class="replaceable">node-role.rook-ceph/cluster</em>=<em class="replaceable">any</em></pre></div></li><li class="step"><p>
+     Verify the application of the label by re-running the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl get nodes --show-labels</pre></div><p>
+     You can also use the <code class="command">describe</code> command to get the full
+     list of labels given to the node. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl describe node <em class="replaceable">node-name</em></pre></div></li><li class="step"><p>
+     Next, you need to apply a Ceph cluster manifest file, for example,
+     <code class="filename">cluster.yaml</code>, to your Kubernetes cluster. You can apply
+     the example <code class="filename">cluster.yaml</code> as is without any additional
+     services or requirements from the Rook Helm chart.
+    </p><p>
+     To apply the example Ceph cluster manifest to your Kubernetes cluster, run
+     the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>kubectl create -f rook-ceph/examples/cluster.yaml</pre></div></li></ol></div></div></section><section class="sect1" id="rook-config-ceph" data-id-title="Configuring the Ceph cluster"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.5 </span><span class="title-name">Configuring the Ceph cluster</span> <a title="Permalink" class="permalink" href="deploy-rook.html#rook-config-ceph">#</a></h2></div></div></div><p>
+   You can have two types of integration with your SUSE Enterprise Storage intregrated
+   cluster. These types are: CephFS or RADOS Block Device (RBD).
+  </p><p>
+   Before you start the SUSE CaaS Platform and SUSE Enterprise Storage integration, ensure you have
+   met the following prerequisites:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     The SUSE CaaS Platform cluster must have <code class="literal">ceph-common</code> and
+     <code class="literal">xfsprogs</code> installed on all nodes. You can check this by
+     running the <code class="command">rpm -q ceph-common</code> command or the
+     <code class="command">rpm -q xfsprogs</code> command.
+    </p></li><li class="listitem"><p>
+     That the SUSE Enterprise Storage cluster has a pool with a RBD device or CephFS
+     enabled.
+    </p></li></ul></div><section class="sect2" id="config-cephfs" data-id-title="Configure CephFS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.5.1 </span><span class="title-name">Configure CephFS</span> <a title="Permalink" class="permalink" href="deploy-rook.html#config-cephfs">#</a></h3></div></div></div><p>
+    For more information on configuring CephFS, see
+    <a class="link" href="https://documentation.suse.com/en-us/suse-caasp/4.5/" target="_blank">https://documentation.suse.com/en-us/suse-caasp/4.5/</a>
+    for steps and more information. This section will also provide the
+    necessary procedure on attaching a pod to either an CephFS static or
+    dynamic volume.
+   </p></section><section class="sect2" id="config-persistent-volumes" data-id-title="Configure RADOS block device"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.5.2 </span><span class="title-name">Configure RADOS block device</span> <a title="Permalink" class="permalink" href="deploy-rook.html#config-persistent-volumes">#</a></h3></div></div></div><p>
+    For instructions on configuring the RADOS Block Device (RBD) in a pod,
+    see
+    <a class="link" href="https://documentation.suse.com/en-us/suse-caasp/4.5/" target="_blank">https://documentation.suse.com/en-us/suse-caasp/4.5/</a>
+    for more information. This section will also provide the necessary
+    procedure on attaching a pod to either an RBD static or dynamic volume.
+   </p></section></section><section class="sect1" id="updating-rook-images" data-id-title="Updating local images"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.6 </span><span class="title-name">Updating local images</span> <a title="Permalink" class="permalink" href="deploy-rook.html#updating-rook-images">#</a></h2></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     To update your local image to the latest tag, apply the new parameters in
+     <code class="filename">myvalues.yaml</code>:
+    </p><div class="verbatim-wrap"><pre class="screen">image:
+refix: rook
+repository: registry.suse.com/ses/7.1/rook/ceph
+tag: <em class="replaceable">LATEST_TAG</em>
+pullPolicy: IfNotPresent</pre></div></li><li class="step"><p>
+     Re-pull a new local copy of the Helm chart to your local registry:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm3 chart pull <em class="replaceable">REGISTRY_URL</em></pre></div></li><li class="step"><p>
+     Export the Helm charts to a Rook-Ceph sub-directory under your current
+     working directory:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm3 chart export <em class="replaceable">REGISTRY_URL</em></pre></div></li><li class="step"><p>
+     Upgrade the Helm charts:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm3 upgrade -n rook-ceph rook-ceph ./rook-ceph/ -f myvalues.yaml</pre></div></li></ol></div></div></section><section class="sect1" id="uninstalling-rook" data-id-title="Uninstalling"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.7 </span><span class="title-name">Uninstalling</span> <a title="Permalink" class="permalink" href="deploy-rook.html#uninstalling-rook">#</a></h2></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Delete any Kubernetes applications that are consuming Rook storage.
+    </p></li><li class="step"><p>
+     Delete all object, file, and block storage artifacts.
+    </p></li><li class="step"><p>
+     Remove the CephCluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>&gt;kubectl delete -f cluster.yaml</pre></div></li><li class="step"><p>
+     Uninstall the operator:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm uninstall <em class="replaceable">REGISTRY_URL</em></pre></div><p>
+     Or, if you are using Helm &gt;= 3.7:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>helm uninstall -n rook-ceph rook-ceph</pre></div></li><li class="step"><p>
+     Delete any data on the hosts:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>rm -rf /var/lib/rook</pre></div></li><li class="step"><p>
+     Wipe the disks if necessary.
+    </p></li><li class="step"><p>
+     Delete the namespace:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>kubectl delete namespace rook-ceph</pre></div></li></ol></div></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="rook-ses-deployment.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part I </span>Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</span></a> </div><div><a class="pagination-link next" href="update-rook.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 2 </span>Updating Rook</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="deploy-rook.html#rook-deploy-hardware-specs"><span class="title-number">1.1 </span><span class="title-name">Recommended hardware specifications</span></a></span></li><li><span class="sect1"><a href="deploy-rook.html#rook-deploy-before-begin"><span class="title-number">1.2 </span><span class="title-name">Prerequisites</span></a></span></li><li><span class="sect1"><a href="deploy-rook.html#getting-started-rook"><span class="title-number">1.3 </span><span class="title-name">Getting started with Rook</span></a></span></li><li><span class="sect1"><a href="deploy-rook.html#rook-deploy-ceph"><span class="title-number">1.4 </span><span class="title-name">Deploying Ceph with Rook</span></a></span></li><li><span class="sect1"><a href="deploy-rook.html#rook-config-ceph"><span class="title-number">1.5 </span><span class="title-name">Configuring the Ceph cluster</span></a></span></li><li><span class="sect1"><a href="deploy-rook.html#updating-rook-images"><span class="title-number">1.6 </span><span class="title-name">Updating local images</span></a></span></li><li><span class="sect1"><a href="deploy-rook.html#uninstalling-rook"><span class="title-number">1.7 </span><span class="title-name">Uninstalling</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_caasp.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

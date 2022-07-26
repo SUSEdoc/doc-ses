@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases | Deployment Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Ceph Maintenance Updates Based on Upstream 'Nautilus' …"/>
+<meta name="description" content="Several key packages in SUSE Enterprise Storage 6 are based on the Nautilus release series of Ceph. When the Ceph project (https://github.com/ceph/ceph) publis…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Appendix A. Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Ceph Maintenance Updates Based on Upstream 'Nautilus' …"/>
+<meta property="og:description" content="Several key packages in SUSE Enterprise Storage 6 are based on the Nautilus release series of Ceph. When the Ceph project (https://github.com/ceph/ceph) publis…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ceph Maintenance Updates Based on Upstream 'Nautilus' …"/>
+<meta name="twitter:description" content="Several key packages in SUSE Enterprise Storage 6 are based on the Nautilus release series of Ceph. When the Ceph project (https://github.com/ceph/ceph) publis…"/>
+<link rel="prev" href="cha-container-kubernetes.html" title="Chapter 13. SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster"/><link rel="next" href="bk02go01.html" title="Glossary"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="bk02apa.html">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 6 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Admin Node HA Setup</span></a></li><li><a href="bk02pt01ch04.html" class=" "><span class="title-number">4 </span><span class="title-name">User Privileges and Command Prompts</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">5 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">6 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li><a href="additional-software.html" class="has-children "><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li></ol></li><li><a href="containerized-ses-on-caasp.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Cluster Deployment on Top of SUSE CaaS Platform 4 (Technology Preview)</span></a><ol><li><a href="cha-container-kubernetes.html" class=" "><span class="title-number">13 </span><span class="title-name">SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster</span></a></li></ol></li><li><a href="bk02apa.html" class=" you-are-here"><span class="title-number">A </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">B </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="appendix" id="id-1.4.7" data-id-title="Ceph Maintenance Updates Based on Upstream Nautilus Point Releases"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h1 class="title"><span class="title-number">A </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span> <a title="Permalink" class="permalink" href="bk02apa.html#">#</a></h1></div></div></div><p>
+  Several key packages in SUSE Enterprise Storage 6 are based on the
+  Nautilus release series of Ceph. When the Ceph project
+  (<a class="link" href="https://github.com/ceph/ceph" target="_blank">https://github.com/ceph/ceph</a>) publishes new point
+  releases in the Nautilus series, SUSE Enterprise Storage 6 is updated
+  to ensure that the product benefits from the latest upstream bugfixes and
+  feature backports.
+ </p><p>
+  This chapter contains summaries of notable changes contained in each upstream
+  point release that has been—or is planned to be—included in the
+  product.
+ </p><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.5"><span class="name">Nautilus 14.2.20 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.5">#</a></h2></div><p>
+  This release includes a security fix that ensures the
+  <code class="option">global_id</code> value (a numeric value that should be unique for
+  every authenticated client or daemon in the cluster) is reclaimed after a
+  network disconnect or ticket renewal in a secure fashion. Two new health
+  alerts may appear during the upgrade indicating that there are clients or
+  daemons that are not yet patched with the appropriate fix.
+ </p><p>
+  To temporarily mute the health alerts around insecure clients for the
+  duration of the upgrade, you may want to run:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM 1h
+<code class="prompt user">cephadm@adm &gt; </code>ceph health mute AUTH_INSECURE_GLOBAL_ID_RECLAIM_ALLOWED 1h</pre></div><p>
+  When all clients are updated, enable the new secure behavior, not allowing
+  old insecure clients to join the cluster:
+ </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div><p>
+  For more details, refer ro
+  <a class="link" href="https://docs.ceph.com/en/latest/security/CVE-2021-20288/" target="_blank">https://docs.ceph.com/en/latest/security/CVE-2021-20288/</a>.
+ </p><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.12"><span class="name">Nautilus 14.2.18 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.12">#</a></h2></div><p>
+  This release fixes a regression introduced in 14.2.17 in which the manager
+  module tries to use a couple of Python modules that do not exist in some
+  environments.
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    This release fixes issues loading the dashboard and volumes manager modules
+    in some environments.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.15"><span class="name">Nautilus 14.2.17 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.15">#</a></h2></div><p>
+  This release includes the following fixes:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <code class="varname">$pid</code> expansion in configuration paths such as
+    <code class="literal">admin_socket</code> will now properly expand to the daemon PID
+    for commands like <code class="command">ceph-mds</code> or
+    <code class="command">ceph-osd</code>. Previously, only <code class="command">ceph-fuse</code>
+    and <code class="command">rbd-nbd</code> expanded <code class="varname">$pid</code> with the
+    actual daemon PID.
+   </p></li><li class="listitem"><p>
+    RADOS: PG removal has been optimized.
+   </p></li><li class="listitem"><p>
+    RADOS: Memory allocations are tracked in finer detail in BlueStore and
+    displayed as a part of the <code class="command">dump_mempools</code> command.
+   </p></li><li class="listitem"><p>
+    CephFS: clients which acquire capabilities too quickly are throttled to
+    prevent instability. See new config option
+    <code class="option">mds_session_cap_acquisition_throttle</code> to control this
+    behavior.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.18"><span class="name">Nautilus 14.2.16 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.18">#</a></h2></div><p>
+  This release fixes a security flaw in CephFS.
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    CVE-2020-27781 : OpenStack Manila use of
+    <code class="command">ceph_volume_client.py</code> library allowed tenant access to
+    any Ceph credentials' secret.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.21"><span class="name">Nautilus 14.2.15 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.21">#</a></h2></div><p>
+  This release fixes a ceph-volume regression introduced in v14.2.13 and
+  includes few other fixes.
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    ceph-volume: Fixes <code class="command">lvm batch –auto</code>, which breaks
+    backward compatibility when using non rotational devices only (SSD and/or
+    NVMe).
+   </p></li><li class="listitem"><p>
+    BlueStore: Fixes a bug in <code class="literal">collection_list_legacy</code> which
+    makes PGs inconsistent during scrub when running OSDs older than 14.2.12
+    with newer ones.
+   </p></li><li class="listitem"><p>
+    MGR: progress module can now be turned on or off, using the commands
+    <code class="command">ceph progress on</code> and <code class="command">ceph progress
+    off</code>.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.24"><span class="name">Nautilus 14.2.14 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.24">#</a></h2></div><p>
+  This releases fixes a security flaw affecting Messenger V2 for Octopus and
+  Nautilus, among other fixes across components.
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    CVE 2020-25660: Fix a regression in Messenger V2 replay attacks.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.27"><span class="name">Nautilus 14.2.13 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.27">#</a></h2></div><p>
+  This release fixes a regression introduced in v14.2.12, and a few ceph-volume
+  amd RGW fixes.
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    Fixed a regression that caused breakage in clusters that referred to
+    ceph-mon hosts using dns names instead of IP addresses in the
+    <code class="option">mon_host</code> parameter in <code class="filename">ceph.conf</code>.
+   </p></li><li class="listitem"><p>
+    ceph-volume: the <code class="command">lvm batch</code> subcommand received a major
+    rewrite.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.30"><span class="name">Nautilus 14.2.12 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.30">#</a></h2></div><p>
+  In addition to bug fixes, this major upstream release brought a number of
+  notable changes:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    The <code class="command">ceph df command</code> now lists the number of PGs in each
+    pool.
+   </p></li><li class="listitem"><p>
+    MONs now have a config option <code class="option">mon_osd_warn_num_repaired</code>,
+    10 by default. If any OSD has repaired more than this many I/O errors in
+    stored data, a <code class="literal">OSD_TOO_MANY_REPAIRS</code> health warning is
+    generated. In order to allow clearing of the warning, a new command
+    <code class="command">ceph tell osd.<em class="replaceable">SERVICE_ID</em>
+    clear_shards_repaired <em class="replaceable">COUNT</em></code> has been
+    added. By default, it will set the repair count to 0. If you want to be
+    warned again if additional repairs are performed, you can provide a value
+    to the command and specify the value of
+    <code class="option">mon_osd_warn_num_repaired</code>. This command will be replaced
+    in future releases by the health mute/unmute feature.
+   </p></li><li class="listitem"><p>
+    It is now possible to specify the initial MON to contact for Ceph tools
+    and daemons using the <code class="option">mon_host_override config</code> option or
+    <code class="option">--mon-host-override <em class="replaceable">IP</em></code>
+    command-line switch. This generally should only be used for debugging and
+    only affects initial communication with Ceph’s MON cluster.
+   </p></li><li class="listitem"><p>
+    Fix an issue with osdmaps not being trimmed in a healthy cluster.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.33"><span class="name">Nautilus 14.2.11 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.33">#</a></h2></div><p>
+  In addition to bug fixes, this major upstream release brought a number of
+  notable changes:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    RGW: The <code class="command">radosgw-admin</code> sub-commands dealing with orphans
+    – <code class="command">radosgw-admin orphans find</code>, <code class="command">radosgw-admin
+    orphans finish</code>, <code class="command">radosgw-admin orphans
+    list-jobs</code> – have been deprecated. They have not been actively
+    maintained and they store intermediate results on the cluster, which could
+    fill a nearly-full cluster. They have been replaced by a tool, currently
+    considered experimental, <code class="command">rgw-orphan-list</code>.
+   </p></li><li class="listitem"><p>
+    Now, when <code class="option">noscrub</code> and/or <code class="option">nodeep-scrub</code>
+    flags are set globally or per pool, scheduled scrubs of the type disabled
+    will be aborted. All user initiated scrubs are <span class="emphasis"><em>not</em></span>
+    interrupted.
+   </p></li><li class="listitem"><p>
+    Fixed a ceph-osd crash in committed OSD maps when there is a failure to
+    encode the first incremental map.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.36"><span class="name">Nautilus 14.2.10 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.36">#</a></h2></div><p>
+  This upstream release patched one security flaw:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    CVE-2020-10753: rgw: sanitize newlines in s3 CORSConfiguration’s
+    ExposeHeader
+   </p></li></ul></div><p>
+  In addition to security flaws, this major upstream release brought a number
+  of notable changes:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    The pool parameter <code class="option">target_size_ratio</code>, used by the PG
+    autoscaler, has changed meaning. It is now normalized across pools, rather
+    than specifying an absolute ratio. If you have set target size ratios on
+    any pools, you may want to set these pools to autoscale
+    <code class="literal">warn</code> mode to avoid data movement during the upgrade:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph osd pool set <em class="replaceable">POOL_NAME</em> pg_autoscale_mode warn</pre></div></li><li class="listitem"><p>
+    The behaviour of the <code class="option">-o</code> argument to the RADOS tool has
+    been reverted to its original behaviour of indicating an output file. This
+    reverts it to a more consistent behaviour when compared to other tools.
+    Specifying object size is now accomplished by using an upper case O
+    <code class="option">-O</code>.
+   </p></li><li class="listitem"><p>
+    The format of MDSs in <code class="command">ceph fs dump</code> has changed.
+   </p></li><li class="listitem"><p>
+    Ceph will issue a health warning if a RADOS pool’s
+    <code class="literal">size</code> is set to 1 or, in other words, the pool is
+    configured with no redundancy. This can be fixed by setting the pool size
+    to the minimum recommended value with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable">pool-name</em> size <em class="replaceable">num-replicas</em></pre></div><p>
+    The warning can be silenced with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_no_redundancy false</pre></div></li><li class="listitem"><p>
+    RGW: bucket listing performance on sharded bucket indexes has been notably
+    improved by heuristically – and significantly, in many cases – reducing the
+    number of entries requested from each bucket index shard.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.41"><span class="name">Nautilus 14.2.9 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.41">#</a></h2></div><p>
+  This upstream release patched two security flaws:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    CVE-2020-1759: Fixed nonce reuse in msgr V2 secure mode
+   </p></li><li class="listitem"><p>
+    CVE-2020-1760: Fixed XSS due to RGW GetObject header-splitting
+   </p></li></ul></div><p>
+  In SES 6, these flaws were patched in Ceph version 14.2.5.389+gb0f23ac248.
+ </p><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.45"><span class="name">Nautilus 14.2.8 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.45">#</a></h2></div><p>
+  In addition to bug fixes, this major upstream release brought a number of
+  notable changes:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    The default value of <code class="option">bluestore_min_alloc_size_ssd</code> has been
+    changed to 4K to improve performance across all workloads.
+   </p></li><li class="listitem"><p>
+    The following OSD memory config options related to BlueStore cache
+    autotuning can now be configured during runtime:
+   </p><div class="verbatim-wrap"><pre class="screen">osd_memory_base (default: 768 MB)
+osd_memory_cache_min (default: 128 MB)
+osd_memory_expected_fragmentation (default: 0.15)
+osd_memory_target (default: 4 GB)</pre></div><p>
+    You can set the above options by running:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set osd <em class="replaceable">OPTION</em> <em class="replaceable">VALUE</em></pre></div></li><li class="listitem"><p>
+    The Ceph Manager now accepts <code class="literal">profile rbd</code> and <code class="literal">profile
+    rbd-read-only</code> user capabilities. You can use these capabilities
+    to provide users access to MGR-based RBD functionality such as <code class="literal">rbd
+    perf image iostat</code> and <code class="literal">rbd perf image iotop</code>.
+   </p></li><li class="listitem"><p>
+    The configuration value <code class="option">osd_calc_pg_upmaps_max_stddev</code> used
+    for upmap balancing has been removed. Instead, use the Ceph Manager balancer
+    configuration option <code class="option">upmap_max_deviation</code> which now is an
+    integer number of PGs of deviation from the target PGs per OSD. You can set
+    it with a following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/balancer/upmap_max_deviation 2</pre></div><p>
+    The default <code class="option">upmap_max_deviation</code> is 5. There are situations
+    where crush rules would not allow a pool to ever have completely balanced
+    PGs. For example, if crush requires 1 replica on each of 3 racks, but there
+    are fewer OSDs in 1 of the racks. In those cases, the configuration value
+    can be increased.
+   </p></li><li class="listitem"><p>
+    CephFS: multiple active Metadata Server forward scrub is now rejected. Scrub is
+    currently only permitted on a file system with a single rank. Reduce the
+    ranks to one via <code class="command">ceph fs set <em class="replaceable">FS_NAME</em>
+    max_mds 1</code>.
+   </p></li><li class="listitem"><p>
+    Ceph will now issue a health warning if a RADOS pool has a
+    <code class="option">pg_num</code> value that is not a power of two. This can be fixed
+    by adjusting the pool to an adjacent power of two:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable">POOL_NAME</em> pg_num <em class="replaceable">NEW_PG_NUM</em></pre></div><p>
+    Alternatively, you can silence the warning with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_pg_num_not_power_of_two false</pre></div></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.48"><span class="name">Nautilus 14.2.7 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.48">#</a></h2></div><p>
+  This upstream release patched two security flaws:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    CVE-2020-1699: a path traversal flaw in Ceph Dashboard that could allow for
+    potential information disclosure.
+   </p></li><li class="listitem"><p>
+    CVE-2020-1700: a flaw in the RGW beast front-end that could lead to denial
+    of service from an unauthenticated client.
+   </p></li></ul></div><p>
+  In SES 6, these flaws were patched in Ceph version 14.2.5.382+g8881d33957b.
+ </p><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.52"><span class="name">Nautilus 14.2.6 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.52">#</a></h2></div><p>
+  This release fixed a Ceph Manager bug that caused MGRs becoming unresponsive on
+  larger clusters. SES users were never exposed to the bug.
+ </p><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.54"><span class="name">Nautilus 14.2.5 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.54">#</a></h2></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <span class="bold"><strong>Health warnings are now issued if daemons have
+    recently crashed.</strong></span> Ceph will now issue health warnings if
+    daemons have recently crashed. Ceph has been collecting crash reports
+    since the initial Nautilus release, but the health alerts are new. To view
+    new crashes (or all crashes, if you have just upgraded), run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph crash ls-new</pre></div><p>
+    To acknowledge a particular crash (or all crashes) and silence the health
+    warning, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph crash archive <em class="replaceable">CRASH-ID</em>
+<code class="prompt user">cephadm@adm &gt; </code>ceph crash archive-all</pre></div></li><li class="listitem"><p>
+    <span class="bold"><strong><code class="option">pg_num</code> must be a power of two,
+    otherwise <code class="literal">HEALTH_WARN</code> is reported.</strong></span> Ceph
+    will now issue a health warning if a RADOS pool has a
+    <code class="option">pg_num</code> value that is not a power of two. You can fix this
+    by adjusting the pool to a nearby power of two:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable">POOL-NAME</em> pg_num <em class="replaceable">NEW-PG-NUM</em></pre></div><p>
+    Alternatively, you can silence the warning with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_pg_num_not_power_of_two false</pre></div></li><li class="listitem"><p>
+    <span class="bold"><strong>Pool size needs to be greater than 1 otherwise
+    <code class="literal">HEALTH_WARN</code> is reported.</strong></span> Ceph will issue a
+    health warning if a RADOS pool’s size is set to 1 or if the pool is
+    configured with no redundancy. Ceph will stop issuing the warning if the
+    pool size is set to the minimum recommended value:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool set <em class="replaceable">POOL-NAME</em> size <em class="replaceable">NUM-REPLICAS</em></pre></div><p>
+    You can silence the warning with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set global mon_warn_on_pool_no_redundancy false</pre></div></li><li class="listitem"><p>
+    <span class="bold"><strong>Health warning is reported if average OSD heartbeat
+    ping time exceeds the threshold.</strong></span> A health warning is now
+    generated if the average OSD heartbeat ping time exceeds a configurable
+    threshold for any of the intervals computed. The OSD computes 1 minute, 5
+    minute and 15 minute intervals with average, minimum, and maximum values.
+   </p><p>
+    A new configuration option, <code class="option">mon_warn_on_slow_ping_ratio</code>,
+    specifies a percentage of <code class="option">osd_heartbeat_grace</code> to determine
+    the threshold. A value of zero disables the warning.
+   </p><p>
+    A new configuration option, <code class="option">mon_warn_on_slow_ping_time</code>,
+    specified in milliseconds, overrides the computed value and causes a
+    warning when OSD heartbeat pings take longer than the specified amount.
+   </p><p>
+    A new command <code class="command">ceph daemon
+    mgr.<em class="replaceable">MGR-NUMBER</em> dump_osd_network
+    <em class="replaceable">THRESHOLD</em></code> lists all connections with a
+    ping time longer than the specified threshold or value determined by the
+    configuration options, for the average for any of the 3 intervals.
+   </p><p>
+    A new command <code class="command">ceph daemon osd.# dump_osd_network
+    <em class="replaceable">THRESHOLD</em></code> will do the same as the
+    previous one but only including heartbeats initiated by the specified OSD.
+   </p></li><li class="listitem"><p>
+    <span class="bold"><strong>Changes in the telemetry MGR module.</strong></span>
+   </p><p>
+    A new 'device' channel (enabled by default) will report anonymized hard
+    disk and SSD health metrics to <code class="literal">telemetry.ceph.com</code> in
+    order to build and improve device failure prediction algorithms.
+   </p><p>
+    Telemetry reports information about CephFS file systems, including:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      How many MDS daemons (in total and per file system).
+     </p></li><li class="listitem"><p>
+      Which features are (or have been) enabled.
+     </p></li><li class="listitem"><p>
+      How many data pools.
+     </p></li><li class="listitem"><p>
+      Approximate file system age (year and the month of creation).
+     </p></li><li class="listitem"><p>
+      How many files, bytes, and snapshots.
+     </p></li><li class="listitem"><p>
+      How much metadata is being cached.
+     </p></li></ul></div><p>
+    Other miscellaneous information:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Which Ceph release the monitors are running.
+     </p></li><li class="listitem"><p>
+      Whether msgr v1 or v2 addresses are used for the monitors.
+     </p></li><li class="listitem"><p>
+      Whether IPv4 or IPv6 addresses are used for the monitors.
+     </p></li><li class="listitem"><p>
+      Whether RADOS cache tiering is enabled (and the mode).
+     </p></li><li class="listitem"><p>
+      Whether pools are replicated or erasure coded, and which erasure code
+      profile plug-in and parameters are in use.
+     </p></li><li class="listitem"><p>
+      How many hosts are in the cluster, and how many hosts have each type of
+      daemon.
+     </p></li><li class="listitem"><p>
+      Whether a separate OSD cluster network is being used.
+     </p></li><li class="listitem"><p>
+      How many RBD pools and images are in the cluster, and how many pools have
+      RBD mirroring enabled.
+     </p></li><li class="listitem"><p>
+      How many RGW daemons, zones, and zonegroups are present and which RGW
+      frontends are in use.
+     </p></li><li class="listitem"><p>
+      Aggregate stats about the CRUSH Map, such as which algorithms are used,
+      how big buckets are, how many rules are defined, and what tunables are in
+      use.
+     </p></li></ul></div><p>
+    If you had telemetry enabled before 14.2.5, you will need to re-opt-in
+    with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry on</pre></div><p>
+    If you are not comfortable sharing device metrics, you can disable that
+    channel first before re-opting-in:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph config set mgr mgr/telemetry/channel_device false
+<code class="prompt user">cephadm@adm &gt; </code>ceph telemetry on</pre></div><p>
+    You can view exactly what information will be reported first with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show        # see everything
+<code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show device # just the device info
+<code class="prompt user">cephadm@adm &gt; </code>ceph telemetry show basic  # basic cluster info</pre></div></li><li class="listitem"><p>
+    <span class="bold"><strong>New OSD daemon command
+    <code class="command">dump_recovery_reservations</code></strong></span>. It reveals the
+    recovery locks held (<code class="option">in_progress</code>) and waiting in priority
+    queues. Usage:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph daemon osd.<em class="replaceable">ID</em> dump_recovery_reservations</pre></div></li><li class="listitem"><p>
+    <span class="bold"><strong>New OSD daemon command
+    <code class="command">dump_scrub_reservations</code>. </strong></span> It reveals the
+    scrub reservations that are held for local (primary) and remote (replica)
+    PGs. Usage:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph daemon osd.<em class="replaceable">ID</em> dump_scrub_reservations</pre></div></li><li class="listitem"><p>
+    <span class="bold"><strong>RGW now supports S3 Object Lock set of
+    APIs.</strong></span> RGW now supports S3 Object Lock set of APIs allowing for a
+    WORM model for storing objects. 6 new APIs have been added PUT/GET bucket
+    object lock, PUT/GET object retention, PUT/GET object legal hold.
+   </p></li><li class="listitem"><p>
+    <span class="bold"><strong>RGW now supports List Objects V2.</strong></span> RGW now
+    supports List Objects V2 as specified at
+    <a class="link" href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html" target="_blank">https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html</a>.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.56"><span class="name">Nautilus 14.2.4 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.56">#</a></h2></div><p>
+  This point release fixes a serious regression that found its way into the
+  14.2.3 point release. This regression did not affect SUSE Enterprise Storage customers
+  because we did not ship a version based on 14.2.3.
+ </p><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.58"><span class="name">Nautilus 14.2.3 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.58">#</a></h2></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    Fixed a denial of service vulnerability where an unauthenticated client of
+    Ceph Object Gateway could trigger a crash from an uncaught exception.
+   </p></li><li class="listitem"><p>
+    Nautilus-based librbd clients can now open images on Jewel clusters.
+   </p></li><li class="listitem"><p>
+    The Object Gateway <code class="option">num_rados_handles</code> has been removed. If you were
+    using a value of <code class="option">num_rados_handles</code> greater than 1,
+    multiply your current <code class="option">objecter_inflight_ops</code> and
+    <code class="option">objecter_inflight_op_bytes</code> parameters by the old
+    <code class="option">num_rados_handles</code> to get the same throttle behavior.
+   </p></li><li class="listitem"><p>
+    The secure mode of Messenger v2 protocol is no longer experimental with
+    this release. This mode is now the preferred mode of connection for
+    monitors.
+   </p></li><li class="listitem"><p>
+    <code class="option">osd_deep_scrub_large_omap_object_key_threshold</code> has been
+    lowered to detect an object with a large number of omap keys more easily.
+   </p></li><li class="listitem"><p>
+    The Ceph Dashboard now supports silencing Prometheus notifications.
+   </p></li></ul></div><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.60"><span class="name">Nautilus 14.2.2 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.60">#</a></h2></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    The <code class="literal">no{up,down,in,out}</code> related commands have been
+    revamped. There are now two ways to set the
+    <code class="literal">no{up,down,in,out}</code> flags: the old command
+   </p><div class="verbatim-wrap"><pre class="screen">ceph osd [un]set <em class="replaceable">FLAG</em></pre></div><p>
+    which sets cluster-wide flags; and the new command
+   </p><div class="verbatim-wrap"><pre class="screen">ceph osd [un]set-group <em class="replaceable">FLAGS</em> <em class="replaceable">WHO</em></pre></div><p>
+    which sets flags in batch at the granularity of any crush node or device
+    class.
+   </p></li><li class="listitem"><p>
+    <code class="command">radosgw-admin</code> introduces two subcommands that allow the
+    managing of expire-stale objects that might be left behind after a bucket
+    reshard in earlier versions of Object Gateway. Expire-stale objects are expired
+    objects that should have been automatically erased but still exist and need
+    to be listed and removed manually. One subcommand lists such objects and
+    the other deletes them.
+   </p></li><li class="listitem"><p>
+    Earlier Nautilus releases (14.2.1 and 14.2.0) have an issue where
+    deploying a single new Nautilus BlueStore OSD on an upgraded cluster
+    (i.e. one that was originally deployed pre-Nautilus) breaks the pool
+    utilization statistics reported by <code class="command">ceph df</code>. Until all
+    OSDs have been reprovisioned or updated (via <code class="command">ceph-bluestore-tool
+    repair</code>), the pool statistics will show values that are lower than
+    the true value. This is resolved in 14.2.2, such that the cluster only
+    switches to using the more accurate per-pool stats after
+    <span class="emphasis"><em>all</em></span> OSDs are 14.2.2 or later, are Block Storage, and
+    have been updated via the repair function if they were created prior to
+    Nautilus.
+   </p></li><li class="listitem"><p>
+    The default value for <code class="option">mon_crush_min_required_version</code> has
+    been changed from <code class="literal">firefly</code> to <code class="literal">hammer</code>,
+    which means the cluster will issue a health warning if your CRUSH tunables
+    are older than Hammer. There is generally a small (but non-zero) amount of
+    data that will be re-balanced after making the switch to Hammer tunables.
+   </p><p>
+    If possible, we recommend that you set the oldest allowed client to
+    <code class="literal">hammer</code> or later. To display what the current oldest
+    allowed client is, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd dump | grep min_compat_client</pre></div><p>
+    If the current value is older than <code class="literal">hammer</code>, run the
+    following command to determine whether it is safe to make this change by
+    verifying that there are no clients older than Hammer currently connected
+    to the cluster:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph features</pre></div><p>
+    The newer <code class="literal">straw2</code> CRUSH bucket type was introduced in
+    Hammer. If you verify that all clients are Hammer or newer, it allows new
+    features only supported for <code class="literal">straw2</code> buckets to be used,
+    including the <code class="literal">crush-compat</code> mode for the Balancer
+    (<span class="intraxref">Book “Administration Guide”, Chapter 21 “Ceph Manager Modules”, Section 21.1 “Balancer”</span>).
+   </p></li></ul></div><p>
+  Find detailed information about the patch at
+  <a class="link" href="https://download.suse.com/Download?buildid=D38A7mekBz4~" target="_blank">https://download.suse.com/Download?buildid=D38A7mekBz4~</a>
+ </p><div class="sect1 bridgehead"><h2 class="title" id="id-1.4.7.63"><span class="name">Nautilus 14.2.1 Point Release</span><a title="Permalink" class="permalink" href="bk02apa.html#id-1.4.7.63">#</a></h2></div><p>
+  This was the first point release following the original Nautilus release
+  (14.2.0). The original ('General Availability' or 'GA') version of
+  SUSE Enterprise Storage 6 was based on this point release.
+ </p></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-container-kubernetes.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 13 </span>SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster</span></a> </div><div><a class="pagination-link next" href="bk02go01.html"><span class="pagination-relation">Next</span><span class="pagination-label">Glossary</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/ceph_maintenance_updates.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>General Notes on System Tuning | Tuning Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="General Notes on System Tuning | SES 6"/>
+<meta name="description" content="This manual discusses how to find the reasons for performance problems and provides means to solve these problems. Before you start tuning your system, you sho…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Tuning Guide"/>
+<meta name="chapter-title" content="Chapter 2. General Notes on System Tuning"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="General Notes on System Tuning | SES 6"/>
+<meta property="og:description" content="This manual discusses how to find the reasons for performance problems and provides means to solve these problems. Before you start tuning your system, you sho…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="General Notes on System Tuning | SES 6"/>
+<meta name="twitter:description" content="This manual discusses how to find the reasons for performance problems and provides means to solve these problems. Before you start tuning your system, you sho…"/>
+<link rel="prev" href="bk03pt01ch01.html" title="Chapter 1. User Privileges and Command Prompts"/><link rel="next" href="tuning-intro.html" title="Chapter 3. Introduction to Tuning SUSE Enterprise Storage Clusters"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Tuning Guide</a><span> / </span><a class="crumb" href="part-intro.html">Introduction</a><span> / </span><a class="crumb" href="tuning-how.html">General Notes on System Tuning</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Tuning Guide</div><ol><li class="active"><a href="part-intro.html" class="has-children you-are-here"><span class="title-number">I </span><span class="title-name">Introduction</span></a><ol><li><a href="bk03pt01ch01.html" class=" "><span class="title-number">1 </span><span class="title-name">User Privileges and Command Prompts</span></a></li><li><a href="tuning-how.html" class=" you-are-here"><span class="title-number">2 </span><span class="title-name">General Notes on System Tuning</span></a></li><li><a href="tuning-intro.html" class=" "><span class="title-number">3 </span><span class="title-name">Introduction to Tuning SUSE Enterprise Storage Clusters</span></a></li></ol></li><li><a href="part-tuning-guide.html" class="has-children "><span class="title-number">II </span><span class="title-name">SUSE Enterprise Storage Tuning</span></a><ol><li><a href="tuning-architecture.html" class=" "><span class="title-number">4 </span><span class="title-name">Architecture and Hardware Tuning</span></a></li><li><a href="tuning-os.html" class=" "><span class="title-number">5 </span><span class="title-name">Operating System Level Tuning</span></a></li><li><a href="tuning-ceph.html" class=" "><span class="title-number">6 </span><span class="title-name">Ceph Tuning</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">7 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="lvmcache.html" class=" "><span class="title-number">8 </span><span class="title-name">Improving Performance with LVM cache</span></a></li></ol></li><li><a href="tuning-appendix-a.html" class=" "><span class="title-number">A </span><span class="title-name">Salt State for Kernel Tuning</span></a></li><li><a href="tuning-appendix-b.html" class=" "><span class="title-number">B </span><span class="title-name">Ring Buffer Max Value Script</span></a></li><li><a href="tuning-appendix-c.html" class=" "><span class="title-number">C </span><span class="title-name">Network Tuning</span></a></li><li><a href="bk03apd.html" class=" "><span class="title-number">D </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="tuning-how" data-id-title="General Notes on System Tuning"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h2 class="title"><span class="title-number">2 </span><span class="title-name">General Notes on System Tuning</span> <a title="Permalink" class="permalink" href="tuning-how.html#">#</a></h2></div></div></div><p>
+  This manual discusses how to find the reasons for performance problems and
+  provides means to solve these problems. Before you start tuning your system,
+  you should make sure you have ruled out common problems and have found the
+  cause for the problem. You should also have a detailed plan on how to tune
+  the system, because applying random tuning tips often will not help and could
+  make things worse.
+ </p><div class="procedure" id="id-1.5.2.3.4" data-id-title="General Approach When Tuning a System"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 2.1: </span><span class="title-name">General Approach When Tuning a System </span><a title="Permalink" class="permalink" href="tuning-how.html#id-1.5.2.3.4">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+    Specify the problem that needs to be solved.
+   </p></li><li class="step"><p>
+    In case the degradation is new, identify any recent changes to the system.
+   </p></li><li class="step" id="tuning-basics-whyproblem"><p>
+    Identify why the issue is considered a performance problem.
+   </p></li><li class="step"><p>
+    Specify a metric that can be used to analyze performance. This metric could
+    for example be latency, throughput, the maximum number of users that are
+    simultaneously logged in, or the maximum number of active users.
+   </p></li><li class="step"><p>
+    Measure current performance using the metric from the previous step.
+   </p></li><li class="step"><p>
+    Identify the subsystem(s) where the application is spending the most time.
+   </p></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
+      Monitor the system and/or the application.
+     </p></li><li class="step"><p>
+      Analyze the data and categorize where time is being spent.
+     </p></li></ol></li><li class="step"><p>
+    Tune the subsystem identified in the previous step.
+   </p></li><li class="step"><p>
+    Remeasure the current performance without monitoring using the same metric
+    as before.
+   </p></li><li class="step"><p>
+    If performance is still not acceptable, start over with
+    <a class="xref" href="tuning-how.html#tuning-basics-whyproblem" title="Step 3">Step 3</a>.
+   </p></li></ol></div></div><section class="sect1" id="sec-tuning-basics-what" data-id-title="Understand The Problem You are Solving"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.1 </span><span class="title-name">Understand The Problem You are Solving</span> <a title="Permalink" class="permalink" href="tuning-how.html#sec-tuning-basics-what">#</a></h2></div></div></div><p>
+   Before starting to tuning a system, try to describe the problem as exactly
+   as possible. A statement like <span class="quote">“<span class="quote">The system is slow!</span>”</span> is not a
+   helpful problem description. For example, it could make a difference whether
+   the system speed needs to be improved in general or only at peak times.
+  </p><p>
+   Furthermore, make sure you can apply a measurement to your problem,
+   otherwise you cannot verify if the tuning was a success or not. You should
+   always be able to compare <span class="quote">“<span class="quote">before</span>”</span> and <span class="quote">“<span class="quote">after</span>”</span>.
+   Which metrics to use depends on the scenario or application you are looking
+   into. Relevant Web server metrics, for example, could be expressed in terms
+   of:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.2.3.5.4.1"><span class="term">Latency</span></dt><dd><p>
+      The time to deliver a page.
+     </p></dd><dt id="id-1.5.2.3.5.4.2"><span class="term">Throughput</span></dt><dd><p>
+      Number of pages served per second or megabytes transferred per second.
+     </p></dd><dt id="id-1.5.2.3.5.4.3"><span class="term">Active Users</span></dt><dd><p>
+      The maximum number of users that can be downloading pages while still
+      receiving pages within an acceptable latency.
+     </p></dd></dl></div></section><section class="sect1" id="tuning-basics-common" data-id-title="Rule Out Common Problems"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.2 </span><span class="title-name">Rule Out Common Problems</span> <a title="Permalink" class="permalink" href="tuning-how.html#tuning-basics-common">#</a></h2></div></div></div><p>
+   A performance problem often is caused by network or hardware problems, bugs,
+   or configuration issues. Make sure to rule out problems such as the ones
+   listed below before attempting to tune your system:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Check the output of the <code class="systemitem">systemd</code> journal for unusual entries.
+    </p></li><li class="listitem"><p>
+     Check (using <code class="command">top</code> or <code class="command">ps</code>) whether a
+     certain process misbehaves by eating up unusual amounts of CPU time or
+     memory.
+    </p></li><li class="listitem"><p>
+     Check for network problems by inspecting
+     <code class="filename">/proc/net/dev</code>.
+    </p></li><li class="listitem"><p>
+     In case of I/O problems with physical disks, make sure they are not caused
+     by hardware problems (check the disk with the
+     <code class="systemitem">smartmontools</code>) or by a full disk.
+    </p></li><li class="listitem"><p>
+     Ensure that background jobs are scheduled to be carried out in times the
+     server load is low. Those jobs should also run with low priority (set via
+     <code class="command">nice</code>).
+    </p></li><li class="listitem"><p>
+     If the machine runs several services using the same resources, consider
+     moving services to another server.
+    </p></li><li class="listitem"><p>
+     Last, make sure your software is up-to-date.
+    </p></li></ul></div></section><section class="sect1" id="sec-tuning-basics-bottleneck" data-id-title="Finding the Bottleneck"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.3 </span><span class="title-name">Finding the Bottleneck</span> <a title="Permalink" class="permalink" href="tuning-how.html#sec-tuning-basics-bottleneck">#</a></h2></div></div></div><p>
+   Finding the bottleneck very often is the hardest part when tuning a system.
+   SUSE Enterprise Storage offers many tools to help you with this task. If the problem
+   requires a long-time in-depth analysis, the Linux kernel offers means to
+   perform such analysis.
+  </p><p>
+   Once you have collected the data, it needs to be analyzed. First, inspect if
+   the server's hardware (memory, CPU, bus) and its I/O capacities (disk,
+   network) are sufficient. If these basic conditions are met, the system might
+   benefit from tuning.
+  </p></section><section class="sect1" id="sec-tuning-basics-tuning" data-id-title="Step-by-step Tuning"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.4 </span><span class="title-name">Step-by-step Tuning</span> <a title="Permalink" class="permalink" href="tuning-how.html#sec-tuning-basics-tuning">#</a></h2></div></div></div><p>
+   Make sure to carefully plan the tuning itself. It is of vital importance to
+   only do one step at a time. Only by doing so can you measure whether the
+   change made an improvement or even had a negative impact. Each tuning
+   activity should be measured over a sufficient time period to ensure you can
+   do an analysis based on significant data. If you cannot measure a positive
+   effect, do not make the change permanent: it might have a negative effect in
+   the future.
+  </p></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bk03pt01ch01.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 1 </span>User Privileges and Command Prompts</span></a> </div><div><a class="pagination-link next" href="tuning-intro.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 3 </span>Introduction to Tuning SUSE Enterprise Storage Clusters</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="tuning-how.html#sec-tuning-basics-what"><span class="title-number">2.1 </span><span class="title-name">Understand The Problem You are Solving</span></a></span></li><li><span class="sect1"><a href="tuning-how.html#tuning-basics-common"><span class="title-number">2.2 </span><span class="title-name">Rule Out Common Problems</span></a></span></li><li><span class="sect1"><a href="tuning-how.html#sec-tuning-basics-bottleneck"><span class="title-number">2.3 </span><span class="title-name">Finding the Bottleneck</span></a></span></li><li><span class="sect1"><a href="tuning-how.html#sec-tuning-basics-tuning"><span class="title-number">2.4 </span><span class="title-name">Step-by-step Tuning</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-how.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

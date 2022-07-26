@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Deploying with DeepSea/Salt | Deployment Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Deploying with DeepSea/Salt | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="The ceph-deploy cluster deployment tool was deprecated in SUSE Enterprise Storage 4 and is completely removed in favor of DeepSea as of SUSE Enterprise Storage…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 4. Deploying with DeepSea/Salt"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Deploying with DeepSea/Salt | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="The ceph-deploy cluster deployment tool was deprecated in SUSE Enterprise Storage 4 and is completely removed in favor of DeepSea as of SUSE Enterprise Storage…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deploying with DeepSea/Salt | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="The ceph-deploy cluster deployment tool was deprecated in SUSE Enterprise Storage 4 and is completely removed in favor of DeepSea as of SUSE Enterprise Storage…"/>
+<link rel="prev" href="ses-deployment.html" title="Part II. Cluster Deployment and Upgrade"/><link rel="next" href="cha-ceph-upgrade.html" title="Chapter 5. Upgrading from Previous Releases"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="ses-deployment.html">Cluster Deployment and Upgrade</a><span> / </span><a class="crumb" href="ceph-install-saltstack.html">Deploying with DeepSea/Salt</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 5.5 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Ceph Admin Node HA Setup</span></a></li></ol></li><li class="active"><a href="ses-deployment.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" you-are-here"><span class="title-number">4 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">5 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">6 </span><span class="title-name">Backing Up the Cluster Configuration</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li><a href="additional-software.html" class="has-children "><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">13 </span><span class="title-name">Exporting Ceph Data via Samba</span></a></li></ol></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">A </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="ceph-install-saltstack" data-id-title="Deploying with DeepSea/Salt"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">4 </span><span class="title-name">Deploying with DeepSea/Salt</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#">#</a></h2></div></div></div><div id="id-1.4.4.2.3" data-id-title="ceph-deploy Removed in SUSE Enterprise Storage 5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: <code class="command">ceph-deploy</code> Removed in SUSE Enterprise Storage 5.5</h6><p>
+   The <code class="command">ceph-deploy</code> cluster deployment tool was deprecated in
+   SUSE Enterprise Storage 4 and is completely removed in favor of DeepSea as of
+   SUSE Enterprise Storage 5.
+  </p></div><p>
+  Salt along with DeepSea is a <span class="emphasis"><em>stack</em></span> of components
+  that help you deploy and manage server infrastructure. It is very scalable,
+  fast, and relatively easy to get running. Read the following considerations
+  before you start deploying the cluster with Salt:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <span class="emphasis"><em>Salt minions</em></span> are the nodes controlled by a dedicated
+    node called Salt master. Salt minions have roles, for example Ceph OSD, Ceph Monitor,
+    Ceph Manager, Object Gateway, iSCSI Gateway, or NFS Ganesha.
+   </p></li><li class="listitem"><p>
+    A Salt master runs its own Salt minion. It is required for running privileged
+    tasks—for example creating, authorizing, and copying keys to
+    minions—so that remote minions never need to run privileged tasks.
+   </p><div id="id-1.4.4.2.5.2.2" data-id-title="Sharing Multiple Roles per Server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Sharing Multiple Roles per Server</h6><p>
+     You will get the best performance from your Ceph cluster when each role
+     is deployed on a separate node. But real deployments sometimes require
+     sharing one node for multiple roles. To avoid troubles with performance
+     and upgrade procedure, do not deploy the Ceph OSD, Metadata Server, or Ceph Monitor role to
+     the Salt master.
+    </p></div></li><li class="listitem"><p>
+    Salt minions need to correctly resolve the Salt master's host name over the
+    network. By default, they look for the <code class="systemitem">salt</code> host
+    name, but you can specify any other network-reachable host name in the
+    <code class="filename">/etc/salt/minion</code> file, see
+    <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>.
+   </p></li></ul></div><section class="sect1" id="cha-ceph-install-relnotes" data-id-title="Read the Release Notes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.1 </span><span class="title-name">Read the Release Notes</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#cha-ceph-install-relnotes">#</a></h2></div></div></div><p>
+   In the release notes you can find additional information on changes since
+   the previous release of SUSE Enterprise Storage. Check the release notes to see
+   whether:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     your hardware needs special considerations.
+    </p></li><li class="listitem"><p>
+     any used software packages have changed significantly.
+    </p></li><li class="listitem"><p>
+     special precautions are necessary for your installation.
+    </p></li></ul></div><p>
+   The release notes also provide information that could not make it into the
+   manual on time. They also contain notes about known issues.
+  </p><p>
+   After having installed the package <span class="package">release-notes-ses</span>,
+   find the release notes locally in the directory
+   <code class="filename">/usr/share/doc/release-notes</code> or online at
+   <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
+  </p></section><section class="sect1" id="deepsea-description" data-id-title="Introduction to DeepSea"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.2 </span><span class="title-name">Introduction to DeepSea</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-description">#</a></h2></div></div></div><p>
+   The goal of DeepSea is to save the administrator time and confidently
+   perform complex operations on a Ceph cluster.
+  </p><p>
+   Ceph is a very configurable software solution. It increases both the
+   freedom and responsibility of system administrators.
+  </p><p>
+   The minimal Ceph setup is good for demonstration purposes, but does not
+   show interesting features of Ceph that you can see with a big number of
+   nodes.
+  </p><p>
+   DeepSea collects and stores data about individual servers, such as
+   addresses and device names. For a distributed storage system such as Ceph,
+   there can be hundreds of such items to collect and store. Collecting the
+   information and entering the data manually into a configuration management
+   tool is exhausting and error prone.
+  </p><p>
+   The steps necessary to prepare the servers, collect the configuration, and
+   configure and deploy Ceph are mostly the same. However, this does not
+   address managing the separate functions. For day to day operations, the
+   ability to trivially add hardware to a given function and remove it
+   gracefully is a requirement.
+  </p><p>
+   DeepSea addresses these observations with the following strategy:
+   DeepSea consolidates the administrator's decisions in a single file. The
+   decisions include cluster assignment, role assignment and profile
+   assignment. And DeepSea collects each set of tasks into a simple goal.
+   Each goal is a <span class="emphasis"><em>stage</em></span>:
+  </p><div class="itemizedlist" id="deepsea-stage-description" data-id-title="DeepSea Stages Description"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">DeepSea Stages Description </span><a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-stage-description">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     <span class="bold"><strong>Stage 0</strong></span>—the
+     <span class="bold"><strong>preparation</strong></span>— during this stage, all
+     required updates are applied and your system may be rebooted.
+    </p><div id="id-1.4.4.2.7.8.2.2" data-id-title="Re-run Stage 0 after Salt master Reboot" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Re-run Stage 0 after Salt master Reboot</h6><p>
+      If, during Stage 0, the Salt master reboots to load the new kernel version,
+      you need to run Stage 0 again, otherwise minions will not be targeted.
+     </p></div></li><li class="listitem"><p>
+     <span class="bold"><strong>Stage 1</strong></span>—the
+     <span class="bold"><strong>discovery</strong></span>—here you detect all
+     hardware in your cluster and collect necessary information for the Ceph
+     configuration. For details about configuration, refer to
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-pillar-salt-configuration" title="4.5. Configuration and Customization">Section 4.5, “Configuration and Customization”</a>.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Stage 2</strong></span>—the
+     <span class="bold"><strong>configuration</strong></span>—you need to prepare
+     configuration data in a particular format.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Stage 3</strong></span>—the
+     <span class="bold"><strong>deployment</strong></span>—creates a basic Ceph
+     cluster with mandatory Ceph services. See
+     <a class="xref" href="cha-storage-about.html#storage-intro-core-nodes" title="1.2.3. Ceph Nodes and Daemons">Section 1.2.3, “Ceph Nodes and Daemons”</a> for their list.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Stage 4</strong></span>—the
+     <span class="bold"><strong>services</strong></span>—additional features of
+     Ceph like iSCSI, Object Gateway and CephFS can be installed in this stage. Each
+     is optional.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Stage 5</strong></span>—the removal stage. This
+     stage is not mandatory and during the initial setup it is usually not
+     needed. In this stage the roles of minions and also the cluster
+     configuration are removed. You need to run this stage when you need to
+     remove a storage node from your cluster. For details refer to
+     <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.3 “Removing and Reinstalling Cluster Nodes”</span>.
+    </p></li></ul></div><p>
+   You can find a more detailed introduction into DeepSea at
+   <a class="link" href="https://github.com/suse/deepsea/wiki" target="_blank">https://github.com/suse/deepsea/wiki</a>.
+  </p><section class="sect2" id="deepsea-organisation-locations" data-id-title="Organization and Important Locations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2.1 </span><span class="title-name">Organization and Important Locations</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-organisation-locations">#</a></h3></div></div></div><p>
+    Salt has several standard locations and several naming conventions used
+    on your master node:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.2.7.10.3.1"><span class="term"><code class="filename">/srv/pillar</code></span></dt><dd><p>
+       The directory stores configuration data for your cluster minions.
+       <span class="emphasis"><em>Pillar</em></span> is an interface for providing global
+       configuration values to all your cluster minions.
+      </p></dd><dt id="id-1.4.4.2.7.10.3.2"><span class="term"><code class="filename">/srv/salt/</code></span></dt><dd><p>
+       The directory stores Salt state files (also called
+       <span class="emphasis"><em>sls</em></span> files). State files are formatted descriptions
+       of states in which the cluster should be. For more information, refer to
+       the
+       <a class="link" href="https://docs.saltstack.com/en/latest/topics/tutorials/starting_states.html" target="_blank">Salt
+       documentation</a>.
+      </p></dd><dt id="id-1.4.4.2.7.10.3.3"><span class="term"><code class="filename">/srv/module/runners</code></span></dt><dd><p>
+       The directory stores Python scripts known as runners. Runners are
+       executed on the master node.
+      </p></dd><dt id="id-1.4.4.2.7.10.3.4"><span class="term"><code class="filename">/srv/salt/_modules</code></span></dt><dd><p>
+       The directory stores Python scripts that are called modules. The modules
+       are applied to all minions in your cluster.
+      </p></dd><dt id="id-1.4.4.2.7.10.3.5"><span class="term"><code class="filename">/srv/pillar/ceph</code></span></dt><dd><p>
+       The directory is used by DeepSea. Collected configuration data are
+       stored here.
+      </p></dd><dt id="id-1.4.4.2.7.10.3.6"><span class="term"><code class="filename">/srv/salt/ceph</code></span></dt><dd><p>
+       A directory used by DeepSea. It stores sls files that can be in
+       different formats, but each subdirectory contains sls files. Each
+       subdirectory contains only one type of sls file. For example,
+       <code class="filename">/srv/salt/ceph/stage</code> contains orchestration files
+       that are executed by <code class="command">salt-run state.orchestrate</code>.
+      </p></dd></dl></div></section><section class="sect2" id="ds-minion-targeting" data-id-title="Targeting the Minions"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2.2 </span><span class="title-name">Targeting the Minions</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#ds-minion-targeting">#</a></h3></div></div></div><p>
+    DeepSea commands are executed via the Salt infrastructure. When using
+    the <code class="command">salt</code> command, you need to specify a set of
+    Salt minions that the command will affect. We describe the set of the minions
+    as a <span class="emphasis"><em>target</em></span> for the <code class="command">salt</code> command.
+    The following sections describe possible methods to target the minions.
+   </p><section class="sect3" id="ds-minion-targeting-name" data-id-title="Matching the Minion Name"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.2.2.1 </span><span class="title-name">Matching the Minion Name</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#ds-minion-targeting-name">#</a></h4></div></div></div><p>
+     You can target a minion or a group of minions by matching their names. A
+     minion's name is usually the short host name of the node where the minion
+     runs. This is a general Salt targeting method, not related to DeepSea.
+     You can use globbing, regular expressions, or lists to limit the range of
+     minion names. The general syntax follows:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> example.module</pre></div><div id="id-1.4.4.2.7.11.3.4" data-id-title="Ceph-only Cluster" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Ceph-only Cluster</h6><p>
+      If all Salt minions in your environment belong to your Ceph cluster, you
+      can safely substitute <em class="replaceable">target</em> with
+      <code class="literal">'*'</code> to include <span class="emphasis"><em>all</em></span> registered
+      minions.
+     </p></div><p>
+     Match all minions in the example.net domain (assuming the minion names are
+     identical to their "full" host names):
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*.example.net' test.ping</pre></div><p>
+     Match the 'web1' to 'web5' minions:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt 'web[1-5]' test.ping</pre></div><p>
+     Match both 'web1-prod' and 'web1-devel' minions using a regular
+     expression:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -E 'web1-(prod|devel)' test.ping</pre></div><p>
+     Match a simple list of minions:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -L 'web1,web2,web3' test.ping</pre></div><p>
+     Match all minions in the cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' test.ping</pre></div></section><section class="sect3" id="ds-minion-targeting-grain" data-id-title="Targeting with a deepsea Grain"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.2.2.2 </span><span class="title-name">Targeting with a 'deepsea' Grain</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#ds-minion-targeting-grain">#</a></h4></div></div></div><p>
+     In a heterogeneous Salt-managed environment where SUSE Enterprise Storage
+     5.5 is deployed on a subset of nodes alongside other cluster
+     solution(s), it is a good idea to 'mark' the relevant minions by applying
+     a 'deepsea' grain to them. This way you can easily target DeepSea
+     minions in environments where matching by the minion name is problematic.
+    </p><p>
+     To apply the 'deepsea' grain to a group of minions, run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> grains.append deepsea default</pre></div><p>
+     To remove the 'deepsea' grain from a group of minions, run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> grains.delval deepsea destructive=True</pre></div><p>
+     After applying the 'deepsea' grain to the relevant minions, you can target
+     them as follows:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -G 'deepsea:*' test.ping</pre></div><p>
+     The following command is an equivalent:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'G@deepsea:*' test.ping</pre></div></section><section class="sect3" id="ds-minion-targeting-dsminions" data-id-title="Set the deepsea_minions Option"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.2.2.3 </span><span class="title-name">Set the <code class="option">deepsea_minions</code> Option</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#ds-minion-targeting-dsminions">#</a></h4></div></div></div><p>
+     Setting the <code class="option">deepsea_minions</code> option's target is a
+     requirement for DeepSea deployments. DeepSea uses it to instruct
+     minions during stages execution (refer to
+     <a class="xref" href="ceph-install-saltstack.html#deepsea-stage-description" title="DeepSea Stages Description">DeepSea Stages Description</a> for details.
+    </p><p>
+     To set or change the <code class="option">deepsea_minions</code> option, edit the
+     <code class="filename">/srv/pillar/ceph/deepsea_minions.sls</code> file on the
+     Salt master and add or replace the following line:
+    </p><div class="verbatim-wrap"><pre class="screen">deepsea_minions: <em class="replaceable">target</em></pre></div><div id="id-1.4.4.2.7.11.5.5" data-id-title="deepsea_minions Target" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: <code class="option">deepsea_minions</code> Target</h6><p>
+      As the <em class="replaceable">target</em> for the
+      <code class="option">deepsea_minions</code> option, you can use any targeting
+      method: both
+      <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting-name" title="4.2.2.1. Matching the Minion Name">Matching the Minion Name</a> and
+      <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting-grain" title="4.2.2.2. Targeting with a 'deepsea' Grain">Targeting with a 'deepsea' Grain</a>.
+     </p><p>
+      Match all Salt minions in the cluster:
+     </p><div class="verbatim-wrap"><pre class="screen">deepsea_minions: '*'</pre></div><p>
+      Match all minions with the 'deepsea' grain:
+     </p><div class="verbatim-wrap"><pre class="screen">deepsea_minions: 'G@deepsea:*'</pre></div></div></section><section class="sect3" id="id-1.4.4.2.7.11.6" data-id-title="For More Information"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.2.2.4 </span><span class="title-name">For More Information</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#id-1.4.4.2.7.11.6">#</a></h4></div></div></div><p>
+     You can use more advanced ways to target minions using the Salt
+     infrastructure. Refer to
+     <a class="link" href="https://docs.saltstack.com/en/latest/topics/targeting/" target="_blank">https://docs.saltstack.com/en/latest/topics/targeting/</a>
+     for a description of all targeting techniques.
+    </p><p>
+     Also, the 'deepsea-minions' manual page gives you more detail about
+     DeepSea targeting (<code class="command">man 7 deepsea_minions</code>).
+    </p></section></section></section><section class="sect1" id="ceph-install-stack" data-id-title="Cluster Deployment"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.3 </span><span class="title-name">Cluster Deployment</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#ceph-install-stack">#</a></h2></div></div></div><p>
+   The cluster deployment process has several phases. First, you need to
+   prepare all nodes of the cluster by configuring Salt and then deploy and
+   configure Ceph.
+  </p><div id="id-1.4.4.2.8.3" data-id-title="Deploying Monitor Nodes without Defining OSD Profiles" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Deploying Monitor Nodes without Defining OSD Profiles</h6><p>
+    If you need to skip defining OSD profiles and deploy the monitor nodes
+    first, you can do so by setting the <code class="option">DEV_ENV</code> variable. It
+    allows deploying monitors without the presence of the
+    <code class="filename">profile/</code> directory, as well as deploying a cluster
+    with at least <span class="emphasis"><em>one</em></span> storage, monitor, and manager node.
+   </p><p>
+    To set the environment variable, either enable it globally by setting it in
+    the <code class="filename">/srv/pillar/ceph/stack/global.yml</code> file, or set it
+    for the current shell session only:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>export DEV_ENV=true</pre></div></div><p>
+   The following procedure describes the cluster preparation in detail.
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Install and register SUSE Linux Enterprise Server 12 SP3 together with SUSE Enterprise Storage 5.5
+     extension on each node of the cluster.
+    </p><div id="id-1.4.4.2.8.5.1.2" data-id-title="SUSE Linux Enterprise Server 12 SP4 Not Supported" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: SUSE Linux Enterprise Server 12 SP4 Not Supported</h6><p>
+      SUSE Linux Enterprise Server 12 SP4 is <span class="bold"><strong>not</strong></span> a supported base
+      operating system for SUSE Enterprise Storage 5.5.
+     </p></div></li><li class="step"><p>
+     Verify that proper products are installed and registered by listing
+     existing software repositories. The list will be similar to this output:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper lr -E
+#  | Alias   | Name                              | Enabled | GPG Check | Refresh
+---+---------+-----------------------------------+---------+-----------+--------
+ 4 | [...]   | SUSE-Enterprise-Storage-5-Pool    | Yes     | (r ) Yes  | No
+ 6 | [...]   | SUSE-Enterprise-Storage-5-Updates | Yes     | (r ) Yes  | Yes
+ 9 | [...]   | SLES12-SP3-Pool                   | Yes     | (r ) Yes  | No
+11 | [...]   | SLES12-SP3-Updates                | Yes     | (r ) Yes  | Yes</pre></div><div id="id-1.4.4.2.8.5.2.3" data-id-title="LTSS Repositories Are Not Required" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: LTSS Repositories Are Not Required</h6><p>
+      LTSS updates for SUSE Linux Enterprise Server are delivered as part of the SUSE Enterprise Storage
+      5.5 repositories. Therefore, no LTSS repositories need to be
+      added.
+     </p></div></li><li class="step"><p>
+     Configure network settings including proper DNS name resolution on each
+     node. The Salt master and all the Salt minions need to resolve each other by
+     their host names. For more information on configuring a network, see
+     <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-admin/#sec-basicnet-yast" target="_blank">https://documentation.suse.com/sles/12-SP5/single-html/SLES-admin/#sec-basicnet-yast</a>
+     For more information on configuring a DNS server, see
+     <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-admin/#cha-dns" target="_blank">https://documentation.suse.com/sles/12-SP5/single-html/SLES-admin/#cha-dns</a>.
+    </p></li><li class="step"><p>
+     Select one or more time servers/pools, and synchronize the local time
+     against them. Verify that the time synchronization service is enabled on
+     each system start-up. You can use the <code class="command">yast ntp-client</code>
+     command found in a <span class="package">yast2-ntp-client</span> package to
+     configure time synchronization.
+    </p><div id="id-1.4.4.2.8.5.4.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      Virtual machines are not reliable NTP sources.
+     </p></div><p>
+     Find more information on setting up NTP in
+     <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-admin/#sec-ntp-yast" target="_blank">https://documentation.suse.com/sles/12-SP5/single-html/SLES-admin/#sec-ntp-yast</a>.
+    </p></li><li class="step"><p>
+     Install the <code class="literal">salt-master</code> and
+     <code class="literal">salt-minion</code> packages on the Salt master node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper in salt-master salt-minion</pre></div><p>
+     Check that the <code class="systemitem">salt-master</code> service is enabled and
+     started, and enable and start it if needed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl enable salt-master.service
+<code class="prompt user">root@master # </code>systemctl start salt-master.service</pre></div></li><li class="step"><p>
+     If you intend to use firewall, verify that the Salt master node has ports
+     4505 and 4506 open to all Salt minion nodes. If the ports are closed, you
+     can open them using the <code class="command">yast2 firewall</code> command by
+     allowing the <span class="guimenu">SaltStack</span> service.
+    </p><div id="id-1.4.4.2.8.5.6.2" data-id-title="DeepSea Stages Fail with Firewall" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: DeepSea Stages Fail with Firewall</h6><p>
+      DeepSea deployment stages fail when firewall is active (and even
+      configured). To pass the stages correctly, you need to either turn the
+      firewall off by running
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl stop SuSEfirewall2.service</pre></div><p>
+      or set the <code class="option">FAIL_ON_WARNING</code> option to 'False' in
+      <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+     </p><div class="verbatim-wrap"><pre class="screen">FAIL_ON_WARNING: False</pre></div></div></li><li class="step"><p>
+     Install the package <code class="literal">salt-minion</code> on all minion nodes.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper in salt-minion</pre></div><p>
+     Make sure that the <span class="emphasis"><em>fully qualified domain name</em></span> of
+     each node can be resolved to the public network IP address by all other
+     nodes.
+    </p></li><li class="step"><p>
+     Configure all minions (including the master minion) to connect to the
+     master. If your Salt master is not reachable by the host name
+     <code class="literal">salt</code>, edit the file
+     <code class="filename">/etc/salt/minion</code> or create a new file
+     <code class="filename">/etc/salt/minion.d/master.conf</code> with the following
+     content:
+    </p><div class="verbatim-wrap"><pre class="screen">master: <em class="replaceable">host_name_of_salt_master</em></pre></div><p>
+     If you performed any changes to the configuration files mentioned above,
+     restart the Salt service on all Salt minions:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl restart salt-minion.service</pre></div></li><li class="step"><p>
+     Check that the <code class="systemitem">salt-minion</code> service is enabled and
+     started on all nodes. Enable and start it if needed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl enable salt-minion.service
+<code class="prompt user">root # </code>systemctl start salt-minion.service</pre></div></li><li class="step"><p>
+     Verify each Salt minion's fingerprint and accept all salt keys on the
+     Salt master if the fingerprints match.
+    </p><p>
+     View each minion's fingerprint:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>salt-call --local key.finger
+local:
+3f:a3:2f:3f:b4:d3:d9:24:49:ca:6b:2c:e1:6c:3f:c3:83:37:f0:aa:87:42:e8:ff...</pre></div><p>
+     After gathering fingerprints of all the Salt minions, list fingerprints of
+     all unaccepted minion keys on the Salt master:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -F
+[...]
+Unaccepted Keys:
+minion1:
+3f:a3:2f:3f:b4:d3:d9:24:49:ca:6b:2c:e1:6c:3f:c3:83:37:f0:aa:87:42:e8:ff...</pre></div><p>
+     If the minions' fingerprint match, accept them:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key --accept-all</pre></div></li><li class="step"><p>
+     Verify that the keys have been accepted:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key --list-all</pre></div></li><li class="step" id="deploy-wiping-disk"><p>
+     Prior to deploying SUSE Enterprise Storage 5.5, manually zap all the
+     disks. Remember to replace 'X' with the correct disk letter:
+    </p><ol type="a" class="substeps"><li class="step"><p>
+       Stop all processes that are using the specific disk.
+      </p></li><li class="step"><p>
+       Verify whether any partition on the disk is mounted, and unmount if
+       needed.
+      </p></li><li class="step"><p>
+       If the disk is managed by LVM, deactivate and delete the whole LVM
+       infrastructure. Refer to
+       <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-storage/#cha-lvm" target="_blank">https://documentation.suse.com/sles/12-SP5/single-html/SLES-storage/#cha-lvm</a>
+       for more details.
+      </p></li><li class="step"><p>
+       If the disk is part of MD RAID, deactivate the RAID. Refer to
+       <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-storage/#part-software-raid" target="_blank">https://documentation.suse.com/sles/12-SP5/single-html/SLES-storage/#part-software-raid</a>
+       for more details.
+      </p></li><li class="step"><div id="id-1.4.4.2.8.5.12.2.5.1" data-id-title="Rebooting the Server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Rebooting the Server</h6><p>
+        If you get error messages such as 'partition in use' or 'kernel can not
+        be updated with the new partition table' during the following steps,
+        reboot the server.
+       </p></div><p>
+       Wipe the beginning of each partition (as <code class="systemitem">root</code>):
+      </p><div class="verbatim-wrap"><pre class="screen">for partition in /dev/sdX[0-9]*
+do
+  dd if=/dev/zero of=$partition bs=4096 count=1 oflag=direct
+done</pre></div></li><li class="step"><p>
+       Wipe the beginning of the drive:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>dd if=/dev/zero of=/dev/sdX bs=512 count=34 oflag=direct</pre></div></li><li class="step"><p>
+       Wipe the end of the drive:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>dd if=/dev/zero of=/dev/sdX bs=512 count=33 \
+  seek=$((`blockdev --getsz /dev/sdX` - 33)) oflag=direct</pre></div></li><li class="step"><p>
+       Create a new GPT partition table:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>sgdisk -Z --clear -g /dev/sdX</pre></div></li><li class="step"><p>
+       Verify the result with:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>parted -s /dev/sdX print free</pre></div><p>
+       or
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>dd if=/dev/sdX bs=512 count=34 | hexdump -C
+<code class="prompt user">root # </code>dd if=/dev/sdX bs=512 count=33 \
+  skip=$((`blockdev --getsz /dev/sdX` - 33)) | hexdump -C</pre></div></li></ol></li><li class="step"><p>
+     Optionally, if you need to preconfigure the cluster's network settings
+     before the <span class="package">deepsea</span> package is installed, create
+     <code class="filename">/srv/pillar/ceph/stack/ceph/cluster.yml</code> manually and
+     set the <code class="option">cluster_network:</code> and
+     <code class="option">public_network:</code> options. Note that the file will not be
+     overwritten after you install <span class="package">deepsea</span>.
+    </p></li><li class="step"><p>
+     Install DeepSea on the Salt master node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper in deepsea</pre></div></li><li class="step"><p>
+     Check that the file
+     <code class="filename">/srv/pillar/ceph/master_minion.sls</code> on the Salt master
+     points to your Salt master. If your Salt master is reachable via more host
+     names, use the one suitable for the storage cluster. If you used the
+     default host name for your
+     Salt master—<span class="emphasis"><em>salt</em></span>—in the
+     <span class="emphasis"><em>ses</em></span> domain, then the file looks as follows:
+    </p><div class="verbatim-wrap"><pre class="screen">master_minion: salt.ses</pre></div></li></ol></div></div><p>
+   Now you deploy and configure Ceph. Unless specified otherwise, all steps
+   are mandatory.
+  </p><div id="id-1.4.4.2.8.7" data-id-title="Salt Command Conventions" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Salt Command Conventions</h6><p>
+    There are two possible ways how to run <code class="command">salt-run
+    state.orch</code>—one is with <code class="literal">stage.&lt;stage
+    number&gt;</code>, the other is with the name of the stage. Both
+    notations have the same impact and it is fully your preference which
+    command you use.
+   </p></div><div class="procedure" id="ds-depl-stages" data-id-title="Running Deployment Stages"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 4.1: </span><span class="title-name">Running Deployment Stages </span><a title="Permalink" class="permalink" href="ceph-install-saltstack.html#ds-depl-stages">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Include the Salt minions belonging to the Ceph cluster that you are
+     currently deploying. Refer to <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting-name" title="4.2.2.1. Matching the Minion Name">Section 4.2.2.1, “Matching the Minion Name”</a>
+     for more information on targeting the minions.
+    </p></li><li class="step"><p>
+     Prepare your cluster. Refer to <a class="xref" href="ceph-install-saltstack.html#deepsea-stage-description" title="DeepSea Stages Description">DeepSea Stages Description</a>
+     for more details.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0</pre></div><p>
+     or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.prep</pre></div><div id="id-1.4.4.2.8.8.3.5" data-id-title="Run or Monitor Stages using DeepSea CLI" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Run or Monitor Stages using DeepSea CLI</h6><p>
+      Using the DeepSea CLI, you can follow the stage execution progress in
+      real-time, either by running the DeepSea CLI in the monitoring mode, or
+      by running the stage directly through DeepSea CLI. For details refer to
+      <a class="xref" href="ceph-install-saltstack.html#deepsea-cli" title="4.4. DeepSea CLI">Section 4.4, “DeepSea CLI”</a>.
+     </p></div></li><li class="step"><p>
+     <span class="emphasis"><em>Optional</em></span>: create Btrfs sub-volumes for
+     <code class="filename">/var/lib/ceph/</code>. This step should only be executed
+     before the next stages of DeepSea have been executed. To migrate
+     existing directories or for more details, see
+     <span class="intraxref">Book “Administration Guide”, Chapter 20 “Hints and Tips”, Section 20.6 “Btrfs Sub-volume for /var/lib/ceph”</span>.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.migrate.subvolume</pre></div></li><li class="step"><p>
+     The discovery stage collects data from all minions and creates
+     configuration fragments that are stored in the directory
+     <code class="filename">/srv/pillar/ceph/proposals</code>. The data are stored in
+     the YAML format in *.sls or *.yml files.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1</pre></div><p>
+     or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.discovery</pre></div></li><li class="step"><p>
+     After the previous command finishes successfully, create a
+     <code class="filename">policy.cfg</code> file in
+     <code class="filename">/srv/pillar/ceph/proposals</code>. For details refer to
+     <a class="xref" href="ceph-install-saltstack.html#policy-configuration" title="4.5.1. The policy.cfg File">Section 4.5.1, “The <code class="filename">policy.cfg</code> File”</a>.
+    </p><div id="id-1.4.4.2.8.8.6.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      If you need to change the cluster's network setting, edit
+      <code class="filename">/srv/pillar/ceph/stack/ceph/cluster.yml</code> and adjust
+      the lines starting with <code class="literal">cluster_network:</code> and
+      <code class="literal">public_network:</code>.
+     </p></div></li><li class="step"><p>
+     The configuration stage parses the <code class="filename">policy.cfg</code> file
+     and merges the included files into their final form. Cluster and role
+     related content are placed in
+     <code class="filename">/srv/pillar/ceph/cluster</code>, while Ceph specific
+     content is placed in <code class="filename">/srv/pillar/ceph/stack/default</code>.
+    </p><p>
+     Run the following command to trigger the configuration stage:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2</pre></div><p>
+     or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.configure</pre></div><p>
+     The configuration step may take several seconds. After the command
+     finishes, you can view the pillar data for the specified minions (for
+     example, named <code class="literal">ceph_minion1</code>,
+     <code class="literal">ceph_minion2</code>, etc.) by running:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt 'ceph_minion*' pillar.items</pre></div><div id="id-1.4.4.2.8.8.7.8" data-id-title="Overwriting Defaults" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Overwriting Defaults</h6><p>
+      As soon as the command finishes, you can view the default configuration
+      and change it to suit your needs. For details refer to
+      <a class="xref" href="ceph-deploy-ds-custom.html" title="Chapter 7. Customizing the Default Configuration">Chapter 7, <em>Customizing the Default Configuration</em></a>.
+     </p></div></li><li class="step"><p>
+     Now you run the deployment stage. In this stage, the pillar is validated,
+     and monitors and ODS daemons are started on the storage nodes. Run the
+     following to start the stage:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div><p>
+     or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.deploy</pre></div><p>
+     The command may take several minutes. If it fails, you need to fix the
+     issue and run the previous stages again. After the command succeeds, run
+     the following to check the status:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph -s</pre></div></li><li class="step"><p>
+     The last step of the Ceph cluster deployment is the
+     <span class="emphasis"><em>services</em></span> stage. Here you instantiate any of the
+     currently supported services: iSCSI Gateway, CephFS, Object Gateway, openATTIC, and NFS Ganesha.
+     In this stage, the necessary pools, authorizing keyrings, and starting
+     services are created. To start the stage, run the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4</pre></div><p>
+     or
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.services</pre></div><p>
+     Depending on the setup, the command may run for several minutes.
+    </p></li></ol></div></div></section><section class="sect1" id="deepsea-cli" data-id-title="DeepSea CLI"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.4 </span><span class="title-name">DeepSea CLI</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-cli">#</a></h2></div></div></div><p>
+   DeepSea also provides a CLI tool that allows the user to monitor or run
+   stages while visualizing the execution progress in real-time.
+  </p><p>
+   Two modes are supported for visualizing a stage's execution progress:
+  </p><div class="itemizedlist" id="deepsea-cli-modes" data-id-title="DeepSea CLI Modes"><div class="itemizedlist-title-wrap"><h6 class="itemizedlist-title"><span class="title-name">DeepSea CLI Modes </span><a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-cli-modes">#</a></h6></div><ul class="itemizedlist"><li class="listitem"><p>
+     <span class="bold"><strong>Monitoring mode</strong></span>: visualizes the execution
+     progress of a DeepSea stage triggered by the <code class="command">salt-run</code>
+     command issued in another terminal session.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Stand-alone mode</strong></span>: runs a DeepSea stage
+     while providing real-time visualization of its component steps as they are
+     executed.
+    </p></li></ul></div><div id="id-1.4.4.2.9.5" data-id-title="DeepSea CLI Commands" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: DeepSea CLI Commands</h6><p>
+    The DeepSea CLI commands can only be run on the Salt master node with the
+    <code class="systemitem">root</code> privileges.
+   </p></div><section class="sect2" id="deepsea-cli-monitor" data-id-title="DeepSea CLI: Monitor Mode"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.1 </span><span class="title-name">DeepSea CLI: Monitor Mode</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-cli-monitor">#</a></h3></div></div></div><p>
+    The progress monitor provides a detailed, real-time visualization of what
+    is happening during execution of stages using <code class="command">salt-run
+    state.orch</code> commands in other terminal sessions.
+   </p><div id="id-1.4.4.2.9.6.3" data-id-title="Start Monitor in a New Terminal Session" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Start Monitor in a New Terminal Session</h6><p>
+     You need to start the monitor in a new terminal window
+     <span class="emphasis"><em>before</em></span> running any <code class="command">salt-run
+     state.orch</code> so that the monitor can detect the start of the
+     stage's execution.
+    </p></div><p>
+    If you start the monitor after issuing the <code class="command">salt-run
+    state.orch</code> command, then no execution progress will be shown.
+   </p><p>
+    You can start the monitor mode by running the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>deepsea monitor</pre></div><p>
+    For more information about the available command line options of the
+    <code class="command">deepsea monitor</code> command check its manual page:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>man deepsea-monitor</pre></div></section><section class="sect2" id="deepsea-cli-standalone" data-id-title="DeepSea CLI: Stand-alone Mode"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.4.2 </span><span class="title-name">DeepSea CLI: Stand-alone Mode</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-cli-standalone">#</a></h3></div></div></div><p>
+    In the stand-alone mode, DeepSea CLI can be used to run a DeepSea
+    stage, showing its execution in real-time.
+   </p><p>
+    The command to run a DeepSea stage from the DeepSea CLI has the
+    following form:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>deepsea stage run <em class="replaceable">stage-name</em></pre></div><p>
+    where <em class="replaceable">stage-name</em> corresponds to the way Salt
+    orchestration state files are referenced. For example, stage
+    <span class="bold"><strong>deploy</strong></span>, which corresponds to the directory
+    located in <code class="filename">/srv/salt/ceph/stage/deploy</code>, is referenced
+    as <span class="bold"><strong>ceph.stage.deploy</strong></span>.
+   </p><p>
+    This command is an alternative to the Salt-based commands for running
+    DeepSea stages (or any DeepSea orchestration state file).
+   </p><p>
+    The command <code class="command">deepsea stage run ceph.stage.0</code> is equivalent
+    to <code class="command">salt-run state.orch ceph.stage.0</code>.
+   </p><p>
+    For more information about the available command line options accepted by
+    the <code class="command">deepsea stage run</code> command check its manual page:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>man deepsea-stage run</pre></div><p>
+    In the following figure shows an example of the output of the DeepSea CLI
+    when running <span class="underline">Stage 2</span>:
+   </p><div class="figure" id="id-1.4.4.2.9.7.11"><div class="figure-contents"><div class="mediaobject"><a href="images/deepsea-cli-stage2-screenshot.png" target="_blank"><img src="images/deepsea-cli-stage2-screenshot.png" width="" alt="DeepSea CLI stage execution progress output"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 4.1: </span><span class="title-name">DeepSea CLI stage execution progress output </span><a title="Permalink" class="permalink" href="ceph-install-saltstack.html#id-1.4.4.2.9.7.11">#</a></h6></div></div><section class="sect3" id="deepsea-cli-run-alias" data-id-title="DeepSea CLI stage run Alias"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.4.2.1 </span><span class="title-name">DeepSea CLI <code class="command">stage run</code> Alias</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-cli-run-alias">#</a></h4></div></div></div><p>
+     For advanced users of Salt, we also support an alias for running a
+     DeepSea stage that takes the Salt command used to run a stage, for
+     example, <code class="command">salt-run state.orch
+     <em class="replaceable">stage-name</em></code>, as a command of the
+     DeepSea CLI.
+    </p><p>
+     Example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>deepsea salt-run state.orch <em class="replaceable">stage-name</em></pre></div></section></section></section><section class="sect1" id="deepsea-pillar-salt-configuration" data-id-title="Configuration and Customization"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.5 </span><span class="title-name">Configuration and Customization</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-pillar-salt-configuration">#</a></h2></div></div></div><section class="sect2" id="policy-configuration" data-id-title="The policy.cfg File"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.5.1 </span><span class="title-name">The <code class="filename">policy.cfg</code> File</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#policy-configuration">#</a></h3></div></div></div><p>
+    The <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code>
+    configuration file is used to determine roles of individual cluster nodes.
+    For example, which node acts as an OSD or which as a monitor node. Edit
+    <code class="filename">policy.cfg</code> in order to reflect your desired cluster
+    setup. The order of the sections is arbitrary, but the content of included
+    lines overwrites matching keys from the content of previous lines.
+   </p><div id="id-1.4.4.2.10.2.3" data-id-title="Examples of policy.cfg" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Examples of <code class="filename">policy.cfg</code></h6><p>
+     You can find several examples of complete policy files in the
+     <code class="filename">/usr/share/doc/packages/deepsea/examples/</code> directory.
+    </p></div><section class="sect3" id="policy-cluster-assignment" data-id-title="Cluster Assignment"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.1 </span><span class="title-name">Cluster Assignment</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#policy-cluster-assignment">#</a></h4></div></div></div><p>
+     In the <span class="bold"><strong>cluster</strong></span> section you select minions
+     for your cluster. You can select all minions, or you can blacklist or
+     whitelist minions. Examples for a cluster called
+     <span class="bold"><strong>ceph</strong></span> follow.
+    </p><p>
+     To include <span class="bold"><strong>all</strong></span> minions, add the following
+     lines:
+    </p><div class="verbatim-wrap"><pre class="screen">cluster-ceph/cluster/*.sls</pre></div><p>
+     To <span class="bold"><strong>whitelist</strong></span> a particular minion:
+    </p><div class="verbatim-wrap"><pre class="screen">cluster-ceph/cluster/abc.domain.sls</pre></div><p>
+     or a group of minions—you can shell glob matching:
+    </p><div class="verbatim-wrap"><pre class="screen">cluster-ceph/cluster/mon*.sls</pre></div><p>
+     To <span class="bold"><strong>blacklist</strong></span> minions, set the them to
+     <code class="literal">unassigned</code>:
+    </p><div class="verbatim-wrap"><pre class="screen">cluster-unassigned/cluster/client*.sls</pre></div></section><section class="sect3" id="policy-role-assignment" data-id-title="Role Assignment"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.2 </span><span class="title-name">Role Assignment</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#policy-role-assignment">#</a></h4></div></div></div><p>
+     This section provides you with details on assigning 'roles' to your
+     cluster nodes. A 'role' in this context means the service you need to run
+     on the node, such as Ceph Monitor, Object Gateway, iSCSI Gateway, or openATTIC. No role is assigned
+     automatically, only roles added to <code class="command">policy.cfg</code> will be
+     deployed.
+    </p><p>
+     The assignment follows this pattern:
+    </p><div class="verbatim-wrap"><pre class="screen">role-<em class="replaceable">ROLE_NAME</em>/<em class="replaceable">PATH</em>/<em class="replaceable">FILES_TO_INCLUDE</em></pre></div><p>
+     Where the items have the following meaning and values:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <em class="replaceable">ROLE_NAME</em> is any of the following: 'master',
+       'admin', 'mon', 'mgr', 'mds', 'igw', 'rgw', 'ganesha', or 'openattic'.
+      </p></li><li class="listitem"><p>
+       <em class="replaceable">PATH</em> is a relative directory path to .sls or
+       .yml files. In case of .sls files, it usually is
+       <code class="filename">cluster</code>, while .yml files are located at
+       <code class="filename">stack/default/ceph/minions</code>.
+      </p></li><li class="listitem"><p>
+       <em class="replaceable">FILES_TO_INCLUDE</em> are the Salt state files
+       or YAML configuration files. They normally consist of Salt minions host
+       names, for example <code class="filename">ses5min2.yml</code>. Shell globbing can
+       be used for more specific matching.
+      </p></li></ul></div><p>
+     An example for each role follows:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       <span class="emphasis"><em>master</em></span> - the node has admin keyrings to all Ceph
+       clusters. Currently, only a single Ceph cluster is supported. As the
+       <span class="emphasis"><em>master</em></span> role is mandatory, always add a similar line
+       to the following:
+      </p><div class="verbatim-wrap"><pre class="screen">role-master/cluster/master*.sls</pre></div></li><li class="listitem"><p>
+       <span class="emphasis"><em>admin</em></span> - the minion will have an admin keyring. You
+       define the role as follows:
+      </p><div class="verbatim-wrap"><pre class="screen">role-admin/cluster/abc*.sls</pre></div></li><li class="listitem"><p>
+       <span class="emphasis"><em>mon</em></span> - the minion will provide the monitoring
+       service to the Ceph cluster. This role requires addresses of the
+       assigned minions. As of SUSE Enterprise Storage 5.5, the public
+       address are calculated dynamically and are no longer needed in the
+       Salt pillar.
+      </p><div class="verbatim-wrap"><pre class="screen">role-mon/cluster/mon*.sls</pre></div><p>
+       The example assigns the monitoring role to a group of minions.
+      </p></li><li class="listitem"><p>
+       <span class="emphasis"><em>mgr</em></span> - the Ceph manager daemon which collects all
+       the state information from the whole cluster. Deploy it on all minions
+       where you plan to deploy the Ceph monitor role.
+      </p><div class="verbatim-wrap"><pre class="screen">role-mgr/cluster/mgr*.sls</pre></div></li><li class="listitem"><p>
+       <span class="emphasis"><em>mds</em></span> - the minion will provide the metadata service
+       to support CephFS.
+      </p><div class="verbatim-wrap"><pre class="screen">role-mds/cluster/mds*.sls</pre></div></li><li class="listitem"><p>
+       <span class="emphasis"><em>igw</em></span> - the minion will act as an iSCSI Gateway. This role
+       requires addresses of the assigned minions, thus you need to also
+       include the files from the <code class="filename">stack</code> directory:
+      </p><div class="verbatim-wrap"><pre class="screen">role-igw/cluster/*.sls</pre></div></li><li class="listitem"><p>
+       <span class="emphasis"><em>rgw</em></span> - the minion will act as an Object Gateway:
+      </p><div class="verbatim-wrap"><pre class="screen">role-rgw/cluster/rgw*.sls</pre></div></li><li class="listitem"><p>
+       <span class="emphasis"><em>openattic</em></span> - the minion will act as an openATTIC server:
+      </p><div class="verbatim-wrap"><pre class="screen">role-openattic/cluster/openattic*.sls</pre></div><p>
+       For more information, see <span class="intraxref">Book “Administration Guide”, Chapter 17 “openATTIC”</span>.
+      </p></li><li class="listitem"><p>
+       <span class="emphasis"><em>ganesha</em></span> - the minion will act as an NFS Ganesha
+       server. The 'ganesha' role requires either an 'rgw' or 'mds' role in
+       cluster, otherwise the validation will fail in Stage 3.
+      </p><p>
+       To successfully install NFS Ganesha, additional configuration is required.
+       If you want to use NFS Ganesha, read <a class="xref" href="cha-as-ganesha.html" title="Chapter 12. Installation of NFS Ganesha">Chapter 12, <em>Installation of NFS Ganesha</em></a>
+       before executing stages 2 and 4. However, it is possible to install
+       NFS Ganesha later.
+      </p><p>
+       In some cases it can be useful to define custom roles for NFS Ganesha
+       nodes. For details, see <span class="intraxref">Book “Administration Guide”, Chapter 16 “NFS Ganesha: Export Ceph Data via NFS”, Section 16.3 “Custom NFS Ganesha Roles”</span>.
+      </p></li></ul></div><div id="id-1.4.4.2.10.2.5.9" data-id-title="Multiple Roles of Cluster Nodes" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Multiple Roles of Cluster Nodes</h6><p>
+      You can assign several roles to a single node. For example, you can
+      assign the mds roles to the monitor nodes:
+     </p><div class="verbatim-wrap"><pre class="screen">role-mds/cluster/mon[1,2]*.sls</pre></div></div></section><section class="sect3" id="policy-common-configuration" data-id-title="Common Configuration"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.3 </span><span class="title-name">Common Configuration</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#policy-common-configuration">#</a></h4></div></div></div><p>
+     The common configuration section includes configuration files generated
+     during the <span class="emphasis"><em>discovery (Stage 1)</em></span>. These configuration
+     files store parameters like <code class="literal">fsid</code> or
+     <code class="literal">public_network</code>. To include the required Ceph common
+     configuration, add the following lines:
+    </p><div class="verbatim-wrap"><pre class="screen">config/stack/default/global.yml
+config/stack/default/ceph/cluster.yml</pre></div></section><section class="sect3" id="policy-profile-assignment" data-id-title="Profile Assignment"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.4 </span><span class="title-name">Profile Assignment</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#policy-profile-assignment">#</a></h4></div></div></div><p>
+     In Ceph, a single storage role would be insufficient to describe the
+     many disk configurations available with the same hardware. DeepSea stage
+     1 will generate a default storage profile proposal. By default this
+     proposal will be a <code class="literal">bluestore</code> profile and will try to
+     propose the highest performing configuration for the given hardware setup.
+     For example, external journals will be preferred over a single disk
+     containing objects and metadata. Solid state storage will be prioritized
+     over spinning disks. Profiles are assigned in the
+     <code class="filename">policy.cfg</code> similar to roles.
+    </p><p>
+     The default proposal can be found in the profile-default directory tree.
+     To include this add the following two lines to your
+     <code class="filename">policy.cfg</code>.
+    </p><div class="verbatim-wrap"><pre class="screen">profile-default/cluster/*.sls
+profile-default/stack/default/ceph/minions/*.yml</pre></div><p>
+     You can also create a customized storage profile to your liking by using
+     the proposal runner. This runner offers three methods: help, peek, and
+     populate.
+    </p><p>
+     <code class="command">salt-run proposal.help</code> prints the runner help text
+     about the various arguments it accepts.
+    </p><p>
+     <code class="command">salt-run proposal.peek</code> shows the generated proposal
+     according to the arguments passed.
+    </p><p>
+     <code class="command">salt-run proposal.populate</code> writes the proposal to the
+     <code class="filename">/srv/pillar/ceph/proposals</code> subdirectory. Pass
+     <code class="option">name=myprofile</code> to name the storage profile. This will
+     result in a profile-myprofile subdirectory.
+    </p><p>
+     For all other arguments, consult the output of <code class="command">salt-run
+     proposal.help</code>.
+    </p></section><section class="sect3" id="stage1-override-devices" data-id-title="Overriding Default Search for Disk Devices"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.5 </span><span class="title-name">Overriding Default Search for Disk Devices</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#stage1-override-devices">#</a></h4></div></div></div><p>
+     If you have a Salt minion with multiple disk devices assigned and the device
+     names do not seem to be consistent or persistent, you can override the
+     default search behavior by editing
+     <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Edit <code class="filename">global.yml</code> and make the necessary changes:
+      </p><p>
+       To override the default match expression of <code class="option">-name ata* -o -name
+       scsi* -o -name nvme*</code> for the <code class="command">find</code> command
+       with for example <code class="option">-name wwn*</code>, add the following:
+      </p><div class="verbatim-wrap"><pre class="screen">ceph:
+  modules:
+    cephdisks:
+      device:
+        match: '-name wwn*'</pre></div><p>
+       To override the default pathname of <code class="filename">/dev/disk/by-id</code>
+       with for example <code class="filename">/dev/disk/by-label</code>, add the
+       following:
+      </p><div class="verbatim-wrap"><pre class="screen">ceph:
+  modules:
+    cephdisks:
+      device:
+        pathname: '/dev/disk/by-label'</pre></div></li><li class="step"><p>
+       Refresh the Pillar:
+      </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">root@master # </code>salt '<em class="replaceable">DEEPSEA_MINIONS</em>' saltutil.pillar_refresh</pre></div></li><li class="step"><p>
+       Try a query for a device that was previously wrongly assigned:
+      </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">root@master # </code>salt 'SPECIFIC_MINION' cephdisks.device <em class="replaceable">PATH_TO_DEVICE</em></pre></div><p>
+       If the command returns 'module not found', be sure to synchronize:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.sync_all</pre></div></li></ol></div></div></section><section class="sect3" id="ds-profile-osd-encrypted" data-id-title="Deploying Encrypted OSDs"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.6 </span><span class="title-name">Deploying Encrypted OSDs</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#ds-profile-osd-encrypted">#</a></h4></div></div></div><p>
+     Since SUSE Enterprise Storage 5.5, OSDs are by default deployed using
+     BlueStore instead of FileStore. Although BlueStore supports
+     encryption, Ceph OSDs are deployed unencrypted by default. The following
+     procedure describes steps to encrypt OSDs during the upgrade process. Let
+     us assume that both data and WAL/DB disks to be used for OSD deployment
+     are clean with no partitions. If the disk were previously used, wipe them
+     following the procedure described in <a class="xref" href="ceph-install-saltstack.html#deploy-wiping-disk" title="Step 12">Step 12</a>.
+    </p><p>
+     To use encrypted OSDs for your new deployment, first wipe the disks
+     following the procedure described in <a class="xref" href="ceph-install-saltstack.html#deploy-wiping-disk" title="Step 12">Step 12</a>,
+     then use the <code class="literal">proposal.populate</code> runner with the
+     <code class="option">encryption=dmcrypt</code> argument:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run proposal.populate encryption=dmcrypt</pre></div><div id="id-1.4.4.2.10.2.9.5" data-id-title="Slow Boots" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Slow Boots</h6><p>
+      Encrypted OSDs require longer boot and activation times compared to the
+      default unencrypted ones.
+     </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Determine the <code class="option">bluestore block db size</code> and
+       <code class="option">bluestore block wal size</code> values for your deployment and
+       add them to the
+       <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/global.conf</code>
+       file on the Salt master. The values need to be specified in bytes.
+      </p><div class="verbatim-wrap"><pre class="screen">[global]
+bluestore block db size = 48318382080
+bluestore block wal size = 2147483648</pre></div><p>
+       For more information on customizing the <code class="filename">ceph.conf</code>
+       file, refer to <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span>.
+      </p></li><li class="step"><p>
+       Run DeepSea Stage 3 to distribute the changes:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div></li><li class="step"><p>
+       Verify that the <code class="filename">ceph.conf</code> file is updated on the
+       relevant OSD nodes:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>cat /etc/ceph/ceph.conf</pre></div></li><li class="step"><p>
+       Edit the *.yml files in the
+       <code class="filename">/srv/pillar/ceph/proposals/profile-default/stack/default/ceph/minions</code>
+       directory that are relevant to the OSDs you are encrypting. Double check
+       their path with the one defined in the
+       <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> file to
+       ensure that you modify the correct *.yml files.
+      </p><div id="id-1.4.4.2.10.2.9.6.4.2" data-id-title="Long Disk Identifiers" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Long Disk Identifiers</h6><p>
+        When identifying OSD disks in the
+        <code class="filename">/srv/pillar/ceph/proposals/profile-default/stack/default/ceph/minions/*.yml</code>
+        files, use long disk identifiers.
+       </p></div><p>
+       An example of an OSD configuration follows. Note that because we need
+       encryption, the <code class="option">db_size</code> and <code class="option">wal_size</code>
+       options are removed:
+      </p><div class="verbatim-wrap"><pre class="screen">ceph:
+ storage:
+   osds:
+     /dev/disk/by-id/scsi-SDELL_PERC_H730_Mini_007027b1065faa972100d34d7aa06d86:
+       format: bluestore
+       encryption: dmcrypt
+       db: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN
+       wal: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN
+     /dev/disk/by-id/scsi-SDELL_PERC_H730_Mini_00d146b1065faa972100d34d7aa06d86:
+       format: bluestore
+       encryption: dmcrypt
+       db: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN
+       wal: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN</pre></div></li><li class="step"><p>
+       Deploy the new Block Storage OSDs with encryption by running DeepSea
+       Stages 2 and 3:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div><p>
+       You can watch the progress with <code class="command">ceph -s</code> or
+       <code class="command">ceph osd tree</code>. It is critical that you let the
+       cluster rebalance before repeating the process on the next OSD node.
+      </p></li></ol></div></div></section><section class="sect3" id="deepsea-policy-filtering" data-id-title="Item Filtering"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.7 </span><span class="title-name">Item Filtering</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-policy-filtering">#</a></h4></div></div></div><p>
+     Sometimes it is not practical to include all files from a given directory
+     with *.sls globbing. The <code class="filename">policy.cfg</code> file parser
+     understands the following filters:
+    </p><div id="id-1.4.4.2.10.2.10.3" data-id-title="Advanced Techniques" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Advanced Techniques</h6><p>
+      This section describes filtering techniques for advanced users. When not
+      used correctly, filtering can cause problems for example in case your
+      node numbering changes.
+     </p></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.2.10.2.10.4.1"><span class="term">slice=[start:end]</span></dt><dd><p>
+        Use the slice filter to include only items <span class="emphasis"><em>start</em></span>
+        through <span class="emphasis"><em>end-1</em></span>. Note that items in the given
+        directory are sorted alphanumerically. The following line includes the
+        third to fifth files from the <code class="filename">role-mon/cluster/</code>
+        subdirectory:
+       </p><div class="verbatim-wrap"><pre class="screen">role-mon/cluster/*.sls slice[3:6]</pre></div></dd><dt id="id-1.4.4.2.10.2.10.4.2"><span class="term">re=regexp</span></dt><dd><p>
+        Use the regular expression filter to include only items matching the
+        given expressions. For example:
+       </p><div class="verbatim-wrap"><pre class="screen">role-mon/cluster/mon*.sls re=.*1[135]\.subdomainX\.sls$</pre></div></dd></dl></div></section><section class="sect3" id="deepsea-example-policy-cfg" data-id-title="Example policy.cfg File"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.5.1.8 </span><span class="title-name">Example <code class="filename">policy.cfg</code> File</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#deepsea-example-policy-cfg">#</a></h4></div></div></div><p>
+     Following is an example of a basic <code class="filename">policy.cfg</code> file:
+    </p><div class="verbatim-wrap"><pre class="screen">## Cluster Assignment
+cluster-ceph/cluster/*.sls <span class="callout" id="co-policy-1">1</span>
+
+## Roles
+# ADMIN
+role-master/cluster/examplesesadmin.sls <span class="callout" id="co-policy-2">2</span>
+role-admin/cluster/sesclient*.sls <span class="callout" id="co-policy-3">3</span>
+
+# MON
+role-mon/cluster/ses-example-[123].sls <span class="callout" id="co-policy-5">4</span>
+
+# MGR
+role-mgr/cluster/ses-example-[123].sls <span class="callout" id="co-policy-mgr">5</span>
+
+# MDS
+role-mds/cluster/ses-example-4.sls <span class="callout" id="co-policy-6">6</span>
+
+# IGW
+role-igw/cluster/ses-example-4.sls <span class="callout" id="co-policy-10">7</span>
+
+# RGW
+role-rgw/cluster/ses-example-4.sls <span class="callout" id="co-policy-11">8</span>
+
+# openATTIC
+role-openattic/cluster/openattic*.sls <span class="callout" id="co-policy-oa">9</span>
+
+# COMMON
+config/stack/default/global.yml <span class="callout" id="co-policy-8">10</span>
+config/stack/default/ceph/cluster.yml <span class="callout" id="co-policy-13">11</span>
+
+## Profiles
+profile-default/cluster/*.sls <span class="callout" id="co-policy-9">12</span>
+profile-default/stack/default/ceph/minions/*.yml <span class="callout" id="co-policy-12">13</span></pre></div><div class="calloutlist"><table style="border: 0; "><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-1"><span class="callout">1</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       Indicates that all minions are included in the Ceph cluster. If you
+       have minions you do not want to include in the Ceph cluster, use:
+      </p><div class="verbatim-wrap"><pre class="screen">cluster-unassigned/cluster/*.sls
+cluster-ceph/cluster/ses-example-*.sls</pre></div><p>
+       The first line marks all minions as unassigned. The second line
+       overrides minions matching 'ses-example-*.sls', and assigns them to the
+       Ceph cluster.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-2"><span class="callout">2</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       The minion called 'examplesesadmin' has the 'master' role. This, by the
+       way, means it will get admin keys to the cluster.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-3"><span class="callout">3</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       All minions matching 'sesclient*' will get admin keys as well.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-5"><span class="callout">4</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       All minions matching 'ses-example-[123]' (presumably three minions:
+       ses-example-1, ses-example-2, and ses-example-3) will be set up as MON
+       nodes.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-mgr"><span class="callout">5</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       All minions matching 'ses-example-[123]' (all MON nodes in the example)
+       will be set up as MGR nodes.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-6"><span class="callout">6</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       Minion 'ses-example-4' will have the MDS role.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-10"><span class="callout">7</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       Minion 'ses-example-4' will have the IGW role.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-11"><span class="callout">8</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       Minion 'ses-example-4' will have the RGW role.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-oa"><span class="callout">9</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       Specifies to deploy the openATTIC user interface to administer the Ceph
+       cluster. See <span class="intraxref">Book “Administration Guide”, Chapter 17 “openATTIC”</span> for more details.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-8"><span class="callout">10</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       Means that we accept the default values for common configuration
+       parameters such as <code class="option">fsid</code> and
+       <code class="option">public_network</code>.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-13"><span class="callout">11</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       Means that we accept the default values for common configuration
+       parameters such as <code class="option">fsid</code> and
+       <code class="option">public_network</code>.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-9"><span class="callout">12</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       We are telling DeepSea to use the default hardware profile for each
+       minion. Choosing the default hardware profile means that we want all
+       additional disks (other than the root disk) as OSDs.
+      </p></td></tr><tr><td style="width: 5%; vertical-align: top; text-align: left; "><p><a href="#co-policy-12"><span class="callout">13</span></a> </p></td><td style="vertical-align: top; text-align: left; "><p>
+       We are telling DeepSea to use the default hardware profile for each
+       minion. Choosing the default hardware profile means that we want all
+       additional disks (other than the root disk) as OSDs.
+      </p></td></tr></table></div></section></section><section class="sect2" id="id-1.4.4.2.10.3" data-id-title="Adjusting ceph.conf with Custom Settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.5.2 </span><span class="title-name">Adjusting <code class="filename">ceph.conf</code> with Custom Settings</span> <a title="Permalink" class="permalink" href="ceph-install-saltstack.html#id-1.4.4.2.10.3">#</a></h3></div></div></div><p>
+    If you need to put custom settings into the <code class="filename">ceph.conf</code>
+    configuration file, see <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span> for more
+    details.
+   </p></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="ses-deployment.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part II </span>Cluster Deployment and Upgrade</span></a> </div><div><a class="pagination-link next" href="cha-ceph-upgrade.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 5 </span>Upgrading from Previous Releases</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="ceph-install-saltstack.html#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the Release Notes</span></a></span></li><li><span class="sect1"><a href="ceph-install-saltstack.html#deepsea-description"><span class="title-number">4.2 </span><span class="title-name">Introduction to DeepSea</span></a></span></li><li><span class="sect1"><a href="ceph-install-saltstack.html#ceph-install-stack"><span class="title-number">4.3 </span><span class="title-name">Cluster Deployment</span></a></span></li><li><span class="sect1"><a href="ceph-install-saltstack.html#deepsea-cli"><span class="title-number">4.4 </span><span class="title-name">DeepSea CLI</span></a></span></li><li><span class="sect1"><a href="ceph-install-saltstack.html#deepsea-pillar-salt-configuration"><span class="title-number">4.5 </span><span class="title-name">Configuration and Customization</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_install_salt.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

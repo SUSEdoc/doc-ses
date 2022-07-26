@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Troubleshooting cephadm | Troubleshooting Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Troubleshooting cephadm | SES 7"/>
+<meta name="description" content="As cephadm deploys daemons as containers, troubleshooting daemons is slightly different. Here are a few tools and commands to help investigating issues."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Troubleshooting Guide"/>
+<meta name="chapter-title" content="Chapter 3. Troubleshooting cephadm"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Troubleshooting cephadm | SES 7"/>
+<meta property="og:description" content="As cephadm deploys daemons as containers, troubleshooting daemons is slightly different. Here are a few tools and commands to help investigating issues."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Troubleshooting cephadm | SES 7"/>
+<meta name="twitter:description" content="As cephadm deploys daemons as containers, troubleshooting daemons is slightly different. Here are a few tools and commands to help investigating issues."/>
+<link rel="prev" href="bp-troubleshooting-logging.html" title="Chapter 2. Troubleshooting logging and debugging"/><link rel="next" href="bp-troubleshooting-osds.html" title="Chapter 4. Troubleshooting OSDs"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Troubleshooting Guide</a><span> / </span><a class="crumb" href="bp-troubleshooting-cephadm.html">Troubleshooting cephadm</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Troubleshooting Guide</div><ol><li><a href="preface-troubleshooting.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="report-software.html" class=" "><span class="title-number">1 </span><span class="title-name">Reporting software problems</span></a></li><li><a href="bp-troubleshooting-logging.html" class=" "><span class="title-number">2 </span><span class="title-name">Troubleshooting logging and debugging</span></a></li><li><a href="bp-troubleshooting-cephadm.html" class=" you-are-here"><span class="title-number">3 </span><span class="title-name">Troubleshooting cephadm</span></a></li><li><a href="bp-troubleshooting-osds.html" class=" "><span class="title-number">4 </span><span class="title-name">Troubleshooting OSDs</span></a></li><li><a href="bp-troubleshooting-pgs.html" class=" "><span class="title-number">5 </span><span class="title-name">Troubleshooting placement groups (PGs)</span></a></li><li><a href="bp-troubleshooting-monitors.html" class=" "><span class="title-number">6 </span><span class="title-name">Troubleshooting Ceph Monitors and Ceph Managers</span></a></li><li><a href="bp-troubleshooting-networking.html" class=" "><span class="title-number">7 </span><span class="title-name">Troubleshooting networking</span></a></li><li><a href="bp-troubleshooting-nfs.html" class=" "><span class="title-number">8 </span><span class="title-name">Troubleshooting NFS Ganesha</span></a></li><li><a href="bp-troubleshooting-status.html" class=" "><span class="title-number">9 </span><span class="title-name">Troubleshooting Ceph health status</span></a></li><li><a href="bp-troubleshooting-dashboard.html" class=" "><span class="title-number">10 </span><span class="title-name">Troubleshooting the Ceph Dashboard</span></a></li><li><a href="bp-troubleshooting-objectgateway.html" class=" "><span class="title-number">11 </span><span class="title-name">Troubleshooting Object Gateway</span></a></li><li><a href="bp-troubleshooting-cephfs.html" class=" "><span class="title-number">12 </span><span class="title-name">Troubleshooting CephFS</span></a></li><li><a href="storage-tips.html" class=" "><span class="title-number">13 </span><span class="title-name">Hints and tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">14 </span><span class="title-name">Frequently asked questions</span></a></li><li><a href="bk03apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="bp-troubleshooting-cephadm" data-id-title="Troubleshooting cephadm"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h1 class="title"><span class="title-number">3 </span><span class="title-name">Troubleshooting cephadm</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#">#</a></h1></div></div></div><p>
+  As cephadm deploys daemons as containers, troubleshooting daemons is
+  slightly different. Here are a few tools and commands to help investigating
+  issues.
+ </p><section class="sect1" id="bp-troubleshooting-cephadm-pause-disable" data-id-title="Pausing or disabling cephadm"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.1 </span><span class="title-name">Pausing or disabling cephadm</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-pause-disable">#</a></h2></div></div></div><p>
+   If something goes wrong and cephadm is behaving in a way you do not like,
+   you can pause most background activity by executing the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch pause</pre></div><p>
+   This will stop any changes, but cephadm will still periodically check
+   hosts to refresh its inventory of daemons and devices. You can disable
+   cephadm completely with:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch set backend ''
+<code class="prompt user">cephuser@adm &gt; </code>ceph mgr module disable cephadm</pre></div><p>
+   This disables all of the <code class="command">ceph orch ...</code> CLI commands but
+   the previously deployed daemon containers will continue to exist and start
+   as they did before.
+  </p></section><section class="sect1" id="bp-troubleshooting-cephadm-check-logs" data-id-title="Checking cephadm logs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.2 </span><span class="title-name">Checking cephadm logs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-check-logs">#</a></h2></div></div></div><p>
+   You can monitor the cephadm log in real time:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -W cephadm</pre></div><p>
+   To view the last few messages, execute:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph log last cephadm</pre></div></section><section class="sect1" id="bp-troubleshooting-cephadm-logs" data-id-title="Accessing Ceph daemon logs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.3 </span><span class="title-name">Accessing Ceph daemon logs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-logs">#</a></h2></div></div></div><p>
+   SUSE Enterprise Storage 7 supports Ceph logging via systemd-journald.
+   To access the logs of Ceph daemons in SUSE Enterprise Storage 7,
+   follow the instructions below.
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Use the <code class="command">ceph orch ps</code> command (or <code class="command">ceph orch ps
+     <em class="replaceable">node_name</em></code> or <code class="command">ceph orch ps
+     --daemon-type <em class="replaceable">daemon_type</em></code>) to find
+     the cephadm name of the daemon where the host is running.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --daemon-type <em class="replaceable">DAEMON_TYPE_NAME</em></pre></div><p>
+     For example, if you want to view the logs for Prometheus, run the
+     following command to find the name of the daemon:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --daemon-type prometheus
+NAME               HOST    STATUS         REFRESHED  AGE  VERSION  IMAGE NAME                                                   IMAGE ID      CONTAINER ID
+prometheus.master  master  running (65m)  7m ago     2h   2.27.1   registry.suse.com/ses/7/ceph/prometheus-server:2.27.1  e77db6e75e78  7b11062150ab</pre></div><p>
+     In this example, <code class="literal">prometheus.master</code> is the name and the
+     host is <code class="literal">master</code>.
+    </p></li><li class="step"><p>
+     To view the daemon's logs, execute the following on the host where the
+     daemon is running:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm logs --name <em class="replaceable">DAEMON_NAME</em></pre></div><p>
+     For example, to view the Prometheus logs from above:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm logs --name prometheus.master</pre></div></li></ol></div></div></section><section class="sect1" id="bp-troubleshooting-cephadm-systemctl" data-id-title="Collecting systemd status"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.4 </span><span class="title-name">Collecting <code class="literal">systemd</code> status</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-systemctl">#</a></h2></div></div></div><p>
+   To print the state of a <code class="literal">systemd</code> unit, run:
+  </p><div class="verbatim-wrap"><pre class="screen">systemctl status "ceph-$(cephadm shell ceph fsid)@<em class="replaceable">service name</em>.service";</pre></div><p>
+   To fetch all state of all daemons of a given host, run:
+  </p><div class="verbatim-wrap"><pre class="screen">  fsid="$(cephadm shell ceph fsid)"
+  for name in $(cephadm ls | jq -r '.[].name') ; do
+    systemctl status "ceph-$fsid@$name.service" &gt; $name;
+  done</pre></div></section><section class="sect1" id="bp-troubleshooting-cephadm-configured-container-images" data-id-title="Listing configured container images"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.5 </span><span class="title-name">Listing configured container images</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-configured-container-images">#</a></h2></div></div></div><p>
+   cephadm has a set of container images configured by default.
+  </p><p>
+   To get the value of the configured default container:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/<em class="replaceable">OPTION_NAME</em></pre></div><p>
+   Where <em class="replaceable">OPTION_NAME</em> is any of the following names:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     container_image_base
+    </p></li><li class="listitem"><p>
+     container_image_prometheus
+    </p></li><li class="listitem"><p>
+     container_image_node_exporter
+    </p></li><li class="listitem"><p>
+     container_image_alertmanager
+    </p></li><li class="listitem"><p>
+     container_image_grafana
+    </p></li></ul></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen">  <code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_base
+  registry.suse.com/ses/7/ceph/ceph</pre></div><div id="id-1.5.5.8.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    <code class="literal">mgr/cephadm/container_image_base</code> is the default Ceph
+    container image used by all services except the monitoring stack.
+   </p></div></section><section class="sect1" id="bp-troubleshooting-cephadm-downloaded-container-images" data-id-title="Listing all downloaded container images"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.6 </span><span class="title-name">Listing all downloaded container images</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-downloaded-container-images">#</a></h2></div></div></div><p>
+   To list all container images that are downloaded on a host:
+  </p><div id="id-1.5.5.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    <code class="literal">Image</code> may also be called <code class="literal">ImageID</code>.
+   </p></div><div class="verbatim-wrap"><pre class="screen">  podman ps -a --format json | jq '.[].Image'
+  "docker.io/library/centos:8"
+  "registry.opensuse.org/opensuse/leap:15.2"</pre></div></section><section class="sect1" id="bp-troubleshooting-cephadm-manual" data-id-title="Running containers manually"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.7 </span><span class="title-name">Running containers manually</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-manual">#</a></h2></div></div></div><p>
+   cephadm writes small wrappers that run a containers. Refer to
+   <code class="filename">/var/lib/ceph/<em class="replaceable">cluster-fsid</em>/<em class="replaceable">service-name</em>/unit.run</code>
+   for the container execution command.
+  </p><section class="sect2" id="bp-troubleshooting-ssh-errors" data-id-title="Assessing SSH errors"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.7.1 </span><span class="title-name">Assessing SSH errors</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-ssh-errors">#</a></h3></div></div></div><p>
+    If you receive the following error:
+   </p><div class="verbatim-wrap"><pre class="screen">xxxxxx.gateway_bootstrap.HostNotFound: -F /tmp/cephadm-conf-kbqvkrkw root@10.10.1.2
+raise OrchestratorError('Failed to connect to %s (%s).  Check that the host is reachable and accepts  connections using the cephadm SSH key' % (host, addr)) from
+orchestrator._interface.OrchestratorError: Failed to connect to 10.10.1.2 (10.10.1.2).  Check that the host is reachable and accepts connections using the cephadm SSH key</pre></div><p>
+    You can verify the issue by trialing a few different options.
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Ensure cephadm has an SSH identity key:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cephadm shell -- ceph config-key get mgr/cephadm/ssh_identity_key &gt; key
+INFO:cephadm:Inferring fsid f8edc08a-7f17-11ea-8707-000c2915dd98
+INFO:cephadm:Using recent ceph image docker.io/ceph/ceph:v15 obtained 'mgr/cephadm/ssh_identity_key'
+<code class="prompt user">root@master # </code>chmod 0600 key</pre></div><p>
+      If this fails, cephadm does not have a key. Fix this by running the
+      following command:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cephadm shell -- ceph cephadm generate-ssh-key</pre></div><p>
+      Or:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cat key | cephadm shell -- ceph cephadm set-ssk-key -i -</pre></div></li><li class="listitem"><p>
+      Ensure that the SSH config is correct:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cephadm shell -- ceph cephadm get-ssh-config &gt; config</pre></div></li><li class="listitem"><p>
+      Verify the connection to the host:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ssh -F config -i key root@mon1</pre></div></li></ul></div></section><section class="sect2" id="bp-troubleshooting-verify-pubkey" data-id-title="Verifying public key is in authorized_keys"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.7.2 </span><span class="title-name">Verifying public key is in <code class="filename">authorized_keys</code></span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-verify-pubkey">#</a></h3></div></div></div><p>
+    To verify that the public key is in the
+    <code class="filename">authorized_keys</code> file, run the following commands:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cephadm shell -- ceph config-key get mgr/cephadm/ssh_identity_pub &gt; key.pub
+<code class="prompt user">root@master # </code>grep "`cat key.pub`"  /root/.ssh/authorized_keys</pre></div></section></section><section class="sect1" id="bp-troubleshooting-cidr-error" data-id-title="Failing to infer CIDR network error"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.8 </span><span class="title-name">Failing to infer CIDR network error</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cidr-error">#</a></h2></div></div></div><p>
+   If you see one of the following errors:
+  </p><div class="verbatim-wrap"><pre class="screen">ERROR: Failed to infer CIDR network for mon ip ***; pass --skip-mon-network to configure it later</pre></div><p>
+   or
+  </p><div class="verbatim-wrap"><pre class="screen">Must set public_network config option or specify a CIDR network, ceph addrvec, or plain IP</pre></div><p>
+   You need to specify a subnet for Ceph Monitors:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon public_network <em class="replaceable">MON_NETWORK</em></pre></div></section><section class="sect1" id="bp-troubleshooting-admin-socket" data-id-title="Accessing the admin socket"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.9 </span><span class="title-name">Accessing the admin socket</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-admin-socket">#</a></h2></div></div></div><p>
+   Each Ceph daemon provides an admin socket that bypasses the MONs. To
+   access the admin socket, enter the daemon container on the host:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cephadm enter --name <em class="replaceable">daemon-name</em>
+<code class="prompt user">root@master # </code>ceph --admin-daemon /var/run/ceph/ceph-<em class="replaceable">daemon-name</em>.asok config show</pre></div></section><section class="sect1" id="bp-troubleshooting-manual-deploy-mgr" data-id-title="Deploying a Ceph Manager manually"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.10 </span><span class="title-name">Deploying a Ceph Manager manually</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-manual-deploy-mgr">#</a></h2></div></div></div><p>
+   Use the following steps to deploy a new Ceph Manager on a host.
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Disable the cephadm scheduler, in order to prevent cephadm from
+     removing the new Ceph Manager:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/pause true</pre></div></li><li class="step"><p>
+     Create the auth entry:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth create <em class="replaceable">DAEMON_NAME</em> mon "profile mgr" osd "allow *" mds "allow *"</pre></div><p>
+     If you already have an auth entry, you can get the entry with the
+     following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth get <em class="replaceable">DAEMON_NAME</em> mon "profile mgr" osd "allow *" mds "allow *"</pre></div></li><li class="step"><p>
+     Generate the <code class="filename">ceph.conf</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config generate-minimal-conf</pre></div></li><li class="step"><p>
+     Get the container image:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config get "<em class="replaceable">DAEMON_NAME</em>" container_image</pre></div></li><li class="step"><p>
+     Create the config json:
+    </p><div class="verbatim-wrap"><pre class="screen">cat config-json.json
+{
+"config": "# minimal ceph.conf for 8255263a-a97e-4934-822c-00bfe029b28f\n[global]\n\tfsid = 8255263a-a97e-4934-822c-00bfe029b28f\n\tmon_host = [v2:192.168.178.28:40483/0,v1:192.168.178.28:40484/0]\n",
+"keyring": "[mgr.hostname.smfvfd]\n\tkey = AQDSb0ZfJqfDNxAAhgAVuH8Wg0yaRUAHwXdTQA==\n"
+}</pre></div></li><li class="step"><p>
+     Deploy the daemon:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm --image <em class="replaceable">container-image</em> deploy --fsid <em class="replaceable">fsid</em> --name <em class="replaceable">DAEMON_NAME</em> --config-json config-json.json --tcp-ports 42483</pre></div></li></ol></div></div></section><section class="sect1" id="bp-troubleshooting-ptfs" data-id-title="Distributing a program temporary fix (PTF)"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.11 </span><span class="title-name">Distributing a program temporary fix (PTF)</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-ptfs">#</a></h2></div></div></div><p>
+   Occasionally, in order to fix a given issue, SUSE will provide a set of
+   packages known as a Program Temporary Fix (PTF). Such a PTF is fully
+   supported by SUSE until the Maintenance Update (MU) containing a permanent
+   fix has been released via the regular update repositories. Customers running
+   PTF fixes will be notified through the related Service Request when a
+   permanent patch for a PTF has been released.
+  </p><p>
+   PTFs are published on the <code class="literal">registry.suse.com</code> server
+   through a path similar to:
+  </p><div class="verbatim-wrap"><pre class="screen">registry.suse.com/ptf/<em class="replaceable">PTF_NUMBER</em>/ses/7/ceph/ceph:PTF-<em class="replaceable">PTF_NUMBER</em></pre></div><p>
+   The following steps describe how to deploy PTF images on an existing Ceph
+   cluster:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Note the <em class="replaceable">PTF_NUMBER</em> used in the L3 PTF process.
+    </p></li><li class="step"><p>
+     Determine the Ceph Monitor key that corresponds to the relevant service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth ls | grep <em class="replaceable">DAEMON_TYPE</em></pre></div></li><li class="step"><p>
+     Receive the PTF:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman pull \
+registry.suse.com/ptf/<em class="replaceable">PTF_NUMBER</em>/ses/7/ceph/ceph:PTF-<em class="replaceable">PTF_NUMBER</em></pre></div></li><li class="step"><p>
+     Verify that the PTF is listed:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman image ls</pre></div></li><li class="step"><p>
+     Set the PTF image for the relevant service, for example, iSCSI:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set <em class="replaceable">client.iscsi</em> container_image \
+registry.suse.com/ptf/<em class="replaceable">PTF_NUMBER</em>/ses/7/ceph/ceph:PTF-<em class="replaceable">PTF_NUMBER</em></pre></div></li><li class="step"><p>
+     Remove the specific iSCSI daemon that is causing problems, for example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon rm iscsi.igw.sesblade16.zkomeh</pre></div></li><li class="step"><p>
+     The removed daemon will be deployed automatically using the PTF.
+    </p></li></ol></div></div><div id="id-1.5.5.14.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    If you plan to run the <code class="command">ceph-salt update</code> command after
+    applying a PTF (as described in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.6.4 “Running the update”</span>),
+    it will not affect the manual changes made by the temporary fix.
+   </p><p>
+    Conversely, running the <code class="command">ceph orch upgrade</code> command (see
+    <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.7.1 “Starting the update”</span>) will upgrade
+    daemons manually deployed by the PTF.
+   </p></div></section><section class="sect1" id="bp-troubleshooting-adding-hosts" data-id-title="Failure When Adding Hosts with cephadm"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.12 </span><span class="title-name">Failure When Adding Hosts with cephadm</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-adding-hosts">#</a></h2></div></div></div><p>
+   When cephadm fails to add a new cluster host—no matter whether by
+   means of <code class="systemitem">ceph-salt</code> (see <span class="intraxref">Book “Deployment Guide”, Chapter 7 “Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code>”, Section 7.2.2 “Adding Salt Minions”</span>)
+   or manually using the <code class="command">ceph orch host add</code>
+   command—you can diagnose the reason for failure. The failure message
+   has the following pattern:
+  </p><div class="verbatim-wrap"><pre class="screen">Failed to connect to <em class="replaceable">HOSTNAME</em> (<em class="replaceable">FQDN</em>).</pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host add node5.example.com
+Failed to connect to node5 (node5.example.com).</pre></div><p>
+   If the message includes a fully qualified domain name (FQDN,
+   <code class="literal">node5.example com</code> in our example) as the
+   <em class="replaceable">HOSTNAME</em>, try adding the host using its FQDN:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host add node5.example.com</pre></div><p>
+   If the message includes a short host name (<code class="literal">node5</code> in our
+   example) as the <em class="replaceable">HOSTNAME</em>, try adding the host
+   using both its short name and FQDN:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host add node5 node5.example.com</pre></div><p>
+   If either of the previous two commands succeed, <code class="systemitem">ceph-salt</code> is probably
+   causing the problem. Otherwise, try adding the host using its short host
+   name and IP address:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host add node5 192.168.2.102</pre></div><p>
+   If this succeeds, the cluster does not have proper name resolution. Refer to
+   <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Installing and configuring SUSE Linux Enterprise Server”</span> for more details.
+  </p><div id="id-1.5.5.15.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    For more information about resolving full and bare host names via DNS,
+    refer to
+    <a class="link" href="https://docs.ceph.com/en/octopus/cephadm/concepts/" target="_blank">https://docs.ceph.com/en/octopus/cephadm/concepts/</a>.
+   </p></div></section><section class="sect1" id="bp-troubleshooting-unmanaged-daemons" data-id-title="Disabling automatic deployment of daemons"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.13 </span><span class="title-name">Disabling automatic deployment of daemons</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-unmanaged-daemons">#</a></h2></div></div></div><p>
+   By default, Ceph daemons are automatically deployed to new hosts after you
+   add these hosts to the placement specification and apply it (refer to
+   <span class="intraxref">Book “Deployment Guide”, Chapter 8 “Deploying the remaining core services using cephadm”</span> for more details).
+  </p><p>
+   If you need to disable the automated deployment of Ceph daemons, add
+   <code class="literal">unmanaged: true</code> to its specification file and apply it,
+   for example:
+  </p><div class="verbatim-wrap"><pre class="screen">cat mgr.yaml
+service_type: mgr
+unmanaged: true
+placement:
+  label: mgr
+[...]
+
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i mgr.yaml</pre></div><p>
+   After applying this specification, cephadm will no longer deploy any new
+   daemons on hosts that match the placement specification.
+  </p><p>
+   To manually deploy a daemon on a new host, run:
+  </p><div class="verbatim-wrap"><pre class="screen">ceph orch daemon add <em class="replaceable">DAEMON_TYPE</em> --placement=<em class="replaceable">PLACEMENT_SPEC</em></pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon add mgr --placement=ses-min3</pre></div><p>
+   To manually remove a daemon, run:
+  </p><div class="verbatim-wrap"><pre class="screen">ceph orch daemon rm <em class="replaceable">DAEMON_NAME</em> [--force]</pre></div><p>
+   For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon rm mgr.ses-min3.xietsy</pre></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bp-troubleshooting-logging.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 2 </span>Troubleshooting logging and debugging</span></a> </div><div><a class="pagination-link next" href="bp-troubleshooting-osds.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 4 </span>Troubleshooting OSDs</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-pause-disable"><span class="title-number">3.1 </span><span class="title-name">Pausing or disabling cephadm</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-check-logs"><span class="title-number">3.2 </span><span class="title-name">Checking cephadm logs</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-logs"><span class="title-number">3.3 </span><span class="title-name">Accessing Ceph daemon logs</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-systemctl"><span class="title-number">3.4 </span><span class="title-name">Collecting <code class="literal">systemd</code> status</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-configured-container-images"><span class="title-number">3.5 </span><span class="title-name">Listing configured container images</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-downloaded-container-images"><span class="title-number">3.6 </span><span class="title-name">Listing all downloaded container images</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-manual"><span class="title-number">3.7 </span><span class="title-name">Running containers manually</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cidr-error"><span class="title-number">3.8 </span><span class="title-name">Failing to infer CIDR network error</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-admin-socket"><span class="title-number">3.9 </span><span class="title-name">Accessing the admin socket</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-manual-deploy-mgr"><span class="title-number">3.10 </span><span class="title-name">Deploying a Ceph Manager manually</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-ptfs"><span class="title-number">3.11 </span><span class="title-name">Distributing a program temporary fix (PTF)</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-adding-hosts"><span class="title-number">3.12 </span><span class="title-name">Failure When Adding Hosts with cephadm</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-cephadm.html#bp-troubleshooting-unmanaged-daemons"><span class="title-number">3.13 </span><span class="title-name">Disabling automatic deployment of daemons</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_cephadm.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Troubleshooting placement groups (PGs) | Troubleshooting Guide | SUSE Enterprise Storage 7</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Troubleshooting placement groups (PGs) | SES 7"/>
+<meta name="description" content="As previously noted, a placement group is not necessarily problematic because its state is not active+clean. Generally, Ceph's ability to self-repair may not b…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="7"/>
+<meta name="book-title" content="Troubleshooting Guide"/>
+<meta name="chapter-title" content="Chapter 5. Troubleshooting placement groups (PGs)"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="tbazant"/>
+<meta name="tracker-gh-template" content="&#10;     ### Type of report&#10;   - [ ] bug&#10;   - [ ] feature request&#10;&#10;### Source Document&#10;@@source@@&#10;&#10;### Summary&#10;&lt;!-- A clear and concise description of what the bug/feature request is. --&gt;&#10;&#10;### Steps To Reproduce&#10;&lt;!-- Steps to reproduce the behavior if you ran through steps in the document. --&gt;&#10;&#10;### Expected Results&#10;&lt;!-- A clear and concise description of what you expected to happen. --&gt;&#10;&#10;### Actual Results&#10;&lt;!-- Explain what actually happened if steps were executed, and if applicable, add screenshots to help explain your problem. --&gt;&#10;&#10;### Notes&#10;&lt;!-- Add any other context about the problem here. --&gt;&#10;&#10;    "/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Troubleshooting placement groups (PGs) | SES 7"/>
+<meta property="og:description" content="As previously noted, a placement group is not necessarily problematic because its state is not active+clean. Generally, Ceph's ability to self-repair may not b…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Troubleshooting placement groups (PGs) | SES 7"/>
+<meta name="twitter:description" content="As previously noted, a placement group is not necessarily problematic because its state is not active+clean. Generally, Ceph's ability to self-repair may not b…"/>
+<link rel="prev" href="bp-troubleshooting-osds.html" title="Chapter 4. Troubleshooting OSDs"/><link rel="next" href="bp-troubleshooting-monitors.html" title="Chapter 6. Troubleshooting Ceph Monitors and Ceph Managers"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Troubleshooting Guide</a><span> / </span><a class="crumb" href="bp-troubleshooting-pgs.html">Troubleshooting placement groups (PGs)</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Troubleshooting Guide</div><ol><li><a href="preface-troubleshooting.html" class=" "><span class="title-number"> </span><span class="title-name">About this guide</span></a></li><li><a href="report-software.html" class=" "><span class="title-number">1 </span><span class="title-name">Reporting software problems</span></a></li><li><a href="bp-troubleshooting-logging.html" class=" "><span class="title-number">2 </span><span class="title-name">Troubleshooting logging and debugging</span></a></li><li><a href="bp-troubleshooting-cephadm.html" class=" "><span class="title-number">3 </span><span class="title-name">Troubleshooting cephadm</span></a></li><li><a href="bp-troubleshooting-osds.html" class=" "><span class="title-number">4 </span><span class="title-name">Troubleshooting OSDs</span></a></li><li><a href="bp-troubleshooting-pgs.html" class=" you-are-here"><span class="title-number">5 </span><span class="title-name">Troubleshooting placement groups (PGs)</span></a></li><li><a href="bp-troubleshooting-monitors.html" class=" "><span class="title-number">6 </span><span class="title-name">Troubleshooting Ceph Monitors and Ceph Managers</span></a></li><li><a href="bp-troubleshooting-networking.html" class=" "><span class="title-number">7 </span><span class="title-name">Troubleshooting networking</span></a></li><li><a href="bp-troubleshooting-nfs.html" class=" "><span class="title-number">8 </span><span class="title-name">Troubleshooting NFS Ganesha</span></a></li><li><a href="bp-troubleshooting-status.html" class=" "><span class="title-number">9 </span><span class="title-name">Troubleshooting Ceph health status</span></a></li><li><a href="bp-troubleshooting-dashboard.html" class=" "><span class="title-number">10 </span><span class="title-name">Troubleshooting the Ceph Dashboard</span></a></li><li><a href="bp-troubleshooting-objectgateway.html" class=" "><span class="title-number">11 </span><span class="title-name">Troubleshooting Object Gateway</span></a></li><li><a href="bp-troubleshooting-cephfs.html" class=" "><span class="title-number">12 </span><span class="title-name">Troubleshooting CephFS</span></a></li><li><a href="storage-tips.html" class=" "><span class="title-number">13 </span><span class="title-name">Hints and tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">14 </span><span class="title-name">Frequently asked questions</span></a></li><li><a href="bk03apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Octopus' point releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="bp-troubleshooting-pgs" data-id-title="Troubleshooting placement groups (PGs)"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7</span></div><div><h1 class="title"><span class="title-number">5 </span><span class="title-name">Troubleshooting placement groups (PGs)</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#">#</a></h1></div></div></div><section class="sect1" id="bp-troubleshooting-identify-pg" data-id-title="Identifying troubled placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.1 </span><span class="title-name">Identifying troubled placement groups</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-identify-pg">#</a></h2></div></div></div><p>
+   As previously noted, a placement group is not necessarily problematic
+   because its state is not <code class="literal">active+clean</code>. Generally,
+   Ceph's ability to self-repair may not be working when placement groups get
+   stuck. The stuck states include:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     <span class="bold"><strong>Unclean</strong></span>: Placement groups contain objects
+     that are not replicated the required number of times. They should be
+     recovering.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Inactive</strong></span>: Placement groups cannot process
+     reads or writes because they are waiting for an OSD with the most
+     up-to-date data to come back up.
+    </p></li><li class="listitem"><p>
+     <span class="bold"><strong>Stale</strong></span>: Placement groups are in an unknown
+     state, because the OSDs that host them have not reported to MONs in a
+     while (configured by the <code class="option">mon osd report timeout</code> option).
+    </p></li></ul></div><p>
+   To identify stuck placement groups, run the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg dump_stuck [unclean|inactive|stale|undersized|degraded]</pre></div></section><section class="sect1" id="bp-troubleshooting-pg-clean" data-id-title="Placement groups never get clean"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.2 </span><span class="title-name">Placement groups never get clean</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-pg-clean">#</a></h2></div></div></div><p>
+   When you create a cluster and your cluster remains in
+   <code class="literal">active</code>, <code class="literal">active+remapped</code>, or
+   <code class="literal">active+degraded</code> status and never achieves an
+   <code class="literal">active+clean</code> status, you likely have a problem with the
+   configuration. As a general rule, you should run your cluster with more than
+   one OSD and a pool size greater than 1 object replica.
+  </p><section class="sect2" id="troubleshooting-one-node" data-id-title="Experimenting with a one node cluster"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2.1 </span><span class="title-name">Experimenting with a one node cluster</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-one-node">#</a></h3></div></div></div><p>
+    Ceph no longer provides documentation for operating on a single node.
+    Mounting client kernel modules on a single node containing a Ceph daemon
+    can cause a deadlock due to issues with the Linux kernel itself (unless you
+    use VMs for the clients). However, we recommend experimenting with Ceph
+    in a 1-node configuration regardless of the limitations.
+   </p><p>
+    If you are trying to create a cluster on a single node, change the default
+    of the <code class="literal">osd crush chooseleaf</code> type setting from 1 (meaning
+    <code class="literal">host</code> or <code class="literal">node</code>) to 0 (meaning
+    <code class="literal">osd</code>) in your Ceph configuration file before you create
+    your monitors and OSDs. This tells Ceph that an OSD can peer with another
+    OSD on the same host. If you are trying to set up a 1-node cluster and
+    <code class="literal">osd crush chooseleaf</code> type is greater than 0, Ceph
+    tries to pair the PGs of one OSD with the PGs of another OSD on another
+    node, chassis, rack, row, or even datacenter depending on the setting.
+   </p><div id="id-1.5.7.4.3.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     Do not mount kernel clients directly on the same node as your Ceph
+     Storage Cluster, because kernel conflicts can arise. However, you can
+     mount kernel clients within virtual machines (VMs) on a single node.
+    </p></div><p>
+    If you are creating OSDs using a single disk, you must create directories
+    for the data manually first. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-deploy osd create --data {disk} {host}</pre></div></section><section class="sect2" id="troubleshooting-few-osd-replica" data-id-title="Fewer OSDs than replicas"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2.2 </span><span class="title-name">Fewer OSDs than replicas</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-few-osd-replica">#</a></h3></div></div></div><p>
+    If you have brought up two OSDs to an up and in state, but you still do not
+    see <code class="literal">active+clean</code> placement groups, you may have an
+    <code class="literal">osd pool default size</code> set to greater than 2. There are a
+    few ways to address this situation. If you want to operate your cluster in
+    an <code class="literal">active+degraded</code> state with two replicas, you can set
+    the <code class="literal">osd pool default min size</code> to 2 so that you can write
+    objects in an <code class="literal">active+degraded</code> state. You may also set
+    the <code class="literal">osd pool default size</code> setting to 2 so that you only
+    have two stored replicas (the original and one replica), in which case the
+    cluster should achieve an <code class="literal">active+clean</code> state.
+   </p><div id="id-1.5.7.4.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     You can make the changes at runtime. If you make the changes in your
+     Ceph configuration file, you may need to restart your cluster.
+    </p></div></section><section class="sect2" id="troubleshooting-pool-size" data-id-title="Forcing pool sizes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2.3 </span><span class="title-name">Forcing pool sizes</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-pool-size">#</a></h3></div></div></div><p>
+    If you have the <code class="literal">osd pool default size</code> set to 1, you only
+    have one copy of the object. OSDs rely on other OSDs to tell them which
+    objects they should have. If an OSD has a copy of an object and there is no
+    second copy, then no second OSD can tell the first OSD that it should have
+    that copy. For each placement group mapped to the first OSD (see
+    <code class="command">ceph pg dump</code>), you can force the first OSD to notice the
+    placement groups it needs by running:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd force-create-pg &lt;pgid&gt;</pre></div></section><section class="sect2" id="troubleshooting-crush-map" data-id-title="Identifying CRUSH map errors"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2.4 </span><span class="title-name">Identifying CRUSH map errors</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-crush-map">#</a></h3></div></div></div><p>
+    Another candidate for placement groups remaining unclean involves errors in
+    your CRUSH map.
+   </p></section></section><section class="sect1" id="bp-troubleshooting-stuck-pgs" data-id-title="Stuck placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.3 </span><span class="title-name">Stuck placement groups</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-stuck-pgs">#</a></h2></div></div></div><p>
+   It is normal for placement groups to enter states such as
+   <code class="literal">degraded</code> or <code class="literal">peering</code> following a
+   failure. These states indicate the normal progression through the failure
+   recovery process. However, if a placement group stays in one of these states
+   for a long time this may be an indication of a larger problem. For this
+   reason, the monitor will warn when placement groups get stuck in a
+   non-optimal state. Specifically, check for:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.7.5.3.1"><span class="term"><code class="literal">inactive</code></span></dt><dd><p>
+      The placement group has not been active for too long. For example, it has
+      not been able to service read/write requests.
+     </p></dd><dt id="id-1.5.7.5.3.2"><span class="term"><code class="literal">unclean</code></span></dt><dd><p>
+      The placement group has not been clean for too long. For exmaple, it has
+      not been able to completely recover from a previous failure.
+     </p></dd><dt id="id-1.5.7.5.3.3"><span class="term"><code class="literal">stale</code></span></dt><dd><p>
+      The placement group status has not been updated by a
+      <code class="literal">ceph-osd</code>, indicating that all nodes storing this
+      placement group may be down.
+     </p></dd></dl></div><p>
+   You can explicitly list stuck placement groups with one of:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg dump_stuck stale
+<code class="prompt user">cephuser@adm &gt; </code>ceph pg dump_stuck inactive
+<code class="prompt user">cephuser@adm &gt; </code>ceph pg dump_stuck unclean</pre></div><p>
+   For stuck stale placement groups, ensure you have the right
+   <code class="literal">ceph-osd</code> daemons running again. For stuck inactive
+   placement groups, it is can be a peering problem. For stuck unclean
+   placement groups, there can be something preventing recovery from
+   completing, like unfound objects.
+  </p></section><section class="sect1" id="bp-troubleshooting-pgs-down" data-id-title="Peering failure of placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.4 </span><span class="title-name">Peering failure of placement groups</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-pgs-down">#</a></h2></div></div></div><p>
+   In certain cases, the <code class="literal">ceph-osd</code> peering process can run
+   into problems, preventing a PG from becoming active and usable. For example,
+   <code class="command">ceph health</code> may report:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail
+  HEALTH_ERR 7 pgs degraded; 12 pgs down; 12 pgs peering; 1 pgs recovering;  \
+  6 pgs stuck unclean; 114/3300 degraded (3.455%); 1/3 in osds are down
+  ...
+  pg 0.5 is down+peering
+  pg 1.4 is down+peering
+  ...
+  osd.1 is down since epoch 69, last address 192.168.106.220:6801/8651</pre></div><p>
+   Query the cluster to determine exactly why the PG is marked down by
+   executing the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg 0.5 query
+  { "state": "down+peering",
+    ...
+    "recovery_state": [
+         { "name": "Started\/Primary\/Peering\/GetInfo",
+           "enter_time": "2012-03-06 14:40:16.169679",
+           "requested_info_from": []},
+         { "name": "Started\/Primary\/Peering",
+           "enter_time": "2012-03-06 14:40:16.169659",
+           "probing_osds": [
+                 0,
+                 1],
+           "blocked": "peering is blocked due to down osds",
+           "down_osds_we_would_probe": [
+                 1],
+           "peering_blocked_by": [
+                 { "osd": 1,
+                   "current_lost_at": 0,
+                   "comment": "starting or marking this osd lost may let us proceed"}]},
+         { "name": "Started",
+           "enter_time": "2012-03-06 14:40:16.169513"}
+     ]
+  }</pre></div><p>
+   <code class="literal">recovery_state</code> section shows that peering is blocked due
+   to down <code class="literal">ceph-osd</code> daemons, specifically
+   <code class="literal">osd.1</code>. In this case, restart the
+   <code class="literal">ceph-osd</code> to recover. Alternatively, if there is a
+   catastrophic failure of <code class="literal">osd.1</code> such as a disk failure,
+   tell the cluster that it is lost and to cope as best it can.
+  </p><div id="id-1.5.7.6.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    The cluster cannot guarantee that the other copies of the data are
+    consistent and up to date.
+   </p></div><p>
+   To instruct Ceph to continue anyway:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd lost 1</pre></div><p>
+   Recovery will proceed.
+  </p></section><section class="sect1" id="bp-troubleshooting-unfound-objects" data-id-title="Failing unfound objects"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.5 </span><span class="title-name">Failing unfound objects</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-unfound-objects">#</a></h2></div></div></div><p>
+   Under certain combinations of failures Ceph may complain about unfound
+   objects:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail
+  HEALTH_WARN 1 pgs degraded; 78/3778 unfound (2.065%)
+  pg 2.4 is active+degraded, 78 unfound</pre></div><p>
+   This means that the storage cluster knows that some objects (or newer copies
+   of existing objects) exist, but it has not found copies of them. One example
+   of how this might come about for a PG whose data is on
+   <code class="literal">ceph-osd</code>s 1 and 2:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     1 goes down
+    </p></li><li class="listitem"><p>
+     2 handles some writes, alone
+    </p></li><li class="listitem"><p>
+     1 comes up
+    </p></li><li class="listitem"><p>
+     1 and 2 repeer, and the objects missing on 1 are queued for recovery.
+    </p></li><li class="listitem"><p>
+     Before the new objects are copied, 2 goes down.
+    </p></li></ul></div><p>
+   In this example, 1 is aware that these object exist, but there is no live
+   <code class="literal">ceph-osd</code> who has a copy. In this case, I/O to those
+   objects blocks, and the cluster hopes that the failed node comes back soon.
+   This is assumed to be preferable to returning an I/O error to the user.
+  </p><p>
+   Identify which objects are unfound by executing the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg 2.4 list_unfound [starting offset, in json]
+  { "offset": { "oid": "",
+       "key": "",
+       "snapid": 0,
+       "hash": 0,
+       "max": 0},
+   "num_missing": 0,
+   "num_unfound": 0,
+   "objects": [
+      { "oid": "object 1",
+        "key": "",
+        "hash": 0,
+        "max": 0 },
+      ...
+   ],
+   "more": 0}</pre></div><p>
+   If there are too many objects to list in a single result, the
+   <code class="literal">more</code> field is true and you can query for more.
+  </p><p>
+   Identify which OSDs have been probed or might contain data:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg 2.4 query
+  "recovery_state": [
+       { "name": "Started\/Primary\/Active",
+         "enter_time": "2012-03-06 15:15:46.713212",
+         "might_have_unfound": [
+               { "osd": 1,
+                 "status": "osd is down"}]},</pre></div><p>
+   In this case, for example, the cluster knows that <code class="literal">osd.1</code>
+   might have data, but it is <code class="literal">down</code>. The full range of
+   possible states include:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     already probed
+    </p></li><li class="listitem"><p>
+     querying
+    </p></li><li class="listitem"><p>
+     OSD is down
+    </p></li><li class="listitem"><p>
+     not queried (yet)
+    </p></li></ul></div><p>
+   Sometimes it takes some time for the cluster to query possible locations.
+  </p><p>
+   It is possible that there are other locations where the object can exist
+   that are not listed. For example, if a <code class="literal">ceph-osd</code> is
+   stopped and taken out of the cluster, the cluster fully recovers, and due to
+   some future set of failures ends up with an unfound object, it will not
+   consider the long-departed <code class="literal">ceph-osd</code> as a potential
+   location to consider.
+  </p><p>
+   If all possible locations have been queried and objects are still lost, you
+   may have to give up on the lost objects. This, again, is possible given
+   unusual combinations of failures that allow the cluster to learn about
+   writes that were performed before the writes themselves are recovered. To
+   mark the unfound objects as <code class="option">lost</code>:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg 2.5 mark_unfound_lost revert|delete</pre></div><p>
+   This the final argument specifies how the cluster should deal with lost
+   objects. The <code class="option">delete</code> option forgets about them entirely. The
+   <code class="option">revert</code> option (not available for erasure coded pools)
+   either rolls back to a previous version of the object or (if it was a new
+   object) forgets about it entirely. Use this with caution, as it may confuse
+   applications that expected the object to exist.
+  </p></section><section class="sect1" id="bp-troubleshooting-homeless-pgs" data-id-title="Identifying homeless placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.6 </span><span class="title-name">Identifying homeless placement groups</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-homeless-pgs">#</a></h2></div></div></div><p>
+   It is possible for all OSDs that had copies of a given placement groups to
+   fail. If that is the case, that subset of the object store is unavailable,
+   and the monitor receives no status updates for those placement groups. To
+   detect this situation, the monitor marks any placement group whose primary
+   OSD has failed as <code class="literal">stale</code>. For example:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health
+  HEALTH_WARN 24 pgs stale; 3/300 in osds are down</pre></div><p>
+   Identify which placement groups are <code class="literal">stale</code>, and what were
+   the last OSDs to store them by executing the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail
+  HEALTH_WARN 24 pgs stale; 3/300 in osds are down
+  ...
+  pg 2.5 is stuck stale+active+remapped, last acting [2,0]
+  ...
+  osd.10 is down since epoch 23, last address 192.168.106.220:6800/11080
+  osd.11 is down since epoch 13, last address 192.168.106.220:6803/11539
+  osd.12 is down since epoch 24, last address 192.168.106.220:6806/11861</pre></div><p>
+   For example, to get placement group 2.5 back online, this output shows that
+   it was last managed by <code class="literal">osd.0</code> and
+   <code class="literal">osd.2</code>. Restarting the <code class="literal">ceph-osd</code> daemons
+   allows the cluster to recover that placement group.
+  </p></section><section class="sect1" id="bp-troubleshooting-osds-data" data-id-title="Only a few OSDs receive data"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.7 </span><span class="title-name">Only a few OSDs receive data</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-osds-data">#</a></h2></div></div></div><p>
+   If you have many nodes in your cluster and only a few of them receive data,
+   check the number of placement groups in your pool. See
+   <span class="intraxref">Book “Administration and Operations Guide”, Chapter 12 “Determine the cluster state”, Section 12.7 “Checking placement group states”</span> for more information. Since placement
+   groups get mapped to OSDs, a small number of placement groups will not
+   distribute across the cluster. Create a pool with a placement group count
+   that is a multiple of the number of OSDs. See <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4 “Placement groups”</span> for
+   details.
+  </p></section><section class="sect1" id="bp-troubleshooting-cant-write" data-id-title="Unable to write data"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.8 </span><span class="title-name">Unable to write data</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-cant-write">#</a></h2></div></div></div><p>
+   If your cluster is up but some OSDs are down and you cannot write data,
+   check to ensure that you have the minimum number of OSDs running for the
+   placement group. If you do not have the minimum number of OSDs running,
+   Ceph will not allow you to write data because there is no guarantee that
+   Ceph can replicate your data.
+  </p></section><section class="sect1" id="bp-troubleshooting-pgs-inconsistent" data-id-title="Identifying inconsistent placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.9 </span><span class="title-name">Identifying inconsistent placement groups</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-pgs-inconsistent">#</a></h2></div></div></div><p>
+   If you receive an <code class="literal">active+clean+inconsistent</code> state, this
+   may happen due to an error during scrubbing. Identify the inconsistent
+   placement group(s) by executing the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health detail
+  HEALTH_ERR 1 pgs inconsistent; 2 scrub errors
+  pg 0.6 is active+clean+inconsistent, acting [0,1,2]
+  2 scrub errors</pre></div><p>
+   Or:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados list-inconsistent-pg rbd
+  ["0.6"]</pre></div><p>
+   There is only one consistent state, but in the worst case, there could be
+   different inconsistencies in multiple perspectives found in more than one
+   objects. If an object named <code class="literal">foo</code> in PG
+   <code class="literal">0.6</code> is truncated, the output is:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados list-inconsistent-obj 0.6 --format=json-pretty</pre></div><div class="verbatim-wrap"><pre class="screen">  {
+      "epoch": 14,
+      "inconsistents": [
+          {
+              "object": {
+                  "name": "foo",
+                  "nspace": "",
+                  "locator": "",
+                  "snap": "head",
+                  "version": 1
+              },
+              "errors": [
+                  "data_digest_mismatch",
+                  "size_mismatch"
+              ],
+              "union_shard_errors": [
+                  "data_digest_mismatch_info",
+                  "size_mismatch_info"
+              ],
+              "selected_object_info": "0:602f83fe:::foo:head(16'1 client.4110.0:1 dirty|data_digest|omap_digest s 968 uv 1 dd e978e67f od ffffffff alloc_hint [0 0 0])",
+              "shards": [
+                  {
+                      "osd": 0,
+                      "errors": [],
+                      "size": 968,
+                      "omap_digest": "0xffffffff",
+                      "data_digest": "0xe978e67f"
+                  },
+                  {
+                      "osd": 1,
+                      "errors": [],
+                      "size": 968,
+                      "omap_digest": "0xffffffff",
+                      "data_digest": "0xe978e67f"
+                  },
+                  {
+                      "osd": 2,
+                      "errors": [
+                          "data_digest_mismatch_info",
+                          "size_mismatch_info"
+                      ],
+                      "size": 0,
+                      "omap_digest": "0xffffffff",
+                      "data_digest": "0xffffffff"
+                  }
+              ]
+          }
+      ]
+  }</pre></div><p>
+   In this case, we can learn from the output that the only inconsistent object
+   is named <code class="literal">foo</code>, and it has inconsistencies. The
+   inconsistencies fall into two categories:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.7.11.10.1"><span class="term"><code class="literal">errors</code></span></dt><dd><p>
+      These errors indicate inconsistencies between <code class="literal">shards</code>
+      without a determination of which shard(s) are bad. Check for the
+      <code class="literal">errors</code> in the <code class="literal">shards</code> array, if
+      available, to pinpoint the problem.
+     </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.7.11.10.1.2.2.1"><span class="term"><code class="literal">data_digest_mismatch</code></span></dt><dd><p>
+         The digest of the replica read from OSD.2 is different from the ones
+         of OSD.0 and OSD.1
+        </p></dd><dt id="id-1.5.7.11.10.1.2.2.2"><span class="term"><code class="literal">size_mismatch</code></span></dt><dd><p>
+         The size of the replica read from OSD.2 is 0, while the size reported
+         by OSD.0 and OSD.1 is 968.
+        </p></dd></dl></div></dd><dt id="id-1.5.7.11.10.2"><span class="term"><code class="literal">union_shard_errors</code></span></dt><dd><p>
+      The union of all shard specific <code class="literal">errors</code> in
+      <code class="literal">shards</code> array. The <code class="literal">errors</code> are set
+      for the given shard that has the problem. They include errors like
+      <code class="literal">read_error</code>. The <code class="literal">errors</code> ending in
+      <code class="literal">oi</code> indicate a comparison with
+      <code class="literal">selected_object_info</code>. Look at the
+      <code class="literal">shards</code> array to determine which shard has which
+      error(s).
+     </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.5.7.11.10.2.2.2.1"><span class="term"><code class="literal">data_digest_mismatch_info</code></span></dt><dd><p>
+         The digest stored in the object-info is not 0xffffffff, which is
+         calculated from the shard read from OSD.2
+        </p></dd><dt id="id-1.5.7.11.10.2.2.2.2"><span class="term"><code class="literal">size_mismatch_info</code></span></dt><dd><p>
+         The size stored in the object-info is different from the one read from
+         OSD.2. The latter is 0.
+        </p></dd></dl></div></dd></dl></div><p>
+   Repair the inconsistent placement group by executing:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg repair <em class="replaceable">placement-group-ID</em></pre></div><p>
+   This command overwrites the bad copies with the authoritative ones. In most
+   cases, Ceph is able to choose authoritative copies from all available
+   replicas using some predefined criteria but this does not always work. For
+   example, the stored data digest could be missing, and the calculated digest
+   will be ignored when choosing the authoritative copies. Use the above
+   command with caution.
+  </p><p>
+   If <code class="literal">read_error</code> is listed in the errors attribute of a
+   shard, the inconsistency is likely due to disk errors. You might want to
+   check your disk used by that OSD.
+  </p><p>
+   If you receive <code class="literal">active+clean+inconsistent</code> states
+   periodically due to clock skew, you may consider configuring your NTP
+   daemons on your monitor hosts to act as peers.
+  </p></section><section class="sect1" id="bp-troubleshooting-erasure-codes" data-id-title="Identifying inactive erasure coded PGs"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.10 </span><span class="title-name">Identifying inactive erasure coded PGs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#bp-troubleshooting-erasure-codes">#</a></h2></div></div></div><p>
+   When CRUSH fails to find enough OSDs to map to a PG, it will show as a
+   2147483647 which is <code class="option">ITEM_NONE</code> or <code class="literal">no OSD
+   found</code>. For instance:
+  </p><div class="verbatim-wrap"><pre class="screen">[2,1,6,0,5,8,2147483647,7,4]</pre></div><section class="sect2" id="troubleshooting-not-enough-osds" data-id-title="Displaying not enough OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.10.1 </span><span class="title-name">Displaying not enough OSDs</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-not-enough-osds">#</a></h3></div></div></div><p>
+    If the Ceph cluster only has 8 OSDs and the erasure coded pool needs 9,
+    that is what it will show. You can either create another erasure coded pool
+    that requires less OSDs:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd erasure-code-profile set myprofile k=5 m=3
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create erasurepool erasure myprofile</pre></div><p>
+    Or, add a new OSDs and the PG automatically uses them.
+   </p></section><section class="sect2" id="troubleshooting-crush" data-id-title="Satisfying CRUSH constraints"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.10.2 </span><span class="title-name">Satisfying CRUSH constraints</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-crush">#</a></h3></div></div></div><p>
+    If the cluster has enough OSDs, it is possible that the CRUSH rule imposes
+    constraints that cannot be satisfied. If there are 10 OSDs on two hosts and
+    the CRUSH rule requires that no two OSDs from the same host are used in the
+    same PG, the mapping may fail because only two OSDs will be found. You can
+    check the constraint by displaying the rule:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush rule ls
+  [
+      "replicated_rule",
+      "erasurepool"]
+  $ ceph osd crush rule dump erasurepool
+  { "rule_id": 1,
+    "rule_name": "erasurepool",
+    "ruleset": 1,
+    "type": 3,
+    "min_size": 3,
+    "max_size": 20,
+    "steps": [
+          { "op": "take",
+            "item": -1,
+            "item_name": "default"},
+          { "op": "chooseleaf_indep",
+            "num": 0,
+            "type": "host"},
+          { "op": "emit"}]}</pre></div><p>
+    Resolve the problem by creating a new pool in which PGs are allowed to have
+    OSDs residing on the same host with:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd erasure-code-profile set myprofile crush-failure-domain=osd
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create erasurepool erasure myprofile</pre></div></section><section class="sect2" id="troubleshooting-crush-give-up" data-id-title="Identifying when CRUSH gives up too soon"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.10.3 </span><span class="title-name">Identifying when CRUSH gives up too soon</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-crush-give-up">#</a></h3></div></div></div><p>
+    If the Ceph cluster has just enough OSDs to map the PG (for instance a
+    cluster with a total of 9 OSDs and an erasure coded pool that requires 9
+    OSDs per PG), it is possible that CRUSH gives up before finding a mapping.
+    It can be resolved by:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Lowering the erasure coded pool requirements to use less OSDs per PG
+      (that requires the creation of another pool as erasure code profiles
+      cannot be dynamically modified).
+     </p></li><li class="listitem"><p>
+      Adding more OSDs to the cluster (that does not require the erasure coded
+      pool to be modified, it will become clean automatically)
+     </p></li><li class="listitem"><p>
+      Use a handmade CRUSH rule that tries more times to find a good mapping.
+      This can be done by setting <code class="option">set_choose_tries</code> to a value
+      greater than the default.
+     </p></li></ul></div><p>
+    Verify the problem with crushtool after extracting the crushmap from the
+    cluster so your experiments do not modify the Ceph cluster and only work
+    on a local files:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush rule dump erasurepool
+  { "rule_name": "erasurepool",
+    "ruleset": 1,
+    "type": 3,
+    "min_size": 3,
+    "max_size": 20,
+    "steps": [
+          { "op": "take",
+            "item": -1,
+            "item_name": "default"},
+          { "op": "chooseleaf_indep",
+            "num": 0,
+            "type": "host"},
+          { "op": "emit"}]}
+  $ ceph osd getcrushmap &gt; crush.map
+  got crush map from osdmap epoch 13
+  $ crushtool -i crush.map --test --show-bad-mappings \
+     --rule 1 \
+     --num-rep 9 \
+     --min-x 1 --max-x $((1024 * 1024))
+  bad mapping rule 8 x 43 num_rep 9 result [3,2,7,1,2147483647,8,5,6,0]
+  bad mapping rule 8 x 79 num_rep 9 result [6,0,2,1,4,7,2147483647,5,8]
+  bad mapping rule 8 x 173 num_rep 9 result [0,4,6,8,2,1,3,7,2147483647]</pre></div><p>
+    Where <code class="option">--num-rep</code> is the number of OSDs the erasure code
+    CRUSH rule needs, <code class="option">--rule</code> is the value of the ruleset field
+    displayed by <code class="command">ceph osd crush rule dump</code>. The test tries to
+    map one million values (i.e. the range defined by [--min-x,--max-x]) and
+    must display at least one bad mapping. If it outputs nothing it means all
+    mappings are successful and the problem is elsewhere.
+   </p><p>
+    The CRUSH rule can be edited by decompiling the crush map:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>crushtool --decompile crush.map &gt; crush.txt</pre></div><p>
+    Add the following line to the rule:
+   </p><div class="verbatim-wrap"><pre class="screen">step set_choose_tries 100</pre></div><p>
+    The relevant part of of the <code class="filename">crush.txt</code> file should look
+    something like:
+   </p><div class="verbatim-wrap"><pre class="screen">  rule erasurepool {
+          ruleset 1
+          type erasure
+          min_size 3
+          max_size 20
+          step set_chooseleaf_tries 5
+          step set_choose_tries 100
+          step take default
+          step chooseleaf indep 0 type host
+          step emit
+  }</pre></div><p>
+    It can then be compiled and tested again:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>crushtool --compile crush.txt -o better-crush.map</pre></div><p>
+    When all mappings succeed, an histogram of the number of tries that were
+    necessary to find all of them can be displayed with the
+    <code class="option">--show-choose-tries</code> option of
+    <code class="literal">crushtool</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>crushtool -i better-crush.map --test --show-bad-mappings \
+     --show-choose-tries \
+     --rule 1 \
+     --num-rep 9 \
+     --min-x 1 --max-x $((1024 * 1024))
+  ...
+  11:        42
+  12:        44
+  13:        54
+  14:        45
+  15:        35
+  16:        34
+  17:        30
+  18:        25
+  19:        19
+  20:        22
+  21:        20
+  22:        17
+  23:        13
+  24:        16
+  25:        13
+  26:        11
+  27:        11
+  28:        13
+  29:        11
+  30:        10
+  31:         6
+  32:         5
+  33:        10
+  34:         3
+  35:         7
+  36:         5
+  37:         2
+  38:         5
+  39:         5
+  40:         2
+  41:         5
+  42:         4
+  43:         1
+  44:         2
+  45:         2
+  46:         3
+  47:         1
+  48:         0
+  ...
+  102:         0
+  103:         1
+  104:         0
+  ...</pre></div><p>
+    It takes 11 tries to map 42 PGs, 12 tries to map 44 PGs etc. The highest
+    number of tries is the minimum value of <code class="option">set_choose_tries</code>
+    that prevents bad mappings (i.e. 103 in the above output because it did not
+    take more than 103 tries for any PG to be mapped).
+   </p></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bp-troubleshooting-osds.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 4 </span>Troubleshooting OSDs</span></a> </div><div><a class="pagination-link next" href="bp-troubleshooting-monitors.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 6 </span>Troubleshooting Ceph Monitors and Ceph Managers</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-identify-pg"><span class="title-number">5.1 </span><span class="title-name">Identifying troubled placement groups</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-pg-clean"><span class="title-number">5.2 </span><span class="title-name">Placement groups never get clean</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-stuck-pgs"><span class="title-number">5.3 </span><span class="title-name">Stuck placement groups</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-pgs-down"><span class="title-number">5.4 </span><span class="title-name">Peering failure of placement groups</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-unfound-objects"><span class="title-number">5.5 </span><span class="title-name">Failing unfound objects</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-homeless-pgs"><span class="title-number">5.6 </span><span class="title-name">Identifying homeless placement groups</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-osds-data"><span class="title-number">5.7 </span><span class="title-name">Only a few OSDs receive data</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-cant-write"><span class="title-number">5.8 </span><span class="title-name">Unable to write data</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-pgs-inconsistent"><span class="title-number">5.9 </span><span class="title-name">Identifying inconsistent placement groups</span></a></span></li><li><span class="sect1"><a href="bp-troubleshooting-pgs.html#bp-troubleshooting-erasure-codes"><span class="title-number">5.10 </span><span class="title-name">Identifying inactive erasure coded PGs</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_pgs.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>
