@@ -460,14 +460,17 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      If you need to supply local container registry URL and access credentials,
      follow the steps described in
      <a class="xref" href="deploy-bootstrap.html#deploy-cephadm-configure-registry" title="7.2.10. Using the container registry">Section 7.2.10, “Using the container registry”</a>.
-    </p></li><li class="step"><p>
-     If you are <span class="bold"><strong>not</strong></span> using container images
-     from <code class="literal">registry.suse.com</code> but rather the
-     locally-configured registry, inform Ceph which container image to use by
-     running
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image <em class="replaceable">IMAGE_NAME</em></pre></div><p>
-     For example:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image 192.168.121.1:5000/my/ceph/image</pre></div></li><li class="step"><p>
+    </p></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
+       If you <span class="bold"><strong>are</strong></span> using container images from
+       <code class="literal">registry.suse.com</code>, you need to set the
+       <code class="option">container_image</code> option: </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image registry.suse.com/ses/7.1/ceph/ceph:latest</pre></div></li><li class="step"><p>
+       If you are <span class="bold"><strong>not</strong></span> using container images
+       from <code class="literal">registry.suse.com</code> but rather the
+       locally-configured registry, inform Ceph which container image to use
+       by running the following command:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image <em class="replaceable">IMAGE_NAME</em></pre></div><p>
+       For example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image 192.168.121.1:5000/my/ceph/image</pre></div></li></ol></li><li class="step"><p>
      Stop and disable the SUSE Enterprise Storage 6
      <code class="systemitem">ceph-crash</code> daemons. New
      containerized forms of these daemons are started later automatically.
