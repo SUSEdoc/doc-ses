@@ -803,10 +803,15 @@ spec:
      Verify that the cluster was successfully upgraded by checking the current
      Ceph version:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph versions</pre></div></li><li class="step"><p>
+     Check that the <code class="option">osdspec_affinity</code> entry is properly set for existing OSDs.
+     If the <code class="command">ceph osd stat</code> command shows some OSDs as not running or unknown,
+     refer to <a class="link" href="https://www.suse.com/support/kb/doc/?id=000020667" target="_blank">https://www.suse.com/support/kb/doc/?id=000020667</a> to get more
+     details on properly mapp OSDs to a service specification.
+    </p></li><li class="step"><p>
      Make sure that no old OSDs will join the cluster:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd require-osd-release pacific</pre></div></li><li class="step"><p>
      Set the <code class="option">pg_autoscale_mode</code> of existing pools if necessary:
-    </p><div id="id-1.3.5.2.15.3.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div id="id-1.3.5.2.15.3.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
       Pools in SUSE Enterprise Storage 6 had the <code class="option">pg_autoscale_mode</code> set
       to <code class="option">warn</code> by default. This resulted in a warning message
       in case of suboptimal number of PGs, but autoscaling did not actually
