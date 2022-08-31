@@ -603,7 +603,59 @@ OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd deep-scrub osd.<em class="replaceable">OSD_NUMBER</em></pre></div></div><div id="id-1.4.4.3.6.7.12" data-id-title="Shared device failure" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Shared device failure</h6><p>
      If a shared device for DB/WAL fails you will need to perform the
      replacement procedure for all OSDs that share the failed device.
-    </p></div></section></section><section class="sect1" id="moving-saltmaster" data-id-title="Moving the Salt Master to a new node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.5 </span><span class="title-name">Moving the Salt Master to a new node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#moving-saltmaster">#</a></h2></div></div></div><p>
+    </p></div></section><section class="sect2" id="migrating-db-device" data-id-title="Migrating OSDs DB device"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">13.4.6 </span><span class="title-name">Migrating OSD's DB device</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#migrating-db-device">#</a></h3></div></div></div><p>
+    DB device belongs to an OSD and stores its metadata (see <span class="intraxref">Book “Deployment Guide”, Chapter 1 “SES and Ceph”, Section 1.4 “BlueStore”</span> for
+    more details). There are several reasons why you may want to migrate an existing DB device to a
+    new one—for example, when OSDs have different DB sizes and you need to 
+    align them.
+   </p><div id="id-1.4.4.3.6.8.3" data-id-title="ceph-volume naming convention" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: <code class="command">ceph-volume</code> naming convention</h6><p>
+     Some clusters may have old volume group (VG) or logical volume (LV) names prefixed with
+     <code class="literal">ceph-block-dbs</code> and <code class="literal">osd-block-db</code>, for example:
+    </p><div class="verbatim-wrap"><pre class="screen">ceph-block-dbs-c3dc9227-ca3e-49bc-992c-00602cb3eec7/osd-block-db-b346b9ff-dbbe-40db-a95e-2419ccd31f2c</pre></div><p>
+     The current naming convention is as follows:
+    </p><div class="verbatim-wrap"><pre class="screen">ceph-c3dc9227-ca3e-49bc-992c-00602cb3eec7/osd-db-b346b9ff-dbbe-40db-a95e-2419ccd31f2c</pre></div></div><div class="procedure" id="id-1.4.4.3.6.8.4" data-id-title="Migrating a DB device to a new device"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 13.1: </span><span class="title-name">Migrating a DB device to a new device </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.8.4">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Identify the <code class="option">db device</code> and <code class="option">osd fsid</code> values by running
+      the following command:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm ceph-volume lvm list
+[...]
+====== osd.0 =======
+
+[block]       /dev/ceph-b03b5ad4-98e8-446a-9a9f-840ecd90215c/osd-block-c276d2a4-5578-4847-94c6-8e2e6abf81c4
+
+block device              /dev/ceph-b03b5ad4-98e8-446a-9a9f-840ecd90215c/osd-block-c276d2a4-5578-4847-94c6-8e2e6abf81c4
+block uuid                Kg3ySP-ykP8-adFE-UrHY-OSiv-0WQ5-uuUEJ9
+cephx lockbox secret
+cluster fsid              9c8d3126-9faf-11ec-a2cf-52540035cdc1
+cluster name              ceph
+crush device class
+db device                 /dev/ceph-block-dbs-c3dc9227-ca3e-49bc-992c-00602cb3eec7/osd-block-db-b346b9ff-dbbe-40db-a95e-2419ccd31f2c
+encrypted                 0
+osd fsid                  c276d2a4-5578-4847-94c6-8e2e6abf81c4
+osd id                    0
+osdspec affinity          sesdev_osd_deployment
+type                      block
+vdo                       0
+devices                   /dev/vdb
+[...]</pre></div></li><li class="step"><p>
+      Create a new logical volume (LV) for the new DB device. Refer to
+      <span class="intraxref">Book “Deployment Guide”, Chapter 2 “Hardware requirements and recommendations”, Section 2.4.3 “Recommended size for the BlueStore's WAL and DB device”</span> when determining the right size for the DB device. For
+      example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>lvcreate -n osd-db-$(cat /proc/sys/kernel/random/uuid) \
+ ceph-c3dc9227-ca3e-49bc-992c-00602cb3eec7 --size <em class="replaceable">DB_SIZE</em></pre></div></li><li class="step"><p>
+      Stop the OSD. Run the following command on the OSD node where the OSD daemon runs:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>cephadm unit --name osd.0</pre></div></li><li class="step"><p>
+      Enter the shell on the stopped OSD container:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>cephadm shell --name osd.0</pre></div></li><li class="step"><p>
+      Migrate the DB device:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-volume lvm migrate --osd-id 0 \
+ --osd-fsid c276d2a4-5578-4847-94c6-8e2e6abf81c4 --from db \
+ --target ceph-c3dc9227-ca3e-49bc-992c-00602cb3eec7/osd-db-b346b9ff-dbbe-40db-a95e-2419ccd31f2c</pre></div></li><li class="step"><p>
+      Exit the cephadm shell:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>exit</pre></div></li><li class="step"><p>
+      Start the OSD. Run the following command on the OSD node where the OSD daemon runs:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>cephadm unit --name osd.0 start</pre></div></li><li class="step"><p>
+      Remove the old DB logical volume.
+     </p></li></ol></div></div></section></section><section class="sect1" id="moving-saltmaster" data-id-title="Moving the Salt Master to a new node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.5 </span><span class="title-name">Moving the Salt Master to a new node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#moving-saltmaster">#</a></h2></div></div></div><p>
    If you need to replace the Salt Master host with a new one, follow these
    steps:
   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
