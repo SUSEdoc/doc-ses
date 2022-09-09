@@ -130,7 +130,7 @@ function githubUrl(sectionName, permalink) {
     url += "&amp;labels=" + encodeURIComponent(ghLabels);
   }
   return url;
-}
+};
 
 
 function bugzillaUrl(sectionName, permalink) {
@@ -153,7 +153,7 @@ function bugzillaUrl(sectionName, permalink) {
     url += "&amp;version=" + encodeURIComponent(bscVersion);
   }
   return url;
-}
+};
 
 
 // update the report bug url for the current section id as the user is scrolling
@@ -233,7 +233,7 @@ function addClipboardButtons() {
       return true;
     }
   );
-}
+};
 
 function copyToClipboard(elm) {
   // use temporary hidden form element for selection and copy action
@@ -282,7 +282,7 @@ function copyToClipboard(elm) {
   }
 
   return succeed;
-}
+};
 
 
 function hashActivator() {
@@ -295,7 +295,7 @@ function hashActivator() {
       location.hash = $( locationhash ).parent(".qandaentry").prev('.free-id').attr('id');
     };
   };
-}
+};
 
 
 // INIT!
@@ -360,8 +360,12 @@ $(function() {
   };
 
   eBody.addEventListener('click', function(e){
-      document.getElementById('_mainnav').classList.remove('show-search');
-      document.getElementById('_utilitynav-language').classList.remove('visible');
+      if ( document.getElementById('_mainnav') !== null ) {
+        document.getElementById('_mainnav').classList.remove('show-search');
+      };
+      if ( document.getElementById('_utilitynav-language') !== null ) {
+        document.getElementById('_utilitynav-language').classList.remove('visible');
+      };
   }, false);
 
   if (  eSideTocAll &&
@@ -414,7 +418,9 @@ $(function() {
         }, false);
  });
 
-  bugReportScrollSpy();
+ //  bugReportScrollSpy();
+
+  addBugLinks();
 
   // hljs likes to unset click handlers, so run after it
   // FIXME: this interval thing is a little crude
@@ -426,3 +432,47 @@ $(function() {
   }, 500);
 
 });
+
+function addBugLinks() {
+  // do not create links if there is no URL
+  if ( typeof(bugtrackerUrl) == 'string') {
+    $('.permalink:not([href^=\\#idm])').each(function () {
+      var permalink = this.href;
+      var sectionNumber = "";
+      var sectionName = "";
+      var url = "";
+
+      function prev(x) { return $(this).prevAll(x)[0]; };
+
+      if (prev('span.title-number') != undefined) {
+        // Some quickstarts return an undefined object and make the script to fail
+        // this if-clause takes care of this case.
+        console.log("this:", this.text,
+                  prev('span.title-number').innerHTML,
+                  prev('span.title-name').innerHTML
+                  );
+      }
+      if ( prev('span.title-number') ) {
+        sectionNumber = prev('span.title-number').innerHTML;
+      }
+      if ( prev('span.title-number') ) {
+        sectionName = prev('span.title-name').innerHTML;
+      }
+
+      if (bugtrackerType == 'bsc') {
+        url = bugzillaUrl(sectionName, permalink);
+      }
+      else {
+        url = githubUrl(sectionName, permalink);
+      }
+
+      $(this).before("<a class=\"report-bug\" target=\"_blank\" href=\""
+        + url
+        + "\" title=\"Report a bug against this section of the documentation\">Report Documentation Bug</a> ");
+      return true;
+    });
+  }
+  else {
+    return false;
+  }
+}
