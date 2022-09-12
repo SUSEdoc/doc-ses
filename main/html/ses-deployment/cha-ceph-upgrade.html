@@ -310,6 +310,17 @@ Nodes running older software versions must be upgraded in the following order:
    Upgrade the Ceph Monitor, Ceph Manager, and OSD nodes one at a time. For each service,
    follow these steps:
   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Before adopting any OSD node, you need to perform a format conversion of
+     OSD nodes to improve the accounting for OMAP data. You can do so by
+     running the following command on the Admin Node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set osd bluestore_fsck_quick_fix_on_mount true</pre></div><p>
+     The OSD nodes will be converted automatically after their adoption
+     finishes.
+    </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      The conversion may take minutes to hours, depending on how much OMAP data
+      the related hard disk contains. For more details, refer to
+      <a class="link" href="https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters" target="_blank">https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters</a>.
+     </p></div></li><li class="step"><p>
      If the node you are upgrading is an OSD node, avoid having the OSD marked
      <code class="literal">out</code> during the upgrade by running the following
      command:
@@ -355,7 +366,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
 <code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph-bluestore-tool --path /var/lib/ceph/osd/ceph-<em class="replaceable">OSD_DAEMON_ID</em>--command quick-fix
 <code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> start</pre></div><p>
         Allow the OSD node to be up and in again, then run:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.3.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
          You can run the above commands in parallel on multiple OSD daemons on the same OSD node
          to help accelerate the upgrade.
         </p></div></li></ol></li><li class="step"><p>
@@ -366,7 +377,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      Replace <em class="replaceable">MINION_ID</em> with the ID of the minion
      that you are upgrading. You can get the list of minion IDs by running the
      <code class="command">salt-key -L</code> command on the Salt Master.
-    </p><div id="id-1.3.5.2.10.3.4.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div id="id-1.3.5.2.10.3.5.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
       To see the status and progress of the <span class="emphasis"><em>adoption</em></span>,
       check the Ceph Dashboard or run one of the following commands on the
       Salt Master:
