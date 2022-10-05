@@ -34,7 +34,7 @@ hljs.configure({
   useBR: false
 });
 
-</script></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h1 class="title">Deployment Guide</h1></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>12 Sep 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Giving feedback</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.2"><span class="number">7.1 </span><span class="name">Viewing manifest files</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.3"><span class="number">7.2 </span><span class="name">Synchronize to a directory</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.4"><span class="number">7.3 </span><span class="name">Synchronize Grafana images:</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.5"><span class="number">7.4 </span><span class="name">Synchronize latest Prometheus images</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.6"><p>
+</script></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h1 class="title">Deployment Guide</h1></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>05 Oct 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Giving feedback</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.2"><span class="number">7.1 </span><span class="name">Viewing manifest files</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.3"><span class="number">7.2 </span><span class="name">Synchronize to a directory</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.4"><span class="number">7.3 </span><span class="name">Synchronize Grafana images:</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.5"><span class="number">7.4 </span><span class="name">Synchronize latest Prometheus images</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.6"><p>
   Copyright © 2020–2022
 
   SUSE LLC and contributors. All rights reserved.
@@ -1427,12 +1427,12 @@ o- dashboard ....................................................... [...]
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions add '*'</pre></div><p>
     Verify that the specified Salt Minions were added:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions ls
-o- minions ................................................. [Minions: 5]
-  o- ses-master.example.com .................................. [no roles]
-  o- ses-min1.example.com .................................... [no roles]
-  o- ses-min2.example.com .................................... [no roles]
-  o- ses-min3.example.com .................................... [no roles]
-  o- ses-min4.example.com .................................... [no roles]</pre></div></section><section class="sect2" id="deploy-cephadm-configure-cephadm" data-id-title="Specifying Salt Minions managed by cephadm"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.3 </span><span class="title-name">Specifying Salt Minions managed by cephadm</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-cephadm">#</a></h3></div></div></div><p>
+o- minions ............................................... [Minions: 5]
+  o- ses-main.example.com .................................. [no roles]
+  o- ses-node1.example.com ................................. [no roles]
+  o- ses-node2.example.com ................................. [no roles]
+  o- ses-node3.example.com ................................. [no roles]
+  o- ses-node4.example.com ................................. [no roles]</pre></div></section><section class="sect2" id="deploy-cephadm-configure-cephadm" data-id-title="Specifying Salt Minions managed by cephadm"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.3 </span><span class="title-name">Specifying Salt Minions managed by cephadm</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-cephadm">#</a></h3></div></div></div><p>
     Specify which nodes will belong to the Ceph cluster and will be managed
     by cephadm. Include all nodes that will run Ceph services as well as
     the Admin Node:
@@ -1450,11 +1450,11 @@ o- minions ................................................. [Minions: 5]
      <span class="emphasis"><em>not</em></span> place the Admin Node on the same host as Salt Master.
     </p></div><p>
     To specify the Admin Node, run the following command:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin add ses-master.example.com
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin add ses-main.example.com
 1 minion added.
 <code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin ls
 o- admin ................................................... [Minions: 1]
-  o- ses-master.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</h6><p>
+  o- ses-main.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</h6><p>
      You can install the Ceph configuration file and admin keyring on
      multiple nodes if your deployment requires it. For security reasons, avoid
      installing them on all the cluster's nodes.
@@ -1462,10 +1462,10 @@ o- admin ................................................... [Minions: 1]
     You need to specify which of the cluster's Salt Minions will bootstrap the
     cluster. This minion will become the first one running Ceph Monitor and Ceph Manager
     services.
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/bootstrap set ses-min1.example.com
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/bootstrap set ses-node1.example.com
 Value set.
 <code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/bootstrap ls
-o- bootstrap ..................................... [ses-min1.example.com]</pre></div><p>
+o- bootstrap ..................................... [ses-node1.example.com]</pre></div><p>
     Additionally, you need to specify the bootstrap MON's IP address on the
     public network to ensure that the <code class="option">public_network</code> parameter
     is set correctly, for example:
@@ -1475,11 +1475,11 @@ o- bootstrap ..................................... [ses-min1.example.com]</pre><
    </p><div id="id-1.3.4.5.4.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
      One minion cannot have both the <code class="literal">latency</code> and
      <code class="literal">throughput</code> roles.
-    </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/latency add ses-min1.example.com
-Adding ses-min1.example.com...
+    </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/latency add ses-node1.example.com
+Adding ses-node1.example.com...
 1 minion added.
-<code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/throughput add ses-min2.example.com
-Adding ses-min2.example.com...
+<code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/throughput add ses-node2.example.com
+Adding ses-node2.example.com...
 1 minion added.</pre></div></section><section class="sect2" id="deploy-cephadm-configure-ssh" data-id-title="Generating an SSH key pair"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.7 </span><span class="title-name">Generating an SSH key pair</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-ssh">#</a></h3></div></div></div><p>
     cephadm uses the SSH protocol to communicate with cluster nodes. A user
     account named <code class="literal">cephadm</code> is automatically created and used
@@ -1509,7 +1509,7 @@ o- ssh .................................................. [Key Pair set]
       such as <code class="literal">pool.ntp.org</code>, and configure all the other
       minions to get their time from the internal time server. This can be
       achieved as follows:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /time_server/servers add ses-master.example.com
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /time_server/servers add ses-main.example.com
 <code class="prompt user">root@master # </code>ceph-salt config /time_server/external_servers add pool.ntp.org</pre></div><p>
       The <code class="option">/time_server/subnet</code> option specifies the subnet from
       which NTP clients are allowed to access the NTP server. It is
@@ -1522,7 +1522,7 @@ o- time_server ................................................ [enabled]
   o- external_servers ............................................... [1]
   | o- pool.ntp.org ............................................... [...]
   o- servers ........................................................ [1]
-  | o- ses-master.example.com ..................................... [...]
+  | o- ses-main.example.com ......  ............................... [...]
   o- subnet .............................................. [10.20.6.0/24]</pre></div><p>
     Find more information on setting up time synchronization in
     <a class="link" href="https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-ntp.html#sec-ntp-yast" target="_blank">https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-ntp.html#sec-ntp-yast</a>.
@@ -1787,16 +1787,16 @@ env = ["http_proxy=http://proxy.example.com:<em class="replaceable">PORT</em>"]
 o- / ............................................................... [...]
   o- ceph_cluster .................................................. [...]
   | o- minions .............................................. [Minions: 5]
-  | | o- ses-master.example.com .................................. [admin]
-  | | o- ses-min1.example.com ......................... [bootstrap, admin]
-  | | o- ses-min2.example.com ................................. [no roles]
-  | | o- ses-min3.example.com ................................. [no roles]
-  | | o- ses-min4.example.com ................................. [no roles]
+  | | o- ses-main.example.com .......  ........................... [admin]
+  | | o- ses-node1.example.com ........................ [bootstrap, admin]
+  | | o- ses-node2.example.com ................................ [no roles]
+  | | o- ses-node3.example.com ................................ [no roles]
+  | | o- ses-node4.example.com ................................ [no roles]
   | o- roles ....................................................... [...]
   |   o- admin .............................................. [Minions: 2]
-  |   | o- ses-master.example.com ....................... [no other roles]
-  |   | o- ses-min1.example.com ................. [other roles: bootstrap]
-  |   o- bootstrap ................................ [ses-min1.example.com]
+  |   | o- ses-main.example.com ......................... [no other roles]
+  |   | o- ses-node1.example.com ................ [other roles: bootstrap]
+  |   o- bootstrap ............................... [ses-node1.example.com]
   |   o- cephadm ............................................ [Minions: 5]
   |   o- tuned ..................................................... [...]
   |     o- latency .......................................... [no minions]
@@ -1804,7 +1804,7 @@ o- / ............................................................... [...]
   o- cephadm_bootstrap ............................................. [...]
   | o- advanced .................................................... [...]
   | o- ceph_conf ................................................... [...]
-  | o- ceph_image_path .............. [registry.suse.com/ses/7.1/ceph/ceph]
+  | o- ceph_image_path ............. [registry.suse.com/ses/7.1/ceph/ceph]
   | o- dashboard ................................................... [...]
   |   o- force_password_update ................................. [enabled]
   |   o- password ................................... [randomly generated]
@@ -1824,7 +1824,7 @@ o- / ............................................................... [...]
     o- external_servers .............................................. [1]
     | o- 0.pt.pool.ntp.org ......................................... [...]
     o- servers ....................................................... [1]
-    | o- ses-master.example.com .................................... [...]
+    | o- ses-main.example.com ...................................... [...]
     o- subnet ............................................. [10.20.6.0/24]</pre></div><div id="id-1.3.4.5.4.16.4" data-id-title="Status of cluster configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Status of cluster configuration</h6><p>
      You can check if the configuration of the cluster is valid by running the
      following command:
@@ -1947,16 +1947,16 @@ cluster:
     To list all disk devices, run the following:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device ls
 Hostname   Path      Type  Serial  Size   Health   Ident  Fault  Available
-ses-master /dev/vdb  hdd   0d8a... 10.7G  Unknown  N/A    N/A    No
-ses-min1   /dev/vdc  hdd   8304... 10.7G  Unknown  N/A    N/A    No
-ses-min1   /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
+ses-main   /dev/vdb  hdd   0d8a... 10.7G  Unknown  N/A    N/A    No
+ses-node1  /dev/vdc  hdd   8304... 10.7G  Unknown  N/A    N/A    No
+ses-node1  /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
 [...]</pre></div><div id="id-1.3.4.6.4.4.4" data-id-title="Services and daemons" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Services and daemons</h6><p>
      <span class="emphasis"><em>Service</em></span> is a general term for a Ceph service of a
      specific type, for example Ceph Manager.
     </p><p>
      <span class="emphasis"><em>Daemon</em></span> is a specific instance of a service, for
-     example a process <code class="literal">mgr.ses-min1.gdlcik</code> running on a node
-     called <code class="literal">ses-min1</code>.
+     example a process <code class="literal">mgr.ses-node1.gdlcik</code> running on a node
+     called <code class="literal">ses-node1</code>.
     </p></div><p>
     To list all services known to cephadm, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls
@@ -1972,9 +1972,9 @@ mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf1
     </p></div><p>
     To list all running daemons deployed by cephadm, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps
-NAME            HOST     STATUS   REFRESHED AGE VERSION    IMAGE ID     CONTAINER ID
-mgr.ses-min1.gd ses-min1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd b8104e09814c
-mon.ses-min1    ses-min1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+NAME             HOST      STATUS   REFRESHED AGE VERSION    IMAGE ID     CONTAINER ID
+mgr.ses-node1.gd ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd b8104e09814c
+mon.ses-node1    ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
      To query the status of a particular daemon, use
      <code class="option">--daemon_type</code> and <code class="option">--daemon_id</code>. For OSDs,
      the ID is the numeric OSD ID. For MDS, the ID is the file system name:
@@ -1991,8 +1991,8 @@ service_type: nfs
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
+  - ses-node1
+  - ses-node2
 spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   namespace: <em class="replaceable">EXAMPLE_NAMESPACE</em></pre></div><p>
@@ -2005,8 +2005,8 @@ service_type: nfs
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
+  - ses-node1
+  - ses-node2
 spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   namespace: <em class="replaceable">EXAMPLE_NAMESPACE</em>
@@ -2015,9 +2015,9 @@ service_type: rgw
 service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 ---
 [...]</pre></div><p>
     The aforementioned properties have the following meaning:
@@ -2100,7 +2100,7 @@ placement:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls --export
 placement:
   hosts:
-  - hostname: ses-min1
+  - hostname: ses-node1
     name: ''
     network: ''
 service_id: my_cephfs
@@ -2133,35 +2133,35 @@ service_type: mgr
    </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
      If you need to add another node, append the host name to the same YAML
      list. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
 placement:
  hosts:
- - ses-min1
- - ses-min2
- - ses-min3
- - ses-min4</pre></div></div><p>
+ - ses-node1
+ - ses-node2
+ - ses-node3
+ - ses-node4</pre></div></div><p>
     Similarly, to deploy MGRs, apply the following specification:
    </p><div id="id-1.3.4.6.6.3.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
      Ensure your deployment has at least three Ceph Managers in each deployment.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mgr
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
      If MONs or MGRs are <span class="emphasis"><em>not</em></span> on the same subnet, you need
      to append the subnet addresses. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
 placement:
   hosts:
-  - ses-min1:10.1.2.0/24
-  - ses-min2:10.1.5.0/24
-  - ses-min3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: When Storage Device is Available</h6><p>
+  - ses-node1:10.1.2.0/24
+  - ses-node2:10.1.5.0/24
+  - ses-node3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: When Storage Device is Available</h6><p>
      A storage device is considered <span class="emphasis"><em>available</em></span> if all of
      the following conditions are met:
     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -2199,9 +2199,9 @@ placement:
 service_id: <em class="replaceable">CEPHFS_NAME</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div><p>
     After MDSs are functional, create the CephFS:
    </p><div class="verbatim-wrap"><pre class="screen">ceph fs new <em class="replaceable">CEPHFS_NAME</em> <em class="replaceable">metadata_pool</em> <em class="replaceable">data_pool</em></pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-ogw" data-id-title="Deploying Object Gateways"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.4 </span><span class="title-name">Deploying Object Gateways</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-ogw">#</a></h3></div></div></div><p>
     cephadm deploys an Object Gateway as a collection of daemons that manage a
@@ -2216,9 +2216,9 @@ placement:
 service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 spec:
   rgw_realm: <em class="replaceable">RGW_REALM</em>
   rgw_zone: <em class="replaceable">RGW_ZONE</em></pre></div><section class="sect3" id="cephadm-deploy-using-secure-ssl-access" data-id-title="Using secure SSL access"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.4.1 </span><span class="title-name">Using secure SSL access</span> <a title="Permalink" class="permalink" href="#cephadm-deploy-using-secure-ssl-access">#</a></h4></div></div></div><p>
@@ -2293,9 +2293,9 @@ spec:
 service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>.<em class="replaceable">SUBCLUSTER</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 spec:
   rgw_realm: <em class="replaceable">RGW_REALM</em>
   rgw_zone: <em class="replaceable">RGW_ZONE</em>
@@ -2313,9 +2313,9 @@ spec:
 service_id: <em class="replaceable">EXAMPLE_ISCSI</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   api_user: <em class="replaceable">EXAMPLE_USER</em>
@@ -2364,8 +2364,8 @@ spec:
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2</pre></div><p>
+  - ses-node1
+  - ses-node2</pre></div><p>
     <em class="replaceable">EXAMPLE_NFS</em> should be replaced with an arbitrary
     string that identifies the NFS export.
    </p><p>
@@ -2380,7 +2380,7 @@ placement:
 service_id: <em class="replaceable">EXAMPLE_RBD_MIRROR</em>
 placement:
   hosts:
-  - ses-min3</pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-monitoring" data-id-title="Deploying the monitoring stack"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.8 </span><span class="title-name">Deploying the monitoring stack</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-monitoring">#</a></h3></div></div></div><p>
+  - ses-node3</pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-monitoring" data-id-title="Deploying the monitoring stack"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.8 </span><span class="title-name">Deploying the monitoring stack</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-monitoring">#</a></h3></div></div></div><p>
     The monitoring stack consists of Prometheus, Prometheus exporters,
     Prometheus Alertmanager, and Grafana. Ceph Dashboard makes use of these
     components to store and visualize detailed metrics on cluster usage and
@@ -2405,19 +2405,19 @@ placement:
      </p><div class="verbatim-wrap"><pre class="screen">service_type: prometheus
 placement:
   hosts:
-  - ses-min2
+  - ses-node2
 ---
 service_type: node-exporter
 ---
 service_type: alertmanager
 placement:
   hosts:
-  - ses-min4
+  - ses-node4
 ---
 service_type: grafana
 placement:
   hosts:
-  - ses-min3</pre></div></li><li class="step"><p>
+  - ses-node3</pre></div></li><li class="step"><p>
       Apply monitoring services by running:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i monitoring.yaml</pre></div><p>
       It may take a minute or two for the monitoring services to be deployed.
@@ -3136,16 +3136,16 @@ Nodes running older software versions must be upgraded in the following order:
      Replace <em class="replaceable">SHORT_NODE_NAME</em> with the short name of
      the node as it appears in the output of the <code class="command">ceph osd
      tree</code> command. In the following input, the short host names are
-     <code class="literal">ses-min1</code> and <code class="literal">ses-min2</code>
+     <code class="literal">ses-node1</code> and <code class="literal">ses-node2</code>
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph osd tree
 ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
  -1         0.60405  root default
--11         0.11691      host ses-min1
+-11         0.11691      host ses-node1
   4    hdd  0.01949          osd.4       up   1.00000  1.00000
   9    hdd  0.01949          osd.9       up   1.00000  1.00000
  13    hdd  0.01949          osd.13      up   1.00000  1.00000
 [...]
- -5         0.11691      host ses-min2
+ -5         0.11691      host ses-node2
   2    hdd  0.01949          osd.2       up   1.00000  1.00000
   5    hdd  0.01949          osd.5       up   1.00000  1.00000
 [...]</pre></div></li><li class="step"><p>
@@ -3542,9 +3542,9 @@ name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]</pre></
 service_id: cephfs
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div></li><li class="step"><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div></li><li class="step"><p>
       Run the <code class="command">ceph orch apply -i mds.yml</code> command to apply
       the service specification and start the MDS daemons.
      </p></li></ol></div></div></section><section class="sect2" id="upgrade-igw" data-id-title="Upgrading the iSCSI Gateway"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.7.4 </span><span class="title-name">Upgrading the iSCSI Gateway</span> <a title="Permalink" class="permalink" href="#upgrade-igw">#</a></h3></div></div></div><p>
@@ -3569,7 +3569,7 @@ placement:
       For example, if <code class="filename">/etc/ceph/iscsi-gateway.cfg</code> contains
       the following:
      </p><div class="verbatim-wrap"><pre class="screen">[config]
-cluster_client_name = client.igw.ses-min5
+cluster_client_name = client.igw.ses-node5
 pool = iscsi-images
 trusted_ip_list = 10.20.179.203,10.20.179.201,10.20.179.205,10.20.179.202
 api_port = 5000
@@ -3582,7 +3582,7 @@ api_secure = true</pre></div><p>
 service_id: igw
 placement:
   hosts:
-  - ses-min5
+  - ses-node5
 spec:
   pool: iscsi-images
   trusted_ip_list: "10.20.179.203,10.20.179.201,10.20.179.205,10.20.179.202"

@@ -57,8 +57,8 @@ hljs.configure({
     </p></li><li class="step"><p>
      Add the new host to <code class="systemitem">ceph-salt</code> and make cephadm aware of it, for
      example:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions add ses-min5.example.com
-<code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/cephadm add ses-min5.example.com</pre></div><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions add ses-node5.example.com
+<code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/cephadm add ses-node5.example.com</pre></div><p>
      Refer to <span class="intraxref">Book “Deployment Guide”, Chapter 7 “Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code>”, Section 7.2.2 “Adding Salt Minions”</span> for more
      information.
     </p></li><li class="step"><p>
@@ -66,14 +66,14 @@ hljs.configure({
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions ls
 o- minions ................................................. [Minions: 5]
 [...]
-  o- ses-min5.example.com .................................... [no roles]</pre></div></li><li class="step"><p>
+  o- ses-node5.example.com ................................... [no roles]</pre></div></li><li class="step"><p>
      Apply the configuration to the new cluster host:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply ses-min5.example.com</pre></div></li><li class="step"><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply ses-node5.example.com</pre></div></li><li class="step"><p>
      Verify that the newly added host now belongs to the cephadm environment:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host ls
-HOST                   ADDR                    LABELS   STATUS
+HOST                    ADDR                    LABELS   STATUS
 [...]
-ses-min5.example.com   ses-min5.example.com</pre></div></li></ol></div></div></section><section class="sect1" id="salt-node-removing" data-id-title="Removing nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.3 </span><span class="title-name">Removing nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-node-removing">#</a></h2></div></div></div><div id="id-1.4.4.3.5.2" data-id-title="Remove OSDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Remove OSDs</h6><p>
+ses-node5.example.com   ses-node5.example.com</pre></div></li></ol></div></div></section><section class="sect1" id="salt-node-removing" data-id-title="Removing nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.3 </span><span class="title-name">Removing nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-node-removing">#</a></h2></div></div></div><div id="id-1.4.4.3.5.2" data-id-title="Remove OSDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Remove OSDs</h6><p>
     If the node that you are going to remove runs OSDs, remove the OSDs from it
     first and check that no OSDs are running on that node. Refer to
     <a class="xref" href="storage-salt-cluster.html#removing-node-osds" title="13.4.4. Removing OSDs">Section 13.4.4, “Removing OSDs”</a> for more details on removing
@@ -87,26 +87,26 @@ ses-min5.example.com   ses-min5.example.com</pre></div></li></ol></div></div></s
      <code class="filename">cluster.yml</code>). Refer to
      <span class="intraxref">Book “Deployment Guide”, Chapter 8 “Deploying the remaining core services using cephadm”, Section 8.2 “Service and placement specification”</span> for more details.
      For example, if you are removing the host named
-     <code class="literal">ses-min2</code>, remove all occurrences of <code class="literal">-
-     ses-min2</code> from all <code class="literal">placement:</code> sections:
+     <code class="literal">ses-node2</code>, remove all occurrences of <code class="literal">-
+     ses-node2</code> from all <code class="literal">placement:</code> sections:
     </p><p>
      Update
     </p><div class="verbatim-wrap"><pre class="screen">service_type: rgw
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min2
-  - ses-min3</pre></div><p>
+  - ses-node2
+  - ses-node3</pre></div><p>
      to
     </p><div class="verbatim-wrap"><pre class="screen">service_type: rgw
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min3</pre></div><p>
+  - ses-node3</pre></div><p>
      Apply your changes to the configuration file:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">rgw-example.yaml</em></pre></div></li><li class="step"><p>
      Remove the node from cephadm's environment:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host rm ses-min2</pre></div></li><li class="step"><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host rm ses-node2</pre></div></li><li class="step"><p>
      If the node is running <code class="literal">crash.osd.1</code> and
      <code class="literal">crash.osd.2</code> services, remove them by running the
      following command on the host:
@@ -115,10 +115,10 @@ placement:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>cephadm rm-daemon --fsid b4b30c6e... --name crash.osd.1
 <code class="prompt user">root@minion &gt; </code>cephadm rm-daemon --fsid b4b30c6e... --name crash.osd.2</pre></div></li><li class="step"><p>
      Remove all the roles from the minion you want to delete:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/throughput remove ses-min2
-<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/latency remove ses-min2
-<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/cephadm remove ses-min2
-<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/admin remove ses-min2</pre></div><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/throughput remove ses-node2
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/latency remove ses-node2
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/cephadm remove ses-node2
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/admin remove ses-node2</pre></div><p>
      If the minion you want to remove is the bootstrap minion, you also need to
      remove the bootstrap role:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/bootstrap reset</pre></div></li><li class="step"><p>
@@ -128,7 +128,7 @@ placement:
       The bucket name should be the same as the host name.
      </p></div></li><li class="step"><p>
      You can now remove the minion from the cluster:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/minions remove ses-min2</pre></div></li></ol></div></div><div id="id-1.4.4.3.5.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/minions remove ses-node2</pre></div></li></ol></div></div><div id="id-1.4.4.3.5.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
     In the event of a failure and the minion you are trying to remove is in a
     permanently powered-off state, you will need to remove the node from the
     Salt Master:
@@ -145,15 +145,15 @@ placement:
     running the following command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device ls
 HOST       PATH      TYPE SIZE  DEVICE  AVAIL REJECT REASONS
-ses-master /dev/vda  hdd  42.0G         False locked
-ses-min1   /dev/vda  hdd  42.0G         False locked
-ses-min1   /dev/vdb  hdd  8192M  387836 False locked, LVM detected, Insufficient space (&lt;5GB) on vgs
-ses-min2   /dev/vdc  hdd  8192M  450575 True</pre></div></section><section class="sect2" id="osd-management-erasing" data-id-title="Erasing disk devices"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">13.4.2 </span><span class="title-name">Erasing disk devices</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-management-erasing">#</a></h3></div></div></div><p>
+ses-admin  /dev/vda  hdd  42.0G         False locked
+ses-node1  /dev/vda  hdd  42.0G         False locked
+ses-node1  /dev/vdb  hdd  8192M  387836 False locked, LVM detected, Insufficient space (&lt;5GB) on vgs
+ses-node2  /dev/vdc  hdd  8192M  450575 True</pre></div></section><section class="sect2" id="osd-management-erasing" data-id-title="Erasing disk devices"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">13.4.2 </span><span class="title-name">Erasing disk devices</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-management-erasing">#</a></h3></div></div></div><p>
     To re-use a disk device, you need to erase (or <span class="emphasis"><em>zap</em></span>) it
     first:
    </p><div class="verbatim-wrap"><pre class="screen">ceph orch device zap <em class="replaceable">HOST_NAME</em> <em class="replaceable">DISK_DEVICE</em></pre></div><p>
     For example:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device zap ses-min2 /dev/vdc</pre></div><div id="id-1.4.4.3.6.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device zap ses-node2 /dev/vdc</pre></div><div id="id-1.4.4.3.6.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
      If you previously deployed OSDs by using DriveGroups or the
      <code class="option">--all-available-devices</code> option while the
      <code class="literal">unmanaged</code> flag was not set, cephadm will deploy these
@@ -199,8 +199,8 @@ ses-min2   /dev/vdc  hdd  8192M  450575 True</pre></div></section><section class
 service_id: example_drvgrp_name
 placement:
  hosts:
- - ses-min2
- - ses-min3
+ - ses-node2
+ - ses-node3
 encrypted: true
 unmanaged: true</pre></div><div id="id-1.4.4.3.6.5.9.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
       To change already deployed OSDs from the <span class="emphasis"><em>managed</em></span> to
@@ -239,9 +239,9 @@ encrypted: true       # 'True' or 'False' (defaults to 'False')</pre></div><div 
        To obtain details about disk model and vendor, examine the output of the
        following command:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device ls
-HOST     PATH     TYPE  SIZE DEVICE_ID                  MODEL            VENDOR
-ses-min1 /dev/sdb ssd  29.8G SATA_SSD_AF34075704240015  SATA SSD         ATA
-ses-min2 /dev/sda ssd   223G Micron_5200_MTFDDAK240TDN  Micron_5200_MTFD ATA
+HOST      PATH     TYPE  SIZE DEVICE_ID                  MODEL            VENDOR
+ses-node1 /dev/sdb ssd  29.8G SATA_SSD_AF34075704240015  SATA SSD         ATA
+ses-node2 /dev/sda ssd   223G Micron_5200_MTFDDAK240TDN  Micron_5200_MTFD ATA
 [...]</pre></div></li><li class="listitem"><p>
        Whether a disk is rotational or not. SSDs and NVMe drives are not
        rotational.

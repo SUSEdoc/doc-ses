@@ -163,12 +163,12 @@ o- dashboard ....................................................... [...]
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions add '*'</pre></div><p>
     Verify that the specified Salt Minions were added:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/minions ls
-o- minions ................................................. [Minions: 5]
-  o- ses-master.example.com .................................. [no roles]
-  o- ses-min1.example.com .................................... [no roles]
-  o- ses-min2.example.com .................................... [no roles]
-  o- ses-min3.example.com .................................... [no roles]
-  o- ses-min4.example.com .................................... [no roles]</pre></div></section><section class="sect2" id="deploy-cephadm-configure-cephadm" data-id-title="Specifying Salt Minions managed by cephadm"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.3 </span><span class="title-name">Specifying Salt Minions managed by cephadm</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-configure-cephadm">#</a></h3></div></div></div><p>
+o- minions ............................................... [Minions: 5]
+  o- ses-main.example.com .................................. [no roles]
+  o- ses-node1.example.com ................................. [no roles]
+  o- ses-node2.example.com ................................. [no roles]
+  o- ses-node3.example.com ................................. [no roles]
+  o- ses-node4.example.com ................................. [no roles]</pre></div></section><section class="sect2" id="deploy-cephadm-configure-cephadm" data-id-title="Specifying Salt Minions managed by cephadm"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.3 </span><span class="title-name">Specifying Salt Minions managed by cephadm</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-configure-cephadm">#</a></h3></div></div></div><p>
     Specify which nodes will belong to the Ceph cluster and will be managed
     by cephadm. Include all nodes that will run Ceph services as well as
     the Admin Node:
@@ -186,11 +186,11 @@ o- minions ................................................. [Minions: 5]
      <span class="emphasis"><em>not</em></span> place the Admin Node on the same host as Salt Master.
     </p></div><p>
     To specify the Admin Node, run the following command:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin add ses-master.example.com
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin add ses-main.example.com
 1 minion added.
 <code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin ls
 o- admin ................................................... [Minions: 1]
-  o- ses-master.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</h6><p>
+  o- ses-main.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</h6><p>
      You can install the Ceph configuration file and admin keyring on
      multiple nodes if your deployment requires it. For security reasons, avoid
      installing them on all the cluster's nodes.
@@ -198,10 +198,10 @@ o- admin ................................................... [Minions: 1]
     You need to specify which of the cluster's Salt Minions will bootstrap the
     cluster. This minion will become the first one running Ceph Monitor and Ceph Manager
     services.
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/bootstrap set ses-min1.example.com
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/bootstrap set ses-node1.example.com
 Value set.
 <code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/bootstrap ls
-o- bootstrap ..................................... [ses-min1.example.com]</pre></div><p>
+o- bootstrap ..................................... [ses-node1.example.com]</pre></div><p>
     Additionally, you need to specify the bootstrap MON's IP address on the
     public network to ensure that the <code class="option">public_network</code> parameter
     is set correctly, for example:
@@ -211,11 +211,11 @@ o- bootstrap ..................................... [ses-min1.example.com]</pre><
    </p><div id="id-1.3.4.5.4.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
      One minion cannot have both the <code class="literal">latency</code> and
      <code class="literal">throughput</code> roles.
-    </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/latency add ses-min1.example.com
-Adding ses-min1.example.com...
+    </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/latency add ses-node1.example.com
+Adding ses-node1.example.com...
 1 minion added.
-<code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/throughput add ses-min2.example.com
-Adding ses-min2.example.com...
+<code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/throughput add ses-node2.example.com
+Adding ses-node2.example.com...
 1 minion added.</pre></div></section><section class="sect2" id="deploy-cephadm-configure-ssh" data-id-title="Generating an SSH key pair"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.7 </span><span class="title-name">Generating an SSH key pair</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-configure-ssh">#</a></h3></div></div></div><p>
     cephadm uses the SSH protocol to communicate with cluster nodes. A user
     account named <code class="literal">cephadm</code> is automatically created and used
@@ -245,7 +245,7 @@ o- ssh .................................................. [Key Pair set]
       such as <code class="literal">pool.ntp.org</code>, and configure all the other
       minions to get their time from the internal time server. This can be
       achieved as follows:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /time_server/servers add ses-master.example.com
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /time_server/servers add ses-main.example.com
 <code class="prompt user">root@master # </code>ceph-salt config /time_server/external_servers add pool.ntp.org</pre></div><p>
       The <code class="option">/time_server/subnet</code> option specifies the subnet from
       which NTP clients are allowed to access the NTP server. It is
@@ -258,7 +258,7 @@ o- time_server ................................................ [enabled]
   o- external_servers ............................................... [1]
   | o- pool.ntp.org ............................................... [...]
   o- servers ........................................................ [1]
-  | o- ses-master.example.com ..................................... [...]
+  | o- ses-main.example.com ......  ............................... [...]
   o- subnet .............................................. [10.20.6.0/24]</pre></div><p>
     Find more information on setting up time synchronization in
     <a class="link" href="https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-ntp.html#sec-ntp-yast" target="_blank">https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-ntp.html#sec-ntp-yast</a>.
@@ -523,16 +523,16 @@ env = ["http_proxy=http://proxy.example.com:<em class="replaceable">PORT</em>"]
 o- / ............................................................... [...]
   o- ceph_cluster .................................................. [...]
   | o- minions .............................................. [Minions: 5]
-  | | o- ses-master.example.com .................................. [admin]
-  | | o- ses-min1.example.com ......................... [bootstrap, admin]
-  | | o- ses-min2.example.com ................................. [no roles]
-  | | o- ses-min3.example.com ................................. [no roles]
-  | | o- ses-min4.example.com ................................. [no roles]
+  | | o- ses-main.example.com .......  ........................... [admin]
+  | | o- ses-node1.example.com ........................ [bootstrap, admin]
+  | | o- ses-node2.example.com ................................ [no roles]
+  | | o- ses-node3.example.com ................................ [no roles]
+  | | o- ses-node4.example.com ................................ [no roles]
   | o- roles ....................................................... [...]
   |   o- admin .............................................. [Minions: 2]
-  |   | o- ses-master.example.com ....................... [no other roles]
-  |   | o- ses-min1.example.com ................. [other roles: bootstrap]
-  |   o- bootstrap ................................ [ses-min1.example.com]
+  |   | o- ses-main.example.com ......................... [no other roles]
+  |   | o- ses-node1.example.com ................ [other roles: bootstrap]
+  |   o- bootstrap ............................... [ses-node1.example.com]
   |   o- cephadm ............................................ [Minions: 5]
   |   o- tuned ..................................................... [...]
   |     o- latency .......................................... [no minions]
@@ -540,7 +540,7 @@ o- / ............................................................... [...]
   o- cephadm_bootstrap ............................................. [...]
   | o- advanced .................................................... [...]
   | o- ceph_conf ................................................... [...]
-  | o- ceph_image_path .............. [registry.suse.com/ses/7.1/ceph/ceph]
+  | o- ceph_image_path ............. [registry.suse.com/ses/7.1/ceph/ceph]
   | o- dashboard ................................................... [...]
   |   o- force_password_update ................................. [enabled]
   |   o- password ................................... [randomly generated]
@@ -560,7 +560,7 @@ o- / ............................................................... [...]
     o- external_servers .............................................. [1]
     | o- 0.pt.pool.ntp.org ......................................... [...]
     o- servers ....................................................... [1]
-    | o- ses-master.example.com .................................... [...]
+    | o- ses-main.example.com ...................................... [...]
     o- subnet ............................................. [10.20.6.0/24]</pre></div><div id="id-1.3.4.5.4.16.4" data-id-title="Status of cluster configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Status of cluster configuration</h6><p>
      You can check if the configuration of the cluster is valid by running the
      following command:

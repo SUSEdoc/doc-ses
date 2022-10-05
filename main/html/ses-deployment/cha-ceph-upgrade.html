@@ -328,16 +328,16 @@ Nodes running older software versions must be upgraded in the following order:
      Replace <em class="replaceable">SHORT_NODE_NAME</em> with the short name of
      the node as it appears in the output of the <code class="command">ceph osd
      tree</code> command. In the following input, the short host names are
-     <code class="literal">ses-min1</code> and <code class="literal">ses-min2</code>
+     <code class="literal">ses-node1</code> and <code class="literal">ses-node2</code>
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph osd tree
 ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
  -1         0.60405  root default
--11         0.11691      host ses-min1
+-11         0.11691      host ses-node1
   4    hdd  0.01949          osd.4       up   1.00000  1.00000
   9    hdd  0.01949          osd.9       up   1.00000  1.00000
  13    hdd  0.01949          osd.13      up   1.00000  1.00000
 [...]
- -5         0.11691      host ses-min2
+ -5         0.11691      host ses-node2
   2    hdd  0.01949          osd.2       up   1.00000  1.00000
   5    hdd  0.01949          osd.5       up   1.00000  1.00000
 [...]</pre></div></li><li class="step"><p>
@@ -734,9 +734,9 @@ name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]</pre></
 service_id: cephfs
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div></li><li class="step"><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div></li><li class="step"><p>
       Run the <code class="command">ceph orch apply -i mds.yml</code> command to apply
       the service specification and start the MDS daemons.
      </p></li></ol></div></div></section><section class="sect2" id="upgrade-igw" data-id-title="Upgrading the iSCSI Gateway"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.7.4 </span><span class="title-name">Upgrading the iSCSI Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-igw">#</a></h3></div></div></div><p>
@@ -761,7 +761,7 @@ placement:
       For example, if <code class="filename">/etc/ceph/iscsi-gateway.cfg</code> contains
       the following:
      </p><div class="verbatim-wrap"><pre class="screen">[config]
-cluster_client_name = client.igw.ses-min5
+cluster_client_name = client.igw.ses-node5
 pool = iscsi-images
 trusted_ip_list = 10.20.179.203,10.20.179.201,10.20.179.205,10.20.179.202
 api_port = 5000
@@ -774,7 +774,7 @@ api_secure = true</pre></div><p>
 service_id: igw
 placement:
   hosts:
-  - ses-min5
+  - ses-node5
 spec:
   pool: iscsi-images
   trusted_ip_list: "10.20.179.203,10.20.179.201,10.20.179.205,10.20.179.202"

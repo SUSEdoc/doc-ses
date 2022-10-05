@@ -378,7 +378,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
      that you may clone snapshots from one pool to images in another pool.
     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
        <span class="emphasis"><em>Image Template</em></span>: A common use case for block device
-       layering is to create a master image and a snapshot that serves as a
+       layering is to create a primary image and a snapshot that serves as a
        template for clones. For example, a user may create an image for a Linux
        distribution (for example, SUSE Linux Enterprise Server), and create a snapshot for it.
        Periodically, the user may update the image and create a new snapshot
@@ -394,7 +394,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
        which itself may be updated in the same way as the base image.
       </p></li><li class="listitem"><p>
        <span class="emphasis"><em>Template Pool</em></span>: One way to use block device layering
-       is to create a pool that contains master images that act as templates,
+       is to create a pool that contains primary images that act as templates,
        and snapshots of those templates. You may then extend read-only
        privileges to users so that they may clone the snapshots without the
        ability to write or execute within the pool.

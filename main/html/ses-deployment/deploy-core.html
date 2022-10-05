@@ -53,16 +53,16 @@ hljs.configure({
     To list all disk devices, run the following:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device ls
 Hostname   Path      Type  Serial  Size   Health   Ident  Fault  Available
-ses-master /dev/vdb  hdd   0d8a... 10.7G  Unknown  N/A    N/A    No
-ses-min1   /dev/vdc  hdd   8304... 10.7G  Unknown  N/A    N/A    No
-ses-min1   /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
+ses-main   /dev/vdb  hdd   0d8a... 10.7G  Unknown  N/A    N/A    No
+ses-node1  /dev/vdc  hdd   8304... 10.7G  Unknown  N/A    N/A    No
+ses-node1  /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
 [...]</pre></div><div id="id-1.3.4.6.4.4.4" data-id-title="Services and daemons" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Services and daemons</h6><p>
      <span class="emphasis"><em>Service</em></span> is a general term for a Ceph service of a
      specific type, for example Ceph Manager.
     </p><p>
      <span class="emphasis"><em>Daemon</em></span> is a specific instance of a service, for
-     example a process <code class="literal">mgr.ses-min1.gdlcik</code> running on a node
-     called <code class="literal">ses-min1</code>.
+     example a process <code class="literal">mgr.ses-node1.gdlcik</code> running on a node
+     called <code class="literal">ses-node1</code>.
     </p></div><p>
     To list all services known to cephadm, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls
@@ -78,9 +78,9 @@ mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf1
     </p></div><p>
     To list all running daemons deployed by cephadm, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps
-NAME            HOST     STATUS   REFRESHED AGE VERSION    IMAGE ID     CONTAINER ID
-mgr.ses-min1.gd ses-min1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd b8104e09814c
-mon.ses-min1    ses-min1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+NAME             HOST      STATUS   REFRESHED AGE VERSION    IMAGE ID     CONTAINER ID
+mgr.ses-node1.gd ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd b8104e09814c
+mon.ses-node1    ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
      To query the status of a particular daemon, use
      <code class="option">--daemon_type</code> and <code class="option">--daemon_id</code>. For OSDs,
      the ID is the numeric OSD ID. For MDS, the ID is the file system name:
@@ -97,8 +97,8 @@ service_type: nfs
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
+  - ses-node1
+  - ses-node2
 spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   namespace: <em class="replaceable">EXAMPLE_NAMESPACE</em></pre></div><p>
@@ -111,8 +111,8 @@ service_type: nfs
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
+  - ses-node1
+  - ses-node2
 spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   namespace: <em class="replaceable">EXAMPLE_NAMESPACE</em>
@@ -121,9 +121,9 @@ service_type: rgw
 service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 ---
 [...]</pre></div><p>
     The aforementioned properties have the following meaning:
@@ -206,7 +206,7 @@ placement:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls --export
 placement:
   hosts:
-  - hostname: ses-min1
+  - hostname: ses-node1
     name: ''
     network: ''
 service_id: my_cephfs
@@ -239,35 +239,35 @@ service_type: mgr
    </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
      If you need to add another node, append the host name to the same YAML
      list. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
 placement:
  hosts:
- - ses-min1
- - ses-min2
- - ses-min3
- - ses-min4</pre></div></div><p>
+ - ses-node1
+ - ses-node2
+ - ses-node3
+ - ses-node4</pre></div></div><p>
     Similarly, to deploy MGRs, apply the following specification:
    </p><div id="id-1.3.4.6.6.3.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
      Ensure your deployment has at least three Ceph Managers in each deployment.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mgr
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
      If MONs or MGRs are <span class="emphasis"><em>not</em></span> on the same subnet, you need
      to append the subnet addresses. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
 placement:
   hosts:
-  - ses-min1:10.1.2.0/24
-  - ses-min2:10.1.5.0/24
-  - ses-min3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: When Storage Device is Available</h6><p>
+  - ses-node1:10.1.2.0/24
+  - ses-node2:10.1.5.0/24
+  - ses-node3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: When Storage Device is Available</h6><p>
      A storage device is considered <span class="emphasis"><em>available</em></span> if all of
      the following conditions are met:
     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -305,9 +305,9 @@ placement:
 service_id: <em class="replaceable">CEPHFS_NAME</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3</pre></div><p>
+  - ses-node1
+  - ses-node2
+  - ses-node3</pre></div><p>
     After MDSs are functional, create the CephFS:
    </p><div class="verbatim-wrap"><pre class="screen">ceph fs new <em class="replaceable">CEPHFS_NAME</em> <em class="replaceable">metadata_pool</em> <em class="replaceable">data_pool</em></pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-ogw" data-id-title="Deploying Object Gateways"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.4 </span><span class="title-name">Deploying Object Gateways</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-ogw">#</a></h3></div></div></div><p>
     cephadm deploys an Object Gateway as a collection of daemons that manage a
@@ -322,9 +322,9 @@ placement:
 service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 spec:
   rgw_realm: <em class="replaceable">RGW_REALM</em>
   rgw_zone: <em class="replaceable">RGW_ZONE</em></pre></div><section class="sect3" id="cephadm-deploy-using-secure-ssl-access" data-id-title="Using secure SSL access"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.4.1 </span><span class="title-name">Using secure SSL access</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-deploy-using-secure-ssl-access">#</a></h4></div></div></div><p>
@@ -399,9 +399,9 @@ spec:
 service_id: <em class="replaceable">REALM_NAME</em>.<em class="replaceable">ZONE_NAME</em>.<em class="replaceable">SUBCLUSTER</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 spec:
   rgw_realm: <em class="replaceable">RGW_REALM</em>
   rgw_zone: <em class="replaceable">RGW_ZONE</em>
@@ -419,9 +419,9 @@ spec:
 service_id: <em class="replaceable">EXAMPLE_ISCSI</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2
-  - ses-min3
+  - ses-node1
+  - ses-node2
+  - ses-node3
 spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   api_user: <em class="replaceable">EXAMPLE_USER</em>
@@ -470,8 +470,8 @@ spec:
 service_id: <em class="replaceable">EXAMPLE_NFS</em>
 placement:
   hosts:
-  - ses-min1
-  - ses-min2</pre></div><p>
+  - ses-node1
+  - ses-node2</pre></div><p>
     <em class="replaceable">EXAMPLE_NFS</em> should be replaced with an arbitrary
     string that identifies the NFS export.
    </p><p>
@@ -486,7 +486,7 @@ placement:
 service_id: <em class="replaceable">EXAMPLE_RBD_MIRROR</em>
 placement:
   hosts:
-  - ses-min3</pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-monitoring" data-id-title="Deploying the monitoring stack"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.8 </span><span class="title-name">Deploying the monitoring stack</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-monitoring">#</a></h3></div></div></div><p>
+  - ses-node3</pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-monitoring" data-id-title="Deploying the monitoring stack"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.8 </span><span class="title-name">Deploying the monitoring stack</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-monitoring">#</a></h3></div></div></div><p>
     The monitoring stack consists of Prometheus, Prometheus exporters,
     Prometheus Alertmanager, and Grafana. Ceph Dashboard makes use of these
     components to store and visualize detailed metrics on cluster usage and
@@ -511,19 +511,19 @@ placement:
      </p><div class="verbatim-wrap"><pre class="screen">service_type: prometheus
 placement:
   hosts:
-  - ses-min2
+  - ses-node2
 ---
 service_type: node-exporter
 ---
 service_type: alertmanager
 placement:
   hosts:
-  - ses-min4
+  - ses-node4
 ---
 service_type: grafana
 placement:
   hosts:
-  - ses-min3</pre></div></li><li class="step"><p>
+  - ses-node3</pre></div></li><li class="step"><p>
       Apply monitoring services by running:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i monitoring.yaml</pre></div><p>
       It may take a minute or two for the monitoring services to be deployed.

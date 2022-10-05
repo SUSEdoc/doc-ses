@@ -42,26 +42,26 @@ hljs.configure({
  </p><section class="sect1" id="cha-ceph-operating-individual" data-id-title="Operating individual services"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">14.1 </span><span class="title-name">Operating individual services</span> <a title="Permalink" class="permalink" href="cha-ceph-operating.html#cha-ceph-operating-individual">#</a></h2></div></div></div><p>
    If you need to operate an individual service, identify it first:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps
-NAME                                HOST        STATUS         REFRESHED  [...]
-mds.my_cephfs.ses-min1.oterul       ses-min1    running (5d)   8m ago
-mgr.ses-min1.gpijpm                 ses-min1    running (5d)   8m ago
-mgr.ses-min2.oopvyh                 ses-min2    running (5d)   8m ago
-mon.ses-min1                        ses-min1    running (5d)   8m ago
-mon.ses-min2                        ses-min2    running (5d)   8m ago
-mon.ses-min4                        ses-min4    running (5d)   7m ago
-osd.0                               ses-min2    running (61m)  8m ago
-osd.1                               ses-min3    running (61m)  7m ago
-osd.2                               ses-min4    running (61m)  7m ago
-rgw.myrealm.myzone.ses-min1.kwwazo  ses-min1    running (5d)   8m ago
-rgw.myrealm.myzone.ses-min2.jngabw  ses-min2    error          8m ago</pre></div><p>
+NAME                                 HOST         STATUS         REFRESHED  [...]
+mds.my_cephfs.ses-node1.oterul       ses-node1    running (5d)   8m ago
+mgr.ses-node1.gpijpm                 ses-node1    running (5d)   8m ago
+mgr.ses-node2.oopvyh                 ses-node2    running (5d)   8m ago
+mon.ses-node1                        ses-node1    running (5d)   8m ago
+mon.ses-node2                        ses-node2    running (5d)   8m ago
+mon.ses-node4                        ses-node4    running (5d)   7m ago
+osd.0                                ses-node2    running (61m)  8m ago
+osd.1                                ses-node3    running (61m)  7m ago
+osd.2                                ses-node4    running (61m)  7m ago
+rgw.myrealm.myzone.ses-node1.kwwazo  ses-node1    running (5d)   8m ago
+rgw.myrealm.myzone.ses-node2.jngabw  ses-node2    error          8m ago</pre></div><p>
    To identify a service on a specific node, run:
   </p><div class="verbatim-wrap"><pre class="screen">ceph orch ps <em class="replaceable">NODE_HOST_NAME</em></pre></div><p>
    For example:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps ses-min2
-NAME                                HOST      STATUS         REFRESHED
-mgr.ses-min2.oopvyh                 ses-min2  running (5d)   3m ago
-mon.ses-min2                        ses-min2  running (5d)   3m ago
-osd.0                               ses-min2  running (67m)  3m ago</pre></div><div id="id-1.4.4.4.4.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps ses-node2
+NAME                                 HOST       STATUS         REFRESHED
+mgr.ses-node2.oopvyh                 ses-node2  running (5d)   3m ago
+mon.ses-node2                        ses-node2  running (5d)   3m ago
+osd.0                                ses-node2  running (67m)  3m ago</pre></div><div id="id-1.4.4.4.4.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
     The <code class="command">ceph orch ps</code> command supports several output
     formats. To change it, append the <code class="option">--format
     <em class="replaceable">FORMAT</em></code> option where
@@ -90,7 +90,7 @@ osd.0                               ses-min2  running (67m)  3m ago</pre></div><
     have the following pattern:
    </p><div class="verbatim-wrap"><pre class="screen">ceph-<em class="replaceable">FSID</em>@<em class="replaceable">SERVICE_TYPE</em>.<em class="replaceable">ID</em>.service</pre></div><p>
     For example:
-   </p><div class="verbatim-wrap"><pre class="screen">ceph-b4b30c6e-9681-11ea-ac39-525400d7702d@mon.doc-ses-min1.service</pre></div><div class="verbatim-wrap"><pre class="screen">ceph-b4b30c6e-9681-11ea-ac39-525400d7702d@rgw.myrealm.myzone.doc-ses-min1.kwwazo.service</pre></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.4.6.3.7.1"><span class="term">FSID</span></dt><dd><p>
+   </p><div class="verbatim-wrap"><pre class="screen">ceph-b4b30c6e-9681-11ea-ac39-525400d7702d@mon.doc-ses-node1.service</pre></div><div class="verbatim-wrap"><pre class="screen">ceph-b4b30c6e-9681-11ea-ac39-525400d7702d@rgw.myrealm.myzone.doc-ses-node1.kwwazo.service</pre></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.4.4.6.3.7.1"><span class="term">FSID</span></dt><dd><p>
        Unique ID of the Ceph cluster. You can find it in the output of the
        <code class="command">ceph fsid</code> command.
       </p></dd><dt id="id-1.4.4.4.6.3.7.2"><span class="term">SERVICE_TYPE</span></dt><dd><p>

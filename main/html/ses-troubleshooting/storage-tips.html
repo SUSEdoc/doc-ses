@@ -322,11 +322,11 @@ Succeeded: 20 addresses from 10 minions average rtt 14.16 ms</pre></div></sectio
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tree
 ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
 -1         0.02939  root default
--3         0.00980      host doc-ses-min2
+-3         0.00980      host doc-ses-node2
  0    hdd  0.00980          osd.0              up   1.00000  1.00000
--5         0.00980      host doc-ses-min3
+-5         0.00980      host doc-ses-node3
  1    hdd  0.00980          osd.1              up   1.00000  1.00000
--7         0.00980      host doc-ses-min4
+-7         0.00980      host doc-ses-node4
  2    hdd  0.00980          osd.2              up   1.00000  1.00000</pre></div><p>
    You should check that the related CRUSH map has a tree structure. If it is
    also flat, or with no hosts as in the above example, it may mean that host
