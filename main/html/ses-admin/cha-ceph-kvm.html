@@ -67,7 +67,7 @@ rbd:<em class="replaceable">pool_name</em>/<em class="replaceable">image_name</e
   </p><div class="verbatim-wrap"><pre class="screen">qemu-img create -f raw rbd:<em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em> <em class="replaceable">size</em></pre></div><p>
    For example:
   </p><div class="verbatim-wrap"><pre class="screen">qemu-img create -f raw rbd:pool1/image1 10G
-Formatting 'rbd:pool1/image1', fmt=raw size=10737418240 nocow=off cluster_size=0</pre></div><div id="id-1.4.7.3.7.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+Formatting 'rbd:pool1/image1', fmt=raw size=10737418240 nocow=off cluster_size=0</pre></div><div id="id-1.4.7.3.7.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     The <code class="literal">raw</code> data format is really the only sensible format
     option to use with RBD. Technically, you could use other QEMU-supported
     formats such as <code class="literal">qcow2</code>, but doing so would add additional
@@ -116,7 +116,7 @@ cluster_size: 4194304</pre></div></section><section class="sect1" id="running-qe
    block device. To do this, you must specify a
    <code class="option">discard_granularity</code> associated with the drive:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>qemu -m 1024 -drive format=raw,file=rbd:pool1/sles12,id=drive1,if=none \
--device driver=ide-hd,drive=drive1,discard_granularity=512</pre></div><div id="id-1.4.7.3.11.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+-device driver=ide-hd,drive=drive1,discard_granularity=512</pre></div><div id="id-1.4.7.3.11.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The above example uses the IDE driver. The virtio driver does not support
     discard.
    </p></div><p>

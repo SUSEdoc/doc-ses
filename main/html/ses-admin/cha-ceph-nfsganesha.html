@@ -41,7 +41,7 @@ hljs.configure({
   storage mechanism—such as Ceph—and access it from any NFS
   client. For installation instructions, see
   <span class="intraxref">Book “Deployment Guide”, Chapter 8 “Deploying the remaining core services using cephadm”, Section 8.3.6 “Deploying NFS Ganesha”</span>.
- </p><div id="id-1.4.6.6.4" data-id-title="NFS Ganesha performance" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: NFS Ganesha performance</h6><p>
+ </p><div id="id-1.4.6.6.4" data-id-title="NFS Ganesha performance" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: NFS Ganesha performance</div><p>
    Because of increased protocol overhead and additional latency caused by
    extra network hops between the client and the storage, accessing Ceph via
    an NFS Gateway may significantly reduce application performance when
@@ -62,7 +62,7 @@ hljs.configure({
   from the RADOS common configuration object. The common configuration object
   can include additional <code class="literal">%url</code> directives for each of the NFS
   exports defined in the export RADOS configuration objects.
- </p><div class="figure" id="id-1.4.6.6.8"><div class="figure-contents"><div class="mediaobject"><a href="images/nfs_ganesha_structure.png"><img src="images/nfs_ganesha_structure.png" width="75%" alt="NFS Ganesha structure" title="NFS Ganesha structure"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 25.1: </span><span class="title-name">NFS Ganesha structure </span><a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#id-1.4.6.6.8">#</a></h6></div></div><section class="sect1" id="ceph-nfsganesha-nfservice" data-id-title="Creating an NFS service"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">25.1 </span><span class="title-name">Creating an NFS service</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-nfservice">#</a></h2></div></div></div><p>
+ </p><div class="figure" id="id-1.4.6.6.8"><div class="figure-contents"><div class="mediaobject"><a href="images/nfs_ganesha_structure.png"><img src="images/nfs_ganesha_structure.png" width="75%" alt="NFS Ganesha structure" title="NFS Ganesha structure"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 25.1: </span><span class="title-name">NFS Ganesha structure </span><a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#id-1.4.6.6.8">#</a></div></div></div><section class="sect1" id="ceph-nfsganesha-nfservice" data-id-title="Creating an NFS service"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">25.1 </span><span class="title-name">Creating an NFS service</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-nfservice">#</a></h2></div></div></div><p>
    The recommended way to specify the deployment of Ceph services is to
    create a YAML-formatted file with the specification of the services that you
    intend to deploy. You can create a separate specification file for each type
@@ -75,7 +75,7 @@ hljs.configure({
   </p><p>
    One you have updated or created the file, execute the following to create a
    <code class="literal">nfs-ganesha</code> service:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">FILE_NAME</em></pre></div></section><section class="sect1" id="ceph-nfsganesha-services" data-id-title="Starting or Restarting NFS Ganesha"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">25.2 </span><span class="title-name">Starting or Restarting NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-services">#</a></h2></div></div></div><div id="id-1.4.6.6.10.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">FILE_NAME</em></pre></div></section><section class="sect1" id="ceph-nfsganesha-services" data-id-title="Starting or Restarting NFS Ganesha"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">25.2 </span><span class="title-name">Starting or Restarting NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-services">#</a></h2></div></div></div><div id="id-1.4.6.6.10.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     Starting the NFS Ganesha service does not automatically export a CephFS
     file system. To export a CephFS file system, create an export
     configuration file. Refer to
@@ -121,7 +121,7 @@ hljs.configure({
    run the following command to create the export:
   </p><div class="verbatim-wrap"><pre class="screen">rados --pool <em class="replaceable">POOL_NAME</em> --namespace <em class="replaceable">NAMESPACE_NAME</em> put <em class="replaceable">EXPORT_NAME</em> <em class="replaceable">EXPORT_CONFIG_FILE</em></pre></div><p>
    For example:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool example_pool --namespace example_namespace put export-1 /tmp/export-1</pre></div><div id="id-1.4.6.6.12.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool example_pool --namespace example_namespace put export-1 /tmp/export-1</pre></div><div id="id-1.4.6.6.12.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The FSAL block should be modified to include the desired <code class="systemitem">cephx</code> user ID
     and secret access key.
    </p></div></section><section class="sect1" id="ceph-nfsganesha-verify" data-id-title="Verifying the NFS export"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">25.5 </span><span class="title-name">Verifying the NFS export</span> <a title="Permalink" class="permalink" href="cha-ceph-nfsganesha.html#ceph-nfsganesha-verify">#</a></h2></div></div></div><p>
@@ -129,7 +129,7 @@ hljs.configure({
    can verify that the NFS shares are exported by mounting
    <code class="filename">/</code> of the NFS Ganesha server node:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code><code class="command">mount</code> -t nfs <em class="replaceable">nfs_ganesha_server_hostname:/ /path/to/local/mountpoint</em>
-<code class="prompt root"># </code><code class="command">ls</code> <em class="replaceable">/path/to/local/mountpoint</em> cephfs</pre></div><div id="id-1.4.6.6.13.4" data-id-title="NFS Ganesha is v4 only" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: NFS Ganesha is v4 only</h6><p>
+<code class="prompt root"># </code><code class="command">ls</code> <em class="replaceable">/path/to/local/mountpoint</em> cephfs</pre></div><div id="id-1.4.6.6.13.4" data-id-title="NFS Ganesha is v4 only" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: NFS Ganesha is v4 only</div><p>
     By default, cephadm will configure an NFS v4 server. NFS v4 does not
     interact with <code class="literal">rpcbind</code> nor the <code class="literal">mountd</code>
     daemon. NFS client tools such as <code class="command">showmount</code> will not show

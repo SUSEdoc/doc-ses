@@ -47,7 +47,7 @@ hljs.configure({
   devices leverage RADOS capabilities such as snapshotting, replication, and
   consistency. Ceph's RADOS Block Devices (RBD) interact with OSDs using kernel modules or
   the <code class="systemitem">librbd</code> library.
- </p><div class="figure" id="id-1.4.5.5.5"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_rbd_schema.png"><img src="images/ceph_rbd_schema.png" width="70%" alt="RADOS protocol" title="RADOS protocol"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 20.1: </span><span class="title-name">RADOS protocol </span><a title="Permalink" class="permalink" href="ceph-rbd.html#id-1.4.5.5.5">#</a></h6></div></div><p>
+ </p><div class="figure" id="id-1.4.5.5.5"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_rbd_schema.png"><img src="images/ceph_rbd_schema.png" width="70%" alt="RADOS protocol" title="RADOS protocol"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 20.1: </span><span class="title-name">RADOS protocol </span><a title="Permalink" class="permalink" href="ceph-rbd.html#id-1.4.5.5.5">#</a></div></div></div><p>
   Ceph's block devices deliver high performance with infinite scalability to
   kernel modules. They support virtualization solutions such as QEMU, or
   cloud-based computing systems such as OpenStack that rely on <code class="systemitem">libvirt</code>. You
@@ -64,7 +64,7 @@ hljs.configure({
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd create --size <em class="replaceable">MEGABYTES</em> <em class="replaceable">POOL-NAME</em>/<em class="replaceable">IMAGE-NAME</em></pre></div><p>
     For example, to create a 1 GB image named 'myimage' that stores information
     in a pool named 'mypool', execute the following:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd create --size 1024 mypool/myimage</pre></div><div id="id-1.4.5.5.7.3.6" data-id-title="Image size units" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Image size units</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd create --size 1024 mypool/myimage</pre></div><div id="id-1.4.5.5.7.3.6" data-id-title="Image size units" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Image size units</div><p>
      If you omit a size unit shortcut ('G' or 'T'), the image's size is in
      megabytes. Use 'G' or 'T' after the size number to specify gigabytes or
      terabytes.
@@ -127,7 +127,7 @@ hljs.configure({
     The output from the <code class="command">ceph auth get-or-create</code> command will
     be the keyring for the specified user, which can be written to
     <code class="filename">/etc/ceph/ceph.client.<em class="replaceable">ID</em>.keyring</code>.
-   </p><div id="id-1.4.5.5.8.4.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.4.5.5.8.4.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      When using the <code class="command">rbd</code> command, you can specify the user ID
      by providing the optional <code class="command">--id</code>
      <em class="replaceable">ID</em> argument.
@@ -153,7 +153,7 @@ hljs.configure({
 id pool   image   snap device
 0  mypool myimage -    /dev/rbd0</pre></div><p>
       The device we want to work on is <code class="filename">/dev/rbd0</code>.
-     </p><div id="id-1.4.5.5.8.6.2.3.4" data-id-title="RBD device path" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: RBD device path</h6><p>
+     </p><div id="id-1.4.5.5.8.6.2.3.4" data-id-title="RBD device path" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: RBD device path</div><p>
        Instead of
        <code class="filename">/dev/rbd<em class="replaceable">DEVICE_NUMBER</em></code>,
        you can use
@@ -180,7 +180,7 @@ id pool   image   snap device
       /dev/rbd0 on /mnt type xfs (rw,relatime,attr2,inode64,sunit=8192,...</pre></div><p>
       Now you can move data to and from the device as if it was a local
       directory.
-     </p><div id="id-1.4.5.5.8.6.2.5.4" data-id-title="Increasing the size of RBD device" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Increasing the size of RBD device</h6><p>
+     </p><div id="id-1.4.5.5.8.6.2.5.4" data-id-title="Increasing the size of RBD device" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Increasing the size of RBD device</div><p>
        If you find that the size of the RBD device is no longer enough, you can
        easily increase it.
       </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
@@ -193,7 +193,7 @@ id pool   image   snap device
 data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></li><li class="step"><p>
       After you finish accessing the device, you can unmap and unmount it.
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd device unmap /dev/rbd0
-<code class="prompt root"># </code>unmount /mnt</pre></div></li></ol></div></div><div id="id-1.4.5.5.8.6.3" data-id-title="Manual mounting and unmounting" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Manual mounting and unmounting</h6><p>
+<code class="prompt root"># </code>unmount /mnt</pre></div></li></ol></div></div><div id="id-1.4.5.5.8.6.3" data-id-title="Manual mounting and unmounting" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Manual mounting and unmounting</div><p>
      A <code class="command">rbdmap</code> script and <code class="systemitem">systemd</code> unit is provided to make
      the process of mapping and mounting RBDs after boot, and unmounting them
      before shutdown, smoother. Refer to <a class="xref" href="ceph-rbd.html#ceph-rbd-rbdmap" title="20.2.4. rbdmap Map RBD devices at boot time">Section 20.2.4, “<code class="command">rbdmap</code> Map RBD devices at boot time”</a>.
@@ -278,7 +278,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
    device snapshots using the <code class="command">rbd</code> command and many
    higher-level interfaces, including QEMU, <code class="systemitem">libvirt</code>,
    OpenStack, and CloudStack.
-  </p><div id="id-1.4.5.5.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.5.5.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     Stop input and output operations and flush all pending writes before
     snapshotting an image. If the image contains a file system, the file system
     must be in a consistent state at the time of snapshotting.
@@ -292,7 +292,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
 <code class="prompt user">cephuser@adm &gt; </code>rbd --name <em class="replaceable">username</em> --keyring=/path/to/secret <em class="replaceable">commands</em></pre></div><p>
     For example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --id admin --keyring=/etc/ceph/ceph.keyring <em class="replaceable">commands</em>
-<code class="prompt user">cephuser@adm &gt; </code>rbd --name client.admin --keyring=/etc/ceph/ceph.keyring <em class="replaceable">commands</em></pre></div><div id="id-1.4.5.5.9.4.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>rbd --name client.admin --keyring=/etc/ceph/ceph.keyring <em class="replaceable">commands</em></pre></div><div id="id-1.4.5.5.9.4.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      Add the user and secret to the <code class="systemitem">CEPH_ARGS</code>
      environment variable so that you do not need to enter them each time.
     </p></div></section><section class="sect2" id="rbd-snapshot-basics" data-id-title="Snapshot basics"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">20.3.2 </span><span class="title-name">Snapshot basics</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-snapshot-basics">#</a></h3></div></div></div><p>
@@ -319,7 +319,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
 <code class="prompt user">cephuser@adm &gt; </code>rbd snap rollback <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snap-name</em></pre></div><p>
      For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap rollback --snap snapshot1 image1
-<code class="prompt user">cephuser@adm &gt; </code>rbd snap rollback pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.5.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap rollback pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.5.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Rolling back an image to a snapshot means overwriting the current version
       of the image with data from a snapshot. The time it takes to execute a
       rollback increases with the size of the image. It is <span class="emphasis"><em>faster to
@@ -333,7 +333,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
 <code class="prompt user">cephuser@adm &gt; </code>rbd snap rm <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snap-name</em></pre></div><p>
      For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap rm --snap snapshot1 image1
-<code class="prompt user">cephuser@adm &gt; </code>rbd snap rm pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.5.6.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap rm pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.5.6.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Ceph OSDs delete data asynchronously, so deleting a snapshot does not
       free up the disk space immediately.
      </p></div></section><section class="sect3" id="rbd-purging-snapshots" data-id-title="Purging snapshots"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.2.5 </span><span class="title-name">Purging snapshots</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-purging-snapshots">#</a></h4></div></div></div><p>
@@ -351,7 +351,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
     protect the snapshot, and create as many copy-on-write clones as you like.
     A snapshot is read-only, so cloning a snapshot simplifies
     semantics—making it possible to create clones rapidly.
-   </p><div id="id-1.4.5.5.9.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.4.5.5.9.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      The terms 'parent' and 'child' mentioned in the command line examples
      below mean a Ceph block device snapshot (parent) and the corresponding
      image cloned from the snapshot (child).
@@ -364,7 +364,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
     There are no special restrictions with cloned images. However, the
     copy-on-write clone of a snapshot refers to the snapshot, so you
     <span class="emphasis"><em>must</em></span> protect the snapshot before you clone it.
-   </p><div id="id-1.4.5.5.9.6.6" data-id-title="--image-format 1 not supported" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: <code class="option">--image-format 1</code> not supported</h6><p>
+   </p><div id="id-1.4.5.5.9.6.6" data-id-title="--image-format 1 not supported" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: <code class="option">--image-format 1</code> not supported</div><p>
      You cannot create snapshots of images created with the deprecated
      <code class="command">rbd create --image-format 1</code> option. Ceph only
      supports cloning of the default <span class="emphasis"><em>format 2</em></span> images.
@@ -411,7 +411,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
 <code class="prompt user">cephuser@adm &gt; </code>rbd snap protect <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em>@<em class="replaceable">snapshot-name</em></pre></div><p>
      For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 snap protect --image image1 --snap snapshot1
-<code class="prompt user">cephuser@adm &gt; </code>rbd snap protect pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.6.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>rbd snap protect pool1/image1@snapshot1</pre></div><div id="id-1.4.5.5.9.6.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       You cannot delete a protected snapshot.
      </p></div></section><section class="sect3" id="rbd-cloning-snapshots" data-id-title="Cloning a snapshot"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.3.3.3 </span><span class="title-name">Cloning a snapshot</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-cloning-snapshots">#</a></h4></div></div></div><p>
      To clone a snapshot, you need to specify the parent pool, image, snapshot,
@@ -423,7 +423,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
 <code class="prompt user">cephuser@adm &gt; </code>rbd clone <em class="replaceable">pool-name</em>/<em class="replaceable">parent-image</em>@<em class="replaceable">snap-name</em> \
 <em class="replaceable">pool-name</em>/<em class="replaceable">child-image-name</em></pre></div><p>
      For example:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd clone pool1/image1@snapshot1 pool1/image2</pre></div><div id="id-1.4.5.5.9.6.9.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd clone pool1/image1@snapshot1 pool1/image2</pre></div><div id="id-1.4.5.5.9.6.9.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       You may clone a snapshot from one pool to an image in another pool. For
       example, you may maintain read-only images and snapshots as templates in
       one pool, and writable clones in another pool.
@@ -453,7 +453,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
 <code class="prompt user">cephuser@adm &gt; </code>rbd flatten <em class="replaceable">pool-name</em>/<em class="replaceable">image-name</em></pre></div><p>
      For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --pool pool1 flatten --image image1
-<code class="prompt user">cephuser@adm &gt; </code>rbd flatten pool1/image1</pre></div><div id="id-1.4.5.5.9.6.12.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>rbd flatten pool1/image1</pre></div><div id="id-1.4.5.5.9.6.12.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Since a flattened image contains all the information from the snapshot, a
       flattened image will take up more storage space than a layered clone.
      </p></div></section></section></section><section class="sect1" id="ceph-rbd-mirror" data-id-title="RBD image mirrors"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">20.4 </span><span class="title-name">RBD image mirrors</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#ceph-rbd-mirror">#</a></h2></div></div></div><p>
@@ -497,7 +497,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
       When data is mirrored from primary images on one cluster to non-primary
       images on another cluster (and vice-versa), the <code class="systemitem">rbd-mirror</code> daemon runs
       on both clusters.
-     </p></dd></dl></div><div id="id-1.4.5.5.10.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p></dd></dl></div><div id="id-1.4.5.5.10.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     Each instance of the <code class="systemitem">rbd-mirror</code> daemon needs to be able to connect to both
     the <code class="literal">local</code> and <code class="literal">remote</code> Ceph clusters
     simultaneously. For example, all monitor and OSD hosts. Additionally, the
@@ -515,7 +515,7 @@ data blocks changed from 2097152 to 2560000</pre></div></li></ol></div></div></l
    </p><p>
     See the <code class="command">rbd</code> manual page (<code class="command">man 8 rbd</code>)
     for additional details on how to connect to different Ceph clusters.
-   </p><div id="id-1.4.5.5.10.8.5" data-id-title="Multiple clusters" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Multiple clusters</h6><p>
+   </p><div id="id-1.4.5.5.10.8.5" data-id-title="Multiple clusters" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Multiple clusters</div><p>
      The cluster name in the following examples corresponds to a Ceph
      configuration file of the same name
      <code class="filename">/etc/ceph/remote.conf</code> and Ceph keyring file of the
@@ -692,12 +692,12 @@ Peers:
      <code class="command">feature enable</code> subcommand, the pool and image name, and
      the feature name:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local feature enable <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> exclusive-lock
-<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local feature enable <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> journaling</pre></div><div id="id-1.4.5.5.10.9.6.5" data-id-title="Option dependency" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Option dependency</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local feature enable <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em> journaling</pre></div><div id="id-1.4.5.5.10.9.6.5" data-id-title="Option dependency" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Option dependency</div><p>
       The <code class="option">journaling</code> feature is dependent on the
       <code class="option">exclusive-lock</code> feature. If the
       <code class="option">exclusive-lock</code> feature is not already enabled, you need
       to enable it prior to enabling the <code class="option">journaling</code> feature.
-     </p></div><div id="id-1.4.5.5.10.9.6.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     </p></div><div id="id-1.4.5.5.10.9.6.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       You can enable journaling on all new images by default by adding
       <code class="option">rbd default features =
       layering,exclusive-lock,object-map,deep-flatten,journaling</code> to
@@ -762,7 +762,7 @@ SCHEDULE TIME       IMAGE
      the image in the peer cluster, you need to stop access to the primary
      image, demote the current primary image, promote the new primary image,
      and resume access to the image on the alternate cluster.
-    </p><div id="id-1.4.5.5.10.9.9.3" data-id-title="Forced promotion" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Forced promotion</h6><p>
+    </p><div id="id-1.4.5.5.10.9.9.3" data-id-title="Forced promotion" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Forced promotion</div><p>
       Promotion can be forced using the <code class="option">--force</code> option. Forced
       promotion is needed when the demotion cannot be propagated to the peer
       cluster (for example, in case of cluster failure or communication
@@ -782,7 +782,7 @@ SCHEDULE TIME       IMAGE
      To promote all non-primary images within a pool to primary, specify the
      <code class="command">mirror pool promote</code> subcommand along with the pool
      name:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror pool promote <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.5.10.9.9.12" data-id-title="Split I/O load" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Split I/O load</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd --cluster local mirror pool promote <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.5.10.9.9.12" data-id-title="Split I/O load" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Split I/O load</div><p>
       Since the primary or non-primary status is per-image, it is possible to
       have two clusters split the I/O load and stage failover or failback.
      </p></div></section><section class="sect3" id="rbd-force-image-resync" data-id-title="Forcing image resync"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">20.4.2.6 </span><span class="title-name">Forcing image resync</span> <a title="Permalink" class="permalink" href="ceph-rbd.html#rbd-force-image-resync">#</a></h4></div></div></div><p>
@@ -802,7 +802,7 @@ SCHEDULE TIME       IMAGE
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror image status <em class="replaceable">POOL_NAME</em>/<em class="replaceable">IMAGE_NAME</em></pre></div><p>
     To request the mirror pool summary status, specify the <code class="command">mirror pool
     status</code> subcommand along with the pool name:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror pool status <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.5.10.10.7" data-id-title="" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: </h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror pool status <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.5.10.10.7" data-id-title="" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: </div><p>
      Adding the <code class="option">--verbose</code> option to the <code class="command">mirror pool
      status</code> subcommand will additionally output status details for
      every mirroring image in the pool.
@@ -863,7 +863,7 @@ SCHEDULE TIME       IMAGE
    Generally, Quality of Service (QoS) refers to methods of traffic
    prioritization and resource reservation. It is particularly important for
    the transportation of traffic with special requirements.
-  </p><div id="id-1.4.5.5.12.3" data-id-title="Not supported by iSCSI" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Not supported by iSCSI</h6><p>
+  </p><div id="id-1.4.5.5.12.3" data-id-title="Not supported by iSCSI" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Not supported by iSCSI</div><p>
     The following QoS settings are used only by the user space RBD
     implementation <code class="systemitem">librbd</code> and
     <span class="emphasis"><em>not</em></span> used by the <code class="systemitem">kRBD</code>
@@ -902,7 +902,7 @@ SCHEDULE TIME       IMAGE
    This should normally be handled by the guest OS in the case of a virtual
    machine, but boot loaders may not issue efficient reads. Read-ahead is
    automatically disabled if caching is disabled.
-  </p><div id="id-1.4.5.5.13.3" data-id-title="Not supported by iSCSI" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Not supported by iSCSI</h6><p>
+  </p><div id="id-1.4.5.5.13.3" data-id-title="Not supported by iSCSI" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Not supported by iSCSI</div><p>
     The following read-ahead settings are used only by the user space RBD
     implementation <code class="systemitem">librbd</code> and
     <span class="emphasis"><em>not</em></span> used by the <code class="systemitem">kRBD</code>
@@ -936,7 +936,7 @@ SCHEDULE TIME       IMAGE
     </p><div class="verbatim-wrap"><pre class="screen">rbd_default_features = 17</pre></div></li><li class="listitem"><p>
      As a comma-separated list of features. The previous example will look as
      follows:
-    </p><div class="verbatim-wrap"><pre class="screen">rbd_default_features = layering,fast-diff</pre></div></li></ul></div><div id="id-1.4.5.5.14.5" data-id-title="Features not supported by iSCSI" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Features not supported by iSCSI</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen">rbd_default_features = layering,fast-diff</pre></div></li></ul></div><div id="id-1.4.5.5.14.5" data-id-title="Features not supported by iSCSI" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Features not supported by iSCSI</div><p>
     RBD images with the following features will not be supported by iSCSI:
     <code class="option">deep-flatten</code>, <code class="option">object-map</code>,
     <code class="option">journaling</code>, <code class="option">fast-diff</code>,
@@ -998,7 +998,7 @@ SCHEDULE TIME       IMAGE
    messages similar to the following:
   </p><div class="verbatim-wrap"><pre class="screen">2019-05-17 16:11:33.739133 7fcb83a2e700  0 -- 192.168.122.221:0/1006830 &gt;&gt; \
 192.168.122.152:6789/0 pipe(0x65d4e0 sd=3 :57323 s=1 pgs=0 cs=0 l=1 c=0x65d770).connect \
-protocol feature mismatch, my 2fffffffffff &lt; peer 4010ff8ffacffff missing 401000000000000</pre></div><div id="id-1.4.5.5.15.4" data-id-title="Changing CRUSH Map bucket types causes massive rebalancing" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Changing CRUSH Map bucket types causes massive rebalancing</h6><p>
+protocol feature mismatch, my 2fffffffffff &lt; peer 4010ff8ffacffff missing 401000000000000</pre></div><div id="id-1.4.5.5.15.4" data-id-title="Changing CRUSH Map bucket types causes massive rebalancing" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Changing CRUSH Map bucket types causes massive rebalancing</div><p>
     If you intend to switch the CRUSH Map bucket types between 'straw' and
     'straw2', do it in a planned manner. Expect a significant impact on the
     cluster load because changing bucket type will cause massive cluster
@@ -1027,7 +1027,7 @@ protocol feature mismatch, my 2fffffffffff &lt; peer 4010ff8ffacffff missing 401
   </p><p>
    To use Ceph block devices with Kubernetes, you must install and configure
    <code class="literal">ceph-csi</code> within your Kubernetes environment.
-  </p><div id="id-1.4.5.5.16.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.4.5.5.16.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     <code class="literal">ceph-csi</code> uses the RBD kernel modules by default which
     may not support all Ceph CRUSH tunables or RBD image features.
    </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
@@ -1103,7 +1103,7 @@ EOF</pre></div></li><li class="step"><p>
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>wget https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-rbdplugin-provisioner.yaml
 <code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-rbdplugin-provisioner.yaml
 <code class="prompt user">kubectl@adm &gt; </code>wget https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-rbdplugin.yaml
-<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-rbdplugin.yaml</pre></div><div id="id-1.4.5.5.16.5.10.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+<code class="prompt user">kubectl@adm &gt; </code>kubectl apply -f csi-rbdplugin.yaml</pre></div><div id="id-1.4.5.5.16.5.10.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       By default, the provisioner and node plugin YAML files will pull the
       development release of the <code class="literal">ceph-csi</code> container. The
       YAML files should be updated to use a release version.

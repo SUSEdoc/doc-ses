@@ -47,7 +47,7 @@ hljs.configure({
    </p></li><li class="listitem"><p>
     If the Salt Master host should be part of the Ceph cluster, it needs to run
     its own Salt Minion, but this is not a requirement.
-   </p><div id="id-1.3.4.4.3.2.2" data-id-title="Sharing multiple roles per server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Sharing multiple roles per server</h6><p>
+   </p><div id="id-1.3.4.4.3.2.2" data-id-title="Sharing multiple roles per server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Sharing multiple roles per server</div><p>
      You will get the best performance from your Ceph cluster when each role
      is deployed on a separate node. But real deployments sometimes require
      sharing one node for multiple roles. To avoid trouble with performance and
@@ -77,11 +77,11 @@ hljs.configure({
     line:
    </p><div class="verbatim-wrap"><pre class="screen">#log_level_logfile: warning</pre></div><p>
     Change the <code class="literal">warning</code> log level to <code class="literal">info</code>.
-   </p><div id="id-1.3.4.4.4.5.4" data-id-title="log_level_logfile and log_level" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: <code class="option">log_level_logfile</code> and <code class="option">log_level</code></h6><p>
+   </p><div id="id-1.3.4.4.4.5.4" data-id-title="log_level_logfile and log_level" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: <code class="option">log_level_logfile</code> and <code class="option">log_level</code></div><p>
      While <code class="option">log_level</code> controls which log messages will be
      displayed on the screen, <code class="option">log_level_logfile</code> controls which
      log messages will be written to <code class="filename">/var/log/salt/minion</code>.
-    </p></div><div id="id-1.3.4.4.4.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></div><div id="id-1.3.4.4.4.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure you change the log level on <span class="emphasis"><em>all</em></span> cluster
      (minion) nodes.
     </p></div></li><li class="step"><p>
@@ -104,7 +104,7 @@ hljs.configure({
 <code class="prompt root"># </code>systemctl start salt-minion.service</pre></div></li><li class="step"><p>
     Verify each Salt Minion's fingerprint and accept all salt keys on the
     Salt Master if the fingerprints match.
-   </p><div id="id-1.3.4.4.4.9.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.4.4.9.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If the Salt Minion fingerprint comes back empty, make sure the Salt Minion has
      a Salt Master configuration and that it can communicate with the Salt Master.
     </p></div><p>

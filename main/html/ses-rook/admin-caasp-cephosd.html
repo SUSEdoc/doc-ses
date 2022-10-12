@@ -147,7 +147,7 @@ hljs.configure({
      </p></li><li class="step"><p>
       Verify if the OSD is created on the node by running <code class="command">ceph osd
       tree</code> from the toolbox.
-     </p></li></ol></div></div><div id="id-1.7.4.9.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p></li></ol></div></div><div id="id-1.7.4.9.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      The OSD might have a different ID than the previous OSD that was replaced.
     </p></div></section><section class="sect2" id="remove-an-osd-from-a-pvc" data-id-title="Removing an OSD from a PVC"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1.6 </span><span class="title-name">Removing an OSD from a PVC</span> <a title="Permalink" class="permalink" href="admin-caasp-cephosd.html#remove-an-osd-from-a-pvc">#</a></h3></div></div></div><p>
     If you have installed your OSDs on top of PVCs and you desire to reduce the
@@ -161,7 +161,7 @@ hljs.configure({
       but will effectively stop managing the orphaned OSD.
      </p></li><li class="step"><p>
       Identify the orphaned PVC that belongs to the orphaned OSD.
-     </p><div id="id-1.7.4.9.3.8.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.7.4.9.3.8.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The orphaned PVC will have the highest index among the PVCs for the
        device set.
       </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pvc -l ceph.rook.io/DeviceSet=<em class="replaceable">deviceSet</em></pre></div><p>
@@ -172,7 +172,7 @@ hljs.configure({
       <code class="literal">set1-2-data-vbwcf</code>
      </p></li><li class="step"><p>
       Identify the orphaned OSD.
-     </p><div id="id-1.7.4.9.3.8.3.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.7.4.9.3.8.3.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The OSD assigned to the PVC can be found in the labels on the PVC.
       </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l ceph.rook.io/pvc=<em class="replaceable">ORPHANED_PVC</em> -o yaml | grep ceph-osd-id</pre></div><p>
       For example, this might return:

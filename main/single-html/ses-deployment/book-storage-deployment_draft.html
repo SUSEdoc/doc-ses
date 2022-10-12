@@ -34,7 +34,7 @@ hljs.configure({
   useBR: false
 });
 
-</script></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h1 class="title">Deployment Guide</h1></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>05 Oct 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Giving feedback</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.2"><span class="number">7.1 </span><span class="name">Viewing manifest files</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.3"><span class="number">7.2 </span><span class="name">Synchronize to a directory</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.4"><span class="number">7.3 </span><span class="name">Synchronize Grafana images:</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.5"><span class="number">7.4 </span><span class="name">Synchronize latest Prometheus images</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.6"><p>
+</script></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div><h1 class="title">Deployment Guide</h1></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>12 Oct 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Giving feedback</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.2"><span class="number">7.1 </span><span class="name">Viewing manifest files</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.3"><span class="number">7.2 </span><span class="name">Synchronize to a directory</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.4"><span class="number">7.3 </span><span class="name">Synchronize Grafana images:</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.5"><span class="number">7.4 </span><span class="name">Synchronize latest Prometheus images</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.6"><p>
   Copyright © 2020–2022
 
   SUSE LLC and contributors. All rights reserved.
@@ -64,7 +64,7 @@ hljs.configure({
  SUSE Enterprise Storage 7.1 provides IT organizations with the ability to
  deploy a distributed storage architecture that can support a number of use
  cases using commodity hardware platforms.
-</p><section xml:lang="en" class="sect1" id="id-1.3.2.5" data-id-title="Available documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Available documentation</span> <a title="Permalink" class="permalink" href="#id-1.3.2.5">#</a></h2></div></div></div><div id="id-1.3.2.5.3" data-id-title="Online documentation and latest updates" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Online documentation and latest updates</h6><p>
+</p><section xml:lang="en" class="sect1" id="id-1.3.2.5" data-id-title="Available documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Available documentation</span> <a title="Permalink" class="permalink" href="#id-1.3.2.5">#</a></h2></div></div></div><div id="id-1.3.2.5.3" data-id-title="Online documentation and latest updates" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Online documentation and latest updates</div><p>
    Documentation for our products is available at
    <a class="link" href="https://documentation.suse.com" target="_blank">https://documentation.suse.com</a>,
    where you can also find the latest updates, and browse or download the
@@ -173,16 +173,16 @@ hljs.configure({
     Commands that can be run by non-privileged users.
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">command</code></pre></div></li><li class="listitem"><p>
     Notices
-   </p><div id="id-1.3.2.7.4.13.2" data-id-title="Warning notice" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Warning notice</h6><p>
+   </p><div id="id-1.3.2.7.4.13.2" data-id-title="Warning notice" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Warning notice</div><p>
      Vital information you must be aware of before proceeding. Warns you about
      security issues, potential loss of data, damage to hardware, or physical
      hazards.
-    </p></div><div id="id-1.3.2.7.4.13.3" data-id-title="Important notice" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Important notice</h6><p>
+    </p></div><div id="id-1.3.2.7.4.13.3" data-id-title="Important notice" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Important notice</div><p>
      Important information you should be aware of before proceeding.
-    </p></div><div id="id-1.3.2.7.4.13.4" data-id-title="Note notice" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Note notice</h6><p>
+    </p></div><div id="id-1.3.2.7.4.13.4" data-id-title="Note notice" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Note notice</div><p>
      Additional information, for example about differences in software
      versions.
-    </p></div><div id="id-1.3.2.7.4.13.5" data-id-title="Tip notice" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Tip notice</h6><p>
+    </p></div><div id="id-1.3.2.7.4.13.5" data-id-title="Tip notice" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Tip notice</div><p>
      Helpful information, like a guideline or a piece of practical advice.
     </p></div></li><li class="listitem"><p>
     Compact Notices
@@ -304,7 +304,7 @@ hljs.configure({
    The safer and recommended option is to create a more restrictive individual
    key for each administrator user and put it in a directory where the users
    can read it, for example:
-  </p><div class="verbatim-wrap"><pre class="screen">~/.ceph/ceph.client.<em class="replaceable">USERNAME</em>.keyring</pre></div><div id="id-1.3.2.10.5.6" data-id-title="Path to Ceph keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Path to Ceph keys</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen">~/.ceph/ceph.client.<em class="replaceable">USERNAME</em>.keyring</pre></div><div id="id-1.3.2.10.5.6" data-id-title="Path to Ceph keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Path to Ceph keys</div><p>
     To use a custom admin user and keyring, you need to specify the user name
     and path to the key each time you run the <code class="command">ceph</code> command
     using the <code class="option">-n client.<em class="replaceable">USER_NAME</em></code>
@@ -320,7 +320,7 @@ hljs.configure({
    prompt:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code></pre></div><p>
    For example:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.3.2.10.5.11" data-id-title="Commands for specific nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Commands for specific nodes</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.3.2.10.5.11" data-id-title="Commands for specific nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Commands for specific nodes</div><p>
     If the documentation instructs you to run a command on a cluster node with
     a specific role, it will be addressed by the prompt. For example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mon &gt; </code></pre></div></div><section class="sect3" id="id-1.3.2.10.5.12" data-id-title="Running ceph-volume"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.1 </span><span class="title-name">Running <code class="command">ceph-volume</code></span> <a title="Permalink" class="permalink" href="#id-1.3.2.10.5.12">#</a></h4></div></div></div><p>
@@ -410,7 +410,7 @@ hljs.configure({
     <code class="systemitem">librados</code> is used by Object Gateway and RBD
     while CephFS directly interfaces with RADOS
     <a class="xref" href="#storage-intro-core-rados-figure" title="Interfaces to the Ceph object store">Figure 1.1, “Interfaces to the Ceph object store”</a>.
-   </p><div class="figure" id="storage-intro-core-rados-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/rados-structure.png"><img src="images/rados-structure.png" width="70%" alt="Interfaces to the Ceph object store" title="Interfaces to the Ceph object store"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 1.1: </span><span class="title-name">Interfaces to the Ceph object store </span><a title="Permalink" class="permalink" href="#storage-intro-core-rados-figure">#</a></h6></div></div></section><section class="sect2" id="storage-intro-core-crush" data-id-title="CRUSH"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.2.2 </span><span class="title-name">CRUSH</span> <a title="Permalink" class="permalink" href="#storage-intro-core-crush">#</a></h3></div></div></div><p>
+   </p><div class="figure" id="storage-intro-core-rados-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/rados-structure.png"><img src="images/rados-structure.png" width="70%" alt="Interfaces to the Ceph object store" title="Interfaces to the Ceph object store"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 1.1: </span><span class="title-name">Interfaces to the Ceph object store </span><a title="Permalink" class="permalink" href="#storage-intro-core-rados-figure">#</a></div></div></div></section><section class="sect2" id="storage-intro-core-crush" data-id-title="CRUSH"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.2.2 </span><span class="title-name">CRUSH</span> <a title="Permalink" class="permalink" href="#storage-intro-core-crush">#</a></h3></div></div></div><p>
     At the core of a Ceph cluster is the <span class="emphasis"><em>CRUSH</em></span>
     algorithm. CRUSH is the acronym for <span class="emphasis"><em>Controlled Replication Under
     Scalable Hashing</em></span>. CRUSH is a function that handles the storage
@@ -529,7 +529,7 @@ hljs.configure({
     3</code>). Each node has three hard disks which are used as OSDs
     (<code class="literal">osd.1</code> to <code class="literal">osd.9</code>). The Ceph Monitor nodes are
     neglected in this example.
-   </p><div id="id-1.3.3.2.7.4.3" data-id-title="Difference between Ceph OSD and OSD" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Difference between Ceph OSD and OSD</h6><p>
+   </p><div id="id-1.3.3.2.7.4.3" data-id-title="Difference between Ceph OSD and OSD" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Difference between Ceph OSD and OSD</div><p>
      While <span class="emphasis"><em>Ceph OSD</em></span> or <span class="emphasis"><em>Ceph OSD
      daemon</em></span> refers to a daemon that is run on a node, the word
      <span class="emphasis"><em>OSD</em></span> refers to the logical disk that the daemon
@@ -562,7 +562,7 @@ hljs.configure({
     <code class="literal">osd.5</code>. The objects stored on <code class="literal">osd.1</code>
     are then replicated to <code class="literal">osd.4</code> to restore the replication
     level.
-   </p><div class="figure" id="storage-intro-structure-example-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/data-structure-example.png"><img src="images/data-structure-example.png" width="100%" alt="Small scale Ceph example" title="Small scale Ceph example"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 1.2: </span><span class="title-name">Small scale Ceph example </span><a title="Permalink" class="permalink" href="#storage-intro-structure-example-figure">#</a></h6></div></div><p>
+   </p><div class="figure" id="storage-intro-structure-example-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/data-structure-example.png"><img src="images/data-structure-example.png" width="100%" alt="Small scale Ceph example" title="Small scale Ceph example"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 1.2: </span><span class="title-name">Small scale Ceph example </span><a title="Permalink" class="permalink" href="#storage-intro-structure-example-figure">#</a></div></div></div><p>
     If a new node with new OSDs is added to the cluster, the cluster map is
     going to change. The CRUSH function then returns different locations for
     objects. Objects that receive new locations will be relocated. This process
@@ -603,7 +603,7 @@ hljs.configure({
    much metadata as it can on the DB device to improve performance. Again, it
    is only helpful to provision a shared DB device if it is faster than the
    primary device.
-  </p><div id="id-1.3.3.2.8.9" data-id-title="Plan for the DB size" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Plan for the DB size</h6><p>
+  </p><div id="id-1.3.3.2.8.9" data-id-title="Plan for the DB size" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Plan for the DB size</div><p>
     Plan thoroughly to ensure sufficient size of the DB device. If the DB
     device fills up, metadata will spill over to the primary device, which
     badly degrades the OSD's performance.
@@ -632,7 +632,7 @@ hljs.configure({
     </p></li><li class="listitem"><p>
      SUSE Enterprise Storage can be used with non-SUSE OpenStack distributions. The Ceph
      clients need to be at a level that is compatible with SUSE Enterprise Storage.
-    </p><div id="id-1.3.3.2.9.2.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.3.3.2.9.2.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       SUSE supports the server component of the Ceph deployment and the
       client is supported by the OpenStack distribution vendor.
      </p></div></li></ul></div></section></section><section class="chapter" id="storage-bp-hwreq" data-id-title="Hardware requirements and recommendations"><div class="titlepage"><div><div><h1 class="title"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span> <a title="Permalink" class="permalink" href="#storage-bp-hwreq">#</a></h1></div></div></div><p>
@@ -667,7 +667,7 @@ hljs.configure({
    gateways on the one side to talk to monitors, managers, MDS nodes, OSD
    nodes. It is also used by monitors, managers, and MDS nodes to talk with OSD
    nodes.
-  </p><div class="figure" id="network-overview-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/network-overview-diagram.png"><img src="images/network-overview-diagram.png" width="70%" alt="Network overview" title="Network overview"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 2.1: </span><span class="title-name">Network overview </span><a title="Permalink" class="permalink" href="#network-overview-figure">#</a></h6></div></div><section class="sect2" id="ceph-install-ceph-deploy-network" data-id-title="Network recommendations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.1.1 </span><span class="title-name">Network recommendations</span> <a title="Permalink" class="permalink" href="#ceph-install-ceph-deploy-network">#</a></h3></div></div></div><p>
+  </p><div class="figure" id="network-overview-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/network-overview-diagram.png"><img src="images/network-overview-diagram.png" width="70%" alt="Network overview" title="Network overview"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 2.1: </span><span class="title-name">Network overview </span><a title="Permalink" class="permalink" href="#network-overview-figure">#</a></div></div></div><section class="sect2" id="ceph-install-ceph-deploy-network" data-id-title="Network recommendations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.1.1 </span><span class="title-name">Network recommendations</span> <a title="Permalink" class="permalink" href="#ceph-install-ceph-deploy-network">#</a></h3></div></div></div><p>
     We recommend a single fault-tolerant network with enough bandwidth to
     fulfil your requirements. For the Ceph public network environment, we
     recommend two bonded 25 GbE (or faster) network interfaces bonded
@@ -691,11 +691,11 @@ hljs.configure({
     switches protects against failure of a switch. We recommend consulting with
     the network equipment vendor in order to architect the level of fault
     tolerance required.
-   </p><div id="id-1.3.3.3.5.7.5" data-id-title="Administration network not supported" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Administration network not supported</h6><p>
+   </p><div id="id-1.3.3.3.5.7.5" data-id-title="Administration network not supported" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Administration network not supported</div><p>
      Additional administration network setup—that enables for example
      separating SSH, Salt, or DNS networking—is neither tested nor
      supported.
-    </p></div><div id="id-1.3.3.3.5.7.6" data-id-title="Nodes configured via DHCP" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Nodes configured via DHCP</h6><p>
+    </p></div><div id="id-1.3.3.3.5.7.6" data-id-title="Nodes configured via DHCP" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Nodes configured via DHCP</div><p>
      If your storage nodes are configured via DHCP, the default timeouts may
      not be sufficient for the network to be configured correctly before the
      various Ceph daemons start. If this happens, the Ceph MONs and OSDs
@@ -731,7 +731,7 @@ hljs.configure({
      their public network address in CIDR notation:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon public_network "<em class="replaceable">MON_NETWORK_1</em>, <em class="replaceable">MON_NETWORK_2</em>, <em class="replaceable">MON_NETWORK_N</em></pre></div><p>
      For example:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon public_network "192.168.1.0/24, 10.10.0.0/16"</pre></div><div id="id-1.3.3.3.5.7.8.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon public_network "192.168.1.0/24, 10.10.0.0/16"</pre></div><div id="id-1.3.3.3.5.7.8.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       If you do specify more than one network segment for the public (or
       cluster) network as described in this section, each of these subnets must
       be capable of routing to all the others - otherwise, the MONs and other
@@ -748,7 +748,7 @@ hljs.configure({
    As with smaller x86 processors (non-server), lower-performance Arm-based
    cores may not provide an optimal experience, especially when used for
    erasure coded pools.
-  </p><div id="id-1.3.3.3.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.3.3.3.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     Throughout the documentation, <em class="replaceable">SYSTEM-ARCH</em> is
     used in place of x86 or Arm.
    </p></div></section><section class="sect1" id="ses-hardware-config" data-id-title="Hardware configuration"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span> <a title="Permalink" class="permalink" href="#ses-hardware-config">#</a></h2></div></div></div><p>
@@ -813,7 +813,7 @@ hljs.configure({
      </p></li><li class="listitem"><p>
       The hypervisor nodes must be adequately sized to avoid interference by
       other workloads consuming CPU, RAM, network, and storage resources.
-     </p></li></ul></div><div class="figure" id="id-1.3.3.3.7.3.6"><div class="figure-contents"><div class="mediaobject"><a href="images/minimal-ses.png"><img src="images/minimal-ses.png" width="100%" alt="Minimum cluster configuration" title="Minimum cluster configuration"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 2.2: </span><span class="title-name">Minimum cluster configuration </span><a title="Permalink" class="permalink" href="#id-1.3.3.3.7.3.6">#</a></h6></div></div></section><section class="sect2" id="ses-bp-production-cluster" data-id-title="Recommended production cluster configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.3.2 </span><span class="title-name">Recommended production cluster configuration</span> <a title="Permalink" class="permalink" href="#ses-bp-production-cluster">#</a></h3></div></div></div><p>
+     </p></li></ul></div><div class="figure" id="id-1.3.3.3.7.3.6"><div class="figure-contents"><div class="mediaobject"><a href="images/minimal-ses.png"><img src="images/minimal-ses.png" width="100%" alt="Minimum cluster configuration" title="Minimum cluster configuration"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 2.2: </span><span class="title-name">Minimum cluster configuration </span><a title="Permalink" class="permalink" href="#id-1.3.3.3.7.3.6">#</a></div></div></div></section><section class="sect2" id="ses-bp-production-cluster" data-id-title="Recommended production cluster configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.3.2 </span><span class="title-name">Recommended production cluster configuration</span> <a title="Permalink" class="permalink" href="#ses-bp-production-cluster">#</a></h3></div></div></div><p>
     Once you grow your cluster, we recommend relocating Ceph Monitors, Metadata Servers, and
     Gateways to separate nodes for better fault tolerance.
    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -860,7 +860,7 @@ hljs.configure({
    </p><p>
     Alternatively, ensure that LVM filters a device's mpath components via the
     LVM filter configuration. This will be host specific.
-   </p><div id="id-1.3.3.3.7.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.3.3.7.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      This is not recommended and should only ever be considered if
      <code class="literal">multipath_component_detection = 1</code> cannot be set.
     </p></div><p>
@@ -904,7 +904,7 @@ hljs.configure({
       Ceph Monitors and Ceph Managers.
      </p></li><li class="listitem"><p>
       SSDs for Journal with 6:1 ratio SSD journal to OSD.
-     </p></li></ul></div><div id="id-1.3.3.3.8.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p></li></ul></div><div id="id-1.3.3.3.8.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure that OSD nodes do not have any networked block devices mapped, such
      as iSCSI or RADOS Block Device images.
     </p></div></section><section class="sect2" id="ses-bp-mindisk" data-id-title="Minimum disk size"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.4.2 </span><span class="title-name">Minimum disk size</span> <a title="Permalink" class="permalink" href="#ses-bp-mindisk">#</a></h3></div></div></div><p>
@@ -915,7 +915,7 @@ hljs.configure({
    </p><p>
     So although the minimum disk space for an OSD is 11 GB, we do not recommend
     a disk smaller than 20 GB, even for testing purposes.
-   </p></section><section class="sect2" id="rec-waldb-size" data-id-title="Recommended size for the BlueStores WAL and DB device"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.4.3 </span><span class="title-name">Recommended size for the BlueStore's WAL and DB device</span> <a title="Permalink" class="permalink" href="#rec-waldb-size">#</a></h3></div></div></div><div id="id-1.3.3.3.8.4.2" data-id-title="More Information" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: More Information</h6><p>
+   </p></section><section class="sect2" id="rec-waldb-size" data-id-title="Recommended size for the BlueStores WAL and DB device"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">2.4.3 </span><span class="title-name">Recommended size for the BlueStore's WAL and DB device</span> <a title="Permalink" class="permalink" href="#rec-waldb-size">#</a></h3></div></div></div><div id="id-1.3.3.3.8.4.2" data-id-title="More Information" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: More Information</div><p>
      Refer to <a class="xref" href="#about-bluestore" title="1.4. BlueStore">Section 1.4, “BlueStore”</a> for more information on
      BlueStore.
     </p></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -923,7 +923,7 @@ hljs.configure({
       size is 64 GB for RBD-only workloads, the recommended DB size for
       Object Gateway and CephFS workloads is 2% of the main device capacity (but at
       least 196 GB).
-     </p><div id="id-1.3.3.3.8.4.3.1.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p><div id="id-1.3.3.3.8.4.3.1.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
        We recommend larger DB volumes for high-load deployments, especially if
        there is high RGW or CephFS usage. Reserve some capacity (slots) to
        install more hardware for more DB space if required.
@@ -950,7 +950,7 @@ hljs.configure({
    </p><p>
     OSDs may see a significant performance improvement by storing their WAL/DB
     partitions on an SSD and the object data on a separate hard disk.
-   </p><div id="id-1.3.3.3.8.5.4" data-id-title="Sharing an SSD for Multiple WAL/DB Partitions" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Sharing an SSD for Multiple WAL/DB Partitions</h6><p>
+   </p><div id="id-1.3.3.3.8.5.4" data-id-title="Sharing an SSD for Multiple WAL/DB Partitions" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Sharing an SSD for Multiple WAL/DB Partitions</div><p>
      As WAL/DB partitions occupy relatively little space, you can share one SSD
      disk with multiple WAL/DB partitions. Keep in mind that with each WAL/DB
      partition, the performance of the SSD disk degrades. We do not recommend
@@ -1043,7 +1043,7 @@ hljs.configure({
   </p><p>
    Although Ceph supports directory-based OSDs, an OSD should always have a
    dedicated disk other than the operating system one.
-  </p><div id="id-1.3.3.3.16.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  </p><div id="id-1.3.3.3.16.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     If it is <span class="emphasis"><em>really</em></span> necessary to run OSD and MON node on
     the same server, run MON on a separate disk by mounting the disk to the
     <code class="filename">/var/lib/ceph/mon</code> directory for slightly better
@@ -1081,7 +1081,7 @@ hljs.configure({
     </p></li></ul></div><p>
    Find more details on the cluster requirements at
    <a class="link" href="https://documentation.suse.com/sle-ha/15-SP3/html/SLE-HA-all/art-sleha-install-quick.html#sec-ha-inst-quick-req" target="_blank">https://documentation.suse.com/sle-ha/15-SP3/html/SLE-HA-all/art-sleha-install-quick.html#sec-ha-inst-quick-req</a>.
-  </p><div class="figure" id="id-1.3.3.4.6.6"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_admin_ha1.png"><img src="images/ceph_admin_ha1.png" width="60%" alt="2-Node HA cluster for Admin Node" title="2-Node HA cluster for Admin Node"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 3.1: </span><span class="title-name">2-Node HA cluster for Admin Node </span><a title="Permalink" class="permalink" href="#id-1.3.3.4.6.6">#</a></h6></div></div></section><section class="sect1" id="admin-ha-cluster" data-id-title="Building an HA cluster with the Admin Node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span> <a title="Permalink" class="permalink" href="#admin-ha-cluster">#</a></h2></div></div></div><p>
+  </p><div class="figure" id="id-1.3.3.4.6.6"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_admin_ha1.png"><img src="images/ceph_admin_ha1.png" width="60%" alt="2-Node HA cluster for Admin Node" title="2-Node HA cluster for Admin Node"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 3.1: </span><span class="title-name">2-Node HA cluster for Admin Node </span><a title="Permalink" class="permalink" href="#id-1.3.3.4.6.6">#</a></div></div></div></section><section class="sect1" id="admin-ha-cluster" data-id-title="Building an HA cluster with the Admin Node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span> <a title="Permalink" class="permalink" href="#admin-ha-cluster">#</a></h2></div></div></div><p>
    The following procedure summarizes the most important steps of building the
    HA cluster for virtualizing the Admin Node. For details, refer to the indicated
    links.
@@ -1152,14 +1152,14 @@ hljs.configure({
       </p></li></ul></div></dd><dt id="id-1.3.4.2.4.2"><span class="term">Deploying additional services</span></dt><dd><p>
      During <span class="emphasis"><em>Day 2 deployment</em></span>, additional core and non-core
      Ceph services, for example gateways and monitoring stack, are deployed.
-    </p></dd></dl></div><div id="id-1.3.4.2.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p></dd></dl></div><div id="id-1.3.4.2.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
    Note that the Ceph community documentation uses the <code class="command">cephadm
    bootstrap</code> command during initial deployment. <code class="systemitem">ceph-salt</code> calls the
    <code class="command">cephadm bootstrap</code> command automatically. The
    <code class="command">cephadm bootstrap</code> command should not be run directly. Any
    Ceph cluster deployment manually using the <code class="command">cephadm
    bootstrap</code> will be unsupported.
-  </p></div><div id="id-1.3.4.2.6" data-id-title="No support for dual stack" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: No support for dual stack</h6><p>
+  </p></div><div id="id-1.3.4.2.6" data-id-title="No support for dual stack" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: No support for dual stack</div><p>
    Ceph does not support dual stack—running Ceph simultaneously on
    IPv4 and IPv6 is not possible. The validation process will reject a mismatch
    between <code class="option">public_network</code> and
@@ -1197,7 +1197,7 @@ hljs.configure({
    </p></li><li class="step"><p>
     Install the <span class="emphasis"><em>SUSE Enterprise Storage 7.1</em></span> extension on
     each cluster node.
-   </p><div id="id-1.3.4.3.2.2.2" data-id-title="Install SUSE Enterprise Storage together with SUSE Linux Enterprise Server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Install SUSE Enterprise Storage together with SUSE Linux Enterprise Server</h6><p>
+   </p><div id="id-1.3.4.3.2.2.2" data-id-title="Install SUSE Enterprise Storage together with SUSE Linux Enterprise Server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Install SUSE Enterprise Storage together with SUSE Linux Enterprise Server</div><p>
      You can either install the SUSE Enterprise Storage 7.1 extension
      separately after you have installed SUSE Linux Enterprise Server 15 SP3, or you can add it during the
      SUSE Linux Enterprise Server 15 SP3 installation procedure.
@@ -1222,7 +1222,7 @@ hljs.configure({
    </p></li><li class="listitem"><p>
     If the Salt Master host should be part of the Ceph cluster, it needs to run
     its own Salt Minion, but this is not a requirement.
-   </p><div id="id-1.3.4.4.3.2.2" data-id-title="Sharing multiple roles per server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Sharing multiple roles per server</h6><p>
+   </p><div id="id-1.3.4.4.3.2.2" data-id-title="Sharing multiple roles per server" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Sharing multiple roles per server</div><p>
      You will get the best performance from your Ceph cluster when each role
      is deployed on a separate node. But real deployments sometimes require
      sharing one node for multiple roles. To avoid trouble with performance and
@@ -1252,11 +1252,11 @@ hljs.configure({
     line:
    </p><div class="verbatim-wrap"><pre class="screen">#log_level_logfile: warning</pre></div><p>
     Change the <code class="literal">warning</code> log level to <code class="literal">info</code>.
-   </p><div id="id-1.3.4.4.4.5.4" data-id-title="log_level_logfile and log_level" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: <code class="option">log_level_logfile</code> and <code class="option">log_level</code></h6><p>
+   </p><div id="id-1.3.4.4.4.5.4" data-id-title="log_level_logfile and log_level" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: <code class="option">log_level_logfile</code> and <code class="option">log_level</code></div><p>
      While <code class="option">log_level</code> controls which log messages will be
      displayed on the screen, <code class="option">log_level_logfile</code> controls which
      log messages will be written to <code class="filename">/var/log/salt/minion</code>.
-    </p></div><div id="id-1.3.4.4.4.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></div><div id="id-1.3.4.4.4.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure you change the log level on <span class="emphasis"><em>all</em></span> cluster
      (minion) nodes.
     </p></div></li><li class="step"><p>
@@ -1279,7 +1279,7 @@ hljs.configure({
 <code class="prompt root"># </code>systemctl start salt-minion.service</pre></div></li><li class="step"><p>
     Verify each Salt Minion's fingerprint and accept all salt keys on the
     Salt Master if the fingerprints match.
-   </p><div id="id-1.3.4.4.4.9.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.4.4.9.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If the Salt Minion fingerprint comes back empty, make sure the Salt Minion has
      a Salt Master configuration and that it can communicate with the Salt Master.
     </p></div><p>
@@ -1321,7 +1321,7 @@ minion1:
 <code class="prompt user">root@master # </code>salt \* saltutil.sync_all</pre></div></section><section class="sect1" id="deploy-cephadm-configure" data-id-title="Configuring cluster properties"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure">#</a></h2></div></div></div><p>
    Use the <code class="command">ceph-salt config</code> command to configure the basic
    properties of the cluster.
-  </p><div id="id-1.3.4.5.4.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.3.4.5.4.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     The <code class="filename">/etc/ceph/ceph.conf</code> file is managed by cephadm
     and users <span class="emphasis"><em>should not</em></span> edit it. Ceph configuration
     parameters should be set using the new <code class="command">ceph config</code>
@@ -1394,7 +1394,7 @@ o- dashboard ....................................................... [...]
   o- password .................................................... [admin]
   o- ssl_certificate ........................................... [not set]
   o- ssl_certificate_key ....................................... [not set]
-  o- username ................................................[ceph-admin]</pre></div></li></ul></div><div id="id-1.3.4.5.4.4.6" data-id-title="Autocompletion of configuration snippets" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Autocompletion of configuration snippets</h6><p>
+  o- username ................................................[ceph-admin]</pre></div></li></ul></div><div id="id-1.3.4.5.4.4.6" data-id-title="Autocompletion of configuration snippets" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Autocompletion of configuration snippets</div><p>
      While in a <code class="systemitem">ceph-salt</code> shell, you can use the autocompletion feature
      similar to a normal Linux shell (Bash) autocompletion. It completes
      configuration paths, subcommands, or Salt Minion names. When autocompleting
@@ -1405,14 +1405,14 @@ o- dashboard ....................................................... [...]
       </p></li><li class="listitem"><p>
        To let the shell finish an absolute path, enter <span class="keycap">/</span> and
        press the TAB key <span class="keycap">→|</span> twice.
-      </p></li></ul></div></div><div id="id-1.3.4.5.4.4.7" data-id-title="Navigating with the cursor keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Navigating with the cursor keys</h6><p>
+      </p></li></ul></div></div><div id="id-1.3.4.5.4.4.7" data-id-title="Navigating with the cursor keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Navigating with the cursor keys</div><p>
      If you enter <code class="command">cd</code> from the <code class="systemitem">ceph-salt</code> shell without any
      path, the command will print a tree structure of the cluster configuration
      with the line of the current path active. You can use the up and down
      cursor keys to navigate through individual lines. After you confirm with
      <span class="keycap">Enter</span>, the configuration path will change to
      the last active one.
-    </p></div><div id="id-1.3.4.5.4.4.8" data-id-title="Convention" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Convention</h6><p>
+    </p></div><div id="id-1.3.4.5.4.4.8" data-id-title="Convention" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Convention</div><p>
      To keep the documentation consistent, we will use a single command syntax
      without entering the <code class="systemitem">ceph-salt</code> shell. For example, you can list the
      cluster configuration tree by using the following command:
@@ -1440,7 +1440,7 @@ o- minions ............................................... [Minions: 5]
     The Admin Node is the node where the <code class="filename">ceph.conf</code>
     configuration file and the Ceph admin keyring is installed. You usually
     run Ceph related commands on the Admin Node.
-   </p><div id="id-1.3.4.5.4.7.3" data-id-title="Salt Master and Admin Node on the Same Node" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Salt Master and Admin Node on the Same Node</h6><p>
+   </p><div id="id-1.3.4.5.4.7.3" data-id-title="Salt Master and Admin Node on the Same Node" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Salt Master and Admin Node on the Same Node</div><p>
      In a homogeneous environment where all or most hosts belong to
      SUSE Enterprise Storage, we recommend having the Admin Node on the same host as the
      Salt Master.
@@ -1454,7 +1454,7 @@ o- minions ............................................... [Minions: 5]
 1 minion added.
 <code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin ls
 o- admin ................................................... [Minions: 1]
-  o- ses-main.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</h6><p>
+  o- ses-main.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</div><p>
      You can install the Ceph configuration file and admin keyring on
      multiple nodes if your deployment requires it. For security reasons, avoid
      installing them on all the cluster's nodes.
@@ -1472,7 +1472,7 @@ o- bootstrap ..................................... [ses-node1.example.com]</pre>
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/mon_ip set 192.168.10.20</pre></div></section><section class="sect2" id="deploy-cephadm-tuned-profiles" data-id-title="Specifying tuned profiles"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.6 </span><span class="title-name">Specifying tuned profiles</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-tuned-profiles">#</a></h3></div></div></div><p>
     You need to specify which of the cluster's minions have actively tuned
     profiles. To do so, add these roles explicitly with the following commands:
-   </p><div id="id-1.3.4.5.4.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.5.4.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      One minion cannot have both the <code class="literal">latency</code> and
      <code class="literal">throughput</code> roles.
     </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/latency add ses-node1.example.com
@@ -1530,7 +1530,7 @@ o- time_server ................................................ [enabled]
     Ceph Dashboard will be available after the basic cluster is deployed. To
     access it, you need to set a valid user name and password, for example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/username set admin
-<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/password set <em class="replaceable">PWD</em></pre></div><div id="id-1.3.4.5.4.12.4" data-id-title="Forcing password update" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Forcing password update</h6><p>
+<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/password set <em class="replaceable">PWD</em></pre></div><div id="id-1.3.4.5.4.12.4" data-id-title="Forcing password update" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Forcing password update</div><p>
      By default, the first dashboard user will be forced to change their
      password on first login to the dashboard. To disable this feature, run the
      following command:
@@ -1549,12 +1549,12 @@ o- time_server ................................................ [enabled]
       an air-gapped deployment—you need to configure a local container
       registry. After the local registry is created and configured, you need to
       point <code class="systemitem">ceph-salt</code> to it.
-     </p></li></ul></div><section class="sect3" id="updating-ceph-local-registry" data-id-title="Creating and configuring the local registry (optional)"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.1 </span><span class="title-name">Creating and configuring the local registry (optional)</span> <a title="Permalink" class="permalink" href="#updating-ceph-local-registry">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p></li></ul></div><section class="sect3" id="updating-ceph-local-registry" data-id-title="Creating and configuring the local registry (optional)"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.1 </span><span class="title-name">Creating and configuring the local registry (optional)</span> <a title="Permalink" class="permalink" href="#updating-ceph-local-registry">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       There are numerous methods of creating a local registry. The instructions
       in this section are examples of creating secure and insecure registries.
       For general information on running a container image registry, refer to
       <a class="link" href="https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-registry-installation.html#sec-docker-registry-installation" target="_blank">https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-registry-installation.html#sec-docker-registry-installation</a>.
-     </p></div><div id="id-1.3.4.5.4.13.4.3" data-id-title="Placement and port usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Placement and port usage</h6><p>
+     </p></div><div id="id-1.3.4.5.4.13.4.3" data-id-title="Placement and port usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Placement and port usage</div><p>
       Deploy the registry on a machine accessible by all nodes in the cluster.
       We recommend the Admin Node. By default, the registry listens on port 5000.
      </p><p>
@@ -1564,7 +1564,7 @@ o- time_server ................................................ [enabled]
       If other processes (such as <code class="literal">iscsi-tcmu</code>) are already
       listening on port 5000, determine another free port which can be used to
       map to port 5000 in the registry container.
-     </p></div><div class="procedure" id="id-1.3.4.5.4.13.4.4" data-id-title="Creating the local registry"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 7.1: </span><span class="title-name">Creating the local registry </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     </p></div><div class="procedure" id="id-1.3.4.5.4.13.4.4" data-id-title="Creating the local registry"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 7.1: </span><span class="title-name">Creating the local registry </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
        Verify that the <span class="package">Containers Module</span> extension is
        enabled:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>SUSEConnect --list-extensions | grep -A2 "Containers Module"
@@ -1613,7 +1613,7 @@ Containers Module 15 SP3 x86_64 (Activated)</pre></div></li><li class="step"><p>
          Generate an SSL certificate:
         </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>openssl req -newkey rsa:4096 -nodes -sha256 \
  -keyout /var/lib/registry/certs/domain.key -x509 -days 365 \
- -out /var/lib/registry/certs/domain.crt</pre></div><div id="id-1.3.4.5.4.13.4.4.6.2.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+ -out /var/lib/registry/certs/domain.crt</pre></div><div id="id-1.3.4.5.4.13.4.4.6.2.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
           Set the <code class="literal">CN=[value]</code> value to the fully qualified
           domain name of the host ([<code class="option">REG_HOST_FQDN</code>]).
          </p></div></li><li class="step"><p>
@@ -1651,31 +1651,31 @@ Containers Module 15 SP3 x86_64 (Activated)</pre></div></li><li class="step"><p>
        <span class="package">skopeo</span> package for that purpose. For more details,
        refer to the manual page (<code class="command">man 1 skopeo-sync</code>).
        Consider the following examples:
-      </p><div class="example" id="id-1.3.4.5.4.13.4.4.7.2" data-id-title="Viewing manifest files"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.1: </span><span class="title-name">Viewing manifest files </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.2">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo inspect docker://registry.suse.com/ses/7.1/ceph/ceph | jq .RepoTags
+      </p><div class="example" id="id-1.3.4.5.4.13.4.4.7.2" data-id-title="Viewing manifest files"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.1: </span><span class="title-name">Viewing manifest files </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.2">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo inspect docker://registry.suse.com/ses/7.1/ceph/ceph | jq .RepoTags
 skopeo inspect docker://registry.suse.com/ses/7.1/ceph/grafana | jq .RepoTags
 skopeo inspect docker://registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1 | jq .RepoTags
 skopeo inspect docker://registry.suse.com/ses/7.1/ceph/prometheus-node-exporter:1.1.2 | jq .RepoTags
-skopeo inspect docker://registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 | jq .RepoTags</pre></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.3" data-id-title="Synchronize to a directory"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.2: </span><span class="title-name">Synchronize to a directory </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.3">#</a></h6></div><div class="example-contents"><p>
+skopeo inspect docker://registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 | jq .RepoTags</pre></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.3" data-id-title="Synchronize to a directory"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.2: </span><span class="title-name">Synchronize to a directory </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.3">#</a></div></div><div class="example-contents"><p>
         Synchronize all Ceph images:
        </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/ceph /root/images/</pre></div><p>
         Synchronize the latest images only:
-       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/ceph:latest /root/images/</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.4" data-id-title="Synchronize Grafana images:"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.3: </span><span class="title-name">Synchronize Grafana images: </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.4">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/grafana /root/images/</pre></div><p>
+       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/ceph:latest /root/images/</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.4" data-id-title="Synchronize Grafana images:"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.3: </span><span class="title-name">Synchronize Grafana images: </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.4">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/grafana /root/images/</pre></div><p>
         Synchronize the latest Grafana images only:
-       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/grafana:latest /root/images/</pre></div></div></div></div><div class="example" id="id-1.3.4.5.4.13.4.4.7.5" data-id-title="Synchronize latest Prometheus images"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.4: </span><span class="title-name">Synchronize latest Prometheus images </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.5">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1 /root/images/
+       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/grafana:latest /root/images/</pre></div></div></div></div><div class="example" id="id-1.3.4.5.4.13.4.4.7.5" data-id-title="Synchronize latest Prometheus images"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.4: </span><span class="title-name">Synchronize latest Prometheus images </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.5">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1 /root/images/
 skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-node-exporter:1.1.2 /root/images/
-skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 /root/images/</pre></div></div></div></li></ol></div></div><div class="procedure" id="id-1.3.4.5.4.13.4.5" data-id-title="Configure the local registry and access credentials"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 7.2: </span><span class="title-name">Configure the local registry and access credentials </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.5">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 /root/images/</pre></div></div></div></li></ol></div></div><div class="procedure" id="id-1.3.4.5.4.13.4.5" data-id-title="Configure the local registry and access credentials"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 7.2: </span><span class="title-name">Configure the local registry and access credentials </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.5">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
        Configure the URL of the local registry:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/registry set <em class="replaceable">REG_HOST_URL</em></pre></div></li><li class="step"><p>
        Configure the user name and password to access the local registry:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/username set <em class="replaceable">REG_USERNAME</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/password set <em class="replaceable">REG_PASSWORD</em></pre></div></li></ol></div></div><div id="id-1.3.4.5.4.13.4.6" data-id-title="Registry cache" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Registry cache</h6><p>
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/username set <em class="replaceable">REG_USERNAME</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/password set <em class="replaceable">REG_PASSWORD</em></pre></div></li></ol></div></div><div id="id-1.3.4.5.4.13.4.6" data-id-title="Registry cache" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Registry cache</div><p>
       To avoid re-syncing the local registry when new updated containers
       appear, you can configure a <span class="emphasis"><em>registry cache</em></span>.
-     </p></div></section><section class="sect3" id="deploy-cephadm-configure-imagepath" data-id-title="Configuring the path to container images"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.2 </span><span class="title-name">Configuring the path to container images</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-imagepath">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p></div></section><section class="sect3" id="deploy-cephadm-configure-imagepath" data-id-title="Configuring the path to container images"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.2 </span><span class="title-name">Configuring the path to container images</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-imagepath">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       This section helps you configure the path to container images of the
       bootstrap cluster (deployment of the first Ceph Monitor and Ceph Manager pair). The
       path does not apply to container images of additional services, for
       example the monitoring stack.
-     </p></div><div id="id-1.3.4.5.4.13.5.3" data-id-title="Configuring HTTPS proxy" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Configuring HTTPS proxy</h6><p>
+     </p></div><div id="id-1.3.4.5.4.13.5.3" data-id-title="Configuring HTTPS proxy" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Configuring HTTPS proxy</div><p>
       If you need to use a proxy to communicate with the container registry
       server, perform the following configuration steps on all cluster nodes:
      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
@@ -1700,7 +1700,7 @@ env = ["http_proxy=http://proxy.example.com:<em class="replaceable">PORT</em>"]
     a security mode that encrypts all data passing over the network,
     encapsulation of authentication payloads, and the enabling of future
     integration of new authentication modes (such as Kerberos).
-   </p><div id="id-1.3.4.5.4.14.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.3.4.5.4.14.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      msgr2 is not currently supported by Linux kernel Ceph clients, such as
      CephFS and RADOS Block Device.
     </p></div><p>
@@ -1755,14 +1755,14 @@ env = ["http_proxy=http://proxy.example.com:<em class="replaceable">PORT</em>"]
     Set the following options:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_cluster_mode "secure crc"
 <code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_service_mode "secure crc"
-<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode "secure crc"</pre></div><div id="id-1.3.4.5.4.14.17" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode "secure crc"</pre></div><div id="id-1.3.4.5.4.14.17" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure <code class="literal">secure</code> precedes <code class="literal">crc</code>.
     </p></div><p>
     To <span class="emphasis"><em>force</em></span> <code class="literal">secure</code> mode, run the
     following commands:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_cluster_mode secure
 <code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_service_mode secure
-<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode secure</pre></div><div id="update-inflight-encryption-settings" data-id-title="Updating settings" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Updating settings</h6><p>
+<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode secure</pre></div><div id="update-inflight-encryption-settings" data-id-title="Updating settings" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Updating settings</div><p>
      If you want to change any of the above settings, set the configuration
      changes in the monitor configuration store. This is achieved using the
      <code class="command">ceph config set</code> command.
@@ -1825,7 +1825,7 @@ o- / ............................................................... [...]
     | o- 0.pt.pool.ntp.org ......................................... [...]
     o- servers ....................................................... [1]
     | o- ses-main.example.com ...................................... [...]
-    o- subnet ............................................. [10.20.6.0/24]</pre></div><div id="id-1.3.4.5.4.16.4" data-id-title="Status of cluster configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Status of cluster configuration</h6><p>
+    o- subnet ............................................. [10.20.6.0/24]</pre></div><div id="id-1.3.4.5.4.16.4" data-id-title="Status of cluster configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Status of cluster configuration</div><p>
      You can check if the configuration of the cluster is valid by running the
      following command:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt status
@@ -1833,7 +1833,7 @@ cluster: 5 minions, 0 hosts managed by cephadm
 config: OK</pre></div></div></section><section class="sect2" id="deploy-cephadm-configure-export" data-id-title="Exporting cluster configurations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.14 </span><span class="title-name">Exporting cluster configurations</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-export">#</a></h3></div></div></div><p>
     After you have configured the basic cluster and its configuration is valid,
     it is a good idea to export its configuration to a file:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt export &gt; cluster.json</pre></div><div id="id-1.3.4.5.4.17.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt export &gt; cluster.json</pre></div><div id="id-1.3.4.5.4.17.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      The output of the <code class="command">ceph-salt export</code> includes the SSH
      private key. If you are concerned about the security implications, do not
      execute this command without taking appropriate precautions.
@@ -1851,19 +1851,19 @@ config: OK</pre></div></div></section><section class="sect2" id="deploy-cephadm-
    <code class="option">--reboot</code> option
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt update --reboot</pre></div><p>
    Or, reboot them in a separate step:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt reboot</pre></div><div id="id-1.3.4.5.5.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt reboot</pre></div><div id="id-1.3.4.5.5.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     The Salt Master is never rebooted by <code class="command">ceph-salt update
     --reboot</code> or <code class="command">ceph-salt reboot</code> commands. If the
     Salt Master needs rebooting, you need to reboot it manually.
    </p></div><p>
    After the nodes are updated, bootstrap the minimal cluster:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply</pre></div><div id="id-1.3.4.5.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply</pre></div><div id="id-1.3.4.5.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     When bootstrapping is complete, the cluster will have one Ceph Monitor and one
     Ceph Manager.
    </p></div><p>
    The above command will open an interactive user interface that shows the
    current progress of each minion.
-  </p><div class="figure" id="id-1.3.4.5.5.14"><div class="figure-contents"><div class="mediaobject"><a href="images/cephadm_deploy.png"><img src="images/cephadm_deploy.png" width="75%" alt="Deployment of a minimal cluster" title="Deployment of a minimal cluster"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 7.1: </span><span class="title-name">Deployment of a minimal cluster </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.5.14">#</a></h6></div></div><div id="id-1.3.4.5.5.15" data-id-title="Non-interactive mode" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Non-interactive mode</h6><p>
+  </p><div class="figure" id="id-1.3.4.5.5.14"><div class="figure-contents"><div class="mediaobject"><a href="images/cephadm_deploy.png"><img src="images/cephadm_deploy.png" width="75%" alt="Deployment of a minimal cluster" title="Deployment of a minimal cluster"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 7.1: </span><span class="title-name">Deployment of a minimal cluster </span><a title="Permalink" class="permalink" href="#id-1.3.4.5.5.14">#</a></div></div></div><div id="id-1.3.4.5.5.15" data-id-title="Non-interactive mode" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Non-interactive mode</div><p>
     If you need to apply the configuration from a script, there is also a
     non-interactive mode of deployment. This is also useful when deploying the
     cluster from a remote machine because constant updating of the progress
@@ -1889,7 +1889,7 @@ config: OK</pre></div></div></section><section class="sect2" id="deploy-cephadm-
    this <code class="literal">public_network</code> setting <code class="literal">global</code>,
    which means it will apply to all types of Ceph daemons, and not only to
    MONs:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global public_network "$(ceph config get mon public_network)"</pre></div><div id="id-1.3.4.5.6.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global public_network "$(ceph config get mon public_network)"</pre></div><div id="id-1.3.4.5.6.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     This step is not required. However, if you do not use this setting, the
     Ceph OSDs and other daemons (except Ceph Monitor) will listen on <span class="emphasis"><em>all
     addresses</em></span>.
@@ -1950,7 +1950,7 @@ Hostname   Path      Type  Serial  Size   Health   Ident  Fault  Available
 ses-main   /dev/vdb  hdd   0d8a... 10.7G  Unknown  N/A    N/A    No
 ses-node1  /dev/vdc  hdd   8304... 10.7G  Unknown  N/A    N/A    No
 ses-node1  /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
-[...]</pre></div><div id="id-1.3.4.6.4.4.4" data-id-title="Services and daemons" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Services and daemons</h6><p>
+[...]</pre></div><div id="id-1.3.4.6.4.4.4" data-id-title="Services and daemons" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Services and daemons</div><p>
      <span class="emphasis"><em>Service</em></span> is a general term for a Ceph service of a
      specific type, for example Ceph Manager.
     </p><p>
@@ -1962,7 +1962,7 @@ ses-node1  /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls
 NAME  RUNNING  REFRESHED  AGE  PLACEMENT  IMAGE NAME                  IMAGE ID
 mgr       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd
-mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd</pre></div><div id="id-1.3.4.6.4.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd</pre></div><div id="id-1.3.4.6.4.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      You can limit the list to services on a particular node with the optional
      <code class="option">-–host</code> parameter, and services of a particular type with
      the optional <code class="option">--service-type</code> parameter. Acceptable types
@@ -1974,7 +1974,7 @@ mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf1
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps
 NAME             HOST      STATUS   REFRESHED AGE VERSION    IMAGE ID     CONTAINER ID
 mgr.ses-node1.gd ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd b8104e09814c
-mon.ses-node1    ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+mon.ses-node1    ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      To query the status of a particular daemon, use
      <code class="option">--daemon_type</code> and <code class="option">--daemon_id</code>. For OSDs,
      the ID is the numeric OSD ID. For MDS, the ID is the file system name:
@@ -2040,7 +2040,7 @@ placement:
        <a class="xref" href="#cephadm-placement-specs" title="8.2.2. Creating placement specification">Section 8.2.2, “Creating placement specification”</a> for more details.
       </p></dd><dt id="id-1.3.4.6.5.3.7.4"><span class="term"><code class="literal">spec</code></span></dt><dd><p>
        Additional specification relevant for the service type.
-      </p></dd></dl></div><div id="id-1.3.4.6.5.3.8" data-id-title="Applying specific services" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Applying specific services</h6><p>
+      </p></dd></dl></div><div id="id-1.3.4.6.5.3.8" data-id-title="Applying specific services" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Applying specific services</div><p>
      Ceph cluster services have usually a number of properties specific to
      them. For examples and details of individual services' specification,
      refer to <a class="xref" href="#deploy-cephadm-day2-services" title="8.3. Deploy Ceph services">Section 8.3, “Deploy Ceph services”</a>.
@@ -2112,7 +2112,7 @@ placement:
 service_name: mgr
 service_type: mgr
 ---
-[...]</pre></div><div id="id-1.3.4.6.5.6.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+[...]</pre></div><div id="id-1.3.4.6.5.6.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      You can append the <code class="option">--format</code> option to change the default
      <code class="literal">yaml</code> output format. You can select from
      <code class="literal">json</code>, <code class="literal">json-pretty</code>, or
@@ -2124,7 +2124,7 @@ service_type: mgr
     Ceph cluster has three or five MONs deployed across different nodes. If
     there are five or more nodes in the cluster, we recommend deploying five
     MONs. A good practice is to have MGRs deployed on the same nodes as MONs.
-   </p><div id="id-1.3.4.6.6.3.3" data-id-title="Include Bootstrap MON" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Include Bootstrap MON</h6><p>
+   </p><div id="id-1.3.4.6.6.3.3" data-id-title="Include Bootstrap MON" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Include Bootstrap MON</div><p>
      When deploying MONs and MGRs, remember to include the first MON that you
      added when configuring the basic cluster in
      <a class="xref" href="#deploy-cephadm-configure-mon" title="7.2.5. Specifying first MON/MGR node">Section 7.2.5, “Specifying first MON/MGR node”</a>.
@@ -2135,7 +2135,7 @@ placement:
   hosts:
   - ses-node1
   - ses-node2
-  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If you need to add another node, append the host name to the same YAML
      list. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
@@ -2146,14 +2146,14 @@ placement:
  - ses-node3
  - ses-node4</pre></div></div><p>
     Similarly, to deploy MGRs, apply the following specification:
-   </p><div id="id-1.3.4.6.6.3.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.3.4.6.6.3.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      Ensure your deployment has at least three Ceph Managers in each deployment.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mgr
 placement:
   hosts:
   - ses-node1
   - ses-node2
-  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      If MONs or MGRs are <span class="emphasis"><em>not</em></span> on the same subnet, you need
      to append the subnet addresses. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
@@ -2161,7 +2161,7 @@ placement:
   hosts:
   - ses-node1:10.1.2.0/24
   - ses-node2:10.1.5.0/24
-  - ses-node3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: When Storage Device is Available</h6><p>
+  - ses-node3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: When Storage Device is Available</div><p>
      A storage device is considered <span class="emphasis"><em>available</em></span> if all of
      the following conditions are met:
     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -2192,7 +2192,7 @@ placement:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply osd -i drive_groups.yml</pre></div></li></ul></div></section><section class="sect2" id="deploy-cephadm-day2-service-mds" data-id-title="Deploying Metadata Servers"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.3 </span><span class="title-name">Deploying Metadata Servers</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-mds">#</a></h3></div></div></div><p>
     CephFS requires one or more Metadata Server (MDS) services. To create a CephFS,
     first create MDS servers by applying the following specification:
-   </p><div id="id-1.3.4.6.6.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.6.6.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure you have at least two pools, one for CephFS data and one for
      CephFS metadata, created before applying the following specification.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mds
@@ -2249,7 +2249,7 @@ spec:
    MIIJRAIBADANBgkqhkiG9w0BAQEFAASCCS4wggkqAgEAAoICAQDLtFwg6LLl2j4Z
    BDV+iL4AO7VZ9KbmWIt37Ml2W6y2YeKX3Qwf+3eBz7TVHR1dm6iPpCpqpQjXUsT9
    [...]
-   -----END PRIVATE KEY-----</pre></div><div id="id-1.3.4.6.6.6.5.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   -----END PRIVATE KEY-----</pre></div><div id="id-1.3.4.6.6.6.5.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       Instead of pasting the content of a SSL certificate file, you can
       omit the <code class="literal">rgw_frontend_ssl_certificate:</code> directive and
       upload the certificate file to the configuration database:
@@ -2257,7 +2257,7 @@ spec:
  -i <em class="replaceable">SSL_CERT_FILE</em></pre></div></div><section class="sect4" id="cephadm-deploy-ogw-ports" data-id-title="Configure the Object Gateway to listen on both ports 443 and 80"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">8.3.4.1.1 </span><span class="title-name">Configure the Object Gateway to listen on both ports 443 and 80</span> <a title="Permalink" class="permalink" href="#cephadm-deploy-ogw-ports">#</a></h5></div></div></div><p>
       To configure the Object Gateway to listen on both ports 443 (HTTPS) and 80 (HTTP),
       follow these steps:
-     </p><div id="id-1.3.4.6.6.6.5.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.3.4.6.6.6.5.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The commands in the procedure use realm and zone
        <code class="literal">default</code>.
       </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
@@ -2279,7 +2279,7 @@ spec:
         For example, the target is
         <code class="literal">client.rgw.default.default.node4.yiewdu</code>. Remove the
         current specific <code class="option">rgw_frontends</code> value:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config rm client.rgw.default.default.node4.yiewdu rgw_frontends</pre></div><div id="id-1.3.4.6.6.6.5.8.4.4.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config rm client.rgw.default.default.node4.yiewdu rgw_frontends</pre></div><div id="id-1.3.4.6.6.6.5.8.4.4.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
          Instead of removing a value for <code class="option">rgw_frontends</code>, you
          can specify it. For example:
         </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set client.rgw.default.default.node4.yiewdu \
@@ -2307,7 +2307,7 @@ spec:
     Apply the following configuration to deploy. Ensure
     <code class="literal">trusted_ip_list</code> contains the IP addresses of all iSCSI Gateway
     and Ceph Manager nodes (see the example output below).
-   </p><div id="id-1.3.4.6.6.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.6.6.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure the pool is created before applying the following specification.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: iscsi
 service_id: <em class="replaceable">EXAMPLE_ISCSI</em>
@@ -2320,7 +2320,7 @@ spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   api_user: <em class="replaceable">EXAMPLE_USER</em>
   api_password: <em class="replaceable">EXAMPLE_PASSWORD</em>
-  trusted_ip_list: "<em class="replaceable">IP_ADDRESS_1</em>,<em class="replaceable">IP_ADDRESS_2</em>"</pre></div><div id="id-1.3.4.6.6.7.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  trusted_ip_list: "<em class="replaceable">IP_ADDRESS_1</em>,<em class="replaceable">IP_ADDRESS_2</em>"</pre></div><div id="id-1.3.4.6.6.7.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure the IPs listed for <code class="literal">trusted_ip_list</code> do
      <span class="emphasis"><em>not</em></span> have a space after the comma separation.
     </p></div><section class="sect3" id="id-1.3.4.6.6.7.7" data-id-title="Secure SSL configuration"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.5.1 </span><span class="title-name">Secure SSL configuration</span> <a title="Permalink" class="permalink" href="#id-1.3.4.6.6.7.7">#</a></h4></div></div></div><p>
@@ -2353,7 +2353,7 @@ spec:
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5jdYbjtNTAKW4
     /CwQr/7wOiLGzVxChn3mmCIF3DwbL/qvTFTX2d8bDf6LjGwLYloXHscRfxszX/4h
     [...]
-    -----END PRIVATE KEY-----</pre></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-nfs" data-id-title="Deploying NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.6 </span><span class="title-name">Deploying NFS Ganesha</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-nfs">#</a></h3></div></div></div><div id="id-1.3.4.6.6.8.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    -----END PRIVATE KEY-----</pre></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-nfs" data-id-title="Deploying NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.6 </span><span class="title-name">Deploying NFS Ganesha</span> <a title="Permalink" class="permalink" href="#deploy-cephadm-day2-service-nfs">#</a></h3></div></div></div><div id="id-1.3.4.6.6.8.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   NFS Ganesha supports NFS version 4.1 and newer.
   It does not support NFS version 3.
  </p></div><p>
@@ -2385,7 +2385,7 @@ placement:
     Prometheus Alertmanager, and Grafana. Ceph Dashboard makes use of these
     components to store and visualize detailed metrics on cluster usage and
     performance.
-   </p><div id="id-1.3.4.6.6.10.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   </p><div id="id-1.3.4.6.6.10.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      If your deployment requires custom or locally served container images of
      the monitoring stack services, refer to
      <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
@@ -2394,7 +2394,7 @@ placement:
    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
       Enable the <code class="literal">prometheus</code> module in the Ceph Manager daemon. This
       exposes the internal Ceph metrics so that Prometheus can read them:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable prometheus</pre></div><div id="id-1.3.4.6.6.10.5.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable prometheus</pre></div><div id="id-1.3.4.6.6.10.5.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        Ensure this command is run before Prometheus is deployed. If the
        command was not run before the deployment, you must redeploy
        Prometheus to update Prometheus' configuration:
@@ -2421,7 +2421,7 @@ placement:
       Apply monitoring services by running:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i monitoring.yaml</pre></div><p>
       It may take a minute or two for the monitoring services to be deployed.
-     </p></li></ol></div></div><div id="id-1.3.4.6.6.10.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p></li></ol></div></div><div id="id-1.3.4.6.6.10.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      Prometheus, Grafana, and the Ceph Dashboard are all automatically
      configured to talk to each other, resulting in a fully functional
      Grafana integration in the Ceph Dashboard when deployed as described above.
@@ -2523,7 +2523,7 @@ placement:
     Instead, users can use iSCSI or any other target front-end protocol to
     connect to an LIO target, which translates all target I/O to RBD storage
     operations.
-   </p><div class="figure" id="id-1.3.4.7.2.5.3"><div class="figure-contents"><div class="mediaobject"><a href="images/lrbd_scheme1.png"><img src="images/lrbd_scheme1.png" width="75%" alt="Ceph Cluster with a Single iSCSI Gateway" title="Ceph Cluster with a Single iSCSI Gateway"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 9.1: </span><span class="title-name">Ceph Cluster with a Single iSCSI Gateway </span><a title="Permalink" class="permalink" href="#id-1.3.4.7.2.5.3">#</a></h6></div></div><p>
+   </p><div class="figure" id="id-1.3.4.7.2.5.3"><div class="figure-contents"><div class="mediaobject"><a href="images/lrbd_scheme1.png"><img src="images/lrbd_scheme1.png" width="75%" alt="Ceph Cluster with a Single iSCSI Gateway" title="Ceph Cluster with a Single iSCSI Gateway"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 9.1: </span><span class="title-name">Ceph Cluster with a Single iSCSI Gateway </span><a title="Permalink" class="permalink" href="#id-1.3.4.7.2.5.3">#</a></div></div></div><p>
     <code class="systemitem">ceph-iscsi</code> is inherently highly-available and supports multipath operations.
     Thus, downstream initiator hosts can use multiple iSCSI gateways for both
     high availability and scalability. When communicating with an iSCSI
@@ -2531,7 +2531,7 @@ placement:
     requests across multiple gateways. In the event of a gateway failing, being
     temporarily unreachable, or being disabled for maintenance, I/O will
     transparently continue via another gateway.
-   </p><div class="figure" id="id-1.3.4.7.2.5.5"><div class="figure-contents"><div class="mediaobject"><a href="images/lrbd_scheme2.png"><img src="images/lrbd_scheme2.png" width="75%" alt="Ceph cluster with multiple iSCSI gateways" title="Ceph cluster with multiple iSCSI gateways"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 9.2: </span><span class="title-name">Ceph cluster with multiple iSCSI gateways </span><a title="Permalink" class="permalink" href="#id-1.3.4.7.2.5.5">#</a></h6></div></div></section><section class="sect2" id="ceph-iscsi-deploy" data-id-title="Deployment considerations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.3 </span><span class="title-name">Deployment considerations</span> <a title="Permalink" class="permalink" href="#ceph-iscsi-deploy">#</a></h3></div></div></div><p>
+   </p><div class="figure" id="id-1.3.4.7.2.5.5"><div class="figure-contents"><div class="mediaobject"><a href="images/lrbd_scheme2.png"><img src="images/lrbd_scheme2.png" width="75%" alt="Ceph cluster with multiple iSCSI gateways" title="Ceph cluster with multiple iSCSI gateways"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 9.2: </span><span class="title-name">Ceph cluster with multiple iSCSI gateways </span><a title="Permalink" class="permalink" href="#id-1.3.4.7.2.5.5">#</a></div></div></div></section><section class="sect2" id="ceph-iscsi-deploy" data-id-title="Deployment considerations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.3 </span><span class="title-name">Deployment considerations</span> <a title="Permalink" class="permalink" href="#ceph-iscsi-deploy">#</a></h3></div></div></div><p>
     A minimum configuration of SUSE Enterprise Storage 7.1 with <code class="systemitem">ceph-iscsi</code>
     consists of the following components:
    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -2590,13 +2590,13 @@ placement:
      interface or the <code class="systemitem">ceph-iscsi</code> gwcli utility. In this section, we will focus
      on gwcli only, demonstrating how to create an iSCSI target that exports
      an RBD image using the command line.
-    </p><div id="id-1.3.4.7.2.7.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.3.4.7.2.7.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       RBD images with the following properties cannot be exported via iSCSI:
      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
         images with the <code class="option">journaling</code> feature enabled
        </p></li><li class="listitem"><p>
         images with a <code class="option">stripe unit</code> less than 4096 bytes
-       </p></li></ul></div></div><div id="id-1.3.4.7.2.7.5.4" data-id-title="Incorrectly reported image sizes and the emulate_legacy_capacity option" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Incorrectly reported image sizes and the <code class="option">emulate_legacy_capacity</code> option</h6><p>
+       </p></li></ul></div></div><div id="id-1.3.4.7.2.7.5.4" data-id-title="Incorrectly reported image sizes and the emulate_legacy_capacity option" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Incorrectly reported image sizes and the <code class="option">emulate_legacy_capacity</code> option</div><p>
       A bug in older kernels caused iSCSI targets to report LUNs as one block
       (512 bytes) larger than the underlying RBD image. This allowed iSCSI
       initiators to write to one additional block of the image. To keep the
@@ -2643,7 +2643,7 @@ placement:
      <code class="literal">name</code> and <code class="literal">ip</code> address:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">gwcli &gt; </code> /iscsi-targets&gt; cd iqn.2003-01.org.linux-iscsi.iscsi.<em class="replaceable">SYSTEM-ARCH</em>:testvol/gateways
 <code class="prompt user">gwcli &gt; </code> /iscsi-target...tvol/gateways&gt; create iscsi1 192.168.124.104
-<code class="prompt user">gwcli &gt; </code> /iscsi-target...tvol/gateways&gt; create iscsi2 192.168.124.105</pre></div><div id="id-1.3.4.7.2.7.5.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+<code class="prompt user">gwcli &gt; </code> /iscsi-target...tvol/gateways&gt; create iscsi2 192.168.124.105</pre></div><div id="id-1.3.4.7.2.7.5.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       Use the <code class="literal">help</code> command to show the list of available
       commands in the current configuration node.
      </p></div><p>
@@ -2653,10 +2653,10 @@ placement:
 <code class="prompt user">gwcli &gt; </code> /disks&gt; attach iscsi-images/testvol</pre></div><p>
      Map the RBD image to the target:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">gwcli &gt; </code> /disks&gt; cd /iscsi-targets/iqn.2003-01.org.linux-iscsi.iscsi.<em class="replaceable">SYSTEM-ARCH</em>:testvol/disks
-<code class="prompt user">gwcli &gt; </code> /iscsi-target...testvol/disks&gt; add iscsi-images/testvol</pre></div><div id="id-1.3.4.7.2.7.5.18" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">gwcli &gt; </code> /iscsi-target...testvol/disks&gt; add iscsi-images/testvol</pre></div><div id="id-1.3.4.7.2.7.5.18" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       You can use lower-level tools, such as <code class="command">targetcli</code>, to
       query the local configuration, but not to modify it.
-     </p></div><div id="id-1.3.4.7.2.7.5.19" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     </p></div><div id="id-1.3.4.7.2.7.5.19" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       You can use the <code class="command">ls</code> command to review the
       configuration. Some configuration nodes also support the
       <code class="command">info</code> command, which can be used to display more
@@ -2685,7 +2685,7 @@ placement:
       In addition to the ACL, you can enable CHAP authentication by specifying
       a user name and password for each initiator:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">gwcli &gt; </code> /&gt; cd /iscsi-targets/iqn.2003-01.org.linux-iscsi.iscsi.<em class="replaceable">SYSTEM-ARCH</em>:testvol/hosts/iqn.1996-04.de.suse:01:e6ca28cc9f20
-<code class="prompt user">gwcli &gt; </code> /iscsi-target...:e6ca28cc9f20&gt; auth username=common12 password=pass12345678</pre></div><div id="id-1.3.4.7.2.7.6.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">gwcli &gt; </code> /iscsi-target...:e6ca28cc9f20&gt; auth username=common12 password=pass12345678</pre></div><div id="id-1.3.4.7.2.7.6.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        User names must have a length of 8 to 64 characters and can contain
        alphanumeric characters, <code class="literal">.</code>, <code class="literal">@</code>,
        <code class="literal">-</code>, <code class="literal">_</code> or <code class="literal">:</code>.
@@ -2702,7 +2702,7 @@ placement:
       previous authentication methods. It requires credentials for browsing, it
       is optional, and can be configured by:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">gwcli &gt; </code> /&gt; cd /iscsi-targets
-<code class="prompt user">gwcli &gt; </code> /iscsi-targets&gt; discovery_auth username=du123456 password=dp1234567890</pre></div><div id="id-1.3.4.7.2.7.6.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">gwcli &gt; </code> /iscsi-targets&gt; discovery_auth username=du123456 password=dp1234567890</pre></div><div id="id-1.3.4.7.2.7.6.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        User names must have a length of 8 to 64 characters and can only contain
        letters, <code class="literal">.</code>, <code class="literal">@</code>,
        <code class="literal">-</code>, <code class="literal">_</code> or <code class="literal">:</code>.
@@ -2720,7 +2720,7 @@ placement:
      <code class="systemitem">ceph-iscsi</code> can be configured with advanced parameters which are
      subsequently passed on to the LIO I/O target. The parameters are divided
      up into <code class="literal">target</code> and <code class="literal">disk</code> parameters.
-    </p><div id="id-1.3.4.7.2.7.7.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+    </p><div id="id-1.3.4.7.2.7.7.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       Unless otherwise noted, changing these parameters from the default
       setting is not recommended.
      </p></div><section class="sect4" id="iscsi-target-settings" data-id-title="Viewing target settings"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">9.1.4.5.1 </span><span class="title-name">Viewing target settings</span> <a title="Permalink" class="permalink" href="#iscsi-target-settings">#</a></h5></div></div></div><p>
@@ -2769,7 +2769,7 @@ placement:
          If set to 0, support for SCSI Reservations, including Persistent Group
          Reservations, is disabled. While disabled, the SES iSCSI Gateway can
          ignore reservation state, resulting in improved request latency.
-        </p><div id="id-1.3.4.7.2.7.7.5.7.8.2.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+        </p><div id="id-1.3.4.7.2.7.7.5.7.8.2.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
           Setting <code class="literal">backstore_emulate_pr</code> to
           <code class="literal">0</code> is recommended if iSCSI initiators do not
           require SCSI Reservation support.
@@ -2823,7 +2823,7 @@ placement:
     The <code class="systemitem">ceph-iscsi</code> supports both <code class="option">rbd</code> (kernel-based) and
     <code class="option">user:rbd</code> (tcmu-runner) backstores, making all the
     management transparent and independent of the backstore.
-   </p><div id="id-1.3.4.7.2.8.3" data-id-title="Technology preview" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Technology preview</h6><p>
+   </p><div id="id-1.3.4.7.2.8.3" data-id-title="Technology preview" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Technology preview</div><p>
      <code class="systemitem">tcmu-runner</code> based iSCSI Gateway deployments are currently
      a technology preview.
     </p></div><p>
@@ -2834,7 +2834,7 @@ placement:
     To export an RADOS Block Device image using <code class="systemitem">tcmu-runner</code>, all
     you need to do is specify the <code class="option">user:rbd</code> backstore when
     attaching the disk:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">gwcli &gt; </code> /disks&gt; attach rbd/testvol backstore=user:rbd</pre></div><div id="id-1.3.4.7.2.8.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">gwcli &gt; </code> /disks&gt; attach rbd/testvol backstore=user:rbd</pre></div><div id="id-1.3.4.7.2.8.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      When using <code class="systemitem">tcmu-runner</code>, the exported RBD image
      must have the <code class="option">exclusive-lock</code> feature enabled.
     </p></div></section></section></section></div><div class="part" id="ses-upgrade" data-id-title="Upgrading from Previous Releases"><div class="titlepage"><div><div><h1 class="title"><span class="title-number">Part III </span><span class="title-name">Upgrading from Previous Releases </span><a title="Permalink" class="permalink" href="#ses-upgrade">#</a></h1></div></div></div><div class="toc"><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span></li><dd class="toc-abstract"><p>
@@ -2855,11 +2855,11 @@ placement:
     containers.
    </p></li><li class="listitem"><p>
     Complete removal of DeepSea and replacing with <code class="systemitem">ceph-salt</code> and cephadm.
-   </p></li></ul></div><div id="id-1.3.5.2.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p></li></ul></div><div id="id-1.3.5.2.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
    The upgrade information in this chapter <span class="emphasis"><em>only</em></span> applies to
    upgrades from DeepSea to cephadm. Do not attempt to follow these
    instructions if you want to deploy SUSE Enterprise Storage on SUSE CaaS Platform.
-  </p></div><div id="id-1.3.5.2.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p></div><div id="id-1.3.5.2.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
    Upgrading from SUSE Enterprise Storage versions older than 6 is
    not supported. First, you must upgrade to the latest version of
    SUSE Enterprise Storage 6, and then follow the steps in this
@@ -2926,7 +2926,7 @@ placement:
       services (Metadata Server, Object Gateway, NFS Ganesha, iSCSI Gateway) need to be redeployed after the
       core services are upgraded. There is a certain amount of downtime for
       each of the following services:
-     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><div id="id-1.3.5.2.8.4.3.6.2.1.1" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><div id="id-1.3.5.2.8.4.3.6.2.1.1" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
          Metadata Servers and Object Gateways are down from the time the nodes are upgraded from
          SUSE Linux Enterprise Server 15 SP1 to SUSE Linux Enterprise Server 15 SP3 until the services are redeployed at the
          end of the upgrade procedure. This is particularly important to bear
@@ -2976,7 +2976,7 @@ placement:
    </p></section><section class="sect2" id="verify-previous-upgrade-patch" data-id-title="Updating cluster nodes and verifying cluster health"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1.4 </span><span class="title-name">Updating cluster nodes and verifying cluster health</span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch">#</a></h3></div></div></div><p>
     Verify that all latest updates of SUSE Linux Enterprise Server 15 SP1 and SUSE Enterprise Storage
     6 are applied to all cluster nodes:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper refresh &amp;&amp; zypper patch</pre></div><div id="id-1.3.5.2.8.7.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper refresh &amp;&amp; zypper patch</pre></div><div id="id-1.3.5.2.8.7.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      Refer to
      <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates</a>
      for detailed information about updating the cluster nodes.
@@ -3047,7 +3047,7 @@ placement:
      about configuring a local container image registry.
     </p></section></section></section><section class="sect1" id="upgrade-salt-master" data-id-title="Upgrading the Salt Master"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span> <a title="Permalink" class="permalink" href="#upgrade-salt-master">#</a></h2></div></div></div><p>
    The following procedure describes the process of upgrading the Salt Master:
-  </p><div id="id-1.3.5.2.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.3.5.2.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Before continuing, ensure the steps have been followed 
       from <a class="xref" href="#deploy-cephadm-configure-imagepath" title="7.2.10.2. Configuring the path to container images">Section 7.2.10.2, “Configuring the path to container images”</a>. 
       Without this configuration, the podman image pull fails in
@@ -3124,7 +3124,7 @@ Nodes running older software versions must be upgraded in the following order:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set osd bluestore_fsck_quick_fix_on_mount true</pre></div><p>
      The OSD nodes will be converted automatically after their adoption
      finishes.
-    </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       The conversion may take minutes to hours, depending on how much OMAP data
       the related hard disk contains. For more details, refer to
       <a class="link" href="https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters" target="_blank">https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters</a>.
@@ -3174,7 +3174,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
 <code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph-bluestore-tool --path /var/lib/ceph/osd/ceph-<em class="replaceable">OSD_DAEMON_ID</em>--command quick-fix
 <code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> start</pre></div><p>
         Allow the OSD node to be up and in again, then run:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
          You can run the above commands in parallel on multiple OSD daemons on the same OSD node
          to help accelerate the upgrade.
         </p></div></li></ol></li><li class="step"><p>
@@ -3185,7 +3185,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      Replace <em class="replaceable">MINION_ID</em> with the ID of the minion
      that you are upgrading. You can get the list of minion IDs by running the
      <code class="command">salt-key -L</code> command on the Salt Master.
-    </p><div id="id-1.3.5.2.10.3.5.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div id="id-1.3.5.2.10.3.5.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       To see the status and progress of the <span class="emphasis"><em>adoption</em></span>,
       check the Ceph Dashboard or run one of the following commands on the
       Salt Master:
@@ -3215,7 +3215,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
    install the <span class="package">ceph-salt</span> package and apply the cluster
    configuration. The actual gateway services are redeployed in a containerized
    mode at the end of the upgrade procedure.
-  </p><div id="id-1.3.5.2.11.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.3.5.2.11.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     To successfully upgrade the Metadata Server, ensure you reduce the Metadata Server to 1.
    </p><p>
     Run <code class="command">salt-run upgrade.status</code> to ensure that all Metadata Servers on
@@ -3223,10 +3223,10 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
    </p><p>
     Ensure you stop the Metadata Server before upgrading the Ceph Monitor nodes as it may
     otherwise result in a failed quorum.
-   </p></div><div id="id-1.3.5.2.11.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p></div><div id="id-1.3.5.2.11.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     Metadata Server and Object Gateway services are unavailable from the time of upgrading to
     SUSE Linux Enterprise Server 15 SP3 until they are redeployed at the end of the upgrade procedure.
-   </p></div><div id="id-1.3.5.2.11.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p></div><div id="id-1.3.5.2.11.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     SUSE Enterprise Storage 7.1 does not use the
     <code class="option">rgw_frontend_ssl_key</code> option. Instead, both the SSL key and
     certificate are concatenated under the
@@ -3267,7 +3267,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      Import DeepSea's cluster configuration into <code class="systemitem">ceph-salt</code>:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt import ceph-salt-config.json</pre></div></li><li class="step"><p>
      Generate SSH keys for cluster node communication:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ssh generate</pre></div><div id="id-1.3.5.2.12.4.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ssh generate</pre></div><div id="id-1.3.5.2.12.4.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       Verify that the cluster configuration was imported from DeepSea and
       specify potentially missed options:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config ls</pre></div><p>
@@ -3304,7 +3304,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      (the Salt Master by default), run the following commands:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name prometheus.$(hostname)
 <code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name alertmanager.$(hostname)
-<code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name grafana.$(hostname)</pre></div><div id="id-1.3.5.2.13.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name grafana.$(hostname)</pre></div><div id="id-1.3.5.2.13.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       If you are <span class="bold"><strong>not</strong></span> running the default
       container image registry <code class="literal">registry.suse.com</code>, you need
       to specify the image to use on each command, for example:
@@ -3329,7 +3329,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph cephadm registry-login <em class="replaceable">URL</em> <em class="replaceable">USERNAME</em> <em class="replaceable">PASSWORD</em></pre></div></li><li class="step"><p>
      Apply the service specifications that you previously exported from
      DeepSea:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i specs.yaml</pre></div><div id="id-1.3.5.2.13.3.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i specs.yaml</pre></div><div id="id-1.3.5.2.13.3.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       If you are <span class="bold"><strong>not</strong></span> running the default
       container image registry <code class="literal">registry.suse.com</code>, but a
       local container registry, configure cephadm to use the container image
@@ -3395,16 +3395,16 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
     To have the Object Gateway service containerized, create its specification file as
     described in <a class="xref" href="#deploy-cephadm-day2-service-ogw" title="8.3.4. Deploying Object Gateways">Section 8.3.4, “Deploying Object Gateways”</a>, and apply
     it.
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">RGW</em>.yml</pre></div></section><section class="sect2" id="upgrade-ganesha" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.7.2 </span><span class="title-name">Upgrading NFS Ganesha</span> <a title="Permalink" class="permalink" href="#upgrade-ganesha">#</a></h3></div></div></div><div id="id-1.3.5.2.14.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">RGW</em>.yml</pre></div></section><section class="sect2" id="upgrade-ganesha" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.7.2 </span><span class="title-name">Upgrading NFS Ganesha</span> <a title="Permalink" class="permalink" href="#upgrade-ganesha">#</a></h3></div></div></div><div id="id-1.3.5.2.14.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   NFS Ganesha supports NFS version 4.1 and newer.
   It does not support NFS version 3.
- </p></div><div id="id-1.3.5.2.14.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+ </p></div><div id="id-1.3.5.2.14.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   The upgrade process disables the <code class="literal">nfs</code> module in the Ceph Manager daemon. 
   You can re-enable it by executing the following command from the Admin Node:
  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable nfs</pre></div></div><p>
     The following demonstrates how to migrate an existing NFS Ganesha service
     running Ceph Nautilus to an NFS Ganesha container running Ceph Octopus.
-   </p><div id="id-1.3.5.2.14.3.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p><div id="id-1.3.5.2.14.3.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      The following documentation requires you to have already successfully
      upgraded the core Ceph services.
     </p></div><p>
@@ -3480,7 +3480,7 @@ nfs.foo.node2  node2  running (26m)  8m ago     27m  3.3      registry.suse.com/
      </p></li><li class="listitem"><p>
       Manually copy the contents of each per-daemon RADOS object into the
       newly created NFS Ganesha common configuration.
-     </p></li></ul></div><div class="procedure" id="id-1.3.5.2.14.3.17" data-id-title="Manually copying exports to NFS Ganesha common configuration file"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 10.1: </span><span class="title-name">Manually copying exports to NFS Ganesha common configuration file </span><a title="Permalink" class="permalink" href="#id-1.3.5.2.14.3.17">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     </p></li></ul></div><div class="procedure" id="id-1.3.5.2.14.3.17" data-id-title="Manually copying exports to NFS Ganesha common configuration file"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 10.1: </span><span class="title-name">Manually copying exports to NFS Ganesha common configuration file </span><a title="Permalink" class="permalink" href="#id-1.3.5.2.14.3.17">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
       Determine the list of per-daemon RADOS objects:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>RADOS_ARGS="--pool ganesha_config --namespace ganesha"
 <code class="prompt user">cephuser@adm &gt; </code>DAEMON_OBJS=$(rados $RADOS_ARGS ls | grep 'conf-')</pre></div></li><li class="step"><p>
@@ -3503,7 +3503,7 @@ drwxr-xr-x 3 root root 4.0K Sep 8 16:47 ..
       Write the new NFS Ganesha common configuration file:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS put conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div></li><li class="step"><p>
       Notify the NFS Ganesha daemon:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS notify conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div><div id="id-1.3.5.2.14.3.17.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS notify conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div><div id="id-1.3.5.2.14.3.17.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        This action will cause the daemon to reload the configuration.
       </p></div></li></ol></div></div><p>
     After the service has been successfully migrated, the Nautilus-based
@@ -3601,7 +3601,7 @@ spec:
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5jdYbjtNTAKW4
     /CwQr/7wOiLGzVxChn3mmCIF3DwbL/qvTFTX2d8bDf6LjGwLYloXHscRfxszX/4h
     [...]
-    -----END PRIVATE KEY-----</pre></div><div id="id-1.3.5.2.14.5.3.2.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    -----END PRIVATE KEY-----</pre></div><div id="id-1.3.5.2.14.5.3.2.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The <code class="option">pool</code>, <code class="option">trusted_ip_list</code>,
        <code class="option">api_port</code>, <code class="option">api_user</code>,
        <code class="option">api_password</code>, <code class="option">api_secure</code> settings are
@@ -3633,7 +3633,7 @@ spec:
      Make sure that no old OSDs will join the cluster:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd require-osd-release pacific</pre></div></li><li class="step"><p>
      Set the <code class="option">pg_autoscale_mode</code> of existing pools if necessary:
-    </p><div id="id-1.3.5.2.15.3.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div id="id-1.3.5.2.15.3.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Pools in SUSE Enterprise Storage 6 had the <code class="option">pg_autoscale_mode</code> set
       to <code class="option">warn</code> by default. This resulted in a warning message
       in case of suboptimal number of PGs, but autoscaling did not actually
@@ -3746,7 +3746,7 @@ spec:
      correct set of container images available. Refer to
      <a class="xref" href="#deploy-cephadm-configure-registry" title="7.2.10. Using the container registry">Section 7.2.10, “Using the container registry”</a> for more details
      about configuring a local container image registry.
-    </p><div id="id-1.3.5.3.6.5.4.5" data-id-title="Remove unused container images" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Remove unused container images</h6><p>
+    </p><div id="id-1.3.5.3.6.5.4.5" data-id-title="Remove unused container images" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Remove unused container images</div><p>
       Optionally, remove unused container images remaining on the system after
       the upgrade:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' cmd.shell "podman image prune --all --force"</pre></div></div></section></section></section><section class="sect1" id="upgrade-cluster-nodes" data-id-title="Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span> <a title="Permalink" class="permalink" href="#upgrade-cluster-nodes">#</a></h2></div></div></div><p>
@@ -3768,10 +3768,10 @@ spec:
   </p></section><section class="sect1" id="upgrade-ses-services" data-id-title="Upgrade existing Ceph cluster services"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span> <a title="Permalink" class="permalink" href="#upgrade-ses-services">#</a></h2></div></div></div><p>
    Perform the upgrade of the whole Ceph cluster to version Pacific by
    running the following command from the Admin Node:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch upgrade start --image registry.suse.com/ses/7.1/ceph/ceph</pre></div><div id="id-1.3.5.3.9.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch upgrade start --image registry.suse.com/ses/7.1/ceph/ceph</pre></div><div id="id-1.3.5.3.9.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     For upgrading the monitoring container images, refer to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.2 “Updating monitoring services”</span> and <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>. Upgrading container images involves
     the same steps as upgrading container images during a maintenance update.
-   </p></div></section><section class="sect1" id="upgrade-gateways-7p" data-id-title="Gateway service upgrade"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span> <a title="Permalink" class="permalink" href="#upgrade-gateways-7p">#</a></h2></div></div></div><section class="sect2" id="upgrade-object-gateway-7p" data-id-title="Upgrading the Object Gateway"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.5.1 </span><span class="title-name">Upgrading the Object Gateway</span> <a title="Permalink" class="permalink" href="#upgrade-object-gateway-7p">#</a></h3></div></div></div><div id="id-1.3.5.3.10.2.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p></div></section><section class="sect1" id="upgrade-gateways-7p" data-id-title="Gateway service upgrade"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span> <a title="Permalink" class="permalink" href="#upgrade-gateways-7p">#</a></h2></div></div></div><section class="sect2" id="upgrade-object-gateway-7p" data-id-title="Upgrading the Object Gateway"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.5.1 </span><span class="title-name">Upgrading the Object Gateway</span> <a title="Permalink" class="permalink" href="#upgrade-object-gateway-7p">#</a></h3></div></div></div><div id="id-1.3.5.3.10.2.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      SUSE Enterprise Storage 7.1 does not use the
      <code class="option">rgw_frontend_ssl_key</code> option. Instead, both the SSL key and
      certificate are concatenated under the
@@ -3782,7 +3782,7 @@ spec:
      <code class="option">rgw_frontend_ssl_certificate</code> option.
      Refer to <a class="xref" href="#cephadm-deploy-using-secure-ssl-access" title="8.3.4.1. Using secure SSL access">Section 8.3.4.1, “Using secure SSL access”</a> for more
      details.
-    </p></div></section><section class="sect2" id="upgrade-ganesha-7p" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.5.2 </span><span class="title-name">Upgrading NFS Ganesha</span> <a title="Permalink" class="permalink" href="#upgrade-ganesha-7p">#</a></h3></div></div></div><div id="id-1.3.5.3.10.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p></div></section><section class="sect2" id="upgrade-ganesha-7p" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.5.2 </span><span class="title-name">Upgrading NFS Ganesha</span> <a title="Permalink" class="permalink" href="#upgrade-ganesha-7p">#</a></h3></div></div></div><div id="id-1.3.5.3.10.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   The upgrade process disables the <code class="literal">nfs</code> module in the Ceph Manager daemon. 
   You can re-enable it by executing the following command from the Admin Node:
  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable nfs</pre></div></div></section></section></section></div><section class="appendix" id="id-1.3.6" data-id-title="Ceph maintenance updates based on upstream Pacific point releases"><div class="titlepage"><div><div><h1 class="title"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span> <a title="Permalink" class="permalink" href="#id-1.3.6">#</a></h1></div></div></div><p>

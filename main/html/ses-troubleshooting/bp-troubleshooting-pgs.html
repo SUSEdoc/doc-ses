@@ -77,7 +77,7 @@ hljs.configure({
     <code class="literal">osd crush chooseleaf</code> type is greater than 0, Ceph
     tries to pair the PGs of one OSD with the PGs of another OSD on another
     node, chassis, rack, row, or even datacenter depending on the setting.
-   </p><div id="id-1.5.7.4.3.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.5.7.4.3.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Do not mount kernel clients directly on the same node as your Ceph
      Storage Cluster, because kernel conflicts can arise. However, you can
      mount kernel clients within virtual machines (VMs) on a single node.
@@ -95,7 +95,7 @@ hljs.configure({
     the <code class="literal">osd pool default size</code> setting to 2 so that you only
     have two stored replicas (the original and one replica), in which case the
     cluster should achieve an <code class="literal">active+clean</code> state.
-   </p><div id="id-1.5.7.4.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.5.7.4.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      You can make the changes at runtime. If you make the changes in your
      Ceph configuration file, you may need to restart your cluster.
     </p></div></section><section class="sect2" id="troubleshooting-pool-size" data-id-title="Forcing pool sizes"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.2.3 </span><span class="title-name">Forcing pool sizes</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-pgs.html#troubleshooting-pool-size">#</a></h3></div></div></div><p>
@@ -180,7 +180,7 @@ hljs.configure({
    <code class="literal">ceph-osd</code> to recover. Alternatively, if there is a
    catastrophic failure of <code class="literal">osd.1</code> such as a disk failure,
    tell the cluster that it is lost and to cope as best it can.
-  </p><div id="id-1.5.7.6.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.5.7.6.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     The cluster cannot guarantee that the other copies of the data are
     consistent and up to date.
    </p></div><p>

@@ -56,7 +56,7 @@ Hostname   Path      Type  Serial  Size   Health   Ident  Fault  Available
 ses-main   /dev/vdb  hdd   0d8a... 10.7G  Unknown  N/A    N/A    No
 ses-node1  /dev/vdc  hdd   8304... 10.7G  Unknown  N/A    N/A    No
 ses-node1  /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
-[...]</pre></div><div id="id-1.3.4.6.4.4.4" data-id-title="Services and daemons" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Services and daemons</h6><p>
+[...]</pre></div><div id="id-1.3.4.6.4.4.4" data-id-title="Services and daemons" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Services and daemons</div><p>
      <span class="emphasis"><em>Service</em></span> is a general term for a Ceph service of a
      specific type, for example Ceph Manager.
     </p><p>
@@ -68,7 +68,7 @@ ses-node1  /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls
 NAME  RUNNING  REFRESHED  AGE  PLACEMENT  IMAGE NAME                  IMAGE ID
 mgr       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd
-mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd</pre></div><div id="id-1.3.4.6.4.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf12403d0bd</pre></div><div id="id-1.3.4.6.4.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      You can limit the list to services on a particular node with the optional
      <code class="option">-–host</code> parameter, and services of a particular type with
      the optional <code class="option">--service-type</code> parameter. Acceptable types
@@ -80,7 +80,7 @@ mon       1/0  5m ago     -    &lt;no spec&gt;  registry.example.com/[...]  5bf1
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps
 NAME             HOST      STATUS   REFRESHED AGE VERSION    IMAGE ID     CONTAINER ID
 mgr.ses-node1.gd ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd b8104e09814c
-mon.ses-node1    ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+mon.ses-node1    ses-node1 running) 8m ago    12d 15.2.0.108 5bf12403d0bd a719e0087369</pre></div><div id="id-1.3.4.6.4.4.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      To query the status of a particular daemon, use
      <code class="option">--daemon_type</code> and <code class="option">--daemon_id</code>. For OSDs,
      the ID is the numeric OSD ID. For MDS, the ID is the file system name:
@@ -146,7 +146,7 @@ placement:
        <a class="xref" href="deploy-core.html#cephadm-placement-specs" title="8.2.2. Creating placement specification">Section 8.2.2, “Creating placement specification”</a> for more details.
       </p></dd><dt id="id-1.3.4.6.5.3.7.4"><span class="term"><code class="literal">spec</code></span></dt><dd><p>
        Additional specification relevant for the service type.
-      </p></dd></dl></div><div id="id-1.3.4.6.5.3.8" data-id-title="Applying specific services" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Applying specific services</h6><p>
+      </p></dd></dl></div><div id="id-1.3.4.6.5.3.8" data-id-title="Applying specific services" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Applying specific services</div><p>
      Ceph cluster services have usually a number of properties specific to
      them. For examples and details of individual services' specification,
      refer to <a class="xref" href="deploy-core.html#deploy-cephadm-day2-services" title="8.3. Deploy Ceph services">Section 8.3, “Deploy Ceph services”</a>.
@@ -218,7 +218,7 @@ placement:
 service_name: mgr
 service_type: mgr
 ---
-[...]</pre></div><div id="id-1.3.4.6.5.6.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+[...]</pre></div><div id="id-1.3.4.6.5.6.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      You can append the <code class="option">--format</code> option to change the default
      <code class="literal">yaml</code> output format. You can select from
      <code class="literal">json</code>, <code class="literal">json-pretty</code>, or
@@ -230,7 +230,7 @@ service_type: mgr
     Ceph cluster has three or five MONs deployed across different nodes. If
     there are five or more nodes in the cluster, we recommend deploying five
     MONs. A good practice is to have MGRs deployed on the same nodes as MONs.
-   </p><div id="id-1.3.4.6.6.3.3" data-id-title="Include Bootstrap MON" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Include Bootstrap MON</h6><p>
+   </p><div id="id-1.3.4.6.6.3.3" data-id-title="Include Bootstrap MON" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Include Bootstrap MON</div><p>
      When deploying MONs and MGRs, remember to include the first MON that you
      added when configuring the basic cluster in
      <a class="xref" href="deploy-bootstrap.html#deploy-cephadm-configure-mon" title="7.2.5. Specifying first MON/MGR node">Section 7.2.5, “Specifying first MON/MGR node”</a>.
@@ -241,7 +241,7 @@ placement:
   hosts:
   - ses-node1
   - ses-node2
-  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If you need to add another node, append the host name to the same YAML
      list. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
@@ -252,14 +252,14 @@ placement:
  - ses-node3
  - ses-node4</pre></div></div><p>
     Similarly, to deploy MGRs, apply the following specification:
-   </p><div id="id-1.3.4.6.6.3.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.3.4.6.6.3.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      Ensure your deployment has at least three Ceph Managers in each deployment.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mgr
 placement:
   hosts:
   - ses-node1
   - ses-node2
-  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  - ses-node3</pre></div><div id="id-1.3.4.6.6.3.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      If MONs or MGRs are <span class="emphasis"><em>not</em></span> on the same subnet, you need
      to append the subnet addresses. For example:
     </p><div class="verbatim-wrap"><pre class="screen">service_type: mon
@@ -267,7 +267,7 @@ placement:
   hosts:
   - ses-node1:10.1.2.0/24
   - ses-node2:10.1.5.0/24
-  - ses-node3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: When Storage Device is Available</h6><p>
+  - ses-node3:10.1.10.0/24</pre></div></div></section><section class="sect2" id="deploy-cephadm-day2-service-osd" data-id-title="Deploying Ceph OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.2 </span><span class="title-name">Deploying Ceph OSDs</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-osd">#</a></h3></div></div></div><div id="id-1.3.4.6.6.4.2" data-id-title="When Storage Device is Available" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: When Storage Device is Available</div><p>
      A storage device is considered <span class="emphasis"><em>available</em></span> if all of
      the following conditions are met:
     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -298,7 +298,7 @@ placement:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply osd -i drive_groups.yml</pre></div></li></ul></div></section><section class="sect2" id="deploy-cephadm-day2-service-mds" data-id-title="Deploying Metadata Servers"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.3 </span><span class="title-name">Deploying Metadata Servers</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-mds">#</a></h3></div></div></div><p>
     CephFS requires one or more Metadata Server (MDS) services. To create a CephFS,
     first create MDS servers by applying the following specification:
-   </p><div id="id-1.3.4.6.6.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.6.6.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure you have at least two pools, one for CephFS data and one for
      CephFS metadata, created before applying the following specification.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: mds
@@ -355,7 +355,7 @@ spec:
    MIIJRAIBADANBgkqhkiG9w0BAQEFAASCCS4wggkqAgEAAoICAQDLtFwg6LLl2j4Z
    BDV+iL4AO7VZ9KbmWIt37Ml2W6y2YeKX3Qwf+3eBz7TVHR1dm6iPpCpqpQjXUsT9
    [...]
-   -----END PRIVATE KEY-----</pre></div><div id="id-1.3.4.6.6.6.5.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   -----END PRIVATE KEY-----</pre></div><div id="id-1.3.4.6.6.6.5.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       Instead of pasting the content of a SSL certificate file, you can
       omit the <code class="literal">rgw_frontend_ssl_certificate:</code> directive and
       upload the certificate file to the configuration database:
@@ -363,7 +363,7 @@ spec:
  -i <em class="replaceable">SSL_CERT_FILE</em></pre></div></div><section class="sect4" id="cephadm-deploy-ogw-ports" data-id-title="Configure the Object Gateway to listen on both ports 443 and 80"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">8.3.4.1.1 </span><span class="title-name">Configure the Object Gateway to listen on both ports 443 and 80</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-deploy-ogw-ports">#</a></h5></div></div></div><p>
       To configure the Object Gateway to listen on both ports 443 (HTTPS) and 80 (HTTP),
       follow these steps:
-     </p><div id="id-1.3.4.6.6.6.5.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.3.4.6.6.6.5.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The commands in the procedure use realm and zone
        <code class="literal">default</code>.
       </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
@@ -385,7 +385,7 @@ spec:
         For example, the target is
         <code class="literal">client.rgw.default.default.node4.yiewdu</code>. Remove the
         current specific <code class="option">rgw_frontends</code> value:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config rm client.rgw.default.default.node4.yiewdu rgw_frontends</pre></div><div id="id-1.3.4.6.6.6.5.8.4.4.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config rm client.rgw.default.default.node4.yiewdu rgw_frontends</pre></div><div id="id-1.3.4.6.6.6.5.8.4.4.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
          Instead of removing a value for <code class="option">rgw_frontends</code>, you
          can specify it. For example:
         </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set client.rgw.default.default.node4.yiewdu \
@@ -413,7 +413,7 @@ spec:
     Apply the following configuration to deploy. Ensure
     <code class="literal">trusted_ip_list</code> contains the IP addresses of all iSCSI Gateway
     and Ceph Manager nodes (see the example output below).
-   </p><div id="id-1.3.4.6.6.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.6.6.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure the pool is created before applying the following specification.
     </p></div><div class="verbatim-wrap"><pre class="screen">service_type: iscsi
 service_id: <em class="replaceable">EXAMPLE_ISCSI</em>
@@ -426,7 +426,7 @@ spec:
   pool: <em class="replaceable">EXAMPLE_POOL</em>
   api_user: <em class="replaceable">EXAMPLE_USER</em>
   api_password: <em class="replaceable">EXAMPLE_PASSWORD</em>
-  trusted_ip_list: "<em class="replaceable">IP_ADDRESS_1</em>,<em class="replaceable">IP_ADDRESS_2</em>"</pre></div><div id="id-1.3.4.6.6.7.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  trusted_ip_list: "<em class="replaceable">IP_ADDRESS_1</em>,<em class="replaceable">IP_ADDRESS_2</em>"</pre></div><div id="id-1.3.4.6.6.7.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure the IPs listed for <code class="literal">trusted_ip_list</code> do
      <span class="emphasis"><em>not</em></span> have a space after the comma separation.
     </p></div><section class="sect3" id="id-1.3.4.6.6.7.7" data-id-title="Secure SSL configuration"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.5.1 </span><span class="title-name">Secure SSL configuration</span> <a title="Permalink" class="permalink" href="deploy-core.html#id-1.3.4.6.6.7.7">#</a></h4></div></div></div><p>
@@ -459,7 +459,7 @@ spec:
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5jdYbjtNTAKW4
     /CwQr/7wOiLGzVxChn3mmCIF3DwbL/qvTFTX2d8bDf6LjGwLYloXHscRfxszX/4h
     [...]
-    -----END PRIVATE KEY-----</pre></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-nfs" data-id-title="Deploying NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.6 </span><span class="title-name">Deploying NFS Ganesha</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-nfs">#</a></h3></div></div></div><div id="id-1.3.4.6.6.8.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    -----END PRIVATE KEY-----</pre></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-nfs" data-id-title="Deploying NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.6 </span><span class="title-name">Deploying NFS Ganesha</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-nfs">#</a></h3></div></div></div><div id="id-1.3.4.6.6.8.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   NFS Ganesha supports NFS version 4.1 and newer.
   It does not support NFS version 3.
  </p></div><p>
@@ -491,7 +491,7 @@ placement:
     Prometheus Alertmanager, and Grafana. Ceph Dashboard makes use of these
     components to store and visualize detailed metrics on cluster usage and
     performance.
-   </p><div id="id-1.3.4.6.6.10.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   </p><div id="id-1.3.4.6.6.10.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      If your deployment requires custom or locally served container images of
      the monitoring stack services, refer to
      <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
@@ -500,7 +500,7 @@ placement:
    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
       Enable the <code class="literal">prometheus</code> module in the Ceph Manager daemon. This
       exposes the internal Ceph metrics so that Prometheus can read them:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable prometheus</pre></div><div id="id-1.3.4.6.6.10.5.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable prometheus</pre></div><div id="id-1.3.4.6.6.10.5.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        Ensure this command is run before Prometheus is deployed. If the
        command was not run before the deployment, you must redeploy
        Prometheus to update Prometheus' configuration:
@@ -527,7 +527,7 @@ placement:
       Apply monitoring services by running:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i monitoring.yaml</pre></div><p>
       It may take a minute or two for the monitoring services to be deployed.
-     </p></li></ol></div></div><div id="id-1.3.4.6.6.10.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p></li></ol></div></div><div id="id-1.3.4.6.6.10.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      Prometheus, Grafana, and the Ceph Dashboard are all automatically
      configured to talk to each other, resulting in a fully functional
      Grafana integration in the Ceph Dashboard when deployed as described above.

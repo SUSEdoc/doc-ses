@@ -67,14 +67,14 @@ hljs.configure({
    OSDs for a more balanced deployment. Although the module is activated by
    default, it is inactive. It supports the following two modes:
    <code class="literal">crush-compat</code> and <code class="literal">upmap</code>.
-  </p><div id="id-1.4.8.3.12.3" data-id-title="Current Balancer Status and Configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Current Balancer Status and Configuration</h6><p>
+  </p><div id="id-1.4.8.3.12.3" data-id-title="Current Balancer Status and Configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Current Balancer Status and Configuration</div><p>
     To view the current balancer status and configuration information, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer status</pre></div></div><section class="sect2" id="mgr-balancer-crush-compat" data-id-title="The crush-compat mode"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">29.1.1 </span><span class="title-name">The 'crush-compat' mode</span> <a title="Permalink" class="permalink" href="cha-mgr-modules.html#mgr-balancer-crush-compat">#</a></h3></div></div></div><p>
     In 'crush-compat' mode, the balancer adjusts the OSDs' reweight-sets to
     achieve improved distribution of the data. It moves PGs between OSDs,
     temporarily causing a <code class="literal">HEALTH_WARN</code> cluster state
     resulting from misplaced PGs.
-   </p><div id="id-1.4.8.3.12.4.3" data-id-title="Mode Activation" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Mode Activation</h6><p>
+   </p><div id="id-1.4.8.3.12.4.3" data-id-title="Mode Activation" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Mode Activation</div><p>
      Although 'crush-compat' is the default mode, we recommend activating it
      explicitly:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer mode crush-compat</pre></div></div></section><section class="sect2" id="mgr-balancer-planning-executing" data-id-title="Planning and executing of data balancing"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">29.1.2 </span><span class="title-name">Planning and executing of data balancing</span> <a title="Permalink" class="permalink" href="cha-mgr-modules.html#mgr-balancer-planning-executing">#</a></h3></div></div></div><p>
@@ -91,7 +91,7 @@ hljs.configure({
     run, consider activating the automatic mode and monitor the rebalance
     traffic under normal I/O load. The improvements in PG distribution need to
     be weighed against the rebalance traffic caused by the balancer.
-   </p><div id="id-1.4.8.3.12.5.4" data-id-title="Movable Fraction of Placement Groups (PGs)" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Movable Fraction of Placement Groups (PGs)</h6><p>
+   </p><div id="id-1.4.8.3.12.5.4" data-id-title="Movable Fraction of Placement Groups (PGs)" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Movable Fraction of Placement Groups (PGs)</div><p>
      During the process of balancing, the balancer module throttles PG
      movements so that only a configurable fraction of PGs is moved. The
      default is 5% and you can adjust the fraction, to 9% for example, by
@@ -115,7 +115,7 @@ hljs.configure({
       balancing:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer on</pre></div><p>
       If you later decide to deactivate automatic balancing, run:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer off</pre></div></li></ol></div></div><div id="id-1.4.8.3.12.5.7" data-id-title="Automatic Balancing without Initial Plan" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Automatic Balancing without Initial Plan</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer off</pre></div></li></ol></div></div><div id="id-1.4.8.3.12.5.7" data-id-title="Automatic Balancing without Initial Plan" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Automatic Balancing without Initial Plan</div><p>
      You can activate automatic balancing without executing an initial plan. In
      such case, expect a potentially long running rebalancing of placement
      groups.
@@ -133,13 +133,13 @@ hljs.configure({
    for the developers to help quantify adoption rates, tracking, or point out
    things that need to be better explained or validated during configuration to
    prevent undesirable outcomes.
-  </p><div id="id-1.4.8.3.13.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.8.3.13.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The telemetry module requires the Ceph Manager nodes to have the ability to push
     data over HTTPS to the upstream servers. Ensure your corporate firewalls
     permit this action.
    </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
      To enable the telemetry module:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable telemetry</pre></div><div id="id-1.4.8.3.13.6.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable telemetry</pre></div><div id="id-1.4.8.3.13.6.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This command only enables you to view your data locally. This command
       does not share your data with the Ceph community.
      </p></div></li><li class="step"><p>

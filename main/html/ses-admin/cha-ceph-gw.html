@@ -47,7 +47,7 @@ hljs.configure({
     Object Gateway via the Swift API, you may use any combination of UTF-8 supported
     characters except for a slash character '/'. The maximum length of a bucket
     name is 255 characters. Bucket names must be unique.
-   </p><div id="id-1.4.6.2.4.3.3" data-id-title="Use DNS-compliant bucket names" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Use DNS-compliant bucket names</h6><p>
+   </p><div id="id-1.4.6.2.4.3.3" data-id-title="Use DNS-compliant bucket names" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Use DNS-compliant bucket names</div><p>
      Although you may use any UTF-8 based bucket name via the Swift API, it
      is recommended to name buckets with regard to the S3 naming limitations to
      avoid problems accessing the same bucket via the S3 API.
@@ -233,7 +233,7 @@ sudo zypper refresh</pre></div><p>
         Purges all data associated to the user ID.
        </p></dd><dt id="id-1.4.6.2.8.5.3.8.2"><span class="term">--purge-keys</span></dt><dd><p>
         Purges all keys associated to the user ID.
-       </p></dd></dl></div><div id="id-1.4.6.2.8.5.3.9" data-id-title="Removing a subuser" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Removing a subuser</h6><p>
+       </p></dd></dl></div><div id="id-1.4.6.2.8.5.3.9" data-id-title="Removing a subuser" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Removing a subuser</div><p>
       When you remove a subuser, you are removing access to the Swift
       interface. The user will remain in the system.
      </p></div></section><section class="sect3" id="changing-s3-swift-users-password" data-id-title="Changing S3 and Swift user access and secret keys"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.5.2.3 </span><span class="title-name">Changing S3 and Swift user access and secret keys</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#changing-s3-swift-users-password">#</a></h4></div></div></div><p>
@@ -294,7 +294,7 @@ sudo zypper refresh</pre></div><p>
   </p></section><section class="sect1" id="ceph-rgw-https" data-id-title="Enable HTTPS/SSL for Object Gateways"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.7 </span><span class="title-name">Enable HTTPS/SSL for Object Gateways</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-https">#</a></h2></div></div></div><p>
    To enable the Object Gateway to communicate securely using SSL, you need to either
    have a CA-issued certificate or create a self-signed one.
-  </p><section class="sect2" id="ogw-selfcert" data-id-title="Creating a self-signed certificate"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.7.1 </span><span class="title-name">Creating a self-signed certificate</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-selfcert">#</a></h3></div></div></div><div id="id-1.4.6.2.10.3.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  </p><section class="sect2" id="ogw-selfcert" data-id-title="Creating a self-signed certificate"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.7.1 </span><span class="title-name">Creating a self-signed certificate</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-selfcert">#</a></h3></div></div></div><div id="id-1.4.6.2.10.3.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      Skip this section if you already have a valid certificate signed by CA.
     </p></div><p>
     The following procedure describes how to generate a self-signed SSL
@@ -307,7 +307,7 @@ sudo zypper refresh</pre></div><p>
      </p><div class="verbatim-wrap"><pre class="screen">[...]
 [ v3_req ]
 subjectAltName = DNS:server1.example.com DNS:server2.example.com
-[...]</pre></div><div id="id-1.4.6.2.10.3.4.1.3" data-id-title="IP addresses in subjectAltName" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: IP addresses in <code class="option">subjectAltName</code></h6><p>
+[...]</pre></div><div id="id-1.4.6.2.10.3.4.1.3" data-id-title="IP addresses in subjectAltName" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: IP addresses in <code class="option">subjectAltName</code></div><p>
        To use IP addresses instead of domain names in the
        <code class="option">subjectAltName</code> option, replace the example line with
        the following:
@@ -380,7 +380,7 @@ rgw/cert/<em class="replaceable">RGW_REALM</em>/<em class="replaceable">RGW_ZONE
  --tier-config=profiles[].source_bucket=<em class="replaceable">PREFIX</em>'*'
 <code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify --rgw-zonegroup=<em class="replaceable">ZONE-GROUP-NAME</em> \
  --rgw-zone=<em class="replaceable">ZONE-NAME</em> \
- --tier-config=profiles[-1].connection_id=<em class="replaceable">CONNECTION_ID</em>,profiles[-1].acls_id=<em class="replaceable">ACLS_ID</em></pre></div><div id="id-1.4.6.2.11.3.10" data-id-title="Adding and removing configuration entries" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Adding and removing configuration entries</h6><p>
+ --tier-config=profiles[-1].connection_id=<em class="replaceable">CONNECTION_ID</em>,profiles[-1].acls_id=<em class="replaceable">ACLS_ID</em></pre></div><div id="id-1.4.6.2.11.3.10" data-id-title="Adding and removing configuration entries" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Adding and removing configuration entries</div><p>
      You can add a new tier configuration entry by using the
      <code class="option">--tier-config-add=<em class="replaceable">KEY</em>=<em class="replaceable">VALUE</em></code>
      parameter.
@@ -399,7 +399,7 @@ rgw/cert/<em class="replaceable">RGW_REALM</em>/<em class="replaceable">RGW_ZONE
     example of a zone using <code class="literal">ElasticSearch</code> synchronization
     module. The process would be similar for configuring any other
     synchronization plug-in.
-   </p><div id="id-1.4.6.2.11.4.3" data-id-title="Default synchronization plug-in" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Default synchronization plug-in</h6><p>
+   </p><div id="id-1.4.6.2.11.4.3" data-id-title="Default synchronization plug-in" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Default synchronization plug-in</div><p>
      <code class="literal">rgw</code> is the default synchronization plug-in and there is
      no need to explicitly configure this.
     </p></div><section class="sect3" id="ceph-rgw-sync-zones-req" data-id-title="Requirements and assumptions"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.2.1 </span><span class="title-name">Requirements and assumptions</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-sync-zones-req">#</a></h4></div></div></div><p>
@@ -561,7 +561,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      Following are examples of a trivial and non-trivial configuration for the
      cloud synchronization module. Note that the trivial configuration can
      collide with the non-trivial one.
-    </p><div class="example" id="id-1.4.6.2.11.6.5.3" data-id-title="Trivial configuration"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 21.1: </span><span class="title-name">Trivial configuration </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.11.6.5.3">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">{
+    </p><div class="example" id="id-1.4.6.2.11.6.5.3" data-id-title="Trivial configuration"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 21.1: </span><span class="title-name">Trivial configuration </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.11.6.5.3">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">{
   "connection": {
     "access_key": <em class="replaceable">ACCESS</em>,
     "secret": <em class="replaceable">SECRET</em>,
@@ -572,7 +572,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
     "source_id": <em class="replaceable">SOURCE_ID</em>,
     "dest_id": <em class="replaceable">DEST_ID</em> } ... ],
   "target_path": <em class="replaceable">TARGET_PATH</em>,
-}</pre></div></div></div><div class="example" id="id-1.4.6.2.11.6.5.4" data-id-title="Non-trivial configuration"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 21.2: </span><span class="title-name">Non-trivial configuration </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.11.6.5.4">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">{
+}</pre></div></div></div><div class="example" id="id-1.4.6.2.11.6.5.4" data-id-title="Non-trivial configuration"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 21.2: </span><span class="title-name">Non-trivial configuration </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.11.6.5.4">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">{
   "default": {
     "connection": {
       "access_key": <em class="replaceable">ACCESS</em>,
@@ -707,7 +707,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
     flexibility of an S3 object history in one zone while saving the space that
     the replicas of the versioned S3 objects would consume in the remaining
     zones.
-   </p><section class="sect3" id="archive-sync-module-configuration" data-id-title="Configuring the archive synchronization module"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.5.1 </span><span class="title-name">Configuring the archive synchronization module</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#archive-sync-module-configuration">#</a></h4></div></div></div><div id="id-1.4.6.2.11.7.5.2" data-id-title="More information" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: More information</h6><p>
+   </p><section class="sect3" id="archive-sync-module-configuration" data-id-title="Configuring the archive synchronization module"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.8.5.1 </span><span class="title-name">Configuring the archive synchronization module</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#archive-sync-module-configuration">#</a></h4></div></div></div><div id="id-1.4.6.2.11.7.5.2" data-id-title="More information" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: More information</div><p>
       Refer to <a class="xref" href="cha-ceph-gw.html#ceph-rgw-fed" title="21.13. Multisite Object Gateways">Section 21.13, “Multisite Object Gateways”</a> for details on configuring
       multisite gateways.
      </p><p>
@@ -743,11 +743,11 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      </p></li><li class="listitem"><p>
       <span class="emphasis"><em>User account</em></span>: At least one user account in the LDAP
       directory.
-     </p></li></ul></div><div id="id-1.4.6.2.12.4.3" data-id-title="Do not overlap LDAP and local users" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Do not overlap LDAP and local users</h6><p>
+     </p></li></ul></div><div id="id-1.4.6.2.12.4.3" data-id-title="Do not overlap LDAP and local users" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Do not overlap LDAP and local users</div><p>
      You should not use the same user names for local users and for users being
      authenticated by using LDAP. The Object Gateway cannot distinguish them and it
      treats them as the same user.
-    </p></div><div id="id-1.4.6.2.12.4.4" data-id-title="Sanity checks" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Sanity checks</h6><p>
+    </p></div><div id="id-1.4.6.2.12.4.4" data-id-title="Sanity checks" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Sanity checks</div><p>
      Use the <code class="command">ldapsearch</code> utility to verify the service
      account or the LDAP connection. For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>ldapsearch -x -D "uid=ceph,ou=system,dc=example,dc=com" -W \
@@ -801,7 +801,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      The <code class="option">rgw_ldap_dnattr</code> parameter is not used anymore in this
      case. For example, to limit valid users to a specific group, use the
      following filter:
-    </p><div class="verbatim-wrap"><pre class="screen">"(&amp;(uid=USERNAME)(memberOf=cn=ceph-users,ou=groups,dc=mycompany,dc=com))"</pre></div><div id="id-1.4.6.2.12.6.4.4" data-id-title="memberOf attribute" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: <code class="literal">memberOf</code> attribute</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen">"(&amp;(uid=USERNAME)(memberOf=cn=ceph-users,ou=groups,dc=mycompany,dc=com))"</pre></div><div id="id-1.4.6.2.12.6.4.4" data-id-title="memberOf attribute" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: <code class="literal">memberOf</code> attribute</div><p>
       Using the <code class="literal">memberOf</code> attribute in LDAP searches requires
       server side support from you specific LDAP server implementation.
      </p></div></section></section><section class="sect2" id="ceph-rgw-ldap-token" data-id-title="Generating an access token for LDAP authentication"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.9.5 </span><span class="title-name">Generating an access token for LDAP authentication</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-ldap-token">#</a></h3></div></div></div><p>
@@ -812,10 +812,10 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
     access key and use an empty secret key.
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>export RGW_ACCESS_KEY_ID="<em class="replaceable">USERNAME</em>"
 <code class="prompt user">&gt; </code>export RGW_SECRET_ACCESS_KEY="<em class="replaceable">PASSWORD</em>"
-<code class="prompt user">cephuser@adm &gt; </code>radosgw-token --encode --ttype=ldap</pre></div><div id="id-1.4.6.2.12.7.4" data-id-title="Clear text credentials" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Clear text credentials</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>radosgw-token --encode --ttype=ldap</pre></div><div id="id-1.4.6.2.12.7.4" data-id-title="Clear text credentials" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Clear text credentials</div><p>
      The access token is a base-64 encoded JSON structure and contains the LDAP
      credentials as a clear text.
-    </p></div><div id="id-1.4.6.2.12.7.5" data-id-title="Active Directory" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Active Directory</h6><p>
+    </p></div><div id="id-1.4.6.2.12.7.5" data-id-title="Active Directory" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Active Directory</div><p>
      For Active Directory, use the <code class="option">--ttype=ad</code> parameter.
     </p></div></section></section><section class="sect1" id="ogw-bucket-sharding" data-id-title="Bucket index sharding"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">21.10 </span><span class="title-name">Bucket index sharding</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-sharding">#</a></h2></div></div></div><p>
    The Object Gateway stores bucket index data in an index pool, which defaults to
@@ -849,7 +849,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      <code class="option">reshard_log</code> queue and will be scheduled to be resharded
      later. The reshard threads run in the background and execute the scheduled
      resharding, one at a time.
-    </p><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Configuring dynamic resharding </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.3.6">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.6.2.13.3.3.6.2"><span class="term"><code class="option">rgw_dynamic_resharding</code></span></dt><dd><p>
+    </p><div class="variablelist"><div class="variablelist-title-wrap"><div class="variablelist-title"><span class="title-name">Configuring dynamic resharding </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.3.6">#</a></div></div><dl class="variablelist"><dt id="id-1.4.6.2.13.3.3.6.2"><span class="term"><code class="option">rgw_dynamic_resharding</code></span></dt><dd><p>
         Enables or disables dynamic bucket index resharding. Possible values
         are 'true' or 'false'. Defaults to 'true'.
        </p></dd><dt id="id-1.4.6.2.13.3.3.6.3"><span class="term"><code class="option">rgw_reshard_num_logs</code></span></dt><dd><p>
@@ -863,7 +863,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
        </p></dd><dt id="id-1.4.6.2.13.3.3.6.6"><span class="term"><code class="option">rgw_reshard_thread_interval</code></span></dt><dd><p>
         Maximum time between rounds of reshard thread processing. Defaults to
         600 seconds.
-       </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Commands to administer the resharding process </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.3.7">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.6.2.13.3.3.7.2"><span class="term">Add a bucket to the resharding queue:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard add \
+       </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><div class="variablelist-title"><span class="title-name">Commands to administer the resharding process </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.3.7">#</a></div></div><dl class="variablelist"><dt id="id-1.4.6.2.13.3.3.7.2"><span class="term">Add a bucket to the resharding queue:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard add \
  --bucket <em class="replaceable">BUCKET_NAME</em> \
  --num-shards <em class="replaceable">NEW_NUMBER_OF_SHARDS</em></pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.3"><span class="term">List resharding queue:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard list</pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.4"><span class="term">Process/schedule a bucket resharding:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard process</pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.5"><span class="term">Display the bucket resharding status:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard status --bucket <em class="replaceable">BUCKET_NAME</em></pre></div></dd><dt id="id-1.4.6.2.13.3.3.7.6"><span class="term">Cancel pending bucket resharding:</span></dt><dd><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin reshard cancel --bucket <em class="replaceable">BUCKET_NAME</em></pre></div></dd></dl></div></section><section class="sect3" id="ogw-bucket-sharding-re" data-id-title="Resharding manually"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.10.1.2 </span><span class="title-name">Resharding manually</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-sharding-re">#</a></h4></div></div></div><p>
      Dynamic resharding as mentioned in
@@ -885,20 +885,20 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
        operations go through the new bucket indexes.
       </p></li><li class="listitem"><p>
        Prints the old and the new bucket ID to the standard output.
-      </p></li></ul></div><div id="id-1.4.6.2.13.3.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      </p></li></ul></div><div id="id-1.4.6.2.13.3.4.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       When choosing a number of shards, note the following: aim for no more
       than 100000 entries per shard. Bucket index shards that are prime numbers
       tend to work better in evenly distributing bucket index entries across
       the shards. For example, 503 bucket index shards is better than 500 since
       the former is prime.
-     </p></div><div id="id-1.4.6.2.13.3.4.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+     </p></div><div id="id-1.4.6.2.13.3.4.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
        Multi-site configurations do not support resharding a bucket index.
      </p><p>
        For multi-site configurations, resharding a bucket index requires
        resynchronizing all data from the master zone to all slave zones.
        Depending on the bucket size, this can take a considerable amount of time
        and resources.
-     </p></div><div class="procedure" id="id-1.4.6.2.13.3.4.9" data-id-title="Resharding the bucket index"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 21.1: </span><span class="title-name">Resharding the bucket index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.4.9">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     </p></div><div class="procedure" id="id-1.4.6.2.13.3.4.9" data-id-title="Resharding the bucket index"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 21.1: </span><span class="title-name">Resharding the bucket index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.13.3.4.9">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
        Make sure that all operations to the bucket are stopped.
       </p></li><li class="step"><p>
        Back up the original bucket index:
@@ -908,7 +908,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
        Reshard the bucket index:
       </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket reshard \
  --bucket=<em class="replaceable">BUCKET_NAME</em> \
- --num-shards=<em class="replaceable">NEW_SHARDS_NUMBER</em></pre></div><div id="id-1.4.6.2.13.3.4.9.4.3" data-id-title="Old bucket ID" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Old bucket ID</h6><p>
+ --num-shards=<em class="replaceable">NEW_SHARDS_NUMBER</em></pre></div><div id="id-1.4.6.2.13.3.4.9.4.3" data-id-title="Old bucket ID" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Old bucket ID</div><p>
         As part of its output, this command also prints the new and the old
         bucket ID.
        </p></div></li></ol></div></div></section></section><section class="sect2" id="ogw-bucket-sharding-new" data-id-title="Bucket index sharding for new buckets"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">21.10.2 </span><span class="title-name">Bucket index sharding for new buckets</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ogw-bucket-sharding-new">#</a></h3></div></div></div><p>
@@ -1041,7 +1041,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      Ceph Object Gateway gets the ticket, it looks at the tenant and the user roles that are
      assigned to that ticket, and accepts or rejects the request according to
      the setting of the <code class="option">rgw keystone accepted roles</code> option.
-    </p><div id="id-1.4.6.2.14.4.3.7" data-id-title="Mapping to OpenStack tenants" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Mapping to OpenStack tenants</h6><p>
+    </p><div id="id-1.4.6.2.14.4.3.7" data-id-title="Mapping to OpenStack tenants" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Mapping to OpenStack tenants</div><p>
       Although Swift tenants are mapped to the Object Gateway user by default, they
       can be also mapped to OpenStack tenants via the <code class="option">rgw keystone
       implicit tenants</code> option. This will make containers use the
@@ -1123,7 +1123,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
         }
     ],
     ...
-}</pre></div><div id="id-1.4.6.2.15.4.6" data-id-title="No previous multisite configuration" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: No previous multisite configuration</h6><p>
+}</pre></div><div id="id-1.4.6.2.15.4.6" data-id-title="No previous multisite configuration" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: No previous multisite configuration</div><p>
      If you have not done any previous multisite configuration, a 'default'
      zone and zonegroup are created for you, and changes to the zone/zonegroup
      will not take effect until you restart the Ceph Object Gateways. If you have created a
@@ -1225,7 +1225,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
       Objects stored to zones in one zonegroup within the same realm as another
       zonegroup share a global object namespace, ensuring unique object IDs
       across zonegroups and zones.
-     </p><div id="id-1.4.6.2.16.3.2.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.4.6.2.16.3.2.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        It is important to note that zonegroups <span class="emphasis"><em>only</em></span> sync
        metadata amongst themselves. Data and metadata are replicated between
        the zones within the zonegroup. No data or metadata is shared across a
@@ -1301,7 +1301,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
   "name": "gold",
   "current_period": "09559832-67a4-4101-8b3f-10dfcd6b2707",
   "epoch": 1
-}</pre></div><div id="id-1.4.6.2.16.7.3.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+}</pre></div><div id="id-1.4.6.2.16.7.3.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Ceph generates a unique ID for the realm, which allows the renaming of
       a realm if the need arises.
      </p></div></section><section class="sect3" id="ceph-rgw-fed-createmasterzonegrp" data-id-title="Creating a master zonegroup"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.2 </span><span class="title-name">Creating a master zonegroup</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-createmasterzonegrp">#</a></h4></div></div></div><p>
@@ -1337,14 +1337,14 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
  "placement_targets": [],
  "default_placement": "",
  "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7"
-}</pre></div></section><section class="sect3" id="ceph-rgw-fed-masterzone" data-id-title="Creating a master zone"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.3 </span><span class="title-name">Creating a master zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone">#</a></h4></div></div></div><div id="id-1.4.6.2.16.7.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+}</pre></div></section><section class="sect3" id="ceph-rgw-fed-masterzone" data-id-title="Creating a master zone"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.3 </span><span class="title-name">Creating a master zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone">#</a></h4></div></div></div><div id="id-1.4.6.2.16.7.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Zones need to be created on a Ceph Object Gateway node that will be within the zone.
      </p></div><p>
      Create a new master zone for the multi-site configuration by opening a
      command line interface on a host identified to serve in the master
      zonegroup and zone. Execute the following:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone create --rgw-zonegroup=us --rgw-zone=us-east-1 \
---endpoints=http://rgw1:80 --access-key=<em class="replaceable">SYSTEM_ACCESS_KEY</em> --secret=<em class="replaceable">SYSTEM_SECRET_KEY</em></pre></div><div id="id-1.4.6.2.16.7.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+--endpoints=http://rgw1:80 --access-key=<em class="replaceable">SYSTEM_ACCESS_KEY</em> --secret=<em class="replaceable">SYSTEM_SECRET_KEY</em></pre></div><div id="id-1.4.6.2.16.7.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       The <code class="option">--access-key</code> and <code class="option">--secret</code> options
       are not specified in the above example. These settings are added to the
       zone when the user is created in the next section.
@@ -1388,7 +1388,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
       ],
       "metadata_heap": "",
       "realm_id": ""
-  }</pre></div></section><section class="sect3" id="ceph-rgw-fed-deldefzonegrp" data-id-title="Deleting the default zone and group"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.4 </span><span class="title-name">Deleting the default zone and group</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-deldefzonegrp">#</a></h4></div></div></div><div id="id-1.4.6.2.16.7.6.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  }</pre></div></section><section class="sect3" id="ceph-rgw-fed-deldefzonegrp" data-id-title="Deleting the default zone and group"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.4 </span><span class="title-name">Deleting the default zone and group</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-deldefzonegrp">#</a></h4></div></div></div><div id="id-1.4.6.2.16.7.6.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       The following steps assume a multi-site configuration using newly
       installed systems that are not storing data yet. <span class="bold"><strong>Do
       not delete</strong></span> the default zone and its pools if you are already
@@ -1399,7 +1399,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      sure to remove it from the default zonegroup first.
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup delete --rgw-zonegroup=default</pre></div><p>
      Delete the default pools in your Ceph storage cluster if they exist:
-    </p><div id="id-1.4.6.2.16.7.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div id="id-1.4.6.2.16.7.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       The following step assumes a multi-site configuration using newly
       installed systems that are not currently storing data.
       <span class="bold"><strong>Do not delete</strong></span> the default zonegroup if
@@ -1408,7 +1408,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
 <code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.data.root default.rgw.data.root --yes-i-really-really-mean-it
 <code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.gc default.rgw.gc --yes-i-really-really-mean-it
 <code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.log default.rgw.log --yes-i-really-really-mean-it
-<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.meta default.rgw.meta --yes-i-really-really-mean-it</pre></div><div id="id-1.4.6.2.16.7.6.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rm default.rgw.meta default.rgw.meta --yes-i-really-really-mean-it</pre></div><div id="id-1.4.6.2.16.7.6.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       If you delete the default zonegroup, you are also deleting the system
       user. If your admin user keys are not propagated, the Object Gateway management
       functionality of the Ceph Dashboard will fail. Follow on to the next section
@@ -1445,7 +1445,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
        "enabled": false, "max_size_kb": -1, "max_objects": -1
      }
   }, "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7", "realm_name": "gold", "realm_epoch": 1
-}</pre></div><div id="id-1.4.6.2.16.7.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+}</pre></div><div id="id-1.4.6.2.16.7.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Updating the period changes the epoch and ensures that other zones
       receive the updated configuration.
      </p></div></section><section class="sect3" id="ceph-rgw-fed-masterzone-startrgw" data-id-title="Start the gateway"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.3.7 </span><span class="title-name">Start the gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-masterzone-startrgw">#</a></h4></div></div></div><p>
@@ -1458,10 +1458,10 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
     Zones within a zonegroup replicate all data to ensure that each zone has the
     same data. When creating the secondary zone, execute all of the following
     operations on a host identified to serve the secondary zone.
-   </p><div id="id-1.4.6.2.16.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.4.6.2.16.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      To add a third zone, follow the same procedures as for adding the
      secondary zone. Use different zone name.
-    </p></div><div id="id-1.4.6.2.16.8.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p></div><div id="id-1.4.6.2.16.8.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      You must execute metadata operations, such as user creation, on a host
      within the master zone. The master zone and the secondary zone can receive
      bucket operations, but the secondary zone redirects bucket operations to
@@ -1472,7 +1472,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
      non-default realm, specify the realm using the
      <code class="option">--rgw-realm</code> or <code class="option">--realm-id</code> configuration
      options.
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable">url-to-master-zone-gateway</em> --access-key=<em class="replaceable">access-key</em> --secret=<em class="replaceable">secret</em></pre></div><div id="id-1.4.6.2.16.8.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm pull --url=<em class="replaceable">url-to-master-zone-gateway</em> --access-key=<em class="replaceable">access-key</em> --secret=<em class="replaceable">secret</em></pre></div><div id="id-1.4.6.2.16.8.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Pulling the realm also retrieves the remote's current period
       configuration, and makes it the current period on this host as well.
      </p></div><p>
@@ -1528,7 +1528,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
   ],
   "metadata_heap": "us-east-2.rgw.meta",
   "realm_id": "815d74c2-80d6-4e63-8cfc-232037f7ff5c"
-}</pre></div><div id="id-1.4.6.2.16.8.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+}</pre></div><div id="id-1.4.6.2.16.8.6.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       The following steps assume a multi-site configuration using
       newly-installed systems that are not yet storing data.
       <span class="bold"><strong>Do not delete</strong></span> the default zone
@@ -1635,7 +1635,7 @@ x-amz-meta-search: x-amz-meta-year;int, x-amz-meta-release-date;date, x-amz-meta
   "realm_id": "4a367026-bd8f-40ee-b486-8212482ddcd7",
   "realm_name": "gold",
   "realm_epoch": 2
-}</pre></div><div id="id-1.4.6.2.16.8.8.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+}</pre></div><div id="id-1.4.6.2.16.8.8.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Updating the period changes the epoch and ensures that other zones
       receive the updated configuration.
      </p></div></section><section class="sect3" id="ceph-rgw-fed-secondzone-startrgw" data-id-title="Starting the Object Gateway"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.4.5 </span><span class="title-name">Starting the Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-fed-secondzone-startrgw">#</a></h4></div></div></div><p>
@@ -1657,7 +1657,7 @@ metadata sync syncing
                       syncing
                       full sync: 0/128 shards
                       incremental sync: 128/128 shards
-                      data is caught up with source</pre></div><div id="id-1.4.6.2.16.8.10.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+                      data is caught up with source</pre></div><div id="id-1.4.6.2.16.8.10.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Secondary zones accept bucket operations; however, secondary zones
       redirect bucket operations to the master zone and then synchronize with
       the master zone to receive the result of the bucket operations. If the
@@ -1710,7 +1710,7 @@ data sync source: 341c2d81-4574-4d08-ab0f-5a2a7b168028 (us-east)
      <code class="option">rgw_sync_log_trim_interval</code> option is set to 20 minutes as
      default. If it is not manually set to 0, you will not need to trim it at
      any time as it could cause side effects otherwise.
-    </p></section><section class="sect3" id="ceph-rgw-metadata-master" data-id-title="Changing the metadata master zone"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.3 </span><span class="title-name">Changing the metadata master zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-metadata-master">#</a></h4></div></div></div><div id="id-1.4.6.2.16.9.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p></section><section class="sect3" id="ceph-rgw-metadata-master" data-id-title="Changing the metadata master zone"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.3 </span><span class="title-name">Changing the metadata master zone</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-metadata-master">#</a></h4></div></div></div><div id="id-1.4.6.2.16.9.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Be careful when changing which zone is the metadata master. If a zone has
       not finished synchronizing metadata from the current master zone, it is unable
       to serve any remaining entries when promoted to master and those changes
@@ -1732,11 +1732,11 @@ data sync source: 341c2d81-4574-4d08-ab0f-5a2a7b168028 (us-east)
 <code class="prompt user">cephuser@ogw &gt; </code>radosgw-admin period update --commit</pre></div><p>
      This generates a new period, and the Object Gateway instance(s) in zone
      <code class="literal">us-west</code> sends this period to other zones.
-    </p></section><section class="sect3" id="ceph-rgw-multisite-bucket-reshard" data-id-title="Resharding a bucket index"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.4 </span><span class="title-name">Resharding a bucket index</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-multisite-bucket-reshard">#</a></h4></div></div></div><div id="id-1.4.6.2.16.9.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p></section><section class="sect3" id="ceph-rgw-multisite-bucket-reshard" data-id-title="Resharding a bucket index"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">21.13.5.4 </span><span class="title-name">Resharding a bucket index</span> <a title="Permalink" class="permalink" href="cha-ceph-gw.html#ceph-rgw-multisite-bucket-reshard">#</a></h4></div></div></div><div id="id-1.4.6.2.16.9.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
        Resharding a bucket index in a multi-site setup requires a full
        resynchronization of the bucket content. Depending on the size and number
        of objects in the bucket, this is a time- and resource-intensive operation.
-       </p></div><div class="procedure" id="id-1.4.6.2.16.9.5.3" data-id-title="Resharding the bucket index"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 21.2: </span><span class="title-name">Resharding the bucket index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.16.9.5.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       </p></div><div class="procedure" id="id-1.4.6.2.16.9.5.3" data-id-title="Resharding the bucket index"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 21.2: </span><span class="title-name">Resharding the bucket index </span><a title="Permalink" class="permalink" href="cha-ceph-gw.html#id-1.4.6.2.16.9.5.3">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
           Make sure that all operations to the bucket are stopped.
          </p></li><li class="step"><p>
           Back up the original bucket index:
@@ -1754,7 +1754,7 @@ data sync source: 341c2d81-4574-4d08-ab0f-5a2a7b168028 (us-east)
        Reshard the bucket index on the master zone:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin bucket reshard \
   --bucket=<em class="replaceable">BUCKET_NAME</em> \
-  --num-shards=<em class="replaceable">NEW_SHARDS_NUMBER</em></pre></div><div id="id-1.4.6.2.16.9.5.3.7.3" data-id-title="Old bucket ID" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Old bucket ID</h6><p>
+  --num-shards=<em class="replaceable">NEW_SHARDS_NUMBER</em></pre></div><div id="id-1.4.6.2.16.9.5.3.7.3" data-id-title="Old bucket ID" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Old bucket ID</div><p>
         As part of its output, this command also prints the new and the old
         bucket ID.
        </p></div></li><li class="step"><p>

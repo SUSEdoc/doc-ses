@@ -40,7 +40,7 @@ hljs.configure({
    </p><p>
     For more details about the SUSE CaaS Platform product, see
     <a class="link" href="https://documentation.suse.com/suse-caasp/4.5/" target="_blank">https://documentation.suse.com/suse-caasp/4.5/</a>.
-   </p></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>05 Oct 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-rook"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.7.2.7"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.8"><span class="title-name">Giving feedback</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.9"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.10"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.11"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.12"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#rook-ses-deployment"><span class="title-number">I </span><span class="title-name">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</span></a></span><ul><li><span class="chapter"><a href="#deploy-rook"><span class="title-number">1 </span><span class="title-name">Quick start</span></a></span><ul><li><span class="sect1"><a href="#rook-deploy-hardware-specs"><span class="title-number">1.1 </span><span class="title-name">Recommended hardware specifications</span></a></span></li><li><span class="sect1"><a href="#rook-deploy-before-begin"><span class="title-number">1.2 </span><span class="title-name">Prerequisites</span></a></span></li><li><span class="sect1"><a href="#getting-started-rook"><span class="title-number">1.3 </span><span class="title-name">Getting started with Rook</span></a></span></li><li><span class="sect1"><a href="#rook-deploy-ceph"><span class="title-number">1.4 </span><span class="title-name">Deploying Ceph with Rook</span></a></span></li><li><span class="sect1"><a href="#rook-config-ceph"><span class="title-number">1.5 </span><span class="title-name">Configuring the Ceph cluster</span></a></span></li><li><span class="sect1"><a href="#updating-rook-images"><span class="title-number">1.6 </span><span class="title-name">Updating local images</span></a></span></li><li><span class="sect1"><a href="#uninstalling-rook"><span class="title-number">1.7 </span><span class="title-name">Uninstalling</span></a></span></li></ul></li><li><span class="chapter"><a href="#update-rook"><span class="title-number">2 </span><span class="title-name">Updating Rook</span></a></span><ul><li><span class="sect1"><a href="#rook-update-hardware-specs"><span class="title-number">2.1 </span><span class="title-name">Recommended hardware specifications</span></a></span></li><li><span class="sect1"><a href="#patch-release-upgrades"><span class="title-number">2.2 </span><span class="title-name">Patch release upgrades</span></a></span></li><li><span class="sect1"><a href="#rook-update-procedure"><span class="title-number">2.3 </span><span class="title-name">Rook-Ceph Updates</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#rook-ses-admin"><span class="title-number">II </span><span class="title-name">Administrating Ceph on SUSE CaaS Platform</span></a></span><ul><li><span class="chapter"><a href="#admin-intro-caasp"><span class="title-number">3 </span><span class="title-name">Rook-Ceph administration</span></a></span></li><li><span class="chapter"><a href="#admin-caasp-cluster"><span class="title-number">4 </span><span class="title-name">Ceph cluster administration</span></a></span><ul><li><span class="sect1"><a href="#admin-caasp-cluster-shutdown"><span class="title-number">4.1 </span><span class="title-name">Shutting down and restarting the cluster</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-block-storage"><span class="title-number">5 </span><span class="title-name">Block Storage</span></a></span><ul><li><span class="sect1"><a href="#rook-block-storage-provision-storage"><span class="title-number">5.1 </span><span class="title-name">Provisioning Block Storage</span></a></span></li><li><span class="sect1"><a href="#consume-the-storage-wordpress-sample"><span class="title-number">5.2 </span><span class="title-name">Consuming storage: WordPress sample</span></a></span></li><li><span class="sect1"><a href="#consume-the-storage-toolbox"><span class="title-number">5.3 </span><span class="title-name">Consuming the storage: Toolbox</span></a></span></li><li><span class="sect1"><a href="#rook-block-storage-teardown"><span class="title-number">5.4 </span><span class="title-name">Teardown</span></a></span></li><li><span class="sect1"><a href="#advanced-example-erasure-coded-block-storage"><span class="title-number">5.5 </span><span class="title-name">Advanced Example: Erasure-Coded Block Storage</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephfs"><span class="title-number">6 </span><span class="title-name">CephFS</span></a></span><ul><li><span class="sect1"><a href="#rook-shared-filesystem"><span class="title-number">6.1 </span><span class="title-name">Shared File System</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-crd"><span class="title-number">7 </span><span class="title-name">Ceph cluster custom resource definitions</span></a></span><ul><li><span class="sect1"><a href="#rook-ceph-cluster-crd"><span class="title-number">7.1 </span><span class="title-name">Ceph cluster CRD</span></a></span></li><li><span class="sect1"><a href="#rook-ceph-block-pool-crd"><span class="title-number">7.2 </span><span class="title-name">Ceph block pool CRD</span></a></span></li><li><span class="sect1"><a href="#rook-ceph-shared-filesystem-crd"><span class="title-number">7.3 </span><span class="title-name">Ceph shared file system CRD</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephconfig"><span class="title-number">8 </span><span class="title-name">Configuration</span></a></span><ul><li><span class="sect1"><a href="#configuration"><span class="title-number">8.1 </span><span class="title-name">Ceph configuration</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephtoolbox"><span class="title-number">9 </span><span class="title-name">Toolboxes</span></a></span><ul><li><span class="sect1"><a href="#rook-toolbox"><span class="title-number">9.1 </span><span class="title-name">Rook toolbox</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephosd"><span class="title-number">10 </span><span class="title-name">Ceph OSD management</span></a></span><ul><li><span class="sect1"><a href="#ceph-osd-management"><span class="title-number">10.1 </span><span class="title-name">Ceph OSD management</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-ceph-examples"><span class="title-number">11 </span><span class="title-name">Ceph examples</span></a></span><ul><li><span class="sect1"><a href="#ceph-examples"><span class="title-number">11.1 </span><span class="title-name">Ceph examples</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-advanced-config"><span class="title-number">12 </span><span class="title-name">Advanced configuration</span></a></span><ul><li><span class="sect1"><a href="#advanced-configuration"><span class="title-number">12.1 </span><span class="title-name">Performing advanced configuration tasks</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-object-storage"><span class="title-number">13 </span><span class="title-name">Object Storage</span></a></span><ul><li><span class="sect1"><a href="#rook-object-storage"><span class="title-number">13.1 </span><span class="title-name">Object Storage</span></a></span></li><li><span class="sect1"><a href="#ceph-object-store-crd"><span class="title-number">13.2 </span><span class="title-name">Ceph Object Storage CRD</span></a></span></li><li><span class="sect1"><a href="#ceph-object-bucket-claim"><span class="title-number">13.3 </span><span class="title-name">Ceph object bucket claim</span></a></span></li><li><span class="sect1"><a href="#ceph-object-store-user-crd"><span class="title-number">13.4 </span><span class="title-name">Ceph Object Storage user custom resource definitions (CRD)</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-dashboard"><span class="title-number">14 </span><span class="title-name">Ceph Dashboard</span></a></span><ul><li><span class="sect1"><a href="#caasp-ceph-dashboard"><span class="title-number">14.1 </span><span class="title-name">Ceph Dashboard</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#rook-ses-troubleshooting"><span class="title-number">III </span><span class="title-name">Troubleshooting Ceph on SUSE CaaS Platform</span></a></span><ul><li><span class="chapter"><a href="#atroubleshooting-caasp-debugging-rook"><span class="title-number">15 </span><span class="title-name">Troubleshooting</span></a></span><ul><li><span class="sect1"><a href="#debugging-caasp-rook-methods"><span class="title-number">15.1 </span><span class="title-name">Debugging Rook</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-ceph-common-issues"><span class="title-number">16 </span><span class="title-name">Common issues</span></a></span><ul><li><span class="sect1"><a href="#ceph-common-issues"><span class="title-number">16.1 </span><span class="title-name">Ceph common issues</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.7.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.7.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#id-1.7.4.13.3.3"><span class="number">14.1 </span><span class="name">The Ceph Dashboard</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.7.1.6"><p>
+   </p></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>12 Oct 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-rook"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.7.2.7"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.8"><span class="title-name">Giving feedback</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.9"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.10"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.11"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.7.2.12"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#rook-ses-deployment"><span class="title-number">I </span><span class="title-name">Quick Start: Deploying and Upgrading Ceph on SUSE CaaS Platform</span></a></span><ul><li><span class="chapter"><a href="#deploy-rook"><span class="title-number">1 </span><span class="title-name">Quick start</span></a></span><ul><li><span class="sect1"><a href="#rook-deploy-hardware-specs"><span class="title-number">1.1 </span><span class="title-name">Recommended hardware specifications</span></a></span></li><li><span class="sect1"><a href="#rook-deploy-before-begin"><span class="title-number">1.2 </span><span class="title-name">Prerequisites</span></a></span></li><li><span class="sect1"><a href="#getting-started-rook"><span class="title-number">1.3 </span><span class="title-name">Getting started with Rook</span></a></span></li><li><span class="sect1"><a href="#rook-deploy-ceph"><span class="title-number">1.4 </span><span class="title-name">Deploying Ceph with Rook</span></a></span></li><li><span class="sect1"><a href="#rook-config-ceph"><span class="title-number">1.5 </span><span class="title-name">Configuring the Ceph cluster</span></a></span></li><li><span class="sect1"><a href="#updating-rook-images"><span class="title-number">1.6 </span><span class="title-name">Updating local images</span></a></span></li><li><span class="sect1"><a href="#uninstalling-rook"><span class="title-number">1.7 </span><span class="title-name">Uninstalling</span></a></span></li></ul></li><li><span class="chapter"><a href="#update-rook"><span class="title-number">2 </span><span class="title-name">Updating Rook</span></a></span><ul><li><span class="sect1"><a href="#rook-update-hardware-specs"><span class="title-number">2.1 </span><span class="title-name">Recommended hardware specifications</span></a></span></li><li><span class="sect1"><a href="#patch-release-upgrades"><span class="title-number">2.2 </span><span class="title-name">Patch release upgrades</span></a></span></li><li><span class="sect1"><a href="#rook-update-procedure"><span class="title-number">2.3 </span><span class="title-name">Rook-Ceph Updates</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#rook-ses-admin"><span class="title-number">II </span><span class="title-name">Administrating Ceph on SUSE CaaS Platform</span></a></span><ul><li><span class="chapter"><a href="#admin-intro-caasp"><span class="title-number">3 </span><span class="title-name">Rook-Ceph administration</span></a></span></li><li><span class="chapter"><a href="#admin-caasp-cluster"><span class="title-number">4 </span><span class="title-name">Ceph cluster administration</span></a></span><ul><li><span class="sect1"><a href="#admin-caasp-cluster-shutdown"><span class="title-number">4.1 </span><span class="title-name">Shutting down and restarting the cluster</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-block-storage"><span class="title-number">5 </span><span class="title-name">Block Storage</span></a></span><ul><li><span class="sect1"><a href="#rook-block-storage-provision-storage"><span class="title-number">5.1 </span><span class="title-name">Provisioning Block Storage</span></a></span></li><li><span class="sect1"><a href="#consume-the-storage-wordpress-sample"><span class="title-number">5.2 </span><span class="title-name">Consuming storage: WordPress sample</span></a></span></li><li><span class="sect1"><a href="#consume-the-storage-toolbox"><span class="title-number">5.3 </span><span class="title-name">Consuming the storage: Toolbox</span></a></span></li><li><span class="sect1"><a href="#rook-block-storage-teardown"><span class="title-number">5.4 </span><span class="title-name">Teardown</span></a></span></li><li><span class="sect1"><a href="#advanced-example-erasure-coded-block-storage"><span class="title-number">5.5 </span><span class="title-name">Advanced Example: Erasure-Coded Block Storage</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephfs"><span class="title-number">6 </span><span class="title-name">CephFS</span></a></span><ul><li><span class="sect1"><a href="#rook-shared-filesystem"><span class="title-number">6.1 </span><span class="title-name">Shared File System</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-crd"><span class="title-number">7 </span><span class="title-name">Ceph cluster custom resource definitions</span></a></span><ul><li><span class="sect1"><a href="#rook-ceph-cluster-crd"><span class="title-number">7.1 </span><span class="title-name">Ceph cluster CRD</span></a></span></li><li><span class="sect1"><a href="#rook-ceph-block-pool-crd"><span class="title-number">7.2 </span><span class="title-name">Ceph block pool CRD</span></a></span></li><li><span class="sect1"><a href="#rook-ceph-shared-filesystem-crd"><span class="title-number">7.3 </span><span class="title-name">Ceph shared file system CRD</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephconfig"><span class="title-number">8 </span><span class="title-name">Configuration</span></a></span><ul><li><span class="sect1"><a href="#configuration"><span class="title-number">8.1 </span><span class="title-name">Ceph configuration</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephtoolbox"><span class="title-number">9 </span><span class="title-name">Toolboxes</span></a></span><ul><li><span class="sect1"><a href="#rook-toolbox"><span class="title-number">9.1 </span><span class="title-name">Rook toolbox</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-cephosd"><span class="title-number">10 </span><span class="title-name">Ceph OSD management</span></a></span><ul><li><span class="sect1"><a href="#ceph-osd-management"><span class="title-number">10.1 </span><span class="title-name">Ceph OSD management</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-ceph-examples"><span class="title-number">11 </span><span class="title-name">Ceph examples</span></a></span><ul><li><span class="sect1"><a href="#ceph-examples"><span class="title-number">11.1 </span><span class="title-name">Ceph examples</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-advanced-config"><span class="title-number">12 </span><span class="title-name">Advanced configuration</span></a></span><ul><li><span class="sect1"><a href="#advanced-configuration"><span class="title-number">12.1 </span><span class="title-name">Performing advanced configuration tasks</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-object-storage"><span class="title-number">13 </span><span class="title-name">Object Storage</span></a></span><ul><li><span class="sect1"><a href="#rook-object-storage"><span class="title-number">13.1 </span><span class="title-name">Object Storage</span></a></span></li><li><span class="sect1"><a href="#ceph-object-store-crd"><span class="title-number">13.2 </span><span class="title-name">Ceph Object Storage CRD</span></a></span></li><li><span class="sect1"><a href="#ceph-object-bucket-claim"><span class="title-number">13.3 </span><span class="title-name">Ceph object bucket claim</span></a></span></li><li><span class="sect1"><a href="#ceph-object-store-user-crd"><span class="title-number">13.4 </span><span class="title-name">Ceph Object Storage user custom resource definitions (CRD)</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-dashboard"><span class="title-number">14 </span><span class="title-name">Ceph Dashboard</span></a></span><ul><li><span class="sect1"><a href="#caasp-ceph-dashboard"><span class="title-number">14.1 </span><span class="title-name">Ceph Dashboard</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#rook-ses-troubleshooting"><span class="title-number">III </span><span class="title-name">Troubleshooting Ceph on SUSE CaaS Platform</span></a></span><ul><li><span class="chapter"><a href="#atroubleshooting-caasp-debugging-rook"><span class="title-number">15 </span><span class="title-name">Troubleshooting</span></a></span><ul><li><span class="sect1"><a href="#debugging-caasp-rook-methods"><span class="title-number">15.1 </span><span class="title-name">Debugging Rook</span></a></span></li></ul></li><li><span class="chapter"><a href="#admin-caasp-ceph-common-issues"><span class="title-number">16 </span><span class="title-name">Common issues</span></a></span><ul><li><span class="sect1"><a href="#ceph-common-issues"><span class="title-number">16.1 </span><span class="title-name">Ceph common issues</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.7.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.7.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#id-1.7.4.13.3.3"><span class="number">14.1 </span><span class="name">The Ceph Dashboard</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.7.1.6"><p>
   Copyright © 2020–2022
 
   SUSE LLC and contributors. All rights reserved.
@@ -79,7 +79,7 @@ hljs.configure({
  SUSE Enterprise Storage 7.1 provides IT organizations with the ability to
  deploy a distributed storage architecture that can support a number of use
  cases using commodity hardware platforms.
-</p><section xml:lang="en" class="sect1" id="id-1.7.2.7" data-id-title="Available documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Available documentation</span> <a title="Permalink" class="permalink" href="#id-1.7.2.7">#</a></h2></div></div></div><div id="id-1.7.2.7.3" data-id-title="Online documentation and latest updates" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Online documentation and latest updates</h6><p>
+</p><section xml:lang="en" class="sect1" id="id-1.7.2.7" data-id-title="Available documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Available documentation</span> <a title="Permalink" class="permalink" href="#id-1.7.2.7">#</a></h2></div></div></div><div id="id-1.7.2.7.3" data-id-title="Online documentation and latest updates" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Online documentation and latest updates</div><p>
    Documentation for our products is available at
    <a class="link" href="https://documentation.suse.com" target="_blank">https://documentation.suse.com</a>,
    where you can also find the latest updates, and browse or download the
@@ -188,16 +188,16 @@ hljs.configure({
     Commands that can be run by non-privileged users.
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">command</code></pre></div></li><li class="listitem"><p>
     Notices
-   </p><div id="id-1.7.2.9.4.13.2" data-id-title="Warning notice" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Warning notice</h6><p>
+   </p><div id="id-1.7.2.9.4.13.2" data-id-title="Warning notice" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Warning notice</div><p>
      Vital information you must be aware of before proceeding. Warns you about
      security issues, potential loss of data, damage to hardware, or physical
      hazards.
-    </p></div><div id="id-1.7.2.9.4.13.3" data-id-title="Important notice" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Important notice</h6><p>
+    </p></div><div id="id-1.7.2.9.4.13.3" data-id-title="Important notice" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Important notice</div><p>
      Important information you should be aware of before proceeding.
-    </p></div><div id="id-1.7.2.9.4.13.4" data-id-title="Note notice" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Note notice</h6><p>
+    </p></div><div id="id-1.7.2.9.4.13.4" data-id-title="Note notice" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Note notice</div><p>
      Additional information, for example about differences in software
      versions.
-    </p></div><div id="id-1.7.2.9.4.13.5" data-id-title="Tip notice" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Tip notice</h6><p>
+    </p></div><div id="id-1.7.2.9.4.13.5" data-id-title="Tip notice" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Tip notice</div><p>
      Helpful information, like a guideline or a piece of practical advice.
     </p></div></li><li class="listitem"><p>
     Compact Notices
@@ -319,7 +319,7 @@ hljs.configure({
    The safer and recommended option is to create a more restrictive individual
    key for each administrator user and put it in a directory where the users
    can read it, for example:
-  </p><div class="verbatim-wrap"><pre class="screen">~/.ceph/ceph.client.<em class="replaceable">USERNAME</em>.keyring</pre></div><div id="id-1.7.2.12.5.6" data-id-title="Path to Ceph keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Path to Ceph keys</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen">~/.ceph/ceph.client.<em class="replaceable">USERNAME</em>.keyring</pre></div><div id="id-1.7.2.12.5.6" data-id-title="Path to Ceph keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Path to Ceph keys</div><p>
     To use a custom admin user and keyring, you need to specify the user name
     and path to the key each time you run the <code class="command">ceph</code> command
     using the <code class="option">-n client.<em class="replaceable">USER_NAME</em></code>
@@ -335,7 +335,7 @@ hljs.configure({
    prompt:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code></pre></div><p>
    For example:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.7.2.12.5.11" data-id-title="Commands for specific nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Commands for specific nodes</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.7.2.12.5.11" data-id-title="Commands for specific nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Commands for specific nodes</div><p>
     If the documentation instructs you to run a command on a cluster node with
     a specific role, it will be addressed by the prompt. For example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mon &gt; </code></pre></div></div><section class="sect3" id="id-1.7.2.12.5.12" data-id-title="Running ceph-volume"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.1 </span><span class="title-name">Running <code class="command">ceph-volume</code></span> <a title="Permalink" class="permalink" href="#id-1.7.2.12.5.12">#</a></h4></div></div></div><p>
@@ -412,7 +412,7 @@ hljs.configure({
       </p></li></ul></div></li><li class="listitem"><p>
      Ensure the SUSE CaaS Platform 4.5 repository is enabled for the installation of Helm
      3.
-    </p></li></ul></div></section><section class="sect1" id="getting-started-rook" data-id-title="Getting started with Rook"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.3 </span><span class="title-name">Getting started with Rook</span> <a title="Permalink" class="permalink" href="#getting-started-rook">#</a></h2></div></div></div><div id="id-1.7.3.2.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></li></ul></div></section><section class="sect1" id="getting-started-rook" data-id-title="Getting started with Rook"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.3 </span><span class="title-name">Getting started with Rook</span> <a title="Permalink" class="permalink" href="#getting-started-rook">#</a></h2></div></div></div><div id="id-1.7.3.2.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The following instructions are designed for a quick start deployment only.
     For more information on installing Helm, see
     <a class="link" href="https://documentation.suse.com/en-us/suse-caasp/4.5/" target="_blank">https://documentation.suse.com/en-us/suse-caasp/4.5/</a>.
@@ -535,7 +535,7 @@ pullPolicy: IfNotPresent</pre></div></li><li class="step"><p>
   This chapter takes you through the steps to update the software in a
   Rook-Ceph cluster from one version to the next. This includes both the
   Rook-Ceph Operator software itself as well as the Ceph cluster software.
- </p><div id="id-1.7.3.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+ </p><div id="id-1.7.3.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
    Version
   </p></div><section class="sect1" id="rook-update-hardware-specs" data-id-title="Recommended hardware specifications"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.1 </span><span class="title-name">Recommended hardware specifications</span> <a title="Permalink" class="permalink" href="#rook-update-hardware-specs">#</a></h2></div></div></div><p>
    For SUSE Enterprise Storage deployed with Rook, the minimal configuration is
@@ -571,7 +571,7 @@ pullPolicy: IfNotPresent</pre></div></li><li class="step"><p>
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n <em class="replaceable">ROOK_CLUSTER_NAMESPACE</em> patch CephCluster <em class="replaceable">CLUSTER_NAME</em> --type=merge -p "{\"spec\": {\"cephVersion\": {\"image\": \"registry.suse.com/ses/7.1/ceph/ceph:<em class="replaceable">version-number</em>\"}}}"</pre></div></li><li class="step"><p>
      Mark the Ceph cluster to only support the updated version:
     </p><div class="verbatim-wrap"><pre class="screen"># from a ceph-toolbox
-<code class="prompt root"># </code>ceph osd require-osd-release <em class="replaceable">version-name</em></pre></div></li></ol></div></div><div id="id-1.7.3.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt root"># </code>ceph osd require-osd-release <em class="replaceable">version-name</em></pre></div></li></ol></div></div><div id="id-1.7.3.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     We recommend updating the Rook-Ceph common resources from the example
     manifests before any update. The common resources and CRDs might not be
     updated with every release, but K8s will only apply updates to the ones
@@ -592,7 +592,7 @@ pullPolicy: IfNotPresent</pre></div></li><li class="step"><p>
     </p></li></ul></div><p>
    Each version upgrade has specific details outlined in the Rook
    documentation. Use the following steps as a base guideline.
-  </p><div id="id-1.7.3.3.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.7.3.3.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     These methods should work for any number of Rook-Ceph clusters and Rook
     Operators as long as you parameterize the environment correctly. Merely
     repeat these steps for each Rook-Ceph cluster
@@ -689,7 +689,7 @@ pullPolicy: IfNotPresent</pre></div></li><li class="step"><p>
    Before Rook can provision storage, a <code class="literal">StorageClass</code> and a
    <code class="literal">CephBlockPool</code> need to be created. This will allow Kubernetes
    to interoperate with Rook when provisioning persistent volumes.
-  </p><div id="id-1.7.4.4.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.7.4.4.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     This sample requires <span class="emphasis"><em>at least one OSD per node</em></span>, with
     each OSD located on <span class="emphasis"><em>three different nodes</em></span>.
    </p></div><p>
@@ -697,7 +697,7 @@ pullPolicy: IfNotPresent</pre></div></li><li class="step"><p>
    <a class="link" href="https://github.com/rook/rook/blob/master/Documentation/ceph-pool-crd.md#spec" target="_blank"><code class="literal">failureDomain</code></a>
    is set to <code class="literal">host</code> and the <code class="literal">replicated.size</code>
    is set to <code class="literal">3</code>.
-  </p><div id="id-1.7.4.4.4.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.7.4.4.4.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     This example uses the CSI driver, which is the preferred driver going
     forward for Kubernetes 1.13 and newer. Examples are found in the
     <a class="link" href="https://github.com/rook/rook/tree/release-1.4/cluster/examples/kubernetes/ceph/csi/rbd" target="_blank">CSI
@@ -755,7 +755,7 @@ reclaimPolicy: Delete</pre></div><p>
    <span class="quote">“<span class="quote">my-namespace.rbd.csi.ceph.com</span>”</span>.
   </p><p>
    Create the storage class.
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/rbd/storageclass.yaml</pre></div><div id="id-1.7.4.4.4.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/rbd/storageclass.yaml</pre></div><div id="id-1.7.4.4.4.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     As
     <a class="link" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#retain" target="_blank">specified
     by Kubernetes</a>, when using the <code class="literal">Retain</code> reclaim policy,
@@ -789,7 +789,7 @@ wordpress   10.3.0.155   &lt;pending&gt;     80:30841/TCP   2m</pre></div><p>
   </p><p>
    If you are using Minikube, the WordPress URL can be retrieved with this
    one-line command:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>echo http://$(minikube ip):$(kubectl get service wordpress -o jsonpath='{.spec.ports[0].nodePort}')</pre></div><div id="id-1.7.4.4.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>echo http://$(minikube ip):$(kubectl get service wordpress -o jsonpath='{.spec.ports[0].nodePort}')</pre></div><div id="id-1.7.4.4.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     When running in a Vagrant environment, there will be no external IP address
     to reach WordPress with. You will only be able to reach WordPress via the
     <code class="literal">CLUSTER-IP</code> from inside the Kubernetes cluster.
@@ -833,7 +833,7 @@ wordpress   10.3.0.155   &lt;pending&gt;     80:30841/TCP   2m</pre></div><p>
   </p><section class="sect2" id="rook-prerequisites" data-id-title="Prerequisites"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">6.1.1 </span><span class="title-name">Prerequisites</span> <a title="Permalink" class="permalink" href="#rook-prerequisites">#</a></h3></div></div></div><p>
     This guide assumes you have created a Rook cluster as explained in the
     main guide: <a class="xref" href="#deploy-rook" title="Chapter 1. Quick start">Chapter 1, <em>Quick start</em></a>.
-   </p><div id="id-1.7.4.5.3.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.4.5.3.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      By default, only one shared file system can be created with Rook.
      Multiple file system support in Ceph is still considered experimental,
      and can be enabled with the environment variable
@@ -888,7 +888,7 @@ mds: myfs-1/1/1 up {[myfs:0]=mzw58b=up:active}, 1 up:standby-replay</pre></div><
     <code class="literal">StorageClass</code> needs to be created based on the file
     system. This is needed for Kubernetes to interoperate with the CSI driver to
     create persistent volumes.
-   </p><div id="id-1.7.4.5.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.4.5.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      This example uses the CSI driver, which is the preferred driver going
      forward for Kubernetes 1.13 and newer.
     </p></div><p>
@@ -932,7 +932,7 @@ reclaimPolicy: Delete</pre></div><p>
     <span class="quote">“<span class="quote">rook-op.rbd.csi.ceph.com</span>”</span>.
    </p><p>
     Create the storage class:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/cephfs/storageclass.yaml</pre></div><div id="id-1.7.4.5.3.6.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/cephfs/storageclass.yaml</pre></div><div id="id-1.7.4.5.3.6.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      The CephFS CSI driver uses quotas to enforce the PVC size requested.
      Only newer kernels support CephFS quotas (kernel version of at least
      4.17).
@@ -1010,7 +1010,7 @@ spec:
     Create the Kube registry deployment:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/cephfs/kube-registry.yaml</pre></div><p>
     You now have a High-Availability Docker registry with persistent storage.
-   </p><div id="id-1.7.4.5.3.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.4.5.3.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If the Rook cluster has more than one file system and the application
      pod is scheduled to a node with kernel version older than 4.7,
      inconsistent results may arise, since kernels older than 4.7 do not
@@ -1024,10 +1024,10 @@ spec:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl delete -f kube-registry.yaml</pre></div><p>
      To delete the file system components and backing data, delete the
      Filesystem CRD.
-    </p><div id="id-1.7.4.5.3.8.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.5.3.8.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       <span class="strong"><strong>WARNING: Data will be deleted if
       <code class="option">preservePoolsOnDelete=false</code></strong></span>.
-     </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph delete cephfilesystem myfs</pre></div><div id="id-1.7.4.5.3.8.3.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph delete cephfilesystem myfs</pre></div><div id="id-1.7.4.5.3.8.3.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       If the <span class="quote">“<span class="quote">preservePoolsOnDelete</span>”</span> file system attribute is set
       to true, the above command will not delete the pools. Creating the file
       system again with the same CRD will reuse the previous pools.
@@ -1046,7 +1046,7 @@ spec:
     To get you started, here is a simple example of a CRD to configure a Ceph
     cluster with all nodes and all devices. In the next example, the MONs and
     OSDs are backed by PVCs.
-   </p><div id="id-1.7.4.6.3.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.4.6.3.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      In addition to your CephCluster object, you need to create the namespace,
      service accounts, and RBAC rules for the namespace in which you will
      create the CephCluster. These resources are defined in the example
@@ -1066,7 +1066,7 @@ spec:
     allowMultiplePerNode: true
   storage:
     useAllNodes: true
-    useAllDevices: true</pre></div></section><section class="sect2" id="rook-pvc-based-cluster" data-id-title="PVC-based cluster"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.1.2 </span><span class="title-name">PVC-based cluster</span> <a title="Permalink" class="permalink" href="#rook-pvc-based-cluster">#</a></h3></div></div></div><div id="id-1.7.4.6.3.6.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    useAllDevices: true</pre></div></section><section class="sect2" id="rook-pvc-based-cluster" data-id-title="PVC-based cluster"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.1.2 </span><span class="title-name">PVC-based cluster</span> <a title="Permalink" class="permalink" href="#rook-pvc-based-cluster">#</a></h3></div></div></div><div id="id-1.7.4.6.3.6.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Kubernetes version 1.13.0 or greater is required to provision OSDs on PVCs.
     </p></div><div class="verbatim-wrap"><pre class="screen">apiVersion: ceph.rook.io/v1
 kind: CephCluster
@@ -1167,7 +1167,7 @@ spec:
          across reboots. Using one of these directories will ensure that
          Rook’s data and configuration files persist and that enough storage
          space is available.
-        </p><div id="id-1.7.4.6.3.7.4.2.3.2.1.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+        </p><div id="id-1.7.4.6.3.7.4.2.3.2.1.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
           <span class="strong"><strong>WARNING</strong></span>: For test scenarios, if
           you delete a cluster and start a new cluster on the same hosts, the
           path used by <code class="literal">dataDirHostPath</code> must be deleted.
@@ -1360,7 +1360,7 @@ spec:
       </p></li><li class="listitem"><p>
        <code class="literal">selectors</code>: List the network selector(s) that will be
        used associated by a key.
-      </p></li></ul></div><div id="id-1.7.4.6.3.7.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      </p></li></ul></div><div id="id-1.7.4.6.3.7.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Changing networking configuration after a Ceph cluster has been
       deployed is not supported and will result in a non-functioning cluster.
      </p></div><p>
@@ -1557,7 +1557,7 @@ spec:
      Ceph DriveGroups allow for specifying highly advanced OSD layouts. Refer
      to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.4.3 “Adding OSDs using DriveGroups specification”</span> for both general information and
      detailed specification of DriveGroups with useful examples.
-    </p><div id="id-1.7.4.6.3.7.11.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div id="id-1.7.4.6.3.7.11.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       When managing a Rook/Ceph cluster’s OSD layouts with DriveGroups, the
       <code class="literal">storage</code> configuration is mostly ignored.
       <code class="literal">storageClassDeviceSets</code> can still be used to create
@@ -1616,7 +1616,7 @@ spec:
      generated by merging the generic configuration under
      <code class="literal">all</code> with the most specific one (which will override any
      attributes).
-    </p><div id="id-1.7.4.6.3.7.13.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.6.3.7.13.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Placement of OSD pods is controlled using the
       <a class="xref" href="#rook-storage-class-device-sets" title="7.1.3.8. Storage class device sets">Section 7.1.3.8, “Storage class device sets”</a>, not the general
       <code class="literal">placement</code> configuration.
@@ -1894,7 +1894,7 @@ spec:
      requests and limits for OSDs per node when using <code class="literal">useAllNodes:
      false</code> in the <code class="literal">node</code> item in the
      <code class="literal">nodes</code> list.
-    </p><div id="id-1.7.4.6.3.8.6.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+    </p><div id="id-1.7.4.6.3.8.6.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       Before setting resource requests/limits, review the Ceph documentation
       for hardware recommendations for each component.
      </p></div><div class="verbatim-wrap"><pre class="screen">apiVersion: ceph.rook.io/v1
@@ -1943,7 +1943,7 @@ topology.rook.io/rack
 topology.rook.io/chassis</pre></div><p>
      For example, if the following labels were added to a node:
     </p><div class="verbatim-wrap"><pre class="screen">kubectl label node mynode topology.kubernetes.io/zone=zone1
-kubectl label node mynode topology.rook.io/rack=rack1</pre></div><div id="id-1.7.4.6.3.8.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+kubectl label node mynode topology.rook.io/rack=rack1</pre></div><div id="id-1.7.4.6.3.8.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       For versions previous to K8s 1.17, use the topology key:
       <code class="literal">failure-domain.beta.kubernetes.io/zone</code> or region.
      </p></div><p>
@@ -1964,7 +1964,7 @@ ID CLASS WEIGHT  TYPE NAME                 STATUS REWEIGHT PRI-AFF
      Note that the <code class="literal">host</code> is added automatically to the
      hierarchy by Rook. The host cannot be specified with a topology label.
      All topology labels are optional.
-    </p><div id="id-1.7.4.6.3.8.7.12" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div id="id-1.7.4.6.3.8.7.12" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       When setting the node labels prior to <code class="literal">CephCluster</code>
       creation, these settings take immediate effect. However, applying this to
       an already deployed <code class="literal">CephCluster</code> requires removing each
@@ -2127,7 +2127,7 @@ spec:
           storageClassName: io1
           volumeMode: Block
           accessModes:
-            - ReadWriteOnce</pre></div><div id="id-1.7.4.6.3.8.10.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+            - ReadWriteOnce</pre></div><div id="id-1.7.4.6.3.8.10.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Rook only supports three naming conventions for a given template:
      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
         <span class="emphasis"><em>data</em></span>: represents the main OSD block device, where
@@ -2329,7 +2329,7 @@ spec:
         <span class="strong"><strong>OPTIONAL:</strong></span> the external Ceph
         cluster admin secret key. This can be retrieved via the <code class="literal">ceph
         auth get-key client.admin</code> command.
-       </p></li></ul></div><div id="id-1.7.4.6.3.8.11.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       </p></li></ul></div><div id="id-1.7.4.6.3.8.11.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        <span class="strong"><strong>WARNING</strong></span>: If you plan to create CRs
        (pool, rgw, mds, nfs) in the external cluster, you
        <span class="strong"><strong>MUST</strong></span> inject the client.admin keyring
@@ -2380,7 +2380,7 @@ spec:
       If the previous section has not been completed, the Rook Operator will
       still acknowledge the CR creation but will wait forever to receive
       connection information.
-     </p><div id="id-1.7.4.6.3.8.11.6.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+     </p><div id="id-1.7.4.6.3.8.11.6.8" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
        If no cluster is managed by the current Rook Operator, you need to
        inject <code class="filename">common.yaml</code>, then modify
        <code class="filename">cluster-external.yaml</code> and specify
@@ -2501,7 +2501,7 @@ spec:
        is <code class="literal">false</code>.
       </p></li></ul></div><p>
      To automate activation of the cleanup, you can use the following command:
-    </p><div id="id-1.7.4.6.3.8.12.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+    </p><div id="id-1.7.4.6.3.8.12.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       Data will be permanently deleted.
      </p></div><div class="verbatim-wrap"><pre class="screen">kubectl -n rook-ceph patch cephcluster rook-ceph --type merge \
  -p '{"spec":{"cleanupPolicy":{"confirmation":"yes-really-destroy-data"}}}'</pre></div><p>
@@ -2520,7 +2520,7 @@ spec:
   </p><section class="sect2" id="rook-samples-rep" data-id-title="Samples"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.1 </span><span class="title-name">Samples</span> <a title="Permalink" class="permalink" href="#rook-samples-rep">#</a></h3></div></div></div><section class="sect3" id="replicated" data-id-title="Replicated"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.1.1 </span><span class="title-name">Replicated</span> <a title="Permalink" class="permalink" href="#replicated">#</a></h4></div></div></div><p>
      For optimal performance, while also adding redundancy, this sample will
      configure Ceph to make three full copies of the data on multiple nodes.
-    </p><div id="id-1.7.4.6.4.3.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.6.4.3.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least one OSD per node, with each OSD located on
       three different nodes.
      </p></div><p>
@@ -2539,7 +2539,7 @@ spec:
   deviceClass: hdd</pre></div></section><section class="sect3" id="rook-erasure-coded-sample" data-id-title="Erasure coded"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.1.2 </span><span class="title-name">Erasure coded</span> <a title="Permalink" class="permalink" href="#rook-erasure-coded-sample">#</a></h4></div></div></div><p>
      This sample will lower the overall storage capacity requirement, while
      also adding redundancy by using <a class="xref" href="#rook-erasure-coding" title="7.2.2.4. Erasure coding">Section 7.2.2.4, “Erasure coding”</a>.
-    </p><div id="id-1.7.4.6.4.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.6.4.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least three BlueStore OSDs.
      </p></div><p>
      The OSDs can be located on a single Ceph node or spread across multiple
@@ -2605,7 +2605,7 @@ spec:
       </p><p>
        If erasure coding is used, the data and coding chunks are spread across
        the configured failure domain.
-      </p><div id="id-1.7.4.6.4.4.3.2.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      </p><div id="id-1.7.4.6.4.4.3.2.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
         Neither Rook, nor Ceph, prevent the creation of a cluster where the
         replicated data (or erasure coded chunks) can be written safely. By
         design, Ceph will delay checking for suitable OSDs until a write
@@ -2688,7 +2688,7 @@ spec:
    Rook allows creation and customization of shared file systems through the
    custom resource definitions (CRDs). The following settings are available for
    Ceph file systems.
-  </p><section class="sect2" id="rook-samples-rook-rep" data-id-title="Samples"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.3.1 </span><span class="title-name">Samples</span> <a title="Permalink" class="permalink" href="#rook-samples-rook-rep">#</a></h3></div></div></div><section class="sect3" id="rook-replicated" data-id-title="Replicated"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.3.1.1 </span><span class="title-name">Replicated</span> <a title="Permalink" class="permalink" href="#rook-replicated">#</a></h4></div></div></div><div id="id-1.7.4.6.5.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><section class="sect2" id="rook-samples-rook-rep" data-id-title="Samples"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.3.1 </span><span class="title-name">Samples</span> <a title="Permalink" class="permalink" href="#rook-samples-rook-rep">#</a></h3></div></div></div><section class="sect3" id="rook-replicated" data-id-title="Replicated"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.3.1.1 </span><span class="title-name">Replicated</span> <a title="Permalink" class="permalink" href="#rook-replicated">#</a></h4></div></div></div><div id="id-1.7.4.6.5.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least one OSD per node, with each OSD located on
       three different nodes.
      </p></div><p>
@@ -2749,7 +2749,7 @@ spec:
      <code class="literal">storeType</code>. Additionally, erasure coded pools can only
      be used with <code class="literal">dataPools</code>. The
      <code class="literal">metadataPool</code> must use a replicated pool.
-    </p><div id="id-1.7.4.6.5.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.6.5.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least three BlueStore OSDs, with each OSD
       located on a different node.
      </p></div><p>
@@ -2837,7 +2837,7 @@ spec:
    to change some Ceph configurations. These changes often may be warranted
    in order to alter performance to meet SLAs, or to update default data
    resiliency settings.
-  </p><div id="id-1.7.4.7.3.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+  </p><div id="id-1.7.4.7.3.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
     Modify Ceph settings carefully, and review the Ceph configuration
     documentation before making any changes. Changing the settings could result
     in unhealthy daemons or even data loss if used incorrectly.
@@ -2896,7 +2896,7 @@ spec:
     </p></li><li class="listitem"><p>
      <a class="xref" href="#toolbox-job" title="9.1.2. Running the toolbox job">Section 9.1.2, “Running the toolbox job”</a>: Run a script with Ceph commands and
      collect the results from the job log.
-    </p></li></ul></div><div id="id-1.7.4.8.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></li></ul></div><div id="id-1.7.4.8.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     Prerequisite: Before running the toolbox you should have a running Rook
     cluster deployed.
    </p></div><section class="sect2" id="interactive-toolbox" data-id-title="Interactive toolbox"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.1 </span><span class="title-name">Interactive toolbox</span> <a title="Permalink" class="permalink" href="#interactive-toolbox">#</a></h3></div></div></div><p>
@@ -3160,7 +3160,7 @@ spec:
      </p></li><li class="step"><p>
       Verify if the OSD is created on the node by running <code class="command">ceph osd
       tree</code> from the toolbox.
-     </p></li></ol></div></div><div id="id-1.7.4.9.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p></li></ol></div></div><div id="id-1.7.4.9.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      The OSD might have a different ID than the previous OSD that was replaced.
     </p></div></section><section class="sect2" id="remove-an-osd-from-a-pvc" data-id-title="Removing an OSD from a PVC"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1.6 </span><span class="title-name">Removing an OSD from a PVC</span> <a title="Permalink" class="permalink" href="#remove-an-osd-from-a-pvc">#</a></h3></div></div></div><p>
     If you have installed your OSDs on top of PVCs and you desire to reduce the
@@ -3174,7 +3174,7 @@ spec:
       but will effectively stop managing the orphaned OSD.
      </p></li><li class="step"><p>
       Identify the orphaned PVC that belongs to the orphaned OSD.
-     </p><div id="id-1.7.4.9.3.8.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.7.4.9.3.8.3.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The orphaned PVC will have the highest index among the PVCs for the
        device set.
       </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pvc -l ceph.rook.io/DeviceSet=<em class="replaceable">deviceSet</em></pre></div><p>
@@ -3185,7 +3185,7 @@ spec:
       <code class="literal">set1-2-data-vbwcf</code>
      </p></li><li class="step"><p>
       Identify the orphaned OSD.
-     </p><div id="id-1.7.4.9.3.8.3.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.7.4.9.3.8.3.3.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The OSD assigned to the PVC can be found in the labels on the PVC.
       </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph get pod -l ceph.rook.io/pvc=<em class="replaceable">ORPHANED_PVC</em> -o yaml | grep ceph-osd-id</pre></div><p>
       For example, this might return:
@@ -3374,7 +3374,7 @@ spec:
     <code class="literal">rook-ceph</code> namespace. If you run them in a different
     namespace, modify <code class="command">kubectl -n rook-ceph [...]</code> to fit your
     situation.
-   </p></section><section class="sect2" id="use-custom-ceph-user-and-secret-for-mounting" data-id-title="Using custom Ceph user and secret for mounting"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.2 </span><span class="title-name">Using custom Ceph user and secret for mounting</span> <a title="Permalink" class="permalink" href="#use-custom-ceph-user-and-secret-for-mounting">#</a></h3></div></div></div><div id="id-1.7.4.11.3.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p></section><section class="sect2" id="use-custom-ceph-user-and-secret-for-mounting" data-id-title="Using custom Ceph user and secret for mounting"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.2 </span><span class="title-name">Using custom Ceph user and secret for mounting</span> <a title="Permalink" class="permalink" href="#use-custom-ceph-user-and-secret-for-mounting">#</a></h3></div></div></div><div id="id-1.7.4.11.3.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      For extensive info about creating Ceph users, refer to
      <span class="intraxref">Book “Administration and Operations Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.2.2 “Managing users”</span>
     </p></div><p>
@@ -3390,7 +3390,7 @@ spec:
  mds 'allow r, allow rw path=/bar'</pre></div><p>
     The command will return a Ceph secret key. This key should be added as a
     secret in Kubernetes like this:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create secret generic ceph-user1-secret --from-literal=key=YOUR_CEPH_KEY</pre></div><div id="id-1.7.4.11.3.5.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create secret generic ceph-user1-secret --from-literal=key=YOUR_CEPH_KEY</pre></div><div id="id-1.7.4.11.3.5.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      This secret key must be created with the same name in each namespace where
      the StorageClass will be used.
     </p></div><p>
@@ -3413,7 +3413,7 @@ mountSecret: ceph-user1-secret</pre></div><p>
     For more information on using the Ceph feature to limit access to
     CephFS paths, see
     <a class="link" href="http://docs.ceph.com/docs/mimic/cephfs/client-auth/#path-restriction" target="_blank">http://docs.ceph.com/docs/mimic/cephfs/client-auth/#path-restriction</a>.
-   </p><section class="sect3" id="clusterrole" data-id-title="Creating the ClusterRole"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.2.1 </span><span class="title-name">Creating the <code class="literal">ClusterRole</code></span> <a title="Permalink" class="permalink" href="#clusterrole">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.14.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><section class="sect3" id="clusterrole" data-id-title="Creating the ClusterRole"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.2.1 </span><span class="title-name">Creating the <code class="literal">ClusterRole</code></span> <a title="Permalink" class="permalink" href="#clusterrole">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.14.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       When you are using the Helm chart to install the Rook-Ceph Operator, and
       have set <code class="literal">mountSecurityMode</code> to, for example,
       <code class="literal">Restricted</code>, then the below
@@ -3435,7 +3435,7 @@ rules:
   resources:
   - secrets
   verbs:
-  - get</pre></div></section><section class="sect3" id="rolebinding" data-id-title="Creating the RoleBinding"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.2.2 </span><span class="title-name">Creating the <code class="literal">RoleBinding</code></span> <a title="Permalink" class="permalink" href="#rolebinding">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.15.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  - get</pre></div></section><section class="sect3" id="rolebinding" data-id-title="Creating the RoleBinding"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.2.2 </span><span class="title-name">Creating the <code class="literal">RoleBinding</code></span> <a title="Permalink" class="permalink" href="#rolebinding">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.15.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       You either need a <code class="literal">RoleBinding</code> in each namespace in
       which a mount secret resides in, or create a
       <code class="literal">ClusterRoleBinding</code> with which the Rook Ceph agent
@@ -3550,7 +3550,7 @@ Node: node2.zbrbdl
 -osd13  sdk3  557.3G  bluestore
 -osd14  sde3  66.7G   bluestore
 -osd15  sda3  110.2G  bluestore
--osd16  sdh3  135.1G  bluestore</pre></div></section></section><section class="sect2" id="separate-storage-groups" data-id-title="Separate storage groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.5 </span><span class="title-name">Separate storage groups</span> <a title="Permalink" class="permalink" href="#separate-storage-groups">#</a></h3></div></div></div><div id="id-1.7.4.11.3.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+-osd16  sdh3  135.1G  bluestore</pre></div></section></section><section class="sect2" id="separate-storage-groups" data-id-title="Separate storage groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.5 </span><span class="title-name">Separate storage groups</span> <a title="Permalink" class="permalink" href="#separate-storage-groups">#</a></h3></div></div></div><div id="id-1.7.4.11.3.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Instead of manually needing to set this, the
      <code class="literal">deviceClass</code> property can be used on pool structures in
      <code class="literal">CephBlockPool</code>, <code class="literal">CephFilesystem</code> and
@@ -3564,7 +3564,7 @@ Node: node2.zbrbdl
     In the following example we will separate SSD drives from spindle-based
     drives, a common practice for those looking to target certain workloads
     onto faster (database) or slower (file archive) storage.
-   </p></section><section class="sect2" id="configuring-pools" data-id-title="Configure pools"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.6 </span><span class="title-name">Configure pools</span> <a title="Permalink" class="permalink" href="#configuring-pools">#</a></h3></div></div></div><section class="sect3" id="placement-group-sizing" data-id-title="Sizing placement groups"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.6.1 </span><span class="title-name">Sizing placement groups</span> <a title="Permalink" class="permalink" href="#placement-group-sizing">#</a></h4></div></div></div><div id="id-1.7.4.11.3.9.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p></section><section class="sect2" id="configuring-pools" data-id-title="Configure pools"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.6 </span><span class="title-name">Configure pools</span> <a title="Permalink" class="permalink" href="#configuring-pools">#</a></h3></div></div></div><section class="sect3" id="placement-group-sizing" data-id-title="Sizing placement groups"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.6.1 </span><span class="title-name">Sizing placement groups</span> <a title="Permalink" class="permalink" href="#placement-group-sizing">#</a></h4></div></div></div><div id="id-1.7.4.11.3.9.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Since Ceph Nautilus (v14.x), you can use the Ceph Manager
       <code class="literal">pg_autoscaler</code> module to auto-scale the PGs as needed.
       If you want to enable this feature, refer to
@@ -3593,7 +3593,7 @@ Node: node2.zbrbdl
      Be sure to read the <a class="xref" href="#placement-group-sizing" title="12.1.6.1. Sizing placement groups">Section 12.1.6.1, “Sizing placement groups”</a> section
      before changing the number of PGs.
     </p><div class="verbatim-wrap"><pre class="screen"># Set the number of PGs in the rbd pool to 512
-<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set rbd pg_num 512</pre></div></section></section><section class="sect2" id="custom-cephconf-settings" data-id-title="Creating custom ceph.conf settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.7 </span><span class="title-name">Creating custom <code class="filename">ceph.conf</code> settings</span> <a title="Permalink" class="permalink" href="#custom-cephconf-settings">#</a></h3></div></div></div><div id="id-1.7.4.11.3.10.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set rbd pg_num 512</pre></div></section></section><section class="sect2" id="custom-cephconf-settings" data-id-title="Creating custom ceph.conf settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.1.7 </span><span class="title-name">Creating custom <code class="filename">ceph.conf</code> settings</span> <a title="Permalink" class="permalink" href="#custom-cephconf-settings">#</a></h3></div></div></div><div id="id-1.7.4.11.3.10.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      The advised method for controlling Ceph configuration is to manually use
      the Ceph CLI or the Ceph Dashboard, because this offers the most
      flexibility. We recommend that this is used only when absolutely
@@ -3614,7 +3614,7 @@ Node: node2.zbrbdl
     <code class="filename">ceph.conf</code> file. The contents will be propagated to all
     MON, MGR, OSD, MDS, and RGW daemons as an
     <code class="filename">/etc/ceph/ceph.conf</code> file.
-   </p><div id="id-1.7.4.11.3.10.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p><div id="id-1.7.4.11.3.10.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      Rook performs no validation on the config, so the validity of the
      settings is the user's responsibility.
     </p></div><p>
@@ -3644,7 +3644,7 @@ Node: node2.zbrbdl
    </p><section class="sect3" id="example" data-id-title="Custom ceph.conf example"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">12.1.7.1 </span><span class="title-name">Custom <code class="filename">ceph.conf</code> example</span> <a title="Permalink" class="permalink" href="#example">#</a></h4></div></div></div><p>
      In this example we will set the default pool <code class="literal">size</code> to
      two, and tell OSD daemons not to change the weight of OSDs on startup.
-    </p><div id="id-1.7.4.11.3.10.8.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+    </p><div id="id-1.7.4.11.3.10.8.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       Modify Ceph settings carefully. You are leaving the sandbox tested by
       Rook. Changing the settings could result in unhealthy daemons or even
       data loss if used incorrectly.
@@ -3787,7 +3787,7 @@ crush_rule: replicapool_host_rule</pre></div><p>
    </p><section class="sect3" id="create-a-local-object-store" data-id-title="Creating a local Object Storage"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">13.1.1.1 </span><span class="title-name">Creating a local Object Storage</span> <a title="Permalink" class="permalink" href="#create-a-local-object-store">#</a></h4></div></div></div><p>
      The below sample will create a <code class="literal">CephObjectStore</code> that
      starts the Object Gateway service in the cluster with an S3 API.
-    </p><div id="id-1.7.4.12.3.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.12.3.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least three BlueStore OSDs, with each OSD
       located on a different node.
      </p></div><p>
@@ -4051,7 +4051,7 @@ rook-ceph-rgw-my-store-external   NodePort    10.111.113.237   none          80:
      for the configured <code class="literal">storeType</code>. Additionally, erasure
      coded pools can only be used with <code class="literal">dataPools</code>. The
      <code class="literal">metadataPool</code> must use a replicated pool.
-    </p><div id="id-1.7.4.12.4.3.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.12.4.3.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least three BlueStore OSDs, with each OSD
       located on a different node.
      </p></div><p>
@@ -4442,7 +4442,7 @@ rook-ceph-rgw-my-store-external   NodePort    10.111.113.237   none          80:
    status of the MGR, OSD, and other Ceph daemons, view pools and PG status,
    show logs for the daemons, and more. Rook makes it simple to enable the
    dashboard.
-  </p><div class="figure" id="id-1.7.4.13.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/dashboard_homepage.png"><img src="images/dashboard_homepage.png" alt="The Ceph Dashboard" title="The Ceph Dashboard"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.1: </span><span class="title-name">The Ceph Dashboard </span><a title="Permalink" class="permalink" href="#id-1.7.4.13.3.3">#</a></h6></div></div><section class="sect2" id="enable-the-ceph-dashboard" data-id-title="Enabling the Ceph Dashboard"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">14.1.1 </span><span class="title-name">Enabling the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="#enable-the-ceph-dashboard">#</a></h3></div></div></div><p>
+  </p><div class="figure" id="id-1.7.4.13.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/dashboard_homepage.png"><img src="images/dashboard_homepage.png" alt="The Ceph Dashboard" title="The Ceph Dashboard"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 14.1: </span><span class="title-name">The Ceph Dashboard </span><a title="Permalink" class="permalink" href="#id-1.7.4.13.3.3">#</a></div></div></div><section class="sect2" id="enable-the-ceph-dashboard" data-id-title="Enabling the Ceph Dashboard"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">14.1.1 </span><span class="title-name">Enabling the Ceph Dashboard</span> <a title="Permalink" class="permalink" href="#enable-the-ceph-dashboard">#</a></h3></div></div></div><p>
     The
     <a class="link" href="http://docs.ceph.com/docs/mimic/mgr/dashboard/" target="_blank">dashboard</a>
     can be enabled with settings in the CephCluster CRD. The CephCluster CRD
@@ -4468,7 +4468,7 @@ rook-ceph-mgr-dashboard      ClusterIP   10.110.113.240   &lt;none&gt;        84
     <code class="literal">https://rook-ceph-mgr-dashboard-https:8443</code> or by
     connecting to the cluster IP, in this example at
     <code class="literal">https://10.110.113.240:8443</code>.
-   </p><div id="id-1.7.4.13.3.4.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.7.4.13.3.4.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      The dashboard will only be enabled for the first Ceph object store
      created by Rook.
     </p></div><section class="sect3" id="login-credentials" data-id-title="Creating login credentials"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">14.1.1.1 </span><span class="title-name">Creating login credentials</span> <a title="Permalink" class="permalink" href="#login-credentials">#</a></h4></div></div></div><p>
@@ -4629,7 +4629,7 @@ rook-ceph.example.com      kubernetes.io/tls   2         4m</pre></div><p>
    There are a number of basic actions a user might need to take during
    debugging. These actions are defined here for reference when they are
    mentioned in more documentation below.
-  </p><div id="id-1.7.5.2.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.7.5.2.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     This document is not devoted to an in-depth explanation of what Kubernetes is,
     what its features are, how it is used, how to navigate it, or how to debug
     applications that run on it. This document will use Kubernetes terms, and users
@@ -4650,7 +4650,7 @@ rook-ceph.example.com      kubernetes.io/tls   2         4m</pre></div><p>
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl --namespace rook-ceph set env deployment/rook-ceph-operator ROOK_LOG_LEVEL=DEBUG</pre></div><p>
     After editing the deployment, the operator pod will restart automatically
     and will start outputting logs with the new log level.
-   </p><div id="id-1.7.5.2.3.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.5.2.3.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If you are experiencing a particular failure, it may take some time for
      the Rook operator to reach the failure location again to report debug
      logs.
@@ -4661,7 +4661,7 @@ rook-ceph.example.com      kubernetes.io/tls   2         4m</pre></div><p>
     If the <code class="systemitem">rook-ceph-tools</code>
     deployment does not exist, it should be created using the
     <code class="filename">toolbox.yaml</code> manifest.
-   </p><div id="id-1.7.5.2.3.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.5.2.3.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      To set log levels for Ceph daemons, it is advised to use the Ceph CLI
      from the <code class="systemitem">toolbox</code> pod.
     </p></div></section><section class="sect2" id="ses-supportutils-plugin-rook" data-id-title="Using the SES supportutils plugin"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">15.1.3 </span><span class="title-name">Using the SES supportutils plugin</span> <a title="Permalink" class="permalink" href="#ses-supportutils-plugin-rook">#</a></h3></div></div></div><p>
@@ -4861,7 +4861,7 @@ rook-ceph-mon-f-58b4f8d9c7-89lgs   1/1     Running   0          7m38s</pre></div
       <code class="literal">dataDirHostPath</code>) on each of the hosts in the cluster.
       Then, when the cluster CRD is applied to start a new cluster, the
       rook-operator should start all the pods as expected.
-     </p><div id="id-1.7.5.3.3.5.3.8.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p><div id="id-1.7.5.3.3.5.3.8.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
        Deleting the <code class="literal">dataDirHostPath</code> folder is destructive to
        the storage. Only delete the folder if you are trying to permanently
        purge the Rook cluster.

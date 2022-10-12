@@ -107,12 +107,12 @@ prometheus.main    main    running (65m)  7m ago     2h   2.32.1   registry.suse
     </p></li></ul></div><p>
    For example:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_base \
- registry.suse.com/ses/7.1/ceph/ceph</pre></div><div id="id-1.5.5.8.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+ registry.suse.com/ses/7.1/ceph/ceph</pre></div><div id="id-1.5.5.8.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     <code class="literal">mgr/cephadm/container_image_base</code> is the default Ceph
     container image used by all services except the monitoring stack and the ingress stack.
    </p></div></section><section class="sect1" id="bp-troubleshooting-cephadm-downloaded-container-images" data-id-title="Listing all downloaded container images"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.6 </span><span class="title-name">Listing all downloaded container images</span> <a title="Permalink" class="permalink" href="bp-troubleshooting-cephadm.html#bp-troubleshooting-cephadm-downloaded-container-images">#</a></h2></div></div></div><p>
    To list all container images that are downloaded on a host:
-  </p><div id="id-1.5.5.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.5.5.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     <code class="literal">Image</code> may also be called <code class="literal">ImageID</code>.
    </p></div><div class="verbatim-wrap"><pre class="screen">  podman ps -a --format json | jq '.[].Image'
   "docker.io/library/centos:8"
@@ -205,7 +205,7 @@ registry.suse.com/ptf/<em class="replaceable">PTF_NUMBER</em>/ses/7.1/ceph/ceph:
      Remove the specific iSCSI daemon that is causing problems, for example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon rm iscsi.igw.sesblade16.zkomeh</pre></div></li><li class="step"><p>
      The removed daemon will be deployed automatically using the PTF.
-    </p></li></ol></div></div><div id="id-1.5.5.14.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p></li></ol></div></div><div id="id-1.5.5.14.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     If you plan to run the <code class="command">ceph-salt update</code> command after
     applying a PTF (as described in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 13 “Operational tasks”, Section 13.6.4 “Running the update”</span>),
     it will not affect the manual changes made by the temporary fix.
@@ -237,7 +237,7 @@ Failed to connect to node5 (node5.example.com).</pre></div><p>
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host add node5 192.168.2.102</pre></div><p>
    If this succeeds, the cluster does not have proper name resolution. Refer to
    <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Installing and configuring SUSE Linux Enterprise Server”</span> for more details.
-  </p><div id="id-1.5.5.15.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+  </p><div id="id-1.5.5.15.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     For more information about resolving full and bare host names via DNS,
     refer to
     <a class="link" href="https://docs.ceph.com/en/octopus/cephadm/concepts/" target="_blank">https://docs.ceph.com/en/octopus/cephadm/concepts/</a>.

@@ -61,7 +61,7 @@ rgw.myrealm.myzone.ses-node2.jngabw  ses-node2    error          8m ago</pre></d
 NAME                                 HOST       STATUS         REFRESHED
 mgr.ses-node2.oopvyh                 ses-node2  running (5d)   3m ago
 mon.ses-node2                        ses-node2  running (5d)   3m ago
-osd.0                                ses-node2  running (67m)  3m ago</pre></div><div id="id-1.4.4.4.4.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+osd.0                                ses-node2  running (67m)  3m ago</pre></div><div id="id-1.4.4.4.4.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     The <code class="command">ceph orch ps</code> command supports several output
     formats. To change it, append the <code class="option">--format
     <em class="replaceable">FORMAT</em></code> option where
@@ -100,7 +100,7 @@ osd.0                                ses-node2  running (67m)  3m ago</pre></div
        Identification string of the service. For OSDs, it is the ID number of
        the service. For other services, it can be either a host name of the
        node, or additional strings relevant for the service type.
-      </p></dd></dl></div><div id="id-1.4.4.4.6.3.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      </p></dd></dl></div><div id="id-1.4.4.4.6.3.8" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      The <em class="replaceable">SERVICE_TYPE</em>.<em class="replaceable">ID</em>
      part is identical to the content of the <code class="literal">NAME</code> column in
      the output of the <code class="command">ceph orch ps</code> command.
@@ -127,7 +127,7 @@ osd.0                                ses-node2  running (67m)  3m ago</pre></div
    Shutting down and restarting the cluster may be necessary in the case of a
    planned power outage. To stop all Ceph related services and restart
    without issue, follow the steps below.
-  </p><div class="procedure" id="id-1.4.4.4.7.3" data-id-title="Shutting down the whole Ceph cluster"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 14.1: </span><span class="title-name">Shutting down the whole Ceph cluster </span><a title="Permalink" class="permalink" href="cha-ceph-operating.html#id-1.4.4.4.7.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+  </p><div class="procedure" id="id-1.4.4.4.7.3" data-id-title="Shutting down the whole Ceph cluster"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 14.1: </span><span class="title-name">Shutting down the whole Ceph cluster </span><a title="Permalink" class="permalink" href="cha-ceph-operating.html#id-1.4.4.4.7.3">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
      Shut down or disconnect any clients accessing the cluster.
     </p></li><li class="step"><p>
      To prevent CRUSH from automatically rebalancing the cluster, set the
@@ -136,7 +136,7 @@ osd.0                                ses-node2  running (67m)  3m ago</pre></div
      Stop all Ceph services on all cluster nodes:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt stop</pre></div></li><li class="step"><p>
      Power off all cluster nodes:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -G 'ceph-salt:member' cmd.run "shutdown -h"</pre></div></li></ol></div></div><div class="procedure" id="id-1.4.4.4.7.4" data-id-title="Starting the whole Ceph cluster"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 14.2: </span><span class="title-name">Starting the whole Ceph cluster </span><a title="Permalink" class="permalink" href="cha-ceph-operating.html#id-1.4.4.4.7.4">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -G 'ceph-salt:member' cmd.run "shutdown -h"</pre></div></li></ol></div></div><div class="procedure" id="id-1.4.4.4.7.4" data-id-title="Starting the whole Ceph cluster"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 14.2: </span><span class="title-name">Starting the whole Ceph cluster </span><a title="Permalink" class="permalink" href="cha-ceph-operating.html#id-1.4.4.4.7.4">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
      Power on the Admin Node.
     </p></li><li class="step"><p>
      Power on the Ceph Monitor nodes.

@@ -47,11 +47,11 @@ hljs.configure({
     containers.
    </p></li><li class="listitem"><p>
     Complete removal of DeepSea and replacing with <code class="systemitem">ceph-salt</code> and cephadm.
-   </p></li></ul></div><div id="id-1.3.5.2.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p></li></ul></div><div id="id-1.3.5.2.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
    The upgrade information in this chapter <span class="emphasis"><em>only</em></span> applies to
    upgrades from DeepSea to cephadm. Do not attempt to follow these
    instructions if you want to deploy SUSE Enterprise Storage on SUSE CaaS Platform.
-  </p></div><div id="id-1.3.5.2.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p></div><div id="id-1.3.5.2.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
    Upgrading from SUSE Enterprise Storage versions older than 6 is
    not supported. First, you must upgrade to the latest version of
    SUSE Enterprise Storage 6, and then follow the steps in this
@@ -118,7 +118,7 @@ hljs.configure({
       services (Metadata Server, Object Gateway, NFS Ganesha, iSCSI Gateway) need to be redeployed after the
       core services are upgraded. There is a certain amount of downtime for
       each of the following services:
-     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><div id="id-1.3.5.2.8.4.3.6.2.1.1" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><div id="id-1.3.5.2.8.4.3.6.2.1.1" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
          Metadata Servers and Object Gateways are down from the time the nodes are upgraded from
          SUSE Linux Enterprise Server 15 SP1 to SUSE Linux Enterprise Server 15 SP3 until the services are redeployed at the
          end of the upgrade procedure. This is particularly important to bear
@@ -168,7 +168,7 @@ hljs.configure({
    </p></section><section class="sect2" id="verify-previous-upgrade-patch" data-id-title="Updating cluster nodes and verifying cluster health"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1.4 </span><span class="title-name">Updating cluster nodes and verifying cluster health</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#verify-previous-upgrade-patch">#</a></h3></div></div></div><p>
     Verify that all latest updates of SUSE Linux Enterprise Server 15 SP1 and SUSE Enterprise Storage
     6 are applied to all cluster nodes:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper refresh &amp;&amp; zypper patch</pre></div><div id="id-1.3.5.2.8.7.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper refresh &amp;&amp; zypper patch</pre></div><div id="id-1.3.5.2.8.7.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      Refer to
      <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates</a>
      for detailed information about updating the cluster nodes.
@@ -239,7 +239,7 @@ hljs.configure({
      about configuring a local container image registry.
     </p></section></section></section><section class="sect1" id="upgrade-salt-master" data-id-title="Upgrading the Salt Master"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-salt-master">#</a></h2></div></div></div><p>
    The following procedure describes the process of upgrading the Salt Master:
-  </p><div id="id-1.3.5.2.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.3.5.2.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Before continuing, ensure the steps have been followed 
       from <a class="xref" href="deploy-bootstrap.html#deploy-cephadm-configure-imagepath" title="7.2.10.2. Configuring the path to container images">Section 7.2.10.2, “Configuring the path to container images”</a>. 
       Without this configuration, the podman image pull fails in
@@ -316,7 +316,7 @@ Nodes running older software versions must be upgraded in the following order:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set osd bluestore_fsck_quick_fix_on_mount true</pre></div><p>
      The OSD nodes will be converted automatically after their adoption
      finishes.
-    </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       The conversion may take minutes to hours, depending on how much OMAP data
       the related hard disk contains. For more details, refer to
       <a class="link" href="https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters" target="_blank">https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters</a>.
@@ -366,7 +366,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
 <code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph-bluestore-tool --path /var/lib/ceph/osd/ceph-<em class="replaceable">OSD_DAEMON_ID</em>--command quick-fix
 <code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> start</pre></div><p>
         Allow the OSD node to be up and in again, then run:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
          You can run the above commands in parallel on multiple OSD daemons on the same OSD node
          to help accelerate the upgrade.
         </p></div></li></ol></li><li class="step"><p>
@@ -377,7 +377,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      Replace <em class="replaceable">MINION_ID</em> with the ID of the minion
      that you are upgrading. You can get the list of minion IDs by running the
      <code class="command">salt-key -L</code> command on the Salt Master.
-    </p><div id="id-1.3.5.2.10.3.5.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div id="id-1.3.5.2.10.3.5.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       To see the status and progress of the <span class="emphasis"><em>adoption</em></span>,
       check the Ceph Dashboard or run one of the following commands on the
       Salt Master:
@@ -407,7 +407,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
    install the <span class="package">ceph-salt</span> package and apply the cluster
    configuration. The actual gateway services are redeployed in a containerized
    mode at the end of the upgrade procedure.
-  </p><div id="id-1.3.5.2.11.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.3.5.2.11.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     To successfully upgrade the Metadata Server, ensure you reduce the Metadata Server to 1.
    </p><p>
     Run <code class="command">salt-run upgrade.status</code> to ensure that all Metadata Servers on
@@ -415,10 +415,10 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
    </p><p>
     Ensure you stop the Metadata Server before upgrading the Ceph Monitor nodes as it may
     otherwise result in a failed quorum.
-   </p></div><div id="id-1.3.5.2.11.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p></div><div id="id-1.3.5.2.11.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     Metadata Server and Object Gateway services are unavailable from the time of upgrading to
     SUSE Linux Enterprise Server 15 SP3 until they are redeployed at the end of the upgrade procedure.
-   </p></div><div id="id-1.3.5.2.11.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p></div><div id="id-1.3.5.2.11.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     SUSE Enterprise Storage 7.1 does not use the
     <code class="option">rgw_frontend_ssl_key</code> option. Instead, both the SSL key and
     certificate are concatenated under the
@@ -459,7 +459,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      Import DeepSea's cluster configuration into <code class="systemitem">ceph-salt</code>:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt import ceph-salt-config.json</pre></div></li><li class="step"><p>
      Generate SSH keys for cluster node communication:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ssh generate</pre></div><div id="id-1.3.5.2.12.4.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ssh generate</pre></div><div id="id-1.3.5.2.12.4.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       Verify that the cluster configuration was imported from DeepSea and
       specify potentially missed options:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config ls</pre></div><p>
@@ -496,7 +496,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
      (the Salt Master by default), run the following commands:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name prometheus.$(hostname)
 <code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name alertmanager.$(hostname)
-<code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name grafana.$(hostname)</pre></div><div id="id-1.3.5.2.13.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name grafana.$(hostname)</pre></div><div id="id-1.3.5.2.13.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       If you are <span class="bold"><strong>not</strong></span> running the default
       container image registry <code class="literal">registry.suse.com</code>, you need
       to specify the image to use on each command, for example:
@@ -521,7 +521,7 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph cephadm registry-login <em class="replaceable">URL</em> <em class="replaceable">USERNAME</em> <em class="replaceable">PASSWORD</em></pre></div></li><li class="step"><p>
      Apply the service specifications that you previously exported from
      DeepSea:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i specs.yaml</pre></div><div id="id-1.3.5.2.13.3.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i specs.yaml</pre></div><div id="id-1.3.5.2.13.3.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       If you are <span class="bold"><strong>not</strong></span> running the default
       container image registry <code class="literal">registry.suse.com</code>, but a
       local container registry, configure cephadm to use the container image
@@ -587,16 +587,16 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
     To have the Object Gateway service containerized, create its specification file as
     described in <a class="xref" href="deploy-core.html#deploy-cephadm-day2-service-ogw" title="8.3.4. Deploying Object Gateways">Section 8.3.4, “Deploying Object Gateways”</a>, and apply
     it.
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">RGW</em>.yml</pre></div></section><section class="sect2" id="upgrade-ganesha" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.7.2 </span><span class="title-name">Upgrading NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-ganesha">#</a></h3></div></div></div><div id="id-1.3.5.2.14.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">RGW</em>.yml</pre></div></section><section class="sect2" id="upgrade-ganesha" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.7.2 </span><span class="title-name">Upgrading NFS Ganesha</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-ganesha">#</a></h3></div></div></div><div id="id-1.3.5.2.14.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   NFS Ganesha supports NFS version 4.1 and newer.
   It does not support NFS version 3.
- </p></div><div id="id-1.3.5.2.14.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+ </p></div><div id="id-1.3.5.2.14.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   The upgrade process disables the <code class="literal">nfs</code> module in the Ceph Manager daemon. 
   You can re-enable it by executing the following command from the Admin Node:
  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable nfs</pre></div></div><p>
     The following demonstrates how to migrate an existing NFS Ganesha service
     running Ceph Nautilus to an NFS Ganesha container running Ceph Octopus.
-   </p><div id="id-1.3.5.2.14.3.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p><div id="id-1.3.5.2.14.3.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      The following documentation requires you to have already successfully
      upgraded the core Ceph services.
     </p></div><p>
@@ -672,7 +672,7 @@ nfs.foo.node2  node2  running (26m)  8m ago     27m  3.3      registry.suse.com/
      </p></li><li class="listitem"><p>
       Manually copy the contents of each per-daemon RADOS object into the
       newly created NFS Ganesha common configuration.
-     </p></li></ul></div><div class="procedure" id="id-1.3.5.2.14.3.17" data-id-title="Manually copying exports to NFS Ganesha common configuration file"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 10.1: </span><span class="title-name">Manually copying exports to NFS Ganesha common configuration file </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.3.5.2.14.3.17">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     </p></li></ul></div><div class="procedure" id="id-1.3.5.2.14.3.17" data-id-title="Manually copying exports to NFS Ganesha common configuration file"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 10.1: </span><span class="title-name">Manually copying exports to NFS Ganesha common configuration file </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#id-1.3.5.2.14.3.17">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
       Determine the list of per-daemon RADOS objects:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>RADOS_ARGS="--pool ganesha_config --namespace ganesha"
 <code class="prompt user">cephuser@adm &gt; </code>DAEMON_OBJS=$(rados $RADOS_ARGS ls | grep 'conf-')</pre></div></li><li class="step"><p>
@@ -695,7 +695,7 @@ drwxr-xr-x 3 root root 4.0K Sep 8 16:47 ..
       Write the new NFS Ganesha common configuration file:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS put conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div></li><li class="step"><p>
       Notify the NFS Ganesha daemon:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS notify conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div><div id="id-1.3.5.2.14.3.17.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS notify conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div><div id="id-1.3.5.2.14.3.17.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        This action will cause the daemon to reload the configuration.
       </p></div></li></ol></div></div><p>
     After the service has been successfully migrated, the Nautilus-based
@@ -793,7 +793,7 @@ spec:
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5jdYbjtNTAKW4
     /CwQr/7wOiLGzVxChn3mmCIF3DwbL/qvTFTX2d8bDf6LjGwLYloXHscRfxszX/4h
     [...]
-    -----END PRIVATE KEY-----</pre></div><div id="id-1.3.5.2.14.5.3.2.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    -----END PRIVATE KEY-----</pre></div><div id="id-1.3.5.2.14.5.3.2.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        The <code class="option">pool</code>, <code class="option">trusted_ip_list</code>,
        <code class="option">api_port</code>, <code class="option">api_user</code>,
        <code class="option">api_password</code>, <code class="option">api_secure</code> settings are
@@ -825,7 +825,7 @@ spec:
      Make sure that no old OSDs will join the cluster:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd require-osd-release pacific</pre></div></li><li class="step"><p>
      Set the <code class="option">pg_autoscale_mode</code> of existing pools if necessary:
-    </p><div id="id-1.3.5.2.15.3.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div id="id-1.3.5.2.15.3.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Pools in SUSE Enterprise Storage 6 had the <code class="option">pg_autoscale_mode</code> set
       to <code class="option">warn</code> by default. This resulted in a warning message
       in case of suboptimal number of PGs, but autoscaling did not actually

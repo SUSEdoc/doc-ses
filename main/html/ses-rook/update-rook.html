@@ -42,7 +42,7 @@ hljs.configure({
   This chapter takes you through the steps to update the software in a
   Rook-Ceph cluster from one version to the next. This includes both the
   Rook-Ceph Operator software itself as well as the Ceph cluster software.
- </p><div id="id-1.7.3.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+ </p><div id="id-1.7.3.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
    Version
   </p></div><section class="sect1" id="rook-update-hardware-specs" data-id-title="Recommended hardware specifications"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">2.1 </span><span class="title-name">Recommended hardware specifications</span> <a title="Permalink" class="permalink" href="update-rook.html#rook-update-hardware-specs">#</a></h2></div></div></div><p>
    For SUSE Enterprise Storage deployed with Rook, the minimal configuration is
@@ -78,7 +78,7 @@ hljs.configure({
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n <em class="replaceable">ROOK_CLUSTER_NAMESPACE</em> patch CephCluster <em class="replaceable">CLUSTER_NAME</em> --type=merge -p "{\"spec\": {\"cephVersion\": {\"image\": \"registry.suse.com/ses/7.1/ceph/ceph:<em class="replaceable">version-number</em>\"}}}"</pre></div></li><li class="step"><p>
      Mark the Ceph cluster to only support the updated version:
     </p><div class="verbatim-wrap"><pre class="screen"># from a ceph-toolbox
-<code class="prompt root"># </code>ceph osd require-osd-release <em class="replaceable">version-name</em></pre></div></li></ol></div></div><div id="id-1.7.3.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt root"># </code>ceph osd require-osd-release <em class="replaceable">version-name</em></pre></div></li></ol></div></div><div id="id-1.7.3.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     We recommend updating the Rook-Ceph common resources from the example
     manifests before any update. The common resources and CRDs might not be
     updated with every release, but K8s will only apply updates to the ones
@@ -99,7 +99,7 @@ hljs.configure({
     </p></li></ul></div><p>
    Each version upgrade has specific details outlined in the Rook
    documentation. Use the following steps as a base guideline.
-  </p><div id="id-1.7.3.3.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.7.3.3.8.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     These methods should work for any number of Rook-Ceph clusters and Rook
     Operators as long as you parameterize the environment correctly. Merely
     repeat these steps for each Rook-Ceph cluster

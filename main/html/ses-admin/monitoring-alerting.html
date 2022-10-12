@@ -98,7 +98,7 @@ hljs.configure({
   <code class="literal">node-exporter</code> service type. See
   <span class="intraxref">Book “Deployment Guide”, Chapter 8 “Deploying the remaining core services using cephadm”, Section 8.3.8 “Deploying the monitoring stack”</span> for more
   information on deploying services.
- </p><section class="sect1" id="monitoring-custom-images" data-id-title="Configuring custom or local images"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">16.1 </span><span class="title-name">Configuring custom or local images</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#monitoring-custom-images">#</a></h2></div></div></div><div id="id-1.4.4.6.13.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+ </p><section class="sect1" id="monitoring-custom-images" data-id-title="Configuring custom or local images"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">16.1 </span><span class="title-name">Configuring custom or local images</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#monitoring-custom-images">#</a></h2></div></div></div><div id="id-1.4.4.6.13.2" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     This section describes how to change the configuration of container images
     which are used when services are deployed or updated. It does not include
     the commands necessary to deploy or re-deploy services.
@@ -132,7 +132,7 @@ hljs.configure({
      registry.suse.com/ses/7.1/ceph/grafana:7.5.12
     </p></li></ul></div><p>
    For example:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_prometheus prom/prometheus:v1.4.1</pre></div><div id="id-1.4.4.6.13.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_prometheus prom/prometheus:v1.4.1</pre></div><div id="id-1.4.4.6.13.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     By setting a custom image, the default value will be overridden (but not
     overwritten). The default value changes when updates become available. By
     setting a custom image, you will not be able to update the component you
@@ -167,7 +167,7 @@ hljs.configure({
 <code class="prompt user">cephuser@adm &gt; </code>ceph orch reconfig grafana</pre></div><p>
    Currently no single command to update all monitoring services exists. The
    order in which these services are updated is not important.
-  </p><div id="id-1.4.4.6.14.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.4.6.14.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     If you use custom container images, the URLs specified for the monitoring
     services will not change automatically if the Ceph packages are updated.
     If you have specified custom container images, you will need to specify the
@@ -214,7 +214,7 @@ hljs.configure({
    The Prometheus Manager Module is a module inside Ceph that extends Ceph's
    functionality. The module reads (meta-)data from Ceph about its state and
    health, providing the (scraped) data in a consumable format to Prometheus.
-  </p><div id="id-1.4.4.6.17.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.4.6.17.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The Prometheus Manager Module needs to be restarted for the configuration changes to
     be applied.
    </p></div><section class="sect2" id="monitoring-http-requests" data-id-title="Configuring the network interface"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">16.5.1 </span><span class="title-name">Configuring the network interface</span> <a title="Permalink" class="permalink" href="monitoring-alerting.html#monitoring-http-requests">#</a></h3></div></div></div><p>
@@ -233,7 +233,7 @@ hljs.configure({
     seconds. We do not recommend using a scrape interval below 10 seconds. To
     set a different scrape interval in the Prometheus module, set
     <code class="literal">scrape_interval</code> to the desired value:
-   </p><div id="id-1.4.4.6.17.5.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.4.4.6.17.5.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      To work properly and not cause any issues, the
      <code class="literal">scrape_interval</code> of this module should always be set to
      match the Prometheus scrape interval .
@@ -294,7 +294,7 @@ hljs.configure({
    you can install the Prometheus Alertmanager SNMP gateway via cephadm
    or the Ceph Dashboard. To do so for SNMPv2c, for example, you need to create a
    service and placement specification file with the following content:
-  </p><div id="id-1.4.4.6.19.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.4.6.19.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     For more information on service and placement files, see
     <span class="intraxref">Book “Deployment Guide”, Chapter 8 “Deploying the remaining core services using cephadm”, Section 8.2 “Service and placement specification”</span>.
    </p></div><div class="verbatim-wrap"><pre class="screen">service_type: snmp-gateway

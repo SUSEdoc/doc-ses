@@ -45,7 +45,7 @@ hljs.configure({
    </p><section class="sect3" id="create-a-local-object-store" data-id-title="Creating a local Object Storage"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">13.1.1.1 </span><span class="title-name">Creating a local Object Storage</span> <a title="Permalink" class="permalink" href="admin-caasp-object-storage.html#create-a-local-object-store">#</a></h4></div></div></div><p>
      The below sample will create a <code class="literal">CephObjectStore</code> that
      starts the Object Gateway service in the cluster with an S3 API.
-    </p><div id="id-1.7.4.12.3.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.12.3.3.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least three BlueStore OSDs, with each OSD
       located on a different node.
      </p></div><p>
@@ -309,7 +309,7 @@ rook-ceph-rgw-my-store-external   NodePort    10.111.113.237   none          80:
      for the configured <code class="literal">storeType</code>. Additionally, erasure
      coded pools can only be used with <code class="literal">dataPools</code>. The
      <code class="literal">metadataPool</code> must use a replicated pool.
-    </p><div id="id-1.7.4.12.4.3.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.12.4.3.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       This sample requires at least three BlueStore OSDs, with each OSD
       located on a different node.
      </p></div><p>

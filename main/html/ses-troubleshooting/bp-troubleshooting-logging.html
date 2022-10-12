@@ -41,7 +41,7 @@ hljs.configure({
   file if you are encountering issues when starting your cluster. You may view
   Ceph log files under <code class="filename">/var/log/ceph</code> (the default
   location).
- </p><div id="id-1.5.4.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+ </p><div id="id-1.5.4.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
    When debug output slows down your system, the latency can hide race
    conditions.
   </p></div><p>
@@ -51,7 +51,7 @@ hljs.configure({
   not, you should start by enabling debug logging for the specific metadata
   server instance(s) giving you trouble. Enable logging for each subsystem as
   needed.
- </p><div id="id-1.5.4.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+ </p><div id="id-1.5.4.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
    Verbose logging can generate over 1GB of data per hour. If your OS disk
    reaches its capacity, the node will stop working.
   </p></div><p>
@@ -171,7 +171,7 @@ debug mds balancer = 1/20</pre></div><p>
     log and memory levels. Once you complete your logging efforts, restore the
     subsystems to their default level or to a level suitable for normal
     operations.
-   </p><div class="table" id="id-1.5.4.12.3.7" data-id-title="Ceph subsystems"><div class="table-title-wrap"><h6 class="table-title"><span class="title-number">Table 2.1: </span><span class="title-name">Ceph subsystems </span><a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#id-1.5.4.12.3.7">#</a></h6></div><div class="table-contents"><table style="border-collapse: collapse; border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col class="col1"/><col class="col2"/><col class="col3"/></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">
+   </p><div class="table" id="id-1.5.4.12.3.7" data-id-title="Ceph subsystems"><div class="table-title-wrap"><div class="table-title"><span class="title-number">Table 2.1: </span><span class="title-name">Ceph subsystems </span><a title="Permalink" class="permalink" href="bp-troubleshooting-logging.html#id-1.5.4.12.3.7">#</a></div></div><div class="table-contents"><table style="border-collapse: collapse; border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col class="col1"/><col class="col2"/><col class="col3"/></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">
      Subsystem
     </th><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">
      Log Level
