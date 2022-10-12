@@ -169,7 +169,7 @@ hljs.configure({
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-mon -i a --inject-monmap /tmp/monmap</pre></div></li><li class="step"><p>
      Start only the surviving monitors, and verify that the monitors form a
      quorum with the <code class="command">ceph -s</code> command.
-    </p></li></ol></div></div><div id="id-1.5.8.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></li></ol></div></div><div id="id-1.5.8.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     You may wish to archive the removed monitors' data directories from
     <code class="filename">/var/lib/ceph/mon</code> in a safe location, or delete it if
     you are confident the remaining monitors are healthy and are sufficiently

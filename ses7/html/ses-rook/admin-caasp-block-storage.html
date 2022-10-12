@@ -43,7 +43,7 @@ hljs.configure({
    Before Rook can provision storage, a <code class="literal">StorageClass</code> and a
    <code class="literal">CephBlockPool</code> need to be created. This will allow Kubernetes
    to interoperate with Rook when provisioning persistent volumes.
-  </p><div id="id-1.7.4.4.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.7.4.4.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     This sample requires <span class="emphasis"><em>at least one OSD per node</em></span>, with
     each OSD located on <span class="emphasis"><em>three different nodes</em></span>.
    </p></div><p>
@@ -51,7 +51,7 @@ hljs.configure({
    <a class="link" href="https://github.com/rook/rook/blob/release-1.4/Documentation/ceph-pool-crd.md#spec" target="_blank"><code class="literal">failureDomain</code></a>
    is set to <code class="literal">host</code> and the <code class="literal">replicated.size</code>
    is set to <code class="literal">3</code>.
-  </p><div id="id-1.7.4.4.4.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.7.4.4.4.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     This example uses the CSI driver, which is the preferred driver going
     forward for Kubernetes 1.13 and newer. Examples are found in the
     <a class="link" href="https://github.com/rook/rook/tree/release-1.4/cluster/examples/kubernetes/ceph/csi/rbd" target="_blank">CSI
@@ -109,7 +109,7 @@ reclaimPolicy: Delete</pre></div><p>
    <span class="quote">“<span class="quote">my-namespace.rbd.csi.ceph.com</span>”</span>.
   </p><p>
    Create the storage class.
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/rbd/storageclass.yaml</pre></div><div id="id-1.7.4.4.4.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/rbd/storageclass.yaml</pre></div><div id="id-1.7.4.4.4.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     As
     <a class="link" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#retain" target="_blank">specified
     by Kubernetes</a>, when using the <code class="literal">Retain</code> reclaim policy,
@@ -143,7 +143,7 @@ wordpress   10.3.0.155   &lt;pending&gt;     80:30841/TCP   2m</pre></div><p>
   </p><p>
    If you are using Minikube, the WordPress URL can be retrieved with this
    one-line command:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>echo http://$(minikube ip):$(kubectl get service wordpress -o jsonpath='{.spec.ports[0].nodePort}')</pre></div><div id="id-1.7.4.4.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>echo http://$(minikube ip):$(kubectl get service wordpress -o jsonpath='{.spec.ports[0].nodePort}')</pre></div><div id="id-1.7.4.4.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     When running in a Vagrant environment, there will be no external IP address
     to reach WordPress with. You will only be able to reach WordPress via the
     <code class="literal">CLUSTER-IP</code> from inside the Kubernetes cluster.

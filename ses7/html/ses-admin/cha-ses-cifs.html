@@ -41,12 +41,12 @@ hljs.configure({
   machines. It also includes information that will help you configure a Ceph
   Samba gateway to join Active Directory in the Windows* domain to authenticate and
   authorize users.
- </p><div id="id-1.4.6.5.4" data-id-title="Samba gateway performance" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Samba gateway performance</h6><p>
+ </p><div id="id-1.4.6.5.4" data-id-title="Samba gateway performance" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Samba gateway performance</div><p>
    Because of increased protocol overhead and additional latency caused by
    extra network hops between the client and the storage, accessing CephFS
    via a Samba Gateway may significantly reduce application performance when
    compared to native Ceph clients.
-  </p></div><section class="sect1" id="cephfs-samba" data-id-title="Export CephFS via Samba share"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">24.1 </span><span class="title-name">Export CephFS via Samba share</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#cephfs-samba">#</a></h2></div></div></div><div id="id-1.4.6.5.5.2" data-id-title="Cross protocol access" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Cross protocol access</h6><p>
+  </p></div><section class="sect1" id="cephfs-samba" data-id-title="Export CephFS via Samba share"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">24.1 </span><span class="title-name">Export CephFS via Samba share</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#cephfs-samba">#</a></h2></div></div></div><div id="id-1.4.6.5.5.2" data-id-title="Cross protocol access" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Cross protocol access</div><p>
     Native CephFS and NFS clients are not restricted by file locks obtained
     via Samba, and vice versa. Applications that rely on cross protocol file
     locking may experience data corruption if CephFS backed Samba share paths
@@ -110,7 +110,7 @@ hljs.configure({
   ceph: user_id = samba.gw
   read only = no
   oplocks = no
-  kernel share modes = no</pre></div><div id="id-1.4.6.5.5.4.4.4.6" data-id-title="Oplocks and share modes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Oplocks and share modes</h6><p>
+  kernel share modes = no</pre></div><div id="id-1.4.6.5.5.4.4.4.6" data-id-title="Oplocks and share modes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Oplocks and share modes</div><p>
        <code class="option">oplocks</code> (also known as SMB2+ leases) allow for improved
        performance through aggressive client caching, but are currently unsafe
        when Samba is deployed together with other CephFS clients, such as
@@ -123,7 +123,7 @@ hljs.configure({
        Currently <code class="option">kernel share modes</code> needs to be disabled in a
        share running with the CephFS vfs module for file serving to work
        properly.
-      </p></div><div id="id-1.4.6.5.5.4.4.4.7" data-id-title="Permitting access" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Permitting access</h6><p>
+      </p></div><div id="id-1.4.6.5.5.4.4.4.7" data-id-title="Permitting access" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Permitting access</div><p>
        Samba maps SMB users and groups to local accounts. Local users can be
        assigned a password for Samba share access via:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>smbpasswd -a <em class="replaceable">USERNAME</em></pre></div><p>
@@ -142,14 +142,14 @@ hljs.configure({
      To ensure that Samba services start on boot, enable them via:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>systemctl enable smb.service
 <code class="prompt root"># </code>systemctl enable nmb.service
-<code class="prompt root"># </code>systemctl enable winbind.service</pre></div><div id="id-1.4.6.5.5.4.5.6" data-id-title="Optional nmb and winbind services" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Optional <code class="systemitem">nmb</code> and <code class="systemitem">winbind</code> services</h6><p>
+<code class="prompt root"># </code>systemctl enable winbind.service</pre></div><div id="id-1.4.6.5.5.4.5.6" data-id-title="Optional nmb and winbind services" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Optional <code class="systemitem">nmb</code> and <code class="systemitem">winbind</code> services</div><p>
       If you do not require network share browsing, you do not need to enable
       and start the <code class="systemitem">nmb</code> service.
      </p><p>
       The <code class="systemitem">winbind</code> service is only
       needed when configured as an Active Directory domain member. See
       <a class="xref" href="cha-ses-cifs.html#cephfs-ad" title="24.2. Joining Samba Gateway and Active Directory">Section 24.2, “Joining Samba Gateway and Active Directory”</a>.
-     </p></div></section></section><section class="sect2" id="sec-ses-cifs-ha" data-id-title="Configuring high availability"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">24.1.3 </span><span class="title-name">Configuring high availability</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#sec-ses-cifs-ha">#</a></h3></div></div></div><div id="id-1.4.6.5.5.5.2" data-id-title="Transparent failover not supported" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Transparent failover not supported</h6><p>
+     </p></div></section></section><section class="sect2" id="sec-ses-cifs-ha" data-id-title="Configuring high availability"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">24.1.3 </span><span class="title-name">Configuring high availability</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#sec-ses-cifs-ha">#</a></h3></div></div></div><div id="id-1.4.6.5.5.5.2" data-id-title="Transparent failover not supported" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Transparent failover not supported</div><p>
      Although a multi-node Samba + CTDB deployment is more highly available
      compared to the single node (see <a class="xref" href="cha-ses-cifs.html" title="Chapter 24. Export Ceph data via Samba">Chapter 24, <em>Export Ceph data via Samba</em></a>),
      client-side transparent failover is not supported. Applications will
@@ -272,7 +272,7 @@ hljs.configure({
         on both Samba Gateways.
        </p></li><li class="step"><p>
         Initialize the cluster on <code class="systemitem">earth</code> and let <code class="systemitem">mars</code> join it.
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">ha-cluster-init</code></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@mars # </code><code class="command">ha-cluster-join</code> -c earth</pre></div><div id="id-1.4.6.5.5.5.7.5.2.4.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">ha-cluster-init</code></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@mars # </code><code class="command">ha-cluster-join</code> -c earth</pre></div><div id="id-1.4.6.5.5.5.7.5.2.4.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
          During the process of initialization and joining the cluster, you will
          be interactively asked whether to use SBD. Confirm with
          <code class="option">y</code> and then specify
@@ -316,7 +316,7 @@ Full list of resources:
     op monitor interval="60" timeout="100"
 <code class="prompt user">crm(live)configure# </code><code class="command">group</code> g-ctdb ctdb winbind nmb smb
 <code class="prompt user">crm(live)configure# </code><code class="command">clone</code> cl-ctdb g-ctdb meta interleave="true"
-<code class="prompt user">crm(live)configure# </code><code class="command">commit</code></pre></div><div id="id-1.4.6.5.5.5.7.7.3" data-id-title="Optional nmb and winbind primitives" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Optional <code class="systemitem">nmb</code> and <code class="systemitem">winbind</code> primitives</h6><p>
+<code class="prompt user">crm(live)configure# </code><code class="command">commit</code></pre></div><div id="id-1.4.6.5.5.5.7.7.3" data-id-title="Optional nmb and winbind primitives" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Optional <code class="systemitem">nmb</code> and <code class="systemitem">winbind</code> primitives</div><p>
        If you do not require network share browsing, you do not need to add the
        <code class="systemitem">nmb</code> primitive.
       </p><p>
@@ -381,7 +381,7 @@ Clone Set: base-clone [dlm]
     before configuring the Samba itself. Starting with a clean environment
     helps you prevent confusion and verifies that no files from the previous
     Samba installation are mixed with the new domain member installation.
-   </p><div id="id-1.4.6.5.6.3.3" data-id-title="Synchronizing clocks" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Synchronizing clocks</h6><p>
+   </p><div id="id-1.4.6.5.6.3.3" data-id-title="Synchronizing clocks" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Synchronizing clocks</div><p>
      All Samba Gateway nodes' clocks need to be synchronized with the Active Directory Domain
      controller. Clock skew may result in authentication failures.
     </p></div><p>
@@ -461,7 +461,7 @@ dc1.domain.example.com  internet address = 10.99.0.1</pre></div></section><secti
     address and you are not using DHCP, set the correct entry in the
     <code class="filename">/etc/hosts</code> file:
    </p><div class="verbatim-wrap"><pre class="screen">127.0.0.1      localhost
-10.99.0.5      example-host.samdom.example.com    example-host</pre></div><div id="id-1.4.6.5.6.7.7" data-id-title="DHCP and /etc/hosts" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: DHCP and <code class="filename">/etc/hosts</code></h6><p>
+10.99.0.5      example-host.samdom.example.com    example-host</pre></div><div id="id-1.4.6.5.6.7.7" data-id-title="DHCP and /etc/hosts" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: DHCP and <code class="filename">/etc/hosts</code></div><p>
      If you are using DHCP, check that <code class="filename">/etc/hosts</code> only
      contains the '127.0.0.1' line. If you continue to have problems, contact
      the administrator of your DHCP server.
@@ -485,7 +485,7 @@ dc1.domain.example.com  internet address = 10.99.0.1</pre></div></section><secti
      If you need your users to have different login shells and/or Unix home
      directory paths, or you want them to have the same ID everywhere, you will
      need to use the winbind 'ad' back-end and add RFC2307 attributes to AD.
-    </p><div id="id-1.4.6.5.6.8.5.3" data-id-title="RFC2307 Attributes and ID Numbers" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: RFC2307 Attributes and ID Numbers</h6><p>
+    </p><div id="id-1.4.6.5.6.8.5.3" data-id-title="RFC2307 Attributes and ID Numbers" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: RFC2307 Attributes and ID Numbers</div><p>
       The RFC2307 attributes are not added automatically when users or groups
       are created.
      </p><p>
@@ -519,7 +519,7 @@ dc1.domain.example.com  internet address = 10.99.0.1</pre></div></section><secti
      lines in <code class="filename">smb.conf</code>. This way you only need to add
      <code class="literal">uidNumber</code> and <code class="literal">gidNumber</code> attributes
      to AD.
-    </p><div id="id-1.4.6.5.6.8.5.6" data-id-title="More Information about Back-ends for ID Mapping" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: More Information about Back-ends for ID Mapping</h6><p>
+    </p><div id="id-1.4.6.5.6.8.5.6" data-id-title="More Information about Back-ends for ID Mapping" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: More Information about Back-ends for ID Mapping</div><p>
       Find more detailed information about available ID mapping back-ends in
       the related manual pages: <code class="command">man 8 idmap_ad</code>, <code class="command">man
       8 idmap_rid</code>, and <code class="command">man 8 idmap_autorid</code>.
@@ -528,7 +528,7 @@ dc1.domain.example.com  internet address = 10.99.0.1</pre></div></section><secti
      ranges to use with the <code class="option">idmap config</code> option in
      <code class="filename">smb.conf</code>. By default, there are multiple blocks of
      user and group IDs reserved on a Unix domain member:
-    </p><div class="table" id="id-1.4.6.5.6.8.6.3" data-id-title="Default Users and Group ID Blocks"><div class="table-title-wrap"><h6 class="table-title"><span class="title-number">Table 24.1: </span><span class="title-name">Default Users and Group ID Blocks </span><a title="Permalink" class="permalink" href="cha-ses-cifs.html#id-1.4.6.5.6.8.6.3">#</a></h6></div><div class="table-contents"><table style="width: 50%; border-collapse: collapse; border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col/><col/></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">IDs</th><th style="border-bottom: 1px solid ; ">Range</th></tr></thead><tbody><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">0-999</td><td style="border-bottom: 1px solid ; ">Local system users and groups.</td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">Starting at 1000</td><td style="border-bottom: 1px solid ; ">Local Unix users and groups.</td></tr><tr><td style="border-right: 1px solid ; ">Starting at 10000</td><td>DOMAIN users and groups.</td></tr></tbody></table></div></div><p>
+    </p><div class="table" id="id-1.4.6.5.6.8.6.3" data-id-title="Default Users and Group ID Blocks"><div class="table-title-wrap"><div class="table-title"><span class="title-number">Table 24.1: </span><span class="title-name">Default Users and Group ID Blocks </span><a title="Permalink" class="permalink" href="cha-ses-cifs.html#id-1.4.6.5.6.8.6.3">#</a></div></div><div class="table-contents"><table style="width: 50%; border-collapse: collapse; border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col/><col/></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">IDs</th><th style="border-bottom: 1px solid ; ">Range</th></tr></thead><tbody><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">0-999</td><td style="border-bottom: 1px solid ; ">Local system users and groups.</td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">Starting at 1000</td><td style="border-bottom: 1px solid ; ">Local Unix users and groups.</td></tr><tr><td style="border-right: 1px solid ; ">Starting at 10000</td><td>DOMAIN users and groups.</td></tr></tbody></table></div></div><p>
      As you can see from the above ranges, you should not set either the '*' or
      'DOMAIN' ranges to start at 999 or less, as they would interfere with the
      local system users and groups. You also should leave a space for any local
@@ -538,12 +538,12 @@ dc1.domain.example.com  internet address = 10.99.0.1</pre></div></section><secti
      You need to decide how large your 'DOMAIN' is likely to grow and if you
      plan to have any trusted domains. Then you can set the <code class="option">idmap
      config</code> ranges as follows:
-    </p><div class="table" id="id-1.4.6.5.6.8.6.6" data-id-title="ID Ranges"><div class="table-title-wrap"><h6 class="table-title"><span class="title-number">Table 24.2: </span><span class="title-name">ID Ranges </span><a title="Permalink" class="permalink" href="cha-ses-cifs.html#id-1.4.6.5.6.8.6.6">#</a></h6></div><div class="table-contents"><table style="width: 50%; border-collapse: collapse; border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col/><col/></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">Domain</th><th style="border-bottom: 1px solid ; ">Range</th></tr></thead><tbody><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">*</td><td style="border-bottom: 1px solid ; ">3000-7999</td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">DOMAIN</td><td style="border-bottom: 1px solid ; ">10000-999999</td></tr><tr><td style="border-right: 1px solid ; ">TRUSTED</td><td>1000000-9999999</td></tr></tbody></table></div></div></section><section class="sect3" id="smb-mapping-domain-admin-account-local" data-id-title="Mapping the domain administrator account to the local root user"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">24.2.6.3 </span><span class="title-name">Mapping the domain administrator account to the local <code class="systemitem">root</code> user</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#smb-mapping-domain-admin-account-local">#</a></h4></div></div></div><p>
+    </p><div class="table" id="id-1.4.6.5.6.8.6.6" data-id-title="ID Ranges"><div class="table-title-wrap"><div class="table-title"><span class="title-number">Table 24.2: </span><span class="title-name">ID Ranges </span><a title="Permalink" class="permalink" href="cha-ses-cifs.html#id-1.4.6.5.6.8.6.6">#</a></div></div><div class="table-contents"><table style="width: 50%; border-collapse: collapse; border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col/><col/></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; ">Domain</th><th style="border-bottom: 1px solid ; ">Range</th></tr></thead><tbody><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">*</td><td style="border-bottom: 1px solid ; ">3000-7999</td></tr><tr><td style="border-right: 1px solid ; border-bottom: 1px solid ; ">DOMAIN</td><td style="border-bottom: 1px solid ; ">10000-999999</td></tr><tr><td style="border-right: 1px solid ; ">TRUSTED</td><td>1000000-9999999</td></tr></tbody></table></div></div></section><section class="sect3" id="smb-mapping-domain-admin-account-local" data-id-title="Mapping the domain administrator account to the local root user"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">24.2.6.3 </span><span class="title-name">Mapping the domain administrator account to the local <code class="systemitem">root</code> user</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#smb-mapping-domain-admin-account-local">#</a></h4></div></div></div><p>
      Samba enables you to map domain accounts to a local account. Use this
      feature to execute file operations on the domain member's file system as a
      different user than the account that requested the operation on the
      client.
-    </p><div id="id-1.4.6.5.6.8.7.3" data-id-title="Mapping the Domain Administrator (Optional)" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Mapping the Domain Administrator (Optional)</h6><p>
+    </p><div id="id-1.4.6.5.6.8.7.3" data-id-title="Mapping the Domain Administrator (Optional)" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Mapping the Domain Administrator (Optional)</div><p>
       Mapping the domain administrator to the local <code class="systemitem">root</code> account is
       optional. Only configure the mapping if the domain administrator needs to
       be able to execute file operations on the domain member using <code class="systemitem">root</code>
@@ -559,7 +559,7 @@ dc1.domain.example.com  internet address = 10.99.0.1</pre></div></section><secti
       </p><div class="verbatim-wrap"><pre class="screen">username map = /etc/samba/user.map</pre></div></li><li class="step"><p>
        Create the <code class="filename">/etc/samba/user.map</code> file with the
        following content:
-      </p><div class="verbatim-wrap"><pre class="screen">!root = <em class="replaceable">DOMAIN</em>\Administrator</pre></div></li></ol></div></div><div id="id-1.4.6.5.6.8.7.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+      </p><div class="verbatim-wrap"><pre class="screen">!root = <em class="replaceable">DOMAIN</em>\Administrator</pre></div></li></ol></div></div><div id="id-1.4.6.5.6.8.7.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       When using the 'ad' ID mapping back-end, do not set the
       <code class="option">uidNumber</code> attribute for the domain administrator
       account. If the account has the attribute set, the value overrides the
@@ -579,7 +579,7 @@ Joined <em class="replaceable">EXAMPLE-HOST</em> to dns domain <em class="replac
     <code class="option">winbind</code> entry to the following databases in the
     <code class="filename">/etc/nsswitch.conf</code> file:
    </p><div class="verbatim-wrap"><pre class="screen">passwd: files winbind
-group:  files winbind</pre></div><div id="id-1.4.6.5.6.10.4" data-id-title="Points to Consider" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Points to Consider</h6><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+group:  files winbind</pre></div><div id="id-1.4.6.5.6.10.4" data-id-title="Points to Consider" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Points to Consider</div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
        Keep the <code class="option">files</code> entry as the first source for both
        databases. This enables NSS to look up domain users and groups from the
        <code class="filename">/etc/passwd</code> and <code class="filename">/etc/group</code>

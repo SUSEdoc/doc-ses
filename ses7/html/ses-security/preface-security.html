@@ -45,7 +45,7 @@ hljs.configure({
  SUSE Enterprise Storage 7 provides IT organizations with the ability to
  deploy a distributed storage architecture that can support a number of use
  cases using commodity hardware platforms.
-</p><section xml:lang="en" class="sect1" id="id-1.6.2.5" data-id-title="Available documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Available documentation</span> <a title="Permalink" class="permalink" href="preface-security.html#id-1.6.2.5">#</a></h2></div></div></div><div id="id-1.6.2.5.3" data-id-title="Online documentation and latest updates" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Online documentation and latest updates</h6><p>
+</p><section xml:lang="en" class="sect1" id="id-1.6.2.5" data-id-title="Available documentation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Available documentation</span> <a title="Permalink" class="permalink" href="preface-security.html#id-1.6.2.5">#</a></h2></div></div></div><div id="id-1.6.2.5.3" data-id-title="Online documentation and latest updates" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Online documentation and latest updates</div><p>
    Documentation for our products is available at
    <a class="link" href="https://documentation.suse.com" target="_blank">https://documentation.suse.com</a>,
    where you can also find the latest updates, and browse or download the
@@ -154,16 +154,16 @@ hljs.configure({
     Commands that can be run by non-privileged users.
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">command</code></pre></div></li><li class="listitem"><p>
     Notices
-   </p><div id="id-1.6.2.7.4.13.2" data-id-title="Warning notice" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Warning notice</h6><p>
+   </p><div id="id-1.6.2.7.4.13.2" data-id-title="Warning notice" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Warning notice</div><p>
      Vital information you must be aware of before proceeding. Warns you about
      security issues, potential loss of data, damage to hardware, or physical
      hazards.
-    </p></div><div id="id-1.6.2.7.4.13.3" data-id-title="Important notice" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Important notice</h6><p>
+    </p></div><div id="id-1.6.2.7.4.13.3" data-id-title="Important notice" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Important notice</div><p>
      Important information you should be aware of before proceeding.
-    </p></div><div id="id-1.6.2.7.4.13.4" data-id-title="Note notice" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Note notice</h6><p>
+    </p></div><div id="id-1.6.2.7.4.13.4" data-id-title="Note notice" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Note notice</div><p>
      Additional information, for example about differences in software
      versions.
-    </p></div><div id="id-1.6.2.7.4.13.5" data-id-title="Tip notice" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Tip notice</h6><p>
+    </p></div><div id="id-1.6.2.7.4.13.5" data-id-title="Tip notice" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Tip notice</div><p>
      Helpful information, like a guideline or a piece of practical advice.
     </p></div></li><li class="listitem"><p>
     Compact Notices
@@ -285,7 +285,7 @@ hljs.configure({
    The safer and recommended option is to create a more restrictive individual
    key for each administrator user and put it in a directory where the users
    can read it, for example:
-  </p><div class="verbatim-wrap"><pre class="screen">~/.ceph/ceph.client.<em class="replaceable">USERNAME</em>.keyring</pre></div><div id="id-1.6.2.10.5.6" data-id-title="Path to Ceph keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Path to Ceph keys</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen">~/.ceph/ceph.client.<em class="replaceable">USERNAME</em>.keyring</pre></div><div id="id-1.6.2.10.5.6" data-id-title="Path to Ceph keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Path to Ceph keys</div><p>
     To use a custom admin user and keyring, you need to specify the user name
     and path to the key each time you run the <code class="command">ceph</code> command
     using the <code class="option">-n client.<em class="replaceable">USER_NAME</em></code>
@@ -301,7 +301,7 @@ hljs.configure({
    prompt:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code></pre></div><p>
    For example:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.6.2.10.5.11" data-id-title="Commands for specific nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Commands for specific nodes</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.6.2.10.5.11" data-id-title="Commands for specific nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Commands for specific nodes</div><p>
     If the documentation instructs you to run a command on a cluster node with
     a specific role, it will be addressed by the prompt. For example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mon &gt; </code></pre></div></div><section class="sect3" id="id-1.6.2.10.5.12" data-id-title="Running ceph-volume"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">6.2.1 </span><span class="title-name">Running <code class="command">ceph-volume</code></span> <a title="Permalink" class="permalink" href="preface-security.html#id-1.6.2.10.5.12">#</a></h4></div></div></div><p>

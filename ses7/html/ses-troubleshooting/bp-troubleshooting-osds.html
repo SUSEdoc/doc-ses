@@ -91,7 +91,7 @@ hljs.configure({
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set noout</pre></div><p>
    Once the cluster is set to <code class="option">noout</code>, you can begin stopping
    the OSDs within the failure domain that requires maintenance work:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon stop osd.<em class="replaceable">ID</em></pre></div><div id="id-1.5.6.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon stop osd.<em class="replaceable">ID</em></pre></div><div id="id-1.5.6.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     Placement groups within the OSDs you stop will become degraded while you
     are addressing issues with within the failure domain.
    </p></div><p>
@@ -165,7 +165,7 @@ osd.0 is down since epoch 23, last address 192.168.106.220:6800/11080</pre></div
     cluster, allowing the cluster to redistribute data to the newly available
     storage. If you cannot start an OSD because it is full, you may delete some
     data by deleting some placement group directories in the full OSD.
-   </p><div id="id-1.5.6.6.5.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.5.6.6.5.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      If you choose to delete a placement group directory on a full OSD, do not
      delete the same placement group directory on another full OSD, or you may
      loose data. You must maintain at least one copy of your data on at least
@@ -417,7 +417,7 @@ flags no-up,no-down</pre></div><p>
    (allocated data) or protect OSDs from eventually being marked out
    (regardless of what the current value for <code class="command">mon osd down
    out</code> interval is).
-  </p><div id="id-1.5.6.11.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.5.6.11.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     <code class="option">noup</code>, <code class="option">noout</code>, and <code class="option">nodown</code>
     are temporary in the sense that once the flags are cleared, the action they
     were blocking should occur shortly after. The <code class="option">noin</code> flag,

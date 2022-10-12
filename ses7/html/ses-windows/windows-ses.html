@@ -72,13 +72,13 @@ hljs.configure({
    Microsoft Windows Server 2016 and 2019 are supported. Previous Microsoft Windows Server
    versions, including Microsoft Windows client versions such as Microsoft Windows 10, may work,
    but for the purpose of this document have not been thoroughly tested.
-  </p><div id="id-1.8.3.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.8.3.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     Early builds of Microsoft Windows Server 2016 do not provide UNIX sockets, in which
     case the Ceph admin socket feature is unavailable.
    </p></div></section><section class="sect1" id="compatibility" data-id-title="Compatibility"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.4 </span><span class="title-name">Compatibility</span> <a title="Permalink" class="permalink" href="windows-ses.html#compatibility">#</a></h2></div></div></div><p>
    RADOS Block Device images can be exposed to the OS and host Microsoft Windows partitions or they
    can be attached to Hyper-V VMs in the same way as iSCSI disks.
-  </p><div id="id-1.8.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.8.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     At the moment, the Microsoft Failover Cluster refuses to use Windows Block
     Device (WNBD) driver disks as Cluster Shared Volumes (CSVs) underlying
     storage.
@@ -206,7 +206,7 @@ C:\ProgramData\ceph\keyring</pre></div><p>
    example, VMs.
   </p><p>
    RBD maps are stored in the Microsoft Windows registry at the following location:
-  </p><div class="verbatim-wrap"><pre class="screen">SYSTEM\CurrentControlSet\Services\rbd-wnbd</pre></div></section><section class="sect1" id="windows-cephfs" data-id-title="Configuring CephFS"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.8 </span><span class="title-name">Configuring CephFS</span> <a title="Permalink" class="permalink" href="windows-ses.html#windows-cephfs">#</a></h2></div></div></div><div id="id-1.8.3.10.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen">SYSTEM\CurrentControlSet\Services\rbd-wnbd</pre></div></section><section class="sect1" id="windows-cephfs" data-id-title="Configuring CephFS"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.8 </span><span class="title-name">Configuring CephFS</span> <a title="Permalink" class="permalink" href="windows-ses.html#windows-cephfs">#</a></h2></div></div></div><div id="id-1.8.3.10.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The following feature is <span class="emphasis"><em>experimental</em></span>, and is not
     intended for use in production environments.
    </p></div><p>
@@ -234,11 +234,11 @@ C:\ProgramData\ceph\keyring</pre></div><p>
   </p><div class="verbatim-wrap"><pre class="screen">[client]
 # client_permissions = true
 client_mount_uid = 1000
-client_mount_gid = 1000</pre></div><div id="id-1.8.3.10.10" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+client_mount_gid = 1000</pre></div><div id="id-1.8.3.10.10" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     Microsoft Windows Access Control Lists (ACLs) are ignored. Portable Operating System
     Interface (POSIX) ACLs are supported but cannot be modified using the
     current CLI.
-   </p></div><div id="id-1.8.3.10.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p></div><div id="id-1.8.3.10.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     CephFS does not support mandatory file locks, which Microsoft Windows heavily
     relies upon. At the moment, we are letting Dokan handle file locks, which
     are only enforced locally.

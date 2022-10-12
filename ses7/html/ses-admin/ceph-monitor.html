@@ -39,7 +39,7 @@ hljs.configure({
   When you have a running cluster, you may use the <code class="command">ceph</code> tool
   to monitor it. Determining the cluster state typically involves checking the
   status of Ceph OSDs, Ceph Monitors, placement groups, and Metadata Servers.
- </p><div id="id-1.4.4.2.4" data-id-title="Interactive mode" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Interactive mode</h6><p>
+ </p><div id="id-1.4.4.2.4" data-id-title="Interactive mode" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Interactive mode</div><p>
    To run the <code class="command">ceph</code> tool in an interactive mode, type
    <code class="command">ceph</code> at the command line with no arguments. The
    interactive mode is more convenient if you are going to enter more
@@ -94,7 +94,7 @@ cluster:
      objects stored
     </p></li><li class="listitem"><p>
      The total amount of data stored.
-    </p></li></ul></div><div id="id-1.4.4.2.5.6" data-id-title="How Ceph calculates data usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: How Ceph calculates data usage</h6><p>
+    </p></li></ul></div><div id="id-1.4.4.2.5.6" data-id-title="How Ceph calculates data usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: How Ceph calculates data usage</div><p>
     The <code class="literal">used</code> value reflects the actual amount of raw storage
     used. The <code class="literal">xxx GB / xxx GB</code> value means the amount
     available (the lesser number) of the overall storage capacity of the
@@ -125,7 +125,7 @@ cluster:
    data, check your cluster's health:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph health
 HEALTH_WARN 10 pgs degraded; 100 pgs stuck unclean; 1 mons down, quorum 0,2 \
-node-1,node-2,node-3</pre></div><div id="id-1.4.4.2.6.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+node-1,node-2,node-3</pre></div><div id="id-1.4.4.2.6.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     If you specified non-default locations for your configuration or keyring,
     you may specify their locations:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -c <em class="replaceable">/path/to/conf</em> -k <em class="replaceable">/path/to/keyring</em> health</pre></div></div><p>
@@ -419,7 +419,7 @@ osd.2 is near full at 87%</pre></div><p>
       flagged as clean, which may happen if they are misplaced or degraded (see
       PG_AVAILABILITY and PG_DEGRADED above). You can manually initiate a scrub
       of a clean PG with:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg deep-scrub <em class="replaceable">pgid</em></pre></div></dd></dl></div><div id="id-1.4.4.2.6.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph pg deep-scrub <em class="replaceable">pgid</em></pre></div></dd></dl></div><div id="id-1.4.4.2.6.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     If you specified non-default locations for your configuration or keyring,
     you may specify their locations:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>ceph -c <em class="replaceable">/path/to/conf</em> -k <em class="replaceable">/path/to/keyring</em> health</pre></div></div></section><section class="sect1" id="monitor-stats" data-id-title="Checking a clusters usage stats"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">12.3 </span><span class="title-name">Checking a cluster's usage stats</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#monitor-stats">#</a></h2></div></div></div><p>
@@ -464,7 +464,7 @@ myzone.rgw.meta         7      0 B        0      0 B      0    8.5 GiB</pre></di
      <code class="literal">near full ratio</code> to ensure that you are not reaching
      your cluster’s capacity. See <a class="xref" href="ceph-monitor.html#storage-capacity" title="12.8. Storage capacity">Section 12.8, “Storage capacity”</a> for
      additional details.
-    </p><div id="id-1.4.4.2.7.5.6.2" data-id-title="Cluster fill level" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Cluster fill level</h6><p>
+    </p><div id="id-1.4.4.2.7.5.6.2" data-id-title="Cluster fill level" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Cluster fill level</div><p>
       When a raw storage fill level is getting close to 100%, you need to add
       new storage to the cluster. A higher usage may lead to single full OSDs
       and cluster health problems.
@@ -496,7 +496,7 @@ myzone.rgw.meta         7      0 B        0      0 B      0    8.5 GiB</pre></di
     </p></li><li class="listitem"><p>
      <code class="literal">MAX AVAIL</code>: The maximum available space in the given
      pool.
-    </p></li></ul></div><div id="id-1.4.4.2.7.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></li></ul></div><div id="id-1.4.4.2.7.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The numbers in the POOLS section are notional. They are not inclusive of
     the number of replicas, snapshots or clones. As a result, the sum of the
     <code class="literal">USED</code>and %<code class="literal">USED</code> amounts will not add up
@@ -537,7 +537,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
   osd.3 is full at 97%</pre></div><p>
    The best way to deal with a full cluster is to add new OSD hosts/disks
    allowing the cluster to redistribute data to the newly available storage.
-  </p><div id="id-1.4.4.2.9.8" data-id-title="Preventing full OSDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Preventing full OSDs</h6><p>
+  </p><div id="id-1.4.4.2.9.8" data-id-title="Preventing full OSDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Preventing full OSDs</div><p>
     After an OSD becomes full—it uses 100% of its disk space—it
     will normally crash quickly without warning. Following are a few tips to
     remember when administering OSD nodes.
@@ -598,7 +598,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
    ratio is not a good practice, because it sacrifices high availability. The
    default full ratio is set to .95, meaning 95% of capacity. This a very
    aggressive setting for a test cluster with a small number of OSDs.
-  </p><div id="id-1.4.4.2.12.3" data-id-title="Increase Storage Capacity" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Increase Storage Capacity</h6><p>
+  </p><div id="id-1.4.4.2.12.3" data-id-title="Increase Storage Capacity" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Increase Storage Capacity</div><p>
     When monitoring your cluster, be alert to warnings related to the
     <code class="literal">nearfull</code> ratio. It means that a failure of some OSDs
     could result in a temporary service disruption if one or more OSDs fails.
@@ -623,7 +623,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
    0.95. If the cluster falls to 5 TB of the remaining capacity, it will not
    allow the clients to read and write data. Therefore the storage cluster’s
    operating capacity is 95 TB, not 99 TB.
-  </p><div class="figure" id="id-1.4.4.2.12.6"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_cluster.png"><img src="images/ceph_cluster.png" width="85%" alt="Ceph cluster" title="Ceph cluster"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 12.1: </span><span class="title-name">Ceph cluster </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.12.6">#</a></h6></div></div><p>
+  </p><div class="figure" id="id-1.4.4.2.12.6"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_cluster.png"><img src="images/ceph_cluster.png" width="85%" alt="Ceph cluster" title="Ceph cluster"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 12.1: </span><span class="title-name">Ceph cluster </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.12.6">#</a></div></div></div><p>
    It is normal in such a cluster for one or two OSDs to fail. A less frequent
    but reasonable scenario involves a rack’s router or power supply failing,
    which brings down multiple OSDs simultaneously (for example, OSDs 7-12). In
@@ -657,7 +657,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
   </p><div class="verbatim-wrap"><pre class="screen">[global]
  mon osd full ratio = .80
  mon osd backfillfull ratio = .75
- mon osd nearfull ratio = .70</pre></div><div id="id-1.4.4.2.12.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+ mon osd nearfull ratio = .70</pre></div><div id="id-1.4.4.2.12.13" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     These settings only apply during cluster creation. Afterward they need to
     be changed in the OSD Map using the <code class="command">ceph osd
     set-nearfull-ratio</code> and <code class="command">ceph osd set-full-ratio</code>
@@ -671,7 +671,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
      </p></dd><dt id="id-1.4.4.2.12.14.3"><span class="term">mon osd nearfull ratio</span></dt><dd><p>
       The percentage of disk space used before an OSD is considered
       <code class="literal">nearfull</code>. Default is .85
-     </p></dd></dl></div><div id="id-1.4.4.2.12.15" data-id-title="Check OSD weight" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Check OSD weight</h6><p>
+     </p></dd></dl></div><div id="id-1.4.4.2.12.15" data-id-title="Check OSD weight" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Check OSD weight</div><p>
     If some OSDs are <code class="literal">nearfull</code>, but others have plenty of
     capacity, you may have a problem with the CRUSH weight for the
     <code class="literal">nearfull</code> OSDs.
@@ -683,7 +683,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
    data does not bind directly to particular OSD addresses. This means that
    tracking down system faults requires finding the placement group and the
    underlying OSDs at root of the problem.
-  </p><div id="id-1.4.4.2.13.3" data-id-title="Access in case of failure" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Access in case of failure</h6><p>
+  </p><div id="id-1.4.4.2.13.3" data-id-title="Access in case of failure" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Access in case of failure</div><p>
     A fault in one part of the cluster may prevent you from accessing a
     particular object. That does not mean that you cannot access other objects.
     When you run into a fault, follow the steps for monitoring your OSDs and
@@ -701,7 +701,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
     placement groups to other OSDs. If an OSD is out of the cluster, CRUSH will
     not assign placement groups to it. If an OSD is 'down', it should also be
     'out'.
-   </p><div id="id-1.4.4.2.13.5.3" data-id-title="Unhealthy state" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Unhealthy state</h6><p>
+   </p><div id="id-1.4.4.2.13.5.3" data-id-title="Unhealthy state" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Unhealthy state</div><p>
      If an OSD is 'down' and 'in', there is a problem and the cluster will not
      be in a healthy state.
     </p></div><p>
@@ -783,7 +783,7 @@ osdmap eNNN pg <em class="replaceable">RAW_PG_NUM</em> (<em class="replaceable">
     The result should tell you the osdmap epoch (eNNN), the placement group
     number (<em class="replaceable">PG_NUM</em>), the OSDs in the <span class="emphasis"><em>up set</em></span> ('up'),
     and the OSDs in the <span class="emphasis"><em>acting set</em></span> ('acting'):
-   </p><div id="id-1.4.4.2.13.6.9" data-id-title="Cluster problem indicator" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Cluster problem indicator</h6><p>
+   </p><div id="id-1.4.4.2.13.6.9" data-id-title="Cluster problem indicator" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Cluster problem indicator</div><p>
      If the <span class="emphasis"><em>up set</em></span> and <span class="emphasis"><em>acting set</em></span> do not match, this may be an indicator
      either of the cluster rebalancing itself, or of a potential problem with
      the cluster.
@@ -795,7 +795,7 @@ osdmap eNNN pg <em class="replaceable">RAW_PG_NUM</em> (<em class="replaceable">
     in the <span class="emphasis"><em>acting set</em></span>), peers with the secondary and tertiary OSDs to
     establish agreement on the current state of the placement group (assuming a
     pool with three replicas of the PG).
-   </p><div class="figure" id="id-1.4.4.2.13.7.3"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_peering.png"><img src="images/ceph_peering.png" width="70%" alt="Peering schema" title="Peering schema"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 12.2: </span><span class="title-name">Peering schema </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.7.3">#</a></h6></div></div></section><section class="sect2" id="op-mon-pg-states" data-id-title="Monitoring placement group states"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.9.4 </span><span class="title-name">Monitoring placement group states</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-mon-pg-states">#</a></h3></div></div></div><p>
+   </p><div class="figure" id="id-1.4.4.2.13.7.3"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_peering.png"><img src="images/ceph_peering.png" width="70%" alt="Peering schema" title="Peering schema"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 12.2: </span><span class="title-name">Peering schema </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.7.3">#</a></div></div></div></section><section class="sect2" id="op-mon-pg-states" data-id-title="Monitoring placement group states"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">12.9.4 </span><span class="title-name">Monitoring placement group states</span> <a title="Permalink" class="permalink" href="ceph-monitor.html#op-mon-pg-states">#</a></h3></div></div></div><p>
     If you execute a command such as <code class="command">ceph health</code>,
     <code class="command">ceph -s</code> or <code class="command">ceph -w</code>, you may notice
     that the cluster does not always echo back the <code class="literal">HEALTH OK</code>
@@ -844,7 +844,7 @@ x pgs: y active+clean; z bytes data, aa MB used, bb GB / cc GB avail</pre></div>
      </p></li><li class="listitem"><p>
       Your data is not getting distributed across the cluster because of an
       error in your CRUSH configuration.
-     </p></li></ul></div><div id="id-1.4.4.2.13.8.10" data-id-title="Placement group IDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Placement group IDs</h6><p>
+     </p></li></ul></div><div id="id-1.4.4.2.13.8.10" data-id-title="Placement group IDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Placement group IDs</div><p>
      Placement group IDs consist of the pool number (not pool name) followed by
      a period (.) and the placement group ID—a hexadecimal number. You
      can view pool numbers and their names from the output of <code class="command">ceph osd
@@ -868,7 +868,7 @@ x pgs: y active+clean; z bytes data, aa MB used, bb GB / cc GB avail</pre></div>
        the placement group’s <span class="emphasis"><em>acting set</em></span> will peer. When peering is complete,
        the placement group status should be 'active+clean', which means that a
        Ceph client can begin writing to the placement group.
-      </p><div class="figure" id="id-1.4.4.2.13.8.18.1.2.2"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_pg_creating.png"><img src="images/ceph_pg_creating.png" width="80%" alt="Placement groups status" title="Placement groups status"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 12.3: </span><span class="title-name">Placement groups status </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.8.18.1.2.2">#</a></h6></div></div></dd><dt id="id-1.4.4.2.13.8.18.2"><span class="term">PEERING</span></dt><dd><p>
+      </p><div class="figure" id="id-1.4.4.2.13.8.18.1.2.2"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_pg_creating.png"><img src="images/ceph_pg_creating.png" width="80%" alt="Placement groups status" title="Placement groups status"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 12.3: </span><span class="title-name">Placement groups status </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.8.18.1.2.2">#</a></div></div></div></dd><dt id="id-1.4.4.2.13.8.18.2"><span class="term">PEERING</span></dt><dd><p>
        When Ceph is peering a placement group, it is bringing the OSDs that
        store the replicas of the placement group into agreement about the state
        of the objects and metadata in the placement group. When Ceph
@@ -877,7 +877,7 @@ x pgs: y active+clean; z bytes data, aa MB used, bb GB / cc GB avail</pre></div>
        completion of the peering process does
        <span class="bold"><strong>not</strong></span> mean that each replica has the
        latest contents.
-      </p><div id="id-1.4.4.2.13.8.18.2.2.2" data-id-title="Authoritative history" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Authoritative history</h6><p>
+      </p><div id="id-1.4.4.2.13.8.18.2.2.2" data-id-title="Authoritative history" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Authoritative history</div><p>
         Ceph will <span class="bold"><strong>not</strong></span> acknowledge a write
         operation to a client until all OSDs of the <span class="emphasis"><em>acting set</em></span> persist the
         write operation. This practice ensures that at least one member of the
@@ -1007,7 +1007,7 @@ x pgs: y active+clean; z bytes data, aa MB used, bb GB / cc GB avail</pre></div>
     object to a placement group, and then calculates how to assign the
     placement group to an OSD dynamically. To find the object location, all you
     need is the object name and the pool name. For example:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd map <em class="replaceable">POOL_NAME</em> <em class="replaceable">OBJECT_NAME</em> [<em class="replaceable">NAMESPACE</em>]</pre></div><div class="complex-example"><div class="example" id="id-1.4.4.2.13.9.4" data-id-title="Locating an object"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 12.1: </span><span class="title-name">Locating an object </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.9.4">#</a></h6></div><div class="example-contents"><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd map <em class="replaceable">POOL_NAME</em> <em class="replaceable">OBJECT_NAME</em> [<em class="replaceable">NAMESPACE</em>]</pre></div><div class="complex-example"><div class="example" id="id-1.4.4.2.13.9.4" data-id-title="Locating an object"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 12.1: </span><span class="title-name">Locating an object </span><a title="Permalink" class="permalink" href="ceph-monitor.html#id-1.4.4.2.13.9.4">#</a></div></div><div class="example-contents"><p>
      As an example, let us create an object. Specify an object name
      'test-object-1', a path to an example file 'testfile.txt' containing some
      object data, and a pool name 'data' using the <code class="command">rados put</code>

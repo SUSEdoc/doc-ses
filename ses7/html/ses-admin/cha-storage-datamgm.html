@@ -122,7 +122,7 @@ device 3 osd.3 class ssd</pre></div><p>
      better suited for certain workloads. Ceph makes it easy to create RADOS
      pools for different data sets or workloads and to assign different CRUSH
      rules to control data placement for those pools.
-    </p><div class="figure" id="id-1.4.5.2.12.7.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/device_classes.png"><img src="images/device_classes.png" width="70%" alt="OSDs with mixed device classes" title="OSDs with mixed device classes"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 17.1: </span><span class="title-name">OSDs with mixed device classes </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.12.7.3.3">#</a></h6></div></div><p>
+    </p><div class="figure" id="id-1.4.5.2.12.7.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/device_classes.png"><img src="images/device_classes.png" width="70%" alt="OSDs with mixed device classes" title="OSDs with mixed device classes"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 17.1: </span><span class="title-name">OSDs with mixed device classes </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.12.7.3.3">#</a></div></div></div><p>
      However, setting up the CRUSH rules to place data only on a certain class
      of device is tedious. Rules work in terms of the CRUSH hierarchy, but if
      the devices are mixed into the same hosts or racks (as in the sample
@@ -251,7 +251,7 @@ fast</pre></div><p>
        </p><div class="verbatim-wrap"><pre class="screen">take <em class="replaceable">ROOT_NAME</em> class <em class="replaceable">DEVICE_CLASS</em></pre></div><p>
         It renumbers the buckets so that the old IDs are used for the specified
         class's 'shadow tree'. As a consequence, no data movement occurs.
-       </p><div class="complex-example"><div class="example" id="id-1.4.5.2.12.7.7.4.1.2.6" data-id-title="crushtool --reclassify-root"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 17.1: </span><span class="title-name"><code class="command">crushtool --reclassify-root</code> </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.12.7.7.4.1.2.6">#</a></h6></div><div class="example-contents"><p>
+       </p><div class="complex-example"><div class="example" id="id-1.4.5.2.12.7.7.4.1.2.6" data-id-title="crushtool --reclassify-root"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 17.1: </span><span class="title-name"><code class="command">crushtool --reclassify-root</code> </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.12.7.7.4.1.2.6">#</a></div></div><div class="example-contents"><p>
          Consider the following existing rule:
         </p><div class="verbatim-wrap"><pre class="screen">rule replicated_ruleset {
    id 0
@@ -289,7 +289,7 @@ fast</pre></div><p>
         This method allows merging a parallel type-specific hierarchy with the
         normal hierarchy. For example, many users have CRUSH Maps similar to
         the following one:
-       </p><div class="example" id="id-1.4.5.2.12.7.7.4.3.2.2" data-id-title="crushtool --reclassify-bucket"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 17.2: </span><span class="title-name"><code class="command">crushtool --reclassify-bucket</code> </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.12.7.7.4.3.2.2">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">host node1 {
+       </p><div class="example" id="id-1.4.5.2.12.7.7.4.3.2.2" data-id-title="crushtool --reclassify-bucket"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 17.2: </span><span class="title-name"><code class="command">crushtool --reclassify-bucket</code> </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.12.7.7.4.3.2.2">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">host node1 {
    id -2           # do not change unnecessarily
    # weight 109.152
    alg straw
@@ -364,7 +364,7 @@ root ssd {
        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>crushtool -i original --compare adjusted
 rule 0 had 0/10240 mismatched mappings (0)
 rule 1 had 0/10240 mismatched mappings (0)
-maps appear equivalent</pre></div><div id="id-1.4.5.2.12.7.7.4.4.2.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+maps appear equivalent</pre></div><div id="id-1.4.5.2.12.7.7.4.4.2.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
          If there were differences, you would see what ratio of inputs are
          remapped in the parentheses.
         </p></div><p>
@@ -519,7 +519,7 @@ maps appear equivalent</pre></div><div id="id-1.4.5.2.12.7.7.4.4.2.6" class="adm
         The root node of the tree of OSD buckets (normally set to
         <code class="literal">default</code>).
        </p>
-      </td></tr></tbody></table></div><div id="id-1.4.5.2.13.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      </td></tr></tbody></table></div><div id="id-1.4.5.2.13.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
     You can modify the existing types and create your own bucket types.
    </p></div><p>
    Ceph's deployment tools generate a CRUSH Map that contains a bucket for
@@ -624,7 +624,7 @@ root data {
    The default CRUSH Map has a rule for the default root. If you want more
    roots and more rules, you need to create them later or they will be created
    automatically when new pools are created.
-  </p><div id="id-1.4.5.2.14.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.5.2.14.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     In most cases, you will not need to modify the default rules. When you
     create a new pool, its default ruleset is 0.
    </p></div><p>
@@ -709,7 +709,7 @@ root data {
     arrows and numbers correspond to <code class="literal">example1a</code> and
     <code class="literal">example1b</code>, while blue corresponds to
     <code class="literal">example2</code> in the following rule definitions.
-   </p><div class="figure" id="datamgm-rules-step-iterate-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/crush-step.png"><img src="images/crush-step.png" width="100%" alt="Example tree" title="Example tree"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 17.2: </span><span class="title-name">Example tree </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#datamgm-rules-step-iterate-figure">#</a></h6></div></div><div class="verbatim-wrap"><pre class="screen"># orange arrows
+   </p><div class="figure" id="datamgm-rules-step-iterate-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/crush-step.png"><img src="images/crush-step.png" width="100%" alt="Example tree" title="Example tree"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 17.2: </span><span class="title-name">Example tree </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#datamgm-rules-step-iterate-figure">#</a></div></div></div><div class="verbatim-wrap"><pre class="screen"># orange arrows
 rule example1a {
         ruleset 0
         type replicated
@@ -767,7 +767,7 @@ rule example2 {
     pools</em></span>. In erasure coded pools the data stored on a node depends
     on its position in the node selection. When the order of nodes changes, all
     data on affected nodes needs to be relocated.
-   </p><div class="figure" id="datamgm-rules-step-mode-indep-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/crush-firstn-indep.png"><img src="images/crush-firstn-indep.png" width="100%" alt="Node replacement methods" title="Node replacement methods"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 17.3: </span><span class="title-name">Node replacement methods </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#datamgm-rules-step-mode-indep-figure">#</a></h6></div></div></section></section><section class="sect1" id="op-pgs" data-id-title="Placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">17.4 </span><span class="title-name">Placement groups</span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#op-pgs">#</a></h2></div></div></div><p>
+   </p><div class="figure" id="datamgm-rules-step-mode-indep-figure"><div class="figure-contents"><div class="mediaobject"><a href="images/crush-firstn-indep.png"><img src="images/crush-firstn-indep.png" width="100%" alt="Node replacement methods" title="Node replacement methods"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 17.3: </span><span class="title-name">Node replacement methods </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#datamgm-rules-step-mode-indep-figure">#</a></div></div></div></section></section><section class="sect1" id="op-pgs" data-id-title="Placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">17.4 </span><span class="title-name">Placement groups</span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#op-pgs">#</a></h2></div></div></div><p>
    Ceph maps objects to placement groups (PGs). Placement groups are shards
    or fragments of a logical object pool that place objects as a group into
    OSDs. Placement groups reduce the amount of per-object metadata when Ceph
@@ -778,7 +778,7 @@ rule example2 {
     that tracking object placement and metadata on a per-object basis is
     computationally expensive. For example, a system with millions of objects
     cannot track placement of each of its objects directly.
-   </p><div class="figure" id="id-1.4.5.2.15.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_pgs_schema.png"><img src="images/ceph_pgs_schema.png" width="70%" alt="Placement groups in a pool" title="Placement groups in a pool"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 17.4: </span><span class="title-name">Placement groups in a pool </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.15.3.3">#</a></h6></div></div><p>
+   </p><div class="figure" id="id-1.4.5.2.15.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_pgs_schema.png"><img src="images/ceph_pgs_schema.png" width="70%" alt="Placement groups in a pool" title="Placement groups in a pool"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 17.4: </span><span class="title-name">Placement groups in a pool </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.15.3.3">#</a></div></div></div><p>
     The Ceph client will calculate to which placement group an object will
     belong to. It does this by hashing the object ID and applying an operation
     based on the number of PGs in the defined pool and the ID of the pool.
@@ -786,7 +786,7 @@ rule example2 {
     The object's contents within a placement group are stored in a set of OSDs.
     For example, in a replicated pool of size two, each placement group will
     store objects on two OSDs:
-   </p><div class="figure" id="id-1.4.5.2.15.3.6"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_pgs_osds.png"><img src="images/ceph_pgs_osds.png" width="70%" alt="Placement groups and OSDs" title="Placement groups and OSDs"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 17.5: </span><span class="title-name">Placement groups and OSDs </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.15.3.6">#</a></h6></div></div><p>
+   </p><div class="figure" id="id-1.4.5.2.15.3.6"><div class="figure-contents"><div class="mediaobject"><a href="images/ceph_pgs_osds.png"><img src="images/ceph_pgs_osds.png" width="70%" alt="Placement groups and OSDs" title="Placement groups and OSDs"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 17.5: </span><span class="title-name">Placement groups and OSDs </span><a title="Permalink" class="permalink" href="cha-storage-datamgm.html#id-1.4.5.2.15.3.6">#</a></div></div></div><p>
     If OSD #2 fails, another OSD will be assigned to placement group #1 and
     will be filled with copies of all objects in OSD #1. If the pool size is
     changed from two to three, an additional OSD will be assigned to the
@@ -802,7 +802,7 @@ rule example2 {
     will be assigned OSDs. The result of the CRUSH function will also change
     and some objects from the former placement groups will be copied over to
     the new placement groups and removed from the old ones.
-   </p></section><section class="sect2" id="op-pgs-pg-num" data-id-title="Determining the value of PG_NUM"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">17.4.2 </span><span class="title-name">Determining the value of <em class="replaceable">PG_NUM</em></span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#op-pgs-pg-num">#</a></h3></div></div></div><div id="id-1.4.5.2.15.4.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p></section><section class="sect2" id="op-pgs-pg-num" data-id-title="Determining the value of PG_NUM"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">17.4.2 </span><span class="title-name">Determining the value of <em class="replaceable">PG_NUM</em></span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#op-pgs-pg-num">#</a></h3></div></div></div><div id="id-1.4.5.2.15.4.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Since Ceph Nautilus (v14.x), you can use the Ceph Manager
      <code class="literal">pg_autoscaler</code> module to auto-scale the PGs as needed.
      If you want to enable this feature, refer to
@@ -856,7 +856,7 @@ rule example2 {
      resources. However, if 1000 pools were created with 512 placement groups
      each, the OSDs would handle approximately 50,000 placement groups each and
      it would require significantly more resources and time for peering.
-    </p></section></section><section class="sect2" id="op-pg-set" data-id-title="Setting the number of placement groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">17.4.3 </span><span class="title-name">Setting the number of placement groups</span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#op-pg-set">#</a></h3></div></div></div><div id="id-1.4.5.2.15.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></section></section><section class="sect2" id="op-pg-set" data-id-title="Setting the number of placement groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">17.4.3 </span><span class="title-name">Setting the number of placement groups</span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#op-pg-set">#</a></h3></div></div></div><div id="id-1.4.5.2.15.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Since Ceph Nautilus (v14.x), you can use the Ceph Manager
      <code class="literal">pg_autoscaler</code> module to auto-scale the PGs as needed.
      If you want to enable this feature, refer to
@@ -1019,10 +1019,10 @@ osdmap e13 pg 1.6c (1.6c) -&gt; up [1,0] acting [1,0]</pre></div></section><sect
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd setcrushmap -i <em class="replaceable">compiled-crushmap-filename</em></pre></div><p>
       Ceph will input the compiled CRUSH Map of the file name you specified
       as the CRUSH Map for the cluster.
-     </p></li></ol></div></div><div id="id-1.4.5.2.16.3.4" data-id-title="Use versioning system" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Use versioning system</h6><p>
+     </p></li></ol></div></div><div id="id-1.4.5.2.16.3.4" data-id-title="Use versioning system" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Use versioning system</div><p>
      Use a versioning system—such as git or svn—for the exported
      and modified CRUSH Map files. It makes a possible rollback simple.
-    </p></div><div id="id-1.4.5.2.16.3.5" data-id-title="Test the new CRUSH Map" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Test the new CRUSH Map</h6><p>
+    </p></div><div id="id-1.4.5.2.16.3.5" data-id-title="Test the new CRUSH Map" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Test the new CRUSH Map</div><p>
      Test the new adjusted CRUSH Map using the <code class="command">crushtool
      --test</code> command, and compare to the state before applying the new
      CRUSH Map. You may find the following command switches useful:
@@ -1064,7 +1064,7 @@ row=foo rack=bar host=foo-bar-1</pre></div></section><section class="sect2" id="
      the normal CRUSH distribution is not working out quite right. For example,
      if one of your OSDs is at 90% and the others are at 40%, you could reduce
      this weight to try and compensate for it.
-    </p><div id="id-1.4.5.2.16.5.3.5" data-id-title="OSD weight is temporary" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: OSD weight is temporary</h6><p>
+    </p><div id="id-1.4.5.2.16.5.3.5" data-id-title="OSD weight is temporary" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: OSD weight is temporary</div><p>
       Note that <code class="command">ceph osd reweight</code> is not a persistent
       setting. When an OSD gets marked out, its weight will be set to 0 and
       when it gets marked in again, the weight will be changed to 1.
@@ -1089,7 +1089,7 @@ row=foo rack=bar host=foo-bar-1</pre></div></section><section class="sect2" id="
     For example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush move bucket1 datacenter=dc1 room=room1 row=foo rack=bar host=foo-bar-1</pre></div></section><section class="sect2" id="op-crush-rmbucket" data-id-title="Removing a bucket"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">17.5.7 </span><span class="title-name">Removing a bucket</span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#op-crush-rmbucket">#</a></h3></div></div></div><p>
     To remove a bucket from the CRUSH Map hierarchy, execute the following:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush remove <em class="replaceable">BUCKET_NAME</em></pre></div><div id="id-1.4.5.2.16.9.4" data-id-title="Empty bucket only" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Empty bucket only</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush remove <em class="replaceable">BUCKET_NAME</em></pre></div><div id="id-1.4.5.2.16.9.4" data-id-title="Empty bucket only" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Empty bucket only</div><p>
      A bucket must be empty before removing it from the CRUSH hierarchy.
     </p></div></section></section><section class="sect1" id="scrubbing-pgs" data-id-title="Scrubbing placement groups"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">17.6 </span><span class="title-name">Scrubbing placement groups</span> <a title="Permalink" class="permalink" href="cha-storage-datamgm.html#scrubbing-pgs">#</a></h2></div></div></div><p>
    In addition to making multiple copies of objects, Ceph ensures data
@@ -1112,7 +1112,7 @@ row=foo rack=bar host=foo-bar-1</pre></div></section><section class="sect2" id="
      </p></dd><dt id="id-1.4.5.2.17.4.2"><span class="term"><code class="option">osd scrub begin hour</code>, <code class="option">osd scrub end hour</code></span></dt><dd><p>
       The hours of day (0 to 24) that define a time window during which the
       scrubbing can happen. By default, begins at 0 and ends at 24.
-     </p><div id="id-1.4.5.2.17.4.2.2.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p><div id="id-1.4.5.2.17.4.2.2.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
        If the placement group's scrub interval exceeds the <code class="option">osd scrub
        max interval</code> setting, the scrub will happen no matter what time
        window you define for scrubbing.

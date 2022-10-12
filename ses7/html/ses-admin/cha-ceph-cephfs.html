@@ -56,7 +56,7 @@ hljs.configure({
     To support the full <code class="command">mount</code> syntax, the
     <span class="package">ceph-common</span> package (which is shipped with SUSE Linux Enterprise) should
     be installed before trying to mount CephFS.
-   </p><div id="id-1.4.6.4.4.3.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.4.6.4.4.3.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      Without the <span class="package">ceph-common</span> package (and thus without the
      <code class="command">mount.ceph</code> helper), the monitors' IPs will need to be
      used instead of their names. This is because the kernel client will be
@@ -69,7 +69,7 @@ hljs.configure({
     should create a file that stores your secret key (not the keyring itself).
     To obtain the secret key for a particular user and then create the file, do
     the following:
-   </p><div class="procedure" id="id-1.4.6.4.4.4.3" data-id-title="Creating a secret key"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 23.1: </span><span class="title-name">Creating a secret key </span><a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#id-1.4.6.4.4.4.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+   </p><div class="procedure" id="id-1.4.6.4.4.4.3" data-id-title="Creating a secret key"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 23.1: </span><span class="title-name">Creating a secret key </span><a title="Permalink" class="permalink" href="cha-ceph-cephfs.html#id-1.4.6.4.4.4.3">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
       View the key for the particular user in a keyring file:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cat /etc/ceph/ceph.client.admin.keyring</pre></div></li><li class="step"><p>
       Copy the key of the user who will be using the mounted Ceph FS file
@@ -97,7 +97,7 @@ hljs.configure({
  -o name=admin,secretfile=/etc/ceph/admin.secret</pre></div><p>
     Note that the secret file should only contain the actual keyring secret. In
     our example, the file will then contain only the following line:
-   </p><div class="verbatim-wrap"><pre class="screen">AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</pre></div><div id="id-1.4.6.4.4.5.8" data-id-title="Specify multiple monitors" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Specify multiple monitors</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen">AQATSKdNGBnwLhAAnNDKnH65FmVKpXZJVasUeQ==</pre></div><div id="id-1.4.6.4.4.5.8" data-id-title="Specify multiple monitors" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Specify multiple monitors</div><p>
      It is a good idea to specify multiple monitors separated by commas on the
      <code class="command">mount</code> command line in case one monitor happens to be
      down at the time of mount. Each monitor address takes the form
@@ -116,7 +116,7 @@ hljs.configure({
     You can specify more than one monitor host in the <code class="command">mount</code>
     command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mount -t ceph ceph_mon1,ceph_mon2,ceph_mon3:6789:/ /mnt/cephfs \
- -o name=admin,secretfile=/etc/ceph/admin.secret</pre></div><div id="id-1.4.6.4.4.5.17" data-id-title="Read access to the root directory" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Read access to the root directory</h6><p>
+ -o name=admin,secretfile=/etc/ceph/admin.secret</pre></div><div id="id-1.4.6.4.4.5.17" data-id-title="Read access to the root directory" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Read access to the root directory</div><p>
      If clients with path restriction are used, the MDS capabilities need to
      include read access to the root directory. For example, a keyring may look
      as follows:
@@ -176,7 +176,7 @@ hljs.configure({
     [...]</pre></div><p>
     The newly created rank (1) passes through the 'creating' state and then
     enter its 'active' state.
-   </p><div id="id-1.4.6.4.7.4.6" data-id-title="Standby daemons" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Standby daemons</h6><p>
+   </p><div id="id-1.4.6.4.7.4.6" data-id-title="Standby daemons" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Standby daemons</div><p>
      Even with multiple active MDS daemons, a highly available system still
      requires standby daemons to take over if any of the servers running an
      active daemon fail.
@@ -303,7 +303,7 @@ setfattr -n ceph.dir.pin -v 0 a/b # "a/b" is now pinned to rank 0
     To set a 10,000 files quota, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mds &gt; </code>setfattr -n ceph.quota.max_files -v 10000 <em class="replaceable">/SOME/DIRECTORY</em></pre></div><p>
     To view quota setting, run:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mds &gt; </code>getfattr -n ceph.quota.max_bytes <em class="replaceable">/SOME/DIRECTORY</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mds &gt; </code>getfattr -n ceph.quota.max_files <em class="replaceable">/SOME/DIRECTORY</em></pre></div><div id="id-1.4.6.4.9.4.12" data-id-title="Quota not set" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Quota not set</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mds &gt; </code>getfattr -n ceph.quota.max_bytes <em class="replaceable">/SOME/DIRECTORY</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@mds &gt; </code>getfattr -n ceph.quota.max_files <em class="replaceable">/SOME/DIRECTORY</em></pre></div><div id="id-1.4.6.4.9.4.12" data-id-title="Quota not set" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Quota not set</div><p>
      If the value of the extended attribute is '0', the quota is not set.
     </p></div><p>
     To remove a quota, run:
@@ -315,7 +315,7 @@ setfattr -n ceph.dir.pin -v 0 a/b # "a/b" is now pinned to rank 0
    directory. After creating a snapshot, the buffered data is flushed out
    asynchronously from various clients. As a result, creating a snapshot is
    very fast.
-  </p><div id="id-1.4.6.4.10.3" data-id-title="Multiple file systems" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Multiple file systems</h6><p>
+  </p><div id="id-1.4.6.4.10.3" data-id-title="Multiple file systems" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Multiple file systems</div><p>
     If you have multiple CephFS file systems sharing a single pool (via name
     spaces), their snapshots will collide, and deleting one snapshot will
     result in missing file data for other snapshots sharing the same pool.
@@ -325,19 +325,19 @@ setfattr -n ceph.dir.pin -v 0 a/b # "a/b" is now pinned to rank 0
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph fs set <em class="replaceable">CEPHFS_NAME</em> allow_new_snaps true</pre></div><p>
     After you enable snapshots, all directories in the CephFS will have a
     special <code class="filename">.snap</code> subdirectory.
-   </p><div id="id-1.4.6.4.10.4.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.4.6.4.10.4.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      This is a <span class="emphasis"><em>virtual</em></span> subdirectory. It does not appear in
      the directory listing of the parent directory, but the name
      <code class="filename">.snap</code> cannot be used as a file or directory name. To
      access the <code class="filename">.snap</code> directory one needs to explicitly
      access it, for example:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>ls -la /<em class="replaceable">CEPHFS_MOUNT</em>/.snap/</pre></div></div><div id="id-1.4.6.4.10.4.6" data-id-title="Kernel clients limitation" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Kernel clients limitation</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>ls -la /<em class="replaceable">CEPHFS_MOUNT</em>/.snap/</pre></div></div><div id="id-1.4.6.4.10.4.6" data-id-title="Kernel clients limitation" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Kernel clients limitation</div><p>
      CephFS kernel clients have a limitation: they cannot handle more than
      400 snapshots in a file system. The number of snapshots should always be
      kept below this limit, regardless of which client you are using. If using
      older CephFS clients, such as SLE12-SP3, keep in mind that going above
      400 snapshots is harmful to operations as the client will crash.
-    </p></div><div id="id-1.4.6.4.10.4.7" data-id-title="Custom snapshot subdirectory name" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Custom snapshot subdirectory name</h6><p>
+    </p></div><div id="id-1.4.6.4.10.4.7" data-id-title="Custom snapshot subdirectory name" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Custom snapshot subdirectory name</div><p>
      You may configure a different name for the snapshots subdirectory by
      setting the <code class="option">client snapdir</code> setting.
     </p></div><p>

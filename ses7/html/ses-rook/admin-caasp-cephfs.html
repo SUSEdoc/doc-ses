@@ -45,7 +45,7 @@ hljs.configure({
   </p><section class="sect2" id="rook-prerequisites" data-id-title="Prerequisites"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.1.1 </span><span class="title-name">Prerequisites</span> <a title="Permalink" class="permalink" href="admin-caasp-cephfs.html#rook-prerequisites">#</a></h3></div></div></div><p>
     This guide assumes you have created a Rook cluster as explained in the
     main guide: <a class="xref" href="deploy-rook.html" title="Chapter 1. Quick start">Chapter 1, <em>Quick start</em></a>.
-   </p><div id="id-1.7.4.5.3.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.4.5.3.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      By default, only one shared file system can be created with Rook.
      Multiple file system support in Ceph is still considered experimental,
      and can be enabled with the environment variable
@@ -100,7 +100,7 @@ mds: myfs-1/1/1 up {[myfs:0]=mzw58b=up:active}, 1 up:standby-replay</pre></div><
     <code class="literal">StorageClass</code> needs to be created based on the file
     system. This is needed for Kubernetes to interoperate with the CSI driver to
     create persistent volumes.
-   </p><div id="id-1.7.4.5.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.4.5.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      This example uses the CSI driver, which is the preferred driver going
      forward for Kubernetes 1.13 and newer.
     </p></div><p>
@@ -144,7 +144,7 @@ reclaimPolicy: Delete</pre></div><p>
     <span class="quote">“<span class="quote">rook-op.rbd.csi.ceph.com</span>”</span>.
    </p><p>
     Create the storage class:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/cephfs/storageclass.yaml</pre></div><div id="id-1.7.4.5.3.6.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/cephfs/storageclass.yaml</pre></div><div id="id-1.7.4.5.3.6.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      The CephFS CSI driver uses quotas to enforce the PVC size requested.
      Only newer kernels support CephFS quotas (kernel version of at least
      4.17).
@@ -222,7 +222,7 @@ spec:
     Create the Kube registry deployment:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create -f cluster/examples/kubernetes/ceph/csi/cephfs/kube-registry.yaml</pre></div><p>
     You now have a High-Availability Docker registry with persistent storage.
-   </p><div id="id-1.7.4.5.3.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.7.4.5.3.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If the Rook cluster has more than one file system and the application
      pod is scheduled to a node with kernel version older than 4.7,
      inconsistent results may arise, since kernels older than 4.7 do not
@@ -236,7 +236,7 @@ spec:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl delete -f kube-registry.yaml</pre></div><p>
      To delete the file system components and backing data, delete the
      Filesystem CRD.
-    </p><div id="id-1.7.4.5.3.8.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.7.4.5.3.8.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       <span class="strong"><strong>WARNING: Data will be deleted if
       <code class="option">preservePoolsOnDelete=false</code></strong></span>.
      </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl -n rook-ceph delete cephfilesystem myfs</pre></div><p>

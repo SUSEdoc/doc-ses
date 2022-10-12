@@ -116,7 +116,7 @@ hljs.configure({
  reweighted item id 13 name 'osd.13' to 3.05 in crush map
 
 <code class="prompt user">cephuser@adm &gt; </code>ceph osd tree | grep osd.13
- 13  hdd 3.05                osd.13  up  1.00000  1.00000</pre></div><div id="id-1.5.15.7.7" data-id-title="OSD reweight by utilization" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: OSD reweight by utilization</h6><p>
+ 13  hdd 3.05                osd.13  up  1.00000  1.00000</pre></div><div id="id-1.5.15.7.7" data-id-title="OSD reweight by utilization" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: OSD reweight by utilization</div><p>
     The <code class="command">ceph osd reweight-by-utilization</code>
     <em class="replaceable">threshold</em> command automates the process of
     reducing the weight of OSDs which are heavily overused. By default it will
@@ -159,7 +159,7 @@ hljs.configure({
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd list mypool</pre></div></li><li class="step"><p>
       Create a new block device by mapping the <code class="literal">myimage</code> image
       to the <code class="systemitem">rbd</code> kernel module:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd map --pool mypool myimage</pre></div><div id="id-1.5.15.9.4.4.3.3" data-id-title="User name and authentication" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: User name and authentication</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd map --pool mypool myimage</pre></div><div id="id-1.5.15.9.4.4.3.3" data-id-title="User name and authentication" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: User name and authentication</div><p>
        To specify a user name, use <code class="option">--id
        <em class="replaceable">user-name</em></code>. Moreover, if you use
        <code class="systemitem">cephx</code> authentication, you must also specify a
@@ -345,7 +345,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
    skewed. However, if a clock skew is to occur, this is likely due to the
    <code class="systemitem">chronyd.service</code> not running on one
    or more hosts.
-  </p><div id="id-1.5.15.16.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.5.15.16.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     It is also possible that the battery on the motherboard has died, and the
     clock skew will be more pronounced. If this is the case, be aware that it
     will take quite some time for
@@ -385,7 +385,7 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
     </p></li><li class="listitem"><p>
      Check the networking hardware, such as network cards, cables, or switches,
      for proper operation.
-    </p></li></ul></div><div id="id-1.5.15.17.6" data-id-title="Separate network" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Separate network</h6><p>
+    </p></li></ul></div><div id="id-1.5.15.17.6" data-id-title="Separate network" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Separate network</div><p>
     To ensure fast and safe network communication between cluster nodes, set up
     a separate network used exclusively by the cluster OSD and monitor nodes.
    </p></div></section><section class="sect1" id="trouble-jobcache" data-id-title="Managing /var running out of space"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.15 </span><span class="title-name">Managing <code class="filename">/var</code> running out of space</span> <a title="Permalink" class="permalink" href="storage-tips.html#trouble-jobcache">#</a></h2></div></div></div><p>
@@ -400,13 +400,13 @@ ID  CLASS  WEIGHT   TYPE NAME              STATUS  REWEIGHT  PRI-AFF
    <code class="filename">/etc/salt/master</code> file. <code class="option">keep_jobs</code> sets
    the number of hours (24 by default) to keep information about past minion
    jobs.
-  </p><div class="verbatim-wrap"><pre class="screen">keep_jobs: 24</pre></div><div id="id-1.5.15.18.5" data-id-title="Do not set keep_jobs: 0" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Do not set <code class="option">keep_jobs: 0</code></h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen">keep_jobs: 24</pre></div><div id="id-1.5.15.18.5" data-id-title="Do not set keep_jobs: 0" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Do not set <code class="option">keep_jobs: 0</code></div><p>
     Setting <code class="option">keep_jobs</code> to '0' will cause the job cache cleaner
     to <span class="emphasis"><em>never</em></span> run, possibly resulting in a full partition.
    </p></div><p>
    If you want to disable the job cache, set <code class="option">job_cache</code> to
    'False':
-  </p><div class="verbatim-wrap"><pre class="screen">job_cache: False</pre></div><div id="id-1.5.15.18.8" data-id-title="Restoring partition full because of job cache" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Restoring partition full because of job cache</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen">job_cache: False</pre></div><div id="id-1.5.15.18.8" data-id-title="Restoring partition full because of job cache" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Restoring partition full because of job cache</div><p>
     When the partition with job cache files gets full because of wrong
     <code class="option">keep_jobs</code> setting, follow these steps to free disk space
     and improve the job cache settings:

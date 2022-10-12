@@ -69,7 +69,7 @@ hljs.configure({
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth get-or-create client.libvirt mon 'profile rbd' osd \
  'profile rbd pool=libvirt-pool'</pre></div><p>
      Verify the name exists.
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.4.7.2.6.3.2.5" data-id-title="User name or ID" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: User name or ID</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth list</pre></div><div id="id-1.4.7.2.6.3.2.5" data-id-title="User name or ID" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: User name or ID</div><p>
       <code class="systemitem">libvirt</code> will access Ceph using the ID <code class="literal">libvirt</code>, not
       the Ceph name <code class="literal">client.libvirt</code>. See
       <a class="xref" href="cha-storage-cephx.html#cephx-user" title="30.2.1.1. User">Section 30.2.1.1, “User”</a> for a detailed explanation of the difference
@@ -78,7 +78,7 @@ hljs.configure({
      Use QEMU to create an image in your RBD pool. The following example uses
      the image name <code class="literal">new-libvirt-image</code> and references
      <code class="literal">libvirt-pool</code>.
-    </p><div id="id-1.4.7.2.6.3.3.2" data-id-title="Keyring file location" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Keyring file location</h6><p>
+    </p><div id="id-1.4.7.2.6.3.3.2" data-id-title="Keyring file location" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Keyring file location</div><p>
       The <code class="systemitem">libvirt</code> user key is stored in a keyring file placed in the
       <code class="filename">/etc/ceph</code> directory. The keyring file needs to have
       an appropriate name that includes the name of the Ceph cluster it
@@ -142,7 +142,7 @@ Id    Name                           State
     &lt;/disk&gt;</pre></div><p>
      Replace <code class="filename">/path/to/image/recent-linux.img</code> with the path
      to the OS image.
-    </p><div id="id-1.4.7.2.9.3.2.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div id="id-1.4.7.2.9.3.2.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Use <code class="command">sudo virsh edit</code> instead of a text editor. If you
       edit the configuration file under <code class="filename">/etc/libvirt/qemu</code>
       with a text editor, <code class="systemitem">libvirt</code> may not recognize the change. If there is a
@@ -198,7 +198,7 @@ Id    Name                           State
 &lt;auth username='libvirt'&gt;
         &lt;secret type='ceph' uuid='9ec59067-fdbc-a6c0-03ff-df165c0587b8'/&gt;
 &lt;/auth&gt;
-&lt;target ...</pre></div><div id="id-1.4.7.2.9.3.8.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+&lt;target ...</pre></div><div id="id-1.4.7.2.9.3.8.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       The exemplary ID is <code class="literal">libvirt</code>, not the Ceph name
       <code class="literal">client.libvirt</code> as generated at step 2 of
       <a class="xref" href="cha-ceph-libvirt.html#ceph-libvirt-cfg-ceph" title="26.1. Configuring Ceph with libvirt">Section 26.1, “Configuring Ceph with <code class="systemitem">libvirt</code>”</a>. Ensure you use the ID component

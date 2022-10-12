@@ -73,7 +73,7 @@ o- minions ................................................. [Minions: 5]
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host ls
 HOST                   ADDR                    LABELS   STATUS
 [...]
-ses-min5.example.com   ses-min5.example.com</pre></div></li></ol></div></div></section><section class="sect1" id="salt-node-removing" data-id-title="Removing nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.3 </span><span class="title-name">Removing nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-node-removing">#</a></h2></div></div></div><div id="id-1.4.4.3.5.2" data-id-title="Remove OSDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Remove OSDs</h6><p>
+ses-min5.example.com   ses-min5.example.com</pre></div></li></ol></div></div></section><section class="sect1" id="salt-node-removing" data-id-title="Removing nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.3 </span><span class="title-name">Removing nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-node-removing">#</a></h2></div></div></div><div id="id-1.4.4.3.5.2" data-id-title="Remove OSDs" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Remove OSDs</div><p>
     If the node that you are going to remove runs OSDs, remove the OSDs from it
     first and check that no OSDs are running on that node. Refer to
     <a class="xref" href="storage-salt-cluster.html#removing-node-osds" title="13.4.4. Removing OSDs">Section 13.4.4, “Removing OSDs”</a> for more details on removing
@@ -124,11 +124,11 @@ placement:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/bootstrap reset</pre></div></li><li class="step"><p>
      After removing all OSDs on a single host, remove the host from the CRUSH
      map:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush remove <em class="replaceable">bucket-name</em></pre></div><div id="id-1.4.4.3.5.4.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd crush remove <em class="replaceable">bucket-name</em></pre></div><div id="id-1.4.4.3.5.4.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       The bucket name should be the same as the host name.
      </p></div></li><li class="step"><p>
      You can now remove the minion from the cluster:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/minions remove ses-min2</pre></div></li></ol></div></div><div id="id-1.4.4.3.5.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/minions remove ses-min2</pre></div></li></ol></div></div><div id="id-1.4.4.3.5.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     In the event of a failure and the minion you are trying to remove is in a
     permanently powered-off state, you will need to remove the node from the
     Salt Master:
@@ -153,7 +153,7 @@ ses-min2   /dev/vdc  hdd  8192M  450575 True</pre></div></section><section class
     first:
    </p><div class="verbatim-wrap"><pre class="screen">ceph orch device zap <em class="replaceable">HOST_NAME</em> <em class="replaceable">DISK_DEVICE</em></pre></div><p>
     For example:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device zap ses-min2 /dev/vdc</pre></div><div id="id-1.4.4.3.6.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch device zap ses-min2 /dev/vdc</pre></div><div id="id-1.4.4.3.6.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      If you previously deployed OSDs by using DriveGroups or the
      <code class="option">--all-available-devices</code> option while the
      <code class="literal">unmanaged</code> flag was not set, cephadm will deploy these
@@ -202,7 +202,7 @@ placement:
  - ses-min2
  - ses-min3
 encrypted: true
-unmanaged: true</pre></div><div id="id-1.4.4.3.6.5.9.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+unmanaged: true</pre></div><div id="id-1.4.4.3.6.5.9.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
       To change already deployed OSDs from the <span class="emphasis"><em>managed</em></span> to
       <span class="emphasis"><em>unmanaged</em></span> mode, add the <code class="literal">unmanaged:
       true</code> lines where applicable during the procedure described in
@@ -221,7 +221,7 @@ wal_devices:
   drive_spec: <em class="replaceable">DEVICE_SPECIFICATION</em>
 block_wal_size: '5G'  # (optional, unit suffixes permitted)
 block_db_size: '5G'   # (optional, unit suffixes permitted)
-encrypted: true       # 'True' or 'False' (defaults to 'False')</pre></div><div id="id-1.4.4.3.6.5.10.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+encrypted: true       # 'True' or 'False' (defaults to 'False')</pre></div><div id="id-1.4.4.3.6.5.10.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       The option previously called "encryption" in DeepSea has been renamed
       to "encrypted". When applying DriveGroups in SUSE Enterprise Storage 7, ensure you
       use this new terminology in your service specification, otherwise the
@@ -232,7 +232,7 @@ encrypted: true       # 'True' or 'False' (defaults to 'False')</pre></div><div 
        By a disk model:
       </p><div class="verbatim-wrap"><pre class="screen">model: <em class="replaceable">DISK_MODEL_STRING</em></pre></div></li><li class="listitem"><p>
        By a disk vendor:
-      </p><div class="verbatim-wrap"><pre class="screen">vendor: <em class="replaceable">DISK_VENDOR_STRING</em></pre></div><div id="id-1.4.4.3.6.5.11.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      </p><div class="verbatim-wrap"><pre class="screen">vendor: <em class="replaceable">DISK_VENDOR_STRING</em></pre></div><div id="id-1.4.4.3.6.5.11.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
         Always enter the <em class="replaceable">DISK_VENDOR_STRING</em> in
         lowercase.
        </p></div><p>
@@ -262,22 +262,22 @@ ses-min2 /dev/sda ssd   223G Micron_5200_MTFDDAK240TDN  Micron_5200_MTFD ATA
        ':10G' - Includes disks less than or equal to 10 GB in size.
       </p></li><li class="listitem"><p>
        '40G:' - Includes disks equal to or greater than 40 GB in size.
-      </p></li></ul></div><div class="example" id="id-1.4.4.3.6.5.12.4" data-id-title="Matching by disk size"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 13.1: </span><span class="title-name">Matching by disk size </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.12.4">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">service_type: osd
+      </p></li></ul></div><div class="example" id="id-1.4.4.3.6.5.12.4" data-id-title="Matching by disk size"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 13.1: </span><span class="title-name">Matching by disk size </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.12.4">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">service_type: osd
 service_id: example_drvgrp_name
 placement:
   host_pattern: '*'
 data_devices:
   size: '40TB:'
 db_devices:
-  size: ':2TB'</pre></div></div></div><div id="id-1.4.4.3.6.5.12.5" data-id-title="Quotes required" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Quotes required</h6><p>
+  size: ':2TB'</pre></div></div></div><div id="id-1.4.4.3.6.5.12.5" data-id-title="Quotes required" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Quotes required</div><p>
       When using the ':' delimiter, you need to enclose the size in quotes,
       otherwise the ':' sign will be interpreted as a new configuration hash.
-     </p></div><div id="id-1.4.4.3.6.5.12.6" data-id-title="Unit shortcuts" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Unit shortcuts</h6><p>
+     </p></div><div id="id-1.4.4.3.6.5.12.6" data-id-title="Unit shortcuts" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Unit shortcuts</div><p>
       Instead of Gigabytes (G), you can specify the sizes in Megabytes (M) or
       Terabytes (T).
      </p></div></section><section class="sect3" id="ds-drive-groups-examples" data-id-title="DriveGroups examples"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">13.4.3.5 </span><span class="title-name">DriveGroups examples</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ds-drive-groups-examples">#</a></h4></div></div></div><p>
      This section includes examples of different OSD setups.
-    </p><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.3" data-id-title="Simple setup"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 13.2: </span><span class="title-name">Simple setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.3">#</a></h6></div><div class="example-contents"><p>
+    </p><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.3" data-id-title="Simple setup"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 13.2: </span><span class="title-name">Simple setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.3">#</a></div></div><div class="example-contents"><p>
       This example describes two nodes with the same setup:
      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
         20 HDDs
@@ -331,7 +331,7 @@ placement:
 data_devices:
   size: '2TB:'
 db_devices:
-  size: ':2TB'</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.4" data-id-title="Advanced setup"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 13.3: </span><span class="title-name">Advanced setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.4">#</a></h6></div><div class="example-contents"><p>
+  size: ':2TB'</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.4" data-id-title="Advanced setup"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 13.3: </span><span class="title-name">Advanced setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.4">#</a></div></div><div class="example-contents"><p>
       This example describes two distinct setups: 20 HDDs should share 2 SSDs,
       while 10 SSDs should share 2 NVMes.
      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -375,7 +375,7 @@ data_devices:
   model: MC-55-44-XZ
 db_devices:
   vendor: samsung
-  size: 256GB</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.5" data-id-title="Advanced setup with non-uniform nodes"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 13.4: </span><span class="title-name">Advanced setup with non-uniform nodes </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.5">#</a></h6></div><div class="example-contents"><p>
+  size: 256GB</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.5" data-id-title="Advanced setup with non-uniform nodes"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 13.4: </span><span class="title-name">Advanced setup with non-uniform nodes </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.5">#</a></div></div><div class="example-contents"><p>
       The previous examples assumed that all nodes have the same drives.
       However, that is not always the case:
      </p><p>
@@ -433,7 +433,7 @@ placement:
 data_devices:
   model: MC-55-44-XZ
 db_devices:
-  model: SSD-123-foo</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.6" data-id-title="Expert setup"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 13.5: </span><span class="title-name">Expert setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.6">#</a></h6></div><div class="example-contents"><p>
+  model: SSD-123-foo</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.6" data-id-title="Expert setup"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 13.5: </span><span class="title-name">Expert setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.6">#</a></div></div><div class="example-contents"><p>
       All previous cases assumed that the WALs and DBs use the same device. It
       is however possible to deploy the WAL on a dedicated device as well:
      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
@@ -469,7 +469,7 @@ data_devices:
 db_devices:
   model: SSD-123-foo
 wal_devices:
-  model: NVME-QQQQ-987</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.7" data-id-title="Complex (and unlikely) setup"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 13.6: </span><span class="title-name">Complex (and unlikely) setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.7">#</a></h6></div><div class="example-contents"><p>
+  model: NVME-QQQQ-987</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.4.4.3.6.5.13.7" data-id-title="Complex (and unlikely) setup"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 13.6: </span><span class="title-name">Complex (and unlikely) setup </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.4.4.3.6.5.13.7">#</a></div></div><div class="example-contents"><p>
       In the following setup, we are trying to define:
      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
         20 HDDs backed by 1 NVMe
@@ -591,16 +591,16 @@ OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_
     will be reused during the next OSD deployment. Newly added disks that match
     the DriveGroups specification (see <a class="xref" href="storage-salt-cluster.html#drive-groups" title="13.4.3. Adding OSDs using DriveGroups specification">Section 13.4.3, “Adding OSDs using DriveGroups specification”</a> for more
     details) will be assigned OSD IDs of their replaced counterpart.
-   </p><div id="id-1.4.4.3.6.7.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+   </p><div id="id-1.4.4.3.6.7.10" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
      Appending the <code class="option">--dry-run</code> option will not execute the
      actual replacement, but will preview the steps that would normally happen.
-    </p></div><div id="id-1.4.4.3.6.7.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></div><div id="id-1.4.4.3.6.7.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      In the case of replacing an OSD after a failure, we highly recommend
      triggering a deep scrub of the placement groups. See
      <a class="xref" href="cha-storage-datamgm.html#scrubbing-pgs" title="17.6. Scrubbing placement groups">Section 17.6, “Scrubbing placement groups”</a> for more details.
     </p><p>
      Run the following command to initiate a deep scrub:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd deep-scrub osd.<em class="replaceable">OSD_NUMBER</em></pre></div></div><div id="id-1.4.4.3.6.7.12" data-id-title="Shared device failure" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Shared device failure</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd deep-scrub osd.<em class="replaceable">OSD_NUMBER</em></pre></div></div><div id="id-1.4.4.3.6.7.12" data-id-title="Shared device failure" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Shared device failure</div><p>
      If a shared device for DB/WAL fails you will need to perform the
      replacement procedure for all OSDs that share the failed device.
     </p></div></section></section><section class="sect1" id="moving-saltmaster" data-id-title="Moving the Salt Master to a new node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.5 </span><span class="title-name">Moving the Salt Master to a new node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#moving-saltmaster">#</a></h2></div></div></div><p>
@@ -622,14 +622,14 @@ OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_
      If the old Salt Master node is no longer in the cluster, also stop and
      disable the Salt Minion <code class="systemitem">systemd</code> service:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl stop salt-minion.service
-<code class="prompt user">root@master # </code>systemctl disable salt-minion.service</pre></div><div id="id-1.4.4.3.7.3.4.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+<code class="prompt user">root@master # </code>systemctl disable salt-minion.service</pre></div><div id="id-1.4.4.3.7.3.4.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       Do not stop or disable the <code class="literal">salt-minion.service</code> if the
       old Salt Master node has any Ceph daemons (MON, MGR, OSD, MDS, gateway,
       monitoring) running on it.
      </p></div></li><li class="step"><p>
      Install SUSE Linux Enterprise Server 15 SP2 on the new Salt Master following the procedure described in
      <span class="intraxref">Book “Deployment Guide”, Chapter 5 “Installing and configuring SUSE Linux Enterprise Server”</span>.
-    </p><div id="id-1.4.4.3.7.3.5.2" data-id-title="Transition of Salt Minion" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Transition of Salt Minion</h6><p>
+    </p><div id="id-1.4.4.3.7.3.5.2" data-id-title="Transition of Salt Minion" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Transition of Salt Minion</div><p>
       To simplify the transition of Salt Minions to the new Salt Master, remove the
       original Salt Master's public key from each of them:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>rm /etc/salt/pki/minion/minion_master.pub
@@ -640,7 +640,7 @@ OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_
      Install <code class="systemitem">ceph-salt</code> on the new Salt Master node:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper install ceph-salt
 <code class="prompt user">root@master # </code>systemctl restart salt-master.service
-<code class="prompt user">root@master # </code>salt '*' saltutil.sync_all</pre></div><div id="id-1.4.4.3.7.3.7.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+<code class="prompt user">root@master # </code>salt '*' saltutil.sync_all</pre></div><div id="id-1.4.4.3.7.3.7.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Make sure to run all three commands before continuing. The commands are
       idempotent; it does not matter if they get repeated.
      </p></div></li><li class="step"><p>
@@ -651,7 +651,7 @@ OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_
     </p></li><li class="step"><p>
      Import the backed up cluster configuration and apply it:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt import <em class="replaceable">CLUSTER_CONFIG</em>.json
-<code class="prompt user">root@master # </code>ceph-salt apply</pre></div><div id="id-1.4.4.3.7.3.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+<code class="prompt user">root@master # </code>ceph-salt apply</pre></div><div id="id-1.4.4.3.7.3.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       Rename the Salt Master's <code class="literal">minion id</code> in the exported
       <code class="filename"><em class="replaceable">CLUSTER_CONFIG</em>.json</code> file
       before importing it.
@@ -687,7 +687,7 @@ OSD_ID  HOST         STATE                    PG_COUNT  REPLACE  FORCE  STARTED_
    order—it starts with Ceph Managers, Ceph Monitors, and then continues on to other
    services such as Ceph OSDs, Metadata Servers, and Object Gateways. Each daemon is restarted only
    after Ceph indicates that the cluster will remain available.
-  </p><div id="id-1.4.4.3.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.4.3.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The following update procedure uses the <code class="command">ceph orch
     upgrade</code> command. Keep in mind that the following instructions
     detail how to update your Ceph cluster with a product version (for

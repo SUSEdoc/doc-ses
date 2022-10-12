@@ -43,7 +43,7 @@ hljs.configure({
    secure connection requires an SSL certificate. You can either use a
    self-signed certificate, or generate a certificate and have a well known
    certificate authority (CA) sign it.
-  </p><div id="id-1.4.3.11.4.3" data-id-title="Disabling SSL" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Disabling SSL</h6><p>
+  </p><div id="id-1.4.3.11.4.3" data-id-title="Disabling SSL" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Disabling SSL</div><p>
     You may want to disable the SSL support for a specific reason. For example,
     if the dashboard is running behind a proxy that does not support SSL.
    </p><p>
@@ -52,7 +52,7 @@ hljs.configure({
     <span class="bold"><strong>unencrypted</strong></span>.
    </p><p>
     To disable SSL, run:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/ssl false</pre></div></div><div id="id-1.4.3.11.4.4" data-id-title="Restarting the Ceph Manager processes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Restarting the Ceph Manager processes</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/ssl false</pre></div></div><div id="id-1.4.3.11.4.4" data-id-title="Restarting the Ceph Manager processes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Restarting the Ceph Manager processes</div><p>
     You need to restart the Ceph Manager processes manually after changing the SSL
     certificate and key. You can do so by either running
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr fail <em class="replaceable">ACTIVE-MANAGER-NAME</em></pre></div><p>
@@ -62,7 +62,7 @@ hljs.configure({
 <code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable dashboard</pre></div></div><section class="sect2" id="self-sign-certificates" data-id-title="Creating self-signed certificates"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">10.1.1 </span><span class="title-name">Creating self-signed certificates</span> <a title="Permalink" class="permalink" href="dashboard-initial-configuration.html#self-sign-certificates">#</a></h3></div></div></div><p>
     Creating a self-signed certificate for secure communication is simple. This
     way you can get the dashboard running quickly.
-   </p><div id="id-1.4.3.11.4.5.3" data-id-title="Web browsers complaint" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Web browsers complaint</h6><p>
+   </p><div id="id-1.4.3.11.4.5.3" data-id-title="Web browsers complaint" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: Web browsers complaint</div><p>
      Most Web browsers will complain about a self-signed certificate and
      require explicit confirmation before establishing a secure connection to
      the dashboard.
@@ -84,7 +84,7 @@ hljs.configure({
     <code class="filename">dashboard.crt</code> file signed by a CA, enable it for all
     Ceph Manager instances by running the following commands:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-ssl-certificate -i dashboard.crt
-<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-ssl-certificate-key -i dashboard.key</pre></div><div id="id-1.4.3.11.4.6.7" data-id-title="Different certificates for each manager instance" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Different certificates for each manager instance</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-ssl-certificate-key -i dashboard.key</pre></div><div id="id-1.4.3.11.4.6.7" data-id-title="Different certificates for each manager instance" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Different certificates for each manager instance</div><p>
      If you require different certificates for each Ceph Manager instance, modify the
      commands and include the name of the instance as follows. Replace
      <em class="replaceable">NAME</em> with the name of the Ceph Manager instance
@@ -94,7 +94,7 @@ hljs.configure({
    The Ceph Dashboard binds to a specific TCP/IP address and TCP port. By default,
    the currently active Ceph Manager that hosts the dashboard binds to TCP port 8443
    (or 8080 when SSL is disabled).
-  </p><div id="id-1.4.3.11.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.3.11.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     If a firewall is enabled on the hosts running Ceph Manager (and thus the
     Ceph Dashboard), you may need to change the configuration to enable access to
     these ports. For more information on firewall settings for Ceph, see
@@ -105,7 +105,7 @@ hljs.configure({
    the Web application so that they apply to all Ceph Manager instances by using the
    following commands:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/server_addr <em class="replaceable">IP_ADDRESS</em>
-<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/server_port <em class="replaceable">PORT_NUMBER</em></pre></div><div id="id-1.4.3.11.5.6" data-id-title="Configuring Ceph Manager instances separately" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Configuring Ceph Manager instances separately</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/server_port <em class="replaceable">PORT_NUMBER</em></pre></div><div id="id-1.4.3.11.5.6" data-id-title="Configuring Ceph Manager instances separately" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Configuring Ceph Manager instances separately</div><p>
     Since each <code class="systemitem">ceph-mgr</code> daemon hosts
     its own instance of the dashboard, you may need to configure them
     separately. Change the IP address and port number for a specific manager
@@ -113,7 +113,7 @@ hljs.configure({
     <em class="replaceable">NAME</em> with the ID of the
     <code class="systemitem">ceph-mgr</code> instance):
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/<em class="replaceable">NAME</em>/server_addr <em class="replaceable">IP_ADDRESS</em>
-<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/<em class="replaceable">NAME</em>/server_port <em class="replaceable">PORT_NUMBER</em></pre></div></div><div id="id-1.4.3.11.5.7" data-id-title="Listing configured endpoints" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Listing configured endpoints</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/dashboard/<em class="replaceable">NAME</em>/server_port <em class="replaceable">PORT_NUMBER</em></pre></div></div><div id="id-1.4.3.11.5.7" data-id-title="Listing configured endpoints" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Listing configured endpoints</div><p>
     The <code class="command">ceph mgr services</code> command displays all endpoints
     that are currently configured. Look for the <code class="literal">dashboard</code>
     key to obtain the URL for accessing the dashboard.
@@ -140,7 +140,7 @@ hljs.configure({
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin user info --uid=<em class="replaceable">USER_ID</em></pre></div></li><li class="step"><p>
      Provide the received credentials to the dashboard in separate files:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-access-key <em class="replaceable">ACCESS_KEY_FILE</em>
-<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-secret-key <em class="replaceable">SECRET_KEY_FILE</em></pre></div></li></ol></div></div><div id="id-1.4.3.11.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph dashboard set-rgw-api-secret-key <em class="replaceable">SECRET_KEY_FILE</em></pre></div></li></ol></div></div><div id="id-1.4.3.11.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     By default the firewall is enabled in SUSE Linux Enterprise Server 15 SP2. For more information on
     firewall configuration, see <span class="intraxref">Book “Troubleshooting Guide”, Chapter 13 “Hints and tips”, Section 13.7 “Firewall settings for Ceph”</span>.
    </p></div><p>
@@ -171,7 +171,7 @@ hljs.configure({
    <code class="systemitem">rbd-target-api</code> service of the
    Ceph iSCSI gateway. Ensure it is installed and enabled on iSCSI
    gateways.
-  </p><div id="id-1.4.3.11.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div id="id-1.4.3.11.8.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The iSCSI management functionality of the Ceph Dashboard depends on the
     latest version 3 of the <code class="literal">ceph-iscsi</code> project. Ensure that
     your operating system provides the correct version, otherwise the
@@ -219,7 +219,7 @@ hljs.configure({
       Optional. File path or content of the certificate that will be used by
       Ceph Dashboard (Service Provider) for signing and encryption. These file
       paths need to be accessible from the active Ceph Manager instance.
-     </p></dd></dl></div><div id="id-1.4.3.11.9.8" data-id-title="SAML requests" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: SAML requests</h6><p>
+     </p></dd></dl></div><div id="id-1.4.3.11.9.8" data-id-title="SAML requests" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: SAML requests</div><p>
     The issuer value of SAML requests will follow this pattern:
    </p><div class="verbatim-wrap"><pre class="screen"><em class="replaceable">CEPH_DASHBOARD_BASE_URL</em>/auth/saml2/metadata</pre></div></div><p>
    To display the current SAML 2.0 configuration, run:

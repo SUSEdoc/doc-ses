@@ -42,13 +42,13 @@ hljs.configure({
   cluster, it's the easiest one and also can happen by accident. For details on
   how to setup quotas please refer to <span class="intraxref">Book “Administration and Operations Guide”, Chapter 23 “Clustered file system”, Section 23.6 “Setting CephFS quotas”</span> and
   <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.5.2.4 “Enabling user quota management”</span>.
- </p><div id="id-1.6.4.4.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+ </p><div id="id-1.6.4.4.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
    Be aware that CephFS quotas are enforced client side, so a malicious
    client can ignore them and exceed the limitations. If this is a concern in
    your environment, do not use CephFS.
   </p></div><p>
   To set the quotas conviniently you can use the Ceph Dashboard.
- </p><div class="figure" id="id-1.6.4.4.6"><div class="figure-contents"><div class="mediaobject"><a href="images/rados_quota.png"><img src="images/rados_quota.png" width="85%" alt="Quotas in the dashboard" title="Quotas in the dashboard"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 5.1: </span><span class="title-name">Quotas in the dashboard </span><a title="Permalink" class="permalink" href="ceph-hardening-measures-dos.html#id-1.6.4.4.6">#</a></h6></div></div><p>
+ </p><div class="figure" id="id-1.6.4.4.6"><div class="figure-contents"><div class="mediaobject"><a href="images/rados_quota.png"><img src="images/rados_quota.png" width="85%" alt="Quotas in the dashboard" title="Quotas in the dashboard"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 5.1: </span><span class="title-name">Quotas in the dashboard </span><a title="Permalink" class="permalink" href="ceph-hardening-measures-dos.html#id-1.6.4.4.6">#</a></div></div></div><p>
   Current Ceph versions do not offer advanced ways of preventing malicious
   clients from attacking the availability of the cluster (for exmaple, with
   many open connections). To ensure you notice an attack or a misconfiguration,

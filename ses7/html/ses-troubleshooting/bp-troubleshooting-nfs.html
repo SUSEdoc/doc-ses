@@ -108,7 +108,7 @@ reply client.35749 cookie 94618743368000 : 0 bytes​</pre></div></section></sec
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool nfs-ganesha --namespace foo put userconf-nfs.foo userconf-nfs.foo​</pre></div><p>
    Add a reference to the parameter in your RADOS common configuration file:
   </p><div class="verbatim-wrap"><pre class="screen">%url "rados://nfs-ganesha/foo/export-1" ​
-%url "rados://nfs-ganesha/foo/userconf-nfs.foo" ​</pre></div><div id="id-1.5.10.4.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+%url "rados://nfs-ganesha/foo/userconf-nfs.foo" ​</pre></div><div id="id-1.5.10.4.9" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     This action is similar to how exports are included in the common
     configuration file.
    </p></div><p>

@@ -39,7 +39,7 @@ hljs.configure({
    When your cluster is becoming 70% to 80% full, it is time to add more OSDs
    to it. When you increase the number of OSDs, you may consider increasing the
    number of placement groups as well.
-  </p><div id="id-1.5.16.4.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+  </p><div id="id-1.5.16.4.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
     Changing the number of PGs causes a lot of data transfer within the
     cluster.
    </p></div><p>
@@ -113,7 +113,7 @@ hljs.configure({
    separate from the OSDs. When a disk dedicated to a journal fails, the
    related OSD(s) fail as well (see
    <a class="xref" href="storage-faqs.html#storage-bp-monitoring-diskfails" title="14.4. What happens when a disk fails?">Section 14.4, “What happens when a disk fails?”</a>).
-  </p><div id="id-1.5.16.8.3" data-id-title="Hosting multiple journals on one disk" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Hosting multiple journals on one disk</h6><p>
+  </p><div id="id-1.5.16.8.3" data-id-title="Hosting multiple journals on one disk" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Hosting multiple journals on one disk</div><p>
     For performance boost, you can use a fast disk (such as SSD) to store
     journal partitions for several OSDs. We do not recommend to host journals
     for more than 4 OSDs on one disk, because in case of the journals' disk

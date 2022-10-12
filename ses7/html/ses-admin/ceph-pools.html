@@ -82,7 +82,7 @@ hljs.configure({
    <a class="xref" href="cha-ceph-erasure.html" title="Chapter 19. Erasure coded pools">Chapter 19, <em>Erasure coded pools</em></a>.
   </p><p>
    To create a replicated pool, execute:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.3.6.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool create <em class="replaceable">POOL_NAME</em></pre></div><div id="id-1.4.5.3.6.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     The autoscaler will take care of the remaining optional arguments. For more
     information, see <a class="xref" href="cha-storage-datamgm.html#op-pgs-autoscaler" title="17.4.12. Enabling the PG auto-scaler">Section 17.4.12, “Enabling the PG auto-scaler”</a>.
    </p></div><p>
@@ -115,7 +115,7 @@ hljs.configure({
       For erasure coded pools only. Use the erasure code profile. It must be an
       existing profile as defined by <code class="command">osd erasure-code-profile
       set</code>.
-     </p><div id="id-1.4.5.3.6.9.4.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     </p><div id="id-1.4.5.3.6.9.4.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
        If for any reason the autoscaler has been disabled
        (<code class="literal">pg_autoscale_mode</code> set to off) on a pool, you can
        calculate and set the PG numbers manually. See <a class="xref" href="cha-storage-datamgm.html#op-pgs" title="17.4. Placement groups">Section 17.4, “Placement groups”</a>
@@ -133,7 +133,7 @@ hljs.configure({
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool rename <em class="replaceable">CURRENT_POOL_NAME</em> <em class="replaceable">NEW_POOL_NAME</em></pre></div><p>
    If you rename a pool and you have per-pool capabilities for an authenticated
    user, you must update the user’s capabilities with the new pool name.
-  </p></section><section class="sect1" id="ceph-pools-operate-del-pool" data-id-title="Deleting a pool"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.4 </span><span class="title-name">Deleting a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-operate-del-pool">#</a></h2></div></div></div><div id="id-1.4.5.3.9.2" data-id-title="Pool deletion is not reversible" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Pool deletion is not reversible</h6><p>
+  </p></section><section class="sect1" id="ceph-pools-operate-del-pool" data-id-title="Deleting a pool"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">18.4 </span><span class="title-name">Deleting a pool</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-operate-del-pool">#</a></h2></div></div></div><div id="id-1.4.5.3.9.2" data-id-title="Pool deletion is not reversible" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Pool deletion is not reversible</div><p>
     Pools may contain important data. Deleting a pool causes all data in the
     pool to disappear, and there is no way to recover it.
    </p></div><p>
@@ -174,7 +174,7 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
    </p><p>
     For other cases, you can manually associate a free-form application name
     with a pool:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool application enable <em class="replaceable">POOL_NAME</em> <em class="replaceable">APPLICATION_NAME</em></pre></div><div id="id-1.4.5.3.10.2.5" data-id-title="Default application names" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Default application names</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool application enable <em class="replaceable">POOL_NAME</em> <em class="replaceable">APPLICATION_NAME</em></pre></div><div id="id-1.4.5.3.10.2.5" data-id-title="Default application names" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Default application names</div><p>
      CephFS uses the application name <code class="literal">cephfs</code>, RADOS Block Device uses
      <code class="literal">rbd</code>, and Object Gateway uses <code class="literal">rgw</code>.
     </p></div><p>
@@ -252,13 +252,13 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
       </p></dd><dt id="id-1.4.5.3.10.5.5.2"><span class="term">PGP_NUM</span></dt><dd><p>
        The effective number of placement groups to use when calculating data
        placement. Valid range is equal to or less than <code class="option">PG_NUM</code>.
-      </p></dd></dl></div><div id="id-1.4.5.3.10.5.6" data-id-title="All of a pools values" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: All of a pool's values</h6><p>
+      </p></dd></dl></div><div id="id-1.4.5.3.10.5.6" data-id-title="All of a pools values" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: All of a pool's values</div><p>
      To list all values related to a specific pool, run:
     </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephuser@adm &gt; </code>ceph osd pool get <em class="replaceable">POOL_NAME</em> all</pre></div></div></section><section class="sect2" id="ceph-pools-values" data-id-title="Setting pool values"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.5.5 </span><span class="title-name">Setting pool values</span> <a title="Permalink" class="permalink" href="ceph-pools.html#ceph-pools-values">#</a></h3></div></div></div><p>
     To set a value to a pool, execute:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set <em class="replaceable">POOL_NAME</em> <em class="replaceable">KEY</em> <em class="replaceable">VALUE</em></pre></div><p>
     The following is a list of pool values sorted by a pool type:
-   </p><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Common pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.10.6.5">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.5.2"><span class="term">crash_replay_interval</span></dt><dd><p>
+   </p><div class="variablelist"><div class="variablelist-title-wrap"><div class="variablelist-title"><span class="title-name">Common pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.10.6.5">#</a></div></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.5.2"><span class="term">crash_replay_interval</span></dt><dd><p>
        The number of seconds to allow clients to replay acknowledged, but
        uncommitted requests.
       </p></dd><dt id="id-1.4.5.3.10.6.5.3"><span class="term">pg_num</span></dt><dd><p>
@@ -306,7 +306,7 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
        scrubbing. The default <code class="literal">0</code> means that the
        <code class="option">osd_deep_scrub</code> value from the Ceph configuration file
        is used.
-      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Replicated pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.10.6.6">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.6.2"><span class="term">size</span></dt><dd><p>
+      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><div class="variablelist-title"><span class="title-name">Replicated pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.10.6.6">#</a></div></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.6.2"><span class="term">size</span></dt><dd><p>
        Sets the number of replicas for objects in the pool. See
        <a class="xref" href="ceph-pools.html#ceph-pools-options-num-of-replicas" title="18.5.6. Setting the number of object replicas">Section 18.5.6, “Setting the number of object replicas”</a> for further
        details. Replicated pools only.
@@ -380,7 +380,7 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
       </p></dd><dt id="id-1.4.5.3.10.6.6.18"><span class="term">cache_min_evict_age</span></dt><dd><p>
        The time (in seconds) before the cache tiering agent will evict an
        object from the cache pool.
-      </p></dd></dl></div><div class="variablelist" id="pool-values-ec" data-id-title="Erasure coded pool values"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Erasure coded pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#pool-values-ec">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.7.2"><span class="term">fast_read</span></dt><dd><p>
+      </p></dd></dl></div><div class="variablelist" id="pool-values-ec" data-id-title="Erasure coded pool values"><div class="variablelist-title-wrap"><div class="variablelist-title"><span class="title-name">Erasure coded pool values </span><a title="Permalink" class="permalink" href="ceph-pools.html#pool-values-ec">#</a></div></div><dl class="variablelist"><dt id="id-1.4.5.3.10.6.7.2"><span class="term">fast_read</span></dt><dd><p>
        If this flag is enabled on erasure coding pools, then the read request
        issues sub-reads to all shards, and waits until it receives enough
        shards to decode to serve the client. In the case of
@@ -397,7 +397,7 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
     The <em class="replaceable">num-replicas</em> includes the object itself. For
     example if you want the object and two copies of the object for a total of
     three instances of the object, specify 3.
-   </p><div id="id-1.4.5.3.10.7.5" data-id-title="Do not set less than 3 replicas" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Do not set less than 3 replicas</h6><p>
+   </p><div id="id-1.4.5.3.10.7.5" data-id-title="Do not set less than 3 replicas" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning: Do not set less than 3 replicas</div><p>
      If you set the <em class="replaceable">num-replicas</em> to 2, there will be
      only <span class="emphasis"><em>one</em></span> copy of your data. If you lose one object
      instance, you need to trust that the other copy has not been corrupted,
@@ -408,21 +408,21 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
      <span class="emphasis"><em>one</em></span> instance of the data object in the pool. If the
      OSD fails, you lose the data. A possible usage for a pool with one replica
      is storing temporary data for a short time.
-    </p></div><div id="id-1.4.5.3.10.7.6" data-id-title="Setting more than 3 replicas" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Setting more than 3 replicas</h6><p>
+    </p></div><div id="id-1.4.5.3.10.7.6" data-id-title="Setting more than 3 replicas" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Setting more than 3 replicas</div><p>
      Setting 4 replicas for a pool increases the reliability by 25%.
     </p><p>
      In case of two data centers, you need to set at least 4 replicas for a
      pool to have two copies in each data center so that if one data center is
      lost, two copies still exist and you can still lose one disk without
      losing data.
-    </p></div><div id="id-1.4.5.3.10.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p></div><div id="id-1.4.5.3.10.7.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      An object might accept I/Os in degraded mode with fewer than <code class="literal">pool
      size</code> replicas. To set a minimum number of required replicas for
      I/O, you should use the <code class="literal">min_size</code> setting. For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set data min_size 2</pre></div><p>
      This ensures that no object in the data pool will receive I/O with fewer
      than <code class="literal">min_size</code> replicas.
-    </p></div><div id="id-1.4.5.3.10.7.8" data-id-title="Get the number of object replicas" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Get the number of object replicas</h6><p>
+    </p></div><div id="id-1.4.5.3.10.7.8" data-id-title="Get the number of object replicas" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Get the number of object replicas</div><p>
      To get the number of object replicas, execute the following:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd dump | grep 'replicated size'</pre></div><p>
      Ceph will list the pools, with the <code class="literal">replicated size</code>
@@ -466,7 +466,7 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
     The principle is simple—include the pool that you need to migrate
     into a cache tier in reverse order. The following example migrates a
     replicated pool named 'testpool' to an erasure coded pool:
-   </p><div class="procedure" id="id-1.4.5.3.11.5.3" data-id-title="Migrating replicated to erasure coded pool"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 18.1: </span><span class="title-name">Migrating replicated to erasure coded pool </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+   </p><div class="procedure" id="id-1.4.5.3.11.5.3" data-id-title="Migrating replicated to erasure coded pool"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 18.1: </span><span class="title-name">Migrating replicated to erasure coded pool </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
       Create a new erasure coded pool named 'newpool'. Refer to
       <a class="xref" href="ceph-pools.html#ceph-pools-operate-add-pool" title="18.1. Creating a pool">Section 18.1, “Creating a pool”</a> for a detailed explanation
       of pool creation parameters.
@@ -476,28 +476,28 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
      </p><p>
       Now you have two pools: the original replicated 'testpool' filled with
       data, and the new empty erasure coded 'newpool':
-     </p><div class="figure" id="id-1.4.5.3.11.5.3.2.5"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate1.png"><img src="images/pool_migrate1.png" width="60%" alt="Pools before migration" title="Pools before migration"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.1: </span><span class="title-name">Pools before migration </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.2.5">#</a></h6></div></div></li><li class="step"><p>
+     </p><div class="figure" id="id-1.4.5.3.11.5.3.2.5"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate1.png"><img src="images/pool_migrate1.png" width="60%" alt="Pools before migration" title="Pools before migration"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 18.1: </span><span class="title-name">Pools before migration </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.2.5">#</a></div></div></div></li><li class="step"><p>
       Set up the cache tier and configure the replicated pool 'testpool' as a
       cache pool. The <code class="option">-force-nonempty</code> option allows adding a
       cache tier even if the pool already has data:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell mon.* injectargs \
  '--mon_debug_unsafe_allow_tier_with_nonempty_snaps=1'
 <code class="prompt user">cephuser@adm &gt; </code>ceph osd tier add newpool testpool --force-nonempty
-<code class="prompt user">cephuser@adm &gt; </code>ceph osd tier cache-mode testpool proxy</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate2.png"><img src="images/pool_migrate2.png" width="60%" alt="Cache tier setup" title="Cache tier setup"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.2: </span><span class="title-name">Cache tier setup </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.3.3">#</a></h6></div></div></li><li class="step"><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd tier cache-mode testpool proxy</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.3.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate2.png"><img src="images/pool_migrate2.png" width="60%" alt="Cache tier setup" title="Cache tier setup"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 18.2: </span><span class="title-name">Cache tier setup </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.3.3">#</a></div></div></div></li><li class="step"><p>
       Force the cache pool to move all objects to the new pool:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados -p testpool cache-flush-evict-all</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.4.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate3.png"><img src="images/pool_migrate3.png" width="60%" alt="Data flushing" title="Data flushing"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.3: </span><span class="title-name">Data flushing </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.4.3">#</a></h6></div></div></li><li class="step"><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados -p testpool cache-flush-evict-all</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.4.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate3.png"><img src="images/pool_migrate3.png" width="60%" alt="Data flushing" title="Data flushing"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 18.3: </span><span class="title-name">Data flushing </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.4.3">#</a></div></div></div></li><li class="step"><p>
       Until all the data has been flushed to the new erasure coded pool, you
       need to specify an overlay so that objects are searched on the old pool:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tier set-overlay newpool testpool</pre></div><p>
       With the overlay, all operations are forwarded to the old replicated
       'testpool':
-     </p><div class="figure" id="id-1.4.5.3.11.5.3.5.4"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate4.png"><img src="images/pool_migrate4.png" width="60%" alt="Setting overlay" title="Setting overlay"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.4: </span><span class="title-name">Setting overlay </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.5.4">#</a></h6></div></div><p>
+     </p><div class="figure" id="id-1.4.5.3.11.5.3.5.4"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate4.png"><img src="images/pool_migrate4.png" width="60%" alt="Setting overlay" title="Setting overlay"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 18.4: </span><span class="title-name">Setting overlay </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.5.4">#</a></div></div></div><p>
       Now you can switch all the clients to access objects on the new pool.
      </p></li><li class="step"><p>
       After all data is migrated to the erasure coded 'newpool', remove the
       overlay and the old cache pool 'testpool':
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd tier remove-overlay newpool
-<code class="prompt user">cephuser@adm &gt; </code>ceph osd tier remove newpool testpool</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.6.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate5.png"><img src="images/pool_migrate5.png" width="60%" alt="Migration complete" title="Migration complete"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 18.5: </span><span class="title-name">Migration complete </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.6.3">#</a></h6></div></div></li><li class="step"><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd tier remove newpool testpool</pre></div><div class="figure" id="id-1.4.5.3.11.5.3.6.3"><div class="figure-contents"><div class="mediaobject"><a href="images/pool_migrate5.png"><img src="images/pool_migrate5.png" width="60%" alt="Migration complete" title="Migration complete"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 18.5: </span><span class="title-name">Migration complete </span><a title="Permalink" class="permalink" href="ceph-pools.html#id-1.4.5.3.11.5.3.6.3">#</a></div></div></div></li><li class="step"><p>
       Run
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph tell mon.* injectargs \
  '--mon_debug_unsafe_allow_tier_with_nonempty_snaps=0'</pre></div></li></ol></div></div></section><section class="sect2" id="migrate-rbd-image" data-id-title="Migrating RBD images"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.6.3 </span><span class="title-name">Migrating RBD images</span> <a title="Permalink" class="permalink" href="ceph-pools.html#migrate-rbd-image">#</a></h3></div></div></div><p>
@@ -508,7 +508,7 @@ mon_allow_pool_delete config option to true before you can destroy a pool</pre><
      </p></li><li class="step"><p>
       Create a new image in the target pool, with the parent set to the source
       image:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd migration prepare <em class="replaceable">SRC_POOL</em>/<em class="replaceable">IMAGE</em> <em class="replaceable">TARGET_POOL</em>/<em class="replaceable">IMAGE</em></pre></div><div id="id-1.4.5.3.11.6.3.2.3" data-id-title="Migrate only data to an erasure coded pool" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Migrate only data to an erasure coded pool</h6><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd migration prepare <em class="replaceable">SRC_POOL</em>/<em class="replaceable">IMAGE</em> <em class="replaceable">TARGET_POOL</em>/<em class="replaceable">IMAGE</em></pre></div><div id="id-1.4.5.3.11.6.3.2.3" data-id-title="Migrate only data to an erasure coded pool" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Migrate only data to an erasure coded pool</div><p>
        If you need to migrate only the image data to a new EC pool and leave
        the metadata in the original replicated pool, run the following command
        instead:
@@ -562,7 +562,7 @@ created pool pool1 snap snap1</pre></div></section><section class="sect2" id="ce
     To enable data compression for a pool named
     <em class="replaceable">POOL_NAME</em>, run the following command:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd pool set <em class="replaceable">POOL_NAME</em> compression_algorithm <em class="replaceable">COMPRESSION_ALGORITHM</em>
-<code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd pool set <em class="replaceable">POOL_NAME</em> compression_mode <em class="replaceable">COMPRESSION_MODE</em></pre></div><div id="id-1.4.5.3.13.7.4" data-id-title="Disabling pool compression" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Disabling pool compression</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd pool set <em class="replaceable">POOL_NAME</em> compression_mode <em class="replaceable">COMPRESSION_MODE</em></pre></div><div id="id-1.4.5.3.13.7.4" data-id-title="Disabling pool compression" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Disabling pool compression</div><p>
      To disable data compression for a pool, use 'none' as the compression
      algorithm:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph</code> osd pool set <em class="replaceable">POOL_NAME</em> compression_algorithm none</pre></div></div></section><section class="sect2" id="sec-ceph-pool-compression-options" data-id-title="Pool compression options"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">18.8.2 </span><span class="title-name">Pool compression options</span> <a title="Permalink" class="permalink" href="ceph-pools.html#sec-ceph-pool-compression-options">#</a></h3></div></div></div><p>

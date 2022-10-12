@@ -57,7 +57,7 @@ hljs.configure({
 <code class="prompt user">root@master # </code>salt \* saltutil.sync_all</pre></div></section><section class="sect1" id="deploy-cephadm-configure" data-id-title="Configuring cluster properties"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-configure">#</a></h2></div></div></div><p>
    Use the <code class="command">ceph-salt config</code> command to configure the basic
    properties of the cluster.
-  </p><div id="id-1.3.4.5.4.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div id="id-1.3.4.5.4.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     The <code class="filename">/etc/ceph/ceph.conf</code> file is managed by cephadm
     and users <span class="emphasis"><em>should not</em></span> edit it. Ceph configuration
     parameters should be set using the new <code class="command">ceph config</code>
@@ -130,7 +130,7 @@ o- dashboard ....................................................... [...]
   o- password .................................................... [admin]
   o- ssl_certificate ........................................... [not set]
   o- ssl_certificate_key ....................................... [not set]
-  o- username ................................................[ceph-admin]</pre></div></li></ul></div><div id="id-1.3.4.5.4.4.6" data-id-title="Autocompletion of configuration snippets" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Autocompletion of configuration snippets</h6><p>
+  o- username ................................................[ceph-admin]</pre></div></li></ul></div><div id="id-1.3.4.5.4.4.6" data-id-title="Autocompletion of configuration snippets" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Autocompletion of configuration snippets</div><p>
      While in a <code class="systemitem">ceph-salt</code> shell, you can use the autocompletion feature
      similar to a normal Linux shell (Bash) autocompletion. It completes
      configuration paths, subcommands, or Salt Minion names. When autocompleting
@@ -141,14 +141,14 @@ o- dashboard ....................................................... [...]
       </p></li><li class="listitem"><p>
        To let the shell finish an absolute path, enter <span class="keycap">/</span> and
        press the TAB key <span class="keycap">→|</span> twice.
-      </p></li></ul></div></div><div id="id-1.3.4.5.4.4.7" data-id-title="Navigating with the cursor keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Navigating with the cursor keys</h6><p>
+      </p></li></ul></div></div><div id="id-1.3.4.5.4.4.7" data-id-title="Navigating with the cursor keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Navigating with the cursor keys</div><p>
      If you enter <code class="command">cd</code> from the <code class="systemitem">ceph-salt</code> shell without any
      path, the command will print a tree structure of the cluster configuration
      with the line of the current path active. You can use the up and down
      cursor keys to navigate through individual lines. After you confirm with
      <span class="keycap">Enter</span>, the configuration path will change to
      the last active one.
-    </p></div><div id="id-1.3.4.5.4.4.8" data-id-title="Convention" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Convention</h6><p>
+    </p></div><div id="id-1.3.4.5.4.4.8" data-id-title="Convention" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important: Convention</div><p>
      To keep the documentation consistent, we will use a single command syntax
      without entering the <code class="systemitem">ceph-salt</code> shell. For example, you can list the
      cluster configuration tree by using the following command:
@@ -176,7 +176,7 @@ o- minions ................................................. [Minions: 5]
     The Admin Node is the node where the <code class="filename">ceph.conf</code>
     configuration file and the Ceph admin keyring is installed. You usually
     run Ceph related commands on the Admin Node.
-   </p><div id="id-1.3.4.5.4.7.3" data-id-title="Salt Master and Admin Node on the Same Node" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Salt Master and Admin Node on the Same Node</h6><p>
+   </p><div id="id-1.3.4.5.4.7.3" data-id-title="Salt Master and Admin Node on the Same Node" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Salt Master and Admin Node on the Same Node</div><p>
      In a homogeneous environment where all or most hosts belong to
      SUSE Enterprise Storage, we recommend having the Admin Node on the same host as the
      Salt Master.
@@ -190,7 +190,7 @@ o- minions ................................................. [Minions: 5]
 1 minion added.
 <code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/admin ls
 o- admin ................................................... [Minions: 1]
-  o- ses-master.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</h6><p>
+  o- ses-master.example.com ...................... [Other roles: cephadm]</pre></div><div id="id-1.3.4.5.4.7.6" data-id-title="Install ceph.conf and the admin keyring on multiple nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Install <code class="filename">ceph.conf</code> and the admin keyring on multiple nodes</div><p>
      You can install the Ceph configuration file and admin keyring on
      multiple nodes if your deployment requires it. For security reasons, avoid
      installing them on all the cluster's nodes.
@@ -208,7 +208,7 @@ o- bootstrap ..................................... [ses-min1.example.com]</pre><
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/mon_ip set 192.168.10.20</pre></div></section><section class="sect2" id="deploy-cephadm-tuned-profiles" data-id-title="Specifying tuned profiles"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.6 </span><span class="title-name">Specifying tuned profiles</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-tuned-profiles">#</a></h3></div></div></div><p>
     You need to specify which of the cluster's minions have actively tuned
     profiles. To do so, add these roles explicitly with the following commands:
-   </p><div id="id-1.3.4.5.4.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div id="id-1.3.4.5.4.9.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      One minion cannot have both the <code class="literal">latency</code> and
      <code class="literal">throughput</code> roles.
     </p></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ceph_cluster/roles/tuned/latency add ses-min1.example.com
@@ -266,7 +266,7 @@ o- time_server ................................................ [enabled]
     Ceph Dashboard will be available after the basic cluster is deployed. To
     access it, you need to set a valid user name and password, for example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/username set admin
-<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/password set <em class="replaceable">PWD</em></pre></div><div id="id-1.3.4.5.4.12.4" data-id-title="Forcing password update" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Forcing password update</h6><p>
+<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/password set <em class="replaceable">PWD</em></pre></div><div id="id-1.3.4.5.4.12.4" data-id-title="Forcing password update" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Forcing password update</div><p>
      By default, the first dashboard user will be forced to change their
      password on first login to the dashboard. To disable this feature, run the
      following command:
@@ -285,12 +285,12 @@ o- time_server ................................................ [enabled]
       an air-gapped deployment—you need to configure a local container
       registry. After the local registry is created and configured, you need to
       point <code class="systemitem">ceph-salt</code> to it.
-     </p></li></ul></div><section class="sect3" id="updating-ceph-local-registry" data-id-title="Creating and configuring the local registry (optional)"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.1 </span><span class="title-name">Creating and configuring the local registry (optional)</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#updating-ceph-local-registry">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p></li></ul></div><section class="sect3" id="updating-ceph-local-registry" data-id-title="Creating and configuring the local registry (optional)"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.1 </span><span class="title-name">Creating and configuring the local registry (optional)</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#updating-ceph-local-registry">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       There are numerous methods of creating a local registry. The instructions
       in this section are examples of creating secure and insecure registries.
       For general information on running a container image registry, refer to
       <a class="link" href="https://documentation.suse.com/sles/15-SP2/html/SLES-all/cha-registry-installation.html#sec-docker-registry-installation" target="_blank">https://documentation.suse.com/sles/15-SP2/html/SLES-all/cha-registry-installation.html#sec-docker-registry-installation</a>.
-     </p></div><div id="id-1.3.4.5.4.13.4.3" data-id-title="Placement and port usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Placement and port usage</h6><p>
+     </p></div><div id="id-1.3.4.5.4.13.4.3" data-id-title="Placement and port usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Placement and port usage</div><p>
       Deploy the registry on a machine accessible by all nodes in the cluster.
       We recommend the Admin Node. By default, the registry listens on port 5000.
      </p><p>
@@ -300,7 +300,7 @@ o- time_server ................................................ [enabled]
       If other processes (such as <code class="literal">iscsi-tcmu</code>) are already
       listening on port 5000, determine another free port which can be used to
       map to port 5000 in the registry container.
-     </p></div><div class="procedure" id="id-1.3.4.5.4.13.4.4" data-id-title="Creating the local registry"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 7.1: </span><span class="title-name">Creating the local registry </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     </p></div><div class="procedure" id="id-1.3.4.5.4.13.4.4" data-id-title="Creating the local registry"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 7.1: </span><span class="title-name">Creating the local registry </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
        Verify that the <span class="package">Containers Module</span> extension is
        enabled:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>SUSEConnect --list-extensions | grep -A2 "Containers Module"
@@ -349,7 +349,7 @@ Containers Module 15 SP2 x86_64 (Activated)</pre></div></li><li class="step"><p>
          Generate an SSL certificate:
         </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>openssl req -newkey rsa:4096 -nodes -sha256 \
  -keyout /var/lib/registry/certs/domain.key -x509 -days 365 \
- -out /var/lib/registry/certs/domain.crt</pre></div><div id="id-1.3.4.5.4.13.4.4.6.2.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+ -out /var/lib/registry/certs/domain.crt</pre></div><div id="id-1.3.4.5.4.13.4.4.6.2.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
           Set the <code class="literal">CN=[value]</code> value to the fully qualified
           domain name of the host ([<code class="option">REG_HOST_FQDN</code>]).
          </p></div></li><li class="step"><p>
@@ -387,31 +387,31 @@ Containers Module 15 SP2 x86_64 (Activated)</pre></div></li><li class="step"><p>
        <span class="package">skopeo</span> package for that purpose. For more details,
        refer to the manual page (<code class="command">man 1 skopeo-sync</code>).
        Consider the following examples:
-      </p><div class="example" id="id-1.3.4.5.4.13.4.4.7.2" data-id-title="Viewing manifest files"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.1: </span><span class="title-name">Viewing manifest files </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.2">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo inspect docker://registry.suse.com/ses/7/ceph/ceph | jq .RepoTags
+      </p><div class="example" id="id-1.3.4.5.4.13.4.4.7.2" data-id-title="Viewing manifest files"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.1: </span><span class="title-name">Viewing manifest files </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.2">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo inspect docker://registry.suse.com/ses/7/ceph/ceph | jq .RepoTags
 skopeo inspect docker://registry.suse.com/ses/7/ceph/grafana | jq .RepoTags
 skopeo inspect docker://registry.suse.com/ses/7/ceph/prometheus-server:2.27.1 | jq .RepoTags
 skopeo inspect docker://registry.suse.com/ses/7/ceph/prometheus-node-exporter:1.1.2 | jq .RepoTags
-skopeo inspect docker://registry.suse.com/ses/7/ceph/prometheus-alertmanager:0.21.0 | jq .RepoTags</pre></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.3" data-id-title="Synchronize to a directory"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.2: </span><span class="title-name">Synchronize to a directory </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.3">#</a></h6></div><div class="example-contents"><p>
+skopeo inspect docker://registry.suse.com/ses/7/ceph/prometheus-alertmanager:0.21.0 | jq .RepoTags</pre></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.3" data-id-title="Synchronize to a directory"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.2: </span><span class="title-name">Synchronize to a directory </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.3">#</a></div></div><div class="example-contents"><p>
         Synchronize all Ceph images:
        </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/ceph /root/images/</pre></div><p>
         Synchronize just the latest images:
-       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/ceph:latest /root/images/</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.4" data-id-title="Synchronize Grafana images:"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.3: </span><span class="title-name">Synchronize Grafana images: </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.4">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/grafana /root/images/</pre></div><p>
+       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/ceph:latest /root/images/</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.4" data-id-title="Synchronize Grafana images:"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.3: </span><span class="title-name">Synchronize Grafana images: </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.4">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/grafana /root/images/</pre></div><p>
         Synchronize the latest Grafana images only:
-       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/grafana:latest /root/images/</pre></div></div></div></div><div class="example" id="id-1.3.4.5.4.13.4.4.7.5" data-id-title="Synchronize latest Prometheus images"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 7.4: </span><span class="title-name">Synchronize latest Prometheus images </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.5">#</a></h6></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/prometheus-server:2.27.1 /root/images/
+       </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/grafana:latest /root/images/</pre></div></div></div></div><div class="example" id="id-1.3.4.5.4.13.4.4.7.5" data-id-title="Synchronize latest Prometheus images"><div class="example-title-wrap"><div class="example-title"><span class="title-number">Example 7.4: </span><span class="title-name">Synchronize latest Prometheus images </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.4.7.5">#</a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/prometheus-server:2.27.1 /root/images/
 skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/prometheus-node-exporter:1.1.2 /root/images/
-skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/prometheus-alertmanager:0.21.0 /root/images/</pre></div></div></div></li></ol></div></div><div class="procedure" id="id-1.3.4.5.4.13.4.5" data-id-title="Configure the local registry and access credentials"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 7.2: </span><span class="title-name">Configure the local registry and access credentials </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.5">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/prometheus-alertmanager:0.21.0 /root/images/</pre></div></div></div></li></ol></div></div><div class="procedure" id="id-1.3.4.5.4.13.4.5" data-id-title="Configure the local registry and access credentials"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number">Procedure 7.2: </span><span class="title-name">Configure the local registry and access credentials </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.4.13.4.5">#</a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
        Configure the URL of the local registry:
       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/registry set <em class="replaceable">REG_HOST_URL</em></pre></div></li><li class="step"><p>
        Configure the user name and password to access the local registry:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/username set <em class="replaceable">REG_USERNAME</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/password set <em class="replaceable">REG_PASSWORD</em></pre></div></li></ol></div></div><div id="id-1.3.4.5.4.13.4.6" data-id-title="Registry cache" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Registry cache</h6><p>
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/username set <em class="replaceable">REG_USERNAME</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/password set <em class="replaceable">REG_PASSWORD</em></pre></div></li></ol></div></div><div id="id-1.3.4.5.4.13.4.6" data-id-title="Registry cache" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Registry cache</div><p>
       To avoid re-syncing the local registry when new updated containers
       appear, you can configure a <span class="emphasis"><em>registry cache</em></span>.
-     </p></div></section><section class="sect3" id="deploy-cephadm-configure-imagepath" data-id-title="Configuring the path to container images"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.2 </span><span class="title-name">Configuring the path to container images</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-configure-imagepath">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+     </p></div></section><section class="sect3" id="deploy-cephadm-configure-imagepath" data-id-title="Configuring the path to container images"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">7.2.10.2 </span><span class="title-name">Configuring the path to container images</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-configure-imagepath">#</a></h4></div></div></div><div id="id-1.3.4.5.4.13.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       This section helps you configure the path to container images of the
       bootstrap cluster (deployment of the first Ceph Monitor and Ceph Manager pair). The
       path does not apply to container images of additional services, for
       example the monitoring stack.
-     </p></div><div id="id-1.3.4.5.4.13.5.3" data-id-title="Configuring HTTPS proxy" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Configuring HTTPS proxy</h6><p>
+     </p></div><div id="id-1.3.4.5.4.13.5.3" data-id-title="Configuring HTTPS proxy" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Configuring HTTPS proxy</div><p>
       If you need to use a proxy to communicate with the container registry
       server, perform the following configuration steps on all cluster nodes:
      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
@@ -436,7 +436,7 @@ skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/prometheus-aler
     a security mode that encrypts all data passing over the network,
     encapsulation of authentication payloads, and the enabling of future
     integration of new authentication modes (such as Kerberos).
-   </p><div id="id-1.3.4.5.4.14.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+   </p><div id="id-1.3.4.5.4.14.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
      msgr2 is not currently supported by Linux kernel Ceph clients, such as
      CephFS and RADOS Block Device.
     </p></div><p>
@@ -491,14 +491,14 @@ skopeo sync --src docker --dest dir registry.suse.com/ses/7/ceph/prometheus-aler
     Set the following options:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_cluster_mode "secure crc"
 <code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_service_mode "secure crc"
-<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode "secure crc"</pre></div><div id="id-1.3.4.5.4.14.17" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode "secure crc"</pre></div><div id="id-1.3.4.5.4.14.17" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Ensure <code class="literal">secure</code> precedes <code class="literal">crc</code>.
     </p></div><p>
     To <span class="emphasis"><em>force</em></span> <code class="literal">secure</code> mode, run the
     following commands:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_cluster_mode secure
 <code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_service_mode secure
-<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode secure</pre></div><div id="update-inflight-encryption-settings" data-id-title="Updating settings" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Updating settings</h6><p>
+<code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_conf/global set ms_client_mode secure</pre></div><div id="update-inflight-encryption-settings" data-id-title="Updating settings" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Updating settings</div><p>
      If you want to change any of the above settings, set the configuration
      changes in the monitor configuration store. This is achieved using the
      <code class="command">ceph config set</code> command.
@@ -561,7 +561,7 @@ o- / ............................................................... [...]
     | o- 0.pt.pool.ntp.org ......................................... [...]
     o- servers ....................................................... [1]
     | o- ses-master.example.com .................................... [...]
-    o- subnet ............................................. [10.20.6.0/24]</pre></div><div id="id-1.3.4.5.4.16.4" data-id-title="Status of cluster configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Status of cluster configuration</h6><p>
+    o- subnet ............................................. [10.20.6.0/24]</pre></div><div id="id-1.3.4.5.4.16.4" data-id-title="Status of cluster configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Status of cluster configuration</div><p>
      You can check if the configuration of the cluster is valid by running the
      following command:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt status
@@ -569,7 +569,7 @@ cluster: 5 minions, 0 hosts managed by cephadm
 config: OK</pre></div></div></section><section class="sect2" id="deploy-cephadm-configure-export" data-id-title="Exporting cluster configurations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">7.2.14 </span><span class="title-name">Exporting cluster configurations</span> <a title="Permalink" class="permalink" href="deploy-bootstrap.html#deploy-cephadm-configure-export">#</a></h3></div></div></div><p>
     After you have configured the basic cluster and its configuration is valid,
     it is a good idea to export its configuration to a file:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt export &gt; cluster.json</pre></div><div id="id-1.3.4.5.4.17.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt export &gt; cluster.json</pre></div><div id="id-1.3.4.5.4.17.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      The output of the <code class="command">ceph-salt export</code> includes the SSH
      private key. If you are concerned about the security implications, do not
      execute this command without taking appropriate precautions.
@@ -587,19 +587,19 @@ config: OK</pre></div></div></section><section class="sect2" id="deploy-cephadm-
    <code class="option">--reboot</code> option
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt update --reboot</pre></div><p>
    Or, reboot them in a separate step:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt reboot</pre></div><div id="id-1.3.4.5.5.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt reboot</pre></div><div id="id-1.3.4.5.5.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     The Salt Master is never rebooted by <code class="command">ceph-salt update
     --reboot</code> or <code class="command">ceph-salt reboot</code> commands. If the
     Salt Master needs rebooting, you need to reboot it manually.
    </p></div><p>
    After the nodes are updated, bootstrap the minimal cluster:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply</pre></div><div id="id-1.3.4.5.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply</pre></div><div id="id-1.3.4.5.5.12" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     When bootstrapping is complete, the cluster will have one Ceph Monitor and one
     Ceph Manager.
    </p></div><p>
    The above command will open an interactive user interface that shows the
    current progress of each minion.
-  </p><div class="figure" id="id-1.3.4.5.5.14"><div class="figure-contents"><div class="mediaobject"><a href="images/cephadm_deploy.png"><img src="images/cephadm_deploy.png" width="75%" alt="Deployment of a minimal cluster" title="Deployment of a minimal cluster"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 7.1: </span><span class="title-name">Deployment of a minimal cluster </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.5.14">#</a></h6></div></div><div id="id-1.3.4.5.5.15" data-id-title="Non-interactive mode" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Non-interactive mode</h6><p>
+  </p><div class="figure" id="id-1.3.4.5.5.14"><div class="figure-contents"><div class="mediaobject"><a href="images/cephadm_deploy.png"><img src="images/cephadm_deploy.png" width="75%" alt="Deployment of a minimal cluster" title="Deployment of a minimal cluster"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 7.1: </span><span class="title-name">Deployment of a minimal cluster </span><a title="Permalink" class="permalink" href="deploy-bootstrap.html#id-1.3.4.5.5.14">#</a></div></div></div><div id="id-1.3.4.5.5.15" data-id-title="Non-interactive mode" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Non-interactive mode</div><p>
     If you need to apply the configuration from a script, there is also a
     non-interactive mode of deployment. This is also useful when deploying the
     cluster from a remote machine because constant updating of the progress
@@ -625,7 +625,7 @@ config: OK</pre></div></div></section><section class="sect2" id="deploy-cephadm-
    this <code class="literal">public_network</code> setting <code class="literal">global</code>,
    which means it will apply to all types of Ceph daemons, and not only to
    MONs:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global public_network "$(ceph config get mon public_network)"</pre></div><div id="id-1.3.4.5.6.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global public_network "$(ceph config get mon public_network)"</pre></div><div id="id-1.3.4.5.6.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
     This step is not required. However, if you do not use this setting, the
     Ceph OSDs and other daemons (except Ceph Monitor) will listen on <span class="emphasis"><em>all
     addresses</em></span>.

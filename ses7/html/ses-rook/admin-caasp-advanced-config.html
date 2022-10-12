@@ -68,7 +68,7 @@ hljs.configure({
     <code class="literal">rook-ceph</code> namespace. If you run them in a different
     namespace, modify <code class="command">kubectl -n rook-ceph [...]</code> to fit your
     situation.
-   </p></section><section class="sect2" id="use-custom-ceph-user-and-secret-for-mounting" data-id-title="Using custom Ceph user and secret for mounting"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.2 </span><span class="title-name">Using custom Ceph user and secret for mounting</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#use-custom-ceph-user-and-secret-for-mounting">#</a></h3></div></div></div><div id="id-1.7.4.11.3.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p></section><section class="sect2" id="use-custom-ceph-user-and-secret-for-mounting" data-id-title="Using custom Ceph user and secret for mounting"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.2 </span><span class="title-name">Using custom Ceph user and secret for mounting</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#use-custom-ceph-user-and-secret-for-mounting">#</a></h3></div></div></div><div id="id-1.7.4.11.3.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      For extensive info about creating Ceph users, refer to
      <span class="intraxref">Book “Administration and Operations Guide”, Chapter 30 “Authentication with <code class="systemitem">cephx</code>”, Section 30.2.2 “Managing users”</span>
     </p></div><p>
@@ -84,7 +84,7 @@ hljs.configure({
  mds 'allow r, allow rw path=/bar'</pre></div><p>
     The command will return a Ceph secret key. This key should be added as a
     secret in Kubernetes like this:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create secret generic ceph-user1-secret --from-literal=key=YOUR_CEPH_KEY</pre></div><div id="id-1.7.4.11.3.5.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">kubectl@adm &gt; </code>kubectl create secret generic ceph-user1-secret --from-literal=key=YOUR_CEPH_KEY</pre></div><div id="id-1.7.4.11.3.5.8" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      This secret key must be created with the same name in each namespace where
      the StorageClass will be used.
     </p></div><p>
@@ -107,7 +107,7 @@ mountSecret: ceph-user1-secret</pre></div><p>
     For more information on using the Ceph feature to limit access to
     CephFS paths, see
     <a class="link" href="http://docs.ceph.com/docs/mimic/cephfs/client-auth/#path-restriction" target="_blank">http://docs.ceph.com/docs/mimic/cephfs/client-auth/#path-restriction</a>.
-   </p><section class="sect3" id="clusterrole" data-id-title="Creating the ClusterRole"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.1.2.1 </span><span class="title-name">Creating the <code class="literal">ClusterRole</code></span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#clusterrole">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.14.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p><section class="sect3" id="clusterrole" data-id-title="Creating the ClusterRole"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.1.2.1 </span><span class="title-name">Creating the <code class="literal">ClusterRole</code></span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#clusterrole">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.14.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       When you are using the Helm chart to install the Rook Ceph operator,
       and have set <code class="literal">mountSecurityMode</code> to—for
       example— <code class="literal">Restricted</code>, then the below
@@ -129,7 +129,7 @@ rules:
   resources:
   - secrets
   verbs:
-  - get</pre></div></section><section class="sect3" id="rolebinding" data-id-title="Creating the RoleBinding"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.1.2.2 </span><span class="title-name">Creating the <code class="literal">RoleBinding</code></span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#rolebinding">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.15.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+  - get</pre></div></section><section class="sect3" id="rolebinding" data-id-title="Creating the RoleBinding"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.1.2.2 </span><span class="title-name">Creating the <code class="literal">RoleBinding</code></span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#rolebinding">#</a></h4></div></div></div><div id="id-1.7.4.11.3.5.15.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       You either need a <code class="literal">RoleBinding</code> in each namespace in
       which a mount secret resides in, or create a
       <code class="literal">ClusterRoleBinding</code> with which the Rook Ceph agent
@@ -244,7 +244,7 @@ Node: node2.zbrbdl
 -osd13  sdk3  557.3G  bluestore
 -osd14  sde3  66.7G   bluestore
 -osd15  sda3  110.2G  bluestore
--osd16  sdh3  135.1G  bluestore</pre></div></section></section><section class="sect2" id="separate-storage-groups" data-id-title="Separate storage groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.5 </span><span class="title-name">Separate storage groups</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#separate-storage-groups">#</a></h3></div></div></div><div id="id-1.7.4.11.3.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+-osd16  sdh3  135.1G  bluestore</pre></div></section></section><section class="sect2" id="separate-storage-groups" data-id-title="Separate storage groups"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.5 </span><span class="title-name">Separate storage groups</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#separate-storage-groups">#</a></h3></div></div></div><div id="id-1.7.4.11.3.8.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
      Instead of manually needing to set this, the
      <code class="literal">deviceClass</code> property can be used on Pool structures in
      <code class="literal">CephBlockPool</code>, <code class="literal">CephFilesystem</code> and
@@ -258,7 +258,7 @@ Node: node2.zbrbdl
     In the following example we will separate SSD drives from spindle-based
     drives, a common practice for those looking to target certain workloads
     onto faster (database) or slower (file archive) storage.
-   </p></section><section class="sect2" id="configuring-pools" data-id-title="Configure pools"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.6 </span><span class="title-name">Configure pools</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#configuring-pools">#</a></h3></div></div></div><section class="sect3" id="placement-group-sizing" data-id-title="Sizing placement groups"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.1.6.1 </span><span class="title-name">Sizing placement groups</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#placement-group-sizing">#</a></h4></div></div></div><div id="id-1.7.4.11.3.9.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+   </p></section><section class="sect2" id="configuring-pools" data-id-title="Configure pools"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.6 </span><span class="title-name">Configure pools</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#configuring-pools">#</a></h3></div></div></div><section class="sect3" id="placement-group-sizing" data-id-title="Sizing placement groups"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.1.6.1 </span><span class="title-name">Sizing placement groups</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#placement-group-sizing">#</a></h4></div></div></div><div id="id-1.7.4.11.3.9.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       Since Ceph Nautilus (v14.x), you can use the Ceph Manager
       <code class="literal">pg_autoscaler</code> module to auto-scale the PGs as needed.
       If you want to enable this feature, please refer to
@@ -287,7 +287,7 @@ Node: node2.zbrbdl
      Be sure to read the <a class="xref" href="admin-caasp-advanced-config.html#placement-group-sizing" title="11.1.6.1. Sizing placement groups">Section 11.1.6.1, “Sizing placement groups”</a> section
      before changing the number of PGs.
     </p><div class="verbatim-wrap"><pre class="screen"># Set the number of PGs in the rbd pool to 512
-<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set rbd pg_num 512</pre></div></section></section><section class="sect2" id="custom-cephconf-settings" data-id-title="Creating custom ceph.conf settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.7 </span><span class="title-name">Creating custom <code class="filename">ceph.conf</code> settings</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#custom-cephconf-settings">#</a></h3></div></div></div><div id="id-1.7.4.11.3.10.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd pool set rbd pg_num 512</pre></div></section></section><section class="sect2" id="custom-cephconf-settings" data-id-title="Creating custom ceph.conf settings"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.1.7 </span><span class="title-name">Creating custom <code class="filename">ceph.conf</code> settings</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#custom-cephconf-settings">#</a></h3></div></div></div><div id="id-1.7.4.11.3.10.2" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      The advised method for controlling Ceph configuration is to manually use
      the Ceph CLI or the Ceph Dashboard, because this offers the most
      flexibility. It is highly recommended that this is used only when
@@ -308,7 +308,7 @@ Node: node2.zbrbdl
     <code class="filename">ceph.conf</code> file. The contents will be propagated to all
     MON, MGR, OSD, MDS, and RGW daemons as an
     <code class="filename">/etc/ceph/ceph.conf</code> file.
-   </p><div id="id-1.7.4.11.3.10.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+   </p><div id="id-1.7.4.11.3.10.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
      Rook performs no validation on the config, so the validity of the
      settings is the user's responsibility.
     </p></div><p>
@@ -338,7 +338,7 @@ Node: node2.zbrbdl
    </p><section class="sect3" id="example" data-id-title="Custom ceph.conf example"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.1.7.1 </span><span class="title-name">Custom <code class="filename">ceph.conf</code> example</span> <a title="Permalink" class="permalink" href="admin-caasp-advanced-config.html#example">#</a></h4></div></div></div><p>
      In this example we will set the default pool <code class="literal">size</code> to
      two, and tell OSD daemons not to change the weight of OSDs on startup.
-    </p><div id="id-1.7.4.11.3.10.8.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+    </p><div id="id-1.7.4.11.3.10.8.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
       Modify Ceph settings carefully. You are leaving the sandbox tested by
       Rook. Changing the settings could result in unhealthy daemons or even
       data loss if used incorrectly.

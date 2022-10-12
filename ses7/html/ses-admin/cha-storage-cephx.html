@@ -40,7 +40,7 @@ hljs.configure({
   provides its <code class="systemitem">cephx</code> authentication system. <span class="emphasis"><em>Clients</em></span> in
   this context are either human users—such as the admin user—or
   Ceph-related services/daemons, for example OSDs, monitors, or Object Gateways.
- </p><div id="id-1.4.8.4.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+ </p><div id="id-1.4.8.4.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
    The <code class="systemitem">cephx</code> protocol does not address data encryption in transport, such as
    TLS/SSL.
   </p></div><section class="sect1" id="storage-cephx-arch" data-id-title="Authentication architecture"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">30.1 </span><span class="title-name">Authentication architecture</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#storage-cephx-arch">#</a></h2></div></div></div><p>
@@ -79,7 +79,7 @@ hljs.configure({
    and transmits the user’s secret back to the
    <code class="systemitem">client.admin</code> user. This means that
    the client and the monitor share a secret key.
-  </p><div class="figure" id="id-1.4.8.4.5.6"><div class="figure-contents"><div class="mediaobject"><a href="images/cephx_keyring.png"><img src="images/cephx_keyring.png" width="70%" alt="Basic cephx authentication" title="Basic cephx authentication"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 30.1: </span><span class="title-name">Basic <code class="systemitem">cephx</code> authentication </span><a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.4.8.4.5.6">#</a></h6></div></div><p>
+  </p><div class="figure" id="id-1.4.8.4.5.6"><div class="figure-contents"><div class="mediaobject"><a href="images/cephx_keyring.png"><img src="images/cephx_keyring.png" width="70%" alt="Basic cephx authentication" title="Basic cephx authentication"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 30.1: </span><span class="title-name">Basic <code class="systemitem">cephx</code> authentication </span><a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.4.8.4.5.6">#</a></div></div></div><p>
    To authenticate with the monitor, the client passes the user name to the
    monitor. The monitor generates a session key and encrypts it with the secret
    key associated with the user name and transmits the encrypted ticket back to
@@ -90,12 +90,12 @@ hljs.configure({
    it with the user’s secret key and transmits it back to the client. The
    client decrypts the ticket and uses it to sign requests to OSDs and metadata
    servers throughout the cluster.
-  </p><div class="figure" id="id-1.4.8.4.5.8"><div class="figure-contents"><div class="mediaobject"><a href="images/cephx_keyring2.png"><img src="images/cephx_keyring2.png" width="70%" alt="cephx authentication" title="cephx authentication"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 30.2: </span><span class="title-name"><code class="systemitem">cephx</code> authentication </span><a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.4.8.4.5.8">#</a></h6></div></div><p>
+  </p><div class="figure" id="id-1.4.8.4.5.8"><div class="figure-contents"><div class="mediaobject"><a href="images/cephx_keyring2.png"><img src="images/cephx_keyring2.png" width="70%" alt="cephx authentication" title="cephx authentication"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 30.2: </span><span class="title-name"><code class="systemitem">cephx</code> authentication </span><a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.4.8.4.5.8">#</a></div></div></div><p>
    The <code class="systemitem">cephx</code> protocol authenticates ongoing communications between the client
    machine and the Ceph servers. Each message sent between a client and a
    server after the initial authentication is signed using a ticket that the
    monitors, OSDs, and metadata servers can verify with their shared secret.
-  </p><div class="figure" id="id-1.4.8.4.5.10"><div class="figure-contents"><div class="mediaobject"><a href="images/cephx_keyring3.png"><img src="images/cephx_keyring3.png" width="70%" alt="cephx authentication - MDS and OSD" title="cephx authentication - MDS and OSD"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 30.3: </span><span class="title-name"><code class="systemitem">cephx</code> authentication - MDS and OSD </span><a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.4.8.4.5.10">#</a></h6></div></div><div id="id-1.4.8.4.5.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  </p><div class="figure" id="id-1.4.8.4.5.10"><div class="figure-contents"><div class="mediaobject"><a href="images/cephx_keyring3.png"><img src="images/cephx_keyring3.png" width="70%" alt="cephx authentication - MDS and OSD" title="cephx authentication - MDS and OSD"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 30.3: </span><span class="title-name"><code class="systemitem">cephx</code> authentication - MDS and OSD </span><a title="Permalink" class="permalink" href="cha-storage-cephx.html#id-1.4.8.4.5.10">#</a></div></div></div><div id="id-1.4.8.4.5.11" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
     The protection offered by this authentication is between the Ceph client
     and the Ceph cluster hosts. The authentication is not extended beyond the
     Ceph client. If the user accesses the Ceph client from a remote host,
@@ -150,7 +150,7 @@ hljs.configure({
      <code class="option">-n</code>, you must specify the type and name, such as
      <code class="literal">client.user1</code>. We recommend using the type and name as a
      best practice wherever possible.
-    </p><div id="id-1.4.8.4.6.6.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div id="id-1.4.8.4.6.6.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       A Ceph storage cluster user is not the same as a Ceph object storage
       user or a Ceph file system user. The Ceph Object Gateway uses a Ceph storage
       cluster user to communicate between the gateway daemon and the storage
@@ -258,7 +258,7 @@ client.bootstrap-mds
         caps: [mon] allow profile bootstrap-mds
 client.bootstrap-osd
         key: AQBHCbtT4GxqORAADE5u7RkpCN/oo4e5W0uBtw==
-        caps: [mon] allow profile bootstrap-osd</pre></div><div id="id-1.4.8.4.6.7.4.6" data-id-title="TYPE.ID notation" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: TYPE.ID notation</h6><p>
+        caps: [mon] allow profile bootstrap-osd</pre></div><div id="id-1.4.8.4.6.7.4.6" data-id-title="TYPE.ID notation" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note: TYPE.ID notation</div><p>
       Note that the <code class="literal">TYPE.ID</code> notation for users applies such
       that <code class="literal">osd.0</code> specifies a user of type
       <code class="literal">osd</code> and its ID is <code class="literal">0</code>.
@@ -331,7 +331,7 @@ exported keyring for client.admin
 <code class="prompt user">cephuser@adm &gt; </code>ceph auth get-or-create client.george mon 'allow r' osd \
  'allow rw pool=liverpool' -o george.keyring
 <code class="prompt user">cephuser@adm &gt; </code>ceph auth get-or-create-key client.ringo mon 'allow r' osd \
- 'allow rw pool=liverpool' -o ringo.key</pre></div><div id="id-1.4.8.4.6.7.6.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+ 'allow rw pool=liverpool' -o ringo.key</pre></div><div id="id-1.4.8.4.6.7.6.9" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       If you provide a user with capabilities to OSDs, but you <span class="emphasis"><em>do
       not</em></span> restrict access to particular pools, the user will have
       access to <span class="emphasis"><em>all</em></span> pools in the cluster.
@@ -377,7 +377,7 @@ exported keyring for client.admin
 -o name=client.user,secret=`ceph auth print-key client.user`</pre></div></section><section class="sect3" id="storage-cephx-keymgmt-usermgmt-userimp" data-id-title="Importing users"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">30.2.2.7 </span><span class="title-name">Importing users</span> <a title="Permalink" class="permalink" href="cha-storage-cephx.html#storage-cephx-keymgmt-usermgmt-userimp">#</a></h4></div></div></div><p>
      To import one or more users, use <code class="command">ceph auth import</code> and
      specify a keyring:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth import -i /etc/ceph/ceph.keyring</pre></div><div id="id-1.4.8.4.6.7.10.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph auth import -i /etc/ceph/ceph.keyring</pre></div><div id="id-1.4.8.4.6.7.10.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
       The Ceph storage cluster will add new users, their keys and their
       capabilities and will update existing users, their keys and their
       capabilities.
@@ -442,7 +442,7 @@ exported keyring for client.admin
      <code class="command">ceph-authtool</code> to specify the destination keyring and
      the source keyring:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-authtool /etc/ceph/ceph.keyring \
-  --import-keyring /etc/ceph/ceph.client.admin.keyring</pre></div><div id="id-1.4.8.4.6.8.8.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+  --import-keyring /etc/ceph/ceph.client.admin.keyring</pre></div><div id="id-1.4.8.4.6.8.8.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
       If your keyring is compromised, delete your key from the
       <code class="filename">/etc/ceph</code> directory and re-create a new key using
       the same instructions from <a class="xref" href="cha-storage-cephx.html#creating-keyring" title="30.2.3.1. Creating a keyring">Section 30.2.3.1, “Creating a keyring”</a>.
