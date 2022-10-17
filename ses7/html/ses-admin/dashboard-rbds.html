@@ -155,8 +155,8 @@ hljs.configure({
     within the Ceph clusters.
    </p><p>
     The pool configuration steps should be performed on both peer clusters.
-    These procedures assume two clusters, named “primary” and
-    “secondary”, are accessible from a single host for clarity.
+    These procedures assume two clusters, named “primary” and “secondary”, are
+    accessible from a single host for clarity.
    </p><p>
     The <code class="systemitem">rbd-mirror</code> daemon performs the
     actual cluster data replication.
@@ -212,10 +212,10 @@ hljs.configure({
     To manually import the bootstrap token created by another cluster with the
     <code class="command">rbd</code> command, specify the <code class="command">mirror pool peer
     bootstrap import</code> command, the pool name, a file path to the
-    created token (or ‘-‘ to read from standard input), along with an
-    optional site name to describe the local cluster and a mirroring direction
-    (defaults to <code class="literal">rx-tx</code> for bidirectional mirroring, but can
-    also be set to <code class="literal">rx-only</code> for unidirectional mirroring):
+    created token (or ‘-‘ to read from standard input), along with an optional
+    site name to describe the local cluster and a mirroring direction (defaults
+    to <code class="literal">rx-tx</code> for bidirectional mirroring, but can also be
+    set to <code class="literal">rx-only</code> for unidirectional mirroring):
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rbd mirror pool peer bootstrap import [--site-name <em class="replaceable">local-site-name</em>] \
 [--direction <em class="replaceable">rx-only or rx-tx</em>] <em class="replaceable">pool-name</em> <em class="replaceable">token-path</em></pre></div><p>
     For example, on the secondary cluster:
