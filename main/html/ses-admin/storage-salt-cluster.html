@@ -643,15 +643,15 @@ devices                   /dev/vdb
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>lvcreate -n osd-db-$(cat /proc/sys/kernel/random/uuid) \
  ceph-c3dc9227-ca3e-49bc-992c-00602cb3eec7 --size <em class="replaceable">DB_SIZE</em></pre></div></li><li class="step"><p>
       Stop the OSD. Run the following command on the OSD node where the OSD daemon runs:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>cephadm unit --name osd.0</pre></div></li><li class="step"><p>
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>cephadm unit stop --name osd.0</pre></div></li><li class="step"><p>
       Enter the shell on the stopped OSD container:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>cephadm shell --name osd.0</pre></div></li><li class="step"><p>
       Migrate the DB device:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-volume lvm migrate --osd-id 0 \
+     </p><div class="verbatim-wrap"><pre class="screen">[ceph: root@pacific /]ceph-volume lvm migrate --osd-id 0 \
  --osd-fsid c276d2a4-5578-4847-94c6-8e2e6abf81c4 --from db \
  --target ceph-c3dc9227-ca3e-49bc-992c-00602cb3eec7/osd-db-b346b9ff-dbbe-40db-a95e-2419ccd31f2c</pre></div></li><li class="step"><p>
       Exit the cephadm shell:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>exit</pre></div></li><li class="step"><p>
+     </p><div class="verbatim-wrap"><pre class="screen">[ceph: root@pacific /]exit</pre></div></li><li class="step"><p>
       Start the OSD. Run the following command on the OSD node where the OSD daemon runs:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@osd &gt; </code>cephadm unit --name osd.0 start</pre></div></li><li class="step"><p>
       Remove the old DB logical volume.
@@ -818,5 +818,44 @@ devices                   /dev/vdb
    disengaged. You can disengage the safety measures and remove the Ceph
    cluster by running:
   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt disengage-safety
-<code class="prompt user">root@master # </code>ceph-salt purge</pre></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="ceph-monitor.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 12 </span>Determine the cluster state</span></a> </div><div><a class="pagination-link next" href="cha-ceph-operating.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 14 </span>Operation of Ceph services</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="storage-salt-cluster.html#modifying-cluster-configuration"><span class="title-number">13.1 </span><span class="title-name">Modifying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#adding-node"><span class="title-number">13.2 </span><span class="title-name">Adding nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#salt-node-removing"><span class="title-number">13.3 </span><span class="title-name">Removing nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#osd-management"><span class="title-number">13.4 </span><span class="title-name">OSD management</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#moving-saltmaster"><span class="title-number">13.5 </span><span class="title-name">Moving the Salt Master to a new node</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#cephadm-rolling-updates"><span class="title-number">13.6 </span><span class="title-name">Updating the cluster nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#deploy-cephadm-day2-cephupdate"><span class="title-number">13.7 </span><span class="title-name">Updating Ceph</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#sec-salt-cluster-reboot"><span class="title-number">13.8 </span><span class="title-name">Halting or rebooting cluster</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#ceph-cluster-purge"><span class="title-number">13.9 </span><span class="title-name">Removing an entire Ceph cluster</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+<code class="prompt user">root@master # </code>ceph-salt purge</pre></div></section><section class="sect1" id="ceph-offline-container-management" data-id-title="Offline container management"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.10 </span><span class="title-name">Offline container management</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ceph-offline-container-management">#</a></h2></div></div></div><p>
+   You can run specific commands, for example,
+   <code class="command">ceph-objectstore-tool</code> and
+   <code class="command">ceph-monstore-tool</code>, inside stopped containers by calling
+   a cephadm shell. The following examples illustrate common use cases:
+  </p><div id="id-1.4.4.3.12.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+    When stopping an OSD daemon, we recommend setting the <code class="literal">noout</code>
+    flag to prevent unnecessary data movement:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd add-noout osd.<em class="replaceable">DAEMON_ID</em></pre></div><p>
+    Remember to unset the <code class="literal">noout</code> flag after you finish
+    maintaining the OSD:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd rm-noout osd.<em class="replaceable">DAEMON_ID</em></pre></div></div><p>
+   To query an OSD, run the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd add-noout osd.1
+<code class="prompt user">cephuser@adm &gt; </code>cephadm unit stop --name osd.1
+<code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name osd.1
+[ceph: root@pacific /]# ceph-objectstore-tool --data-path /var/lib/ceph/osd/ceph-1/ --op list
+<code class="prompt user">cephuser@adm &gt; </code>cephadm unit start --name osd.1
+<code class="prompt user">cephuser@adm &gt; </code>ceph osd rm-noout osd.1</pre></div><p>
+   To query a MON, run the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm unit stop --name mon.pacific
+<code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name mon.pacific
+[ceph: root@pacific /]# ceph-monstore-tool /var/lib/ceph/mon/ceph-pacific/ dump-keys
+<code class="prompt user">cephuser@adm &gt; </code>cephadm unit start --name mon.pacific</pre></div><p>
+   To print a MON map, run the following:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm unit stop --name mon.pacific
+<code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name mon.pacific
+[ceph: root@pacific /]# ceph-monstore-tool /var/lib/ceph/mon/ceph-pacific get monmap &gt; /tmp/monmap
+[ceph: root@pacific /]# monmaptool --print /tmp/monmap
+monmaptool: monmap file /tmp/monmap
+epoch 1
+fsid 28596f44-3b56-11ec-9034-482ae35a5fbb
+last_changed 2021-11-01T20:57:19.755111+0000
+created 2021-11-01T20:57:19.755111+0000
+min_mon_release 17 (quincy)
+election_strategy: 1
+0: [v2:127.0.0.1:3300/0,v1:127.0.0.1:6789/0] mon.pacific
+<code class="prompt user">cephuser@adm &gt; </code>cephadm unit start --name mon.pacific</pre></div><p>
+   An example of migrating OSD's DB device is in <a class="xref" href="storage-salt-cluster.html#migrating-db-device" title="13.4.6. Migrating OSD's DB device">Section 13.4.6, “Migrating OSD's DB device”</a>.
+  </p></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="ceph-monitor.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 12 </span>Determine the cluster state</span></a> </div><div><a class="pagination-link next" href="cha-ceph-operating.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 14 </span>Operation of Ceph services</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="storage-salt-cluster.html#modifying-cluster-configuration"><span class="title-number">13.1 </span><span class="title-name">Modifying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#adding-node"><span class="title-number">13.2 </span><span class="title-name">Adding nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#salt-node-removing"><span class="title-number">13.3 </span><span class="title-name">Removing nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#osd-management"><span class="title-number">13.4 </span><span class="title-name">OSD management</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#moving-saltmaster"><span class="title-number">13.5 </span><span class="title-name">Moving the Salt Master to a new node</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#cephadm-rolling-updates"><span class="title-number">13.6 </span><span class="title-name">Updating the cluster nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#deploy-cephadm-day2-cephupdate"><span class="title-number">13.7 </span><span class="title-name">Updating Ceph</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#sec-salt-cluster-reboot"><span class="title-number">13.8 </span><span class="title-name">Halting or rebooting cluster</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#ceph-cluster-purge"><span class="title-number">13.9 </span><span class="title-name">Removing an entire Ceph cluster</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#ceph-offline-container-management"><span class="title-number">13.10 </span><span class="title-name">Offline container management</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_saltcluster.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
                  2022</span></div></div></footer></body></html>
