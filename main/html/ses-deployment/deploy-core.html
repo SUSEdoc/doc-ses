@@ -61,8 +61,8 @@ ses-node1  /dev/vdd  hdd   7b81... 10.7G  Unknown  N/A    N/A    No
      specific type, for example Ceph Manager.
     </p><p>
      <span class="emphasis"><em>Daemon</em></span> is a specific instance of a service, for
-     example a process <code class="literal">mgr.ses-node1.gdlcik</code> running on a node
-     called <code class="literal">ses-node1</code>.
+     example, a process <code class="literal">mgr.ses-node1.gdlcik</code> running on a
+     node called <code class="literal">ses-node1</code>.
     </p></div><p>
     To list all services known to cephadm, run:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ls
@@ -329,9 +329,10 @@ spec:
   rgw_realm: <em class="replaceable">RGW_REALM</em>
   rgw_zone: <em class="replaceable">RGW_ZONE</em></pre></div><section class="sect3" id="cephadm-deploy-using-secure-ssl-access" data-id-title="Using secure SSL access"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.4.1 </span><span class="title-name">Using secure SSL access</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-deploy-using-secure-ssl-access">#</a></h4></div></div></div><p>
      To use a secure SSL connection to the Object Gateway, you need a file containing
-     both the valid SSL certificate and the key (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.7 “Enable HTTPS/SSL for Object Gateways”</span>
-     for more details). You need to enable SSL, specify a port number for SSL
-     connections, and the SSL certificate file.
+     both the valid SSL certificate and the key (see
+     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.7 “Enable HTTPS/SSL for Object Gateways”</span> for more details). You need to enable
+     SSL, specify a port number for SSL connections, and the SSL certificate
+     file.
     </p><p>
      To enable SSL and specify the port number, include the following in your
      specification:
@@ -356,9 +357,9 @@ spec:
    BDV+iL4AO7VZ9KbmWIt37Ml2W6y2YeKX3Qwf+3eBz7TVHR1dm6iPpCpqpQjXUsT9
    [...]
    -----END PRIVATE KEY-----</pre></div><div id="id-1.3.4.6.6.6.5.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
-      Instead of pasting the content of a SSL certificate file, you can
-      omit the <code class="literal">rgw_frontend_ssl_certificate:</code> directive and
-      upload the certificate file to the configuration database:
+      Instead of pasting the content of an SSL certificate file, you can omit
+      the <code class="literal">rgw_frontend_ssl_certificate:</code> directive and upload
+      the certificate file to the configuration database:
      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config-key set rgw/cert/<em class="replaceable">REALM_NAME</em>/<em class="replaceable">ZONE_NAME</em>.crt \
  -i <em class="replaceable">SSL_CERT_FILE</em></pre></div></div><section class="sect4" id="cephadm-deploy-ogw-ports" data-id-title="Configure the Object Gateway to listen on both ports 443 and 80"><div class="titlepage"><div><div><h5 class="title"><span class="title-number">8.3.4.1.1 </span><span class="title-name">Configure the Object Gateway to listen on both ports 443 and 80</span> <a title="Permalink" class="permalink" href="deploy-core.html#cephadm-deploy-ogw-ports">#</a></h5></div></div></div><p>
       To configure the Object Gateway to listen on both ports 443 (HTTPS) and 80 (HTTP),
@@ -405,7 +406,55 @@ placement:
 spec:
   rgw_realm: <em class="replaceable">RGW_REALM</em>
   rgw_zone: <em class="replaceable">RGW_ZONE</em>
-  subcluster: <em class="replaceable">SUBCLUSTER</em></pre></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-igw" data-id-title="Deploying iSCSI Gateways"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.5 </span><span class="title-name">Deploying iSCSI Gateways</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-igw">#</a></h3></div></div></div><p>
+  subcluster: <em class="replaceable">SUBCLUSTER</em></pre></div></section><section class="sect3" id="ceph-ogw-ha" data-id-title="Deploying High Availability for the Object Gateway"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.4.3 </span><span class="title-name">Deploying High Availability for the Object Gateway</span> <a title="Permalink" class="permalink" href="deploy-core.html#ceph-ogw-ha">#</a></h4></div></div></div><p>
+     You can create high availability (HA) endpoints for the Object Gateway service by
+     deploying Ingress. Ingress includes a combination of HAProxy and
+     Keepalived to provide load balancing on a floating virtual IP address. A
+     virtual IP address is automatically configured only on one of Ingress
+     hosts at a time.
+    </p><p>
+     Each Keepalived daemon checks every few seconds whether the HAProxy
+     daemon on the same host is responding. Keepalived also checks whether
+     the master Keepalived daemon is running without problems. If the master
+     Keepalived or the active HAProxy daemon is not responding, one of the
+     remaining Keepalived daemons running in backup mode is elected as the
+     master daemon, and the virtual IP address will be assigned to that node.
+    </p><div class="figure" id="id-1.3.4.6.6.6.7.4"><div class="figure-contents"><div class="mediaobject"><a href="images/ses-rgw-ha.png"><img src="images/ses-rgw-ha.png" width="100%" alt="High Availability setup for Object Gateway" title="High Availability setup for Object Gateway"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 8.1: </span><span class="title-name">High Availability setup for Object Gateway </span><a title="Permalink" class="permalink" href="deploy-core.html#id-1.3.4.6.6.6.7.4">#</a></div></div></div><div id="id-1.3.4.6.6.6.7.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+      If your Object Gateway deployment uses an SSL connection, disable it and configure
+      Ingress to use the SSL certificate instead of the Object Gateway node.
+     </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Create specifications for the Object Gateway and Ingress services, for example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>cat rgw.yaml
+service_type: rgw
+service_id: myrealm.myzone
+placement:
+  hosts:
+    - ses-node1
+    - ses-node2
+    - ses-node3
+[...]</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>cat ingress.yaml
+service_type: ingress
+service_id: rgw.myrealm.myzone
+placement:
+  hosts:
+    - ingress-host1
+    - ingress-host2
+    - ingress-host3
+spec:
+  backend_service: rgw.myrealm.myzone
+  virtual_ip: 192.168.20.1/24
+  frontend_port: 8080
+  monitor_port: 1967     # used by HAproxy for load balancer status
+  ssl_cert: |
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+    -----BEGIN PRIVATE KEY-----
+    ...
+    -----END PRIVATE KEY-----</pre></div></li><li class="step"><p>
+       Apply the specifications:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i rgw.yaml
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i ingress.yaml</pre></div></li></ol></div></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-igw" data-id-title="Deploying iSCSI Gateways"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.5 </span><span class="title-name">Deploying iSCSI Gateways</span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-igw">#</a></h3></div></div></div><p>
     cephadm deploys an iSCSI Gateway which is a storage area network (SAN) protocol
     that allows clients (called initiators) to send SCSI commands to SCSI
     storage devices (targets) on remote servers.
@@ -477,7 +526,75 @@ placement:
    </p><p>
     Enable the <code class="literal">nfs</code> module in the Ceph Manager daemon. This allows
     defining NFS exports through the NFS section in the Ceph Dashboard:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable nfs</pre></div></section><section class="sect2" id="deploy-cephadm-day2-service-rbdmirror" data-id-title="Deploying rbd-mirror"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.7 </span><span class="title-name">Deploying <code class="systemitem">rbd-mirror</code></span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-rbdmirror">#</a></h3></div></div></div><p>
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable nfs</pre></div><section class="sect3" id="ceph-nfs-ha" data-id-title="Deploying High Availability for the NFS Ganesha"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">8.3.6.1 </span><span class="title-name">Deploying High Availability for the NFS Ganesha</span> <a title="Permalink" class="permalink" href="deploy-core.html#ceph-nfs-ha">#</a></h4></div></div></div><p>
+     You can create high availability (HA) endpoints for the NFS Ganesha
+     service by deploying Ingress. Ingress includes a combination of
+     HAProxy and Keepalived to provide load balancing on a floating virtual
+     IP address. A virtual IP address is automatically configured only on one
+     of Ingress hosts at a time.
+    </p><p>
+     Each Keepalived daemon checks every few seconds whether the HAProxy
+     daemon on the same host is responding. Keepalived also checks whether
+     the master Keepalived daemon is running without problems. If the master
+     Keepalived or the active HAProxy daemon is not responding, one of the
+     remaining Keepalived daemons running in backup mode is elected as the
+     master daemon, and the virtual IP address will be assigned to that node.
+    </p><div class="figure" id="id-1.3.4.6.6.8.8.4"><div class="figure-contents"><div class="mediaobject"><a href="images/ses-nfs-ha.png"><img src="images/ses-nfs-ha.png" width="100%" alt="High Availability setup for NFS Ganesha" title="High Availability setup for NFS Ganesha"/></a></div></div><div class="figure-title-wrap"><div class="figure-title"><span class="title-number">Figure 8.2: </span><span class="title-name">High Availability setup for NFS Ganesha </span><a title="Permalink" class="permalink" href="deploy-core.html#id-1.3.4.6.6.8.8.4">#</a></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Ensure that the following sysctl variables are set on each Ingress
+       host:
+      </p><div class="verbatim-wrap"><pre class="screen">net.ipv4.ip_nonlocal_bind=1
+net.ipv4.ip_forward=1</pre></div><div id="id-1.3.4.6.6.8.8.5.1.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+        You can persistently set the sysctl variables by creating a file
+        <code class="filename">/etc/sysctl.d/90-ingress.conf</code> and including the
+        above variables. To apply the changes, run <code class="command">sysctl
+        --system</code> or reboot the host.
+       </p></div></li><li class="step"><p>
+       Create specifications for the Ingress and NFS Ganesha services, for
+       example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>cat nfs.yaml
+service_type: nfs
+service_id: nfs-ha
+placement:
+  hosts:
+  - nfs-node1
+  - nfs-node2
+  - nfs-node3
+spec:
+  port: 12049</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>cat ingress.yaml
+service_type: ingress
+service_id: nfs.nfs-ha
+placement:
+  hosts:
+  - ingress-node1
+  - ingress-node2
+  - ingress-node3
+spec:
+  backend_service: nfs.nfs-ha
+  frontend_port: 2049
+  monitor_port: 9049
+  virtual_ip: 10.20.27.111</pre></div><div id="id-1.3.4.6.6.8.8.5.2.4" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
+        We recommend running at least three NFS Ganesha daemons, otherwise,
+        mounted clients may experience excessively long hangs during failovers.
+       </p></div></li><li class="step"><p>
+       Apply the customized service specifications:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i nfs.yaml
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i ingress.yaml</pre></div></li><li class="step"><p>
+       Create a NFS Ganesha export. Find more details in
+       <span class="intraxref">Book “Administration and Operations Guide”, Chapter 7 “Manage NFS Ganesha”, Section 7.1 “Creating NFS exports”</span>. Remember to select the
+       High Availability NFS Ganesha cluster and an appropriate storage back-end and pseudo
+       path.
+      </p><p>
+       Alternatively, create the export from the command line on the MGR node:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph nfs export create \
+ <em class="replaceable">STORAGE_BACKEND</em> \
+ <em class="replaceable">NFS_HA_CLUSTER</em> \
+ <em class="replaceable">NFS_PSEUDO_PATH</em> \
+ <em class="replaceable">STORAGE_BACKEND_INSTANCE</em> \
+ <em class="replaceable">EXPORT_PATH</em></pre></div></li><li class="step"><p>
+       Mount the NFS Ganesha share on your clients:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mount -t nfs \
+<em class="replaceable">VIRTUAL_IP</em>:<em class="replaceable">PORT</em>/<em class="replaceable">NFS_PSEUDO_PATH</em> \
+/mnt/nfs</pre></div></li></ol></div></div></section></section><section class="sect2" id="deploy-cephadm-day2-service-rbdmirror" data-id-title="Deploying rbd-mirror"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">8.3.7 </span><span class="title-name">Deploying <code class="systemitem">rbd-mirror</code></span> <a title="Permalink" class="permalink" href="deploy-core.html#deploy-cephadm-day2-service-rbdmirror">#</a></h3></div></div></div><p>
     The <code class="systemitem">rbd-mirror</code> service takes care of synchronizing RADOS Block Device images between
     two Ceph clusters (for more details, see
     <span class="intraxref">Book “Administration and Operations Guide”, Chapter 20 “RADOS Block Device”, Section 20.4 “RBD image mirrors”</span>). To deploy <code class="systemitem">rbd-mirror</code>, use the
