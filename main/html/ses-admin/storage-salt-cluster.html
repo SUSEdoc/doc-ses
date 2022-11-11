@@ -105,8 +105,6 @@ placement:
   - ses-node3</pre></div><p>
      Apply your changes to the configuration file:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">rgw-example.yaml</em></pre></div></li><li class="step"><p>
-     Remove the node from cephadm's environment:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host rm ses-node2</pre></div></li><li class="step"><p>
      If the node is running <code class="literal">crash.osd.1</code> and
      <code class="literal">crash.osd.2</code> services, remove them by running the
      following command on the host:
@@ -114,6 +112,8 @@ placement:
      For example:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>cephadm rm-daemon --fsid b4b30c6e... --name crash.osd.1
 <code class="prompt user">root@minion &gt; </code>cephadm rm-daemon --fsid b4b30c6e... --name crash.osd.2</pre></div></li><li class="step"><p>
+     Remove the node from cephadm's environment:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch host rm ses-node2</pre></div></li><li class="step"><p>
      Remove all the roles from the minion you want to delete:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/throughput remove ses-node2
 <code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /ceph_cluster/roles/tuned/latency remove ses-node2
