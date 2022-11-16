@@ -417,12 +417,20 @@ skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-al
      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
         Copy the configuration file for containers:
        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> cp /usr/share/containers/containers.conf /etc/containers/containers.conf</pre></div></li><li class="step"><p>
-        Edit the newly-copied file and add the <code class="option">http_proxy</code>
-        setting to its <code class="literal">[engine]</code> section, for example:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>cat /etc/containers/containers.conf
- [engine]
+          Edit the newly copied file and add the <code class="option">http_proxy</code>
+          setting to its <code class="literal">[engine]</code> section, for example:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>cat /etc/containers/containers.conf
+[engine]
 env = ["http_proxy=http://proxy.example.com:<em class="replaceable">PORT</em>"]
- [...]</pre></div></li></ol></div></div></div><p>
+[...]</pre></div><p>
+          If the container needs to communicate over HTTP(S) to a specific host or
+          list of hosts bypassing the proxy server, add an exception using the
+          <code class="option">no_proxy</code> option:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>cat /etc/containers/containers.conf
+[engine]
+env = ["http_proxy=http://proxy.example.com:<em class="replaceable">PORT</em>",
+ "no_proxy=rgw.example.com"]
+[...]</pre></div></li></ol></div></div></div><p>
      cephadm needs to know a valid URI path to container images. Verify the
      default setting by executing
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_image_path ls</pre></div><p>
