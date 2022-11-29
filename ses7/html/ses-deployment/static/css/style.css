@@ -2042,7 +2042,6 @@ body.disable-language-switcher #_utilitynav #_utilitynav-language {
 .big-version-info {
   background-color: #c7f1e3;
   color: #0c322c;
-  float: left;
   font-size: 24px;
   line-height: 100%;
   margin: 75px 0 0;
@@ -2248,6 +2247,9 @@ h5,
 h6 {
   color: #0c322c; }
 
+h1:has(.title-container) {
+  padding: 80px 0 80px; }
+
 .article .title,
 .book .title,
 .set .title {
@@ -2255,7 +2257,6 @@ h6 {
   font-size: 48px;
   font-weight: 600;
   line-height: 120%;
-  padding: 70px 0 50px;
   width: auto; }
   .article .title .citetitle,
   .book .title .citetitle,
@@ -2269,7 +2270,8 @@ h6 {
   font-size: 28px;
   font-weight: normal;
   line-height: 120%;
-  margin: -40px 0 50px;
+  margin-top: 1.25rem;
+  margin-bottom: 2.5rem;
   width: 100%; }
 
 .appendix .title,
@@ -2380,6 +2382,65 @@ h2 {
 .subtitle em,
 .title em {
   font-style: normal; }
+
+.title-container {
+  display: flex;
+  flex-flow: row wrap;
+  clear: both; }
+
+.title-container .title,
+.title-container .table-title-wrap,
+.title-container .figure-title-wrap,
+.title-container .procedure-title-wrap,
+.title-container .itemizedlist-title-wrap,
+.title-container .orderedlist-title-wrap {
+  flex: 8; }
+
+.title-container .icons {
+  flex: 1;
+  margin-top: auto;
+  text-align: right; }
+
+.icon-reportbug {
+  margin-right: 1rem; }
+
+.icon-editsource,
+.icon-reportbug {
+  width: 23.07px;
+  height: 26.21px;
+  display: inline-block; }
+
+.icon-editsource {
+  background: url("../images/edit-source-green.svg") no-repeat; }
+  .icon-editsource:hover {
+    background: url("../images/edit-source-dark.svg") no-repeat; }
+
+.icon-reportbug {
+  background: url("../images/report-bug-green.svg") no-repeat; }
+  .icon-reportbug:hover {
+    background: url("../images/report-bug-dark.svg") no-repeat; }
+
+.titlepage .authorgroup:nth-child(1) {
+  margin-top: 3rem;
+  text-align: left; }
+
+.titlepage .series-category {
+  text-align: right;
+  font-size: 1.25rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem; }
+
+.cover {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.25rem;
+  justify-content: flex-start; }
+  .cover .mediaobject {
+    padding: 3pt;
+    width: 5rem; }
+
+.platforms {
+  margin-top: 2rem; }
 
 .informaltable,
 .table-contents {
