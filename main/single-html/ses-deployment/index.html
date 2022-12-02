@@ -34,7 +34,7 @@ hljs.configure({
   useBR: false
 });
 
-</script><meta name="edit-url" content="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml"/></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div class="title-container"><h1 class="title">Deployment Guide</h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml" title="Edit source document"> </a></div></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>29 Nov 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Improving the documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.6.7.4"><span class="number">8.1 </span><span class="name">High Availability setup for Object Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.8.8.4"><span class="number">8.2 </span><span class="name">High Availability setup for NFS Ganesha</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.2"><span class="number">7.1 </span><span class="name">Viewing manifest files</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.3"><span class="number">7.2 </span><span class="name">Synchronize to a directory</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.4"><span class="number">7.3 </span><span class="name">Synchronize Grafana images:</span></a></span></li><li><span class="example"><a href="#id-1.3.4.5.4.13.4.4.7.5"><span class="number">7.4 </span><span class="name">Synchronize latest Prometheus images</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.7"><p>
+</script><meta name="edit-url" content="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml"/></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div class="title-container"><h1 class="title">Deployment Guide</h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml" title="Edit source document"> </a></div></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>02 Dec 2022</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Improving the documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.6.7.4"><span class="number">8.1 </span><span class="name">High Availability setup for Object Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.8.8.4"><span class="number">8.2 </span><span class="name">High Availability setup for NFS Ganesha</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.3.6.2.1.2"><span class="number">7.1 </span><span class="name">Viewing MANIFEST files on SUSE registry</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.7"><p>
   Copyright © 2020–2022
 
   SUSE LLC and contributors. All rights reserved.
@@ -1545,159 +1545,435 @@ o- time_server ................................................ [enabled]
           By default, the first dashboard user will be forced to change their
           password on first login to the dashboard. To disable this feature,
           run the following command:
-        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/force_password_update disable</pre></div></div></section><section class="sect2" id="deploy-cephadm-configure-registry" data-id-title="Using the container registry"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">7.2.10 </span><span class="title-name">Using the container registry</span></span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-registry">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-        The Ceph cluster needs to have access to a container registry so that
-        it can download and deploy containerized Ceph services. There are two
-        ways to access the registry:
-      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-            If your cluster can access the default registry at
-            <code class="literal">registry.suse.com</code> (directly or via proxy), you
-            can point <code class="systemitem">ceph-salt</code> directly to this URL without creating a local
-            registry. Continue by following the steps in
-            <a class="xref" href="#deploy-cephadm-configure-imagepath" title="7.2.10.2. Configuring the path to container images">Section 7.2.10.2, “Configuring the path to container images”</a>.
-          </p></li><li class="listitem"><p>
-            If your cluster cannot access the default registry—for
-            example, for an air-gapped deployment—you need to configure a
-            local container registry. After the local registry is created and
-            configured, you need to point <code class="systemitem">ceph-salt</code> to it.
-          </p></li></ul></div><section class="sect3" id="updating-ceph-local-registry" data-id-title="Creating and configuring the local registry (optional)"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">7.2.10.1 </span><span class="title-name">Creating and configuring the local registry (optional)</span></span> <a title="Permalink" class="permalink" href="#updating-ceph-local-registry">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div id="id-1.3.4.5.4.13.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
-            There are numerous methods of creating a local registry. The
-            instructions in this section are examples of creating secure and
-            insecure registries. For general information on running a container
-            image registry, refer to
-            <a class="link" href="https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-registry-installation.html#sec-docker-registry-installation" target="_blank">https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-registry-installation.html#sec-docker-registry-installation</a>.
-          </p></div><div id="id-1.3.4.5.4.13.4.3" data-id-title="Placement and port usage" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Placement and port usage</div><p>
-            Deploy the registry on a machine accessible by all nodes in the
-            cluster. We recommend the Admin Node. By default, the registry listens
-            on port 5000.
-          </p><p>
-            On the registry node, use the following command to ensure that the
-            port is free:
-          </p><div class="verbatim-wrap"><pre class="screen">ss -tulpn | grep :5000</pre></div><p>
-            If other processes (such as <code class="literal">iscsi-tcmu</code>) are
-            already listening on port 5000, determine another free port which
-            can be used to map to port 5000 in the registry container.
-          </p></div><div class="procedure" id="id-1.3.4.5.4.13.4.4" data-id-title="Creating the local registry"><div class="title-container"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number-name"><span class="title-number">Procedure 7.1: </span><span class="title-name">Creating the local registry </span></span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-              Verify that the <span class="package">Containers Module</span> extension is
-              enabled:
-            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>SUSEConnect --list-extensions | grep -A2 "Containers Module"
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/dashboard/force_password_update disable</pre></div></div></section><section class="sect2" id="deploy-cephadm-configure-registry" data-id-title="Using the container registry"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">7.2.10 </span><span class="title-name">Using the container registry</span></span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-registry">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div id="id-1.3.4.5.4.13.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+          These instructions assume the private registry will reside on the SES
+          Admin Node. In cases where the private registry will reside on another
+          host, the instructions will need to be adjusted to meet the new
+          environment.
+        </p><p>
+          Also, when migrating from <code class="literal">registry.suse.com</code> to a
+          private registry, migrate the current version of container images
+          being used. After the current configuration has been migrated and
+          validated, pull new images from <code class="literal">registry.suse.com</code>
+          and upgrade to the new images.
+        </p></div><section class="sect3" id="deploy-cephadm-create-local-registry" data-id-title="Creating the local registry"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">7.2.10.1 </span><span class="title-name">Creating the local registry</span></span> <a title="Permalink" class="permalink" href="#deploy-cephadm-create-local-registry">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+          To create the local registry, follow these steps:
+        </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+              Verify that the Containers Module extension is enabled:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>SUSEConnect --list-extensions | grep -A2 "Containers Module"
 Containers Module 15 SP3 x86_64 (Activated)</pre></div></li><li class="step"><p>
               Verify that the following packages are installed:
               <span class="package">apache2-utils</span> (if enabling a secure registry),
               <span class="package">cni</span>, <span class="package">cni-plugins</span>,
               <span class="package">podman</span>, <span class="package">podman-cni-config</span>,
-              and <span class="package">skopeo</span>.
-            </p></li><li class="step"><p>
+              and <span class="package">skopeo</span>:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper in apache2-utils cni cni-plugins podman podman-cni-config skopeo</pre></div></li><li class="step"><p>
               Gather the following information:
             </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
                   Fully qualified domain name of the registry host
                   (<code class="option">REG_HOST_FQDN</code>).
                 </p></li><li class="listitem"><p>
                   An available port number used to map to the registry
-                  container port of 5000 (<code class="option">REG_HOST_PORT</code>).
+                  container port of 5000 (<code class="option">REG_HOST_PORT</code>):
+                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>ss -tulpn | grep :5000</pre></div></li><li class="listitem"><p>
+                  Whether the registry will be secure or insecure (the
+                  <code class="option">insecure=[true|false]</code> option).
                 </p></li><li class="listitem"><p>
-                  Whether the registry will be secure or insecure
-                  (<code class="option">insecure=[true|false]</code>).
-                </p></li></ul></div></li><li class="step"><p>
-              To start an insecure registry (without SSL encryption), follow
-              these steps:
-            </p><ol type="a" class="substeps"><li class="step"><p>
-                  Configure <code class="systemitem">ceph-salt</code> for the insecure registry:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config containers/registries_conf enable
+                  If the registry will be a secure private registry, determine
+                  a username and password
+                  (<em class="replaceable">REG_USERNAME</em>,
+                  <em class="replaceable">REG_PASSWORD</em>).
+                </p></li><li class="listitem"><p>
+                  If the registry will be a secure private registry, a
+                  self-signed certificate can be created, or a root certificate
+                  and key will need to be provided
+                  (<code class="option">REG_CERTIFICATE.CRT</code>,
+                  <code class="option">REG_PRIVATE-KEY.KEY</code>).
+                </p></li><li class="listitem"><p>
+                  Record the current <code class="systemitem">ceph-salt</code> containers configuration:
+                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config ls /containers
+o- containers .......................................................... [...]
+o- registries_conf ................................................. [enabled]
+| o- registries ...................................................... [empty]
+o- registry_auth ....................................................... [...]
+o- password ........................................................ [not set]
+o- registry ........................................................ [not set]
+o- username ........................................................ [not set]</pre></div></li></ul></div></li></ol></div></div><section class="sect4" id="id-1.3.4.5.4.13.3.4" data-id-title="Starting an insecure private registry (without SSL encryption)"><div class="titlepage"><div><div><div class="title-container"><h5 class="title"><span class="title-number-name"><span class="title-number">7.2.10.1.1 </span><span class="title-name">Starting an insecure private registry (without SSL encryption)</span></span> <a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.3.4">#</a></h5><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+                Configure <code class="systemitem">ceph-salt</code> for the insecure registry:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config containers/registries_conf enable
 <code class="prompt user">cephuser@adm &gt; </code>ceph-salt config containers/registries_conf/registries \
- add prefix=<code class="option">REG_HOST_FQDN</code> insecure=true \
- location=<code class="option">REG_HOST_PORT</code>:5000</pre></div></li><li class="step"><p>
-                  Start the insecure registry by creating the necessary
-                  directory (for example,
-                  <code class="filename">/var/lib/registry</code>) and starting the
-                  registry with the <code class="command">podman</code> command:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mkdir -p /var/lib/registry
+ add prefix=REG_HOST_FQDN insecure=true \
+ location=REG_HOST_PORT:5000
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt apply --non-interactive</pre></div></li><li class="step"><p>
+                Start the insecure registry by creating the necessary
+                directory, for example, <code class="filename">/var/lib/registry</code>
+                and starting the registry with the <code class="command">podman</code>
+                command:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mkdir -p /var/lib/registry
 <code class="prompt root"># </code>podman run --privileged -d --name registry \
- -p <code class="option">REG_HOST_PORT</code>:5000 -v /var/lib/registry:/var/lib/registry \
- --restart=always registry:2</pre></div></li><li class="step"><p>
-                  To have the registry start after a reboot, create a <code class="systemitem">systemd</code>
-                  unit file for it and enable it:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> podman generate systemd --files --name registry
-<code class="prompt user">&gt; </code><code class="command">sudo</code> mv container-registry.service /etc/systemd/system/
-<code class="prompt user">&gt; </code><code class="command">sudo</code> systemctl enable container-registry.service</pre></div></li></ol></li><li class="step"><p>
-              To start a secure registry, follow these steps:
-            </p><ol type="a" class="substeps"><li class="step"><p>
-                  Create the necessary directories:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mkdir -p /var/lib/registry/{auth,certs}</pre></div></li><li class="step"><p>
-                  Generate an SSL certificate:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>openssl req -newkey rsa:4096 -nodes -sha256 \
- -keyout /var/lib/registry/certs/domain.key -x509 -days 365 \
- -out /var/lib/registry/certs/domain.crt</pre></div><div id="id-1.3.4.5.4.13.4.4.6.2.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-                    Set the <code class="literal">CN=[value]</code> value to the fully
-                    qualified domain name of the host
-                    ([<code class="option">REG_HOST_FQDN</code>]).
-                  </p></div></li><li class="step"><p>
-                  Copy the certificate to all cluster nodes and refresh the
-                  certificate cache:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>salt-cp '*' /var/lib/registry/certs/domain.crt \
+ -p REG_HOST_PORT:5000 -v /var/lib/registry:/var/lib/registry \
+ --restart=always registry:2</pre></div><div id="id-1.3.4.5.4.13.3.4.2.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+                  The <code class="option">--net=host</code> parameter allows the Podman
+                  service to be reachable from other nodes.
+                </p></div></li><li class="step"><p>
+                To have the registry start after a reboot, create a <code class="systemitem">systemd</code>
+                unit file for it and enable it:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman generate systemd --files --name registry
+<code class="prompt root"># </code>mv container-registry.service /etc/systemd/system/
+<code class="prompt root"># </code>systemctl enable container-registry.service</pre></div></li><li class="step"><p>
+                Test if the registry is running on port 5000:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>ss -tulpn | grep :5000</pre></div></li><li class="step"><p>
+                Test to see if the registry port
+                (<code class="option">REG_HOST_PORT</code>) is in an
+                <code class="literal">open</code> state using the <code class="command">nmap</code>
+                command. A <code class="option">filtering</code> state will indicate that
+                the service will not be reachable from other nodes.
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>nmap <em class="replaceable">REG_HOST_FQDN</em></pre></div></li><li class="step"><p>
+                The configuration is complete now. Continue by following
+                <a class="xref" href="#deploy-populate-local-secure-registry" title="7.2.10.1.3. Populating the secure local registry">Section 7.2.10.1.3, “Populating the secure local registry”</a>.
+              </p></li></ol></div></div></section><section class="sect4" id="id-1.3.4.5.4.13.3.5" data-id-title="Starting a secure private registry (with SSL encryption)"><div class="titlepage"><div><div><div class="title-container"><h5 class="title"><span class="title-number-name"><span class="title-number">7.2.10.1.2 </span><span class="title-name">Starting a secure private registry (with SSL encryption)</span></span> <a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.3.5">#</a></h5><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div id="id-1.3.4.5.4.13.3.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+              If an insecure registry was previously configured on the host,
+              you need to remove the insecure registry configuration before
+              proceeding with the secure private registry configuration.
+            </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+                Create the necessary directories:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>mkdir -p /var/lib/registry/{auth,certs}</pre></div></li><li class="step"><p>
+                Generate an SSL certificate:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>openssl req -newkey rsa:4096 -nodes -sha256 \
+  -keyout /var/lib/registry/certs/REG_PRIVATE-KEY.KEY -x509 -days 365 \
+  -out /var/lib/registry/certs/REG_CERTIFICATE.CRT</pre></div><div id="id-1.3.4.5.4.13.3.5.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+                  In this example and throughout the instructions, the key and
+                  certificate files are named
+                  <em class="replaceable">REG_PRIVATE-KEY.KEY</em> and
+                  <em class="replaceable">REG_CERTIFICATE.CRT</em>.
+                </p></div><div id="id-1.3.4.5.4.13.3.5.3.2.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+                  Set the <code class="literal">CN=[value]</code> value to the fully
+                  qualified domain name of the host
+                  (<code class="option">REG_HOST_FQDN</code>).
+                </p></div><div id="id-1.3.4.5.4.13.3.5.3.2.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+                  If a certificate signed by a certificate authority is
+                  provided, copy the *.key, *.crt, and intermediate
+                  certificates to
+                  <code class="filename">/var/lib/registry/certs/.</code>
+                </p></div></li><li class="step"><p>
+                Copy the certificate to all cluster nodes and refresh the
+                certificate cache:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-cp '*' /var/lib/registry/certs/REG_CERTIFICATE.CRT \
  /etc/pki/trust/anchors/
-<code class="prompt root"># </code>salt '*' cmd.shell "update-ca-certificates"</pre></div></li><li class="step"><p>
-                  Generate a user name and password combination for
-                  authentication to the registry:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>htpasswd2 -bBc /var/lib/registry/auth/htpasswd \
- <code class="option">REG_USERNAME</code> <code class="option">REG_PASSWORD</code></pre></div></li><li class="step"><p>
-                  Start the secure registry. Use the
-                  <code class="option">REGISTRY_STORAGE_DELETE_ENABLED=true</code> flag so
-                  that you can delete images afterward with the <code class="command">skopeo
-                  delete</code> command.
-                </p><div class="verbatim-wrap"><pre class="screen">podman run --name myregistry -p <code class="option">REG_HOST_PORT</code>:5000 \
- -v /var/lib/registry:/var/lib/registry \
- -v /var/lib/registry/auth:/auth:z \
- -e "REGISTRY_AUTH=htpasswd" \
- -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
- -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
- -v /var/lib/registry/certs:/certs:z \
- -e "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt" \
- -e "REGISTRY_HTTP_TLS_KEY=/certs/domain.key" \
- -e REGISTRY_STORAGE_DELETE_ENABLED=true \
- -e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true -d registry:2</pre></div></li><li class="step"><p>
-                  Test secure access to the registry:
-                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>curl https://<code class="option">REG_HOST_FQDN</code>:<code class="option">REG_HOST_PORT</code>/v2/_catalog \
- -u <code class="option">REG_USERNAME</code>:<code class="option">REG_PASSWORD</code></pre></div></li></ol></li><li class="step"><p>
-              When the local registry is created, you need to synchronize
-              container images from the official SUSE registry at
-              <code class="literal">registry.suse.com</code> to the local one. You can
-              use the <code class="command">skopeo sync</code> command found in the
-              <span class="package">skopeo</span> package for that purpose. For more
-              details, refer to the manual page (<code class="command">man 1
-              skopeo-sync</code>). Consider the following examples:
-            </p><div class="example" id="id-1.3.4.5.4.13.4.4.7.2" data-id-title="Viewing manifest files"><div class="title-container"><div class="example-title-wrap"><div class="example-title"><span class="title-number-name"><span class="title-number">Example 7.1: </span><span class="title-name">Viewing manifest files </span></span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.2">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo inspect docker://registry.suse.com/ses/7.1/ceph/ceph | jq .RepoTags
-skopeo inspect docker://registry.suse.com/ses/7.1/ceph/grafana | jq .RepoTags
-skopeo inspect docker://registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1 | jq .RepoTags
-skopeo inspect docker://registry.suse.com/ses/7.1/ceph/prometheus-node-exporter:1.1.2 | jq .RepoTags
-skopeo inspect docker://registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 | jq .RepoTags</pre></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.3" data-id-title="Synchronize to a directory"><div class="title-container"><div class="example-title-wrap"><div class="example-title"><span class="title-number-name"><span class="title-number">Example 7.2: </span><span class="title-name">Synchronize to a directory </span></span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.3">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div><div class="example-contents"><p>
-                Synchronize all Ceph images:
-              </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/ceph /root/images/</pre></div><p>
-                Synchronize the latest images only:
-              </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/ceph:latest /root/images/</pre></div></div></div></div><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.4.4.7.4" data-id-title="Synchronize Grafana images:"><div class="title-container"><div class="example-title-wrap"><div class="example-title"><span class="title-number-name"><span class="title-number">Example 7.3: </span><span class="title-name">Synchronize Grafana images: </span></span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.4">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/grafana /root/images/</pre></div><p>
-                Synchronize the latest Grafana images only:
-              </p><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/grafana:latest /root/images/</pre></div></div></div></div><div class="example" id="id-1.3.4.5.4.13.4.4.7.5" data-id-title="Synchronize latest Prometheus images"><div class="title-container"><div class="example-title-wrap"><div class="example-title"><span class="title-number-name"><span class="title-number">Example 7.4: </span><span class="title-name">Synchronize latest Prometheus images </span></span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.4.7.5">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen">skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1 /root/images/
-skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-node-exporter:1.1.2 /root/images/
-skopeo sync --src docker --dest dir registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 /root/images/</pre></div></div></div></li></ol></div></div><div class="procedure" id="id-1.3.4.5.4.13.4.5" data-id-title="Configure the local registry and access credentials"><div class="title-container"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number-name"><span class="title-number">Procedure 7.2: </span><span class="title-name">Configure the local registry and access credentials </span></span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.4.5">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-              Configure the URL of the local registry:
-            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/registry set <em class="replaceable">REG_HOST_URL</em></pre></div></li><li class="step"><p>
-              Configure the user name and password to access the local
-              registry:
-            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/username set <em class="replaceable">REG_USERNAME</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/password set <em class="replaceable">REG_PASSWORD</em></pre></div></li></ol></div></div><div id="id-1.3.4.5.4.13.4.6" data-id-title="Registry cache" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Registry cache</div><p>
-            To avoid re-syncing the local registry when new updated containers
-            appear, you can configure a <span class="emphasis"><em>registry cache</em></span>.
-          </p></div></section><section class="sect3" id="deploy-cephadm-configure-imagepath" data-id-title="Configuring the path to container images"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">7.2.10.2 </span><span class="title-name">Configuring the path to container images</span></span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-imagepath">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div id="id-1.3.4.5.4.13.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+<code class="prompt user">root@master # </code>salt '*' cmd.shell "update-ca-certificates"</pre></div><div id="id-1.3.4.5.4.13.3.5.3.3.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+                  Podman default path is
+                  <code class="filename">/etc/containers/certs.d</code>. Refer to the
+                  <code class="literal">containers-certs.d</code> man page (<code class="command">man
+                  5 containers-certs.d</code>) for more details. If a
+                  certificate signed by a certificate authority is provided,
+                  also copy the intermediate certificates, if provided.
+                </p></div></li><li class="step"><p>
+                Copy the certificates to
+                <code class="filename">/etc/containers/certs.d</code>:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' cmd.shell "mkdir /etc/containers/certs.d"
+<code class="prompt user">root@master # </code>salt-cp '*' /var/lib/registry/certs/REG_CERTIFICATE.CRT \
+ /etc/containers/certs.d/</pre></div><p>
+                If a certificate signed by a certificate authority is provided,
+                also copy the intermediate certificates if provided.
+              </p></li><li class="step"><p>
+                Generate a user name and password combination for
+                authentication to the registry:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>htpasswd2 -bBc
+              /var/lib/registry/auth/htpasswd
+<em class="replaceable">REG_USERNAME</em> <em class="replaceable">REG_PASSWORD</em></pre></div></li><li class="step"><p>
+                Start the secure registry. Use the
+                <code class="option">REGISTRY_STORAGE_DELETE_ENABLED=true</code> flag so
+                that you can delete images afterward with the <code class="command">skopeo
+                delete</code> command. Replace
+                <code class="option">REG_HOST_PORT</code> with the desired port
+                <code class="literal">5000</code> and provide correct names for
+                <em class="replaceable">REG_PRIVATE-KEY.KEY</em>,
+                <em class="replaceable">REG_CERTIFICATE.CRT</em>. The registry
+                will be <code class="literal">name registry</code>. If you wish to use a
+                different name, rename <code class="option">--name registry</code>.
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman run --name registry --net=host -p REG_HOST_PORT:5000 \
+  -v /var/lib/registry:/var/lib/registry \
+  -v /var/lib/registry/auth:/auth:z \
+  -e "REGISTRY_AUTH=htpasswd" \
+  -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+  -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+  -v /var/lib/registry/certs:/certs:z \
+  -e "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/REG_CERTIFICATE.CRT" \
+  -e "REGISTRY_HTTP_TLS_KEY=/certs/REG_PRIVATE-KEY.KEY " \
+  -e REGISTRY_STORAGE_DELETE_ENABLED=true \
+  -e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true -d registry:2</pre></div><div id="id-1.3.4.5.4.13.3.5.3.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+                  The <code class="option">--net=host</code> parameter was added to allow
+                  the Podman service to be reachable from other nodes.
+                </p></div></li><li class="step"><p>
+                To have the registry start after a reboot, create a <code class="systemitem">systemd</code>
+                unit file for it and enable it:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman generate systemd --files --name registry
+<code class="prompt root"># </code>mv container-registry.service /etc/systemd/system/
+<code class="prompt root"># </code>systemctl enable container-registry.service</pre></div><div id="id-1.3.4.5.4.13.3.5.3.7.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+                  As an alternative, the following will also start Podman:
+                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman container list --all
+<code class="prompt root"># </code>podman start registry</pre></div></div></li><li class="step"><p>
+                Test if the registry is running on port 5000:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>ss -tulpn | grep :5000</pre></div></li><li class="step"><p>
+                Test to see if the registry port
+                (<code class="option">REG_HOST_PORT</code>) is in an <span class="quote">“<span class="quote">open</span>”</span>
+                state by using the <code class="command">nmap</code> command. A
+                <span class="quote">“<span class="quote">filtering</span>”</span> state will indicate the service will
+                not be reachable from other nodes.
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>nmap REG_HOST_FQDN</pre></div></li><li class="step"><p>
+                Test secure access to the registry and see the list of
+                repositories:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>curl https://REG_HOST_FQDN:REG_HOST_PORT/v2/_catalog \
+ -u <em class="replaceable">REG_USERNAME</em>:<em class="replaceable">REG_PASSWORD</em></pre></div><p>
+                Alternatively, use the <code class="option">-k</code> option:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>curl -k https:// REG_HOST_FQDN:5000/v2/_catalog \
+ -u <em class="replaceable">REG_USERNAME</em>:<em class="replaceable">REG_PASSWORD</em></pre></div></li><li class="step"><p>
+                You can verify the certificate by using the following command:
+              </p><div class="verbatim-wrap"><pre class="screen">openssl s_client -connect REG_HOST_FQDN:5000 -servername REG_HOST_FQDN</pre></div></li><li class="step"><p>
+                Modify <code class="filename">/etc/environment</code> and include the
+                <code class="option">export GODEBUG=x509ignoreCN=0</code> option for
+                self-signed certificates. Ensure that the existing
+                configuration in <code class="filename">/etc/environment</code> is not
+                overwritten:
+              </p><div class="verbatim-wrap"><pre class="screen">salt '*' cmd.shell 'echo "export GODEBUG=x509ignoreCN=0" &gt;&gt;/etc/environment</pre></div><p>
+                In the current terminal, run the following command:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>export GODEBUG=x509ignoreCN=0</pre></div></li><li class="step"><p>
+                Configure the URL of the local registry with username and
+                password, then apply the configuration:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/registry \
+  set REG_HOST_FQDN:5000
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/username set <em class="replaceable">REG_USERNAME</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph-salt config /containers/registry_auth/password set <em class="replaceable">REG_PASSWORD</em></pre></div></li><li class="step"><p>
+                Verify configuration change, for example:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt config ls /containers
+o- containers .......................................................... [...]
+o- registries_conf ................................................. [enabled]
+| o- registries ...................................................... [empty]
+o- registry_auth ....................................................... [...]
+o- password ................................................... [REG_PASSWORD]
+o- registry .......................................... [host.example.com:5000]
+o- username ................................................... [REG_USERNAME]</pre></div><p>
+                If the configuration is correct, run:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt apply</pre></div><p>
+                or
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph-salt apply --non-interactive</pre></div></li><li class="step"><p>
+                Update cephadm credentials:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph cephadm registry-login REG_HOST_FQDN:5000 \
+ <em class="replaceable">REG_USERNAME </em> <em class="replaceable">REG_PASSWORD</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph cephadm registry-login REG_HOST_FQDN:5000 \
+ <em class="replaceable">REG_USERNAME</em> <em class="replaceable">REG_PASSWORD</em></pre></div><p>
+                If the command fails, double check
+                <em class="replaceable">REG_HOST_FQDN</em>,
+                <em class="replaceable">REG_USERNAME</em>, and
+                <em class="replaceable">REG_PASSWORD</em> values to ensure they
+                are correct. If the command fails again, fail the active MGR to
+                a different MGR daemon:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr fail</pre></div><p>
+                Validate the configuration:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config-key dump | grep 'registry_credentials</pre></div></li><li class="step"><p>
+                If the cluster is using a proxy configuration to reach
+                <code class="literal">registry.suse.com</code>, the configuration should
+                be removed. The node running the private registry will still
+                need access to <code class="literal">registry.suse.com</code> and may
+                still need the proxy configuration. For example:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="systemitem">wilber</code>:/etc/containers<code class="prompt user">&gt; </code>grep -A1 "env =" containers.conf
+env = ["https_proxy=http://some.url.example.com:8080",
+"no_proxy=s3.some.url.exmple.com"]</pre></div></li><li class="step"><p>
+                The configuration is complete now. Continue by following
+                <a class="xref" href="#deploy-populate-local-secure-registry" title="7.2.10.1.3. Populating the secure local registry">Section 7.2.10.1.3, “Populating the secure local registry”</a>.
+              </p></li></ol></div></div></section><section class="sect4" id="deploy-populate-local-secure-registry" data-id-title="Populating the secure local registry"><div class="titlepage"><div><div><div class="title-container"><h5 class="title"><span class="title-number-name"><span class="title-number">7.2.10.1.3 </span><span class="title-name">Populating the secure local registry</span></span> <a title="Permalink" class="permalink" href="#deploy-populate-local-secure-registry">#</a></h5><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+                When the local registry is created, you need to synchronize
+                container images from the official SUSE registry at
+                <code class="literal">registry.suse.com</code> to the local one. You can
+                use the <code class="command">skopeo sync</code> command found in the
+                <span class="package">skopeo</span> package for that purpose. For more
+                details, refer to the man page (<code class="command">man 1
+                skopeo-sync</code>). Consider the following examples:
+              </p><div class="complex-example"><div class="example" id="id-1.3.4.5.4.13.3.6.2.1.2" data-id-title="Viewing MANIFEST files on SUSE registry"><div class="title-container"><div class="example-title-wrap"><div class="example-title"><span class="title-number-name"><span class="title-number">Example 7.1: </span><span class="title-name">Viewing MANIFEST files on SUSE registry </span></span><a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.3.6.2.1.2">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div><div class="example-contents"><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/ceph | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/grafana | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1 | \
+  jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/prometheus-node-exporter:1.1.2 | \
+  jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 | \
+  jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/haproxy:2.0.14 | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/keepalived:2.0.19 | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://registry.suse.com/ses/7.1/ceph/prometheus-snmp_notifier:1.2.1 | \
+  jq .RepoTags</pre></div><p>
+                  In the event that SUSE has provided a PTF, you can also
+                  inspect the PTF using the path provided by SUSE.
+                </p></div></div></div></li><li class="step"><p>
+                Log in to the secure private registry.
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman login REG_HOST_FQDN:5000 \
+ -u <em class="replaceable">REG_USERNAME</em> -p <em class="replaceable">REG_PASSWORD</em></pre></div><div id="id-1.3.4.5.4.13.3.6.2.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+                  An insecure private registry does not require login.
+                </p></div></li><li class="step"><p>
+                Pull images to the local registry, push images to the private
+                registry.
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/ceph:latest
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/ceph:latest \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/ceph:latest
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/ceph:latest
+
+<code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/grafana:7.5.12
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/grafana:7.5.12 \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/grafana:7.5.12
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/grafana:7.5.12
+
+<code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/prometheus-server:2.32.1 \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-server:2.32.1
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-server:2.32.1
+
+<code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/prometheus-alertmanager:0.21.0 \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-alertmanager:0.21.0
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-alertmanager:0.21.0
+
+<code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/prometheus-node-exporter:1.1.2
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/prometheus-node-exporter:1.1.2 \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-node-exporter:1.1.2
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-node-exporter:1.1.2
+
+<code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/haproxy:2.0.14
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/haproxy:2.0.14 \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/haproxy:2.0.14
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/haproxy:2.0.14
+
+<code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/keepalived:2.0.19
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/keepalived:2.0.19 \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/keepalived:2.0.19
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/keepalived:2.0.19
+
+<code class="prompt root"># </code>podman pull registry.suse.com/ses/7.1/ceph/prometheus-snmp_notifier:1.2.1
+<code class="prompt root"># </code>podman tag registry.suse.com/ses/7.1/ceph/prometheus-snmp_notifier:1.2.1 \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-snmp_notifier:1.2.1
+<code class="prompt root"># </code>podman push REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-snmp_notifier:1.2.1</pre></div></li><li class="step"><p>
+                Log out of the private registry:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman logout REG_HOST_FQDN:5000</pre></div></li><li class="step"><p>
+                List images with <code class="command">podman images</code> or
+                <code class="command">podman images | sort</code>.
+              </p></li><li class="step"><p>
+                List repositories:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>curl -sSk https://REG_HOST_FQDN:5000/v2/_catalog \
+ -u <em class="replaceable">REG_USERNAME</em>:<em class="replaceable">REG_PASSWORD</em> | jq</pre></div></li><li class="step"><p>
+                Use <code class="command">skopeo</code> to inspect the private registry.
+                Note that you need to log in to make the following commands
+                work:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/ceph | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/grafana:7.5.12 | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-server:2.32.1 | \
+  jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-alertmanager:0.21.0 | \
+  jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-node-exporter:1.1.2 | \
+  jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/haproxy:2.0.14 | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/keepalived:2.0.19 | jq .RepoTags
+<code class="prompt user">&gt; </code>skopeo inspect \
+  docker://REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-snmp_notifier:1.2.1 | \
+  jq .RepoTags</pre></div></li><li class="step"><p>
+                List repository tags example:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code>curl -sSk https://REG_HOST_FQDN:5000/v2/ses/7.1/ceph/ceph/tags/list \
+ -u REG_CERTIFICATE.CRT:REG_PRIVATE-KEY.KEY
+{"name":"ses/7.1/ceph/ceph","tags":["latest"]}</pre></div></li><li class="step"><p>
+                Test pulling an image from another node.
+              </p><ol type="a" class="substeps"><li class="step"><p>
+                    Log in to the private registry. Note that an insecure
+                    private registry does not require login.
+                  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman login REG_HOST_FQDN:5000 -u REG_CERTIFICATE.CRT \
+  -p REG_PRIVATE-KEY.KEY</pre></div></li><li class="step"><p>
+                    Pull an image from the private registry. Optionally, you
+                    can specify login credentials on the command line. For
+                    example:
+                  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman pull REG_HOST_FQDN:5000/ses/7.1/ceph/ceph:latest
+<code class="prompt root"># </code>podman pull --creds= <em class="replaceable">REG_USERNAME</em>:<em class="replaceable">REG_PASSWORD</em> \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/ceph:latest
+<code class="prompt root"># </code>podman pull --cert-dir=/etc/containers/certs.d \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/ceph:latest</pre></div></li><li class="step"><p>
+                    Log out of the private registry when done:
+                  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>podman logout REG_HOST_FQDN:5000</pre></div></li></ol></li></ol></div></div></section><section class="sect4" id="id-1.3.4.5.4.13.3.7" data-id-title="Configuring Ceph to pull images from the private registry"><div class="titlepage"><div><div><div class="title-container"><h5 class="title"><span class="title-number-name"><span class="title-number">7.2.10.1.4 </span><span class="title-name">Configuring Ceph to pull images from the private registry</span></span> <a title="Permalink" class="permalink" href="#id-1.3.4.5.4.13.3.7">#</a></h5><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+                List configuration settings that need to change:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config ls | grep container_image</pre></div></li><li class="step"><p>
+                View current configurations:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_alertmanager
+<code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_base
+<code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_grafana
+<code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_haproxy
+<code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_keepalived
+<code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_node_exporter
+<code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_prometheus
+<code class="prompt user">cephuser@adm &gt; </code>ceph config get mgr mgr/cephadm/container_image_snmp_gateway</pre></div></li><li class="step"><p>
+                Configure the cluster to use the private registry.
+              </p><p>
+                Do <span class="bold"><strong>not</strong></span> set the following
+                options:
+              </p><div class="verbatim-wrap"><pre class="screen">ceph config set mgr mgr/cephadm/container_image_base
+ceph config set global container_image</pre></div><p>
+                Set the following options:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_alertmanager \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-alertmanager:0.21.0
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_grafana \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/grafana:7.5.12
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_haproxy \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/haproxy:2.0.14
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_keepalived \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/keepalived:2.0.19
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_node_exporter \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-node-exporter:1.1.2
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_prometheus \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-server:2.32.1
+<code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_snmp_gateway \
+  REG_HOST_FQDN:5000/ses/7.1/ceph/prometheus-snmp_notifier:1.2.1</pre></div></li><li class="step"><p>
+                Double-check if there are other custom configurations that need
+                to be modified or removed and if the correct configuration was
+                applied:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config dump | grep container_image</pre></div></li><li class="step"><p>
+                All the daemons need to be redeployed to ensure the correct
+                images are being used:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch upgrade start \
+  --image REG_HOST_FQDN:5000/ses/7.1/ceph/ceph:latest</pre></div><div id="id-1.3.4.5.4.13.3.7.2.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+                  Monitor the redeployment by running the following command:
+                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph -W cephadm</pre></div></div></li><li class="step"><p>
+                After the upgrade is complete, validate that the daemons have
+                been updated. Note the <code class="literal">VERSION</code> and
+                <code class="literal">IMAGE ID</code> values in the right columns of the
+                following table:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps</pre></div><div id="id-1.3.4.5.4.13.3.7.2.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+                  For more details, run the following command:
+                </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --format=yaml | \
+  egrep "daemon_name|container_image_name"</pre></div></div></li><li class="step"><p>
+                If needed, redeploy services or daemons:
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch redeploy <em class="replaceable">SERVICE_NAME</em>
+<code class="prompt user">cephuser@adm &gt; </code>ceph orch daemon rm <em class="replaceable">DAEMON_NAME</em></pre></div></li></ol></div></div></section></section><section class="sect3" id="deploy-cephadm-configure-imagepath" data-id-title="Configuring the path to container images"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">7.2.10.2 </span><span class="title-name">Configuring the path to container images</span></span> <a title="Permalink" class="permalink" href="#deploy-cephadm-configure-imagepath">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><div id="id-1.3.4.5.4.13.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
             This section helps you configure the path to container images of
             the bootstrap cluster (deployment of the first Ceph Monitor and Ceph Manager
             pair). The path does not apply to container images of additional
             services, for example the monitoring stack.
-          </p></div><div id="id-1.3.4.5.4.13.5.3" data-id-title="Configuring HTTPS proxy" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Configuring HTTPS proxy</div><p>
+          </p></div><div id="id-1.3.4.5.4.13.4.3" data-id-title="Configuring HTTPS proxy" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Configuring HTTPS proxy</div><p>
             If you need to use a proxy to communicate with the container
             registry server, perform the following configuration steps on all
             cluster nodes:
           </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
                 Copy the configuration file for containers:
-              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> cp /usr/share/containers/containers.conf /etc/containers/containers.conf</pre></div></li><li class="step"><p>
+              </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> cp /usr/share/containers/containers.conf \
+  /etc/containers/containers.conf</pre></div></li><li class="step"><p>
                 Edit the newly copied file and add the
                 <code class="option">http_proxy</code> setting to its
                 <code class="literal">[engine]</code> section, for example:
@@ -1718,7 +1994,8 @@ env = ["http_proxy=http://proxy.example.com:<em class="replaceable">PORT</em>",
         </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_image_path ls</pre></div><p>
           If you do not need an alternative or local registry, specify the
           default SUSE container registry:
-        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_image_path set registry.suse.com/ses/7.1/ceph/ceph</pre></div><p>
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_image_path set \
+  registry.suse.com/ses/7.1/ceph/ceph</pre></div><p>
           If your deployment requires a specific path, for example, a path to a
           local registry, configure it as follows:
         </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /cephadm_bootstrap/ceph_image_path set <em class="replaceable">LOCAL_REGISTRY_PATH</em></pre></div></section></section><section class="sect2" id="deploy-cephadm-inflight-encryption" data-id-title="Enabling data in-flight encryption (msgr2)"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">7.2.11 </span><span class="title-name">Enabling data in-flight encryption (msgr2)</span></span> <a title="Permalink" class="permalink" href="#deploy-cephadm-inflight-encryption">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/deploy_bootstrap.xml" title="Edit source document"> </a></div></div></div></div></div><p>
