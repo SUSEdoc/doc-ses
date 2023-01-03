@@ -219,11 +219,14 @@ hljs.configure({
    Both intermittent and complete network failures will impact a Ceph
    cluster. These two utilities can help in tracking down the cause and
    verifying expectations.
-  </p><section class="sect2" id="network-test-basic-diagnostics" data-id-title="Performing basic diagnostics"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">13.8.1 </span><span class="title-name">Performing basic diagnostics</span></span> <a title="Permalink" class="permalink" href="storage-tips.html#network-test-basic-diagnostics">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_tips.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    Try the <code class="command">salt '*' network.ping</code> command to ping between
-    cluster nodes to see if individual interface can reach to specific
+  </p><div id="id-1.5.15.11.3" data-id-title="Sync Runners" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip: Sync Runners</div><p>
+    Use the <code class="command">salt-run saltutil.sync_runners</code> command
+    if the Salt runner is reported as <code class="literal">not available</code>.
+   </p></div><section class="sect2" id="network-test-basic-diagnostics" data-id-title="Performing basic diagnostics"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">13.8.1 </span><span class="title-name">Performing basic diagnostics</span></span> <a title="Permalink" class="permalink" href="storage-tips.html#network-test-basic-diagnostics">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_tips.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+    Try the <code class="command">salt-run network.ping</code> command to ping between
+    cluster nodes to see if an individual interface can reach to a specific
     interface and the average response time. Any specific response time much
-    slower then average will also be reported. For example:
+    slower than average will also be reported. For example:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run network.ping
 Succeeded: 8 addresses from 7 minions average rtt 0.15 ms</pre></div><p>
     Or, for IPv6:
@@ -232,7 +235,7 @@ Succeeded: 8 addresses from 7 minions average rtt 0.15 ms</pre></div><p>
     Try validating all interfaces with JumboFrame enabled:
    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run network.jumbo_ping
 Succeeded: 8 addresses from 7 minions average rtt 0.26 ms</pre></div></section><section class="sect2" id="network-test-throughput-benchmark" data-id-title="Performing throughput benchmark"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">13.8.2 </span><span class="title-name">Performing throughput benchmark</span></span> <a title="Permalink" class="permalink" href="storage-tips.html#network-test-throughput-benchmark">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/bp_troubleshooting_tips.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    Try the <code class="command">salt '*' network.iperf</code> command to test network
+    Try the <code class="command">salt-run network.iperf</code> command to test network
     bandwidth between each pair of interfaces. On a given cluster node, a
     number of <code class="literal">iperf</code> processes (according to the number of
     CPU cores) are started as servers. The remaining cluster nodes will be used
