@@ -194,7 +194,9 @@ hljs.configure({
      problem that needs to be addressed. When the cluster and all clients are
      upgraded to the latest version of Ceph, disallow unpatched clients by
      running the following command:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></section></section><section class="sect2" id="verify-previous-upgrade-patch-repos" data-id-title="Verifying access to software repositories and container images"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.5 </span><span class="title-name">Verifying access to software repositories and container images</span></span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#verify-previous-upgrade-patch-repos">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></section><section class="sect3" id="upgrade-disable-sanity-check" data-id-title="Disable FSMap sanity check"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.4.2 </span><span class="title-name">Disable FSMap sanity check</span></span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade-disable-sanity-check">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+      Before you start upgrading cluster nodes, disable the FSMap sanity check:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config set mon mon_mds_skip_sanity true</code></pre></div></section></section><section class="sect2" id="verify-previous-upgrade-patch-repos" data-id-title="Verifying access to software repositories and container images"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.5 </span><span class="title-name">Verifying access to software repositories and container images</span></span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#verify-previous-upgrade-patch-repos">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
     Verify that each cluster node has access to the SUSE Linux Enterprise Server 15 SP3 and SUSE Enterprise Storage
     7.1 software repositories, as well as the registry of container
     images.
@@ -842,6 +844,10 @@ spec:
      </p></div><p>
      Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
     </p></li><li class="step"><p>
+      Set the FSMap sanity checks to the default value and then remove its
+      configuration:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config set mon mon_mds_skip_sanity false</code>
+<code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config rm mon mon_mds_skip_sanity</code></pre></div></li><li class="step"><p>
      Prevent pre-Luminous clients:
     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-require-min-compat-client luminous</pre></div></li><li class="step"><p>
      Enable the balancer module:
