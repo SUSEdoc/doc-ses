@@ -34,7 +34,7 @@ hljs.configure({
   useBR: false
 });
 
-</script><meta name="edit-url" content="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml"/></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div class="title-container"><h1 class="title">Deployment Guide</h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml" title="Edit source document"> </a></div></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>29 Mar 2023</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Improving the documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.6.7.4"><span class="number">8.1 </span><span class="name">High Availability setup for Object Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.8.8.4"><span class="number">8.2 </span><span class="name">High Availability setup for NFS Ganesha</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.3.6.2.1.2"><span class="number">7.1 </span><span class="name">Viewing MANIFEST files on SUSE registry</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.7"><p>
+</script><meta name="edit-url" content="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml"/></head><body class="draft single normal offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="#book-storage-deployment">Deployment Guide</a></div></div><main id="_content"><nav class="side-toc placebo" id="_side-toc-overall"> </nav><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section xml:lang="en" class="book" id="book-storage-deployment" data-id-title="Deployment Guide"><div class="titlepage"><div><div class="big-version-info"><span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">7.1</span></div><div class="title-container"><h1 class="title">Deployment Guide</h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml" title="Edit source document"> </a></div></div><div class="authorgroup"><div><span class="imprint-label">Authors: </span><span class="firstname">Tomáš</span> <span class="surname">Bažant</span>, <span class="firstname">Alexandra</span> <span class="surname">Settle</span>, and <span class="firstname">Liam</span> <span class="surname">Proven</span></div></div><div class="date"><span class="imprint-label">Publication Date: </span>19 Apr 2023</div></div></div><div class="toc"><ul><li><span class="preface"><a href="#preface-deployment"><span class="title-name">About this guide</span></a></span><ul><li><span class="sect1"><a href="#id-1.3.2.5"><span class="title-name">Available documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.6"><span class="title-name">Improving the documentation</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.7"><span class="title-name">Documentation conventions</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.8"><span class="title-name">Support</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.9"><span class="title-name">Ceph contributors</span></a></span></li><li><span class="sect1"><a href="#id-1.3.2.10"><span class="title-name">Commands and command prompts used in this guide</span></a></span></li></ul></li><li><span class="part"><a href="#part-ses"><span class="title-number">I </span><span class="title-name">Introducing SUSE Enterprise Storage (SES)</span></a></span><ul><li><span class="chapter"><a href="#cha-storage-about"><span class="title-number">1 </span><span class="title-name">SES and Ceph</span></a></span><ul><li><span class="sect1"><a href="#storage-intro-features"><span class="title-number">1.1 </span><span class="title-name">Ceph features</span></a></span></li><li><span class="sect1"><a href="#storage-intro-core"><span class="title-number">1.2 </span><span class="title-name">Ceph core components</span></a></span></li><li><span class="sect1"><a href="#storage-intro-structure"><span class="title-number">1.3 </span><span class="title-name">Ceph storage structure</span></a></span></li><li><span class="sect1"><a href="#about-bluestore"><span class="title-number">1.4 </span><span class="title-name">BlueStore</span></a></span></li><li><span class="sect1"><a href="#storage-moreinfo"><span class="title-number">1.5 </span><span class="title-name">Additional information</span></a></span></li></ul></li><li><span class="chapter"><a href="#storage-bp-hwreq"><span class="title-number">2 </span><span class="title-name">Hardware requirements and recommendations</span></a></span><ul><li><span class="sect1"><a href="#network-overview"><span class="title-number">2.1 </span><span class="title-name">Network overview</span></a></span></li><li><span class="sect1"><a href="#multi-architecture"><span class="title-number">2.2 </span><span class="title-name">Multiple architecture configurations</span></a></span></li><li><span class="sect1"><a href="#ses-hardware-config"><span class="title-number">2.3 </span><span class="title-name">Hardware configuration</span></a></span></li><li><span class="sect1"><a href="#deployment-osd-recommendation"><span class="title-number">2.4 </span><span class="title-name">Object Storage Nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mon"><span class="title-number">2.5 </span><span class="title-name">Monitor nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-rgw"><span class="title-number">2.6 </span><span class="title-name">Object Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-mds"><span class="title-number">2.7 </span><span class="title-name">Metadata Server nodes</span></a></span></li><li><span class="sect1"><a href="#sysreq-admin-node"><span class="title-number">2.8 </span><span class="title-name">Admin Node</span></a></span></li><li><span class="sect1"><a href="#sysreq-iscsi"><span class="title-number">2.9 </span><span class="title-name">iSCSI Gateway nodes</span></a></span></li><li><span class="sect1"><a href="#req-ses-other"><span class="title-number">2.10 </span><span class="title-name">SES and other SUSE products</span></a></span></li><li><span class="sect1"><a href="#sysreq-naming"><span class="title-number">2.11 </span><span class="title-name">Name limitations</span></a></span></li><li><span class="sect1"><a href="#ses-bp-diskshare"><span class="title-number">2.12 </span><span class="title-name">OSD and monitor sharing one server</span></a></span></li></ul></li><li><span class="chapter"><a href="#cha-admin-ha"><span class="title-number">3 </span><span class="title-name">Admin Node HA setup</span></a></span><ul><li><span class="sect1"><a href="#admin-ha-architecture"><span class="title-number">3.1 </span><span class="title-name">Outline of the HA cluster for Admin Node</span></a></span></li><li><span class="sect1"><a href="#admin-ha-cluster"><span class="title-number">3.2 </span><span class="title-name">Building an HA cluster with the Admin Node</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-deployment"><span class="title-number">II </span><span class="title-name">Deploying Ceph Cluster</span></a></span><ul><li><span class="chapter"><a href="#deploy-intro"><span class="title-number">4 </span><span class="title-name">Introduction and common tasks</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-install-relnotes"><span class="title-number">4.1 </span><span class="title-name">Read the release notes</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-sles"><span class="title-number">5 </span><span class="title-name">Installing and configuring SUSE Linux Enterprise Server</span></a></span></li><li><span class="chapter"><a href="#deploy-salt"><span class="title-number">6 </span><span class="title-name">Deploying Salt</span></a></span></li><li><span class="chapter"><a href="#deploy-bootstrap"><span class="title-number">7 </span><span class="title-name">Deploying the bootstrap cluster using <code class="systemitem">ceph-salt</code></span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-cephsalt"><span class="title-number">7.1 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code></span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-configure"><span class="title-number">7.2 </span><span class="title-name">Configuring cluster properties</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-deploy"><span class="title-number">7.3 </span><span class="title-name">Updating nodes and bootstrap minimal cluster</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-final-steps"><span class="title-number">7.4 </span><span class="title-name">Reviewing final steps</span></a></span></li><li><span class="sect1"><a href="#deploy-min-cluster-disable-insecure"><span class="title-number">7.5 </span><span class="title-name">Disable insecure clients</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-core"><span class="title-number">8 </span><span class="title-name">Deploying the remaining core services using cephadm</span></a></span><ul><li><span class="sect1"><a href="#deploy-cephadm-day2-orch"><span class="title-number">8.1 </span><span class="title-name">The <code class="command">ceph orch</code> command</span></a></span></li><li><span class="sect1"><a href="#cephadm-service-and-placement-specs"><span class="title-number">8.2 </span><span class="title-name">Service and placement specification</span></a></span></li><li><span class="sect1"><a href="#deploy-cephadm-day2-services"><span class="title-number">8.3 </span><span class="title-name">Deploy Ceph services</span></a></span></li></ul></li><li><span class="chapter"><a href="#deploy-additional"><span class="title-number">9 </span><span class="title-name">Deployment of additional services</span></a></span><ul><li><span class="sect1"><a href="#cha-ceph-as-iscsi"><span class="title-number">9.1 </span><span class="title-name">Installation of iSCSI gateway</span></a></span></li></ul></li></ul></li><li><span class="part"><a href="#ses-upgrade"><span class="title-number">III </span><span class="title-name">Upgrading from Previous Releases</span></a></span><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-salt-master"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></a></span></li><li><span class="sect1"><a href="#upgrade-mon-mgr-nodes"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateway-nodes"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></a></span></li><li><span class="sect1"><a href="#upgrade-cephsalt-monitoring"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></a></span></li><li><span class="sect1"><a href="#upgrade-post-cleanup"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></a></span></li></ul></li><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span><ul><li><span class="sect1"><a href="#before-upgrade-7p"><span class="title-number">11.1 </span><span class="title-name">Before upgrading</span></a></span></li><li><span class="sect1"><a href="#upgrade-cluster-nodes"><span class="title-number">11.2 </span><span class="title-name">Migrate SUSE Linux Enterprise Server on each cluster node to version SUSE Linux Enterprise Server 15 SP3</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-packages"><span class="title-number">11.3 </span><span class="title-name">Update SUSE Enterprise Storage related packages on each cluster node</span></a></span></li><li><span class="sect1"><a href="#upgrade-ses-services"><span class="title-number">11.4 </span><span class="title-name">Upgrade existing Ceph cluster services</span></a></span></li><li><span class="sect1"><a href="#upgrade-gateways-7p"><span class="title-number">11.5 </span><span class="title-name">Gateway service upgrade</span></a></span></li></ul></li></ul></li><li><span class="appendix"><a href="#id-1.3.6"><span class="title-number">A </span><span class="title-name">Ceph maintenance updates based on upstream 'Pacific' point releases</span></a></span></li><li><span class="glossary"><a href="#id-1.3.7"><span class="title-name">Glossary</span></a></span></li></ul></div><div class="list-of-figures"><div class="toc-title">List of Figures</div><ul><li><span class="figure"><a href="#storage-intro-core-rados-figure"><span class="number">1.1 </span><span class="name">Interfaces to the Ceph object store</span></a></span></li><li><span class="figure"><a href="#storage-intro-structure-example-figure"><span class="number">1.2 </span><span class="name">Small scale Ceph example</span></a></span></li><li><span class="figure"><a href="#network-overview-figure"><span class="number">2.1 </span><span class="name">Network overview</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.3.7.3.6"><span class="number">2.2 </span><span class="name">Minimum cluster configuration</span></a></span></li><li><span class="figure"><a href="#id-1.3.3.4.6.6"><span class="number">3.1 </span><span class="name">2-Node HA cluster for Admin Node</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.5.5.14"><span class="number">7.1 </span><span class="name">Deployment of a minimal cluster</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.6.7.4"><span class="number">8.1 </span><span class="name">High Availability setup for Object Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.6.6.8.8.4"><span class="number">8.2 </span><span class="name">High Availability setup for NFS Ganesha</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.3"><span class="number">9.1 </span><span class="name">Ceph Cluster with a Single iSCSI Gateway</span></a></span></li><li><span class="figure"><a href="#id-1.3.4.7.2.5.5"><span class="number">9.2 </span><span class="name">Ceph cluster with multiple iSCSI gateways</span></a></span></li></ul></div><div class="list-of-examples"><div class="toc-title">List of Examples</div><ul><li><span class="example"><a href="#id-1.3.4.5.4.13.3.6.2.1.2"><span class="number">7.1 </span><span class="name">Viewing MANIFEST files on SUSE registry</span></a></span></li></ul></div><div><div xml:lang="en" class="legalnotice" id="id-1.3.1.7"><p>
   Copyright © 2020–2023
 
   SUSE LLC and contributors. All rights reserved.
@@ -3266,268 +3266,280 @@ placement:
      When using <code class="systemitem">tcmu-runner</code>, the exported RBD image
      must have the <code class="option">exclusive-lock</code> feature enabled.
     </p></div></section></section></section></div><div class="part" id="ses-upgrade" data-id-title="Upgrading from Previous Releases"><div class="titlepage"><div><div><div class="title-container"><h1 class="title"><span class="title-number-name"><span class="title-number">Part III </span><span class="title-name">Upgrading from Previous Releases </span></span><a title="Permalink" class="permalink" href="#ses-upgrade">#</a></h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/book_storage_deployment.xml" title="Edit source document"> </a></div></div></div></div></div><div class="toc"><ul><li><span class="chapter"><a href="#cha-ceph-upgrade"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></a></span></li><dd class="toc-abstract"><p>
-  This chapter introduces steps to upgrade SUSE Enterprise Storage
-  6 to version 7.1.
- </p></dd><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span></li><dd class="toc-abstract"><p>
+    This chapter introduces steps to upgrade SUSE Enterprise Storage
+    6 to version 7.1.
+  </p></dd><li><span class="chapter"><a href="#upgrade-to-pacific"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></a></span></li><dd class="toc-abstract"><p>
   This chapter introduces steps to upgrade SUSE Enterprise Storage 7 to
   version 7.1.
  </p></dd></ul></div><section class="chapter" id="cha-ceph-upgrade" data-id-title="Upgrade from SUSE Enterprise Storage 6 to 7.1"><div class="titlepage"><div><div><div class="title-container"><h1 class="title"><span class="title-number-name"><span class="title-number">10 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 6 to 7.1</span></span> <a title="Permalink" class="permalink" href="#cha-ceph-upgrade">#</a></h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-  This chapter introduces steps to upgrade SUSE Enterprise Storage
-  6 to version 7.1.
- </p><p>
-  The upgrade includes the following tasks:
- </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-    Upgrading from Ceph Nautilus to Pacific.
-   </p></li><li class="listitem"><p>
-    Switching from installing and running Ceph via RPM packages to running in
-    containers.
-   </p></li><li class="listitem"><p>
-    Complete removal of DeepSea and replacing with <code class="systemitem">ceph-salt</code> and cephadm.
-   </p></li></ul></div><div id="id-1.3.5.2.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
-   The upgrade information in this chapter <span class="emphasis"><em>only</em></span> applies to
-   upgrades from DeepSea to cephadm. Do not attempt to follow these
-   instructions if you want to deploy SUSE Enterprise Storage on SUSE CaaS Platform.
-  </p></div><div id="id-1.3.5.2.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
-   Upgrading from SUSE Enterprise Storage versions older than 6 is
-   not supported. First, you must upgrade to the latest version of
-   SUSE Enterprise Storage 6, and then follow the steps in this
-   chapter.
-  </p></div><section class="sect1" id="before-upgrade" data-id-title="Before upgrading"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></span> <a title="Permalink" class="permalink" href="#before-upgrade">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-   The following tasks <span class="emphasis"><em>must</em></span> be completed before you start
-   the upgrade. This can be done at any time during the SUSE Enterprise Storage
-   6 lifetime.
+    This chapter introduces steps to upgrade SUSE Enterprise Storage
+    6 to version 7.1.
+  </p><p>
+    The upgrade includes the following tasks:
   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-     The OSD migration from FileStore to BlueStore
-     <span class="emphasis"><em>must</em></span> happen before the upgrade as FileStore
-     unsupported in SUSE Enterprise Storage 7.1. Find more details about
-     BlueStore and how to migrate from FileStore at
-     <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#filestore2bluestore" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#filestore2bluestore</a>.
-    </p></li><li class="listitem"><p>
-     If you are running an older cluster that still uses
-     <code class="literal">ceph-disk</code> OSDs, you <span class="emphasis"><em>need</em></span> to switch
-     to <code class="literal">ceph-volume</code> before the upgrade. Find more details in
-     <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#upgrade-osd-deployment" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#upgrade-osd-deployment</a>.
-    </p></li></ul></div><section class="sect2" id="upgrade-consider-points" data-id-title="Points to consider"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.1 </span><span class="title-name">Points to consider</span></span> <a title="Permalink" class="permalink" href="#upgrade-consider-points">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    Before upgrading, ensure you read through the following sections to ensure
-    you understand all tasks that need to be executed.
-   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-      <span class="emphasis"><em>Read the release notes</em></span>. In them, you can find
-      additional information on changes since the previous release of
-      SUSE Enterprise Storage. Check the release notes to see whether:
-     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-        Your hardware needs special considerations.
-       </p></li><li class="listitem"><p>
-        Any used software packages have changed significantly.
-       </p></li><li class="listitem"><p>
-        Special precautions are necessary for your installation.
-       </p></li></ul></div><p>
-      The release notes also provide information that could not make it into
-      the manual on time. They also contain notes about known issues.
-     </p><p>
-      You can find SES 7.1 release notes online at
-      <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
-     </p><p>
-      Additionally, after having installed the package
-      <span class="package">release-notes-ses</span> from the SES 7.1
-      repository, find the release notes locally in the directory
-      <code class="filename">/usr/share/doc/release-notes</code> or online at
-      <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
-     </p></li><li class="listitem"><p>
-      Read <a class="xref" href="#ses-deployment" title="Part II. Deploying Ceph Cluster">Part II, “Deploying Ceph Cluster”</a> to familiarise yourself with
-      <code class="systemitem">ceph-salt</code> and the Ceph orchestrator, and in particular the information
-      on service specifications.
-     </p></li><li class="listitem"><p>
-      The cluster upgrade may take a long time—approximately the time it
-      takes to upgrade one machine multiplied by the number of cluster nodes.
-     </p></li><li class="listitem"><p>
-      You need to upgrade the Salt Master first, then replace DeepSea with
-      <code class="systemitem">ceph-salt</code> and cephadm. You will <span class="emphasis"><em>not</em></span> be able to
-      start using the cephadm orchestrator module until at least all Ceph Manager
-      nodes are upgraded.
-     </p></li><li class="listitem"><p>
-      The upgrade from using Nautilus RPMs to Pacific containers
-      needs to happen in a single step. This means upgrading an entire node at
-      a time, not one daemon at a time.
-     </p></li><li class="listitem"><p>
-      The upgrade of core services (MON, MGR, OSD) happens in an orderly
-      fashion. Each service is available during the upgrade. The gateway
-      services (Metadata Server, Object Gateway, NFS Ganesha, iSCSI Gateway) need to be redeployed after the
-      core services are upgraded. There is a certain amount of downtime for
-      each of the following services:
-     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><div id="id-1.3.5.2.8.4.3.6.2.1.1" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
-         Metadata Servers and Object Gateways are down from the time the nodes are upgraded from
-         SUSE Linux Enterprise Server 15 SP1 to SUSE Linux Enterprise Server 15 SP3 until the services are redeployed at the
-         end of the upgrade procedure. This is particularly important to bear
-         in mind if these services are colocated with MONs, MGRs or OSDs as
-         they may be down for the duration of the cluster upgrade. If this is
-         going to be a problem, consider deploying these services separately on
-         additional nodes before upgrading, so that they are down for the
-         shortest possible time. This is the duration of the upgrade of the
-         gateway nodes, not the duration of the upgrade of the entire cluster.
-        </p></div></li><li class="listitem"><p>
-        NFS Ganesha and iSCSI Gateways are down only while nodes are rebooting during
-        upgrade from SUSE Linux Enterprise Server 15 SP1 to SUSE Linux Enterprise Server 15 SP3, and again briefly when each
-        service is redeployed on the containerized mode.
-       </p></li></ul></div></li></ul></div></section><section class="sect2" id="upgrade-backup-config-data" data-id-title="Backing Up cluster configuration and data"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.2 </span><span class="title-name">Backing Up cluster configuration and data</span></span> <a title="Permalink" class="permalink" href="#upgrade-backup-config-data">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    We strongly recommend backing up all cluster configuration and data before
-    starting your upgrade to SUSE Enterprise Storage 7.1. For instructions on
-    how to back up all your data, see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 15 “Backup and restore”</span>.
-   </p></section><section class="sect2" id="verify-previous-upgrade" data-id-title="Verifying steps from the previous upgrade"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.3 </span><span class="title-name">Verifying steps from the previous upgrade</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    In case you previously upgraded from version 5, verify that the upgrade to
-    version 6 was completed successfully:
-   </p><p>
-    Check for the existence of the
-    <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.import</code>
-    file.
-   </p><p>
-    This file is created by the engulf process during the upgrade from
-    SUSE Enterprise Storage 5 to 6. The <code class="option">configuration_init:
-    default-import</code> option is set in
-    <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>.
-   </p><p>
-    If <code class="option">configuration_init</code> is still set to
-    <code class="option">default-import</code>, the cluster is using
-    <code class="filename">ceph.conf.import</code> as its configuration file and not
-    DeepSea's default <code class="filename">ceph.conf</code>, which is compiled from
-    files in
-    <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/</code>.
-   </p><p>
-    Therefore, you need to inspect <code class="filename">ceph.conf.import</code> for
-    any custom configuration, and possibly move the configuration to one of the
-    files in
-    <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/</code>.
-   </p><p>
-    Then remove the <code class="option">configuration_init: default-import</code> line
-    from
-    <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>.
-   </p></section><section class="sect2" id="verify-previous-upgrade-patch" data-id-title="Updating cluster nodes and verifying cluster health"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.4 </span><span class="title-name">Updating cluster nodes and verifying cluster health</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    Verify that all latest updates of SUSE Linux Enterprise Server 15 SP1 and SUSE Enterprise Storage
-    6 are applied to all cluster nodes:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper refresh &amp;&amp; zypper patch</pre></div><div id="id-1.3.5.2.8.7.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
-     Refer to
-     <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates</a>
-     for detailed information about updating the cluster nodes.
-    </p></div><p>
-    After updates are applied, restart the Salt Master, synchronize new Salt
-    modules, and check the cluster health:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl restart salt-master.service
+        Upgrading from Ceph Nautilus to Pacific.
+      </p></li><li class="listitem"><p>
+        Switching from installing and running Ceph via RPM packages to
+        running in containers.
+      </p></li><li class="listitem"><p>
+        Complete removal of DeepSea and replacing with <code class="systemitem">ceph-salt</code> and
+        cephadm.
+      </p></li></ul></div><div id="id-1.3.5.2.6" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
+      The upgrade information in this chapter <span class="emphasis"><em>only</em></span> applies
+      to upgrades from DeepSea to cephadm. Do not attempt to follow these
+      instructions if you want to deploy SUSE Enterprise Storage on SUSE CaaS Platform.
+    </p></div><div id="id-1.3.5.2.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+      Upgrading from SUSE Enterprise Storage versions older than 6
+      is not supported. First, you must upgrade to the latest version of
+      SUSE Enterprise Storage 6, and then follow the steps in this
+      chapter.
+    </p></div><section class="sect1" id="before-upgrade" data-id-title="Before upgrading"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.1 </span><span class="title-name">Before upgrading</span></span> <a title="Permalink" class="permalink" href="#before-upgrade">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+      The following tasks <span class="emphasis"><em>must</em></span> be completed before you
+      start the upgrade. This can be done at any time during the SUSE Enterprise Storage
+      6 lifetime.
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+          The OSD migration from FileStore to BlueStore
+          <span class="emphasis"><em>must</em></span> happen before the upgrade as FileStore
+          unsupported in SUSE Enterprise Storage 7.1. Find more details about
+          BlueStore and how to migrate from FileStore at
+          <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#filestore2bluestore" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#filestore2bluestore</a>.
+        </p></li><li class="listitem"><p>
+          If you are running an older cluster that still uses
+          <code class="literal">ceph-disk</code> OSDs, you <span class="emphasis"><em>need</em></span> to
+          switch to <code class="literal">ceph-volume</code> before the upgrade. Find
+          more details in
+          <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#upgrade-osd-deployment" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-upgrade.html#upgrade-osd-deployment</a>.
+        </p></li></ul></div><section class="sect2" id="upgrade-consider-points" data-id-title="Points to consider"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.1 </span><span class="title-name">Points to consider</span></span> <a title="Permalink" class="permalink" href="#upgrade-consider-points">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        Before upgrading, ensure you read through the following sections to
+        ensure you understand all tasks that need to be executed.
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+            <span class="emphasis"><em>Read the release notes</em></span>. In them, you can find
+            additional information on changes since the previous release of
+            SUSE Enterprise Storage. Check the release notes to see whether:
+          </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+                Your hardware needs special considerations.
+              </p></li><li class="listitem"><p>
+                Any used software packages have changed significantly.
+              </p></li><li class="listitem"><p>
+                Special precautions are necessary for your installation.
+              </p></li></ul></div><p>
+            The release notes also provide information that could not make it
+            into the manual on time. They also contain notes about known
+            issues.
+          </p><p>
+            You can find SES 7.1 release notes online at
+            <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
+          </p><p>
+            Additionally, after having installed the package
+            <span class="package">release-notes-ses</span> from the SES 7.1
+            repository, find the release notes locally in the directory
+            <code class="filename">/usr/share/doc/release-notes</code> or online at
+            <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
+          </p></li><li class="listitem"><p>
+            Read <a class="xref" href="#ses-deployment" title="Part II. Deploying Ceph Cluster">Part II, “Deploying Ceph Cluster”</a> to familiarise yourself with
+            <code class="systemitem">ceph-salt</code> and the Ceph orchestrator, and in particular the
+            information on service specifications.
+          </p></li><li class="listitem"><p>
+            The cluster upgrade may take a long time—approximately the
+            time it takes to upgrade one machine multiplied by the number of
+            cluster nodes.
+          </p></li><li class="listitem"><p>
+            You need to upgrade the Salt Master first, then replace DeepSea
+            with <code class="systemitem">ceph-salt</code> and cephadm. You will <span class="emphasis"><em>not</em></span> be
+            able to start using the cephadm orchestrator module until at
+            least all Ceph Manager nodes are upgraded.
+          </p></li><li class="listitem"><p>
+            The upgrade from using Nautilus RPMs to Pacific
+            containers needs to happen in a single step. This means upgrading
+            an entire node at a time, not one daemon at a time.
+          </p></li><li class="listitem"><p>
+            The upgrade of core services (MON, MGR, OSD) happens in an orderly
+            fashion. Each service is available during the upgrade. The gateway
+            services (Metadata Server, Object Gateway, NFS Ganesha, iSCSI Gateway) need to be redeployed
+            after the core services are upgraded. There is a certain amount of
+            downtime for each of the following services:
+          </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><div id="id-1.3.5.2.8.4.3.6.2.1.1" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+                  Metadata Servers and Object Gateways are down from the time the nodes are
+                  upgraded from SUSE Linux Enterprise Server 15 SP1 to SUSE Linux Enterprise Server 15 SP3 until the services
+                  are redeployed at the end of the upgrade procedure. This is
+                  particularly important to bear in mind if these services are
+                  colocated with MONs, MGRs or OSDs as they may be down for the
+                  duration of the cluster upgrade. If this is going to be a
+                  problem, consider deploying these services separately on
+                  additional nodes before upgrading, so that they are down for
+                  the shortest possible time. This is the duration of the
+                  upgrade of the gateway nodes, not the duration of the upgrade
+                  of the entire cluster.
+                </p></div></li><li class="listitem"><p>
+                NFS Ganesha and iSCSI Gateways are down only while nodes are rebooting
+                during upgrade from SUSE Linux Enterprise Server 15 SP1 to SUSE Linux Enterprise Server 15 SP3, and again
+                briefly when each service is redeployed on the containerized
+                mode.
+              </p></li></ul></div></li></ul></div></section><section class="sect2" id="upgrade-backup-config-data" data-id-title="Backing Up cluster configuration and data"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.2 </span><span class="title-name">Backing Up cluster configuration and data</span></span> <a title="Permalink" class="permalink" href="#upgrade-backup-config-data">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        We strongly recommend backing up all cluster configuration and data
+        before starting your upgrade to SUSE Enterprise Storage 7.1. For
+        instructions on how to back up all your data, see
+        <span class="intraxref">Book “Administration and Operations Guide”, Chapter 15 “Backup and restore”</span>.
+      </p></section><section class="sect2" id="verify-previous-upgrade" data-id-title="Verifying steps from the previous upgrade"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.3 </span><span class="title-name">Verifying steps from the previous upgrade</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        In case you previously upgraded from version 5, verify that the upgrade
+        to version 6 was completed successfully:
+      </p><p>
+        Check for the existence of the
+        <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.import</code>
+        file.
+      </p><p>
+        This file is created by the engulf process during the upgrade from
+        SUSE Enterprise Storage 5 to 6. The <code class="option">configuration_init:
+        default-import</code> option is set in
+        <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>.
+      </p><p>
+        If <code class="option">configuration_init</code> is still set to
+        <code class="option">default-import</code>, the cluster is using
+        <code class="filename">ceph.conf.import</code> as its configuration file and not
+        DeepSea's default <code class="filename">ceph.conf</code>, which is compiled
+        from files in
+        <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/</code>.
+      </p><p>
+        Therefore, you need to inspect <code class="filename">ceph.conf.import</code>
+        for any custom configuration, and possibly move the configuration to
+        one of the files in
+        <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/</code>.
+      </p><p>
+        Then remove the <code class="option">configuration_init: default-import</code>
+        line from
+        <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>.
+      </p></section><section class="sect2" id="verify-previous-upgrade-patch" data-id-title="Updating cluster nodes and verifying cluster health"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.4 </span><span class="title-name">Updating cluster nodes and verifying cluster health</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        Verify that all latest updates of SUSE Linux Enterprise Server 15 SP1 and SUSE Enterprise Storage
+        6 are applied to all cluster nodes:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt root"># </code>zypper refresh &amp;&amp; zypper patch</pre></div><div id="id-1.3.5.2.8.7.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+          Refer to
+          <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates" target="_blank">https://documentation.suse.com/ses/6/html/ses-all/storage-salt-cluster.html#deepsea-rolling-updates</a>
+          for detailed information about updating the cluster nodes.
+        </p></div><p>
+        After updates are applied, restart the Salt Master, synchronize new
+        Salt modules, and check the cluster health:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl restart salt-master.service
 <code class="prompt user">root@master # </code>salt '*' saltutil.sync_all
 <code class="prompt user">cephuser@adm &gt; </code>ceph -s</pre></div><section class="sect3" id="upgrade-disable-insecure" data-id-title="Disable insecure clients"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.4.1 </span><span class="title-name">Disable insecure clients</span></span> <a title="Permalink" class="permalink" href="#upgrade-disable-insecure">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-     Since Nautilus v14.2.20, a new health warning was introduced
-     that informs you that insecure clients are allowed to join the cluster.
-     This warning is <span class="emphasis"><em>on</em></span> by default. The Ceph Dashboard will
-     show the cluster in the <code class="literal">HEALTH_WARN</code> status. The command
-     line verifies the cluster status as follows:
-    </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephuser@adm &gt; </code>ceph status
+          Since Nautilus v14.2.20, a new health warning was
+          introduced that informs you that insecure clients are allowed to join
+          the cluster. This warning is <span class="emphasis"><em>on</em></span> by default. The
+          Ceph Dashboard will show the cluster in the
+          <code class="literal">HEALTH_WARN</code> status. The command line verifies the
+          cluster status as follows:
+        </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">cephuser@adm &gt; </code>ceph status
  cluster:
    id:     3fe8b35a-689f-4970-819d-0e6b11f6707c
    health: HEALTH_WARN
    mons are allowing insecure global_id reclaim
  [...]</pre></div><p>
-     This warning means that the Ceph Monitors are still allowing old, unpatched
-     clients to connect to the cluster. This ensures existing clients can still
-     connect while the cluster is being upgraded, but warns you that there is a
-     problem that needs to be addressed. When the cluster and all clients are
-     upgraded to the latest version of Ceph, disallow unpatched clients by
-     running the following command:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></section><section class="sect3" id="upgrade-disable-sanity-check" data-id-title="Disable FSMap sanity check"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.4.2 </span><span class="title-name">Disable FSMap sanity check</span></span> <a title="Permalink" class="permalink" href="#upgrade-disable-sanity-check">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-      Before you start upgrading cluster nodes, disable the FSMap sanity check:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config set mon mon_mds_skip_sanity true</code></pre></div></section></section><section class="sect2" id="verify-previous-upgrade-patch-repos" data-id-title="Verifying access to software repositories and container images"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.5 </span><span class="title-name">Verifying access to software repositories and container images</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch-repos">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    Verify that each cluster node has access to the SUSE Linux Enterprise Server 15 SP3 and SUSE Enterprise Storage
-    7.1 software repositories, as well as the registry of container
-    images.
-   </p><section class="sect3" id="verify-previous-upgrade-patch-repos-repos" data-id-title="Software repositories"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.5.1 </span><span class="title-name">Software repositories</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch-repos-repos">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-     If all nodes are registered with SCC, you will be able to use the
-     <code class="command">zypper migration</code> command to upgrade. Refer to
-     <a class="link" href="https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-upgrade-online.html#sec-upgrade-online-zypper" target="_blank">https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-upgrade-online.html#sec-upgrade-online-zypper</a>
-     for more details.
-    </p><p>
-     If nodes are <span class="bold"><strong>not</strong></span> registered with SCC,
-     disable all existing software repositories and add both the
-     <code class="literal">Pool</code> and <code class="literal">Updates</code> repositories for
-     each of the following extensions:
-    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-       SLE-Product-SLES/15-SP3
-      </p></li><li class="listitem"><p>
-       SLE-Module-Basesystem/15-SP3
-      </p></li><li class="listitem"><p>
-       SLE-Module-Server-Applications/15-SP3
-      </p></li><li class="listitem"><p>
-       SUSE-Enterprise-Storage-7.1
-      </p></li></ul></div></section><section class="sect3" id="verify-previous-upgrade-patch-repos-images" data-id-title="Container images"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.5.2 </span><span class="title-name">Container images</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch-repos-images">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-     All cluster nodes need access to the container image registry. In most
-     cases, you will use the public SUSE registry at
-     <code class="literal">registry.suse.com</code>. You need the following images:
-    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-       registry.suse.com/ses/7.1/ceph/ceph
-      </p></li><li class="listitem"><p>
-       registry.suse.com/ses/7.1/ceph/grafana
-      </p></li><li class="listitem"><p>
-       registry.suse.com/ses/7.1/ceph/prometheus-server
-      </p></li><li class="listitem"><p>
-       registry.suse.com/ses/7.1/ceph/prometheus-node-exporter
-      </p></li><li class="listitem"><p>
-       registry.suse.com/ses/7.1/ceph/prometheus-alertmanager
-      </p></li></ul></div><p>
-     Alternatively—for example, for air-gapped
-     deployments—configure a local registry and verify that you have the
-     correct set of container images available. Refer to
-     <a class="xref" href="#deploy-cephadm-configure-registry" title="7.2.10. Using the container registry">Section 7.2.10, “Using the container registry”</a> for more details
-     about configuring a local container image registry.
-    </p></section></section></section><section class="sect1" id="upgrade-salt-master" data-id-title="Upgrading the Salt Master"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></span> <a title="Permalink" class="permalink" href="#upgrade-salt-master">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-   The following procedure describes the process of upgrading the Salt Master:
-  </p><div id="id-1.3.5.2.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
-      Before continuing, ensure the steps have been followed
-      from <a class="xref" href="#deploy-cephadm-configure-imagepath" title="7.2.10.2. Configuring the path to container images">Section 7.2.10.2, “Configuring the path to container images”</a>.
-      Without this configuration, the podman image pull fails in
-      cephadm, but will succeed in the terminal if the customer
-      sets the following variables:
-    </p><div class="verbatim-wrap"><pre class="screen">https_proxy=
+          This warning means that the Ceph Monitors are still allowing old, unpatched
+          clients to connect to the cluster. This ensures existing clients can
+          still connect while the cluster is being upgraded, but warns you that
+          there is a problem that needs to be addressed. When the cluster and
+          all clients are upgraded to the latest version of Ceph, disallow
+          unpatched clients by running the following command:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mon auth_allow_insecure_global_id_reclaim false</pre></div></section><section class="sect3" id="upgrade-disable-sanity-check" data-id-title="Disable FSMap sanity check"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.4.2 </span><span class="title-name">Disable FSMap sanity check</span></span> <a title="Permalink" class="permalink" href="#upgrade-disable-sanity-check">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+          Before you start upgrading cluster nodes, disable the FSMap sanity
+          check:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config set mon mon_mds_skip_sanity true</code></pre></div></section></section><section class="sect2" id="verify-previous-upgrade-patch-repos" data-id-title="Verifying access to software repositories and container images"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.1.5 </span><span class="title-name">Verifying access to software repositories and container images</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch-repos">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        Verify that each cluster node has access to the SUSE Linux Enterprise Server 15 SP3 and
+        SUSE Enterprise Storage 7.1 software repositories, as well as the
+        registry of container images.
+      </p><section class="sect3" id="verify-previous-upgrade-patch-repos-repos" data-id-title="Software repositories"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.5.1 </span><span class="title-name">Software repositories</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch-repos-repos">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+          If all nodes are registered with SCC, you will be able to use the
+          <code class="command">zypper migration</code> command to upgrade. Refer to
+          <a class="link" href="https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-upgrade-online.html#sec-upgrade-online-zypper" target="_blank">https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-upgrade-online.html#sec-upgrade-online-zypper</a>
+          for more details.
+        </p><p>
+          If nodes are <span class="bold"><strong>not</strong></span> registered with
+          SCC, disable all existing software repositories and add both the
+          <code class="literal">Pool</code> and <code class="literal">Updates</code> repositories
+          for each of the following extensions:
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+              SLE-Product-SLES/15-SP3
+            </p></li><li class="listitem"><p>
+              SLE-Module-Basesystem/15-SP3
+            </p></li><li class="listitem"><p>
+              SLE-Module-Server-Applications/15-SP3
+            </p></li><li class="listitem"><p>
+              SUSE-Enterprise-Storage-7.1
+            </p></li></ul></div></section><section class="sect3" id="verify-previous-upgrade-patch-repos-images" data-id-title="Container images"><div class="titlepage"><div><div><div class="title-container"><h4 class="title"><span class="title-number-name"><span class="title-number">10.1.5.2 </span><span class="title-name">Container images</span></span> <a title="Permalink" class="permalink" href="#verify-previous-upgrade-patch-repos-images">#</a></h4><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+          All cluster nodes need access to the container image registry. In
+          most cases, you will use the public SUSE registry at
+          <code class="literal">registry.suse.com</code>. You need the following images:
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+              registry.suse.com/ses/7.1/ceph/ceph
+            </p></li><li class="listitem"><p>
+              registry.suse.com/ses/7.1/ceph/grafana
+            </p></li><li class="listitem"><p>
+              registry.suse.com/ses/7.1/ceph/prometheus-server
+            </p></li><li class="listitem"><p>
+              registry.suse.com/ses/7.1/ceph/prometheus-node-exporter
+            </p></li><li class="listitem"><p>
+              registry.suse.com/ses/7.1/ceph/prometheus-alertmanager
+            </p></li></ul></div><p>
+          Alternatively—for example, for air-gapped
+          deployments—configure a local registry and verify that you have
+          the correct set of container images available. Refer to
+          <a class="xref" href="#deploy-cephadm-configure-registry" title="7.2.10. Using the container registry">Section 7.2.10, “Using the container registry”</a> for more
+          details about configuring a local container image registry.
+        </p></section></section></section><section class="sect1" id="upgrade-salt-master" data-id-title="Upgrading the Salt Master"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.2 </span><span class="title-name">Upgrading the Salt Master</span></span> <a title="Permalink" class="permalink" href="#upgrade-salt-master">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+      The following procedure describes the process of upgrading the Salt Master:
+    </p><div id="id-1.3.5.2.9.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+        Before continuing, ensure the steps have been followed from
+        <a class="xref" href="#deploy-cephadm-configure-imagepath" title="7.2.10.2. Configuring the path to container images">Section 7.2.10.2, “Configuring the path to container images”</a>. Without this
+        configuration, the podman image pull fails in cephadm, but will
+        succeed in the terminal if the customer sets the following variables:
+      </p><div class="verbatim-wrap"><pre class="screen">https_proxy=
 http_proxy=</pre></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-     Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP3:
-    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-       For cluster whose all nodes are registered with SCC, run <code class="command">zypper
-       migration</code>.
-      </p></li><li class="listitem"><p>
-       For cluster whose nodes have software repositories assigned manually,
-       run <code class="command">zypper dup</code> followed by <code class="command">reboot</code>.
-      </p></li></ul></div></li><li class="step"><p>
-     Disable the DeepSea stages to avoid accidental use. Add the following
-     content to <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
-    </p><div class="verbatim-wrap"><pre class="screen">stage_prep: disabled
+          Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP3:
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+              For cluster whose all nodes are registered with SCC, run
+              <code class="command">zypper migration</code>.
+            </p></li><li class="listitem"><p>
+              For cluster whose nodes have software repositories assigned
+              manually, run <code class="command">zypper dup</code> followed by
+              <code class="command">reboot</code>.
+            </p></li></ul></div></li><li class="step"><p>
+          Disable the DeepSea stages to avoid accidental use. Add the
+          following content to
+          <code class="filename">/srv/pillar/ceph/stack/global.yml</code>:
+        </p><div class="verbatim-wrap"><pre class="screen">stage_prep: disabled
 stage_discovery: disabled
 stage_configure: disabled
 stage_deploy: disabled
 stage_services: disabled
 stage_remove: disabled</pre></div><p>
-     Save the file and apply the changes:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.pillar_refresh</pre></div></li><li class="step"><p>
-     If you are <span class="bold"><strong>not</strong></span> using container images
-     from <code class="literal">registry.suse.com</code> but rather the locally
-     configured registry, edit
-     <code class="filename">/srv/pillar/ceph/stack/global.yml</code> to inform DeepSea
-     which Ceph container image and registry to use. For example, to use
-     <code class="literal">192.168.121.1:5000/my/ceph/image</code> add the following
-     lines:
-    </p><div class="verbatim-wrap"><pre class="screen">ses7_container_image: 192.168.121.1:5000/my/ceph/image
+          Save the file and apply the changes:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.pillar_refresh</pre></div></li><li class="step"><p>
+          If you are <span class="bold"><strong>not</strong></span> using container
+          images from <code class="literal">registry.suse.com</code> but rather the
+          locally configured registry, edit
+          <code class="filename">/srv/pillar/ceph/stack/global.yml</code> to inform
+          DeepSea which Ceph container image and registry to use. For
+          example, to use <code class="literal">192.168.121.1:5000/my/ceph/image</code>
+          add the following lines:
+        </p><div class="verbatim-wrap"><pre class="screen">ses7_container_image: 192.168.121.1:5000/my/ceph/image
 ses7_container_registries:
   - location: 192.168.121.1:5000</pre></div><p>
-     If you need to specify authentication information for the registry, add
-     the <code class="literal">ses7_container_registry_auth:</code> block, for example:
-    </p><div class="verbatim-wrap"><pre class="screen">ses7_container_image: 192.168.121.1:5000/my/ceph/image
+          If you need to specify authentication information for the registry,
+          add the <code class="literal">ses7_container_registry_auth:</code> block, for
+          example:
+        </p><div class="verbatim-wrap"><pre class="screen">ses7_container_image: 192.168.121.1:5000/my/ceph/image
 ses7_container_registries:
   - location: 192.168.121.1:5000
 ses7_container_registry_auth:
   registry: 192.168.121.1:5000
   username: <em class="replaceable">USER_NAME</em>
   password: <em class="replaceable">PASSWORD</em></pre></div><p>
-     Save the file and apply the changes:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.refresh_pillar</pre></div></li><li class="step"><p>
-     Assimilate existing configuration:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config assimilate-conf -i /etc/ceph/ceph.conf</pre></div></li><li class="step"><p>
-     Verify the upgrade status. Your output may differ depending on your
-     cluster configuration:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run upgrade.status
+          Save the file and apply the changes:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.refresh_pillar</pre></div></li><li class="step"><p>
+          Assimilate existing configuration:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config assimilate-conf -i /etc/ceph/ceph.conf</pre></div></li><li class="step"><p>
+          Verify the upgrade status. Your output may differ depending on your
+          cluster configuration:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run upgrade.status
 The newest installed software versions are:
  ceph: ceph version 16.2.7-640-gceb23c7491b (ceb23c7491bd96ab7956111374219a4cdcf6f8f4) pacific (stable)
  os: SUSE Linux Enterprise Server 15 SP3
@@ -3544,29 +3556,30 @@ Nodes running older software versions must be upgraded in the following order:
  6: data2.ceph (assigned roles: storage)
  7: data3.ceph (assigned roles: storage)
  8: data5.ceph (assigned roles: storage, rgw)</pre></div></li></ol></div></div></section><section class="sect1" id="upgrade-mon-mgr-nodes" data-id-title="Upgrading the MON, MGR, and OSD nodes"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.3 </span><span class="title-name">Upgrading the MON, MGR, and OSD nodes</span></span> <a title="Permalink" class="permalink" href="#upgrade-mon-mgr-nodes">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-   Upgrade the Ceph Monitor, Ceph Manager, and OSD nodes one at a time. For each service,
-   follow these steps:
-  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-     Before adopting any OSD node, you need to perform a format conversion of
-     OSD nodes to improve the accounting for OMAP data. You can do so by
-     running the following command on the Admin Node:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set osd bluestore_fsck_quick_fix_on_mount true</pre></div><p>
-     The OSD nodes will be converted automatically after their adoption
-     finishes.
-    </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-      The conversion may take minutes to hours, depending on how much OMAP data
-      the related hard disk contains. For more details, refer to
-      <a class="link" href="https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters" target="_blank">https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters</a>.
-     </p></div></li><li class="step"><p>
-     If the node you are upgrading is an OSD node, avoid having the OSD marked
-     <code class="literal">out</code> during the upgrade by running the following
-     command:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd add-noout <em class="replaceable">SHORT_NODE_NAME</em></pre></div><p>
-     Replace <em class="replaceable">SHORT_NODE_NAME</em> with the short name of
-     the node as it appears in the output of the <code class="command">ceph osd
-     tree</code> command. In the following input, the short host names are
-     <code class="literal">ses-node1</code> and <code class="literal">ses-node2</code>
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph osd tree
+      Upgrade the Ceph Monitor, Ceph Manager, and OSD nodes one at a time. For each service,
+      follow these steps:
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+          Before adopting any OSD node, you need to perform a format conversion
+          of OSD nodes to improve the accounting for OMAP data. You can do so
+          by running the following command on the Admin Node:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set osd bluestore_fsck_quick_fix_on_mount true</pre></div><p>
+          The OSD nodes will be converted automatically after their adoption
+          finishes.
+        </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+            The conversion may take minutes to hours, depending on how much
+            OMAP data the related hard disk contains. For more details, refer
+            to
+            <a class="link" href="https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters" target="_blank">https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters</a>.
+          </p></div></li><li class="step"><p>
+          If the node you are upgrading is an OSD node, avoid having the OSD
+          marked <code class="literal">out</code> during the upgrade by running the
+          following command:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd add-noout <em class="replaceable">SHORT_NODE_NAME</em></pre></div><p>
+          Replace <em class="replaceable">SHORT_NODE_NAME</em> with the short
+          name of the node as it appears in the output of the <code class="command">ceph osd
+          tree</code> command. In the following input, the short host names
+          are <code class="literal">ses-node1</code> and <code class="literal">ses-node2</code>
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph osd tree
 ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
  -1         0.60405  root default
 -11         0.11691      host ses-node1
@@ -3578,240 +3591,252 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
   2    hdd  0.01949          osd.2       up   1.00000  1.00000
   5    hdd  0.01949          osd.5       up   1.00000  1.00000
 [...]</pre></div></li><li class="step"><p>
-     Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP3:
-    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-       If the cluster's nodes are all registered with SCC, run <code class="command">zypper
-       migration</code>.
-      </p></li><li class="listitem"><p>
-       If the cluster's nodes have software repositories assigned manually, run
-       <code class="command">zypper dup</code> followed by <code class="command">reboot</code>.
-      </p></li></ul></div></li><li class="step"><p>
-     If the node you are upgrading is an OSD node, follow these steps:
-    </p><ol type="a" class="substeps"><li class="step"><p>
-       At the time the OSD node is rebooted, set the <code class="option">bluestore_fsck_quick_fix_on_mount</code>
-       for each OSD daemon that is deployed on the rebooted node:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set osd.<em class="replaceable">OSD_DAEMON_ID</em> \
+          Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP3:
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+              If the cluster's nodes are all registered with SCC, run
+              <code class="command">zypper migration</code>.
+            </p></li><li class="listitem"><p>
+              If the cluster's nodes have software repositories assigned
+              manually, run <code class="command">zypper dup</code> followed by
+              <code class="command">reboot</code>.
+            </p></li></ul></div></li><li class="step"><p>
+          If the node you are upgrading is an OSD node, follow these steps:
+        </p><ol type="a" class="substeps"><li class="step"><p>
+              At the time the OSD node is rebooted, set the
+              <code class="option">bluestore_fsck_quick_fix_on_mount</code> for each OSD
+              daemon that is deployed on the rebooted node:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set osd.<em class="replaceable">OSD_DAEMON_ID</em> \
  bluestore_fsck_quick_fix_on_mount true</pre></div></li><li class="step"><p>
-       After the OSD node with the Salt minion ID <em class="replaceable">MINION_ID</em> has been
-       rebooted and now is up, run the following command:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">MINION_ID</em> state.apply ceph.upgrade.ses7.adopt</pre></div></li><li class="step"><p>
-       Run the following commands to perform an offline compaction, enabling a quick fix, and
-       perform an online compaction on each OSD daemon that is deployed on the OSD node identified
-       by the <em class="replaceable">MINION_ID</em>. For example
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> stop
+              After the OSD node with the Salt minion ID
+              <em class="replaceable">MINION_ID</em> has been rebooted and now is
+              up, run the following command:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">MINION_ID</em> state.apply ceph.upgrade.ses7.adopt</pre></div></li><li class="step"><p>
+              Run the following commands to perform an offline compaction,
+              enabling a quick fix, and perform an online compaction on each
+              OSD daemon that is deployed on the OSD node identified by the
+              <em class="replaceable">MINION_ID</em>. For example
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> stop
 <code class="prompt user">cephuser@adm &gt; </code>ceph-kvstore-tool bluestore-kv /var/lib/ceph/263302b4-afa2-11ec-a986-525400af093c/osd.<em class="replaceable">OSD_DAEMON_ID</em> compact
 <code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph-bluestore-tool --path /var/lib/ceph/osd/ceph-<em class="replaceable">OSD_DAEMON_ID</em>--command quick-fix
 <code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> start</pre></div><p>
-        Allow the OSD node to be up and in again, then run:
-       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-         You can run the above commands in parallel on multiple OSD daemons on the same OSD node
-         to help accelerate the upgrade.
-        </p></div></li></ol></li><li class="step"><p>
-     If the node you are upgrading is not an OSD node, then after the node is
-     rebooted, containerize all existing MON and MGR daemons on that node by
-     running the following command on the Salt Master:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">MINION_ID</em> state.apply ceph.upgrade.ses7.adopt</pre></div><p>
-     Replace <em class="replaceable">MINION_ID</em> with the ID of the minion
-     that you are upgrading. You can get the list of minion IDs by running the
-     <code class="command">salt-key -L</code> command on the Salt Master.
-    </p><div id="id-1.3.5.2.10.3.5.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
-      To see the status and progress of the <span class="emphasis"><em>adoption</em></span>,
-      check the Ceph Dashboard or run one of the following commands on the
-      Salt Master:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph status
+              Allow the OSD node to be up and in again, then run:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+                You can run the above commands in parallel on multiple OSD
+                daemons on the same OSD node to help accelerate the upgrade.
+              </p></div></li></ol></li><li class="step"><p>
+          If the node you are upgrading is not an OSD node, then after the node
+          is rebooted, containerize all existing MON and MGR daemons on that
+          node by running the following command on the Salt Master:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">MINION_ID</em> state.apply ceph.upgrade.ses7.adopt</pre></div><p>
+          Replace <em class="replaceable">MINION_ID</em> with the ID of the
+          minion that you are upgrading. You can get the list of minion IDs by
+          running the <code class="command">salt-key -L</code> command on the Salt Master.
+        </p><div id="id-1.3.5.2.10.3.5.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+            To see the status and progress of the
+            <span class="emphasis"><em>adoption</em></span>, check the Ceph Dashboard or run one of
+            the following commands on the Salt Master:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph status
 <code class="prompt user">root@master # </code>ceph versions
 <code class="prompt user">root@master # </code>salt-run upgrade.status</pre></div></div></li><li class="step"><p>
-     After the adoption has successfully finished, unset the
-     <code class="literal">noout</code> flag if the node you are upgrading is an OSD
-     node:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd rm-noout <em class="replaceable">SHORT_NODE_NAME</em></pre></div></li></ol></div></div></section><section class="sect1" id="upgrade-gateway-nodes" data-id-title="Upgrading gateway nodes"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></span> <a title="Permalink" class="permalink" href="#upgrade-gateway-nodes">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-   Upgrade your separate gateway nodes (Samba Gateway, Metadata Server, Object Gateway, NFS Ganesha, or
-   iSCSI Gateway) next. Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP3 for each node:
-  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-     If the cluster's nodes are all registered with SUSE Customer Center, run the
-     <code class="command">zypper migration</code> command.
-    </p></li><li class="listitem"><p>
-     If the cluster's nodes have software repositories assigned manually, run
-     the <code class="command">zypper dup</code> followed by the
-     <code class="command">reboot</code> commands.
-    </p></li></ul></div><p>
-   This step also applies to any nodes that are part of the cluster, but do not
-   yet have any roles assigned (if in doubt, check the list of hosts on the
-   Salt Master provided by the <code class="command">salt-key -L</code> command and compare
-   it to the output of the <code class="command">salt-run upgrade.status</code> command).
-  </p><p>
-   When the OS is upgraded on all nodes in the cluster, the next step is to
-   install the <span class="package">ceph-salt</span> package and apply the cluster
-   configuration. The actual gateway services are redeployed in a containerized
-   mode at the end of the upgrade procedure.
-  </p><div id="id-1.3.5.2.11.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
-    To successfully upgrade the Metadata Server, ensure you reduce the Metadata Server to 1.
-   </p><p>
-    Run <code class="command">salt-run upgrade.status</code> to ensure that all Metadata Servers on
-    standby are stopped.
-   </p><p>
-    Ensure you stop the Metadata Server before upgrading the Ceph Monitor nodes as it may
-    otherwise result in a failed quorum.
-   </p></div><div id="id-1.3.5.2.11.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-    Metadata Server and Object Gateway services are unavailable from the time of upgrading to
-    SUSE Linux Enterprise Server 15 SP3 until they are redeployed at the end of the upgrade procedure.
-   </p></div><div id="id-1.3.5.2.11.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
-    SUSE Enterprise Storage 7.1 does not use the
-    <code class="option">rgw_frontend_ssl_key</code> option. Instead, both the SSL key and
-    certificate are concatenated under the
-    <code class="option">rgw_frontend_ssl_certificate</code> option. If the Object Gateway
-    deployment uses the <code class="option">rgw_frontend_ssl_key</code> option, it will
-    not be available after the upgrade to SUSE Enterprise Storage 7.1.
-    In this case, the Object Gateway must be redeployed with the
-    <code class="option">rgw_frontend_ssl_certificate</code> option.
-    Refer to <a class="xref" href="#cephadm-deploy-using-secure-ssl-access" title="8.3.4.1. Using secure SSL access">Section 8.3.4.1, “Using secure SSL access”</a> for more
-    details.
-   </p></div></section><section class="sect1" id="upgrade-cephsalt" data-id-title="Installing ceph-salt and applying the cluster configuration"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></span> <a title="Permalink" class="permalink" href="#upgrade-cephsalt">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-   Before you start the procedure of installing <code class="systemitem">ceph-salt</code> and applying the
-   cluster configuration, check the cluster and upgrade status by running the
-   following commands:
-  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph status
+          After the adoption has successfully finished, unset the
+          <code class="literal">noout</code> flag if the node you are upgrading is an OSD
+          node:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd rm-noout <em class="replaceable">SHORT_NODE_NAME</em></pre></div></li></ol></div></div></section><section class="sect1" id="upgrade-gateway-nodes" data-id-title="Upgrading gateway nodes"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.4 </span><span class="title-name">Upgrading gateway nodes</span></span> <a title="Permalink" class="permalink" href="#upgrade-gateway-nodes">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+      Upgrade your separate gateway nodes (Samba Gateway, Metadata Server, Object Gateway, NFS Ganesha, or
+      iSCSI Gateway) next. Upgrade the underlying OS to SUSE Linux Enterprise Server 15 SP3 for each node:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+          If the cluster's nodes are all registered with SUSE Customer Center, run the
+          <code class="command">zypper migration</code> command.
+        </p></li><li class="listitem"><p>
+          If the cluster's nodes have software repositories assigned manually,
+          run the <code class="command">zypper dup</code> followed by the
+          <code class="command">reboot</code> commands.
+        </p></li></ul></div><p>
+      This step also applies to any nodes that are part of the cluster, but do
+      not yet have any roles assigned (if in doubt, check the list of hosts on
+      the Salt Master provided by the <code class="command">salt-key -L</code> command and
+      compare it to the output of the <code class="command">salt-run
+      upgrade.status</code> command).
+    </p><p>
+      When the OS is upgraded on all nodes in the cluster, the next step is to
+      install the <span class="package">ceph-salt</span> package and apply the cluster
+      configuration. The actual gateway services are redeployed in a
+      containerized mode at the end of the upgrade procedure.
+    </p><div id="id-1.3.5.2.11.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+        To successfully upgrade the Metadata Server, ensure you reduce the Metadata Server to 1.
+      </p><p>
+        Run <code class="command">salt-run upgrade.status</code> to ensure that all
+        Metadata Servers on standby are stopped.
+      </p><p>
+        Ensure you stop the Metadata Server before upgrading the Ceph Monitor nodes as it may
+        otherwise result in a failed quorum.
+      </p></div><div id="id-1.3.5.2.11.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+        Metadata Server and Object Gateway services are unavailable from the time of upgrading to
+        SUSE Linux Enterprise Server 15 SP3 until they are redeployed at the end of the upgrade procedure.
+      </p></div><div id="id-1.3.5.2.11.8" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+        SUSE Enterprise Storage 7.1 does not use the
+        <code class="option">rgw_frontend_ssl_key</code> option. Instead, both the SSL key
+        and certificate are concatenated under the
+        <code class="option">rgw_frontend_ssl_certificate</code> option. If the Object Gateway
+        deployment uses the <code class="option">rgw_frontend_ssl_key</code> option, it
+        will not be available after the upgrade to SUSE Enterprise Storage
+        7.1. In this case, the Object Gateway must be redeployed with the
+        <code class="option">rgw_frontend_ssl_certificate</code> option. Refer to
+        <a class="xref" href="#cephadm-deploy-using-secure-ssl-access" title="8.3.4.1. Using secure SSL access">Section 8.3.4.1, “Using secure SSL access”</a> for more
+        details.
+      </p></div></section><section class="sect1" id="upgrade-cephsalt" data-id-title="Installing ceph-salt and applying the cluster configuration"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.5 </span><span class="title-name">Installing <code class="systemitem">ceph-salt</code> and applying the cluster configuration</span></span> <a title="Permalink" class="permalink" href="#upgrade-cephsalt">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+      Before you start the procedure of installing <code class="systemitem">ceph-salt</code> and applying the
+      cluster configuration, check the cluster and upgrade status by running
+      the following commands:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph status
 <code class="prompt user">root@master # </code>ceph versions
 <code class="prompt user">root@master # </code>salt-run upgrade.status</pre></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-     Remove the DeepSea-created <code class="literal">rbd_exporter</code> and
-     <code class="literal">rgw_exporter</code> cron jobs. On the Salt Master as the
-     <code class="systemitem">root</code> run the <code class="command">crontab -e</code> command to edit the
-     crontab. Delete the following items if present:
-    </p><div class="verbatim-wrap"><pre class="screen"># SALT_CRON_IDENTIFIER:deepsea rbd_exporter cron job
+          Remove the DeepSea-created <code class="literal">rbd_exporter</code> and
+          <code class="literal">rgw_exporter</code> cron jobs. On the Salt Master as the
+          <code class="systemitem">root</code> run the <code class="command">crontab -e</code> command to edit the
+          crontab. Delete the following items if present:
+        </p><div class="verbatim-wrap"><pre class="screen"># SALT_CRON_IDENTIFIER:deepsea rbd_exporter cron job
 */5 * * * * /var/lib/prometheus/node-exporter/rbd.sh &gt; \
  /var/lib/prometheus/node-exporter/rbd.prom 2&gt; /dev/null
 # SALT_CRON_IDENTIFIER:Prometheus rgw_exporter cron job
 */5 * * * * /var/lib/prometheus/node-exporter/ceph_rgw.py &gt; \
  /var/lib/prometheus/node-exporter/ceph_rgw.prom 2&gt; /dev/null</pre></div></li><li class="step"><p>
-     Export cluster configuration from DeepSea, by running the following
-     commands:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run upgrade.ceph_salt_config &gt; ceph-salt-config.json
+          Export cluster configuration from DeepSea, by running the following
+          commands:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run upgrade.ceph_salt_config &gt; ceph-salt-config.json
 <code class="prompt user">root@master # </code>salt-run upgrade.generate_service_specs &gt; specs.yaml</pre></div></li><li class="step"><p>
-     Uninstall DeepSea and install <code class="systemitem">ceph-salt</code> on the Salt Master:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper remove 'deepsea*'
+          Uninstall DeepSea and install <code class="systemitem">ceph-salt</code> on the Salt Master:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper remove 'deepsea*'
 <code class="prompt user">root@master # </code>zypper install ceph-salt</pre></div></li><li class="step"><p>
-     Restart the Salt Master and synchronize Salt modules:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl restart salt-master.service
+          Restart the Salt Master and synchronize Salt modules:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>systemctl restart salt-master.service
 <code class="prompt user">root@master # </code>salt \* saltutil.sync_all</pre></div></li><li class="step"><p>
-     Import DeepSea's cluster configuration into <code class="systemitem">ceph-salt</code>:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt import ceph-salt-config.json</pre></div></li><li class="step"><p>
-     Generate SSH keys for cluster node communication:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ssh generate</pre></div><div id="id-1.3.5.2.12.4.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
-      Verify that the cluster configuration was imported from DeepSea and
-      specify potentially missed options:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config ls</pre></div><p>
-      For a complete description of cluster configuration, refer to
-      <a class="xref" href="#deploy-cephadm-configure" title="7.2. Configuring cluster properties">Section 7.2, “Configuring cluster properties”</a>.
-     </p></div></li><li class="step"><p>
-     Apply the configuration and enable cephadm:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply</pre></div></li><li class="step"><p>
-     If you need to supply local container registry URL and access credentials,
-     follow the steps described in
-     <a class="xref" href="#deploy-cephadm-configure-registry" title="7.2.10. Using the container registry">Section 7.2.10, “Using the container registry”</a>.
-    </p></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
-       If you <span class="bold"><strong>are</strong></span> using container images from
-       <code class="literal">registry.suse.com</code>, you need to set the
-       <code class="option">container_image</code> option: </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image registry.suse.com/ses/7.1/ceph/ceph:latest</pre></div></li><li class="step"><p>
-       If you are <span class="bold"><strong>not</strong></span> using container images
-       from <code class="literal">registry.suse.com</code> but rather the
-       locally-configured registry, inform Ceph which container image to use
-       by running the following command:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image <em class="replaceable">IMAGE_NAME</em></pre></div><p>
-       For example:
-      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image 192.168.121.1:5000/my/ceph/image</pre></div></li></ol></li><li class="step"><p>
-     Stop and disable the SUSE Enterprise Storage 6
-     <code class="systemitem">ceph-crash</code> daemons. New
-     containerized forms of these daemons are started later automatically.
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' service.stop ceph-crash
+          Import DeepSea's cluster configuration into <code class="systemitem">ceph-salt</code>:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt import ceph-salt-config.json</pre></div></li><li class="step"><p>
+          Generate SSH keys for cluster node communication:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config /ssh generate</pre></div><div id="id-1.3.5.2.12.4.6.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+            Verify that the cluster configuration was imported from DeepSea
+            and specify potentially missed options:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt config ls</pre></div><p>
+            For a complete description of cluster configuration, refer to
+            <a class="xref" href="#deploy-cephadm-configure" title="7.2. Configuring cluster properties">Section 7.2, “Configuring cluster properties”</a>.
+          </p></div></li><li class="step"><p>
+          Apply the configuration and enable cephadm:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph-salt apply</pre></div></li><li class="step"><p>
+          If you need to supply local container registry URL and access
+          credentials, follow the steps described in
+          <a class="xref" href="#deploy-cephadm-configure-registry" title="7.2.10. Using the container registry">Section 7.2.10, “Using the container registry”</a>.
+        </p></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
+              If you <span class="bold"><strong>are</strong></span> using container
+              images from <code class="literal">registry.suse.com</code>, you need to set
+              the <code class="option">container_image</code> option:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image registry.suse.com/ses/7.1/ceph/ceph:latest</pre></div></li><li class="step"><p>
+              If you are <span class="bold"><strong>not</strong></span> using container
+              images from <code class="literal">registry.suse.com</code> but rather the
+              locally-configured registry, inform Ceph which container image
+              to use by running the following command:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image <em class="replaceable">IMAGE_NAME</em></pre></div><p>
+              For example:
+            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set global container_image 192.168.121.1:5000/my/ceph/image</pre></div></li></ol></li><li class="step"><p>
+          Stop and disable the SUSE Enterprise Storage 6
+          <code class="systemitem">ceph-crash</code> daemons. New
+          containerized forms of these daemons are started later automatically.
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' service.stop ceph-crash
 <code class="prompt user">root@master # </code>salt '*' service.disable ceph-crash</pre></div></li></ol></div></div></section><section class="sect1" id="upgrade-cephsalt-monitoring" data-id-title="Upgrading and adopting the monitoring stack"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.6 </span><span class="title-name">Upgrading and adopting the monitoring stack</span></span> <a title="Permalink" class="permalink" href="#upgrade-cephsalt-monitoring">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-   This following procedure adopts all components of the monitoring stack (see
-   <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”</span> for more details).
-  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-     Pause the orchestrator:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch pause</pre></div></li><li class="step"><p>
-     On whichever node is running Prometheus, Grafana and Alertmanager
-     (the Salt Master by default), run the following commands:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name prometheus.$(hostname)
+      This following procedure adopts all components of the monitoring stack
+      (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”</span> for more details).
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+          Pause the orchestrator:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch pause</pre></div></li><li class="step"><p>
+          On whichever node is running Prometheus, Grafana and
+          Alertmanager (the Salt Master by default), run the following
+          commands:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name prometheus.$(hostname)
 <code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name alertmanager.$(hostname)
 <code class="prompt user">cephuser@adm &gt; </code>cephadm adopt --style=legacy --name grafana.$(hostname)</pre></div><div id="id-1.3.5.2.13.3.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
-      If you are <span class="bold"><strong>not</strong></span> running the default
-      container image registry <code class="literal">registry.suse.com</code>, you need
-      to specify the image to use on each command, for example:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm --image 192.168.121.1:5000/ses/7.1/ceph/prometheus-server:2.32.1 \
+            If you are <span class="bold"><strong>not</strong></span> running the default
+            container image registry <code class="literal">registry.suse.com</code>, you
+            need to specify the image to use on each command, for example:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm --image 192.168.121.1:5000/ses/7.1/ceph/prometheus-server:2.32.1 \
   adopt --style=legacy --name prometheus.$(hostname)
 <code class="prompt user">cephuser@adm &gt; </code>cephadm --image 192.168.121.1:5000/ses/7.1/ceph/prometheus-alertmanager:0.23.0 \
   adopt --style=legacy --name alertmanager.$(hostname)
 <code class="prompt user">cephuser@adm &gt; </code>cephadm --image 192.168.121.1:5000/ses/7.1/ceph/grafana:8.3.10 \
  adopt --style=legacy --name grafana.$(hostname)</pre></div><p>
-      The container images required and their respective versions are listed in
-      <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
-     </p></div></li><li class="step"><p>
-     Remove Node-Exporter from <span class="bold"><strong>all</strong></span> nodes. The
-     Node-Exporter does not need to be migrated and will be re-installed as a
-     container when the <code class="filename">specs.yaml</code> file is applied.
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> zypper rm golang-github-prometheus-node_exporter</pre></div><p>
-     Alternatively, you can remove Node-Exporter from all nodes simultaneously
-     using Salt on the admin node:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' pkg.remove golang-github-prometheus-node_exporter</pre></div></li><li class="step"><p>
-     If you are using a custom container image registry that requires authentication, run a login command
-     to verify that the images can be pulled:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph cephadm registry-login <em class="replaceable">URL</em> <em class="replaceable">USERNAME</em> <em class="replaceable">PASSWORD</em></pre></div></li><li class="step"><p>
-     Apply the service specifications that you previously exported from
-     DeepSea:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i specs.yaml</pre></div><div id="id-1.3.5.2.13.3.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
-      If you are <span class="bold"><strong>not</strong></span> running the default
-      container image registry <code class="literal">registry.suse.com</code>, but a
-      local container registry, configure cephadm to use the container image
-      from the local registry for the deployment of Node-Exporter before
-      deploying the Node-Exporter. Otherwise you can safely skip this step and
-      ignore the following warning.
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_node_exporter <em class="replaceable">QUALIFIED_IMAGE_PATH</em></pre></div><p>
-      Make sure that all container images for monitoring services point to the
-      local registry, not only the one for Node-Exporter. This step requires
-      you to do so for the Node-Exporter only, but it is advised than you set
-      all the monitoring container images in cephadm to point to the local
-      registry at this point.
-     </p><p>
-      If you do not do so, new deployments of monitoring services as well as
-      re-deployments will use the default cephadm configuration and you may
-      end up being unable to deploy services (in the case of air-gapped
-      deployments), or with services deployed with mixed versions.
-     </p><p>
-      How cephadm needs to be configured to use container images from the
-      local registry is described in
-      <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
-     </p></div></li><li class="step"><p>
-     Resume the orchestrator:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch resume</pre></div></li></ol></div></div></section><section class="sect1" id="upgrade-gateways" data-id-title="Gateway service redeployment"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></span> <a title="Permalink" class="permalink" href="#upgrade-gateways">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><section class="sect2" id="upgrade-ogw" data-id-title="Upgrading the Object Gateway"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.1 </span><span class="title-name">Upgrading the Object Gateway</span></span> <a title="Permalink" class="permalink" href="#upgrade-ogw">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    In SUSE Enterprise Storage 7.1, the Object Gateways are always configured with a
-    realm, which allows for multi-site (see <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.13 “Multisite Object Gateways”</span> for
-    more details) in the future. If you used a single-site Object Gateway configuration
-    in SUSE Enterprise Storage 6, follow these steps to add a
-    realm. If you do not plan to use the multi-site functionality, you can use
-    <code class="literal">default</code> for the realm, zonegroup and zone names.
-   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-      Create a new realm:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm create --rgw-realm=<em class="replaceable">REALM_NAME</em> --default</pre></div></li><li class="step"><p>
-      Optionally, rename the default zone and zonegroup.
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup rename \
+            The container images required and their respective versions are
+            listed in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
+          </p></div></li><li class="step"><p>
+          Remove Node-Exporter from <span class="bold"><strong>all</strong></span> nodes.
+          The Node-Exporter does not need to be migrated and will be
+          re-installed as a container when the <code class="filename">specs.yaml</code>
+          file is applied.
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> zypper rm golang-github-prometheus-node_exporter</pre></div><p>
+          Alternatively, you can remove Node-Exporter from all nodes
+          simultaneously using Salt on the admin node:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' pkg.remove golang-github-prometheus-node_exporter</pre></div></li><li class="step"><p>
+          If you are using a custom container image registry that requires
+          authentication, run a login command to verify that the images can be
+          pulled:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph cephadm registry-login <em class="replaceable">URL</em> <em class="replaceable">USERNAME</em> <em class="replaceable">PASSWORD</em></pre></div></li><li class="step"><p>
+          Apply the service specifications that you previously exported from
+          DeepSea:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i specs.yaml</pre></div><div id="id-1.3.5.2.13.3.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+            If you are <span class="bold"><strong>not</strong></span> running the default
+            container image registry <code class="literal">registry.suse.com</code>, but
+            a local container registry, configure cephadm to use the
+            container image from the local registry for the deployment of
+            Node-Exporter before deploying the Node-Exporter. Otherwise you can
+            safely skip this step and ignore the following warning.
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set mgr mgr/cephadm/container_image_node_exporter <em class="replaceable">QUALIFIED_IMAGE_PATH</em></pre></div><p>
+            Make sure that all container images for monitoring services point
+            to the local registry, not only the one for Node-Exporter. This
+            step requires you to do so for the Node-Exporter only, but it is
+            advised than you set all the monitoring container images in
+            cephadm to point to the local registry at this point.
+          </p><p>
+            If you do not do so, new deployments of monitoring services as well
+            as re-deployments will use the default cephadm configuration and
+            you may end up being unable to deploy services (in the case of
+            air-gapped deployments), or with services deployed with mixed
+            versions.
+          </p><p>
+            How cephadm needs to be configured to use container images from
+            the local registry is described in
+            <span class="intraxref">Book “Administration and Operations Guide”, Chapter 16 “Monitoring and alerting”, Section 16.1 “Configuring custom or local images”</span>.
+          </p></div></li><li class="step"><p>
+          Resume the orchestrator:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch resume</pre></div></li></ol></div></div></section><section class="sect1" id="upgrade-gateways" data-id-title="Gateway service redeployment"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.7 </span><span class="title-name">Gateway service redeployment</span></span> <a title="Permalink" class="permalink" href="#upgrade-gateways">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><section class="sect2" id="upgrade-ogw" data-id-title="Upgrading the Object Gateway"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.1 </span><span class="title-name">Upgrading the Object Gateway</span></span> <a title="Permalink" class="permalink" href="#upgrade-ogw">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        In SUSE Enterprise Storage 7.1, the Object Gateways are always configured with
+        a realm, which allows for multi-site (see
+        <span class="intraxref">Book “Administration and Operations Guide”, Chapter 21 “Ceph Object Gateway”, Section 21.13 “Multisite Object Gateways”</span> for more details) in the future. If you
+        used a single-site Object Gateway configuration in SUSE Enterprise Storage
+        6, follow these steps to add a realm. If you do
+        not plan to use the multi-site functionality, you can use
+        <code class="literal">default</code> for the realm, zonegroup and zone names.
+      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+            Create a new realm:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin realm create --rgw-realm=<em class="replaceable">REALM_NAME</em> --default</pre></div></li><li class="step"><p>
+            Optionally, rename the default zone and zonegroup.
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup rename \
  --rgw-zonegroup default \
  --zonegroup-new-name=<em class="replaceable">ZONEGROUP_NAME</em>
 <code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone rename \
  --rgw-zone default \
  --zone-new-name <em class="replaceable">ZONE_NAME</em> \
  --rgw-zonegroup=<em class="replaceable">ZONEGROUP_NAME</em></pre></div></li><li class="step"><p>
-      Configure the master zonegroup:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup modify \
+            Configure the master zonegroup:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zonegroup modify \
  --rgw-realm=<em class="replaceable">REALM_NAME</em> \
  --rgw-zonegroup=<em class="replaceable">ZONEGROUP_NAME</em> \
  --endpoints http://<em class="replaceable">RGW.EXAMPLE.COM</em>:80 \
  --master --default</pre></div></li><li class="step"><p>
-      Configure the master zone. For this, you will need the ACCESS_KEY and
-      SECRET_KEY of an Object Gateway user with the <code class="option">system</code> flag
-      enabled. This is usually the <code class="literal">admin</code> user. To get the
-      ACCESS_KEY and SECRET_KEY, run <code class="command">radosgw-admin user info --uid
-      admin --rgw-zone=<em class="replaceable">ZONE_NAME</em></code>.
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify \
+            Configure the master zone. For this, you will need the ACCESS_KEY
+            and SECRET_KEY of an Object Gateway user with the <code class="option">system</code>
+            flag enabled. This is usually the <code class="literal">admin</code> user. To
+            get the ACCESS_KEY and SECRET_KEY, run <code class="command">radosgw-admin user
+            info --uid admin
+            --rgw-zone=<em class="replaceable">ZONE_NAME</em></code>.
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin zone modify \
  --rgw-realm=<em class="replaceable">REALM_NAME</em> \
  --rgw-zonegroup=<em class="replaceable">ZONEGROUP_NAME</em> \
  --rgw-zone=<em class="replaceable">ZONE_NAME</em> \
@@ -3819,48 +3844,50 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
  --access-key=<em class="replaceable">ACCESS_KEY</em> \
  --secret=<em class="replaceable">SECRET_KEY</em> \
  --master --default</pre></div></li><li class="step"><p>
-      Commit the updated configuration:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit</pre></div></li></ol></div></div><p>
-    To have the Object Gateway service containerized, create its specification file as
-    described in <a class="xref" href="#deploy-cephadm-day2-service-ogw" title="8.3.4. Deploying Object Gateways">Section 8.3.4, “Deploying Object Gateways”</a>, and apply
-    it.
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">RGW</em>.yml</pre></div><div id="id-1.3.5.2.14.2.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
-      After applying the new Object Gateway specification, run <code class="command">ceph config
-      dump</code> and inspect the lines that contain
-      <code class="literal">client.rgw.</code> to see if there are any old settings that
-      need to be applied to the new Object Gateway instances.    </p></div></section><section class="sect2" id="upgrade-ganesha" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.2 </span><span class="title-name">Upgrading NFS Ganesha</span></span> <a title="Permalink" class="permalink" href="#upgrade-ganesha">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><div id="id-1.3.5.2.14.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+            Commit the updated configuration:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>radosgw-admin period update --commit</pre></div></li></ol></div></div><p>
+        To have the Object Gateway service containerized, create its specification file
+        as described in <a class="xref" href="#deploy-cephadm-day2-service-ogw" title="8.3.4. Deploying Object Gateways">Section 8.3.4, “Deploying Object Gateways”</a>, and
+        apply it.
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">RGW</em>.yml</pre></div><div id="id-1.3.5.2.14.2.6" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+          After applying the new Object Gateway specification, run <code class="command">ceph config
+          dump</code> and inspect the lines that contain
+          <code class="literal">client.rgw.</code> to see if there are any old settings
+          that need to be applied to the new Object Gateway instances.
+        </p></div></section><section class="sect2" id="upgrade-ganesha" data-id-title="Upgrading NFS Ganesha"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.2 </span><span class="title-name">Upgrading NFS Ganesha</span></span> <a title="Permalink" class="permalink" href="#upgrade-ganesha">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><div id="id-1.3.5.2.14.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   NFS Ganesha supports NFS version 4.1 and newer.
   It does not support NFS version 3.
  </p></div><div id="id-1.3.5.2.14.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
   The upgrade process disables the <code class="literal">nfs</code> module in the Ceph Manager daemon. 
   You can re-enable it by executing the following command from the Admin Node:
  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable nfs</pre></div></div><p>
-    The following demonstrates how to migrate an existing NFS Ganesha service
-    running Ceph Nautilus to an NFS Ganesha container running Ceph Octopus.
-   </p><div id="id-1.3.5.2.14.3.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
-     The following documentation requires you to have already successfully
-     upgraded the core Ceph services.
-    </p></div><p>
-    NFS Ganesha stores additional per-daemon configuration and exports
-    configuration in a RADOS pool. The configured RADOS pool can be found
-    on the <code class="literal">watch_url</code> line of the
-    <code class="literal">RADOS_URLS</code> block in the
-    <code class="filename">ganesha.conf</code> file. By default, this pool will be named
-    <code class="literal">ganesha_config</code>
-   </p><p>
-    Before attempting any migration, we strongly recommend making a copy of the
-    export and daemon configuration objects located in the RADOS pool. To
-    locate the configured RADOS pool, run the following command:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>grep -A5 RADOS_URLS /etc/ganesha/ganesha.conf</pre></div><p>
-    To list the contents of the RADOS pool:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool ganesha_config --namespace ganesha ls | sort
+        The following demonstrates how to migrate an existing NFS Ganesha service
+        running Ceph Nautilus to an NFS Ganesha container running Ceph
+        Octopus.
+      </p><div id="id-1.3.5.2.14.3.5" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><div class="admon-title">Warning</div><p>
+          The following documentation requires you to have already successfully
+          upgraded the core Ceph services.
+        </p></div><p>
+        NFS Ganesha stores additional per-daemon configuration and exports
+        configuration in a RADOS pool. The configured RADOS pool can be
+        found on the <code class="literal">watch_url</code> line of the
+        <code class="literal">RADOS_URLS</code> block in the
+        <code class="filename">ganesha.conf</code> file. By default, this pool will be
+        named <code class="literal">ganesha_config</code>
+      </p><p>
+        Before attempting any migration, we strongly recommend making a copy of
+        the export and daemon configuration objects located in the RADOS pool.
+        To locate the configured RADOS pool, run the following command:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>grep -A5 RADOS_URLS /etc/ganesha/ganesha.conf</pre></div><p>
+        To list the contents of the RADOS pool:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados --pool ganesha_config --namespace ganesha ls | sort
   conf-node3
   export-1
   export-2
   export-3
   export-4</pre></div><p>
-    To copy the RADOS objects:
-   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>RADOS_ARGS="--pool ganesha_config --namespace ganesha"
+        To copy the RADOS objects:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>RADOS_ARGS="--pool ganesha_config --namespace ganesha"
 <code class="prompt user">cephuser@adm &gt; </code>OBJS=$(rados $RADOS_ARGS ls)
 <code class="prompt user">cephuser@adm &gt; </code>for obj in $OBJS; do rados $RADOS_ARGS get $obj $obj; done
 <code class="prompt user">cephuser@adm &gt; </code>ls -lah
@@ -3873,52 +3900,53 @@ drwx------ 9 root root 4.0K Sep 8 03:23 ..
 -rw-r--r-- 1 root root 350 Sep 8 03:30 export-2
 -rw-r--r-- 1 root root 350 Sep 8 03:30 export-3
 -rw-r--r-- 1 root root 358 Sep 8 03:30 export-4</pre></div><p>
-    On a per-node basis, any existing NFS Ganesha service needs to be stopped and
-    then replaced with a container managed by cephadm.
-   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-      Stop and disable the existing NFS Ganesha service:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>systemctl stop nfs-ganesha
+        On a per-node basis, any existing NFS Ganesha service needs to be stopped
+        and then replaced with a container managed by cephadm.
+      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+            Stop and disable the existing NFS Ganesha service:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>systemctl stop nfs-ganesha
 <code class="prompt user">cephuser@adm &gt; </code>systemctl disable nfs-ganesha</pre></div></li><li class="step"><p>
-      After the existing NFS Ganesha service has been stopped, a new one can be
-      deployed in a container using cephadm. To do so, you need to create a
-      service specification that contains a <code class="literal">service_id</code> that
-      will be used to identify this new NFS cluster, the host name of the node
-      we are migrating listed as a host in the placement specification, and the
-      RADOS pool and namespace that contains the configured NFS export objects.
-      For example:
-     </p><div class="verbatim-wrap"><pre class="screen">service_type: nfs
+            After the existing NFS Ganesha service has been stopped, a new one
+            can be deployed in a container using cephadm. To do so, you need
+            to create a service specification that contains a
+            <code class="literal">service_id</code> that will be used to identify this
+            new NFS cluster, the host name of the node we are migrating listed
+            as a host in the placement specification, and the RADOS pool and
+            namespace that contains the configured NFS export objects. For
+            example:
+          </p><div class="verbatim-wrap"><pre class="screen">service_type: nfs
 service_id: <em class="replaceable">SERVICE_ID</em>
 placement:
   hosts:
   - node2
   pool: ganesha_config
   namespace: ganesha</pre></div><p>
-      For more information on creating a placement specification, see
-      <a class="xref" href="#cephadm-service-and-placement-specs" title="8.2. Service and placement specification">Section 8.2, “Service and placement specification”</a>.
-     </p></li><li class="step"><p>
-      Apply the placement specification:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">FILENAME</em>.yaml</pre></div></li><li class="step"><p>
-      Confirm the NFS Ganesha daemon is running on the host:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --daemon_type nfs
+            For more information on creating a placement specification, see
+            <a class="xref" href="#cephadm-service-and-placement-specs" title="8.2. Service and placement specification">Section 8.2, “Service and placement specification”</a>.
+          </p></li><li class="step"><p>
+            Apply the placement specification:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch apply -i <em class="replaceable">FILENAME</em>.yaml</pre></div></li><li class="step"><p>
+            Confirm the NFS Ganesha daemon is running on the host:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph orch ps --daemon_type nfs
 NAME           HOST   STATUS         REFRESHED  AGE  VERSION  IMAGE NAME                                IMAGE ID      CONTAINER ID
 nfs.foo.node2  node2  running (26m)  8m ago     27m  3.3      registry.suse.com/ses/7.1/ceph/ceph:latest  8b4be7c42abd  c8b75d7c8f0d</pre></div></li><li class="step"><p>
-      Repeat these steps for each NFS Ganesha node. You do not need to create a
-      separate service specification for each node. It is sufficient to add
-      each node's host name to the existing NFS service specification and
-      re-apply it.
-     </p></li></ol></div></div><p>
-    The existing exports can be migrated in two different ways:
-   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
-      Manually re-created or re-assigned using the Ceph Dashboard.
-     </p></li><li class="listitem"><p>
-      Manually copy the contents of each per-daemon RADOS object into the
-      newly created NFS Ganesha common configuration.
-     </p></li></ul></div><div class="procedure" id="id-1.3.5.2.14.3.17" data-id-title="Manually copying exports to NFS Ganesha common configuration file"><div class="title-container"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number-name"><span class="title-number">Procedure 10.1: </span><span class="title-name">Manually copying exports to NFS Ganesha common configuration file </span></span><a title="Permalink" class="permalink" href="#id-1.3.5.2.14.3.17">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-      Determine the list of per-daemon RADOS objects:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>RADOS_ARGS="--pool ganesha_config --namespace ganesha"
+            Repeat these steps for each NFS Ganesha node. You do not need to
+            create a separate service specification for each node. It is
+            sufficient to add each node's host name to the existing NFS service
+            specification and re-apply it.
+          </p></li></ol></div></div><p>
+        The existing exports can be migrated in two different ways:
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+            Manually re-created or re-assigned using the Ceph Dashboard.
+          </p></li><li class="listitem"><p>
+            Manually copy the contents of each per-daemon RADOS object into
+            the newly created NFS Ganesha common configuration.
+          </p></li></ul></div><div class="procedure" id="id-1.3.5.2.14.3.17" data-id-title="Manually copying exports to NFS Ganesha common configuration file"><div class="title-container"><div class="procedure-title-wrap"><div class="procedure-title"><span class="title-number-name"><span class="title-number">Procedure 10.1: </span><span class="title-name">Manually copying exports to NFS Ganesha common configuration file </span></span><a title="Permalink" class="permalink" href="#id-1.3.5.2.14.3.17">#</a></div></div><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+            Determine the list of per-daemon RADOS objects:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>RADOS_ARGS="--pool ganesha_config --namespace ganesha"
 <code class="prompt user">cephuser@adm &gt; </code>DAEMON_OBJS=$(rados $RADOS_ARGS ls | grep 'conf-')</pre></div></li><li class="step"><p>
-      Make a copy of the per-daemon RADOS objects:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>for obj in $DAEMON_OBJS; do rados $RADOS_ARGS get $obj $obj; done
+            Make a copy of the per-daemon RADOS objects:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>for obj in $DAEMON_OBJS; do rados $RADOS_ARGS get $obj $obj; done
 <code class="prompt user">cephuser@adm &gt; </code>ls -lah
 total 20K
 drwxr-xr-x 2 root root 4.0K Sep 8 16:51 .
@@ -3926,24 +3954,24 @@ drwxr-xr-x 3 root root 4.0K Sep 8 16:47 ..
 -rw-r--r-- 1 root root 90 Sep 8 16:51 conf-nfs.<em class="replaceable">SERVICE_ID</em>
 -rw-r--r-- 1 root root 90 Sep 8 16:51 conf-node2
 -rw-r--r-- 1 root root 90 Sep 8 16:51 conf-node3</pre></div></li><li class="step"><p>
-      Sort and merge into a single list of exports:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cat conf-* | sort -u &gt; conf-nfs.<em class="replaceable">SERVICE_ID</em>
+            Sort and merge into a single list of exports:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cat conf-* | sort -u &gt; conf-nfs.<em class="replaceable">SERVICE_ID</em>
 <code class="prompt user">cephuser@adm &gt; </code>cat conf-nfs.foo
 %url "rados://ganesha_config/ganesha/export-1"
 %url "rados://ganesha_config/ganesha/export-2"
 %url "rados://ganesha_config/ganesha/export-3"
 %url "rados://ganesha_config/ganesha/export-4"</pre></div></li><li class="step"><p>
-      Write the new NFS Ganesha common configuration file:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS put conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div></li><li class="step"><p>
-      Notify the NFS Ganesha daemon:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS notify conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div><div id="id-1.3.5.2.14.3.17.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-       This action will cause the daemon to reload the configuration.
-      </p></div></li></ol></div></div><p>
-    After the service has been successfully migrated, the Nautilus-based
-    NFS Ganesha service can be removed.
-   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-      Remove NFS Ganesha:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>zypper rm nfs-ganesha
+            Write the new NFS Ganesha common configuration file:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS put conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div></li><li class="step"><p>
+            Notify the NFS Ganesha daemon:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>rados $RADOS_ARGS notify conf-nfs.<em class="replaceable">SERVICE_ID</em> conf-nfs.<em class="replaceable">SERVICE_ID</em></pre></div><div id="id-1.3.5.2.14.3.17.6.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
+              This action will cause the daemon to reload the configuration.
+            </p></div></li></ol></div></div><p>
+        After the service has been successfully migrated, the Nautilus-based
+        NFS Ganesha service can be removed.
+      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+            Remove NFS Ganesha:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>zypper rm nfs-ganesha
 Reading installed packages...
 Resolving package dependencies...
 The following 5 packages are going to be REMOVED:
@@ -3958,50 +3986,53 @@ Continue? [y/n/v/...? shows all options] (y): y
 (5/5) Removing nfs-ganesha-2.8.3+git0.d504d374e-3.3.1.x86_64 ......................................................................................................................................................................................................................................................................................................[done]
 Additional rpm output:
 warning: /etc/ganesha/ganesha.conf saved as /etc/ganesha/ganesha.conf.rpmsave</pre></div></li><li class="step"><p>
-      Remove the legacy cluster settings from the Ceph Dashboard:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard reset-ganesha-clusters-rados-pool-namespace</pre></div></li></ol></div></div></section><section class="sect2" id="upgrade-mds" data-id-title="Upgrading the Metadata Server"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.3 </span><span class="title-name">Upgrading the Metadata Server</span></span> <a title="Permalink" class="permalink" href="#upgrade-mds">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    Unlike MONs, MGRs and OSDs, Metadata Server cannot be adopted in-place. Instead, you
-    need to redeploy them in containers using the Ceph orchestrator.
-   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-      Run the <code class="command">ceph fs ls</code> command to obtain the name of your
-      file system, for example:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph fs ls
+            Remove the legacy cluster settings from the Ceph Dashboard:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph dashboard reset-ganesha-clusters-rados-pool-namespace</pre></div></li></ol></div></div></section><section class="sect2" id="upgrade-mds" data-id-title="Upgrading the Metadata Server"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.3 </span><span class="title-name">Upgrading the Metadata Server</span></span> <a title="Permalink" class="permalink" href="#upgrade-mds">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        Unlike MONs, MGRs and OSDs, Metadata Server cannot be adopted in-place. Instead,
+        you need to redeploy them in containers using the Ceph orchestrator.
+      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+            Run the <code class="command">ceph fs ls</code> command to obtain the name of
+            your file system, for example:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph fs ls
 name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]</pre></div></li><li class="step"><p>
-      Create a new service specification file <code class="filename">mds.yml</code> as
-      described in <a class="xref" href="#deploy-cephadm-day2-service-mds" title="8.3.3. Deploying Metadata Servers">Section 8.3.3, “Deploying Metadata Servers”</a> by using
-      the file system name as the <code class="option">service_id</code> and specifying
-      the hosts that will run the MDS daemons. For example:
-     </p><div class="verbatim-wrap"><pre class="screen">service_type: mds
+            Create a new service specification file
+            <code class="filename">mds.yml</code> as described in
+            <a class="xref" href="#deploy-cephadm-day2-service-mds" title="8.3.3. Deploying Metadata Servers">Section 8.3.3, “Deploying Metadata Servers”</a> by using the file
+            system name as the <code class="option">service_id</code> and specifying the
+            hosts that will run the MDS daemons. For example:
+          </p><div class="verbatim-wrap"><pre class="screen">service_type: mds
 service_id: cephfs
 placement:
   hosts:
   - ses-node1
   - ses-node2
   - ses-node3</pre></div></li><li class="step"><p>
-      Run the <code class="command">ceph orch apply -i mds.yml</code> command to apply
-      the service specification and start the MDS daemons.
-     </p></li></ol></div></div></section><section class="sect2" id="upgrade-igw" data-id-title="Upgrading the iSCSI Gateway"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.4 </span><span class="title-name">Upgrading the iSCSI Gateway</span></span> <a title="Permalink" class="permalink" href="#upgrade-igw">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-    To upgrade the iSCSI Gateway, you need to redeploy it in containers using the
-    Ceph orchestrator. If you have multiple iSCSI Gateways, you need to redeploy them
-    one-by-one to reduce the service downtime.
-   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-      Stop and disable the existing iSCSI daemons on each iSCSI Gateway node:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> systemctl stop rbd-target-gw
+            Run the <code class="command">ceph orch apply -i mds.yml</code> command to
+            apply the service specification and start the MDS daemons.
+          </p></li></ol></div></div></section><section class="sect2" id="upgrade-igw" data-id-title="Upgrading the iSCSI Gateway"><div class="titlepage"><div><div><div class="title-container"><h3 class="title"><span class="title-number-name"><span class="title-number">10.7.4 </span><span class="title-name">Upgrading the iSCSI Gateway</span></span> <a title="Permalink" class="permalink" href="#upgrade-igw">#</a></h3><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+        To upgrade the iSCSI Gateway, you need to redeploy it in containers using the
+        Ceph orchestrator. If you have multiple iSCSI Gateways, you need to redeploy
+        them one-by-one to reduce the service downtime.
+      </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+            Stop and disable the existing iSCSI daemons on each iSCSI Gateway node:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">&gt; </code><code class="command">sudo</code> systemctl stop rbd-target-gw
 <code class="prompt user">&gt; </code><code class="command">sudo</code> systemctl disable rbd-target-gw
 <code class="prompt user">&gt; </code><code class="command">sudo</code> systemctl stop rbd-target-api
 <code class="prompt user">&gt; </code><code class="command">sudo</code> systemctl disable rbd-target-api</pre></div></li><li class="step"><p>
-      Create a service specification for the iSCSI Gateway as described in
-      <a class="xref" href="#deploy-cephadm-day2-service-igw" title="8.3.5. Deploying iSCSI Gateways">Section 8.3.5, “Deploying iSCSI Gateways”</a>. For this, you
-      need the <code class="option">pool</code>, <code class="option">trusted_ip_list</code>, and
-      <code class="option">api_*</code> settings from the existing
-      <code class="filename">/etc/ceph/iscsi-gateway.cfg</code> file. If you have SSL
-      support enabled (<code class="literal">api_secure = true</code>), you also need the
-      SSL certificate (<code class="filename">/etc/ceph/iscsi-gateway.crt</code>) and
-      key (<code class="filename">/etc/ceph/iscsi-gateway.key</code>).
-     </p><p>
-      For example, if <code class="filename">/etc/ceph/iscsi-gateway.cfg</code> contains
-      the following:
-     </p><div class="verbatim-wrap"><pre class="screen">[config]
+            Create a service specification for the iSCSI Gateway as described in
+            <a class="xref" href="#deploy-cephadm-day2-service-igw" title="8.3.5. Deploying iSCSI Gateways">Section 8.3.5, “Deploying iSCSI Gateways”</a>. For this,
+            you need the <code class="option">pool</code>,
+            <code class="option">trusted_ip_list</code>, and <code class="option">api_*</code>
+            settings from the existing
+            <code class="filename">/etc/ceph/iscsi-gateway.cfg</code> file. If you have
+            SSL support enabled (<code class="literal">api_secure = true</code>), you
+            also need the SSL certificate
+            (<code class="filename">/etc/ceph/iscsi-gateway.crt</code>) and key
+            (<code class="filename">/etc/ceph/iscsi-gateway.key</code>).
+          </p><p>
+            For example, if <code class="filename">/etc/ceph/iscsi-gateway.cfg</code>
+            contains the following:
+          </p><div class="verbatim-wrap"><pre class="screen">[config]
 cluster_client_name = client.igw.ses-node5
 pool = iscsi-images
 trusted_ip_list = 10.20.179.203,10.20.179.201,10.20.179.205,10.20.179.202
@@ -4009,9 +4040,9 @@ api_port = 5000
 api_user = admin
 api_password = admin
 api_secure = true</pre></div><p>
-      Then you need to create the following service specification file
-      <code class="filename">iscsi.yml</code>:
-     </p><div class="verbatim-wrap"><pre class="screen">service_type: iscsi
+            Then you need to create the following service specification file
+            <code class="filename">iscsi.yml</code>:
+          </p><div class="verbatim-wrap"><pre class="screen">service_type: iscsi
 service_id: igw
 placement:
   hosts:
@@ -4035,67 +4066,71 @@ spec:
     /CwQr/7wOiLGzVxChn3mmCIF3DwbL/qvTFTX2d8bDf6LjGwLYloXHscRfxszX/4h
     [...]
     -----END PRIVATE KEY-----</pre></div><div id="id-1.3.5.2.14.5.3.2.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-       The <code class="option">pool</code>, <code class="option">trusted_ip_list</code>,
-       <code class="option">api_port</code>, <code class="option">api_user</code>,
-       <code class="option">api_password</code>, <code class="option">api_secure</code> settings are
-       identical to the ones from the
-       <code class="filename">/etc/ceph/iscsi-gateway.cfg</code> file. The
-       <code class="option">ssl_cert</code> and <code class="option">ssl_key</code> values can be
-       copied in from the existing SSL certificate and key files. Verify that
-       they are indented correctly and the <span class="emphasis"><em>pipe</em></span> character
-       <code class="literal">|</code> appears at the end of the
-       <code class="literal">ssl_cert:</code> and <code class="literal">ssl_key:</code> lines (see
-       the content of the <code class="filename">iscsi.yml</code> file above).
-      </p></div></li><li class="step"><p>
-      Run the <code class="command">ceph orch apply -i iscsi.yml</code> command to apply
-      the service specification and start the iSCSI Gateway daemons.
-     </p></li><li class="step"><p>
-      Remove the old <span class="package">ceph-iscsi</span> package from each of the
-      existing iSCSI gateway nodes:
-     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>zypper rm -u ceph-iscsi</pre></div></li></ol></div></div></section></section><section class="sect1" id="upgrade-post-cleanup" data-id-title="Post-upgrade Clean-up"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></span> <a title="Permalink" class="permalink" href="#upgrade-post-cleanup">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
-   After the upgrade, perform the following clean-up steps:
-  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
-     Verify that the cluster was successfully upgraded by checking the current
-     Ceph version:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph versions</pre></div></li><li class="step"><p>
-     Check that the <code class="option">osdspec_affinity</code> entry is properly set for existing OSDs.
-     If the <code class="command">ceph osd stat</code> command shows some OSDs as not running or unknown,
-     refer to <a class="link" href="https://www.suse.com/support/kb/doc/?id=000020667" target="_blank">https://www.suse.com/support/kb/doc/?id=000020667</a> to get more
-     details on properly mapp OSDs to a service specification.
-    </p></li><li class="step"><p>
-     Make sure that no old OSDs will join the cluster:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd require-osd-release pacific</pre></div></li><li class="step"><p>
-     Set the <code class="option">pg_autoscale_mode</code> of existing pools if necessary:
-    </p><div id="id-1.3.5.2.15.3.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
-      Pools in SUSE Enterprise Storage 6 had the <code class="option">pg_autoscale_mode</code> set
-      to <code class="option">warn</code> by default. This resulted in a warning message
-      in case of suboptimal number of PGs, but autoscaling did not actually
-      happen. The default in SUSE Enterprise Storage 7.1 is that the
-      <code class="option">pg_autoscale_mode</code> option is set to <code class="option">on</code>
-      for new pools, and PGs will actually autoscale. The upgrade process does
-      not automatically change the <code class="option">pg_autoscale_mode</code> of
-      existing pools. If you want to change it to <code class="option">on</code> to get
-      the full benefit of the autoscaler, see the instructions in
-      <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
-     </p></div><p>
-     Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
-    </p></li><li class="step"><p>
-      Set the FSMap sanity checks to the default value and then remove its
-      configuration:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config set mon mon_mds_skip_sanity false</code>
+              The <code class="option">pool</code>, <code class="option">trusted_ip_list</code>,
+              <code class="option">api_port</code>, <code class="option">api_user</code>,
+              <code class="option">api_password</code>, <code class="option">api_secure</code>
+              settings are identical to the ones from the
+              <code class="filename">/etc/ceph/iscsi-gateway.cfg</code> file. The
+              <code class="option">ssl_cert</code> and <code class="option">ssl_key</code> values can
+              be copied in from the existing SSL certificate and key files.
+              Verify that they are indented correctly and the
+              <span class="emphasis"><em>pipe</em></span> character <code class="literal">|</code> appears
+              at the end of the <code class="literal">ssl_cert:</code> and
+              <code class="literal">ssl_key:</code> lines (see the content of the
+              <code class="filename">iscsi.yml</code> file above).
+            </p></div></li><li class="step"><p>
+            Run the <code class="command">ceph orch apply -i iscsi.yml</code> command to
+            apply the service specification and start the iSCSI Gateway daemons.
+          </p></li><li class="step"><p>
+            Remove the old <span class="package">ceph-iscsi</span> package from each of
+            the existing iSCSI gateway nodes:
+          </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>zypper rm -u ceph-iscsi</pre></div></li></ol></div></div></section></section><section class="sect1" id="upgrade-post-cleanup" data-id-title="Post-upgrade Clean-up"><div class="titlepage"><div><div><div class="title-container"><h2 class="title"><span class="title-number-name"><span class="title-number">10.8 </span><span class="title-name">Post-upgrade Clean-up</span></span> <a title="Permalink" class="permalink" href="#upgrade-post-cleanup">#</a></h2><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/admin_ceph_upgrade.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+      After the upgrade, perform the following clean-up steps:
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+          Verify that the cluster was successfully upgraded by checking the
+          current Ceph version:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph versions</pre></div></li><li class="step"><p>
+          Check that the <code class="option">osdspec_affinity</code> entry is properly
+          set for existing OSDs. If the <code class="command">ceph osd stat</code>
+          command shows some OSDs as not running or unknown, refer to
+          <a class="link" href="https://www.suse.com/support/kb/doc/?id=000020667" target="_blank">https://www.suse.com/support/kb/doc/?id=000020667</a>
+          to get more details on properly mapp OSDs to a service specification.
+        </p></li><li class="step"><p>
+          Make sure that no old OSDs will join the cluster:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd require-osd-release pacific</pre></div></li><li class="step"><p>
+          Set the <code class="option">pg_autoscale_mode</code> of existing pools if
+          necessary:
+        </p><div id="id-1.3.5.2.15.3.4.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><div class="admon-title">Important</div><p>
+            Pools in SUSE Enterprise Storage 6 had the <code class="option">pg_autoscale_mode</code>
+            set to <code class="option">warn</code> by default. This resulted in a warning
+            message in case of suboptimal number of PGs, but autoscaling did
+            not actually happen. The default in SUSE Enterprise Storage 7.1
+            is that the <code class="option">pg_autoscale_mode</code> option is set to
+            <code class="option">on</code> for new pools, and PGs will actually autoscale.
+            The upgrade process does not automatically change the
+            <code class="option">pg_autoscale_mode</code> of existing pools. If you want
+            to change it to <code class="option">on</code> to get the full benefit of the
+            autoscaler, see the instructions in
+            <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
+          </p></div><p>
+          Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 17 “Stored data management”, Section 17.4.12 “Enabling the PG auto-scaler”</span>.
+        </p></li><li class="step"><p>
+          Set the FSMap sanity checks to the default value and then remove its
+          configuration:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config set mon mon_mds_skip_sanity false</code>
 <code class="prompt user">cephuser@adm &gt; </code><code class="command">ceph config rm mon mon_mds_skip_sanity</code></pre></div></li><li class="step"><p>
-     Prevent pre-Luminous clients:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-require-min-compat-client luminous</pre></div></li><li class="step"><p>
-     Enable the balancer module:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer mode upmap
+          Prevent pre-Luminous clients:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph osd set-require-min-compat-client luminous</pre></div></li><li class="step"><p>
+          Enable the balancer module:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph balancer mode upmap
 <code class="prompt user">cephuser@adm &gt; </code>ceph balancer on</pre></div><p>
-     Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 29 “Ceph Manager modules”, Section 29.1 “Balancer”</span>.
-    </p></li><li class="step"><p>
-     Optionally, enable the telemetry module:
-    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable telemetry
+          Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 29 “Ceph Manager modules”, Section 29.1 “Balancer”</span>.
+        </p></li><li class="step"><p>
+          Optionally, enable the telemetry module:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph mgr module enable telemetry
 <code class="prompt user">cephuser@adm &gt; </code>ceph telemetry on</pre></div><p>
-     Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 29 “Ceph Manager modules”, Section 29.2 “Enabling the telemetry module”</span>.
-    </p></li></ol></div></div></section></section><section class="chapter" id="upgrade-to-pacific" data-id-title="Upgrade from SUSE Enterprise Storage 7 to 7.1"><div class="titlepage"><div><div><div class="title-container"><h1 class="title"><span class="title-number-name"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></span> <a title="Permalink" class="permalink" href="#upgrade-to-pacific">#</a></h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/upgrade-to-pacific.xml" title="Edit source document"> </a></div></div></div></div></div><p>
+          Find more details in <span class="intraxref">Book “Administration and Operations Guide”, Chapter 29 “Ceph Manager modules”, Section 29.2 “Enabling the telemetry module”</span>.
+        </p></li></ol></div></div></section></section><section class="chapter" id="upgrade-to-pacific" data-id-title="Upgrade from SUSE Enterprise Storage 7 to 7.1"><div class="titlepage"><div><div><div class="title-container"><h1 class="title"><span class="title-number-name"><span class="title-number">11 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 7 to 7.1</span></span> <a title="Permalink" class="permalink" href="#upgrade-to-pacific">#</a></h1><div class="icons"><a target="_blank" class="icon-reportbug" title="Report an issue"> </a><a target="_blank" class="icon-editsource" href="https://github.com/SUSE/doc-ses/edit/main/xml/upgrade-to-pacific.xml" title="Edit source document"> </a></div></div></div></div></div><p>
   This chapter introduces steps to upgrade SUSE Enterprise Storage 7 to
   version 7.1.
  </p><p>
