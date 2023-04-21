@@ -100,7 +100,7 @@ hljs.configure({
             <code class="filename">/usr/share/doc/release-notes</code> or online at
             <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
           </p></li><li class="listitem"><p>
-            Read <a class="xref" href="ses-deployment.html" title="Part II. Deploying Ceph Cluster">Part II, “Deploying Ceph Cluster”</a> to familiarise yourself with
+            Read <a class="xref" href="ses-deployment.html" title="Part II. Deploying Ceph Cluster">Part II, “Deploying Ceph Cluster”</a> to familiarize yourself with
             <code class="systemitem">ceph-salt</code> and the Ceph orchestrator, and in particular the
             information on service specifications.
           </p></li><li class="listitem"><p>
@@ -325,15 +325,16 @@ Nodes running older software versions must be upgraded in the following order:
     </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
           Before adopting any OSD node, you need to perform a format conversion
           of OSD nodes to improve the accounting for OMAP data. You can do so
-          by running the following command on the Admin Node:
-        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>ceph config set osd bluestore_fsck_quick_fix_on_mount true</pre></div><p>
-          The OSD nodes will be converted automatically after their adoption
-          finishes.
-        </p><div id="id-1.3.5.2.10.3.1.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-            The conversion may take minutes to hours, depending on how much
-            OMAP data the related hard disk contains. For more details, refer
-            to
-            <a class="link" href="https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters" target="_blank">https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters</a>.
+          by running the following commands on the Admin Node:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.OSD_DAEMON_ID stop
+<code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name osd.OSD_DAEMON_ID ceph-bluestore-tool --path /var/lib/ceph/osd/ceph-OSD_DAEMON_ID --command quick-fix
+<code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.OSD_DAEMON_ID start</pre></div><p>
+          The conversion may take minutes to hours, depending on how much OMAP
+          data the related disk contains. For more details, refer to
+          <a class="link" href="https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters" target="_blank">https://docs.ceph.com/en/latest/releases/pacific/#upgrading-non-cephadm-clusters</a>.
+        </p><div id="id-1.3.5.2.10.3.1.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><div class="admon-title">Tip</div><p>
+            You can run the above commands in parallel on multiple OSD daemons
+            on the same OSD node to help accelerate the upgrade.
           </p></div></li><li class="step"><p>
           If the node you are upgrading is an OSD node, avoid having the OSD
           marked <code class="literal">out</code> during the upgrade by running the
@@ -364,30 +365,10 @@ ID   CLASS  WEIGHT   TYPE NAME       STATUS  REWEIGHT  PRI-AFF
               manually, run <code class="command">zypper dup</code> followed by
               <code class="command">reboot</code>.
             </p></li></ul></div></li><li class="step"><p>
-          If the node you are upgrading is an OSD node, follow these steps:
-        </p><ol type="a" class="substeps"><li class="step"><p>
-              At the time the OSD node is rebooted, set the
-              <code class="option">bluestore_fsck_quick_fix_on_mount</code> for each OSD
-              daemon that is deployed on the rebooted node:
-            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph config set osd.<em class="replaceable">OSD_DAEMON_ID</em> \
- bluestore_fsck_quick_fix_on_mount true</pre></div></li><li class="step"><p>
-              After the OSD node with the Salt minion ID
-              <em class="replaceable">MINION_ID</em> has been rebooted and now is
-              up, run the following command:
-            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">MINION_ID</em> state.apply ceph.upgrade.ses7.adopt</pre></div></li><li class="step"><p>
-              Run the following commands to perform an offline compaction,
-              enabling a quick fix, and perform an online compaction on each
-              OSD daemon that is deployed on the OSD node identified by the
-              <em class="replaceable">MINION_ID</em>. For example
-            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> stop
-<code class="prompt user">cephuser@adm &gt; </code>ceph-kvstore-tool bluestore-kv /var/lib/ceph/263302b4-afa2-11ec-a986-525400af093c/osd.<em class="replaceable">OSD_DAEMON_ID</em> compact
-<code class="prompt user">cephuser@adm &gt; </code>cephadm shell --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph-bluestore-tool --path /var/lib/ceph/osd/ceph-<em class="replaceable">OSD_DAEMON_ID</em>--command quick-fix
-<code class="prompt user">cephuser@adm &gt; </code>cephadm unit --name osd.<em class="replaceable">OSD_DAEMON_ID</em> start</pre></div><p>
-              Allow the OSD node to be up and in again, then run:
-            </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephuser@adm &gt; </code>cephadm enter --name osd.<em class="replaceable">OSD_DAEMON_ID</em> ceph daemon osd.<em class="replaceable">OSD_DAEMON_ID</em> compact</pre></div><div id="id-1.3.5.2.10.3.4.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><div class="admon-title">Note</div><p>
-                You can run the above commands in parallel on multiple OSD
-                daemons on the same OSD node to help accelerate the upgrade.
-              </p></div></li></ol></li><li class="step"><p>
+          If the node you are upgrading is an OSD node, then, after the OSD
+          node with the Salt minion ID <em class="replaceable">MINION_ID</em>
+          has been rebooted and is now up, run the following command:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">MINION_ID</em> state.apply ceph.upgrade.ses7.adopt</pre></div></li><li class="step"><p>
           If the node you are upgrading is not an OSD node, then after the node
           is rebooted, containerize all existing MON and MGR daemons on that
           node by running the following command on the Salt Master:
