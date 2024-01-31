@@ -47,6 +47,32 @@ hljs.configure({
     </p></dd><dt id="id-1.8.8.3.5"><span><span class="glossterm">Bucket</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.5">#</a></span></dt><dd class="glossdef"><p>
      A point that aggregates other nodes into a hierarchy of physical
      locations.
+    </p></dd><dt id="id-1.8.8.3.9"><span><span class="glossterm">Ceph Client</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.9">#</a></span></dt><dd class="glossdef"><p>
+     The collection of Ceph components which can access a Ceph Storage
+     Cluster. These include the Object Gateway, the Ceph Block Device, the CephFS,
+     and their corresponding libraries, kernel modules, and FUSE clients.
+    </p></dd><dt id="id-1.8.8.3.14"><span><span class="glossterm">Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.14">#</a></span></dt><dd class="glossdef"><p>
+     A built-in Web-based Ceph management and monitoring application to
+     administer various aspects and objects of the cluster. The dashboard is
+     implemented as a Ceph Manager module.
+    </p></dd><dt id="id-1.8.8.3.19"><span><span class="glossterm">Ceph Manager</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.19">#</a></span></dt><dd class="glossdef"><p>
+     Ceph Manager or MGR is the Ceph manager software, which collects all the state
+     from the whole cluster in one place.
+    </p></dd><dt id="id-1.8.8.3.18"><span><span class="glossterm">Ceph Monitor</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.18">#</a></span></dt><dd class="glossdef"><p>
+     Ceph Monitor or MON is the Ceph monitor software.
+    </p></dd><dt id="id-1.8.8.3.24"><span><span class="glossterm">Ceph Object Storage</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.24">#</a></span></dt><dd class="glossdef"><p>
+     The object storage "product", service or capabilities, which consists of a
+     Ceph Storage Cluster and a Ceph Object Gateway.
+    </p></dd><dt id="id-1.8.8.3.22"><span><span class="glossterm">Ceph OSD Daemon</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.22">#</a></span></dt><dd class="glossdef"><p>
+     The <code class="command">ceph-osd</code> daemon is the component of Ceph that is
+     responsible for storing objects on a local file system and providing
+     access to them over the network.
+    </p></dd><dt id="id-1.8.8.3.11"><span><span class="glossterm">Ceph Storage Cluster</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.11">#</a></span></dt><dd class="glossdef"><p>
+     The core set of storage software which stores the user's data. Such a set
+     consists of Ceph monitors and OSDs.
+    </p></dd><dt id="id-1.8.8.3.10"><span><span class="glossterm"><code class="systemitem">ceph-salt</code></span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.10">#</a></span></dt><dd class="glossdef"><p>
+     Provides tooling for deploying Ceph clusters managed by cephadm using
+     Salt.
     </p></dd><dt id="id-1.8.8.3.6"><span><span class="glossterm">cephadm</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.6">#</a></span></dt><dd class="glossdef"><p>
      cephadm deploys and manages a Ceph cluster by connecting to hosts from
      the manager daemon via SSH to add, remove, or update Ceph daemon
@@ -56,28 +82,14 @@ hljs.configure({
     </p></dd><dt id="id-1.8.8.3.8"><span><span class="glossterm">CephX</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.8">#</a></span></dt><dd class="glossdef"><p>
      The Ceph authentication protocol. Cephx operates like Kerberos, but it
      has no single point of failure.
-    </p></dd><dt id="id-1.8.8.3.9"><span><span class="glossterm">Ceph Client</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.9">#</a></span></dt><dd class="glossdef"><p>
-     The collection of Ceph components which can access a Ceph Storage
-     Cluster. These include the Object Gateway, the Ceph Block Device, the CephFS,
-     and their corresponding libraries, kernel modules, and FUSE clients.
-    </p></dd><dt id="id-1.8.8.3.10"><span><span class="glossterm"><code class="systemitem">ceph-salt</code></span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.10">#</a></span></dt><dd class="glossdef"><p>
-     Provides tooling for deploying Ceph clusters managed by cephadm using
-     Salt.
-    </p></dd><dt id="id-1.8.8.3.11"><span><span class="glossterm">Ceph Storage Cluster</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.11">#</a></span></dt><dd class="glossdef"><p>
-     The core set of storage software which stores the user's data. Such a set
-     consists of Ceph monitors and OSDs.
+    </p></dd><dt id="id-1.8.8.3.13"><span><span class="glossterm">CRUSH rule</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.13">#</a></span></dt><dd class="glossdef"><p>
+     The CRUSH data placement rule that applies to a particular pool or pools.
     </p></dd><dt id="id-1.8.8.3.12"><span><span class="glossterm">CRUSH, CRUSH Map</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.12">#</a></span></dt><dd class="glossdef"><p>
      <span class="emphasis"><em>Controlled Replication Under Scalable Hashing</em></span>: An
      algorithm that determines how to store and retrieve data by computing data
      storage locations. CRUSH requires a map of the cluster to pseudo-randomly
      store and retrieve data in OSDs with a uniform distribution of data across
      the cluster.
-    </p></dd><dt id="id-1.8.8.3.13"><span><span class="glossterm">CRUSH rule</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.13">#</a></span></dt><dd class="glossdef"><p>
-     The CRUSH data placement rule that applies to a particular pool or pools.
-    </p></dd><dt id="id-1.8.8.3.14"><span><span class="glossterm">Ceph Dashboard</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.14">#</a></span></dt><dd class="glossdef"><p>
-     A built-in Web-based Ceph management and monitoring application to
-     administer various aspects and objects of the cluster. The dashboard is
-     implemented as a Ceph Manager module.
     </p></dd><dt id="id-1.8.8.3.15"><span><span class="glossterm">DriveGroups</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.15">#</a></span></dt><dd class="glossdef"><p>
      DriveGroups are a declaration of one or more OSD layouts that can be mapped
      to physical drives. An OSD layout defines how Ceph physically allocates
@@ -86,30 +98,18 @@ hljs.configure({
      Database analytics and monitoring solution.
     </p></dd><dt id="id-1.8.8.3.17"><span><span class="glossterm">Metadata Server</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.17">#</a></span></dt><dd class="glossdef"><p>
      Metadata Server or MDS is the Ceph metadata software.
-    </p></dd><dt id="id-1.8.8.3.18"><span><span class="glossterm">Ceph Monitor</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.18">#</a></span></dt><dd class="glossdef"><p>
-     Ceph Monitor or MON is the Ceph monitor software.
-    </p></dd><dt id="id-1.8.8.3.19"><span><span class="glossterm">Ceph Manager</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.19">#</a></span></dt><dd class="glossdef"><p>
-     Ceph Manager or MGR is the Ceph manager software, which collects all the state
-     from the whole cluster in one place.
-    </p></dd><dt id="id-1.8.8.3.20"><span><span class="glossterm">Node</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.20">#</a></span></dt><dd class="glossdef"><p>
+    </p></dd><dt id="id-1.8.8.3.36"><span><span class="glossterm">Multi-zone</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.36">#</a></span></dt><dd class="glossdef"/><dt id="id-1.8.8.3.20"><span><span class="glossterm">Node</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.20">#</a></span></dt><dd class="glossdef"><p>
      Any single machine or server in a Ceph cluster.
+    </p></dd><dt id="id-1.8.8.3.25"><span><span class="glossterm">Object Gateway</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.25">#</a></span></dt><dd class="glossdef"><p>
+     The S3/Swift gateway component for Ceph Object Store. Also known as the
+     RADOS Gateway (RGW).
     </p></dd><dt id="id-1.8.8.3.21"><span><span class="glossterm">OSD</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.21">#</a></span></dt><dd class="glossdef"><p>
      <span class="emphasis"><em>Object Storage Device</em></span>: A physical or logical storage
      unit.
-    </p></dd><dt id="id-1.8.8.3.22"><span><span class="glossterm">Ceph OSD Daemon</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.22">#</a></span></dt><dd class="glossdef"><p>
-     The <code class="command">ceph-osd</code> daemon is the component of Ceph that is
-     responsible for storing objects on a local file system and providing
-     access to them over the network.
     </p></dd><dt id="id-1.8.8.3.23"><span><span class="glossterm">OSD node</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.23">#</a></span></dt><dd class="glossdef"><p>
      A cluster node that stores data, handles data replication, recovery,
      backfilling, rebalancing, and provides some monitoring information to
      Ceph monitors by checking other Ceph OSD daemons.
-    </p></dd><dt id="id-1.8.8.3.24"><span><span class="glossterm">Ceph Object Storage</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.24">#</a></span></dt><dd class="glossdef"><p>
-     The object storage "product", service or capabilities, which consists of a
-     Ceph Storage Cluster and a Ceph Object Gateway.
-    </p></dd><dt id="id-1.8.8.3.25"><span><span class="glossterm">Object Gateway</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.25">#</a></span></dt><dd class="glossdef"><p>
-     The S3/Swift gateway component for Ceph Object Store. Also known as the
-     RADOS Gateway (RGW).
     </p></dd><dt id="id-1.8.8.3.26"><span><span class="glossterm">PG</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.26">#</a></span></dt><dd class="glossdef"><p>
      Placement Group: a sub-division of a <span class="emphasis"><em>pool</em></span>, used for
      performance tuning.
@@ -119,20 +119,20 @@ hljs.configure({
      Logical partitions for storing objects such as disk images.
     </p></dd><dt id="id-1.8.8.3.29"><span><span class="glossterm">Prometheus</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.29">#</a></span></dt><dd class="glossdef"><p>
      Systems monitoring and alerting toolkit.
-    </p></dd><dt id="id-1.8.8.3.30"><span><span class="glossterm">Reliable Autonomic Distributed Object Store (RADOS)</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.30">#</a></span></dt><dd class="glossdef"><p>
-     The core set of storage software which stores the user's data (MON+OSD).
     </p></dd><dt id="id-1.8.8.3.31"><span><span class="glossterm">RADOS Block Device (RBD)</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.31">#</a></span></dt><dd class="glossdef"><p>
      The block storage component of Ceph. Also known as the Ceph block
      device.
-    </p></dd><dt id="id-1.8.8.3.32"><span><span class="glossterm">Rule Set</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.32">#</a></span></dt><dd class="glossdef"><p>
-     Rules to determine data placement for a pool.
+    </p></dd><dt id="id-1.8.8.3.30"><span><span class="glossterm">Reliable Autonomic Distributed Object Store (RADOS)</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.30">#</a></span></dt><dd class="glossdef"><p>
+     The core set of storage software which stores the user's data (MON+OSD).
     </p></dd><dt id="id-1.8.8.3.33"><span><span class="glossterm">Routing tree</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.33">#</a></span></dt><dd class="glossdef"><p>
      A term given to any diagram that shows the various routes a receiver can
      run.
+    </p></dd><dt id="id-1.8.8.3.32"><span><span class="glossterm">Rule Set</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.32">#</a></span></dt><dd class="glossdef"><p>
+     Rules to determine data placement for a pool.
     </p></dd><dt id="id-1.8.8.3.34"><span><span class="glossterm">Samba</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.34">#</a></span></dt><dd class="glossdef"><p>
      Windows integration software.
     </p></dd><dt id="id-1.8.8.3.35"><span><span class="glossterm">Samba Gateway</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.35">#</a></span></dt><dd class="glossdef"><p>
      The Samba Gateway joins the Active Directory in the Windows domain to authenticate
      and authorize users.
-    </p></dd><dt id="id-1.8.8.3.36"><span><span class="glossterm">Multi-zone</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.36">#</a></span></dt><dd class="glossdef"/><dt id="id-1.8.8.3.37"><span><span class="glossterm">zonegroup</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.37">#</a></span></dt><dd class="glossdef"/></dl></div></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bk06apd.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Appendix D </span>Ceph maintenance updates based on upstream 'Pacific' point releases</span></a> </div><div> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
-                 2023</span></div></div></footer></body></html>
+    </p></dd><dt id="id-1.8.8.3.37"><span><span class="glossterm">zonegroup</span> <a title="Permalink" class="permalink" href="bk06go01.html#id-1.8.8.3.37">#</a></span></dt><dd class="glossdef"/></dl></div></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="bk06apd.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Appendix D </span>Ceph maintenance updates based on upstream 'Pacific' point releases</span></a> </div><div> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter/X"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2024</span></div></div></footer></body></html>
