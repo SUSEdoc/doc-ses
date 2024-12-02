@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Cache Tiering | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Cache Tiering | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="A cache tier is an additional storage layer implemented between the client and the standard storage. It is designed to speed up access to pools stored on slow …"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Chapter 11. Cache Tiering"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Cache Tiering | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="A cache tier is an additional storage layer implemented between the client and the standard storage. It is designed to speed up access to pools stored on slow …"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cache Tiering | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="A cache tier is an additional storage layer implemented between the client and the standard storage. It is designed to speed up access to pools stored on slow …"/>
+<link rel="prev" href="cha-ceph-erasure.html" title="Chapter 10. Erasure Coded Pools"/><link rel="next" href="cha-ceph-configuration.html" title="Chapter 12. Ceph Cluster Configuration"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="part-operate.html">Operating a Cluster</a><span> / </span><a class="crumb" href="cha-ceph-tiered.html">Cache Tiering</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-cluster-managment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span></a></li></ol></li><li class="active"><a href="part-operate.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">2 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" "><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">4 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">6 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">7 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">9 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">10 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-tiered.html" class=" you-are-here"><span class="title-number">11 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">12 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li><a href="part-dataccess.html" class="has-children "><span class="title-number">III </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">15 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">16 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-gui.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Managing Cluster with GUI Tools</span></a><ol><li><a href="ceph-oa.html" class=" "><span class="title-number">17 </span><span class="title-name">openATTIC</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">18 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">19 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li><a href="part-troubleshooting.html" class="has-children "><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" "><span class="title-number">20 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">21 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">22 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="gloss-storage-glossary.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="app-alerting-default.html" class=" "><span class="title-number">B </span><span class="title-name">Default Alerts for SUSE Enterprise Storage</span></a></li><li><a href="app-storage-manual-inst.html" class=" "><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">D </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-tiered" data-id-title="Cache Tiering"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">11 </span><span class="title-name">Cache Tiering</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#">#</a></h2></div></div></div><p>
+  A <span class="emphasis"><em>cache tier</em></span> is an additional storage layer implemented
+  between the client and the standard storage. It is designed to speed up
+  access to pools stored on slow hard disks and erasure coded pools.
+ </p><p>
+  Typically cache tiering involves creating a pool of relatively fast storage
+  devices (for example SSD drives) configured to act as a cache tier, and a
+  backing pool of slower and cheaper devices configured to act as a storage
+  tier. The size of the cache pool is usually 10-20% of the storage pool.
+ </p><section class="sect1" id="id-1.3.4.11.5" data-id-title="Tiered Storage Terminology"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.1 </span><span class="title-name">Tiered Storage Terminology</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#id-1.3.4.11.5">#</a></h2></div></div></div><p>
+   Cache tiering recognizes two types of pools: a <span class="emphasis"><em>cache
+   pool</em></span> and a <span class="emphasis"><em>storage pool</em></span>.
+  </p><div id="id-1.3.4.11.5.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    For general information on pools, see <a class="xref" href="ceph-pools.html" title="Chapter 8. Managing Storage Pools">Chapter 8, <em>Managing Storage Pools</em></a>.
+   </p></div><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.11.5.4.1"><span class="term">storage pool</span></dt><dd><p>
+      Either a standard replicated pool that stores several copies of an object
+      in the Ceph storage cluster, or an erasure coded pool (see
+      <a class="xref" href="cha-ceph-erasure.html" title="Chapter 10. Erasure Coded Pools">Chapter 10, <em>Erasure Coded Pools</em></a>).
+     </p><p>
+      The storage pool is sometimes referred to as 'backing' or 'cold' storage.
+     </p></dd><dt id="id-1.3.4.11.5.4.2"><span class="term">cache pool</span></dt><dd><p>
+      A standard replicated pool stored on a relatively small but fast storage
+      device with their own ruleset in a CRUSH Map.
+     </p><p>
+      The cache pool is also referred to as 'hot' storage.
+     </p></dd></dl></div></section><section class="sect1" id="sec-ceph-tiered-caution" data-id-title="Points to Consider"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.2 </span><span class="title-name">Points to Consider</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#sec-ceph-tiered-caution">#</a></h2></div></div></div><p>
+   Cache tiering may <span class="emphasis"><em>degrade</em></span> the cluster performance for
+   specific workloads. The following points show some of its aspects that you
+   need to consider:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     <span class="emphasis"><em>Workload-dependent</em></span>: Whether a cache will improve
+     performance is dependent on the workload. Because there is a cost
+     associated with moving objects into or out of the cache, it can be more
+     effective when most of the requests touch a small number of objects. The
+     cache pool should be large enough to capture the working set for your
+     workload to avoid thrashing.
+    </p></li><li class="listitem"><p>
+     <span class="emphasis"><em>Difficult to benchmark</em></span>: Most performance benchmarks
+     may show low performance with cache tiering. The reason is that they
+     request a big set of objects, and it takes a long time for the cache to
+     'warm up'.
+    </p></li><li class="listitem"><p>
+     <span class="emphasis"><em>Possibly low performance</em></span>: For workloads that are not
+     suitable for cache tiering, performance is often slower than a normal
+     replicated pool without cache tiering enabled.
+    </p></li><li class="listitem"><p>
+     <span class="emphasis"><em><code class="systemitem">librados</code> object enumeration</em></span>:
+     If your application is using <code class="systemitem">librados</code> directly
+     and relies on object enumeration, cache tiering may not work as expected.
+     (This is not a problem for Object Gateway, RBD, or CephFS.)
+    </p></li></ul></div></section><section class="sect1" id="id-1.3.4.11.7" data-id-title="When to Use Cache Tiering"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.3 </span><span class="title-name">When to Use Cache Tiering</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#id-1.3.4.11.7">#</a></h2></div></div></div><p>
+   Consider using cache tiering in the following cases:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Your erasure coded pools are stored on FileStore and you need to access
+     them via RADOS Block Device. For more information on RBD, see
+     <a class="xref" href="ceph-rbd.html" title="Chapter 9. RADOS Block Device">Chapter 9, <em>RADOS Block Device</em></a>.
+    </p></li><li class="listitem"><p>
+     Your erasure coded pools are stored on FileStore and you need to access
+     them via iSCSI. For more information on iSCSI, refer to
+     <a class="xref" href="cha-ceph-iscsi.html" title="Chapter 14. Ceph iSCSI Gateway">Chapter 14, <em>Ceph iSCSI Gateway</em></a>.
+    </p></li><li class="listitem"><p>
+     You have a limited number of high-performance storage and a large
+     collection of low-performance storage, and need to access the stored data
+     faster.
+    </p></li></ul></div></section><section class="sect1" id="sec-ceph-tiered-cachemodes" data-id-title="Cache Modes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.4 </span><span class="title-name">Cache Modes</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#sec-ceph-tiered-cachemodes">#</a></h2></div></div></div><p>
+   The cache tiering agent handles the migration of data between the cache tier
+   and the backing storage tier. Administrators have the ability to configure
+   how this migration takes place. There are two main scenarios:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.11.8.3.1"><span class="term">write-back mode</span></dt><dd><p>
+      In write-back mode, Ceph clients write data to the cache tier and
+      receive an ACK from the cache tier. In time, the data written to the
+      cache tier migrates to the storage tier and gets flushed from the cache
+      tier. Conceptually, the cache tier is overlaid 'in front' of the backing
+      storage tier. When a Ceph client needs data that resides in the storage
+      tier, the cache tiering agent migrates the data to the cache tier on
+      read, then it is sent to the Ceph client. Thereafter, the Ceph client
+      can perform I/O using the cache tier, until the data becomes inactive.
+      This is ideal for mutable, data such as photo or video editing, or
+      transactional data.
+     </p></dd><dt id="id-1.3.4.11.8.3.2"><span class="term">read-only mode</span></dt><dd><p>
+      In read-only mode, Ceph clients write data directly to the backing
+      tier. On read, Ceph copies the requested objects from the backing tier
+      to the cache tier. Stale objects get removed from the cache tier based on
+      the defined policy. This approach is ideal for immutable data such as
+      presenting pictures or videos on a social network, DNA data, or X-ray
+      imaging, because reading data from a cache pool that might contain
+      out-of-date data provides weak consistency. Do not use read-only mode for
+      mutable data.
+     </p></dd></dl></div></section><section class="sect1" id="ceph-tier-erasure" data-id-title="Erasure Coded Pool and Cache Tiering"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.5 </span><span class="title-name">Erasure Coded Pool and Cache Tiering</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ceph-tier-erasure">#</a></h2></div></div></div><p>
+   Erasure coded pools require more resources than replicated pools. To
+   overcome these limitations, we recommended to set a cache tier before the
+   erasure coded pool. This it a requirement when using FileStore.
+  </p><p>
+   For example, if the <span class="quote">“<span class="quote">hot-storage</span>”</span> pool is made of fast storage,
+   the <span class="quote">“<span class="quote">ecpool</span>”</span> created in
+   <a class="xref" href="cha-ceph-erasure.html#cha-ceph-erasure-erasure-profiles" title="10.3. Erasure Code Profiles">Section 10.3, “Erasure Code Profiles”</a> can be speeded up with:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd tier add ecpool hot-storage
+<code class="prompt user">cephadm &gt; </code>ceph osd tier cache-mode hot-storage writeback
+<code class="prompt user">cephadm &gt; </code>ceph osd tier set-overlay ecpool hot-storage</pre></div><p>
+   This will place the <span class="quote">“<span class="quote">hot-storage</span>”</span> pool as a tier of ecpool in
+   write-back mode so that every write and read to the ecpool is actually using
+   the hot-storage and benefits from its flexibility and speed.
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>rbd --pool ecpool create --size 10 myvolume</pre></div><p>
+   For more information about cache tiering, see
+   <a class="xref" href="cha-ceph-tiered.html" title="Chapter 11. Cache Tiering">Chapter 11, <em>Cache Tiering</em></a>.
+  </p></section><section class="sect1" id="ses-tiered-storage" data-id-title="Setting Up an Example Tiered Storage"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.6 </span><span class="title-name">Setting Up an Example Tiered Storage</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ses-tiered-storage">#</a></h2></div></div></div><p>
+   This section illustrates how to set up a fast SSD cache tier (hot storage)
+   in front of a standard hard disk (cold storage).
+  </p><div id="id-1.3.4.11.10.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    The following example is for illustration purposes only and includes a
+    setup with one root and one rule for the SSD part residing on a single
+    Ceph node.
+   </p><p>
+    In the production environment, cluster setups typically include more root
+    and rule entries for the hot storage, and also mixed nodes, with both SSDs
+    and SATA disks.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Create two additional CRUSH rules, 'replicated_ssd' for the fast SSD
+     caching device class, and 'replicated_hdd' for the slower HDD device
+     class:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd crush rule create-replicated replicated_ssd default host ssd
+<code class="prompt user">cephadm &gt; </code>ceph osd crush rule create-replicated replicated_hdd default host hdd</pre></div></li><li class="step"><p>
+     Switch all existing pools to the 'replicated_hdd' rule. This prevents
+     Ceph from storing data to the newly added SSD devices:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">POOL_NAME</em> crush_rule replicated_hdd</pre></div></li><li class="step"><p>
+     Turn the machine into a Ceph node using DeepSea. Install the software
+     and configure the host machine as described in
+     <a class="xref" href="storage-salt-cluster.html#salt-adding-nodes" title="1.1. Adding New Cluster Nodes">Section 1.1, “Adding New Cluster Nodes”</a>. Let us assume that its name is
+     <em class="replaceable">node-4</em>. This node needs to have 4 OSD disks.
+    </p><p>
+     Turn the machines into a Ceph nodes using DeepSea. Install the
+     software and configure as described in
+     <a class="xref" href="storage-salt-cluster.html#salt-adding-nodes" title="1.1. Adding New Cluster Nodes">Section 1.1, “Adding New Cluster Nodes”</a>. In this example, the nodes have 4 OSD
+     disks.
+    </p><div class="verbatim-wrap"><pre class="screen">[...]
+host node-4 {
+   id -5  # do not change unnecessarily
+   # weight 0.012
+   alg straw
+   hash 0  # rjenkins1
+   item osd.6 weight 0.003
+   item osd.7 weight 0.003
+   item osd.8 weight 0.003
+   item osd.9 weight 0.003
+}
+[...]</pre></div></li><li class="step"><p>
+     Edit the CRUSH map for the hot storage pool mapped to the OSDs backed by
+     the fast SSD drives. Define a second hierarchy with a root node for the
+     SSDs (as 'root ssd'). Additionally, change the weight and a CRUSH rule for
+     the SSDs. For more information on CRUSH map, see
+     <a class="link" href="http://docs.ceph.com/docs/master/rados/operations/crush-map/" target="_blank">http://docs.ceph.com/docs/master/rados/operations/crush-map/</a>.
+    </p><p>
+     Edit the CRUSH map directly with command line tools such as
+     <code class="command">getcrushmap</code> and <code class="command">crushtool</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd crush rm-device-class osd.6 osd.7 osd.8 osd.9
+<code class="prompt user">cephadm &gt; </code>ceph osd crush set-device-class ssd osd.6 osd.7 osd.8 osd.9</pre></div></li><li class="step"><p>
+     Create the hot storage pool to be used for cache tiering. Use the new
+     'ssd' rule for it:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool create hot-storage 100 100 replicated ssd</pre></div></li><li class="step"><p>
+     Create the cold storage pool using the default 'replicated_ruleset' rule:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool create cold-storage 100 100 replicated replicated_ruleset</pre></div></li><li class="step"><p>
+     Then, setting up a cache tier involves associating a backing storage pool
+     with a cache pool, in this case, cold storage (= storage pool) with hot
+     storage (= cache pool):
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd tier add cold-storage hot-storage</pre></div></li><li class="step"><p>
+     To set the cache mode to 'writeback', execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd tier cache-mode hot-storage writeback</pre></div><p>
+     For more information about cache modes, see
+     <a class="xref" href="cha-ceph-tiered.html#sec-ceph-tiered-cachemodes" title="11.4. Cache Modes">Section 11.4, “Cache Modes”</a>.
+    </p><p>
+     Writeback cache tiers overlay the backing storage tier, so they require
+     one additional step: you must direct all client traffic from the storage
+     pool to the cache pool. To direct client traffic directly to the cache
+     pool, execute the following, for example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd tier set-overlay cold-storage hot-storage</pre></div></li></ol></div></div></section><section class="sect1" id="cache-tier-configure" data-id-title="Configuring a Cache Tier"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.7 </span><span class="title-name">Configuring a Cache Tier</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#cache-tier-configure">#</a></h2></div></div></div><p>
+   There are several options you can use to configure cache tiers. Use the
+   following syntax:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> <em class="replaceable">key</em> <em class="replaceable">value</em></pre></div><section class="sect2" id="ses-tiered-hitset" data-id-title="Hit Set"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.7.1 </span><span class="title-name">Hit Set</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ses-tiered-hitset">#</a></h3></div></div></div><p>
+    <span class="emphasis"><em>Hit set</em></span> parameters allow for tuning of <span class="emphasis"><em>cache
+    pools</em></span>. Hit sets in Ceph are usually bloom filters and provide
+    a memory-efficient way of tracking objects that are already in the cache
+    pool.
+   </p><p>
+    The hit set is a bit array that is used to store the result of a set of
+    hashing functions applied on object names. Initially, all bits are set to
+    <code class="literal">0</code>. When an object is added to the hit set, its name is
+    hashed and the result is mapped on different positions in the hit set,
+    where the value of the bit is then set to <code class="literal">1</code>.
+   </p><p>
+    To find out whether an object exists in the cache, the object name is
+    hashed again. If any bit is <code class="literal">0</code>, the object is definitely
+    not in the cache and needs to be retrieved from cold storage.
+   </p><p>
+    It is possible that the results of different objects are stored in the same
+    location of the hit set. By chance, all bits can be <code class="literal">1</code>
+    without the object being in the cache. Therefore, hit sets working with a
+    bloom filter can only tell whether an object is definitely not in the cache
+    and needs to be retrieved from cold storage.
+   </p><p>
+    A cache pool can have more than one hit set tracking file access over time.
+    The setting <code class="literal">hit_set_count</code> defines how many hit sets are
+    being used, and <code class="literal">hit_set_period</code> defines for how long each
+    hit set has been used. After the period has expired, the next hit set is
+    used. If the number of hit sets is exhausted, the memory from the oldest
+    hit set is freed and a new hit set is created. The values of
+    <code class="literal">hit_set_count</code> and <code class="literal">hit_set_period</code>
+    multiplied by each other define the overall time frame in which access to
+    objects has been tracked.
+   </p><div class="figure" id="ses-tiered-hitset-overview-bloom"><div class="figure-contents"><div class="mediaobject"><a href="images/bloom-filter.png" target="_blank"><img src="images/bloom-filter.png" width="" alt="Bloom Filter with 3 Stored Objects"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 11.1: </span><span class="title-name">Bloom Filter with 3 Stored Objects </span><a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ses-tiered-hitset-overview-bloom">#</a></h6></div></div><p>
+    Compared to the number of hashed objects, a hit set based on a bloom filter
+    is very memory-efficient. Less than 10 bits are required to reduce the
+    false positive probability below 1%. The false positive probability can be
+    defined with <code class="literal">hit_set_fpp</code>. Based on the number of objects
+    in a placement group and the false positive probability Ceph
+    automatically calculates the size of the hit set.
+   </p><p>
+    The required storage on the cache pool can be limited with
+    <code class="literal">min_write_recency_for_promote</code> and
+    <code class="literal">min_read_recency_for_promote</code>. If the value is set to
+    <code class="literal">0</code>, all objects are promoted to the cache pool as soon as
+    they are read or written and this persists until they are evicted. Any
+    value greater than <code class="literal">0</code> defines the number of hit sets
+    ordered by age that are searched for the object. If the object is found in
+    a hit set, it will be promoted to the cache pool. Keep in mind that backup
+    of objects may also cause them to be promoted to the cache. A full backup
+    with the value of '0' can cause all data to be promoted to the cache tier
+    while active data gets removed from the cache tier. Therefore, changing
+    this setting based on the backup strategy may be useful.
+   </p><div id="id-1.3.4.11.11.4.10" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+     The longer the period and the higher the
+     <code class="option">min_read_recency_for_promote</code> and
+     <code class="option">min_write_recency_for_promote</code> values, the more RAM the
+     <code class="systemitem">ceph-osd</code> daemon consumes. In
+     particular, when the agent is active to flush or evict cache objects, all
+     <code class="option">hit_set_count</code> hit sets are loaded into RAM.
+    </p></div><section class="sect3" id="ceph-tier-gmt-hitset" data-id-title="Use GMT for Hit Set"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.7.1.1 </span><span class="title-name">Use GMT for Hit Set</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ceph-tier-gmt-hitset">#</a></h4></div></div></div><p>
+     Cache tier setups have a bloom filter called <span class="emphasis"><em>hit set</em></span>.
+     The filter tests whether an object belongs to a set of either hot or cold
+     objects. The objects are added to the hit set using time stamps appended
+     to their names.
+    </p><p>
+     If cluster machines are placed in different time zones and the time stamps
+     are derived from the local time, objects in a hit set can have misleading
+     names consisting of future or past time stamps. In the worst case, objects
+     may not exist in the hit set at all.
+    </p><p>
+     To prevent this, the <code class="option">use_gmt_hitset</code> defaults to '1' on a
+     newly created cache tier setups. This way, you force OSDs to use GMT
+     (Greenwich Mean Time) time stamps when creating the object names for the
+     hit set.
+    </p><div id="id-1.3.4.11.11.4.11.5" data-id-title="Leave the Default Value" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Leave the Default Value</h6><p>
+      Do not touch the default value '1' of <code class="option">use_gmt_hitset</code>. If
+      errors related to this option are not caused by your cluster setup, never
+      change it manually. Otherwise, the cluster behavior may become
+      unpredictable.
+     </p></div></section></section><section class="sect2" id="id-1.3.4.11.11.5" data-id-title="Cache Sizing"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.7.2 </span><span class="title-name">Cache Sizing</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#id-1.3.4.11.11.5">#</a></h3></div></div></div><p>
+    The cache tiering agent performs two main functions:
+   </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.3.4.11.11.5.3.1"><span class="term">Flushing</span></dt><dd><p>
+       The agent identifies modified (dirty) objects and forwards them to the
+       storage pool for long-term storage.
+      </p></dd><dt id="id-1.3.4.11.11.5.3.2"><span class="term">Evicting</span></dt><dd><p>
+       The agent identifies objects that have not been modified (clean) and
+       evicts the least recently used among them from the cache.
+      </p></dd></dl></div><section class="sect3" id="cache-tier-config-absizing" data-id-title="Absolute Sizing"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.7.2.1 </span><span class="title-name">Absolute Sizing</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#cache-tier-config-absizing">#</a></h4></div></div></div><p>
+     The cache tiering agent can flush or evict objects based on the total
+     number of bytes or the total number of objects. To specify a maximum
+     number of bytes, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> target_max_bytes <em class="replaceable">num_of_bytes</em></pre></div><p>
+     To specify the maximum number of objects, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> target_max_objects <em class="replaceable">num_of_objects</em></pre></div><div id="id-1.3.4.11.11.5.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Ceph is not able to determine the size of a cache pool automatically,
+      so the configuration on the absolute size is required here. Otherwise,
+      flush and evict will not work. If you specify both limits, the cache
+      tiering agent will begin flushing or evicting when either threshold is
+      triggered.
+     </p></div><div id="id-1.3.4.11.11.5.4.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      All client requests will be blocked only when
+      <code class="option">target_max_bytes</code> or <code class="option">target_max_objects</code>
+      reached.
+     </p></div></section><section class="sect3" id="cache-tier-config-relsizing" data-id-title="Relative Sizing"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.7.2.2 </span><span class="title-name">Relative Sizing</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#cache-tier-config-relsizing">#</a></h4></div></div></div><p>
+     The cache tiering agent can flush or evict objects relative to the size of
+     the cache pool (specified by <code class="option">target_max_bytes</code> or
+     <code class="option">target_max_objects</code> in
+     <a class="xref" href="cha-ceph-tiered.html#cache-tier-config-absizing" title="11.7.2.1. Absolute Sizing">Section 11.7.2.1, “Absolute Sizing”</a>). When the cache pool
+     consists of a certain percentage of modified (dirty) objects, the cache
+     tiering agent will flush them to the storage pool. To set the
+     <code class="option">cache_target_dirty_ratio</code>, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> cache_target_dirty_ratio <em class="replaceable">0.0...1.0</em></pre></div><p>
+     For example, setting the value to 0.4 will begin flushing modified (dirty)
+     objects when they reach 40% of the cache pool's capacity:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set hot-storage cache_target_dirty_ratio 0.4</pre></div><p>
+     When the dirty objects reach a certain percentage of the capacity, flush
+     them at a higher speed. Use
+     <code class="option">cache_target_dirty_high_ratio</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> cache_target_dirty_high_ratio <em class="replaceable">0.0..1.0</em></pre></div><p>
+     When the cache pool reaches a certain percentage of its capacity, the
+     cache tiering agent will evict objects to maintain free capacity. To set
+     the <code class="option">cache_target_full_ratio</code>, execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> cache_target_full_ratio <em class="replaceable">0.0..1.0</em></pre></div></section></section><section class="sect2" id="id-1.3.4.11.11.6" data-id-title="Cache Age"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.7.3 </span><span class="title-name">Cache Age</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#id-1.3.4.11.11.6">#</a></h3></div></div></div><p>
+    You can specify the minimum age of a recently modified (dirty) object
+    before the cache tiering agent flushes it to the backing storage pool. Note
+    that this will only apply if the cache actually needs to flush/evict
+    objects:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> cache_min_flush_age <em class="replaceable">num_of_seconds</em></pre></div><p>
+    You can specify the minimum age of an object before it will be evicted from
+    the cache tier:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool set <em class="replaceable">cachepool</em> cache_min_evict_age <em class="replaceable">num_of_seconds</em></pre></div></section><section class="sect2" id="ses-tiered-hitset-examples" data-id-title="Examples"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.7.4 </span><span class="title-name">Examples</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ses-tiered-hitset-examples">#</a></h3></div></div></div><section class="sect3" id="ses-tiered-hitset-examples-memory" data-id-title="Large Cache Pool and Small Memory"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.7.4.1 </span><span class="title-name">Large Cache Pool and Small Memory</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ses-tiered-hitset-examples-memory">#</a></h4></div></div></div><p>
+     If lots of storage and only a small amount of RAM is available, all
+     objects can be promoted to the cache pool as soon as they are accessed.
+     The hit set is kept small. The following is a set of example configuration
+     values:
+    </p><div class="verbatim-wrap"><pre class="screen">hit_set_count = 1
+hit_set_period = 3600
+hit_set_fpp = 0.05
+min_write_recency_for_promote = 0
+min_read_recency_for_promote = 0</pre></div></section><section class="sect3" id="ses-tiered-hitset-examples-storage" data-id-title="Small Cache Pool and Large Memory"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.7.4.2 </span><span class="title-name">Small Cache Pool and Large Memory</span> <a title="Permalink" class="permalink" href="cha-ceph-tiered.html#ses-tiered-hitset-examples-storage">#</a></h4></div></div></div><p>
+     If a small amount of storage but a comparably large amount of memory is
+     available, the cache tier can be configured to promote a limited number of
+     objects into the cache pool. Twelve hit sets, of which each is used over a
+     period of 14,400 seconds, provide tracking for a total of 48 hours. If an
+     object has been accessed in the last 8 hours, it is promoted to the cache
+     pool. The set of example configuration values then is:
+    </p><div class="verbatim-wrap"><pre class="screen">hit_set_count = 12
+hit_set_period = 14400
+hit_set_fpp = 0.01
+min_write_recency_for_promote = 2
+min_read_recency_for_promote = 2</pre></div></section></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-erasure.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 10 </span>Erasure Coded Pools</span></a> </div><div><a class="pagination-link next" href="cha-ceph-configuration.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 12 </span>Ceph Cluster Configuration</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-tiered.html#id-1.3.4.11.5"><span class="title-number">11.1 </span><span class="title-name">Tiered Storage Terminology</span></a></span></li><li><span class="sect1"><a href="cha-ceph-tiered.html#sec-ceph-tiered-caution"><span class="title-number">11.2 </span><span class="title-name">Points to Consider</span></a></span></li><li><span class="sect1"><a href="cha-ceph-tiered.html#id-1.3.4.11.7"><span class="title-number">11.3 </span><span class="title-name">When to Use Cache Tiering</span></a></span></li><li><span class="sect1"><a href="cha-ceph-tiered.html#sec-ceph-tiered-cachemodes"><span class="title-number">11.4 </span><span class="title-name">Cache Modes</span></a></span></li><li><span class="sect1"><a href="cha-ceph-tiered.html#ceph-tier-erasure"><span class="title-number">11.5 </span><span class="title-name">Erasure Coded Pool and Cache Tiering</span></a></span></li><li><span class="sect1"><a href="cha-ceph-tiered.html#ses-tiered-storage"><span class="title-number">11.6 </span><span class="title-name">Setting Up an Example Tiered Storage</span></a></span></li><li><span class="sect1"><a href="cha-ceph-tiered.html#cache-tier-configure"><span class="title-number">11.7 </span><span class="title-name">Configuring a Cache Tier</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_ceph_tiered_storage.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

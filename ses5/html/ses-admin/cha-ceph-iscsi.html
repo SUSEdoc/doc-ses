@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Ceph iSCSI Gateway | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Ceph iSCSI Gateway | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="The chapter focuses on administration tasks related to the iSCSI Gateway. For a procedure of deployment refer to Book “Deployment Guide”, Chapter 10 “Installat…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Chapter 14. Ceph iSCSI Gateway"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Ceph iSCSI Gateway | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="The chapter focuses on administration tasks related to the iSCSI Gateway. For a procedure of deployment refer to Book “Deployment Guide”, Chapter 10 “Installat…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ceph iSCSI Gateway | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="The chapter focuses on administration tasks related to the iSCSI Gateway. For a procedure of deployment refer to Book “Deployment Guide”, Chapter 10 “Installat…"/>
+<link rel="prev" href="cha-ceph-gw.html" title="Chapter 13. Ceph Object Gateway"/><link rel="next" href="cha-ceph-cephfs.html" title="Chapter 15. Clustered File System"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="part-dataccess.html">Accessing Cluster Data</a><span> / </span><a class="crumb" href="cha-ceph-iscsi.html">Ceph iSCSI Gateway</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-cluster-managment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span></a></li></ol></li><li><a href="part-operate.html" class="has-children "><span class="title-number">II </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">2 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" "><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">4 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">6 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">7 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">9 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">10 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">11 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">12 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li class="active"><a href="part-dataccess.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" you-are-here"><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">15 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">16 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-gui.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Managing Cluster with GUI Tools</span></a><ol><li><a href="ceph-oa.html" class=" "><span class="title-number">17 </span><span class="title-name">openATTIC</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">18 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">19 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li><a href="part-troubleshooting.html" class="has-children "><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" "><span class="title-number">20 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">21 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">22 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="gloss-storage-glossary.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="app-alerting-default.html" class=" "><span class="title-number">B </span><span class="title-name">Default Alerts for SUSE Enterprise Storage</span></a></li><li><a href="app-storage-manual-inst.html" class=" "><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">D </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-iscsi" data-id-title="Ceph iSCSI Gateway"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#">#</a></h2></div></div></div><p>
+  The chapter focuses on administration tasks related to the iSCSI Gateway. For
+  a procedure of deployment refer to <span class="intraxref">Book “Deployment Guide”, Chapter 10 “Installation of iSCSI Gateway”</span>.
+  
+ </p><section class="sect1" id="ceph-iscsi-connect" data-id-title="Connecting to lrbd-managed Targets"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">14.1 </span><span class="title-name">Connecting to lrbd-managed Targets</span> <a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#ceph-iscsi-connect">#</a></h2></div></div></div><p>
+   This chapter describes how to connect to lrdb-managed targets from clients
+   running Linux, Microsoft Windows, or VMware.
+  </p><section class="sect2" id="ceph-iscsi-connect-linux" data-id-title="Linux (open-iscsi)"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">14.1.1 </span><span class="title-name">Linux (<code class="systemitem">open-iscsi</code>)</span> <a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#ceph-iscsi-connect-linux">#</a></h3></div></div></div><p>
+    Connecting to lrbd-backed iSCSI targets with
+    <code class="systemitem">open-iscsi</code> is a two-step process. First the
+    initiator must discover the iSCSI targets available on the gateway host,
+    then it must log in and map the available Logical Units (LUs).
+   </p><p>
+    Both steps require that the <code class="systemitem">open-iscsi</code> daemon is
+    running. The way you start the <code class="systemitem">open-iscsi</code> daemon
+    is dependent on your Linux distribution:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      On SUSE Linux Enterprise Server (SLES); and Red Hat Enterprise Linux (RHEL) hosts, run <code class="command">systemctl start
+      iscsid</code> (or <code class="command">service iscsid start</code> if
+      <code class="command">systemctl</code> is not available).
+     </p></li><li class="listitem"><p>
+      On Debian and Ubuntu hosts, run <code class="command">systemctl start
+      open-iscsi</code> (or <code class="command">service open-iscsi start</code>).
+     </p></li></ul></div><p>
+    If your initiator host runs SUSE Linux Enterprise Server, refer to
+    <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-storage/#sec-iscsi-initiator" target="_blank">https://documentation.suse.com/sles/12-SP5/single-html/SLES-storage/#sec-iscsi-initiator</a>
+    for details on how to connect to an iSCSI target.
+   </p><p>
+    For any other Linux distribution supporting
+    <code class="systemitem">open-iscsi</code>, proceed to discover targets on your
+    <code class="systemitem">lrbd</code> gateway (this example uses iscsi1.example.com
+    as the portal address; for multipath access repeat these steps with
+    iscsi2.example.com):
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>iscsiadm -m discovery -t sendtargets -p iscsi1.example.com
+192.168.124.104:3260,1 iqn.2003-01.org.linux-iscsi.iscsi.x86:testvol</pre></div><p>
+    Then, log in to the portal. If the login completes successfully, any
+    RBD-backed logical units on the portal will immediately become available on
+    the system SCSI bus:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>iscsiadm -m node -p iscsi1.example.com --login
+Logging in to [iface: default, target: iqn.2003-01.org.linux-iscsi.iscsi.x86:testvol, portal: 192.168.124.104,3260] (multiple)
+Login to [iface: default, target: iqn.2003-01.org.linux-iscsi.iscsi.x86:testvol, portal: 192.168.124.104,3260] successful.</pre></div><p>
+    Repeat this process for other portal IP addresses or hosts.
+   </p><p>
+    If your system has the <code class="systemitem">lsscsi</code> utility installed,
+    you use it to enumerate available SCSI devices on your system:
+   </p><div class="verbatim-wrap"><pre class="screen">lsscsi
+[8:0:0:0]    disk    SUSE     RBD              4.0   /dev/sde
+[9:0:0:0]    disk    SUSE     RBD              4.0   /dev/sdf</pre></div><p>
+    In a multipath configuration (where two connected iSCSI devices represent
+    one and the same LU), you can also examine the multipath device state with
+    the <code class="systemitem">multipath</code> utility:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>multipath -ll
+360014050cf9dcfcb2603933ac3298dca dm-9 SUSE,RBD
+size=49G features='0' hwhandler='0' wp=rw
+|-+- policy='service-time 0' prio=1 status=active
+| `- 8:0:0:0 sde 8:64 active ready running
+`-+- policy='service-time 0' prio=1 status=enabled
+`- 9:0:0:0 sdf 8:80 active ready running</pre></div><p>
+    You can now use this multipath device as you would any block device. For
+    example, you can use the device as a Physical Volume for Linux Logical
+    Volume Management (LVM), or you can simply create a file system on it. The
+    example below demonstrates how to create an XFS file system on the newly
+    connected multipath iSCSI volume:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkfs -t xfs /dev/mapper/360014050cf9dcfcb2603933ac3298dca
+log stripe unit (4194304 bytes) is too large (maximum is 256KiB)
+log stripe unit adjusted to 32KiB
+meta-data=/dev/mapper/360014050cf9dcfcb2603933ac3298dca isize=256    agcount=17, agsize=799744 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=0        finobt=0
+data     =                       bsize=4096   blocks=12800000, imaxpct=25
+         =                       sunit=1024   swidth=1024 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=0
+log      =internal log           bsize=4096   blocks=6256, version=2
+         =                       sectsz=512   sunit=8 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0</pre></div><p>
+    Note that XFS being a non-clustered file system, you may only ever mount it
+    on a single iSCSI initiator node at any given time.
+   </p><p>
+    If at any time you want to discontinue using the iSCSI LUs associated with
+    a particular target, run the following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>iscsiadm -m node -p iscsi1.example.com --logout
+Logging out of session [sid: 18, iqn.2003-01.org.linux-iscsi.iscsi.x86:testvol, portal: 192.168.124.104,3260]
+Logout of [sid: 18, target: iqn.2003-01.org.linux-iscsi.iscsi.x86:testvol, portal: 192.168.124.104,3260] successful.</pre></div><p>
+    As with discovery and login, you must repeat the logout steps for all
+    portal IP addresses or host names.
+   </p><section class="sect3" id="ceph-iscsi-connect-linux-multipath" data-id-title="Multipath Configuration"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">14.1.1.1 </span><span class="title-name">Multipath Configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#ceph-iscsi-connect-linux-multipath">#</a></h4></div></div></div><p>
+     The multipath configuration is maintained on the clients or initiators and
+     is independent of any <code class="systemitem">lrbd</code> configuration. Select
+     a strategy prior to using block storage. After editing the
+     <code class="filename">/etc/multipath.conf</code>, restart
+     <code class="systemitem">multipathd</code> with
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl restart multipathd</pre></div><p>
+     For an active-passive configuration with friendly names, add
+    </p><div class="verbatim-wrap"><pre class="screen">defaults {
+  user_friendly_names yes
+}</pre></div><p>
+     to your <code class="filename">/etc/multipath.conf</code>. After connecting to your
+     targets successfully, run
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>multipath -ll
+mpathd (36001405dbb561b2b5e439f0aed2f8e1e) dm-0 SUSE,RBD
+size=2.0G features='0' hwhandler='0' wp=rw
+|-+- policy='service-time 0' prio=1 status=active
+| `- 2:0:0:3 sdl 8:176 active ready running
+|-+- policy='service-time 0' prio=1 status=enabled
+| `- 3:0:0:3 sdj 8:144 active ready running
+`-+- policy='service-time 0' prio=1 status=enabled
+  `- 4:0:0:3 sdk 8:160 active ready running</pre></div><p>
+     Note the status of each link. For an active-active configuration, add
+    </p><div class="verbatim-wrap"><pre class="screen">defaults {
+  user_friendly_names yes
+}
+
+devices {
+  device {
+    vendor "(LIO-ORG|SUSE)"
+    product "RBD"
+    path_grouping_policy "multibus"
+    path_checker "tur"
+    features "0"
+    hardware_handler "1 alua"
+    prio "alua"
+    failback "immediate"
+    rr_weight "uniform"
+    no_path_retry 12
+    rr_min_io 100
+  }
+}</pre></div><p>
+     to your <code class="filename">/etc/multipath.conf</code>. Restart
+     <code class="systemitem">multipathd</code> and run
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>multipath -ll
+mpathd (36001405dbb561b2b5e439f0aed2f8e1e) dm-3 SUSE,RBD
+size=2.0G features='1 queue_if_no_path' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 4:0:0:3 sdj 8:144 active ready running
+  |- 3:0:0:3 sdk 8:160 active ready running
+  `- 2:0:0:3 sdl 8:176 active ready running</pre></div></section></section><section class="sect2" id="ceph-iscsi-connect-win" data-id-title="Microsoft Windows (Microsoft iSCSI initiator)"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">14.1.2 </span><span class="title-name">Microsoft Windows (Microsoft iSCSI initiator)</span> <a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#ceph-iscsi-connect-win">#</a></h3></div></div></div><p>
+    To connect to a SUSE Enterprise Storage 5.5 iSCSI target from a Windows 2012 server, follow
+    these steps:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Open Windows Server Manager. From the Dashboard, select
+      <span class="guimenu">Tools</span> / <span class="guimenu">iSCSI
+      Initiator</span>. The <span class="guimenu">iSCSI Initiator
+      Properties</span> dialog appears. Select the
+      <span class="guimenu">Discovery</span> tab:
+     </p><div class="figure" id="id-1.3.5.3.4.4.3.1.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-initiator-props.png" target="_blank"><img src="images/iscsi-initiator-props.png" width="" alt="iSCSI Initiator Properties"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.1: </span><span class="title-name">iSCSI Initiator Properties </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.3.1.2">#</a></h6></div></div></li><li class="step"><p>
+      In the <span class="guimenu">Discover Target Portal</span> dialog, enter the
+      target's host name or IP address in the <span class="guimenu">Target</span> field
+      and click <span class="guimenu">OK</span>:
+     </p><div class="figure" id="id-1.3.5.3.4.4.3.2.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-target-ip.png" target="_blank"><img src="images/iscsi-target-ip.png" width="" alt="Discover Target Portal"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.2: </span><span class="title-name">Discover Target Portal </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.3.2.2">#</a></h6></div></div></li><li class="step"><p>
+      Repeat this process for all other gateway host names or IP addresses.
+      When completed, review the <span class="guimenu">Target Portals</span> list:
+     </p><div class="figure" id="id-1.3.5.3.4.4.3.3.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-target-ip-list.png" target="_blank"><img src="images/iscsi-target-ip-list.png" width="" alt="Target Portals"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.3: </span><span class="title-name">Target Portals </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.3.3.2">#</a></h6></div></div></li><li class="step"><p>
+      Next, switch to the <span class="guimenu">Targets</span> tab and review your
+      discovered target(s).
+     </p><div class="figure" id="id-1.3.5.3.4.4.3.4.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-targets.png" target="_blank"><img src="images/iscsi-targets.png" width="" alt="Targets"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.4: </span><span class="title-name">Targets </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.3.4.2">#</a></h6></div></div></li><li class="step"><p>
+      Click <span class="guimenu">Connect</span> in the <span class="guimenu">Targets</span> tab.
+      The <span class="guimenu">Connect To Target</span> dialog appears. Select the
+      <span class="guimenu">Enable Multi-path</span> check box to enable multipath I/O
+      (MPIO), then click <span class="guimenu">OK</span>:
+     </p></li><li class="step"><p>
+      When the <span class="guimenu">Connect to Target</span> dialog closes, select
+      <span class="guimenu">Properties</span> to review the target's properties:
+     </p><div class="figure" id="id-1.3.5.3.4.4.3.6.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-target-properties.png" target="_blank"><img src="images/iscsi-target-properties.png" width="" alt="iSCSI Target Properties"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.5: </span><span class="title-name">iSCSI Target Properties </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.3.6.2">#</a></h6></div></div></li><li class="step"><p>
+      Select <span class="guimenu">Devices</span>, and click <span class="guimenu">MPIO</span> to
+      review the multipath I/O configuration:
+     </p><div class="figure" id="id-1.3.5.3.4.4.3.7.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-device-details.png" target="_blank"><img src="images/iscsi-device-details.png" width="" alt="Device Details"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.6: </span><span class="title-name">Device Details </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.3.7.2">#</a></h6></div></div><p>
+      The default <span class="guimenu">Load Balance policy</span> is <span class="guimenu">Round
+      Robin With Subset</span>. If you prefer a pure fail-over
+      configuration, change it to <span class="guimenu">Fail Over Only</span>.
+     </p></li></ol></div></div><p>
+    This concludes the iSCSI initiator configuration. The iSCSI volumes are now
+    available like any other SCSI devices, and may be initialized for use as
+    volumes and drives. Click <span class="guimenu">OK</span> to close the <span class="guimenu">iSCSI
+    Initiator Properties</span> dialog, and proceed with the<span class="guimenu"> File
+    and Storage Services</span> role from the <span class="guimenu">Server
+    Manager</span> dashboard.
+   </p><p>
+    Observe the newly connected volume. It identifies as <span class="emphasis"><em>SUSE RBD
+    SCSI Multi-Path Drive</em></span> on the iSCSI bus, and is initially marked
+    with an <span class="emphasis"><em>Offline</em></span> status and a partition table type of
+    <span class="emphasis"><em>Unknown</em></span>. If the new volume does not appear
+    immediately, select <span class="guimenu">Rescan Storage</span> from the
+    <span class="guimenu">Tasks</span> drop-down box to rescan the iSCSI bus.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Right-click on the iSCSI volume and select <span class="guimenu">New Volume</span>
+      from the context menu. The <span class="guimenu">New Volume Wizard</span> appears.
+      Click <span class="guimenu">Next</span>, highlight the newly connected iSCSI volume
+      and click <span class="guimenu">Next</span> to begin.
+     </p><div class="figure" id="id-1.3.5.3.4.4.6.1.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-volume-wizard.png" target="_blank"><img src="images/iscsi-volume-wizard.png" width="" alt="New Volume Wizard"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.7: </span><span class="title-name">New Volume Wizard </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.6.1.2">#</a></h6></div></div></li><li class="step"><p>
+      Initially, the device is empty and does not contain a partition table.
+      When prompted, confirm the dialog indicating that the volume will be
+      initialized with a GPT partition table:
+     </p><div class="figure" id="id-1.3.5.3.4.4.6.2.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-win-prompt1.png" target="_blank"><img src="images/iscsi-win-prompt1.png" width="" alt="Offline Disk Prompt"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.8: </span><span class="title-name">Offline Disk Prompt </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.6.2.2">#</a></h6></div></div></li><li class="step"><p>
+      Select the volume size. Typically, you would use the device's full
+      capacity. Then assign a drive letter or directory name where the newly
+      created volume will become available. Then select a file system to create
+      on the new volume, and finally confirm your selections with
+      <span class="guimenu">Create</span> to finish creating the volume:
+     </p><div class="figure" id="id-1.3.5.3.4.4.6.3.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-volume-confirm.png" target="_blank"><img src="images/iscsi-volume-confirm.png" width="" alt="Confirm Volume Selections"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.9: </span><span class="title-name">Confirm Volume Selections </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.4.6.3.2">#</a></h6></div></div><p>
+      When the process finishes, review the results, then
+      <span class="guimenu">Close</span> to conclude the drive initialization. Once
+      initialization completes, the volume (and its NTFS file system) becomes
+      available like a newly initialized local drive.
+     </p></li></ol></div></div></section><section class="sect2" id="ceph-iscsi-connect-vmware" data-id-title="VMware"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">14.1.3 </span><span class="title-name">VMware</span> <a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#ceph-iscsi-connect-vmware">#</a></h3></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      To connect to <code class="systemitem">lrbd</code> managed iSCSI volumes you
+      need a configured iSCSI software adapter. If no such adapter is available
+      in your vSphere configuration, create one by selecting
+      <span class="guimenu">Configuration</span> / <span class="guimenu">Storage
+      Adapters</span> / <span class="guimenu">Add</span> / <span class="guimenu">iSCSI Software
+      initiator</span>.
+     </p></li><li class="step"><p>
+      When available, select the adapter's properties by right-clicking the
+      adapter and selecting <span class="guimenu">Properties</span> from the context
+      menu:
+     </p><div class="figure" id="id-1.3.5.3.4.5.3.2.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi_vmware_adapter_props.png" target="_blank"><img src="images/iscsi_vmware_adapter_props.png" width="" alt="iSCSI Initiator Properties"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.10: </span><span class="title-name">iSCSI Initiator Properties </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.5.3.2.2">#</a></h6></div></div></li><li class="step"><p>
+      In the <span class="guimenu">iSCSI Software Initiator</span> dialog, click the
+      <span class="guimenu">Configure</span> button. Then go to the <span class="guimenu">Dynamic
+      Discovery</span> tab and select <span class="guimenu">Add</span>.
+     </p></li><li class="step"><p>
+      Enter the IP address or host name of your <code class="systemitem">lrbd</code>
+      iSCSI gateway. If you run multiple iSCSI gateways in a failover
+      configuration, repeat this step for as many gateways as you operate.
+     </p><div class="figure" id="id-1.3.5.3.4.5.3.4.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-vmware-add-target.png" target="_blank"><img src="images/iscsi-vmware-add-target.png" width="" alt="Add Target Server"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.11: </span><span class="title-name">Add Target Server </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.5.3.4.2">#</a></h6></div></div><p>
+      When you have entered all iSCSI gateways, click <span class="guimenu">OK</span> in
+      the dialog to initiate a rescan of the iSCSI adapter.
+     </p></li><li class="step"><p>
+      When the rescan completes, the new iSCSI device appears below the
+      <span class="guimenu">Storage Adapters</span> list in the
+      <span class="guimenu">Details</span> pane. For multipath devices, you can now
+      right-click on the adapter and select <span class="guimenu">Manage Paths</span>
+      from the context menu:
+     </p><div class="figure" id="id-1.3.5.3.4.5.3.5.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-vmware-multipath.png" target="_blank"><img src="images/iscsi-vmware-multipath.png" width="" alt="Manage Multipath Devices"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.12: </span><span class="title-name">Manage Multipath Devices </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.5.3.5.2">#</a></h6></div></div><p>
+      You should now see all paths with a green light under
+      <span class="guimenu">Status</span>. One of your paths should be marked
+      <span class="guimenu">Active (I/O)</span> and all others simply
+      <span class="guimenu">Active</span>:
+     </p><div class="figure" id="id-1.3.5.3.4.5.3.5.4"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-vmware-paths.png" target="_blank"><img src="images/iscsi-vmware-paths.png" width="" alt="Paths Listing for Multipath"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.13: </span><span class="title-name">Paths Listing for Multipath </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.5.3.5.4">#</a></h6></div></div></li><li class="step"><p>
+      You can now switch from <span class="guimenu">Storage Adapters</span> to the item
+      labeled <span class="guimenu">Storage</span>. Select <span class="guimenu">Add
+      Storage...</span> in the top-right corner of the pane to bring up the
+      <span class="guimenu">Add Storage</span> dialog. Then, select
+      <span class="guimenu">Disk/LUN</span> and click <span class="guimenu">Next</span>. The newly
+      added iSCSI device appears in the <span class="guimenu">Select Disk/LUN</span>
+      list. Select it, then click <span class="guimenu">Next</span> to proceed:
+     </p><div class="figure" id="id-1.3.5.3.4.5.3.6.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-vmware-add-storage-dialog.png" target="_blank"><img src="images/iscsi-vmware-add-storage-dialog.png" width="" alt="Add Storage Dialog"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.14: </span><span class="title-name">Add Storage Dialog </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.5.3.6.2">#</a></h6></div></div><p>
+      Click <span class="guimenu">Next</span> to accept the default disk layout.
+     </p></li><li class="step"><p>
+      In the <span class="guimenu">Properties</span> pane, assign a name to the new
+      datastore, and click <span class="guimenu">Next</span>. Accept the default setting
+      to use the volume's entire space for the datastore, or select
+      <span class="guimenu">Custom Space Setting</span> for a smaller datastore:
+     </p><div class="figure" id="id-1.3.5.3.4.5.3.7.2"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-vmware-custom-datastore.png" target="_blank"><img src="images/iscsi-vmware-custom-datastore.png" width="" alt="Custom Space Setting"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.15: </span><span class="title-name">Custom Space Setting </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.5.3.7.2">#</a></h6></div></div><p>
+      Click <span class="guimenu">Finish</span> to complete the datastore creation.
+     </p><p>
+      The new datastore now appears in the datastore list and you can select it
+      to retrieve details. You are now able to use the
+      <code class="systemitem">lrbd</code>-backed iSCSI volume like any other vSphere
+      datastore.
+     </p><div class="figure" id="id-1.3.5.3.4.5.3.7.5"><div class="figure-contents"><div class="mediaobject"><a href="images/iscsi-vmware-overview.png" target="_blank"><img src="images/iscsi-vmware-overview.png" width="" alt="iSCSI Datastore Overview"/></a></div></div><div class="figure-title-wrap"><h6 class="figure-title"><span class="title-number">Figure 14.16: </span><span class="title-name">iSCSI Datastore Overview </span><a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#id-1.3.5.3.4.5.3.7.5">#</a></h6></div></div></li></ol></div></div></section></section><section class="sect1" id="ceph-iscsi-conclude" data-id-title="Conclusion"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">14.2 </span><span class="title-name">Conclusion</span> <a title="Permalink" class="permalink" href="cha-ceph-iscsi.html#ceph-iscsi-conclude">#</a></h2></div></div></div><p>
+   <code class="systemitem">lrbd</code> is a key component of SUSE Enterprise Storage 5.5 that enables
+   access to distributed, highly available block storage from any server or
+   client capable of speaking the iSCSI protocol. By using
+   <code class="systemitem">lrbd</code> on one or more iSCSI gateway hosts, Ceph RBD
+   images become available as Logical Units (LUs) associated with iSCSI
+   targets, which can be accessed in an optionally load-balanced, highly
+   available fashion.
+  </p><p>
+   Since all of <code class="systemitem">lrbd</code>'s configuration is stored in the
+   Ceph RADOS object store, <code class="systemitem">lrbd</code> gateway hosts are
+   inherently without persistent state and thus can be replaced, augmented, or
+   reduced at will. As a result, SUSE Enterprise Storage 5.5 enables SUSE customers to run a
+   truly distributed, highly-available, resilient, and self-healing enterprise
+   storage technology on commodity hardware and an entirely open source
+   platform.
+  </p></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-gw.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 13 </span>Ceph Object Gateway</span></a> </div><div><a class="pagination-link next" href="cha-ceph-cephfs.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 15 </span>Clustered File System</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-iscsi.html#ceph-iscsi-connect"><span class="title-number">14.1 </span><span class="title-name">Connecting to lrbd-managed Targets</span></a></span></li><li><span class="sect1"><a href="cha-ceph-iscsi.html#ceph-iscsi-conclude"><span class="title-number">14.2 </span><span class="title-name">Conclusion</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_ceph_iscsi.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

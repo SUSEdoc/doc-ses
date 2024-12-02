@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Exporting Ceph Data via Samba | Deployment Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Exporting Ceph Data via Samba | SES 5.5 (SES 5 &amp; SES 5…"/>
+<meta name="description" content="This chapter describes how to export data stored in a Ceph cluster via a Samba/CIFS share so that you can easily access them from Windows* client machines. It …"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 13. Exporting Ceph Data via Samba"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Exporting Ceph Data via Samba | SES 5.5 (SES 5 &amp; SES 5…"/>
+<meta property="og:description" content="This chapter describes how to export data stored in a Ceph cluster via a Samba/CIFS share so that you can easily access them from Windows* client machines. It …"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Exporting Ceph Data via Samba | SES 5.5 (SES 5 &amp; SES 5…"/>
+<meta name="twitter:description" content="This chapter describes how to export data stored in a Ceph cluster via a Samba/CIFS share so that you can easily access them from Windows* client machines. It …"/>
+<link rel="prev" href="cha-as-ganesha.html" title="Chapter 12. Installation of NFS Ganesha"/><link rel="next" href="ap-deploy-docupdate.html" title="Appendix A. Documentation Updates"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="additional-software.html">Installation of Additional Services</a><span> / </span><a class="crumb" href="cha-ses-cifs.html">Exporting Ceph Data via Samba</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 5.5 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Ceph Admin Node HA Setup</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">4 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">5 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">6 </span><span class="title-name">Backing Up the Cluster Configuration</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li class="active"><a href="additional-software.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li><li><a href="cha-ses-cifs.html" class=" you-are-here"><span class="title-number">13 </span><span class="title-name">Exporting Ceph Data via Samba</span></a></li></ol></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">A </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ses-cifs" data-id-title="Exporting Ceph Data via Samba"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">13 </span><span class="title-name">Exporting Ceph Data via Samba</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#">#</a></h2></div></div></div><p>
+  This chapter describes how to export data stored in a Ceph cluster via a
+  Samba/CIFS share so that you can easily access them from Windows* client
+  machines. It also includes information that will help you configure a Ceph
+  Samba gateway to join Active Directory in the Windows* domain to authenticate and
+  authorize users.
+ </p><div id="id-1.4.5.7.4" data-id-title="Samba Gateway Performance" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Samba Gateway Performance</h6><p>
+   Because of increased protocol overhead and additional latency caused by
+   extra network hops between the client and the storage, accessing CephFS
+   via a Samba Gateway may significantly reduce application performance when
+   compared to native Ceph clients.
+  </p></div><section class="sect1" id="cephfs-samba" data-id-title="Export CephFS via Samba Share"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">13.1 </span><span class="title-name">Export CephFS via Samba Share</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#cephfs-samba">#</a></h2></div></div></div><div id="id-1.4.5.7.5.2" data-id-title="Cross Protocol Access" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Cross Protocol Access</h6><p>
+    Native CephFS and NFS clients are not restricted by file locks obtained
+    via Samba, and vice versa. Applications that rely on cross protocol file
+    locking may experience data corruption if CephFS backed Samba share paths
+    are accessed via other means.
+   </p></div><section class="sect2" id="cephfs-samba-packages" data-id-title="Samba Related Packages Installation"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">13.1.1 </span><span class="title-name">Samba Related Packages Installation</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#cephfs-samba-packages">#</a></h3></div></div></div><p>
+    To configure and export a Samba share, the following packages need to be
+    installed: <span class="package">samba-ceph</span> and
+    <span class="package">samba-winbind</span>. If these packages are not installed,
+    install them:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@smb &gt; </code>zypper install samba-ceph samba-winbind</pre></div></section><section class="sect2" id="sec-ses-cifs-example" data-id-title="Single Gateway Example"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">13.1.2 </span><span class="title-name">Single Gateway Example</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#sec-ses-cifs-example">#</a></h3></div></div></div><p>
+    In preparation for exporting a Samba share, choose an appropriate node to
+    act as a Samba Gateway. The node needs to have access to the Ceph client network,
+    as well as sufficient CPU, memory, and networking resources.
+   </p><p>
+    Failover functionality can be provided with CTDB and the SUSE Linux Enterprise High Availability Extension.
+    Refer to <a class="xref" href="cha-ses-cifs.html#sec-ses-cifs-ha" title="13.1.3. High Availability Configuration">Section 13.1.3, “High Availability Configuration”</a> for more information on HA
+    setup.
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Make sure that a working CephFS already exists in your cluster. For
+      details, see <a class="xref" href="cha-ceph-as-cephfs.html" title="Chapter 11. Installation of CephFS">Chapter 11, <em>Installation of CephFS</em></a>.
+     </p></li><li class="step"><p>
+      Create a Samba Gateway specific keyring on the Ceph admin node and copy it to
+      both Samba Gateway nodes:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> auth get-or-create client.samba.gw mon 'allow r' \
+ osd 'allow *' mds 'allow *' -o ceph.client.samba.gw.keyring
+<code class="prompt user">cephadm &gt; </code><code class="command">scp</code> ceph.client.samba.gw.keyring <em class="replaceable">SAMBA_NODE</em>:/etc/ceph/</pre></div><p>
+      Replace <em class="replaceable">SAMBA_NODE</em> with the name of the Samba
+      gateway node.
+     </p></li><li class="step"><p>
+      The following steps are executed on the Samba Gateway node. Install Samba
+      together with the Ceph integration package:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@smb &gt; </code>sudo zypper in samba samba-ceph</pre></div></li><li class="step"><p>
+      Replace the default contents of the
+      <code class="filename">/etc/samba/smb.conf</code> file with the following:
+     </p><div class="verbatim-wrap"><pre class="screen">[global]
+  netbios name = SAMBA-GW
+  clustering = no
+  idmap config * : backend = tdb2
+  passdb backend = tdbsam
+  # disable print server
+  load printers = no
+  smbd: backgroundqueue = no
+
+[<em class="replaceable">SHARE_NAME</em>]
+  path = /
+  vfs objects = ceph
+  ceph: config_file = /etc/ceph/ceph.conf
+  ceph: user_id = samba.gw
+  read only = no
+  oplocks = no
+  kernel share modes = no</pre></div><div id="id-1.4.5.7.5.4.4.4.3" data-id-title="Oplocks and Share Modes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Oplocks and Share Modes</h6><p>
+       <code class="option">oplocks</code> (also known as SMB2+ leases) allow for improved
+       performance through aggressive client caching, but are currently unsafe
+       when Samba is deployed together with other CephFS clients, such as
+       kernel <code class="literal">mount.ceph</code>, FUSE, or NFS Ganesha.
+      </p><p>
+       Currently <code class="option">kernel share modes</code> needs to be disabled in a
+       share running with the CephFS vfs module for file serving to work
+       properly.
+      </p></div><div id="id-1.4.5.7.5.4.4.4.4" data-id-title="Permitting Access" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Permitting Access</h6><p>
+       Since <code class="systemitem">vfs_ceph</code> does not require a file system
+       mount, the share path is interpreted as an absolute path within the
+       Ceph file system on the attached Ceph cluster. For successful share
+       I/O, the path's access control list (ACL) needs to permit access from
+       the mapped user for the given Samba client. You can modify the ACL by
+       temporarily mounting via the CephFS kernel client and using the
+       <code class="command">chmod</code>, <code class="command">chown</code> or
+       <code class="command">setfacl</code> utilities against the share path. For
+       example, to permit access for all users, run:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>chmod 777 <em class="replaceable">MOUNTED_SHARE_PATH</em></pre></div></div></li><li class="step"><p>
+      Start and enable the Samba daemon:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@smb &gt; </code>sudo systemctl start smb.service
+<code class="prompt user">cephadm@smb &gt; </code>sudo systemctl enable smb.service
+<code class="prompt user">cephadm@smb &gt; </code>sudo systemctl start nmb.service
+<code class="prompt user">cephadm@smb &gt; </code>sudo systemctl enable nmb.service</pre></div></li></ol></div></div></section><section class="sect2" id="sec-ses-cifs-ha" data-id-title="High Availability Configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">13.1.3 </span><span class="title-name">High Availability Configuration</span> <a title="Permalink" class="permalink" href="cha-ses-cifs.html#sec-ses-cifs-ha">#</a></h3></div></div></div><div id="id-1.4.5.7.5.5.2" data-id-title="Transparent Failover Not Supported" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Transparent Failover Not Supported</h6><p>
+     Although a multi-node Samba + CTDB deployment is more highly available
+     compared to the single node (see <a class="xref" href="cha-ses-cifs.html" title="Chapter 13. Exporting Ceph Data via Samba">Chapter 13, <em>Exporting Ceph Data via Samba</em></a>),
+     client-side transparent failover is not supported. Applications will
+     likely experience a short outage on Samba Gateway node failure.
+    </p></div><p>
+    This section provides an example of how to set up a two-node high
+    availability configuration of Samba servers. The setup requires the SUSE Linux Enterprise
+    High Availability Extension. The two nodes are called <code class="systemitem">earth</code>
+    (<code class="systemitem">192.168.1.1</code>) and <code class="systemitem">mars</code>
+    (<code class="systemitem">192.168.1.2</code>).
+   </p><p>
+    For details about SUSE Linux Enterprise High Availability Extension, see
+    <a class="link" href="https://documentation.suse.com/sle-ha/12-SP5/" target="_blank">https://documentation.suse.com/sle-ha/12-SP5/</a>.
+   </p><p>
+    Additionally, two floating virtual IP addresses allow clients to connect to
+    the service no matter which physical node it is running on.
+    <code class="systemitem">192.168.1.10</code> is used for cluster
+    administration with Hawk2 and
+    <code class="systemitem">192.168.2.1</code> is used exclusively
+    for the CIFS exports. This makes it easier to apply security restrictions
+    later.
+   </p><p>
+    The following procedure describes the example installation. More details
+    can be found at
+    <a class="link" href="https://documentation.suse.com/sle-ha/12-SP5/single-html/SLE-HA-install-quick/" target="_blank">https://documentation.suse.com/sle-ha/12-SP5/single-html/SLE-HA-install-quick/</a>.
+   </p><div class="procedure" id="proc-sec-ses-cifs-ha"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Create a Samba Gateway specific keyring on the Admin Node and copy it to both nodes:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> auth get-or-create client.samba.gw mon 'allow r' \
+    osd 'allow *' mds 'allow *' -o ceph.client.samba.gw.keyring
+<code class="prompt user">cephadm &gt; </code><code class="command">scp</code> ceph.client.samba.gw.keyring <code class="systemitem">earth</code>:/etc/ceph/
+<code class="prompt user">cephadm &gt; </code><code class="command">scp</code> ceph.client.samba.gw.keyring <code class="systemitem">mars</code>:/etc/ceph/</pre></div></li><li class="step"><p>
+      SLE-HA setup requires a fencing device to avoid a <span class="emphasis"><em>split
+      brain</em></span> situation when active cluster nodes become
+      unsynchronized. For this purpose, you can use a Ceph RBD image with
+      Stonith Block Device (SBD). Refer to
+      <a class="link" href="https://documentation.suse.com/sle-ha/12-SP5/single-html/SLE-HA-guide/#sec-ha-storage-protect-fencing-setup" target="_blank">https://documentation.suse.com/sle-ha/12-SP5/single-html/SLE-HA-guide/#sec-ha-storage-protect-fencing-setup</a>
+      for more details.
+     </p><p>
+      If it does not yet exist, create an RBD pool called
+      <code class="literal">rbd</code> (see
+      <span class="intraxref">Book “Administration Guide”, Chapter 8 “Managing Storage Pools”, Section 8.2.2 “Create a Pool”</span>) and associate it
+      with <code class="literal">rbd</code> (see
+      <span class="intraxref">Book “Administration Guide”, Chapter 8 “Managing Storage Pools”, Section 8.1 “Associate Pools with an Application”</span>). Then create a related
+      RBD image called <code class="literal">sbd01</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd pool create rbd <em class="replaceable">PG_NUM</em> <em class="replaceable">PGP_NUM</em> replicated
+<code class="prompt user">cephadm &gt; </code>ceph osd pool application enable rbd rbd
+<code class="prompt user">cephadm &gt; </code>rbd -p rbd create sbd01 --size 64M --image-shared</pre></div></li><li class="step"><p>
+      Prepare <code class="systemitem">earth</code> and <code class="systemitem">mars</code> to host the Samba service:
+     </p><ol type="a" class="substeps"><li class="step"><p>
+        Make sure the following packages are installed before you proceed:
+        <span class="package">ctdb</span>, <span class="package">tdb-tools</span>, and
+        <span class="package">samba</span> (needed for
+        <code class="systemitem">smb.service</code> and
+        <code class="systemitem">nmb.service</code>).
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@smb &gt; </code><code class="command">zypper</code> in ctdb tdb-tools samba samba-ceph</pre></div></li><li class="step"><p>
+        Make sure the services <code class="literal">ctdb</code>, <code class="literal">smb</code>,
+        and <code class="literal">nmb</code> are stopped and disabled:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@smb &gt; </code>sudo systemctl disable ctdb
+<code class="prompt user">cephadm@smb &gt; </code>sudo systemctl disable smb
+<code class="prompt user">cephadm@smb &gt; </code>sudo systemctl disable nmb
+<code class="prompt user">cephadm@smb &gt; </code>sudo systemctl stop smb
+<code class="prompt user">cephadm@smb &gt; </code>sudo systemctl stop nmb</pre></div></li><li class="step"><p>
+        Open port <code class="literal">4379</code> of your firewall on all nodes. This
+        is needed for CTDB to communicate with other cluster nodes.
+       </p></li></ol></li><li class="step"><p>
+      On <code class="systemitem">earth</code>, create the configuration files for Samba. They will later
+      automatically synchronize to <code class="systemitem">mars</code>.
+     </p><ol type="a" class="substeps"><li class="step"><p>
+        Insert a list of private IP addresses of Samba Gateway nodes in the
+        <code class="filename">/etc/ctdb/nodes</code> file. Find more details in the
+        ctdb manual page (<code class="command">man 7 ctdb</code>).
+       </p><div class="verbatim-wrap"><pre class="screen">192.168.1.1
+192.168.1.2</pre></div></li><li class="step"><p>
+        Configure Samba. Add the following lines in the
+        <code class="literal">[global]</code> section of
+        <code class="filename">/etc/samba/smb.conf</code>. Use the host name of your
+        choice in place of <em class="replaceable">CTDB-SERVER</em> (all nodes in
+        the cluster will appear as one big node with this name). Add a share
+        definition as well, consider <em class="replaceable">SHARE_NAME</em> as
+        an example:
+       </p><div class="verbatim-wrap"><pre class="screen">[global]
+  netbios name = SAMBA-HA-GW
+  clustering = yes
+  idmap config * : backend = tdb2
+  passdb backend = tdbsam
+  ctdbd socket = /var/lib/ctdb/ctdb.socket
+  # disable print server
+  load printers = no
+  smbd: backgroundqueue = no
+
+[SHARE_NAME]
+  path = /
+  vfs objects = ceph
+  ceph: config_file = /etc/ceph/ceph.conf
+  ceph: user_id = samba.gw
+  read only = no
+  oplocks = no
+  kernel share modes = no</pre></div><p>
+        Note that the <code class="filename">/etc/ctdb/nodes</code> and
+        <code class="filename">/etc/samba/smb.conf</code> files need to match on all
+        Samba Gateway nodes.
+       </p></li></ol></li><li class="step"><p>
+      Install and bootstrap the SUSE Linux Enterprise High Availability cluster.
+     </p><ol type="a" class="substeps"><li class="step"><p>
+        Register the SUSE Linux Enterprise High Availability Extension on <code class="systemitem">earth</code> and <code class="systemitem">mars</code>:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">SUSEConnect</code> -r <em class="replaceable">ACTIVATION_CODE</em> -e <em class="replaceable">E_MAIL</em></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@mars # </code><code class="command">SUSEConnect</code> -r <em class="replaceable">ACTIVATION_CODE</em> -e <em class="replaceable">E_MAIL</em></pre></div></li><li class="step"><p>
+        Install <span class="package">ha-cluster-bootstrap</span> on both nodes:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">zypper</code> in ha-cluster-bootstrap</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@mars # </code><code class="command">zypper</code> in ha-cluster-bootstrap</pre></div></li><li class="step"><p>
+        Map the RBD image <code class="literal">sbd01</code> on both Samba Gateways via
+        <code class="systemitem">rbdmap.service</code>.
+       </p><p>
+        Edit <code class="filename">/etc/ceph/rbdmap</code> and add an entry for the SBD
+        image:
+       </p><div class="verbatim-wrap"><pre class="screen">rbd/sbd01 id=samba.gw,keyring=/etc/ceph/ceph.client.samba.gw.keyring</pre></div><p>
+        Enable and start
+        <code class="systemitem">rbdmap.service</code>:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code>systemctl enable rbdmap.service &amp;&amp; systemctl start rbdmap.service
+<code class="prompt user">root@mars # </code>systemctl enable rbdmap.service &amp;&amp; systemctl start rbdmap.service</pre></div><p>
+        The <code class="filename">/dev/rbd/rbd/sbd01</code> device should be available
+        on both Samba Gateways.
+       </p></li><li class="step"><p>
+        Initialize the cluster on <code class="systemitem">earth</code> and let <code class="systemitem">mars</code> join it.
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">ha-cluster-init</code></pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@mars # </code><code class="command">ha-cluster-join</code> -c earth</pre></div><div id="id-1.4.5.7.5.5.7.5.2.4.4" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important</h6><p>
+         During the process of initialization and joining the cluster, you will
+         be interactively asked whether to use SBD. Confirm with
+         <code class="option">y</code> and then specify
+         <code class="filename">/dev/rbd/rbd/sbd01</code> as a path to the storage
+         device.
+        </p></div></li></ol></li><li class="step"><p>
+      Check the status of the cluster. You should see two nodes added in the
+      cluster:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> status
+2 nodes configured
+1 resource configured
+
+Online: [ earth mars ]
+
+Full list of resources:
+
+ admin-ip       (ocf::heartbeat:IPaddr2):       Started earth</pre></div></li><li class="step"><p>
+      Execute the following commands on <code class="systemitem">earth</code> to configure the CTDB
+      resource:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> configure
+<code class="prompt user">crm(live)configure# </code><code class="command">primitive</code> ctdb ocf:heartbeat:CTDB params \
+    ctdb_manages_winbind="false" \
+    ctdb_manages_samba="false" \
+    ctdb_recovery_lock="!/usr/lib64/ctdb/ctdb_mutex_ceph_rados_helper
+        ceph client.samba.gw cephfs_metadata ctdb-mutex"
+    ctdb_socket="/var/lib/ctdb/ctdb.socket" \
+        op monitor interval="10" timeout="20" \
+        op start interval="0" timeout="200" \
+        op stop interval="0" timeout="100"
+<code class="prompt user">crm(live)configure# </code><code class="command">primitive</code> nmb systemd:nmb \
+    op start timeout="100" interval="0" \
+    op stop timeout="100" interval="0" \
+    op monitor interval="60" timeout="100"
+<code class="prompt user">crm(live)configure# </code><code class="command">primitive</code> smb systemd:smb \
+    op start timeout="100" interval="0" \
+    op stop timeout="100" interval="0" \
+    op monitor interval="60" timeout="100"
+<code class="prompt user">crm(live)configure# </code><code class="command">group</code> g-ctdb ctdb nmb smb
+<code class="prompt user">crm(live)configure# </code><code class="command">clone</code> cl-ctdb g-ctdb meta interleave="true"
+<code class="prompt user">crm(live)configure# </code><code class="command">commit</code></pre></div><p>
+      The binary
+      <code class="command">/usr/lib64/ctdb/ctdb_mutex_ceph_rados_helper</code> in the
+      configuration option <code class="literal">ctdb_recovery_lock</code> has the
+      parameters <em class="replaceable">CLUSTER_NAME</em>,
+      <em class="replaceable">CEPHX_USER</em>,
+      <em class="replaceable">RADOS_POOL</em>, and
+      <em class="replaceable">RADOS_OBJECT</em>, in this order.
+     </p><p>
+      An extra lock-timeout parameter can be appended to override the default
+      value used (10 seconds). A higher value will increase the CTDB recovery
+      master failover time, whereas a lower value may result in the recovery
+      master being incorrectly detected as down, triggering flapping failovers.
+     </p></li><li class="step"><p>
+      Add a clustered IP address:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">crm(live)configure# </code><code class="command">primitive</code> ip ocf:heartbeat:IPaddr2 params ip=192.168.2.1 \
+    unique_clone_address="true" \
+    op monitor interval="60" \
+    meta resource-stickiness="0"
+<code class="prompt user">crm(live)configure# </code><code class="command">clone</code> cl-ip ip \
+    meta interleave="true" clone-node-max="2" globally-unique="true"
+<code class="prompt user">crm(live)configure# </code><code class="command">colocation</code> col-with-ctdb 0: cl-ip cl-ctdb
+<code class="prompt user">crm(live)configure# </code><code class="command">order</code> o-with-ctdb 0: cl-ip cl-ctdb
+<code class="prompt user">crm(live)configure# </code><code class="command">commit</code></pre></div><p>
+      If <code class="literal">unique_clone_address</code> is set to
+      <code class="literal">true</code>, the IPaddr2 resource agent adds a clone ID to
+      the specified address, leading to three different IP addresses. These are
+      usually not needed, but help with load balancing. For further information
+      about this topic, see
+      <a class="link" href="https://documentation.suse.com/sle-ha/15-SP1/single-html/SLE-HA-guide/#cha-ha-lb" target="_blank">https://documentation.suse.com/sle-ha/15-SP1/single-html/SLE-HA-guide/#cha-ha-lb</a>.
+     </p></li><li class="step"><p>
+      Check the result:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@earth # </code><code class="command">crm</code> status
+Clone Set: base-clone [dlm]
+     Started: [ factory-1 ]
+     Stopped: [ factory-0 ]
+ Clone Set: cl-ctdb [g-ctdb]
+     Started: [ factory-1 ]
+     Started: [ factory-0 ]
+ Clone Set: cl-ip [ip] (unique)
+     ip:0       (ocf:heartbeat:IPaddr2):       Started factory-0
+     ip:1       (ocf:heartbeat:IPaddr2):       Started factory-1</pre></div></li><li class="step"><p>
+      Test from a client machine. On a Linux client, run the following command
+      to see if you can copy files from and to the system:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code><code class="command">smbclient</code> <code class="option">//192.168.2.1/myshare</code></pre></div></li></ol></div></div></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-as-ganesha.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 12 </span>Installation of NFS Ganesha</span></a> </div><div><a class="pagination-link next" href="ap-deploy-docupdate.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Appendix A </span>Documentation Updates</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ses-cifs.html#cephfs-samba"><span class="title-number">13.1 </span><span class="title-name">Export CephFS via Samba Share</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/deployment_cifs.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Installation of CephFS | Deployment Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Installation of CephFS | SES 6"/>
+<meta name="description" content="The Ceph file system (CephFS) is a POSIX-compliant file system that uses a Ceph storage cluster to store its data. CephFS uses the same cluster system as Ceph …"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 11. Installation of CephFS"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Installation of CephFS | SES 6"/>
+<meta property="og:description" content="The Ceph file system (CephFS) is a POSIX-compliant file system that uses a Ceph storage cluster to store its data. CephFS uses the same cluster system as Ceph …"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Installation of CephFS | SES 6"/>
+<meta name="twitter:description" content="The Ceph file system (CephFS) is a POSIX-compliant file system that uses a Ceph storage cluster to store its data. CephFS uses the same cluster system as Ceph …"/>
+<link rel="prev" href="cha-ceph-as-iscsi.html" title="Chapter 10. Installation of iSCSI Gateway"/><link rel="next" href="cha-as-ganesha.html" title="Chapter 12. Installation of NFS Ganesha"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="additional-software.html">Installation of Additional Services</a><span> / </span><a class="crumb" href="cha-ceph-as-cephfs.html">Installation of CephFS</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 6 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Admin Node HA Setup</span></a></li><li><a href="bk02pt01ch04.html" class=" "><span class="title-number">4 </span><span class="title-name">User Privileges and Command Prompts</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">5 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">6 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li class="active"><a href="additional-software.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" you-are-here"><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li></ol></li><li><a href="containerized-ses-on-caasp.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Cluster Deployment on Top of SUSE CaaS Platform 4 (Technology Preview)</span></a><ol><li><a href="cha-container-kubernetes.html" class=" "><span class="title-number">13 </span><span class="title-name">SUSE Enterprise Storage 6 on Top of SUSE CaaS Platform 4 Kubernetes Cluster</span></a></li></ol></li><li><a href="bk02apa.html" class=" "><span class="title-number">A </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk02go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">B </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-as-cephfs" data-id-title="Installation of CephFS"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h2 class="title"><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#">#</a></h2></div></div></div><p>
+  The Ceph file system (CephFS) is a POSIX-compliant file system that uses
+  a Ceph storage cluster to store its data. CephFS uses the same cluster
+  system as Ceph block devices, Ceph object storage with its S3 and Swift
+  APIs, or native bindings (<code class="systemitem">librados</code>).
+ </p><p>
+  To use CephFS, you need to have a running Ceph storage cluster, and at
+  least one running <span class="emphasis"><em>Ceph metadata server</em></span>.
+ </p><section class="sect1" id="ceph-cephfs-limitations" data-id-title="Supported CephFS Scenarios and Guidance"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.1 </span><span class="title-name">Supported CephFS Scenarios and Guidance</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-limitations">#</a></h2></div></div></div><p>
+   With SUSE Enterprise Storage 6, SUSE introduces official support for
+   many scenarios in which the scale-out and distributed component CephFS is
+   used. This entry describes hard limits and provides guidance for the
+   suggested use cases.
+  </p><p>
+   A supported CephFS deployment must meet these requirements:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Clients are SUSE Linux Enterprise Server 12 SP3 or newer, or SUSE Linux Enterprise Server 15 or newer, using the
+     <code class="literal">cephfs</code> kernel module driver. The FUSE module is not
+     supported.
+    </p></li><li class="listitem"><p>
+     CephFS quotas are supported in SUSE Enterprise Storage 6 and can be
+     set on any subdirectory of the Ceph file system. The quota restricts
+     either the number of <code class="literal">bytes</code> or <code class="literal">files</code>
+     stored beneath the specified point in the directory hierarchy. For more
+     information, see <span class="intraxref">Book “Administration Guide”, Chapter 28 “Clustered File System”, Section 28.6 “Setting CephFS Quotas”</span>.
+    </p></li><li class="listitem"><p>
+     CephFS supports file layout changes as documented in
+     <a class="xref" href="cha-ceph-as-cephfs.html#cephfs-layouts" title="11.3.4. File Layouts">Section 11.3.4, “File Layouts”</a>. However, while the file system is
+     mounted by any client, new data pools may not be added to an existing
+     CephFS file system (<code class="literal">ceph mds add_data_pool</code>). They may
+     only be added while the file system is unmounted.
+    </p></li><li class="listitem"><p>
+     A minimum of one Metadata Server. SUSE recommends deploying several nodes with the
+     MDS role. By default, additional MDS daemons start as
+     <code class="literal">standby</code> daemons, acting as backups for the active MDS.
+     Multiple active MDS daemons are also supported (refer to section
+     <a class="xref" href="cha-ceph-as-cephfs.html#ceph-cephfs-multimds" title="11.3.2. MDS Cluster Size">Section 11.3.2, “MDS Cluster Size”</a>).
+    </p></li></ul></div></section><section class="sect1" id="ceph-cephfs-mds" data-id-title="Ceph Metadata Server"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.2 </span><span class="title-name">Ceph Metadata Server</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-mds">#</a></h2></div></div></div><p>
+   Ceph metadata server (MDS) stores metadata for the CephFS. Ceph block
+   devices and Ceph object storage <span class="emphasis"><em>do not</em></span> use MDS. MDSs
+   make it possible for POSIX file system users to execute basic
+   commands—such as <code class="command">ls</code> or
+   <code class="command">find</code>—without placing an enormous burden on the
+   Ceph storage cluster.
+  </p><section class="sect2" id="ceph-cephfs-mdf-add" data-id-title="Adding and Removing a Metadata Server"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.2.1 </span><span class="title-name">Adding and Removing a Metadata Server</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-mdf-add">#</a></h3></div></div></div><p>
+    You can deploy MDS either during the initial cluster deployment process as
+    described in <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="5.3. Cluster Deployment">Section 5.3, “Cluster Deployment”</a>, or add it to an already
+    deployed cluster as described in <span class="intraxref">Book “Administration Guide”, Chapter 2 “Salt Cluster Administration”, Section 2.1 “Adding New Cluster Nodes”</span>.
+   </p><p>
+    After you deploy your MDS, allow the <code class="literal">Ceph OSD/MDS</code>
+    service in the firewall setting of the server where MDS is deployed: Start
+    <code class="literal">yast</code>, navigate to <span class="guimenu">Security and
+    Users</span> / <span class="guimenu">Firewall</span> / <span class="guimenu">Allowed
+    Services</span> and in the <span class="guimenu">Service to
+    Allow</span> drop–down menu select <span class="guimenu">Ceph
+    OSD/MDS</span>. If the Ceph MDS node is not allowed full traffic,
+    mounting of a file system fails, even though other operations may work
+    properly.
+   </p><p>
+    You can remove a metadata server in your cluster as described in
+    <span class="intraxref"/>.
+   </p></section><section class="sect2" id="ceph-cephfs-mds-config" data-id-title="Configuring a Metadata Server"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.2.2 </span><span class="title-name">Configuring a Metadata Server</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-mds-config">#</a></h3></div></div></div><p>
+    You can fine-tune the MDS behavior by inserting relevant options in the
+    <code class="filename">ceph.conf</code> configuration file.
+   </p><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Metadata Server Settings </span><a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.6.4.3">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.5.6.4.3.2"><span class="term">mon force standby active</span></dt><dd><p>
+       If set to 'true' (default), monitors force standby-replay to be active.
+       Set under <code class="literal">[mon]</code> or <code class="literal">[global]</code>
+       sections.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.3"><span class="term"><code class="option">mds cache memory limit</code></span></dt><dd><p>
+       The soft memory limit (in bytes) that the MDS will enforce for its
+       cache. Administrators should use this instead of the old <code class="option">mds
+       cache size</code> setting. Defaults to 1 GB.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.4"><span class="term"><code class="option">mds cache reservation</code></span></dt><dd><p>
+       The cache reservation (memory or inodes) for the MDS cache to maintain.
+       When the MDS begins touching its reservation, it will recall client
+       state until its cache size shrinks to restore the reservation. Defaults
+       to 0.05.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.5"><span class="term">mds cache size</span></dt><dd><p>
+       The number of inodes to cache. A value of 0 (default) indicates an
+       unlimited number. It is recommended to use <code class="option">mds cache memory
+       limit</code> to limit the amount of memory the MDS cache uses.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.6"><span class="term">mds cache mid</span></dt><dd><p>
+       The insertion point for new items in the cache LRU (from the top).
+       Default is 0.7.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.7"><span class="term">mds dir commit ratio</span></dt><dd><p>
+       The fraction of directory that is dirty before Ceph commits using a
+       full update instead of partial update. Default is 0.5.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.8"><span class="term">mds dir max commit size</span></dt><dd><p>
+       The maximum size of a directory update before Ceph breaks it into
+       smaller transactions. Default is 90 MB.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.9"><span class="term">mds decay halflife</span></dt><dd><p>
+       The half-life of MDS cache temperature. Default is 5.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.10"><span class="term">mds beacon interval</span></dt><dd><p>
+       The frequency in seconds of beacon messages sent to the monitor. Default
+       is 4.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.11"><span class="term">mds beacon grace</span></dt><dd><p>
+       The interval without beacons before Ceph declares an MDS laggy and
+       possibly replaces it. Default is 15.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.12"><span class="term">mds blacklist interval</span></dt><dd><p>
+       The blacklist duration for failed MDSs in the OSD map. This setting
+       controls how long failed MDS daemons will stay in the OSD map blacklist.
+       It has no effect on how long something is blacklisted when the
+       administrator blacklists it manually. For example, the <code class="command">ceph osd
+       blacklist add</code> command will still use the default blacklist
+       time. Default is 24 * 60.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.13"><span class="term">mds reconnect timeout</span></dt><dd><p>
+       The interval in seconds to wait for clients to reconnect during MDS
+       restart. Default is 45.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.14"><span class="term">mds tick interval</span></dt><dd><p>
+       How frequently the MDS performs internal periodic tasks. Default is 5.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.15"><span class="term">mds dirstat min interval</span></dt><dd><p>
+       The minimum interval in seconds to try to avoid propagating recursive
+       stats up the tree. Default is 1.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.16"><span class="term">mds scatter nudge interval</span></dt><dd><p>
+       How quickly dirstat changes propagate up. Default is 5.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.17"><span class="term">mds client prealloc inos</span></dt><dd><p>
+       The number of inode numbers to preallocate per client session. Default
+       is 1000.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.18"><span class="term">mds early reply</span></dt><dd><p>
+       Determines whether the MDS should allow clients to see request results
+       before they commit to the journal. Default is 'true'.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.19"><span class="term">mds use tmap</span></dt><dd><p>
+       Use trivial map for directory updates. Default is 'true'.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.20"><span class="term">mds default dir hash</span></dt><dd><p>
+       The function to use for hashing files across directory fragments.
+       Default is 2 (that is 'rjenkins').
+      </p></dd><dt id="id-1.4.5.5.6.4.3.21"><span class="term">mds log skip corrupt events</span></dt><dd><p>
+       Determines whether the MDS should try to skip corrupt journal events
+       during journal replay. Default is 'false'.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.22"><span class="term">mds log max events</span></dt><dd><p>
+       The maximum events in the journal before we initiate trimming. Set to -1
+       (default) to disable limits.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.23"><span class="term">mds log max segments</span></dt><dd><p>
+       The maximum number of segments (objects) in the journal before we
+       initiate trimming. Set to -1 to disable limits. Default is 30.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.24"><span class="term">mds log max expiring</span></dt><dd><p>
+       The maximum number of segments to expire in parallels. Default is 20.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.25"><span class="term">mds log eopen size</span></dt><dd><p>
+       The maximum number of inodes in an EOpen event. Default is 100.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.26"><span class="term">mds bal sample interval</span></dt><dd><p>
+       Determines how frequently to sample directory temperature for
+       fragmentation decisions. Default is 3.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.27"><span class="term">mds bal replicate threshold</span></dt><dd><p>
+       The maximum temperature before Ceph attempts to replicate metadata to
+       other nodes. Default is 8000.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.28"><span class="term">mds bal unreplicate threshold</span></dt><dd><p>
+       The minimum temperature before Ceph stops replicating metadata to
+       other nodes. Default is 0.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.29"><span class="term">mds bal split size</span></dt><dd><p>
+       The maximum directory size before the MDS will split a directory
+       fragment into smaller bits. Default is 10000.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.30"><span class="term">mds bal split rd</span></dt><dd><p>
+       The maximum directory read temperature before Ceph splits a directory
+       fragment. Default is 25000.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.31"><span class="term">mds bal split wr</span></dt><dd><p>
+       The maximum directory write temperature before Ceph splits a directory
+       fragment. Default is 10000.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.32"><span class="term">mds bal split bits</span></dt><dd><p>
+       The number of bits by which to split a directory fragment. Default is 3.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.33"><span class="term">mds bal merge size</span></dt><dd><p>
+       The minimum directory size before Ceph tries to merge adjacent directory
+       fragments. Default is 50.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.34"><span class="term">mds bal interval</span></dt><dd><p>
+       The frequency in seconds of workload exchanges between MDSs. Default is
+       10.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.35"><span class="term">mds bal fragment interval</span></dt><dd><p>
+       The delay in seconds between a fragment being capable of splitting or
+       merging, and execution of the fragmentation change. Default is 5.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.36"><span class="term">mds bal fragment fast factor</span></dt><dd><p>
+       The ratio by which fragments may exceed the split size before a split is
+       executed immediately, skipping the fragment interval. Default is 1.5.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.37"><span class="term">mds bal fragment size max</span></dt><dd><p>
+       The maximum size of a fragment before any new entries are rejected with
+       ENOSPC. Default is 100000.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.38"><span class="term">mds bal idle threshold</span></dt><dd><p>
+       The minimum temperature before Ceph migrates a subtree back to its
+       parent. Default is 0.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.39"><span class="term">mds bal mode</span></dt><dd><p>
+       The method for calculating MDS load:
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+         0 = Hybrid.
+        </p></li><li class="listitem"><p>
+         1 = Request rate and latency.
+        </p></li><li class="listitem"><p>
+         2 = CPU load.
+        </p></li></ul></div><p>
+       Default is 0.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.40"><span class="term">mds bal min rebalance</span></dt><dd><p>
+       The minimum subtree temperature before Ceph migrates. Default is 0.1.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.41"><span class="term">mds bal min start</span></dt><dd><p>
+       The minimum subtree temperature before Ceph searches a subtree.
+       Default is 0.2.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.42"><span class="term">mds bal need min</span></dt><dd><p>
+       The minimum fraction of target subtree size to accept. Default is 0.8.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.43"><span class="term">mds bal need max</span></dt><dd><p>
+       The maximum fraction of target subtree size to accept. Default is 1.2.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.44"><span class="term">mds bal midchunk</span></dt><dd><p>
+       Ceph will migrate any subtree that is larger than this fraction of the
+       target subtree size. Default is 0.3.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.45"><span class="term">mds bal minchunk</span></dt><dd><p>
+       Ceph will ignore any subtree that is smaller than this fraction of the
+       target subtree size. Default is 0.001.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.46"><span class="term">mds bal target removal min</span></dt><dd><p>
+       The minimum number of balancer iterations before Ceph removes an old
+       MDS target from the MDS map. Default is 5.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.47"><span class="term">mds bal target removal max</span></dt><dd><p>
+       The maximum number of balancer iteration before Ceph removes an old
+       MDS target from the MDS map. Default is 10.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.48"><span class="term">mds replay interval</span></dt><dd><p>
+       The journal poll interval when in standby-replay mode ('hot standby').
+       Default is 1.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.49"><span class="term">mds shutdown check</span></dt><dd><p>
+       The interval for polling the cache during MDS shutdown. Default is 0.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.50"><span class="term">mds thrash fragments</span></dt><dd><p>
+       Ceph will randomly fragment or merge directories. Default is 0.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.51"><span class="term">mds dump cache on map</span></dt><dd><p>
+       Ceph will dump the MDS cache contents to a file on each MDS map.
+       Default is 'false'.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.52"><span class="term">mds dump cache after rejoin</span></dt><dd><p>
+       Ceph will dump MDS cache contents to a file after rejoining the cache
+       during recovery. Default is 'false'.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.53"><span class="term">mds standby for name</span></dt><dd><p>
+       An MDS daemon will standby for another MDS daemon of the name specified
+       in this setting.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.54"><span class="term">mds standby for rank</span></dt><dd><p>
+       An MDS daemon will standby for an MDS daemon of this rank. Default is
+       -1.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.55"><span class="term">mds standby replay</span></dt><dd><p>
+       Determines whether a Ceph MDS daemon should poll and replay the log of
+       an active MDS ('hot standby'). Default is 'false'.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.56"><span class="term">mds min caps per client</span></dt><dd><p>
+       Set the minimum number of capabilities a client may hold. Default is
+       100.
+      </p></dd><dt id="id-1.4.5.5.6.4.3.57"><span class="term">mds max ratio caps per client</span></dt><dd><p>
+       Set the maximum ratio of current caps that may be recalled during MDS
+       cache pressure. Default is 0.8.
+      </p></dd></dl></div><div class="variablelist"><div class="variablelist-title-wrap"><h6 class="variablelist-title"><span class="title-name">Metadata Server Journaler Settings </span><a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.6.4.4">#</a></h6></div><dl class="variablelist"><dt id="id-1.4.5.5.6.4.4.2"><span class="term">journaler write head interval</span></dt><dd><p>
+       How frequently to update the journal head object. Default is 15.
+      </p></dd><dt id="id-1.4.5.5.6.4.4.3"><span class="term">journaler prefetch periods</span></dt><dd><p>
+       How many stripe periods to read ahead on journal replay. Default is 10.
+      </p></dd><dt id="id-1.4.5.5.6.4.4.4"><span class="term">journal prezero periods</span></dt><dd><p>
+       How many stripe periods to zero ahead of write position. Default 10.
+      </p></dd><dt id="id-1.4.5.5.6.4.4.5"><span class="term">journaler batch interval</span></dt><dd><p>
+       Maximum additional latency in seconds we incur artificially. Default is
+       0.001.
+      </p></dd><dt id="id-1.4.5.5.6.4.4.6"><span class="term">journaler batch max</span></dt><dd><p>
+       Maximum number of bytes by which we will delay flushing. Default is 0.
+      </p></dd></dl></div></section></section><section class="sect1" id="ceph-cephfs-cephfs" data-id-title="CephFS"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">11.3 </span><span class="title-name">CephFS</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-cephfs">#</a></h2></div></div></div><p>
+   When you have a healthy Ceph storage cluster with at least one Ceph
+   metadata server, you can create and mount your Ceph file system. Ensure
+   that your client has network connectivity and a proper authentication
+   keyring.
+  </p><section class="sect2" id="ceph-cephfs-cephfs-create" data-id-title="Creating CephFS"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.3.1 </span><span class="title-name">Creating CephFS</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-cephfs-create">#</a></h3></div></div></div><p>
+    A CephFS requires at least two RADOS pools: one for
+    <span class="emphasis"><em>data</em></span> and one for <span class="emphasis"><em>metadata</em></span>. When
+    configuring these pools, you might consider:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Using a higher replication level for the metadata pool, as any data loss
+      in this pool can render the whole file system inaccessible.
+     </p></li><li class="listitem"><p>
+      Using lower-latency storage such as SSDs for the metadata pool, as this
+      will improve the observed latency of file system operations on clients.
+     </p></li></ul></div><p>
+    When assigning a <code class="literal">role-mds</code> in the
+    <code class="filename">policy.cfg</code>, the required pools are automatically
+    created. You can manually create the pools <code class="literal">cephfs_data</code>
+    and <code class="literal">cephfs_metadata</code> for manual performance tuning before
+    setting up the Metadata Server. DeepSea will not create these pools if they already
+    exist.
+   </p><p>
+    For more information on managing pools, see <span class="intraxref">Book “Administration Guide”, Chapter 22 “Managing Storage Pools”</span>.
+   </p><p>
+    To create the two required pools—for example, 'cephfs_data' and
+    'cephfs_metadata'—with default settings for use with CephFS, run
+    the following commands:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd pool create cephfs_data <em class="replaceable">pg_num</em>
+<code class="prompt user">cephadm@adm &gt; </code>ceph osd pool create cephfs_metadata <em class="replaceable">pg_num</em></pre></div><p>
+    It is possible to use EC pools instead of replicated pools. We recommend to
+    only use EC pools for low performance requirements and infrequent random
+    access, for example cold storage, backups, archiving. CephFS on EC pools
+    requires BlueStore to be enabled and the pool must have the
+    <code class="literal">allow_ec_overwrite</code> option set. This option can be set by
+    running <code class="command">ceph osd pool set ec_pool allow_ec_overwrites
+    true</code>.
+   </p><p>
+    Erasure coding adds significant overhead to file system operations,
+    especially small updates. This overhead is inherent to using erasure coding
+    as a fault tolerance mechanism. This penalty is the trade off for
+    significantly reduced storage space overhead.
+   </p><p>
+    When the pools are created, you may enable the file system with the
+    <code class="command">ceph fs new</code> command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs new <em class="replaceable">fs_name</em> <em class="replaceable">metadata_pool_name</em> <em class="replaceable">data_pool_name</em></pre></div><p>
+    For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs new cephfs cephfs_metadata cephfs_data</pre></div><p>
+    You can check that the file system was created by listing all available
+    CephFSs:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code><code class="command">ceph</code> <code class="option">fs ls</code>
+ name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]</pre></div><p>
+    When the file system has been created, your MDS will be able to enter an
+    <span class="emphasis"><em>active</em></span> state. For example, in a single MDS system:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code><code class="command">ceph</code> <code class="option">mds stat</code>
+e5: 1/1/1 up</pre></div><div id="id-1.4.5.5.7.3.18" data-id-title="More Topics" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: More Topics</h6><p>
+     You can find more information of specific tasks—for example
+     mounting, unmounting, and advanced CephFS setup—in
+     <span class="intraxref">Book “Administration Guide”, Chapter 28 “Clustered File System”</span>.
+    </p></div></section><section class="sect2" id="ceph-cephfs-multimds" data-id-title="MDS Cluster Size"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.3.2 </span><span class="title-name">MDS Cluster Size</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-multimds">#</a></h3></div></div></div><p>
+    A CephFS instance can be served by multiple active MDS daemons. All
+    active MDS daemons that are assigned to a CephFS instance will distribute
+    the file system's directory tree between themselves, and thus spread the
+    load of concurrent clients. In order to add an active MDS daemon to a
+    CephFS instance, a spare standby is needed. Either start an additional
+    daemon or use an existing standby instance.
+   </p><p>
+    The following command will display the current number of active and passive
+    MDS daemons.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph mds stat</pre></div><p>
+    The following command sets the number of active MDSs to two in a file
+    system instance.
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs set <em class="replaceable">fs_name</em> max_mds 2</pre></div><p>
+    In order to shrink the MDS cluster prior to an update, set the
+    <code class="option">max_mds</code> option so that only one instance remains:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs set <em class="replaceable">fs_name</em> max_mds 1</pre></div><p>
+    We recommend at least one MDS is left as a standby daemon.
+   </p></section><section class="sect2" id="ceph-cephfs-multimds-updates" data-id-title="MDS Cluster and Updates"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.3.3 </span><span class="title-name">MDS Cluster and Updates</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#ceph-cephfs-multimds-updates">#</a></h3></div></div></div><p>
+    During Ceph updates, the feature flags on a file system instance may
+    change (usually by adding new features). Incompatible daemons (such as the
+    older versions) are not able to function with an incompatible feature set
+    and will refuse to start. This means that updating and restarting one
+    daemon can cause all other not yet updated daemons to stop and refuse to
+    start. For this reason, we recommend shrinking the active MDS cluster to
+    size one and stopping all standby daemons before updating Ceph. The
+    manual steps for this update procedure are as follows:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Update the Ceph related packages using <code class="command">zypper</code>.
+     </p></li><li class="step"><p>
+      Shrink the active MDS cluster as described above to one instance and stop
+      all standby MDS daemons using their <code class="systemitem">systemd</code> units on all other nodes:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@mds &gt; </code>systemctl stop ceph-mds\*.service ceph-mds.target</pre></div></li><li class="step"><p>
+      Only then restart the single remaining MDS daemon, causing it to restart
+      using the updated binary.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@mds &gt; </code>systemctl restart ceph-mds\*.service ceph-mds.target</pre></div></li><li class="step"><p>
+      Restart all other MDS daemons and reset the desired
+      <code class="option">max_mds</code> setting.
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@mds &gt; </code>systemctl start ceph-mds.target</pre></div></li></ol></div></div><p>
+    If you use DeepSea, it will follow this procedure in case the
+    <span class="package">ceph</span> package was updated during stages 0 and 4. It is
+    possible to perform this procedure while clients have the CephFS instance
+    mounted and I/O is ongoing. Note however that there will be a very brief
+    I/O pause while the active MDS restarts. Clients will recover
+    automatically.
+   </p><p>
+    It is good practice to reduce the I/O load as much as possible before
+    updating an MDS cluster. An idle MDS cluster will go through this update
+    procedure quicker. Conversely, on a heavily loaded cluster with multiple
+    MDS daemons it is essential to reduce the load in advance to prevent a
+    single MDS daemon from being overwhelmed by ongoing I/O.
+   </p></section><section class="sect2" id="cephfs-layouts" data-id-title="File Layouts"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">11.3.4 </span><span class="title-name">File Layouts</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#cephfs-layouts">#</a></h3></div></div></div><p>
+    The layout of a file controls how its contents are mapped to Ceph RADOS
+    objects. You can read and write a file’s layout using <span class="emphasis"><em>virtual
+    extended attributes</em></span> or <span class="emphasis"><em>xattrs</em></span> for shortly.
+   </p><p>
+    The name of the layout xattrs depends on whether a file is a regular file
+    or a directory. Regular files’ layout xattrs are called
+    <code class="literal">ceph.file.layout</code>, while directories’ layout xattrs are
+    called <code class="literal">ceph.dir.layout</code>. Where examples refer to
+    <code class="literal">ceph.file.layout</code>, substitute the
+    <code class="literal">.dir.</code> part as appropriate when dealing with directories.
+   </p><section class="sect3" id="id-1.4.5.5.7.6.4" data-id-title="Layout Fields"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.3.4.1 </span><span class="title-name">Layout Fields</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.7.6.4">#</a></h4></div></div></div><p>
+     The following attribute fields are recognized:
+    </p><div class="variablelist"><dl class="variablelist"><dt id="id-1.4.5.5.7.6.4.3.1"><span class="term">pool</span></dt><dd><p>
+        ID or name of a RADOS pool in which a file’s data objects will be
+        stored.
+       </p></dd><dt id="id-1.4.5.5.7.6.4.3.2"><span class="term">pool_namespace</span></dt><dd><p>
+        RADOS namespace within a data pool to which the objects will be
+        written. It is empty by default, meaning the default namespace.
+       </p></dd><dt id="id-1.4.5.5.7.6.4.3.3"><span class="term">stripe_unit</span></dt><dd><p>
+        The size in bytes of a block of data used in the RAID 0 distribution of
+        a file. All stripe units for a file have equal size. The last stripe
+        unit is typically incomplete—it represents the data at the end of
+        the file as well as the unused 'space' beyond it up to the end of the
+        fixed stripe unit size.
+       </p></dd><dt id="id-1.4.5.5.7.6.4.3.4"><span class="term">stripe_count</span></dt><dd><p>
+        The number of consecutive stripe units that constitute a RAID 0
+        'stripe' of file data.
+       </p></dd><dt id="id-1.4.5.5.7.6.4.3.5"><span class="term">object_size</span></dt><dd><p>
+        The size in bytes of RADOS objects into which the file data is
+        chunked.
+       </p><div id="id-1.4.5.5.7.6.4.3.5.2.2" data-id-title="Object Sizes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Object Sizes</h6><p>
+         RADOS enforces a configurable limit on object sizes. If you increase
+         CephFS object sizes beyond that limit, then writes may not succeed.
+         The OSD setting is <code class="option">osd_max_object_size</code>, which is
+         128 MB by default. Very large RADOS objects may prevent smooth
+         operation of the cluster, so increasing the object size limit past the
+         default is not recommended.
+        </p></div></dd></dl></div></section><section class="sect3" id="id-1.4.5.5.7.6.5" data-id-title="Reading Layout with getfattr"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.3.4.2 </span><span class="title-name">Reading Layout with <code class="command">getfattr</code></span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.7.6.5">#</a></h4></div></div></div><p>
+     Use the <code class="command">getfattr</code> command to read the layout information
+     of an example file <code class="filename">file</code> as a single string:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>touch file
+<code class="prompt user">root # </code>getfattr -n ceph.file.layout file
+# file: file
+ceph.file.layout="stripe_unit=4194304 stripe_count=1 object_size=419430</pre></div><p>
+     Read individual layout fields:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>getfattr -n ceph.file.layout.pool file
+# file: file
+ceph.file.layout.pool="cephfs_data"
+<code class="prompt user">root # </code>getfattr -n ceph.file.layout.stripe_unit file
+# file: file
+ceph.file.layout.stripe_unit="4194304"</pre></div><div id="id-1.4.5.5.7.6.5.6" data-id-title="Pool ID or Name" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Pool ID or Name</h6><p>
+      When reading layouts, the pool will usually be indicated by name.
+      However, in rare cases when pools have only just been created, the ID may
+      be output instead.
+     </p></div><p>
+     Directories do not have an explicit layout until it is customized.
+     Attempts to read the layout will fail if it has never been modified: this
+     indicates that the layout of the next ancestor directory with an explicit
+     layout will be used.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkdir dir
+<code class="prompt user">root # </code>getfattr -n ceph.dir.layout dir
+dir: ceph.dir.layout: No such attribute
+<code class="prompt user">root # </code>setfattr -n ceph.dir.layout.stripe_count -v 2 dir
+<code class="prompt user">root # </code>getfattr -n ceph.dir.layout dir
+# file: dir
+ceph.dir.layout="stripe_unit=4194304 stripe_count=2 object_size=4194304 pool=cephfs_data"</pre></div></section><section class="sect3" id="id-1.4.5.5.7.6.6" data-id-title="Writing Layouts with setfattr"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.3.4.3 </span><span class="title-name">Writing Layouts with <code class="command">setfattr</code></span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.7.6.6">#</a></h4></div></div></div><p>
+     Use the <code class="command">setfattr</code> command to modify the layout fields of
+     an example file <code class="command">file</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph osd lspools
+0 rbd
+1 cephfs_data
+2 cephfs_metadata
+<code class="prompt user">root # </code>setfattr -n ceph.file.layout.stripe_unit -v 1048576 file
+<code class="prompt user">root # </code>setfattr -n ceph.file.layout.stripe_count -v 8 file
+# Setting pool by ID:
+<code class="prompt user">root # </code>setfattr -n ceph.file.layout.pool -v 1 file
+# Setting pool by name:
+<code class="prompt user">root # </code>setfattr -n ceph.file.layout.pool -v cephfs_data file</pre></div><div id="id-1.4.5.5.7.6.6.4" data-id-title="Empty File" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Empty File</h6><p>
+      When the layout fields of a file are modified using
+      <code class="command">setfattr</code>, this file needs to be empty otherwise an
+      error will occur.
+     </p></div></section><section class="sect3" id="id-1.4.5.5.7.6.7" data-id-title="Clearing Layouts"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.3.4.4 </span><span class="title-name">Clearing Layouts</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.7.6.7">#</a></h4></div></div></div><p>
+     If you want to remove an explicit layout from an example directory
+     <code class="filename">mydir</code> and revert back to inheriting the layout of its
+     ancestor, run the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>setfattr -x ceph.dir.layout mydir</pre></div><p>
+     Similarly, if you have set the 'pool_namespace' attribute and wish to
+     modify the layout to use the default namespace instead, run:
+    </p><div class="verbatim-wrap"><pre class="screen"># Create a directory and set a namespace on it
+<code class="prompt user">root # </code>mkdir mydir
+<code class="prompt user">root # </code>setfattr -n ceph.dir.layout.pool_namespace -v foons mydir
+<code class="prompt user">root # </code>getfattr -n ceph.dir.layout mydir
+ceph.dir.layout="stripe_unit=4194304 stripe_count=1 object_size=4194304 \
+ pool=cephfs_data_a pool_namespace=foons"
+
+# Clear the namespace from the directory's layout
+<code class="prompt user">root # </code>setfattr -x ceph.dir.layout.pool_namespace mydir
+<code class="prompt user">root # </code>getfattr -n ceph.dir.layout mydir
+ceph.dir.layout="stripe_unit=4194304 stripe_count=1 object_size=4194304 \
+ pool=cephfs_data_a"</pre></div></section><section class="sect3" id="id-1.4.5.5.7.6.8" data-id-title="Inheritance of Layouts"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.3.4.5 </span><span class="title-name">Inheritance of Layouts</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.7.6.8">#</a></h4></div></div></div><p>
+     Files inherit the layout of their parent directory at creation time.
+     However, subsequent changes to the parent directory’s layout do not affect
+     children:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>getfattr -n ceph.dir.layout dir
+# file: dir
+ceph.dir.layout="stripe_unit=4194304 stripe_count=2 object_size=4194304 \
+ pool=cephfs_data"
+
+# file1 inherits its parent's layout
+<code class="prompt user">root # </code>touch dir/file1
+<code class="prompt user">root # </code>getfattr -n ceph.file.layout dir/file1
+# file: dir/file1
+ceph.file.layout="stripe_unit=4194304 stripe_count=2 object_size=4194304 \
+ pool=cephfs_data"
+
+# update the layout of the directory before creating a second file
+<code class="prompt user">root # </code>setfattr -n ceph.dir.layout.stripe_count -v 4 dir
+<code class="prompt user">root # </code>touch dir/file2
+
+# file1's layout is unchanged
+<code class="prompt user">root # </code>getfattr -n ceph.file.layout dir/file1
+# file: dir/file1
+ceph.file.layout="stripe_unit=4194304 stripe_count=2 object_size=4194304 \
+ pool=cephfs_data"
+
+# ...while file2 has the parent directory's new layout
+<code class="prompt user">root # </code>getfattr -n ceph.file.layout dir/file2
+# file: dir/file2
+ceph.file.layout="stripe_unit=4194304 stripe_count=4 object_size=4194304 \
+ pool=cephfs_data"</pre></div><p>
+     Files created as descendants of the directory also inherit its layout if
+     the intermediate directories do not have layouts set:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>getfattr -n ceph.dir.layout dir
+# file: dir
+ceph.dir.layout="stripe_unit=4194304 stripe_count=4 object_size=4194304 \
+ pool=cephfs_data"
+<code class="prompt user">root # </code>mkdir dir/childdir
+<code class="prompt user">root # </code>getfattr -n ceph.dir.layout dir/childdir
+dir/childdir: ceph.dir.layout: No such attribute
+<code class="prompt user">root # </code>touch dir/childdir/grandchild
+<code class="prompt user">root # </code>getfattr -n ceph.file.layout dir/childdir/grandchild
+# file: dir/childdir/grandchild
+ceph.file.layout="stripe_unit=4194304 stripe_count=4 object_size=4194304 \
+ pool=cephfs_data"</pre></div></section><section class="sect3" id="id-1.4.5.5.7.6.9" data-id-title="Adding a Data Pool to the Metadata Server"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">11.3.4.6 </span><span class="title-name">Adding a Data Pool to the Metadata Server</span> <a title="Permalink" class="permalink" href="cha-ceph-as-cephfs.html#id-1.4.5.5.7.6.9">#</a></h4></div></div></div><p>
+     Before you can use a pool with CephFS, you need to add it to the Metadata Server:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm@adm &gt; </code>ceph fs add_data_pool cephfs cephfs_data_ssd
+<code class="prompt user">cephadm@adm &gt; </code>ceph fs ls  # Pool should now show up
+.... data pools: [cephfs_data cephfs_data_ssd ]</pre></div><div id="id-1.4.5.5.7.6.9.4" data-id-title="cephx Keys" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: cephx Keys</h6><p>
+      Make sure that your cephx keys allow the client to access this new pool.
+     </p></div><p>
+     You can then update the layout on a directory in CephFS to use the pool
+     you added:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkdir /mnt/cephfs/myssddir
+<code class="prompt user">root # </code>setfattr -n ceph.dir.layout.pool -v cephfs_data_ssd /mnt/cephfs/myssddir</pre></div><p>
+     All new files created within that directory will now inherit its layout
+     and place their data in your newly added pool. You may notice that the
+     number of objects in your primary data pool continues to increase, even if
+     files are being created in the pool you newly added. This is normal: the
+     file data is stored in the pool specified by the layout, but a small
+     amount of metadata is kept in the primary data pool for all files.
+    </p></section></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-as-iscsi.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 10 </span>Installation of iSCSI Gateway</span></a> </div><div><a class="pagination-link next" href="cha-as-ganesha.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 12 </span>Installation of NFS Ganesha</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-as-cephfs.html#ceph-cephfs-limitations"><span class="title-number">11.1 </span><span class="title-name">Supported CephFS Scenarios and Guidance</span></a></span></li><li><span class="sect1"><a href="cha-ceph-as-cephfs.html#ceph-cephfs-mds"><span class="title-number">11.2 </span><span class="title-name">Ceph Metadata Server</span></a></span></li><li><span class="sect1"><a href="cha-ceph-as-cephfs.html#ceph-cephfs-cephfs"><span class="title-number">11.3 </span><span class="title-name">CephFS</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/deployment_cephfs.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

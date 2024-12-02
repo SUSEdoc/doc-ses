@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Salt Cluster Administration | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Salt Cluster Administration | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="After you deploy a Ceph cluster, you will probably need to perform several modifications to it occasionally. These include adding or removing new nodes, disks,…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Chapter 1. Salt Cluster Administration"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Salt Cluster Administration | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="After you deploy a Ceph cluster, you will probably need to perform several modifications to it occasionally. These include adding or removing new nodes, disks,…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Salt Cluster Administration | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="After you deploy a Ceph cluster, you will probably need to perform several modifications to it occasionally. These include adding or removing new nodes, disks,…"/>
+<link rel="prev" href="part-cluster-managment.html" title="Part I. Cluster Management"/><link rel="next" href="part-operate.html" title="Part II. Operating a Cluster"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="part-cluster-managment.html">Cluster Management</a><span> / </span><a class="crumb" href="storage-salt-cluster.html">Salt Cluster Administration</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li class="active"><a href="part-cluster-managment.html" class="has-children you-are-here"><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="storage-salt-cluster.html" class=" you-are-here"><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span></a></li></ol></li><li><a href="part-operate.html" class="has-children "><span class="title-number">II </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">2 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" "><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">4 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">6 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">7 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">9 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">10 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">11 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">12 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li><a href="part-dataccess.html" class="has-children "><span class="title-number">III </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">15 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">16 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-gui.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Managing Cluster with GUI Tools</span></a><ol><li><a href="ceph-oa.html" class=" "><span class="title-number">17 </span><span class="title-name">openATTIC</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">18 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">19 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li><a href="part-troubleshooting.html" class="has-children "><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" "><span class="title-number">20 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">21 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">22 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="gloss-storage-glossary.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="app-alerting-default.html" class=" "><span class="title-number">B </span><span class="title-name">Default Alerts for SUSE Enterprise Storage</span></a></li><li><a href="app-storage-manual-inst.html" class=" "><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">D </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="storage-salt-cluster" data-id-title="Salt Cluster Administration"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#">#</a></h2></div></div></div><p>
+  After you deploy a Ceph cluster, you will probably need to perform several
+  modifications to it occasionally. These include adding or removing new nodes,
+  disks, or services. This chapter describes how you can achieve these
+  administration tasks.
+ </p><section class="sect1" id="salt-adding-nodes" data-id-title="Adding New Cluster Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.1 </span><span class="title-name">Adding New Cluster Nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-adding-nodes">#</a></h2></div></div></div><p>
+   The procedure of adding new nodes to the cluster is almost identical to the
+   initial cluster node deployment described in
+   <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”</span>:
+  </p><div id="id-1.3.3.2.4.3" data-id-title="Prevent Rebalancing" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Prevent Rebalancing</h6><p>
+    When adding an OSD to the existing cluster, bear in mind that the cluster
+    will be rebalancing for some time afterward. To minimize the rebalancing
+    periods, add all OSDs you intend to add at the same time.
+   </p><p>
+    Additional way is to set the <code class="option">osd crush initial weight = 0</code>
+    option in the <code class="filename">ceph.conf</code> file before adding the OSDs:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Add <code class="option">osd crush initial weight = 0</code> to
+      <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/global.conf</code>.
+     </p></li><li class="step"><p>
+      Create the new configuration:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">MASTER</em> state.apply ceph.configuration.create</pre></div><p>
+        Or:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-call state.apply ceph.configuration.create</pre></div></li><li class="step"><p>
+      Apply the new configuration:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">TARGET</em> state.apply ceph.configuration</pre></div><div id="id-1.3.3.2.4.3.4.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+          If this is <span class="emphasis"><em>not</em></span> a new node, but you want to proceed as if
+          it were, ensure you remove the <code class="filename">/etc/ceph/destroyedOSDs.yml</code> file
+          from the node. Otherwise, any devices from the first attempt will be restored
+          with their previous OSD ID and reweight.
+        </p><p>
+          Run the following commands:
+        </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt 'node*' state.apply ceph.osd</pre></div></div></li><li class="step"><p>
+      After the new OSDs are added, adjust their weights as required with the
+      <code class="command">ceph osd reweight</code> command in small increments. This
+      allows the cluster to rebalance and become healthy between increasing
+      increments so it does not overwhelm the cluster and clients accessing
+      the cluster.
+     </p></li></ol></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Install SUSE Linux Enterprise Server 12 SP3 on the new node and configure its network setting so that
+     it resolves the Salt master host name correctly. Verify that it has a proper
+     connection to both public and cluster networks, and that time
+     synchronization is correctly configured. Then install the
+     <code class="systemitem">salt-minion</code> package:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>zypper in salt-minion</pre></div><p>
+     If the Salt master's host name is different from <code class="literal">salt</code>,
+     edit <code class="filename">/etc/salt/minion</code> and add the following:
+    </p><div class="verbatim-wrap"><pre class="screen">master: <em class="replaceable">DNS_name_of_your_salt_master</em></pre></div><p>
+     If you performed any changes to the configuration files mentioned above,
+     restart the <code class="systemitem">salt.minion</code> service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl restart salt-minion.service</pre></div></li><li class="step"><p>
+     On the Salt master, accept the salt key of the new node:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key --accept <em class="replaceable">NEW_NODE_KEY</em></pre></div></li><li class="step"><p>
+     Verify that <code class="filename">/srv/pillar/ceph/deepsea_minions.sls</code>
+     targets the new Salt minion and/or set the proper DeepSea grain. Refer to
+     <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.2.2.1 “Matching the Minion Name”</span> of
+     <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.3 “Cluster Deployment”, Running Deployment Stages</span> for more details.
+    </p></li><li class="step"><p>
+     Run the preparation stage. It synchronizes modules and grains so that the
+     new minion can provide all the information DeepSea expects.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0</pre></div><div id="id-1.3.3.2.4.4.4.3" data-id-title="Possible Restart of DeepSea Stage 0" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Possible Restart of DeepSea Stage 0</h6><p>
+      If the Salt master rebooted after its kernel update, you need to restart
+      DeepSea Stage 0.
+     </p></div></li><li class="step"><p>
+     Run the discovery stage. It will write new file entries in the
+     <code class="filename">/srv/pillar/ceph/proposals</code> directory, where you can
+     edit relevant .yml files:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1</pre></div></li><li class="step"><p>
+     Optionally, change
+     <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> if the newly
+     added host does not match the existing naming scheme. For details, refer
+     to <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.5.1 “The <code class="filename">policy.cfg</code> File”</span>.
+    </p></li><li class="step"><p>
+     Run the configuration stage. It reads everything under
+     <code class="filename">/srv/pillar/ceph</code> and updates the pillar accordingly:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2</pre></div><p>
+     Pillar stores data which you can access with the following command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> pillar.items</pre></div></li><li class="step"><p>
+     The configuration and deployment stages include newly added nodes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4</pre></div></li></ol></div></div></section><section class="sect1" id="salt-adding-services" data-id-title="Adding New Roles to Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.2 </span><span class="title-name">Adding New Roles to Nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-adding-services">#</a></h2></div></div></div><p>
+   You can deploy all types of supported roles with DeepSea. See
+   <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.5.1.2 “Role Assignment”</span> for more information on supported
+   role types and examples of matching them.
+  </p><p>
+   To add a new service to an existing node, follow these steps:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Adapt <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> to match
+     the existing host with a new role. For more details, refer to
+     <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.5.1 “The <code class="filename">policy.cfg</code> File”</span>. For example, if you need to run an
+     Object Gateway on a MON node, the line is similar to:
+    </p><div class="verbatim-wrap"><pre class="screen">role-rgw/xx/x/example.mon-1.sls</pre></div></li><li class="step"><p>
+     Run Stage 2 to update the pillar:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2</pre></div></li><li class="step"><p>
+     Run Stage 3 to deploy core services, or Stage 4 to deploy optional
+     services. Running both stages does not hurt.
+    </p></li></ol></div></div></section><section class="sect1" id="salt-node-removing" data-id-title="Removing and Reinstalling Cluster Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.3 </span><span class="title-name">Removing and Reinstalling Cluster Nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-node-removing">#</a></h2></div></div></div><div id="id-1.3.3.2.6.2" data-id-title="Removing a Cluster Node Temporarily" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Removing a Cluster Node Temporarily</h6><p>
+    The Salt master expects all minions to be present in the cluster and
+    responsive. If a minion breaks and is not responsive any more, it causes
+    problems to the Salt infrastructure, mainly to DeepSea and openATTIC.
+   </p><p>
+    Before you fix the minion, delete its key from the Salt master temporarily:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -d <em class="replaceable">MINION_HOST_NAME</em></pre></div><p>
+    After the minions is fixed, add its key to the Salt master again:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -a <em class="replaceable">MINION_HOST_NAME</em></pre></div></div><p>
+   To remove a role from a cluster, edit
+   <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> and remove the
+   corresponding line(s). Then run Stages 2 and 5 as described in
+   <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.3 “Cluster Deployment”</span>.
+  </p><div id="id-1.3.3.2.6.4" data-id-title="Removing OSDs from Cluster" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Removing OSDs from Cluster</h6><p>
+    In case you need to remove a particular OSD node from your cluster, ensure
+    that your cluster has more free disk space than the disk you intend to
+    remove. Bear in mind that removing an OSD results in rebalancing of the
+    whole cluster.
+   </p><p>
+    Before running stage.5 to do the actual removal, always check which OSD's
+    are going to be removed by DeepSea:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run rescinded.ids</pre></div></div><p>
+   When a role is removed from a minion, the objective is to undo all changes
+   related to that role. For most of the roles, the task is simple, but there
+   may be problems with package dependencies. If a package is uninstalled, its
+   dependencies are not.
+  </p><p>
+   Removed OSDs appear as blank drives. The related tasks overwrite the
+   beginning of the file systems and remove backup partitions in addition to
+   wiping the partition tables.
+  </p><div id="id-1.3.3.2.6.7" data-id-title="Preserving Partitions Created by Other Methods" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Preserving Partitions Created by Other Methods</h6><p>
+    Disk drives previously configured by other methods, such as
+    <code class="command">ceph-deploy</code>, may still contain partitions. DeepSea
+    will not automatically destroy these. The administrator must reclaim these
+    drives manually.
+   </p></div><div class="complex-example"><div class="example" id="ex-ds-rmnode" data-id-title="Removing a Salt minion from the Cluster"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 1.1: </span><span class="title-name">Removing a Salt minion from the Cluster </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#ex-ds-rmnode">#</a></h6></div><div class="example-contents"><p>
+    If your storage minions are named, for example, 'data1.ceph', 'data2.ceph'
+    ... 'data6.ceph', and the related lines in your
+    <code class="filename">policy.cfg</code> are similar to the following:
+   </p><div class="verbatim-wrap"><pre class="screen">[...]
+# Hardware Profile
+profile-default/cluster/data*.sls
+profile-default/stack/default/ceph/minions/data*.yml
+[...]</pre></div><p>
+    Then to remove the Salt minion 'data2.ceph', change the lines to the
+    following:
+   </p><div class="verbatim-wrap"><pre class="screen">[...]
+# Hardware Profile
+profile-default/cluster/data[1,3-6]*.sls
+profile-default/stack/default/ceph/minions/data[1,3-6]*.yml
+[...]</pre></div><p>
+    Then run stage.2, check which OSD's are going to be removed, and finish by
+    running stage.5:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run rescinded.ids
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.5</pre></div></div></div></div><div class="complex-example"><div class="example" id="ex-ds-mignode" data-id-title="Migrating Nodes"><div class="example-title-wrap"><h6 class="example-title"><span class="title-number">Example 1.2: </span><span class="title-name">Migrating Nodes </span><a title="Permalink" class="permalink" href="storage-salt-cluster.html#ex-ds-mignode">#</a></h6></div><div class="example-contents"><p>
+    Assume the following situation: during the fresh cluster installation, you
+    (the administrator) allocated one of the storage nodes as a stand-alone
+    Object Gateway while waiting for the gateway's hardware to arrive. Now the permanent
+    hardware has arrived for the gateway and you can finally assign the
+    intended role to the backup storage node and have the gateway role removed.
+   </p><p>
+    After running Stages 0 and 1 (see <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.3 “Cluster Deployment”, Running Deployment Stages</span>) for the
+    new hardware, you named the new gateway <code class="literal">rgw1</code>. If the
+    node <code class="literal">data8</code> needs the Object Gateway role removed and the storage
+    role added, and the current <code class="filename">policy.cfg</code> looks like
+    this:
+   </p><div class="verbatim-wrap"><pre class="screen"># Hardware Profile
+profile-default/cluster/data[1-7]*.sls
+profile-default/stack/default/ceph/minions/data[1-7]*.sls
+
+# Roles
+role-rgw/cluster/data8*.sls</pre></div><p>
+    Then change it to:
+   </p><div class="verbatim-wrap"><pre class="screen"># Hardware Profile
+profile-default/cluster/data[1-8]*.sls
+profile-default/stack/default/ceph/minions/data[1-8]*.sls
+
+# Roles
+role-rgw/cluster/rgw1*.sls</pre></div><p>
+    Run stages 2 to 4, check which OSD's are going to be possibly removed, and
+    finish by running stage.5. Stage 3 will add <code class="literal">data8</code> as a
+    storage node. For a moment, <code class="literal">data8</code> will have both roles.
+    Stage 4 will add the Object Gateway role to <code class="literal">rgw1</code> and stage 5 will
+    remove the Object Gateway role from <code class="literal">data8</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4
+<code class="prompt user">root@master # </code>salt-run rescinded.ids
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.5</pre></div></div></div></div></section><section class="sect1" id="ds-mon" data-id-title="Redeploying Monitor Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.4 </span><span class="title-name">Redeploying Monitor Nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ds-mon">#</a></h2></div></div></div><p>
+   When one or more of your monitor nodes fail and are not responding, you need
+   to remove the failed monitors from the cluster and possibly then re-add them
+   back in the cluster.
+  </p><div id="id-1.3.3.2.7.3" data-id-title="The Minimum is Three Monitor Nodes" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: The Minimum is Three Monitor Nodes</h6><p>
+    The number of monitor nodes must not be less than three. If a monitor node
+    fails, and as a result your cluster has only two monitor nodes only, you
+    need to temporarily assign the monitor role to other cluster nodes before
+    you redeploy the failed monitor nodes. After you redeploy the failed
+    monitor nodes, you can uninstall the temporary monitor roles.
+   </p><p>
+    For more information on adding new nodes/roles to the Ceph cluster, see
+    <a class="xref" href="storage-salt-cluster.html#salt-adding-nodes" title="1.1. Adding New Cluster Nodes">Section 1.1, “Adding New Cluster Nodes”</a> and
+    <a class="xref" href="storage-salt-cluster.html#salt-adding-services" title="1.2. Adding New Roles to Nodes">Section 1.2, “Adding New Roles to Nodes”</a>.
+   </p><p>
+    For more information on removing cluster nodes, refer to
+    <a class="xref" href="storage-salt-cluster.html#salt-node-removing" title="1.3. Removing and Reinstalling Cluster Nodes">Section 1.3, “Removing and Reinstalling Cluster Nodes”</a>.
+   </p></div><p>
+   There are two basic degrees of a Ceph node failure:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     The Salt minion host is broken either physically or on the OS level, and
+     does not respond to the <code class="command">salt
+     '<em class="replaceable">minion_name</em>' test.ping</code> call. In such
+     case you need to redeploy the server completely by following the relevant
+     instructions in <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.3 “Cluster Deployment”</span>.
+    </p></li><li class="listitem"><p>
+     The monitor related services failed and refuse to recover, but the host
+     responds to the <code class="command">salt '<em class="replaceable">minion_name</em>'
+     test.ping</code> call. In such case, follow these steps:
+    </p></li></ul></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Edit <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> on the
+     Salt master, and remove or update the lines that correspond to the failed
+     monitor nodes so that they now point to the working monitor nodes. For
+     example:
+    </p><div class="verbatim-wrap"><pre class="screen">[...]
+# MON
+#role-mon/cluster/ses-example-failed1.sls
+#role-mon/cluster/ses-example-failed2.sls
+role-mon/cluster/ses-example-new1.sls
+role-mon/cluster/ses-example-new2.sls
+[...]</pre></div></li><li class="step"><p>
+     Run DeepSea Stages 2 to 5 to apply the changes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">deepsea</code> stage run ceph.stage.2
+<code class="prompt user">root@master # </code><code class="command">deepsea</code> stage run ceph.stage.3
+<code class="prompt user">root@master # </code><code class="command">deepsea</code> stage run ceph.stage.4
+<code class="prompt user">root@master # </code><code class="command">deepsea</code> stage run ceph.stage.5</pre></div></li></ol></div></div></section><section class="sect1" id="salt-node-add-disk" data-id-title="Adding an OSD Disk to a Node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.5 </span><span class="title-name">Adding an OSD Disk to a Node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-node-add-disk">#</a></h2></div></div></div><p>
+   To add a disk to an existing OSD node, verify that any partition on the disk
+   was removed and wiped. Refer to <span class="intraxref">Step 12</span> in
+   <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.3 “Cluster Deployment”</span> for more details. After the disk is
+   empty, add the disk to the YAML file of the node. The path to the file is
+   <code class="filename">/srv/pillar/ceph/proposals/profile-default/stack/default/ceph/minions/<em class="replaceable">node_name</em>.yml</code>.
+   After saving the file, run DeepSea stages 2 and 3:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div><div id="id-1.3.3.2.8.4" data-id-title="Updated Profiles Automatically" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Updated Profiles Automatically</h6><p>
+    Instead of manually editing the YAML file, DeepSea can create new
+    profiles. To let DeepSea create new profiles, the existing profiles need
+    to be moved:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">old</code> /srv/pillar/ceph/proposals/profile-default/
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div><p>
+    We recommend verifying the suggested proposals before deploying the
+    changes. Refer to <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.5.1.4 “Profile Assignment”</span> for more
+    details on viewing proposals.
+   </p></div></section><section class="sect1" id="salt-removing-osd" data-id-title="Removing an OSD"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.6 </span><span class="title-name">Removing an OSD</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-removing-osd">#</a></h2></div></div></div><p>
+   You can remove an Ceph OSD from the cluster by running the following command:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code><code class="command">salt-run</code> disengage.safety
+<code class="prompt user">root@master # </code><code class="command">salt-run</code> remove.osd <em class="replaceable">OSD_ID</em></pre></div><p>
+   <em class="replaceable">OSD_ID</em> needs to be a number of the OSD without
+   the <code class="literal">osd.</code> prefix. For example, from
+   <code class="literal">osd.3</code> only use the digit <code class="literal">3</code>.
+  </p><section class="sect2" id="osd-removal-multiple" data-id-title="Removing Multiple OSDs"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.6.1 </span><span class="title-name">Removing Multiple OSDs</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-removal-multiple">#</a></h3></div></div></div><p>
+    Use the same procedure as mentioned in <a class="xref" href="storage-salt-cluster.html#salt-removing-osd" title="1.6. Removing an OSD">Section 1.6, “Removing an OSD”</a>
+    but simply supply multiple OSD IDs:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disengage.safety
+safety is now disabled for cluster ceph
+
+<code class="prompt user">root@master # </code>salt-run remove.osd 1 13 20
+Removing osds 1, 13, 20 from minions
+Press Ctrl-C to abort
+Removing osd 1 from minion data4.ceph
+Removing osd 13 from minion data4.ceph
+Removing osd 20 from minion data4.ceph
+Removing osd 1 from Ceph
+Removing osd 13 from Ceph
+Removing osd 20 from Ceph</pre></div><div id="imp-removed-osd-in-grains" data-id-title="Removed OSD ID Still Present in grains" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Removed OSD ID Still Present in grains</h6><p>
+     After the <code class="command">remove.osd</code> command finishes, the ID of the
+     removed OSD is still part of Salt grains and you can see it after
+     running <code class="command">salt <em class="replaceable">target</em>
+     osd.list</code>. The reason is that if the
+     <code class="command">remove.osd</code> command partially fails on removing the data
+     disk, the only reference to related partitions on the shared devices is in
+     the grains. If we updated the grains immediately, then those partitions
+     would be orphaned.
+    </p><p>
+     To update the grains manually, run <code class="command">salt
+     <em class="replaceable">target</em> osd.retain</code>. It is part of
+     DeepSea Stage 3, therefore if you are going to run Stage 3 after the OSD
+     removal, the grains get updated automatically.
+    </p></div><div id="id-1.3.3.2.9.5.5" data-id-title="Automatic Retries" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Automatic Retries</h6><p>
+     You can append the <code class="option">timeout</code> parameter (in seconds) after
+     which Salt retries the OSD removal:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run remove.osd 20 timeout=6
+Removing osd 20 from minion data4.ceph
+  Timeout expired - OSD 20 has 22 PGs remaining
+Retrying...
+Removing osd 20 from Ceph</pre></div></div></section><section class="sect2" id="osd-forced-removal" data-id-title="Removing Broken OSDs Forcefully"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.6.2 </span><span class="title-name">Removing Broken OSDs Forcefully</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-forced-removal">#</a></h3></div></div></div><p>
+    There are cases when removing an OSD gracefully (see
+    <a class="xref" href="storage-salt-cluster.html#salt-removing-osd" title="1.6. Removing an OSD">Section 1.6, “Removing an OSD”</a>) fails. This may happen for example if
+    the OSD or its journal, Wall or DB are broken, when it suffers from hanging
+    I/O operations, or when the OSD disk fails to unmount. In such case, you
+    need to force the OSD removal. The following command removes both the data
+    partition, and the journal or WAL/DB partitions:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> osd.remove <em class="replaceable">OSD_ID</em> force=True</pre></div><div id="id-1.3.3.2.9.6.4" data-id-title="Hanging Mounts" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Hanging Mounts</h6><p>
+     If a partition is still mounted on the disk being removed, the command
+     will exit with the 'Unmount failed - check for processes on
+     <em class="replaceable">DEVICE</em>' message. You can then list all
+     processes that access the file system with the <code class="command">fuser -m
+     <em class="replaceable">DEVICE</em></code>. If <code class="command">fuser</code>
+     returns nothing, try manual <code class="command">unmount
+     <em class="replaceable">DEVICE</em></code> and watch the output of
+     <code class="command">dmesg</code> or <code class="command">journalctl</code> commands.
+    </p></div></section></section><section class="sect1" id="ds-osd-replace" data-id-title="Replacing an OSD Disk"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.7 </span><span class="title-name">Replacing an OSD Disk</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ds-osd-replace">#</a></h2></div></div></div><p>
+   There are several reasons why you may need to replace an OSD disk, for
+   example:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     The OSD disk failed or is soon going to fail based on SMART information,
+     and can no longer be used to store data safely.
+    </p></li><li class="listitem"><p>
+     You need to upgrade the OSD disk, for example to increase its size.
+    </p></li></ul></div><p>
+   The replacement procedure is the same for both cases. It is also valid for
+   both default and customized CRUSH Maps.
+  </p><div id="id-1.3.3.2.10.5" data-id-title="The Number of Free Disks" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: The Number of Free Disks</h6><p>
+    When doing an automated OSDs replacement, the number of free disks needs to
+    be the same as the number of disks you need to replace. If there are more
+    free disks available in the system, it is impossible to guess which free
+    disks to replace. Therefore the automated replacement will not be
+    performed.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Turn off safety limitations temporarily:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disengage.safety</pre></div></li><li class="step"><p>
+     Suppose that for example '5' is the ID of the OSD whose disk needs to be
+     replaced. The following command marks it as
+     <span class="bold"><strong>destroyed</strong></span> in the CRUSH Map but leaves
+     its original ID:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run replace.osd 5</pre></div><div id="id-1.3.3.2.10.6.2.3" data-id-title="replace.osd and remove.osd" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: <code class="command">replace.osd</code> and <code class="command">remove.osd</code></h6><p>
+      The Salt's <code class="command">replace.osd</code> and
+      <code class="command">remove.osd</code> (see <a class="xref" href="storage-salt-cluster.html#salt-removing-osd" title="1.6. Removing an OSD">Section 1.6, “Removing an OSD”</a>)
+      commands are identical except that <code class="command">replace.osd</code> leaves
+      the OSD as 'destroyed' in the CRUSH Map while
+      <code class="command">remove.osd</code> removes all traces from the CRUSH Map.
+     </p></div></li><li class="step"><p>
+     Manually replace the failed/upgraded OSD drive.
+    </p></li><li class="step"><p>
+     After replacing the physical drive, you need to modify the configuration
+     of the related Salt minion. You can do so either manually or in an automated
+     way.
+    </p><p>
+     To manually change a Salt minion's configuration, see
+     <a class="xref" href="storage-salt-cluster.html#osd-replace-manual" title="1.7.1. Manual Configuration">Section 1.7.1, “Manual Configuration”</a>.
+    </p><p>
+     To change a Salt minion's configuration in an automated way, see
+     <a class="xref" href="storage-salt-cluster.html#osd-replace-auto" title="1.7.2. Automated Configuration">Section 1.7.2, “Automated Configuration”</a>.
+    </p></li><li class="step"><p>
+     After you finish either manual or automated configuration of the
+     Salt minion, run DeepSea Stage 2 to update the Salt configuration. It
+     prints out a summary about the differences between the storage
+     configuration and the current setup:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+deepsea_minions          : valid
+yaml_syntax              : valid
+profiles_populated       : valid
+public network           : 172.16.21.0/24
+cluster network          : 172.16.22.0/24
+
+These devices will be deployed
+data1.ceph: /dev/sdb, /dev/sdc, /dev/sdd, /dev/sde, /dev/sdf, /dev/sdg</pre></div><div id="id-1.3.3.2.10.6.5.3" data-id-title="Run salt-run advise.osds" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Run <code class="command">salt-run advise.osds</code></h6><p>
+      To summarize the steps that will be taken when the actual replacement is
+      deployed, you can run the following command:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run advise.osds
+These devices will be deployed
+
+data1.ceph:
+  /dev/disk/by-id/cciss-3600508b1001c7c24c537bdec8f3a698f:
+
+Run 'salt-run state.orch ceph.stage.3'</pre></div></div></li><li class="step"><p>
+     Run the deployment Stage 3 to deploy the replaced OSD disk:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div></li></ol></div></div><section class="sect2" id="osd-replace-manual" data-id-title="Manual Configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.7.1 </span><span class="title-name">Manual Configuration</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-replace-manual">#</a></h3></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Find the renamed YAML file for the Salt minion. For example, the file for
+      the minion named 'data1.ceph' is
+     </p><div class="verbatim-wrap"><pre class="screen">/srv/pillar/ceph/proposals/profile-<em class="replaceable">PROFILE_NAME</em>/stack/default/ceph/minions/data1.ceph.yml-replace</pre></div></li><li class="step"><p>
+      Rename the file to its original name (without the
+      <code class="literal">-replace</code> suffix), edit it, and replace the old device
+      with the new device name.
+     </p><div id="id-1.3.3.2.10.7.2.2.2" data-id-title="salt osd.report" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: salt osd.report</h6><p>
+       Consider using <code class="command">salt '<em class="replaceable">MINION_NAME</em>'
+       osd.report</code> to identify the device that has been removed.
+      </p></div><p>
+      For example, if the <code class="filename">data1.ceph.yml</code> file contains
+     </p><div class="verbatim-wrap"><pre class="screen">ceph:
+  storage:
+    osds:
+      [...]
+      /dev/disk/by-id/cciss-3600508b1001c93595b70bd0fb700ad38:
+        format: bluestore
+      [...]</pre></div><p>
+      replace the corresponding device path with
+     </p><div class="verbatim-wrap"><pre class="screen">ceph:
+  storage:
+    osds:
+      [...]
+      /dev/disk/by-id/cciss-3600508b1001c7c24c537bdec8f3a698f:
+        format: bluestore
+        replace: True
+      [...]</pre></div></li></ol></div></div></section><section class="sect2" id="osd-replace-auto" data-id-title="Automated Configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.7.2 </span><span class="title-name">Automated Configuration</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#osd-replace-auto">#</a></h3></div></div></div><p>
+    While the default profile for Stage 1 may work for the simplest setups,
+    this stage can be optionally customized:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Set the <code class="option">stage_discovery:
+      <em class="replaceable">CUSTOM_STAGE_NAME</em></code> option in
+      <code class="filename">/srv/pillar/ceph/stack/global.yml</code>.
+     </p></li><li class="step"><p>
+      Create the corresponding file
+      <code class="filename">/srv/salt/ceph/stage/1/<em class="replaceable">CUSTOM_STAGE_NAME</em>.sls</code>
+      and customize it to reflect your specific requirements for Stage 1. See
+      <a class="xref" href="app-stage1-custom.html" title="Appendix A. DeepSea Stage 1 Custom Example">Appendix A, <em>DeepSea Stage 1 Custom Example</em></a> for an example.
+     </p><div id="id-1.3.3.2.10.8.3.2.2" data-id-title="Inspect init.sls" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Inspect <code class="filename">init.sls</code></h6><p>
+       Inspect the <code class="filename">/srv/salt/ceph/stage/1/init.sls</code> file to
+       see what variables you can use in your custom Stage 1 .sls file.
+      </p></div></li><li class="step"><p>
+      Refresh the Pillar:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '*' saltutil.pillar_refresh</pre></div></li><li class="step"><p>
+      Run Stage 1 to generate the new configuration file:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1</pre></div></li></ol></div></div><div id="id-1.3.3.2.10.8.4" data-id-title="Custom Options" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Custom Options</h6><p>
+     To list all available options, inspect the output of the <code class="command">salt-run
+     proposal.help</code> command.
+    </p><p>
+     If you customized the cluster deployment with a specific command
+    </p><div class="verbatim-wrap"><pre class="screen">salt-run proposal.populate <em class="replaceable">OPTION</em>=<em class="replaceable">VALUE</em></pre></div><p>
+     use the same configuration when doing the automated configuration.
+    </p></div></section></section><section class="sect1" id="ds-osd-recover" data-id-title="Recovering a Reinstalled OSD Node"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.8 </span><span class="title-name">Recovering a Reinstalled OSD Node</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ds-osd-recover">#</a></h2></div></div></div><p>
+   If the operating system breaks and is not recoverable on one of your OSD
+   nodes, follow these steps to recover it and redeploy its OSD role with
+   cluster data untouched:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Reinstall the base SUSE Linux Enterprise operating system on the node where the OS broke.
+     Install the <span class="package">salt-minion</span> packages on the OSD node,
+     delete the old Salt minion key on the Salt master, and register the new
+     Salt minion's key it with the Salt master. For more information on the initial
+     deployment, see <span class="intraxref">Book “Deployment Guide”, Chapter 4 “Deploying with DeepSea/Salt”, Section 4.3 “Cluster Deployment”</span>.
+    </p></li><li class="step"><p>
+     Instead of running the whole of Stage 0, run the following parts:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt '<em class="replaceable">osd_node</em>' state.apply ceph.sync
+<code class="prompt user">root@master # </code>salt '<em class="replaceable">osd_node</em>' state.apply ceph.packages.common
+<code class="prompt user">root@master # </code>salt '<em class="replaceable">osd_node</em>' state.apply ceph.mines
+<code class="prompt user">root@master # </code>salt '<em class="replaceable">osd_node</em>' state.apply ceph.updates</pre></div></li><li class="step"><p>
+     Run DeepSea Stages 1 to 5:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.5</pre></div></li><li class="step"><p>
+     Run DeepSea Stage 0:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0</pre></div></li><li class="step"><p>
+     Reboot the relevant OSD node. All OSD disks will be rediscovered and
+     reused.
+    </p></li></ol></div></div></section><section class="sect1" id="salt-automated-installation" data-id-title="Automated Installation via Salt"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.9 </span><span class="title-name">Automated Installation via Salt</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#salt-automated-installation">#</a></h2></div></div></div><p>
+   The installation can be automated by using the Salt reactor. For virtual
+   environments or consistent hardware environments, this configuration will
+   allow the creation of a Ceph cluster with the specified behavior.
+  </p><div id="id-1.3.3.2.12.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning</h6><p>
+    Salt cannot perform dependency checks based on reactor events. There is a
+    real risk of putting your Salt master into a death spiral.
+   </p></div><p>
+   The automated installation requires the following:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     A properly created
+     <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code>.
+    </p></li><li class="listitem"><p>
+     Prepared custom configuration placed to the
+     <code class="filename">/srv/pillar/ceph/stack</code> directory.
+    </p></li></ul></div><p>
+   The default reactor configuration will only run Stages 0 and 1. This allows
+   testing of the reactor without waiting for subsequent stages to complete.
+  </p><p>
+   When the first salt-minion starts, Stage 0 will begin. A lock prevents
+   multiple instances. When all minions complete Stage 0, Stage 1 will begin.
+  </p><p>
+   If the operation is performed properly, edit the file
+  </p><div class="verbatim-wrap"><pre class="screen">/etc/salt/master.d/reactor.conf</pre></div><p>
+   and replace the following line
+  </p><div class="verbatim-wrap"><pre class="screen">- /srv/salt/ceph/reactor/discovery.sls</pre></div><p>
+   with
+  </p><div class="verbatim-wrap"><pre class="screen">- /srv/salt/ceph/reactor/all_stages.sls</pre></div><p>
+   Verify that the line is not commented out.
+  </p></section><section class="sect1" id="deepsea-rolling-updates" data-id-title="Updating the Cluster Nodes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.10 </span><span class="title-name">Updating the Cluster Nodes</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#deepsea-rolling-updates">#</a></h2></div></div></div><p>
+   Keep the Ceph cluster nodes up-to-date by applying rolling updates
+   regularly.
+  </p><div id="id-1.3.3.2.13.3" data-id-title="Access to Software Repositories" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Access to Software Repositories</h6><p>
+    Before patching the cluster with latest software packages, verify that all
+    its nodes have access to SUSE Linux Enterprise Server repositories that match your version of
+    SUSE Enterprise Storage. For SUSE Enterprise Storage 5.5, the following
+    repositories are required:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper lr -E
+#  | Alias   | Name                              | Enabled | GPG Check | Refresh
+---+---------+-----------------------------------+---------+-----------+--------
+ 4 | [...]   | SUSE-Enterprise-Storage-5-Pool    | Yes     | (r ) Yes  | No
+ 6 | [...]   | SUSE-Enterprise-Storage-5-Updates | Yes     | (r ) Yes  | Yes
+ 9 | [...]   | SLES12-SP3-Pool                   | Yes     | (r ) Yes  | No
+11 | [...]   | SLES12-SP3-Updates                | Yes     | (r ) Yes  | Yes</pre></div></div><div id="id-1.3.3.2.13.4" data-id-title="Repository Staging" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Repository Staging</h6><p>
+    If you use a staging tool—for example, SUSE Manager, Subscription Management Tool, or
+    Repository Mirroring Tool—that serves software repositories to the cluster nodes, verify
+    that stages for both 'Updates' repositories for SUSE Linux Enterprise Server and SUSE Enterprise Storage are
+    created at the same point in time.
+   </p><p>
+    We strongly recommend to use a staging tool to apply patches which have
+    <code class="literal">frozen</code> or <code class="literal">staged</code> patch levels. This
+    ensures that new nodes joining the cluster have the same patch level as the
+    nodes already running in the cluster. This way you avoid the need to apply
+    the latest patches to all the cluster's nodes before new nodes can join the
+    cluster.
+   </p></div><p>
+    To update the software packages on all cluster nodes to the latest version,
+    follow these steps:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Update the <span class="package">deepsea</span>, <span class="package">salt-master</span>,
+      and <span class="package">salt-minion</span> packages and restart relevant services
+      on the Salt master:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -I 'roles:master' state.apply ceph.updates.master</pre></div></li><li class="step"><p>
+      Update and restart the <span class="package">salt-minion</span> package on all
+      cluster nodes:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -I 'cluster:ceph' state.apply ceph.updates.salt</pre></div></li><li class="step"><p>
+      Update all other software packages on the cluster:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0</pre></div></li><li class="step"><p>
+      Restart Ceph related services:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart</pre></div></li></ol></div></div><div id="id-1.3.3.2.13.7" data-id-title="Possible Downtime of Ceph Services" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Possible Downtime of Ceph Services</h6><p>
+    When applying updates to Ceph cluster nodes, Ceph services may be
+    restarted. If there is a single point of failure for services such as
+    Object Gateway, NFS Ganesha, or iSCSI, the client machines may be temporarily
+    disconnected from related services.
+   </p></div><p>
+   If DeepSea detects a running Ceph cluster, it applies available updates,
+   restarts running Ceph services, and optionally restarts nodes sequentially
+   if a kernel update was installed. DeepSea follows Ceph's official
+   recommendation of first updating the monitors, then the OSDs, and lastly
+   additional services, such as Metadata Server, Object Gateway, iSCSI Gateway, or NFS Ganesha. DeepSea
+   stops the update process if it detects an issue in the cluster. A trigger
+   for that can be:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     Ceph reports 'HEALTH_ERR' for longer then 300 seconds.
+    </p></li><li class="listitem"><p>
+     Salt minions are queried for their assigned services to be still up and
+     running after an update. The update fails if the services are down for
+     more than 900 seconds.
+    </p></li></ul></div><p>
+   Making these arrangements ensures that even with corrupted or failing
+   updates, the Ceph cluster is still operational.
+  </p><p>
+   DeepSea Stage 0 updates the system via <code class="command">zypper update</code>
+   and optionally reboots the system if the kernel is updated. If you want to
+   eliminate the possibility of a forced reboot of potentially all nodes,
+   either make sure that the latest kernel is installed and running before
+   initiating DeepSea Stage 0, or disable automatic node reboots as described
+   in <span class="intraxref">Book “Deployment Guide”, Chapter 7 “Customizing the Default Configuration”, Section 7.1.5 “Updates and Reboots during Stage 0”</span>.
+  </p><div id="id-1.3.3.2.13.12" data-id-title="zypper patch" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: <code class="command">zypper patch</code></h6><p>
+    If you prefer to update the system using the <code class="command">zypper
+    patch</code> command, edit
+    <code class="filename">/srv/pillar/ceph/stack/global.yml</code> and add the
+    following line:
+   </p><div class="verbatim-wrap"><pre class="screen">update_method_init: zypper-patch</pre></div></div><p>
+   You can change the default update/reboot behavior of DeepSea Stage 0 by
+   adding/changing the <code class="option">stage_prep_master</code> and
+   <code class="option">stage_prep_minion</code> options. For more information, see
+   <span class="intraxref">Book “Deployment Guide”, Chapter 7 “Customizing the Default Configuration”, Section 7.1.5 “Updates and Reboots during Stage 0”</span>.
+  </p></section><section class="sect1" id="sec-salt-cluster-reboot" data-id-title="Halting or Rebooting Cluster"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.11 </span><span class="title-name">Halting or Rebooting Cluster</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#sec-salt-cluster-reboot">#</a></h2></div></div></div><p>
+   In some cases it may be necessary to halt or reboot the whole cluster. We
+   recommended carefully checking for dependencies of running services. The
+   following steps provide an outline for stopping and starting the cluster:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Tell the Ceph cluster not to mark OSDs as out:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> osd set noout</pre></div></li><li class="step"><p>
+     Stop daemons and nodes in the following order:
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+       Storage clients
+      </p></li><li class="listitem"><p>
+       Gateways, for example NFS Ganesha or Object Gateway
+      </p></li><li class="listitem"><p>
+       Metadata Server
+      </p></li><li class="listitem"><p>
+       Ceph OSD
+      </p></li><li class="listitem"><p>
+       Ceph Manager
+      </p></li><li class="listitem"><p>
+       Ceph Monitor
+      </p></li></ol></div></li><li class="step"><p>
+     If required, perform maintenance tasks.
+    </p></li><li class="step"><p>
+     Start the nodes and servers in the reverse order of the shutdown process:
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+       Ceph Monitor
+      </p></li><li class="listitem"><p>
+       Ceph Manager
+      </p></li><li class="listitem"><p>
+       Ceph OSD
+      </p></li><li class="listitem"><p>
+       Metadata Server
+      </p></li><li class="listitem"><p>
+       Gateways, for example NFS Ganesha or Object Gateway
+      </p></li><li class="listitem"><p>
+       Storage clients
+      </p></li></ol></div></li><li class="step"><p>
+     Remove the noout flag:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code><code class="command">ceph</code> osd unset noout</pre></div></li></ol></div></div></section><section class="sect1" id="ds-custom-cephconf" data-id-title="Adjusting ceph.conf with Custom Settings"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.12 </span><span class="title-name">Adjusting <code class="filename">ceph.conf</code> with Custom Settings</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#ds-custom-cephconf">#</a></h2></div></div></div><p>
+   If you need to put custom settings into the <code class="filename">ceph.conf</code>
+   file, you can do so by modifying the configuration files in the
+   <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d</code>
+   directory:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     global.conf
+    </p></li><li class="listitem"><p>
+     mon.conf
+    </p></li><li class="listitem"><p>
+     mgr.conf
+    </p></li><li class="listitem"><p>
+     mds.conf
+    </p></li><li class="listitem"><p>
+     osd.conf
+    </p></li><li class="listitem"><p>
+     client.conf
+    </p></li><li class="listitem"><p>
+     rgw.conf
+    </p></li></ul></div><div id="id-1.3.3.2.15.4" data-id-title="Unique rgw.conf" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Unique <code class="filename">rgw.conf</code></h6><p>
+    The Object Gateway offers a lot flexibility and is unique compared to the other
+    <code class="filename">ceph.conf</code> sections. All other Ceph components have
+    static headers such as <code class="literal">[mon]</code> or
+    <code class="literal">[osd]</code>. The Object Gateway has unique headers such as
+    <code class="literal">[client.rgw.rgw1]</code>. This means that the
+    <code class="filename">rgw.conf</code> file needs a header entry. For examples, see
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="filename">/srv/salt/ceph/configuration/files/rgw.conf</code></pre></div><p>
+    or
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="filename">/srv/salt/ceph/configuration/files/rgw-ssl.conf</code></pre></div></div><div id="id-1.3.3.2.15.5" data-id-title="Run Stage 3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Run Stage 3</h6><p>
+    After you make custom changes to the above mentioned configuration files,
+    run Stages 3 and 4 to apply these changes to the cluster nodes:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4</pre></div></div><p>
+   These files are included from the
+   <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.j2</code>
+   template file, and correspond to the different sections that the Ceph
+   configuration file accepts. Putting a configuration snippet in the correct
+   file enables DeepSea to place it into the correct section. You do not need
+   to add any of the section headers.
+  </p><div id="id-1.3.3.2.15.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+    To apply any configuration options only to specific instances of a daemon,
+    add a header such as <code class="literal">[osd.1]</code>. The following
+    configuration options will only be applied to the OSD daemon with the ID 1.
+   </p></div><section class="sect2" id="id-1.3.3.2.15.8" data-id-title="Overriding the Defaults"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.12.1 </span><span class="title-name">Overriding the Defaults</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.3.3.2.15.8">#</a></h3></div></div></div><p>
+    Later statements in a section overwrite earlier ones. Therefore it is
+    possible to override the default configuration as specified in the
+    <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.j2</code>
+    template. For example, to turn off cephx authentication, add the following
+    three lines to the
+    <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/global.conf</code>
+    file:
+   </p><div class="verbatim-wrap"><pre class="screen">auth cluster required = none
+auth service required = none
+auth client required = none</pre></div><p>
+    When redefining the default values, Ceph related tools such as
+    <code class="command">rados</code> may issue warnings that specific values from the
+    <code class="filename">ceph.conf.j2</code> were redefined in
+    <code class="filename">global.conf</code>. These warnings are caused by one
+    parameter assigned twice in the resulting <code class="filename">ceph.conf</code>.
+   </p><p>
+    As a workaround for this specific case, follow these steps:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Change the current directory to
+      <code class="filename">/srv/salt/ceph/configuration/create</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cd /srv/salt/ceph/configuration/create</pre></div></li><li class="step"><p>
+      Copy <code class="filename">default.sls</code> to <code class="filename">custom.sls</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cp default.sls custom.sls</pre></div></li><li class="step"><p>
+      Edit <code class="filename">custom.sls</code> and change
+      <code class="option">ceph.conf.j2</code> to <code class="option">custom-ceph.conf.j2</code>.
+     </p></li><li class="step"><p>
+      Change current directory to
+      <code class="filename">/srv/salt/ceph/configuration/files</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cd /srv/salt/ceph/configuration/files</pre></div></li><li class="step"><p>
+      Copy <code class="filename">ceph.conf.j2</code> to
+      <code class="filename">custom-ceph.conf.j2</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>cp ceph.conf.j2 custom-ceph.conf.j2</pre></div></li><li class="step"><p>
+      Edit <code class="filename">custom-ceph.conf.j2</code> and delete the following
+      line:
+     </p><div class="verbatim-wrap"><pre class="screen">{% include "ceph/configuration/files/rbd.conf" %}</pre></div><p>
+      Edit <code class="filename">global.yml</code> and add the following line:
+     </p><div class="verbatim-wrap"><pre class="screen">configuration_create: custom</pre></div></li><li class="step"><p>
+      Refresh the pillar:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> saltutil.pillar_refresh</pre></div></li><li class="step"><p>
+      Run Stage 3:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div></li></ol></div></div><p>
+    Now you should have only one entry for each value definition. To re-create
+    the configuration, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.configuration.create</pre></div><p>
+    and then verify the contents of
+    <code class="filename">/srv/salt/ceph/configuration/cache/ceph.conf</code>.
+   </p></section><section class="sect2" id="id-1.3.3.2.15.9" data-id-title="Including Configuration Files"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">1.12.2 </span><span class="title-name">Including Configuration Files</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#id-1.3.3.2.15.9">#</a></h3></div></div></div><p>
+    If you need to apply a lot of custom configurations, use the following
+    include statements within the custom configuration files to make file
+    management easier. Following is an example of the
+    <code class="filename">osd.conf</code> file:
+   </p><div class="verbatim-wrap"><pre class="screen">[osd.1]
+{% include "ceph/configuration/files/ceph.conf.d/osd1.conf" ignore missing %}
+[osd.2]
+{% include "ceph/configuration/files/ceph.conf.d/osd2.conf" ignore missing %}
+[osd.3]
+{% include "ceph/configuration/files/ceph.conf.d/osd3.conf" ignore missing %}
+[osd.4]
+{% include "ceph/configuration/files/ceph.conf.d/osd4.conf" ignore missing %}</pre></div><p>
+    In the previous example, the <code class="filename">osd1.conf</code>,
+    <code class="filename">osd2.conf</code>, <code class="filename">osd3.conf</code>, and
+    <code class="filename">osd4.conf</code> files contain the configuration options
+    specific to the related OSD.
+   </p><div id="id-1.3.3.2.15.9.5" data-id-title="Runtime Configuration" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Runtime Configuration</h6><p>
+     Changes made to Ceph configuration files take effect after the related
+     Ceph daemons restart. See <a class="xref" href="cha-ceph-configuration.html#ceph-config-runtime" title="12.1. Runtime Configuration">Section 12.1, “Runtime Configuration”</a> for more
+     information on changing the Ceph runtime configuration.
+    </p></div></section></section><section class="sect1" id="admin-apparmor" data-id-title="Enabling AppArmor Profiles"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">1.13 </span><span class="title-name">Enabling AppArmor Profiles</span> <a title="Permalink" class="permalink" href="storage-salt-cluster.html#admin-apparmor">#</a></h2></div></div></div><p>
+   AppArmor is a security solution that confines programs by a specific profile.
+   For more details, refer to
+   <a class="link" href="https://documentation.suse.com/sles/12-SP5/single-html/SLES-security/#part-apparmor" target="_blank">https://documentation.suse.com/sles/12-SP5/single-html/SLES-security/#part-apparmor</a>.
+  </p><p>
+   DeepSea provides three states for AppArmor profiles: 'enforce', 'complain',
+   and 'disable'. To activate a particular AppArmor state, run:
+  </p><div class="verbatim-wrap"><pre class="screen">salt -I "deepsea_minions:*" state.apply ceph.apparmor.default-<em class="replaceable">STATE</em></pre></div><p>
+   To put the AppArmor profiles in an 'enforce' state:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -I "deepsea_minions:*" state.apply ceph.apparmor.default-enforce</pre></div><p>
+   To put the AppArmor profiles in a 'complain' status:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -I "deepsea_minions:*" state.apply ceph.apparmor.default-complain</pre></div><p>
+   To disable the AppArmor profiles:
+  </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -I "deepsea_minions:*" state.apply ceph.apparmor.default-disable</pre></div><div id="id-1.3.3.2.16.11" data-id-title="Enabling the AppArmor Service" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Enabling the AppArmor Service</h6><p>
+    Each of these three calls verifies if AppArmor is installed and installs it if
+    not, and starts and enables the related <code class="systemitem">systemd</code> service. DeepSea will
+    warn you if AppArmor was installed and started/enabled in another way and
+    therefore runs without DeepSea profiles.
+   </p></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="part-cluster-managment.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part I </span>Cluster Management</span></a> </div><div><a class="pagination-link next" href="part-operate.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Part II </span>Operating a Cluster</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="storage-salt-cluster.html#salt-adding-nodes"><span class="title-number">1.1 </span><span class="title-name">Adding New Cluster Nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#salt-adding-services"><span class="title-number">1.2 </span><span class="title-name">Adding New Roles to Nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#salt-node-removing"><span class="title-number">1.3 </span><span class="title-name">Removing and Reinstalling Cluster Nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#ds-mon"><span class="title-number">1.4 </span><span class="title-name">Redeploying Monitor Nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#salt-node-add-disk"><span class="title-number">1.5 </span><span class="title-name">Adding an OSD Disk to a Node</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#salt-removing-osd"><span class="title-number">1.6 </span><span class="title-name">Removing an OSD</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#ds-osd-replace"><span class="title-number">1.7 </span><span class="title-name">Replacing an OSD Disk</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#ds-osd-recover"><span class="title-number">1.8 </span><span class="title-name">Recovering a Reinstalled OSD Node</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#salt-automated-installation"><span class="title-number">1.9 </span><span class="title-name">Automated Installation via Salt</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#deepsea-rolling-updates"><span class="title-number">1.10 </span><span class="title-name">Updating the Cluster Nodes</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#sec-salt-cluster-reboot"><span class="title-number">1.11 </span><span class="title-name">Halting or Rebooting Cluster</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#ds-custom-cephconf"><span class="title-number">1.12 </span><span class="title-name">Adjusting <code class="filename">ceph.conf</code> with Custom Settings</span></a></span></li><li><span class="sect1"><a href="storage-salt-cluster.html#admin-apparmor"><span class="title-number">1.13 </span><span class="title-name">Enabling AppArmor Profiles</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_saltcluster.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

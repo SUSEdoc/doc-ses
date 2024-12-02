@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Ceph Object Gateway | Deployment Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Ceph Object Gateway | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="Ceph Object Gateway is an object storage interface built on top of librgw to provide applications with a RESTful gateway to Ceph clusters. It supports two inte…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 9. Ceph Object Gateway"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Ceph Object Gateway | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="Ceph Object Gateway is an object storage interface built on top of librgw to provide applications with a RESTful gateway to Ceph clusters. It supports two inte…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ceph Object Gateway | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="Ceph Object Gateway is an object storage interface built on top of librgw to provide applications with a RESTful gateway to Ceph clusters. It supports two inte…"/>
+<link rel="prev" href="cha-ceph-as-intro.html" title="Chapter 8. Installation of Services to Access your Data"/><link rel="next" href="cha-ceph-as-iscsi.html" title="Chapter 10. Installation of iSCSI Gateway"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="additional-software.html">Installation of Additional Services</a><span> / </span><a class="crumb" href="cha-ceph-additional-software-installation.html">Ceph Object Gateway</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 5.5 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Ceph Admin Node HA Setup</span></a></li></ol></li><li><a href="ses-deployment.html" class="has-children "><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">4 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" "><span class="title-number">5 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">6 </span><span class="title-name">Backing Up the Cluster Configuration</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li class="active"><a href="additional-software.html" class="has-children you-are-here"><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" you-are-here"><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">13 </span><span class="title-name">Exporting Ceph Data via Samba</span></a></li></ol></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">A </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-additional-software-installation" data-id-title="Ceph Object Gateway"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#">#</a></h2></div></div></div><p>
+  Ceph Object Gateway is an object storage interface built on top of
+  <code class="literal">librgw</code> to provide applications with a RESTful gateway to
+  Ceph clusters. It supports two interfaces:
+ </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+    <span class="emphasis"><em>S3-compatible</em></span>: Provides object storage functionality
+    with an interface that is compatible with a large subset of the Amazon S3
+    RESTful API.
+   </p></li><li class="listitem"><p>
+    <span class="emphasis"><em>Swift-compatible</em></span>: Provides object storage
+    functionality with an interface that is compatible with a large subset of
+    the OpenStack Swift API.
+   </p></li></ul></div><p>
+  The Object Gateway daemon uses an embedded HTTP server (CivetWeb) for interacting with
+  the Ceph cluster. Since it provides interfaces compatible with OpenStack
+  Swift and Amazon S3, the Object Gateway has its own user management. Object Gateway can store
+  data in the same cluster that is used to store data from CephFS clients or
+  RADOS Block Device clients. The S3 and Swift APIs share a common name space, so you may
+  write data with one API and retrieve it with the other.
+ </p><div id="id-1.4.5.3.6" data-id-title="Object Gateway Deployed by DeepSea" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Object Gateway Deployed by DeepSea</h6><p>
+   Since SUSE Enterprise Storage 5.5, the Object Gateway is installed as a DeepSea role, therefore you
+   do not need to install it manually.
+  </p><p>
+   To install the Object Gateway during the cluster deployment, see
+   <a class="xref" href="ceph-install-saltstack.html#ceph-install-stack" title="4.3. Cluster Deployment">Section 4.3, “Cluster Deployment”</a>.
+  </p><p>
+   To add a new node with Object Gateway to the cluster, see
+   <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.2 “Adding New Roles to Nodes”</span>.
+  </p></div><section class="sect1" id="rgw-installation" data-id-title="Object Gateway Manual Installation"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">9.1 </span><span class="title-name">Object Gateway Manual Installation</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#rgw-installation">#</a></h2></div></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Install Object Gateway on a node that is not using port 80. For example a node
+     already running openATTIC is already using port 80. The following command
+     installs all required components:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper ref &amp;&amp; zypper in ceph-radosgw</pre></div></li><li class="step"><p>
+     If the Apache server from the previous Object Gateway instance is running, stop it
+     and disable the relevant service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl stop disable apache2.service</pre></div></li><li class="step"><p>
+     Edit <code class="filename">/etc/ceph/ceph.conf</code> and add the following lines:
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.gateway_host]
+ rgw frontends = "civetweb port=80"</pre></div><div id="id-1.4.5.3.7.2.3.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      If you want to configure Object Gateway/CivetWeb for use with SSL encryption,
+      modify the line accordingly:
+     </p><div class="verbatim-wrap"><pre class="screen">rgw frontends = civetweb port=7480s ssl_certificate=<em class="replaceable">path_to_certificate.pem</em></pre></div></div></li><li class="step"><p>
+     Restart the Object Gateway service.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl restart ceph-radosgw@rgw.gateway_host</pre></div></li></ol></div></div><section class="sect2" id="ses-rgw-config" data-id-title="Object Gateway Configuration"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">9.1.1 </span><span class="title-name">Object Gateway Configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#ses-rgw-config">#</a></h3></div></div></div><p>
+    Several steps are required to configure an Object Gateway.
+   </p><section class="sect3" id="id-1.4.5.3.7.3.3" data-id-title="Basic Configuration"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.1.1.1 </span><span class="title-name">Basic Configuration</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#id-1.4.5.3.7.3.3">#</a></h4></div></div></div><p>
+     Configuring a Ceph Object Gateway requires a running Ceph Storage Cluster. The
+     Ceph Object Gateway is a client of the Ceph Storage Cluster. As a Ceph
+     Storage Cluster client, it requires:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       A host name for the gateway instance, for example
+       <code class="systemitem">gateway</code>.
+      </p></li><li class="listitem"><p>
+       A storage cluster user name with appropriate permissions and a keyring.
+      </p></li><li class="listitem"><p>
+       Pools to store its data.
+      </p></li><li class="listitem"><p>
+       A data directory for the gateway instance.
+      </p></li><li class="listitem"><p>
+       An instance entry in the Ceph configuration file.
+      </p></li></ul></div><p>
+     Each instance must have a user name and key to communicate with a Ceph
+     storage cluster. In the following steps, we use a monitor node to create a
+     bootstrap keyring, then create the Object Gateway instance user keyring based on
+     the bootstrap one. Then, we create a client user name and key. Next, we
+     add the key to the Ceph Storage Cluster. Finally, we distribute the
+     keyring to the node containing the gateway instance.
+    </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+       Create a keyring for the gateway:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ceph-authtool --create-keyring /etc/ceph/ceph.client.rgw.keyring
+<code class="prompt user">root # </code>chmod +r /etc/ceph/ceph.client.rgw.keyring</pre></div></li><li class="step"><p>
+       Generate a Ceph Object Gateway user name and key for each instance. As an
+       example, we will use the name <code class="systemitem">gateway</code> after
+       <code class="systemitem">client.radosgw</code>:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ceph-authtool /etc/ceph/ceph.client.rgw.keyring \
+  -n client.rgw.gateway --gen-key</pre></div></li><li class="step"><p>
+       Add capabilities to the key:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ceph-authtool -n client.rgw.gateway --cap osd 'allow rwx' \
+  --cap mon 'allow rwx' /etc/ceph/ceph.client.rgw.keyring</pre></div></li><li class="step"><p>
+       Once you have created a keyring and key to enable the Ceph Object
+       Gateway with access to the Ceph Storage Cluster, add the key to your
+       Ceph Storage Cluster. For example:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ceph -k /etc/ceph/ceph.client.admin.keyring auth add client.rgw.gateway \
+  -i /etc/ceph/ceph.client.rgw.keyring</pre></div></li><li class="step"><p>
+       Distribute the keyring to the node with the gateway instance:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>scp /etc/ceph/ceph.client.rgw.keyring  ceph@<em class="replaceable">hostname</em>:/home/ceph
+<code class="prompt user">cephadm &gt; </code>ssh <em class="replaceable">hostname</em>
+<code class="prompt user">root # </code>mv ceph.client.rgw.keyring /etc/ceph/ceph.client.rgw.keyring</pre></div></li></ol></div></div><div id="id-1.4.5.3.7.3.3.6" data-id-title="Use Bootstrap Keyring" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Use Bootstrap Keyring</h6><p>
+      An alternative way is to create the Object Gateway bootstrap keyring, and then
+      create the Object Gateway keyring from it:
+     </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+        Create an Object Gateway bootstrap keyring on one of the monitor nodes:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ceph \
+ auth get-or-create client.bootstrap-rgw mon 'allow profile bootstrap-rgw' \
+ --connect-timeout=25 \
+ --cluster=ceph \
+ --name mon. \
+ --keyring=/var/lib/ceph/mon/ceph-<em class="replaceable">node_host</em>/keyring \
+ -o /var/lib/ceph/bootstrap-rgw/keyring</pre></div></li><li class="step"><p>
+        Create the
+        <code class="filename">/var/lib/ceph/radosgw/ceph-<em class="replaceable">rgw_name</em></code>
+        directory for storing the bootstrap keyring:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkdir \
+/var/lib/ceph/radosgw/ceph-<em class="replaceable">rgw_name</em></pre></div></li><li class="step"><p>
+        Create an Object Gateway keyring from the newly created bootstrap keyring:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>ceph \
+ auth get-or-create client.rgw.<em class="replaceable">rgw_name</em> osd 'allow rwx' mon 'allow rw' \
+ --connect-timeout=25 \
+ --cluster=ceph \
+ --name client.bootstrap-rgw \
+ --keyring=/var/lib/ceph/bootstrap-rgw/keyring \
+ -o /var/lib/ceph/radosgw/ceph-<em class="replaceable">rgw_name</em>/keyring</pre></div></li><li class="step"><p>
+        Copy the Object Gateway keyring to the Object Gateway host:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>scp \
+/var/lib/ceph/radosgw/ceph-<em class="replaceable">rgw_name</em>/keyring \
+<em class="replaceable">rgw_host</em>:/var/lib/ceph/radosgw/ceph-<em class="replaceable">rgw_name</em>/keyring</pre></div></li></ol></div></div></div></section><section class="sect3" id="ogw-pool-create" data-id-title="Create Pools (Optional)"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.1.1.2 </span><span class="title-name">Create Pools (Optional)</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#ogw-pool-create">#</a></h4></div></div></div><p>
+     Ceph Object Gateways require Ceph Storage Cluster pools to store specific
+     gateway data. If the user you created has proper permissions, the gateway
+     will create the pools automatically. However, ensure that you have set an
+     appropriate default number of placement groups per pool in the Ceph
+     configuration file.
+    </p><p>
+     The pool names follow the
+     <code class="literal"><em class="replaceable">ZONE_NAME</em>.<em class="replaceable">POOL_NAME</em></code>
+     syntax. When configuring a gateway with the default region and zone, the
+     default zone name is 'default' as in our example:
+    </p><div class="verbatim-wrap"><pre class="screen">.rgw.root
+default.rgw.control
+default.rgw.meta
+default.rgw.log
+default.rgw.buckets.index
+default.rgw.buckets.data</pre></div><p>
+     To create the pools manually, see
+     <span class="intraxref">Book “Administration Guide”, Chapter 8 “Managing Storage Pools”, Section 8.2.2 “Create a Pool”</span>.
+    </p><div id="id-1.4.5.3.7.3.4.6" data-id-title="Object Gateway and Erasure-coded Pools" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Object Gateway and Erasure-coded Pools</h6><p>
+      Only the <code class="literal">default.rgw.buckets.data</code> pool can be
+      erasure-coded. All other pools need to be replicated, otherwise the
+      gateway is not accessible.
+     </p></div></section><section class="sect3" id="id-1.4.5.3.7.3.5" data-id-title="Adding Gateway Configuration to Ceph"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.1.1.3 </span><span class="title-name">Adding Gateway Configuration to Ceph</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#id-1.4.5.3.7.3.5">#</a></h4></div></div></div><p>
+     Add the Ceph Object Gateway configuration to the Ceph Configuration file. The
+     Ceph Object Gateway configuration requires you to identify the Ceph Object Gateway
+     instance. Then, specify the host name where you installed the Ceph Object Gateway
+     daemon, a keyring (for use with cephx), and optionally a log file. For
+     example:
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.<em class="replaceable">instance-name</em>]
+host = <em class="replaceable">hostname</em>
+keyring = /etc/ceph/ceph.client.rgw.keyring</pre></div><div id="id-1.4.5.3.7.3.5.4" data-id-title="Object Gateway Log File" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Object Gateway Log File</h6><p>
+      To override the default Object Gateway log file, include the following:
+     </p><div class="verbatim-wrap"><pre class="screen">log file = /var/log/radosgw/client.rgw.<em class="replaceable">instance-name</em>.log</pre></div></div><p>
+     The <code class="literal">[client.rgw.*]</code> portion of the gateway instance
+     identifies this portion of the Ceph configuration file as configuring a
+     Ceph Storage Cluster client where the client type is a Ceph Object Gateway
+     (radosgw). The instance name follows. For example:
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.gateway]
+host = ceph-gateway
+keyring = /etc/ceph/ceph.client.rgw.keyring</pre></div><div id="id-1.4.5.3.7.3.5.7" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      The <em class="replaceable">host</em> must be your machine host name,
+      excluding the domain name.
+     </p></div><p>
+     Then turn off <code class="literal">print continue</code>. If you have it set to
+     true, you may encounter problems with PUT operations:
+    </p><div class="verbatim-wrap"><pre class="screen">rgw print continue = false</pre></div><p>
+     To use a Ceph Object Gateway with subdomain S3 calls (for example
+     <code class="literal">http://bucketname.hostname</code>), you must add the Ceph
+     Object Gateway DNS name under the <code class="literal">[client.rgw.gateway]</code> section
+     of the Ceph configuration file:
+    </p><div class="verbatim-wrap"><pre class="screen">[client.rgw.gateway]
+...
+rgw dns name = <em class="replaceable">hostname</em></pre></div><p>
+     You should also consider installing a DNS server such as Dnsmasq on your
+     client machine(s) when using the
+     <code class="literal">http://<em class="replaceable">bucketname</em>.<em class="replaceable">hostname</em></code>
+     syntax. The <code class="filename">dnsmasq.conf</code> file should include the
+     following settings:
+    </p><div class="verbatim-wrap"><pre class="screen">address=/<em class="replaceable">hostname</em>/<em class="replaceable">host-ip-address</em>
+listen-address=<em class="replaceable">client-loopback-ip</em></pre></div><p>
+     Then, add the <em class="replaceable">client-loopback-ip</em> IP address as
+     the first DNS server on the client machine(s).
+    </p></section><section class="sect3" id="id-1.4.5.3.7.3.6" data-id-title="Create Data Directory"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.1.1.4 </span><span class="title-name">Create Data Directory</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#id-1.4.5.3.7.3.6">#</a></h4></div></div></div><p>
+     Deployment scripts may not create the default Ceph Object Gateway data directory.
+     Create data directories for each instance of a radosgw daemon if not
+     already done. The <code class="literal">host</code> variables in the Ceph
+     configuration file determine which host runs each instance of a radosgw
+     daemon. The typical form specifies the radosgw daemon, the cluster name,
+     and the daemon ID.
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkdir -p /var/lib/ceph/radosgw/<em class="replaceable">cluster</em>-<em class="replaceable">id</em></pre></div><p>
+     Using the example <code class="filename">ceph.conf</code> settings above, you would
+     execute the following:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>mkdir -p /var/lib/ceph/radosgw/ceph-radosgw.gateway</pre></div></section><section class="sect3" id="id-1.4.5.3.7.3.7" data-id-title="Restart Services and Start the Gateway"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">9.1.1.5 </span><span class="title-name">Restart Services and Start the Gateway</span> <a title="Permalink" class="permalink" href="cha-ceph-additional-software-installation.html#id-1.4.5.3.7.3.7">#</a></h4></div></div></div><p>
+     To ensure that all components have reloaded their configurations, we
+     recommend restarting your Ceph Storage Cluster service. Then, start up
+     the <code class="systemitem">radosgw</code> service. For more information, see
+     <span class="intraxref">Book “Administration Guide”, Chapter 2 “Introduction”</span> and
+     <span class="intraxref">Book “Administration Guide”, Chapter 13 “Ceph Object Gateway”, Section 13.3 “Operating the Object Gateway Service”</span>.
+    </p><p>
+     When the service is up and running, you can make an anonymous GET request
+     to see if the gateway returns a response. A simple HTTP request to the
+     domain name should return the following:
+    </p><div class="verbatim-wrap"><pre class="screen">&lt;ListAllMyBucketsResult&gt;
+      &lt;Owner&gt;
+              &lt;ID&gt;anonymous&lt;/ID&gt;
+              &lt;DisplayName/&gt;
+      &lt;/Owner&gt;
+      &lt;Buckets/&gt;
+&lt;/ListAllMyBucketsResult&gt;</pre></div></section></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-as-intro.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 8 </span>Installation of Services to Access your Data</span></a> </div><div><a class="pagination-link next" href="cha-ceph-as-iscsi.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 10 </span>Installation of iSCSI Gateway</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-additional-software-installation.html#rgw-installation"><span class="title-number">9.1 </span><span class="title-name">Object Gateway Manual Installation</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/deployment_rgw.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

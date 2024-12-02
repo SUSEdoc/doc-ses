@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Architecture and Hardware Tuning | Tuning Guide | SUSE Enterprise Storage 6</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Architecture and Hardware Tuning | SES 6"/>
+<meta name="description" content="Architectural tuning includes aspects that range from the low-level design of the systems being deployed, up to macro-level decisions about network topology an…"/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="6"/>
+<meta name="book-title" content="Tuning Guide"/>
+<meta name="chapter-title" content="Chapter 4. Architecture and Hardware Tuning"/>
+<meta name="tracker-url" content="https://github.com/SUSE/doc-ses/issues/new/choose"/>
+<meta name="tracker-type" content="gh"/>
+<meta name="tracker-gh-assignee" content="asettle"/>
+<meta name="tracker-gh-labels" content="bug,question,feature request"/>
+<meta property="og:title" content="Architecture and Hardware Tuning | SES 6"/>
+<meta property="og:description" content="Architectural tuning includes aspects that range from the low-level design of the systems being deployed, up to macro-level decisions about network topology an…"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Architecture and Hardware Tuning | SES 6"/>
+<meta name="twitter:description" content="Architectural tuning includes aspects that range from the low-level design of the systems being deployed, up to macro-level decisions about network topology an…"/>
+<link rel="prev" href="part-tuning-guide.html" title="Part II. SUSE Enterprise Storage Tuning"/><link rel="next" href="tuning-os.html" title="Chapter 5. Operating System Level Tuning"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Tuning Guide</a><span> / </span><a class="crumb" href="part-tuning-guide.html">SUSE Enterprise Storage Tuning</a><span> / </span><a class="crumb" href="tuning-architecture.html">Architecture and Hardware Tuning</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Tuning Guide</div><ol><li><a href="part-intro.html" class="has-children "><span class="title-number">I </span><span class="title-name">Introduction</span></a><ol><li><a href="bk03pt01ch01.html" class=" "><span class="title-number">1 </span><span class="title-name">User Privileges and Command Prompts</span></a></li><li><a href="tuning-how.html" class=" "><span class="title-number">2 </span><span class="title-name">General Notes on System Tuning</span></a></li><li><a href="tuning-intro.html" class=" "><span class="title-number">3 </span><span class="title-name">Introduction to Tuning SUSE Enterprise Storage Clusters</span></a></li></ol></li><li class="active"><a href="part-tuning-guide.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">SUSE Enterprise Storage Tuning</span></a><ol><li><a href="tuning-architecture.html" class=" you-are-here"><span class="title-number">4 </span><span class="title-name">Architecture and Hardware Tuning</span></a></li><li><a href="tuning-os.html" class=" "><span class="title-number">5 </span><span class="title-name">Operating System Level Tuning</span></a></li><li><a href="tuning-ceph.html" class=" "><span class="title-number">6 </span><span class="title-name">Ceph Tuning</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">7 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="lvmcache.html" class=" "><span class="title-number">8 </span><span class="title-name">Improving Performance with LVM cache</span></a></li></ol></li><li><a href="tuning-appendix-a.html" class=" "><span class="title-number">A </span><span class="title-name">Salt State for Kernel Tuning</span></a></li><li><a href="tuning-appendix-b.html" class=" "><span class="title-number">B </span><span class="title-name">Ring Buffer Max Value Script</span></a></li><li><a href="tuning-appendix-c.html" class=" "><span class="title-number">C </span><span class="title-name">Network Tuning</span></a></li><li><a href="bk03apd.html" class=" "><span class="title-number">D </span><span class="title-name">Ceph Maintenance Updates Based on Upstream 'Nautilus' Point Releases</span></a></li><li><a href="bk03go01.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="tuning-architecture" data-id-title="Architecture and Hardware Tuning"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">6</span></div><div><h2 class="title"><span class="title-number">4 </span><span class="title-name">Architecture and Hardware Tuning</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#">#</a></h2></div></div></div><p>
+  Architectural tuning includes aspects that range from the low-level design of
+  the systems being deployed, up to macro-level decisions about network
+  topology and cooling. Not all of these can be covered in this work, but
+  guidance will be given where possible.
+ </p><p>
+  From the top-down view, it is important to think about the physical location
+  of nodes, the connectivity available between them, and implications of such
+  items as power routing and fire compartments. However, from a performance
+  perspective, it is most important to think in terms of the connectivity and
+  what a write actually looks like from the cluster perspective.
+ </p><p>
+  The intention of architectural tuning is to take control of where the
+  performance bottlenecks lie. In most cases, it is preferable for the
+  bottleneck to lie with the storage device, as that creates a predictable
+  pattern of performance degradation and associated limitations. Placing the
+  bottleneck in other areas, such as CPU or network, may create inconsistent
+  behavior when resources are stressed. This is due to the possibility of other
+  processes running, whether recovery, rebalancing, garbage collection, and
+  causing inconsistent behavior due to being network or CPU bound. When storage
+  is the bottleneck, the degradation results in longer response times to queued
+  requests, making this the most desireable point at which to place the
+  bottleneck.
+ </p><section class="sect1" id="tuning-network" data-id-title="Network"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.1 </span><span class="title-name">Network</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#tuning-network">#</a></h2></div></div></div><p>
+   The network is the backbone of the cluster, and a failure to implement it in
+   a robust manner can cripple the performance of the cluster, no matter what
+   other steps are taken. From a best practices perspective, this entails
+   implementing a fault-tolerant switching infrastructure that can scale the
+   aggregate core bandwidth as the cluster grows. For very large clusters, this
+   may entail a leaf and spine architecture, while for smaller clusters, it may
+   look like a more familiar hub-and-spoke or mesh network.
+  </p><p>
+   No matter which network architecture is chosen, it is important to carefully
+   examine each hop along the path and consider the maximum network traffic
+   that could occur during adverse conditions.
+  </p><p>
+   An example of a bad decision here would be to have a multi-rack cluster
+   where each rack contains 16 storage nodes of 24× 7200rpm drives where
+   each node is connected to a pair of stacked Top-of-Rack (TOR) switches via
+   2x25Gb connections. This connectivity is sufficient for 3 GB/s per
+   connection or 6 GB/s total for the node, which is near the maximum that
+   a 7200rpm drive will sustain. The bad decision comes in
+   <span class="emphasis"><em>only</em></span> using 4× of the 25 GB interfaces for
+   the uplink. While 100 Gb may seem like a substantial amount of
+   bandwidth, it translates into only about 10 GB/s, while the rack is
+   capable of an aggregate of around 48 GB/s.
+  </p><p>
+   During an adverse situation, it is possible that network congestion will
+   result in dramatically increased latency, packet delays, drops, etc. A
+   simple rememdy would have been to select switches with 4× 100 Gb
+   uplink ports, resulting in each switch being able to transmit the complete,
+   aggregate bandwidth load to the network core.
+  </p><p>
+   In reality, some level of over-subscription is going to happen in most
+   networks, but the smaller the ratio, the better the resulting cluster will
+   be able to handle adverse conditions.
+  </p><section class="sect2" id="id-1.5.3.2.6.7" data-id-title="Network Tuning"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.1.1 </span><span class="title-name">Network Tuning</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.6.7">#</a></h3></div></div></div><p>
+    Here are some general principals to follow when planning a Ceph cluster
+    network:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Utilize 25/50/100 GbE connections - The signaling rate is 2.5 times
+      faster than 10/40 GbE resulting in lower latency over the wire. The
+      impact from the faster signaling rate would be minimal with spinning
+      media and more impactful with faster technologies such as NVMe.
+     </p></li><li class="listitem"><p>
+      Network bandwidth should be at least the total bandwidth of all storage
+      devices present in the storage node
+     </p></li><li class="listitem"><p>
+      Usage of VLANs on LACP-bonded Ethernet provides the best balance of
+      bandwidth aggregation + fault tolerance
+     </p></li><li class="listitem"><p>
+      The network should utilize jumbo-frame Ethernet if all nodes connecting
+      to the storage are able to do so, otherwise use the standard MTU.
+     </p></li></ul></div></section></section><section class="sect1" id="tuning-node-hw-recommendations" data-id-title="Node Hardware Recommendations"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.2 </span><span class="title-name">Node Hardware Recommendations</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#tuning-node-hw-recommendations">#</a></h2></div></div></div><section class="sect2" id="id-1.5.3.2.7.2" data-id-title="CPU"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2.1 </span><span class="title-name">CPU</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.7.2">#</a></h3></div></div></div><p>
+    There are a lot of options when it comes to processor selection in the
+    market today. There are multiple varieties available from the major vendors
+    in the x86 space and a wide array of options in the 64-bit Arm space as
+    well. Without regard to the core architecture, there is one rule that is
+    always true, and that is that higher clockspeed allows more work to be done
+    in the same amount of time. This consideration is most important when
+    working with higher speed storage and network devices.
+   </p><p>
+    CPU selection is also an important consideration for specific services.
+    Some services, such as metadata servers, NFS, Samba, and ISCSI gateways
+    benefit from a smaller number of much faster cores, while the OSD nodes
+    need a more core dense solution.
+   </p><p>
+    A second consideration is whether to use a single socket or multiple
+    sockets. The answer to this will depend on the device density, type of
+    network hardware being utilized, etc. In many nodes, a single socket will
+    provide better performance as the processor interlink is a bottleneck,
+    though this would most likely be noticed in an all NVMe based node type.
+    The general recommendation is to use a single socket whenever possible.
+   </p><p>
+    When considering which processor to choose, there are several
+    considerations aside from clock-speed that should be taken into
+    consideration. They include:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      <span class="emphasis"><em>Memory bandwidth</em></span>: Ceph is a heavy user of RAM,
+      thus the more memory bandwidth available, the more performant the node
+      can be.
+     </p></li><li class="listitem"><p>
+      <span class="emphasis"><em>Memory layout</em></span>: Even if the memory selected is fast,
+      if all memory channels are not leveraged, performance is being left
+      untapped. It is advantageous to ensure that RAM is distributed evenly
+      across all channels.
+     </p></li><li class="listitem"><p>
+      <span class="emphasis"><em>Offload capabilities</em></span>: For example, Intel CPUs offer
+      <code class="literal">zlib</code> and Reed-Solomon offloads, the latter being used
+      with erasure coding when the ISA plugin is specified.
+     </p></li><li class="listitem"><p>
+      <span class="emphasis"><em>PCIe bus speed and lanes</em></span>: This is particularly
+      important when looking at devices with a large number of PCIe devices,
+      like NVMe. The bus speed also affects the performance of network devices
+      as well.
+     </p></li></ul></div></section><section class="sect2" id="id-1.5.3.2.7.3" data-id-title="Storage Device"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2.2 </span><span class="title-name">Storage Device</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.7.3">#</a></h3></div></div></div><p>
+    Storage device selection can dramatically affect the performance and
+    reliability of a Ceph cluster. When building for performance, it is
+    important to understand the nature of the device in regard to reads/writes
+    and the workloads that will be applied. This is particularly true with
+    flash media.
+   </p><section class="sect3" id="id-1.5.3.2.7.3.3" data-id-title="Device Type"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.2.2.1 </span><span class="title-name">Device Type</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.7.3.3">#</a></h4></div></div></div><p>
+     The first recommendation is to ensure that systems utilize
+     Enterprise-class storage media. With NVMe and SSD devices, this implies a
+     few key items.
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       More spare cells to deal with media wear-out
+      </p></li><li class="listitem"><p>
+       Battery/capacitor to allow completion of buffer dumps during unexpected
+       power events
+      </p></li></ul></div><p>
+     It is also important to ensure the media being utilized will support the
+     workloads of the cluster. For example, if the applications using the
+     cluster have a read/write mix of 90:10, it is likely acceptable to utilize
+     a read-intensive NVMe device. However, if the ratio is flipped or even
+     50:50, it is a better choice to at least consider mixed-use, or write
+     intensive media. This selection goes beyond just the media durability, but
+     also includes considerations around the design. Write-intensive media
+     typically allocate more PCIe lanes to handling write requests to the
+     media, ensuring faster commits than a read-intensive device would provide
+     under load. Also, write intensive devices will most often use faster
+     classes of non-volitaile memory technology and/or have large, supercap
+     backed caches.
+    </p></section></section><section class="sect2" id="id-1.5.3.2.7.4" data-id-title="Device Buses"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2.3 </span><span class="title-name">Device Buses</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.7.4">#</a></h3></div></div></div><p>
+    It is also important to understand the impact of the storage bus and
+    hardware pieces along the way. Clearly, 6 Gb/s is slower than
+    12 Gb/s, and 12 Gb/s is slower than PCIe Gen3 (8 Gb/s per
+    lane), but what about mixing SATA 3 Gb/s and SATA 6 Gb/s, or
+    mixing 6 Gb/s and 12 Gb/s SAS?
+   </p><p>
+    The general rule is not to mix. When a 6 Gb/s device is introduced to
+    a 12 Gb/s bus, the entire bus slows down to 6 Gb/s, greatly
+    reducing the overall throughput capability. Where this really would hurt is
+    in a dense SAS SSD system. If there are 24 SAS SSDs on a two-channel,
+    12 Gb/s bus and one of the devices is only 6 Gb/s, then the
+    12 Gb/s SAS drives that can push 850 MB/s now oversubscribe the
+    bus due to the reduced data rate.
+   </p><p>
+    Another consideration is the presence of bus expanders. Bus expanders allow
+    a system to multiplex multiple devices on a single channel. The result is
+    higher density at lower performance maximum. In some cases, the expanders
+    may work acceptably, such as with HDDs, but with SSDs, they are likely to
+    quickly become a bottleneck.
+   </p></section><section class="sect2" id="id-1.5.3.2.7.5" data-id-title="General Recommendations"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.2.4 </span><span class="title-name">General Recommendations</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.7.5">#</a></h3></div></div></div><p>
+    Below are some generic tuning options applicable to performance tuning for
+    server platforms:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Set firmware Power/Performance controls to the performance profile. This
+      should eliminate frequency scaling and ensure that there is no added
+      latency caused by it.
+     </p></li><li class="listitem"><p>
+      Enable multi-threading on SMT-capable CPUs. This extra processing power
+      is utilized effectively by Ceph.
+     </p></li><li class="listitem"><p>
+      Ensure all add-in cards are in the optimal slots for performance.
+     </p></li></ul></div></section></section><section class="sect1" id="tuning-cpeh-rocksdb-wal" data-id-title="Ceph"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">4.3 </span><span class="title-name">Ceph</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#tuning-cpeh-rocksdb-wal">#</a></h2></div></div></div><section class="sect2" id="id-1.5.3.2.8.2" data-id-title="RocksDB and WAL"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">4.3.1 </span><span class="title-name">RocksDB and WAL</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.8.2">#</a></h3></div></div></div><p>
+    Ceph makes use of both a Write-Ahead-Log (WAL) and
+    <code class="literal">RocksDB</code>. The WAL is the internal journal where small
+    writes are queued before commiting to the backend storage. RocksDB is where
+    Ceph stores metadata associated with the objects written to BlueStore.
+    When using spinning media, or perhaps even SSDs, it generally makes sense
+    to locate the RocksDB and WAL on a faster device, such as NVMe. When doing
+    so, proper sizing of these is critical to ensuring a stable performance
+    profile of the cluster over time.
+   </p><p>
+    From a performance perspective, the rule of thumb is to divide the write
+    performance of the WAL/RocksDB device by the write performance of the data
+    device. This yields what should be considered to be the maximum ratio of
+    data devices per WAL/RocksDB device.
+   </p><section class="sect3" id="id-1.5.3.2.8.2.4" data-id-title="WAL"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.3.1.1 </span><span class="title-name">WAL</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.8.2.4">#</a></h4></div></div></div><p>
+     The WAL maxes out a bit under two gigabytes. In order to leave room for
+     maintenance activities, having about four gigabytes of space
+     allocated/allowed is optimal.
+    </p></section><section class="sect3" id="id-1.5.3.2.8.2.5" data-id-title="RocksDB"><div class="titlepage"><div><div><h4 class="title"><span class="title-number">4.3.1.2 </span><span class="title-name">RocksDB</span> <a title="Permalink" class="permalink" href="tuning-architecture.html#id-1.5.3.2.8.2.5">#</a></h4></div></div></div><p>
+     RocksDB operates with a series of tiered levels, each being an order of
+     magnitude larger than the last. Levels one through four are 256 MB,
+     2.56 GB, 25.6 GB, 256 GB respectively. Allocating
+     appropriate space for these is an act of aggregation. Given that few
+     installations utilize enough metadata to require the fourth tier,
+     allocating for the first three and associated maintenance is sufficient.
+     25.6+2.56+.256 GB = 28.416 GB. Rounding up to 30 GB and
+     providing 100% overhead to allow for maintenance takes the space
+     allocation suggested for the first three tiers to 60 GB.
+    </p><div id="id-1.5.3.2.8.2.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+      Keep in mind that we recommend reserving 4 GB for the WAL device.
+      The recommended size for DB is a total of 64 GB for most workloads.
+      See <span class="intraxref">Book “Deployment Guide”, Chapter 2 “Hardware Requirements and Recommendations”, Section 2.4.3 “Recommended Size for the BlueStore's WAL and DB Device”</span> for more information.
+     </p></div><p>
+     Making the decision to provision fast space for the fourth tier of RocksDB
+     is entirely related to the expected metadata load. Protocols like RBD use
+     little metadata, while CephFS is somewhere from a mild to moderate
+     amount. S3 and native RADOS can utilize the highest amounts of metadata
+     and are generally the cases where it starts making sense to evaluate
+     whether it makes sense to move the fourth tier makes to faster media.
+    </p></section></section></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="part-tuning-guide.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Part II </span>SUSE Enterprise Storage Tuning</span></a> </div><div><a class="pagination-link next" href="tuning-os.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 5 </span>Operating System Level Tuning</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="tuning-architecture.html#tuning-network"><span class="title-number">4.1 </span><span class="title-name">Network</span></a></span></li><li><span class="sect1"><a href="tuning-architecture.html#tuning-node-hw-recommendations"><span class="title-number">4.2 </span><span class="title-name">Node Hardware Recommendations</span></a></span></li><li><span class="sect1"><a href="tuning-architecture.html#tuning-cpeh-rocksdb-wal"><span class="title-number">4.3 </span><span class="title-name">Ceph</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses6/xml/tuning-architecture.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Operating Ceph Services | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Operating Ceph Services | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="description" content="You can operate Ceph services either using systemd, or using DeepSea."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Chapter 3. Operating Ceph Services"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Operating Ceph Services | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta property="og:description" content="You can operate Ceph services either using systemd, or using DeepSea."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Operating Ceph Services | SES 5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="twitter:description" content="You can operate Ceph services either using systemd, or using DeepSea."/>
+<link rel="prev" href="cha-ceph-operating.html" title="Chapter 2. Introduction"/><link rel="next" href="ceph-monitor.html" title="Chapter 4. Determining Cluster State"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="part-operate.html">Operating a Cluster</a><span> / </span><a class="crumb" href="ceph-operating-services.html">Operating Ceph Services</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-cluster-managment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span></a></li></ol></li><li class="active"><a href="part-operate.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">2 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" you-are-here"><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">4 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">6 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">7 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">9 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">10 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">11 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">12 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li><a href="part-dataccess.html" class="has-children "><span class="title-number">III </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">15 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">16 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-gui.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Managing Cluster with GUI Tools</span></a><ol><li><a href="ceph-oa.html" class=" "><span class="title-number">17 </span><span class="title-name">openATTIC</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">18 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">19 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li><a href="part-troubleshooting.html" class="has-children "><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" "><span class="title-number">20 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">21 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">22 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="gloss-storage-glossary.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="app-alerting-default.html" class=" "><span class="title-number">B </span><span class="title-name">Default Alerts for SUSE Enterprise Storage</span></a></li><li><a href="app-storage-manual-inst.html" class=" "><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">D </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="ceph-operating-services" data-id-title="Operating Ceph Services"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#">#</a></h2></div></div></div><p>
+  You can operate Ceph services either using <code class="systemitem">systemd</code>, or using DeepSea.
+ </p><section class="sect1" id="operate-services-systemd" data-id-title="Operating Ceph Cluster Related Services using systemd"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.1 </span><span class="title-name">Operating Ceph Cluster Related Services using <code class="systemitem">systemd</code></span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#operate-services-systemd">#</a></h2></div></div></div><p>
+   Use the <code class="command">systemctl</code> command to operate all Ceph related
+   services. The operation takes place on the node you are currently logged in
+   to. You need to have <code class="systemitem">root</code> privileges to be able to operate on Ceph
+   services.
+  </p><section class="sect2" id="ceph-operating-services-targets" data-id-title="Starting, Stopping, and Restarting Services using Targets"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.1.1 </span><span class="title-name">Starting, Stopping, and Restarting Services using Targets</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#ceph-operating-services-targets">#</a></h3></div></div></div><p>
+    To simplify starting, stopping, and restarting all the services of a
+    particular type (for example all Ceph services, or all MONs, or all OSDs)
+    on a node, Ceph provides the following <code class="systemitem">systemd</code> unit files:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ls /usr/lib/systemd/system/ceph*.target
+ceph.target
+ceph-osd.target
+ceph-mon.target
+ceph-mgr.target
+ceph-mds.target
+ceph-radosgw.target
+ceph-rbd-mirror.target</pre></div><p>
+    To start/stop/restart all Ceph services on the node, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl start ceph.target
+<code class="prompt user">root # </code>systemctl stop ceph.target
+<code class="prompt user">root # </code>systemctl restart ceph.target</pre></div><p>
+    To start/stop/restart all OSDs on the node, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl start ceph-osd.target
+<code class="prompt user">root # </code>systemctl stop ceph-osd.target
+<code class="prompt user">root # </code>systemctl restart ceph-osd.target</pre></div><p>
+    Commands for the other targets are analogous.
+   </p></section><section class="sect2" id="ceph-operating-services-individual" data-id-title="Starting, Stopping, and Restarting Individual Services"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.1.2 </span><span class="title-name">Starting, Stopping, and Restarting Individual Services</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#ceph-operating-services-individual">#</a></h3></div></div></div><p>
+    You can operate individual services using the following parameterized
+    <code class="systemitem">systemd</code> unit files:
+   </p><div class="verbatim-wrap"><pre class="screen">ceph-osd@.service
+ceph-mon@.service
+ceph-mds@.service
+ceph-mgr@.service
+ceph-radosgw@.service
+ceph-rbd-mirror@.service</pre></div><p>
+    To use these commands, you first need to identify the name of the service
+    you want to operate. See
+    <a class="xref" href="ceph-operating-services.html#ceph-operating-services-finding-names" title="3.1.3. Identifying Individual Services">Section 3.1.3, “Identifying Individual Services”</a> to learn more about
+    services identification.
+   </p><p>
+    To start/stop/restart the <code class="literal">osd.1</code> service, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl start ceph-osd@1.service
+<code class="prompt user">root # </code>systemctl stop ceph-osd@1.service
+<code class="prompt user">root # </code>systemctl restart ceph-osd@1.service</pre></div><p>
+    Commands for the other service types are analogous.
+   </p></section><section class="sect2" id="ceph-operating-services-finding-names" data-id-title="Identifying Individual Services"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.1.3 </span><span class="title-name">Identifying Individual Services</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#ceph-operating-services-finding-names">#</a></h3></div></div></div><p>
+    You can find out the names/numbers of a particular type of service in
+    several ways. The following commands provide results for services
+    <code class="literal">ceph*</code> and <code class="literal">lrbd*</code>. You can run them on
+    any node of the Ceph cluster.
+   </p><p>
+    To list all (even inactive) services of type <code class="literal">ceph*</code> and
+    <code class="literal">lrbd*</code>, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl list-units --all --type=service ceph* lrbd*</pre></div><p>
+    To list only the inactive services, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl list-units --all --state=inactive --type=service ceph* lrbd*</pre></div><p>
+    You can also use <code class="command">salt</code> to query services across multiple
+    nodes:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">TARGET</em> cmd.shell \
+ "systemctl list-units --all --type=service ceph* lrbd* | sed -e '/^$/,$ d'"</pre></div><p>
+    Query storage nodes only:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -I 'roles:storage' cmd.shell \
+ 'systemctl list-units --all --type=service ceph* lrbd*'</pre></div></section><section class="sect2" id="ceph-operating-services-status" data-id-title="Service Status"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.1.4 </span><span class="title-name">Service Status</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#ceph-operating-services-status">#</a></h3></div></div></div><p>
+    You can query <code class="systemitem">systemd</code> for the status of services. For example:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl status ceph-osd@1.service
+<code class="prompt user">root # </code>systemctl status ceph-mon@<em class="replaceable">HOSTNAME</em>.service</pre></div><p>
+    Replace <em class="replaceable">HOSTNAME</em> with the host name the daemon
+    is running on.
+   </p><p>
+    If you do not know the exact name/number of the service, see
+    <a class="xref" href="ceph-operating-services.html#ceph-operating-services-finding-names" title="3.1.3. Identifying Individual Services">Section 3.1.3, “Identifying Individual Services”</a>.
+   </p></section></section><section class="sect1" id="Deepsea-restart" data-id-title="Restarting Ceph Services using DeepSea"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.2 </span><span class="title-name">Restarting Ceph Services using DeepSea</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#Deepsea-restart">#</a></h2></div></div></div><p>
+   After applying updates to the cluster nodes, the affected Ceph related
+   services need to be restarted. Normally, restarts are performed
+   automatically by DeepSea. This section describes how to restart the
+   services manually.
+  </p><div id="id-1.3.4.3.5.3" data-id-title="Watching the Restart" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Watching the Restart</h6><p>
+    The process of restarting the cluster may take some time. You can watch the
+    events by using the Salt event bus by running:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.event pretty=True</pre></div><p>
+    Another command to monitor active jobs is
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run jobs.active</pre></div></div><section class="sect2" id="deepsea-restart-all" data-id-title="Restarting All Services"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.2.1 </span><span class="title-name">Restarting All Services</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#deepsea-restart-all">#</a></h3></div></div></div><div id="id-1.3.4.3.5.4.2" data-id-title="Interruption of Services" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Interruption of Services</h6><p>
+     If Ceph related services—specifically iSCSI or
+     NFS Ganesha—are configured as single points of access with no High Availability
+     setup, restarting then will result in their temporary outage as viewed
+     from the client side.
+    </p></div><div id="id-1.3.4.3.5.4.3" data-id-title="Samba not Managed by DeepSea" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Samba not Managed by DeepSea</h6><p>
+     Because DeepSea and openATTIC do not currently support Samba deployments, you
+     need to manage Samba related services manually. For more details, see
+     <span class="intraxref">Book “Deployment Guide”, Chapter 13 “Exporting Ceph Data via Samba”</span>.
+    </p></div><p>
+    To restart <span class="emphasis"><em>all</em></span> services on the cluster, run the
+    following command:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart</pre></div><p>
+    All roles you have configured restart in the following order: Ceph Monitor, Ceph Manager,
+    Ceph OSD, Metadata Server, Object Gateway, iSCSI Gateway, NFS Ganesha. To keep the downtime low and to find
+    potential issues as early as possible, nodes are restarted sequentially.
+    For example, only one monitoring node is restarted at a time.
+   </p><p>
+    The command waits for the cluster to recover if the cluster is in a
+    degraded, unhealthy state.
+   </p></section><section class="sect2" id="deepsea-restart-specific" data-id-title="Restarting Specific Services"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">3.2.2 </span><span class="title-name">Restarting Specific Services</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#deepsea-restart-specific">#</a></h3></div></div></div><p>
+    To restart a specific service on the cluster, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.<em class="replaceable">service_name</em></pre></div><p>
+    For example, to restart all Object Gateways, run:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.rgw</pre></div><p>
+    You can use the following targets:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.mon</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.mgr</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.osd</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.mds</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.rgw</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.igw</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.restart.ganesha</pre></div></section></section><section class="sect1" id="ceph-cluster-shutdown" data-id-title="Shutdown and Restart of the Whole Ceph Cluster"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">3.3 </span><span class="title-name">Shutdown and Restart of the Whole Ceph Cluster</span> <a title="Permalink" class="permalink" href="ceph-operating-services.html#ceph-cluster-shutdown">#</a></h2></div></div></div><p>
+   Shutting down and restarting the cluster may be necessary in the case of a
+   planned power outage. To stop all Ceph related services and restart
+   without issue, follow the steps below.
+  </p><div class="procedure" id="id-1.3.4.3.6.3" data-id-title="Shutting Down the Whole Ceph Cluster"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 3.1: </span><span class="title-name">Shutting Down the Whole Ceph Cluster </span><a title="Permalink" class="permalink" href="ceph-operating-services.html#id-1.3.4.3.6.3">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Shut down or disconnect any clients accessing the cluster.
+    </p></li><li class="step"><p>
+     To prevent CRUSH from automatically rebalancing the cluster, set the
+     cluster to <code class="literal">noout</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph osd set noout</pre></div></li><li class="step"><p>
+     Disable safety measures:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disengage.safety</pre></div></li><li class="step"><p>
+     Stop all Ceph services in the following order:
+    </p><ol type="a" class="substeps"><li class="step"><p>
+       Stop NFS Ganesha:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'I@roles:ganesha and I@cluster:ceph' ceph.terminate.ganesha</pre></div></li><li class="step"><p>
+       Stop Object Gateways:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'I@roles:rgw and I@cluster:ceph' ceph.terminate.rgw</pre></div></li><li class="step"><p>
+       Stop Metadata Servers:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'I@roles:mds and I@cluster:ceph' ceph.terminate.mds</pre></div></li><li class="step"><p>
+       Stop iSCSI Gateways:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'I@roles:igw and I@cluster:ceph' ceph.terminate.igw</pre></div></li><li class="step"><p>
+       Stop Ceph OSDs:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'I@roles:storage and I@cluster:ceph' ceph.terminate.storage</pre></div></li><li class="step"><p>
+       Stop Ceph Managers:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'I@roles:mgr and I@cluster:ceph' ceph.terminate.mgr</pre></div></li><li class="step"><p>
+       Stop Ceph Monitors:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'I@roles:mon  and I@cluster:ceph' ceph.terminate.mon</pre></div></li></ol></li><li class="step"><p>
+     Power off all cluster nodes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt -C 'G@deepsea:*' cmd.run "shutdown -h"</pre></div></li></ol></div></div><div class="procedure" id="id-1.3.4.3.6.4" data-id-title="Starting the Whole Ceph Cluster"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 3.2: </span><span class="title-name">Starting the Whole Ceph Cluster </span><a title="Permalink" class="permalink" href="ceph-operating-services.html#id-1.3.4.3.6.4">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Power on the Admin Node.
+    </p></li><li class="step"><p>
+     Power on the Ceph Monitor nodes.
+    </p></li><li class="step"><p>
+     Power on the Ceph OSD nodes.
+    </p></li><li class="step"><p>
+     Unset the previously set <code class="literal">noout</code> flag:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph osd unset noout</pre></div></li><li class="step"><p>
+     Power on all configured gateways.
+    </p></li><li class="step"><p>
+     Power on or connect cluster clients.
+    </p></li></ol></div></div></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="cha-ceph-operating.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 2 </span>Introduction</span></a> </div><div><a class="pagination-link next" href="ceph-monitor.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 4 </span>Determining Cluster State</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="ceph-operating-services.html#operate-services-systemd"><span class="title-number">3.1 </span><span class="title-name">Operating Ceph Cluster Related Services using <code class="systemitem">systemd</code></span></a></span></li><li><span class="sect1"><a href="ceph-operating-services.html#Deepsea-restart"><span class="title-number">3.2 </span><span class="title-name">Restarting Ceph Services using DeepSea</span></a></span></li><li><span class="sect1"><a href="ceph-operating-services.html#ceph-cluster-shutdown"><span class="title-number">3.3 </span><span class="title-name">Shutdown and Restart of the Whole Ceph Cluster</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_operating_services.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Example Procedure of Manual Ceph Installation | Administration Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Example Procedure of Manual Ceph Installation | SES 5.…"/>
+<meta name="description" content="The following procedure shows the commands that you need to install Ceph storage cluster manually."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Administration Guide"/>
+<meta name="chapter-title" content="Appendix C. Example Procedure of Manual Ceph Installation"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Example Procedure of Manual Ceph Installation | SES 5.…"/>
+<meta property="og:description" content="The following procedure shows the commands that you need to install Ceph storage cluster manually."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Example Procedure of Manual Ceph Installation | SES 5.…"/>
+<meta name="twitter:description" content="The following procedure shows the commands that you need to install Ceph storage cluster manually."/>
+<link rel="prev" href="app-alerting-default.html" title="Appendix B. Default Alerts for SUSE Enterprise Storage"/><link rel="next" href="ap-adm-docupdate.html" title="Appendix D. Documentation Updates"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Administration Guide</a><span> / </span><a class="crumb" href="app-storage-manual-inst.html">Example Procedure of Manual Ceph Installation</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Administration Guide</div><ol><li><a href="bk01pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-cluster-managment.html" class="has-children "><span class="title-number">I </span><span class="title-name">Cluster Management</span></a><ol><li><a href="storage-salt-cluster.html" class=" "><span class="title-number">1 </span><span class="title-name">Salt Cluster Administration</span></a></li></ol></li><li><a href="part-operate.html" class="has-children "><span class="title-number">II </span><span class="title-name">Operating a Cluster</span></a><ol><li><a href="cha-ceph-operating.html" class=" "><span class="title-number">2 </span><span class="title-name">Introduction</span></a></li><li><a href="ceph-operating-services.html" class=" "><span class="title-number">3 </span><span class="title-name">Operating Ceph Services</span></a></li><li><a href="ceph-monitor.html" class=" "><span class="title-number">4 </span><span class="title-name">Determining Cluster State</span></a></li><li><a href="monitoring-alerting.html" class=" "><span class="title-number">5 </span><span class="title-name">Monitoring and Alerting</span></a></li><li><a href="cha-storage-cephx.html" class=" "><span class="title-number">6 </span><span class="title-name">Authentication with <code class="systemitem">cephx</code></span></a></li><li><a href="cha-storage-datamgm.html" class=" "><span class="title-number">7 </span><span class="title-name">Stored Data Management</span></a></li><li><a href="ceph-pools.html" class=" "><span class="title-number">8 </span><span class="title-name">Managing Storage Pools</span></a></li><li><a href="ceph-rbd.html" class=" "><span class="title-number">9 </span><span class="title-name">RADOS Block Device</span></a></li><li><a href="cha-ceph-erasure.html" class=" "><span class="title-number">10 </span><span class="title-name">Erasure Coded Pools</span></a></li><li><a href="cha-ceph-tiered.html" class=" "><span class="title-number">11 </span><span class="title-name">Cache Tiering</span></a></li><li><a href="cha-ceph-configuration.html" class=" "><span class="title-number">12 </span><span class="title-name">Ceph Cluster Configuration</span></a></li></ol></li><li><a href="part-dataccess.html" class="has-children "><span class="title-number">III </span><span class="title-name">Accessing Cluster Data</span></a><ol><li><a href="cha-ceph-gw.html" class=" "><span class="title-number">13 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-iscsi.html" class=" "><span class="title-number">14 </span><span class="title-name">Ceph iSCSI Gateway</span></a></li><li><a href="cha-ceph-cephfs.html" class=" "><span class="title-number">15 </span><span class="title-name">Clustered File System</span></a></li><li><a href="cha-ceph-nfsganesha.html" class=" "><span class="title-number">16 </span><span class="title-name">NFS Ganesha: Export Ceph Data via NFS</span></a></li></ol></li><li><a href="part-gui.html" class="has-children "><span class="title-number">IV </span><span class="title-name">Managing Cluster with GUI Tools</span></a><ol><li><a href="ceph-oa.html" class=" "><span class="title-number">17 </span><span class="title-name">openATTIC</span></a></li></ol></li><li><a href="part-virt.html" class="has-children "><span class="title-number">V </span><span class="title-name">Integration with Virtualization Tools</span></a><ol><li><a href="cha-ceph-libvirt.html" class=" "><span class="title-number">18 </span><span class="title-name">Using <code class="systemitem">libvirt</code> with Ceph</span></a></li><li><a href="cha-ceph-kvm.html" class=" "><span class="title-number">19 </span><span class="title-name">Ceph as a Back-end for QEMU KVM Instance</span></a></li></ol></li><li><a href="part-troubleshooting.html" class="has-children "><span class="title-number">VI </span><span class="title-name">FAQs, Tips and Troubleshooting</span></a><ol><li><a href="storage-tips.html" class=" "><span class="title-number">20 </span><span class="title-name">Hints and Tips</span></a></li><li><a href="storage-faqs.html" class=" "><span class="title-number">21 </span><span class="title-name">Frequently Asked Questions</span></a></li><li><a href="storage-troubleshooting.html" class=" "><span class="title-number">22 </span><span class="title-name">Troubleshooting</span></a></li></ol></li><li><a href="gloss-storage-glossary.html" class=" "><span class="title-number"> </span><span class="title-name">Glossary</span></a></li><li><a href="app-stage1-custom.html" class=" "><span class="title-number">A </span><span class="title-name">DeepSea Stage 1 Custom Example</span></a></li><li><a href="app-alerting-default.html" class=" "><span class="title-number">B </span><span class="title-name">Default Alerts for SUSE Enterprise Storage</span></a></li><li><a href="app-storage-manual-inst.html" class=" you-are-here"><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span></a></li><li><a href="ap-adm-docupdate.html" class=" "><span class="title-number">D </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="appendix" id="app-storage-manual-inst" data-id-title="Example Procedure of Manual Ceph Installation"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h1 class="title"><span class="title-number">C </span><span class="title-name">Example Procedure of Manual Ceph Installation</span> <a title="Permalink" class="permalink" href="app-storage-manual-inst.html#">#</a></h1></div></div></div><p>
+  The following procedure shows the commands that you need to install Ceph
+  storage cluster manually.
+ </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+    Generate the key secrets for the Ceph services you plan to run. You can
+    use the following command to generate it:
+   </p><div class="verbatim-wrap"><pre class="screen">python -c "import os ; import struct ; import time; import base64 ; \
+ key = os.urandom(16) ; header = struct.pack('&lt;hiih',1,int(time.time()),0,len(key)) ; \
+ print base64.b64encode(header + key)"</pre></div></li><li class="step"><p>
+    Add the keys to the related keyrings. First for
+    <code class="systemitem">client.admin</code>, then for monitors,
+    and then other related services, such as OSD, Object Gateway, or MDS:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph-authtool -n client.admin \
+ --create-keyring /etc/ceph/ceph.client.admin.keyring \
+ --cap mds 'allow *' --cap mon 'allow *' --cap osd 'allow *'
+ceph-authtool -n mon. \
+ --create-keyring /var/lib/ceph/bootstrap-mon/ceph-osceph-03.keyring \
+ --set-uid=0 --cap mon 'allow *'
+ceph-authtool -n client.bootstrap-osd \
+ --create-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring \
+ --cap mon 'allow profile bootstrap-osd'
+ceph-authtool -n client.bootstrap-rgw \
+ --create-keyring /var/lib/ceph/bootstrap-rgw/ceph.keyring \
+ --cap mon 'allow profile bootstrap-rgw'
+ceph-authtool -n client.bootstrap-mds \
+ --create-keyring /var/lib/ceph/bootstrap-mds/ceph.keyring \
+ --cap mon 'allow profile bootstrap-mds'</pre></div></li><li class="step"><p>
+    Create a monmap—a database of all monitors in a cluster:
+   </p><div class="verbatim-wrap"><pre class="screen">monmaptool --create --fsid eaac9695-4265-4ca8-ac2a-f3a479c559b1 \
+ /tmp/tmpuuhxm3/monmap
+monmaptool --add osceph-02 192.168.43.60 /tmp/tmpuuhxm3/monmap
+monmaptool --add osceph-03 192.168.43.96 /tmp/tmpuuhxm3/monmap
+monmaptool --add osceph-04 192.168.43.80 /tmp/tmpuuhxm3/monmap</pre></div></li><li class="step"><p>
+    Create a new keyring and import keys from the admin and monitors' keyrings
+    there. Then use them to start the monitors:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph-authtool --create-keyring /tmp/tmpuuhxm3/keyring \
+ --import-keyring /var/lib/ceph/bootstrap-mon/ceph-osceph-03.keyring
+ceph-authtool /tmp/tmpuuhxm3/keyring \
+ --import-keyring /etc/ceph/ceph.client.admin.keyring
+sudo -u ceph ceph-mon --mkfs -i osceph-03 \
+ --monmap /tmp/tmpuuhxm3/monmap --keyring /tmp/tmpuuhxm3/keyring
+systemctl restart ceph-mon@osceph-03</pre></div></li><li class="step"><p>
+    Check the monitors state in <code class="systemitem">systemd</code>:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl show --property ActiveState ceph-mon@osceph-03</pre></div></li><li class="step"><p>
+    Check if Ceph is running and reports the monitor status:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph --cluster=ceph \
+ --admin-daemon /var/run/ceph/ceph-mon.osceph-03.asok mon_status</pre></div></li><li class="step"><p>
+    Check the specific services' status using the existing keys:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin -f json-pretty status
+[...]
+ceph --connect-timeout 5 \
+ --keyring /var/lib/ceph/bootstrap-mon/ceph-osceph-03.keyring \
+ --name mon. -f json-pretty status</pre></div></li><li class="step"><p>
+    Import keyring from existing Ceph services and check the status:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph auth import -i /var/lib/ceph/bootstrap-osd/ceph.keyring
+ceph auth import -i /var/lib/ceph/bootstrap-rgw/ceph.keyring
+ceph auth import -i /var/lib/ceph/bootstrap-mds/ceph.keyring
+ceph --cluster=ceph \
+ --admin-daemon /var/run/ceph/ceph-mon.osceph-03.asok mon_status
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin -f json-pretty status</pre></div></li><li class="step"><p>
+    Prepare disks/partitions for OSDs, using the XFS file system:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph-disk -v prepare --fs-type xfs --data-dev --cluster ceph \
+ --cluster-uuid eaac9695-4265-4ca8-ac2a-f3a479c559b1 /dev/vdb
+ceph-disk -v prepare --fs-type xfs --data-dev --cluster ceph \
+ --cluster-uuid eaac9695-4265-4ca8-ac2a-f3a479c559b1 /dev/vdc
+[...]</pre></div></li><li class="step"><p>
+    Activate the partitions:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph-disk -v activate --mark-init systemd --mount /dev/vdb1
+ceph-disk -v activate --mark-init systemd --mount /dev/vdc1</pre></div></li><li class="step"><p>
+    For SUSE Enterprise Storage version 2.1 and earlier, create the default pools:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .users.swift 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .intent-log 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .rgw.gc 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .users.uid 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .rgw.control 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .users 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .usage 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .log 16 16
+ceph --connect-timeout 5 --keyring /etc/ceph/ceph.client.admin.keyring \
+ --name client.admin osd pool create .rgw 16 16</pre></div></li><li class="step"><p>
+    Create the Object Gateway instance key from the bootstrap key:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph --connect-timeout 5 --cluster ceph --name client.bootstrap-rgw \
+ --keyring /var/lib/ceph/bootstrap-rgw/ceph.keyring auth get-or-create \
+ client.rgw.0dc1e13033d2467eace46270f0048b39 osd 'allow rwx' mon 'allow rw' \
+ -o /var/lib/ceph/radosgw/ceph-rgw.<em class="replaceable">rgw_name</em>/keyring</pre></div></li><li class="step"><p>
+    Enable and start Object Gateway:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>systemctl enable ceph-radosgw@rgw.<em class="replaceable">rgw_name</em>
+systemctl start ceph-radosgw@rgw.<em class="replaceable">rgw_name</em></pre></div></li><li class="step"><p>
+    Optionally, create the MDS instance key from the bootstrap key, then enable
+    and start it:
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph --connect-timeout 5 --cluster ceph --name client.bootstrap-mds \
+ --keyring /var/lib/ceph/bootstrap-mds/ceph.keyring auth get-or-create \
+ mds.mds.<em class="replaceable">rgw_name</em> osd 'allow rwx' mds allow mon \
+ 'allow profile mds' \
+ -o /var/lib/ceph/mds/ceph-mds.<em class="replaceable">rgw_name</em>/keyring
+systemctl enable ceph-mds@mds.<em class="replaceable">rgw_name</em>
+systemctl start ceph-mds@mds.<em class="replaceable">rgw_name</em></pre></div></li></ol></div></div></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="app-alerting-default.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Appendix B </span>Default Alerts for SUSE Enterprise Storage</span></a> </div><div><a class="pagination-link next" href="ap-adm-docupdate.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Appendix D </span>Documentation Updates</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_manual-install.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>

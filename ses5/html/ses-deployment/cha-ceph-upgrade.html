@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/><title>Upgrading from Previous Releases | Deployment Guide | SUSE Enterprise Storage 5.5 (SES 5 &amp; SES 5.5)</title><link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+<meta name="title" content="Upgrading from Previous Releases | SES 5.5 (SES 5 &amp; SE…"/>
+<meta name="description" content="This chapter introduces steps to upgrade SUSE Enterprise Storage from the previous release(s) to version 5.5."/>
+<meta name="product-name" content="SUSE Enterprise Storage"/>
+<meta name="product-number" content="5.5 (SES 5 &amp; SES 5.5)"/>
+<meta name="book-title" content="Deployment Guide"/>
+<meta name="chapter-title" content="Chapter 5. Upgrading from Previous Releases"/>
+<meta name="tracker-url" content="https://bugzilla.suse.com/enter_bug.cgi"/>
+<meta name="tracker-type" content="bsc"/>
+<meta name="tracker-bsc-assignee" content="tbazant@suse.com"/>
+<meta name="tracker-bsc-component" content="Documentation"/>
+<meta name="tracker-bsc-product" content="SUSE Enterprise Storage 5"/>
+<meta property="og:title" content="Upgrading from Previous Releases | SES 5.5 (SES 5 &amp; SE…"/>
+<meta property="og:description" content="This chapter introduces steps to upgrade SUSE Enterprise Storage from the previous release(s) to version 5.5."/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Upgrading from Previous Releases | SES 5.5 (SES 5 &amp; SE…"/>
+<meta name="twitter:description" content="This chapter introduces steps to upgrade SUSE Enterprise Storage from the previous release(s) to version 5.5."/>
+<link rel="prev" href="ceph-install-saltstack.html" title="Chapter 4. Deploying with DeepSea/Salt"/><link rel="next" href="cha-deployment-backup.html" title="Chapter 6. Backing Up the Cluster Configuration"/>
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"></link>');
+};
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://documentation.suse.com/docserv/res/fonts/poppins/poppins.css"/></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"> </script><script src="static/js/script.js" type="text/javascript"> </script><script src="static/js/highlight.min.js" type="text/javascript"> </script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft wide offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-pagination">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><header id="_mainnav"><div class="growth-inhibitor"><img src="static/images/logo.svg" alt="Logo" class="logo"/></div></header><div class="crumbs"><div class="growth-inhibitor"><a class="crumb" href="index.html">Deployment Guide</a><span> / </span><a class="crumb" href="ses-deployment.html">Cluster Deployment and Upgrade</a><span> / </span><a class="crumb" href="cha-ceph-upgrade.html">Upgrading from Previous Releases</a></div></div><main id="_content"><nav id="_side-toc-overall" class="side-toc"><div class="side-title">Deployment Guide</div><ol><li><a href="bk02pr01.html" class=" "><span class="title-number"> </span><span class="title-name">About This Guide</span></a></li><li><a href="part-ses.html" class="has-children "><span class="title-number">I </span><span class="title-name">SUSE Enterprise Storage</span></a><ol><li><a href="cha-storage-about.html" class=" "><span class="title-number">1 </span><span class="title-name">SUSE Enterprise Storage 5.5 and Ceph</span></a></li><li><a href="storage-bp-hwreq.html" class=" "><span class="title-number">2 </span><span class="title-name">Hardware Requirements and Recommendations</span></a></li><li><a href="cha-admin-ha.html" class=" "><span class="title-number">3 </span><span class="title-name">Ceph Admin Node HA Setup</span></a></li></ol></li><li class="active"><a href="ses-deployment.html" class="has-children you-are-here"><span class="title-number">II </span><span class="title-name">Cluster Deployment and Upgrade</span></a><ol><li><a href="ceph-install-saltstack.html" class=" "><span class="title-number">4 </span><span class="title-name">Deploying with DeepSea/Salt</span></a></li><li><a href="cha-ceph-upgrade.html" class=" you-are-here"><span class="title-number">5 </span><span class="title-name">Upgrading from Previous Releases</span></a></li><li><a href="cha-deployment-backup.html" class=" "><span class="title-number">6 </span><span class="title-name">Backing Up the Cluster Configuration</span></a></li><li><a href="ceph-deploy-ds-custom.html" class=" "><span class="title-number">7 </span><span class="title-name">Customizing the Default Configuration</span></a></li></ol></li><li><a href="additional-software.html" class="has-children "><span class="title-number">III </span><span class="title-name">Installation of Additional Services</span></a><ol><li><a href="cha-ceph-as-intro.html" class=" "><span class="title-number">8 </span><span class="title-name">Installation of Services to Access your Data</span></a></li><li><a href="cha-ceph-additional-software-installation.html" class=" "><span class="title-number">9 </span><span class="title-name">Ceph Object Gateway</span></a></li><li><a href="cha-ceph-as-iscsi.html" class=" "><span class="title-number">10 </span><span class="title-name">Installation of iSCSI Gateway</span></a></li><li><a href="cha-ceph-as-cephfs.html" class=" "><span class="title-number">11 </span><span class="title-name">Installation of CephFS</span></a></li><li><a href="cha-as-ganesha.html" class=" "><span class="title-number">12 </span><span class="title-name">Installation of NFS Ganesha</span></a></li><li><a href="cha-ses-cifs.html" class=" "><span class="title-number">13 </span><span class="title-name">Exporting Ceph Data via Samba</span></a></li></ol></li><li><a href="ap-deploy-docupdate.html" class=" "><span class="title-number">A </span><span class="title-name">Documentation Updates</span></a></li> </ol> </nav><button id="_open-side-toc-overall" title="Contents"> </button><article class="documentation"><button id="_unfold-side-toc-page">On this page</button><section class="chapter" id="cha-ceph-upgrade" data-id-title="Upgrading from Previous Releases"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname">SUSE Enterprise Storage</span> <span class="productnumber">5.5 (SES 5 &amp; SES 5.5)</span></div><div><h2 class="title"><span class="title-number">5 </span><span class="title-name">Upgrading from Previous Releases</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#">#</a></h2></div></div></div><p>
+  This chapter introduces steps to upgrade SUSE Enterprise Storage from the previous
+  release(s) to version 5.5.
+ </p><section class="sect1" id="ceph-upgrade-relnotes" data-id-title="Read the Release Notes"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.1 </span><span class="title-name">Read the Release Notes</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ceph-upgrade-relnotes">#</a></h2></div></div></div><p>
+   In the release notes you can find additional information on changes since
+   the previous release of SUSE Enterprise Storage. Check the release notes to see
+   whether:
+  </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+     your hardware needs special considerations.
+    </p></li><li class="listitem"><p>
+     any used software packages have changed significantly.
+    </p></li><li class="listitem"><p>
+     special precautions are necessary for your installation.
+    </p></li></ul></div><p>
+   The release notes also provide information that could not make it into the
+   manual on time. They also contain notes about known issues.
+  </p><p>
+   After having installed the package <span class="package">release-notes-ses</span> ,
+   find the release notes locally in the directory
+   <code class="filename">/usr/share/doc/release-notes</code> or online at
+   <a class="link" href="https://www.suse.com/releasenotes/" target="_blank">https://www.suse.com/releasenotes/</a>.
+  </p></section><section class="sect1" id="ceph-upgrade-general" data-id-title="General Upgrade Procedure"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.2 </span><span class="title-name">General Upgrade Procedure</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ceph-upgrade-general">#</a></h2></div></div></div><p>
+   Consider the following items before starting the upgrade procedure:
+  </p><div class="variablelist"><dl class="variablelist"><dt id="upgrade-order"><span class="term">Upgrade Order</span></dt><dd><p>
+      Before upgrading the Ceph cluster, you need to have both the underlying
+      SUSE Linux Enterprise Server and SUSE Enterprise Storage correctly registered against SCC or SMT. You can
+      upgrade daemons in your cluster while the cluster is online and in
+      service. Certain types of daemons depend upon others. For example Ceph
+      Object Gateways depend upon Ceph monitors and Ceph OSD daemons. We recommend
+      upgrading in this order:
+     </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+        Ceph Monitors
+       </p></li><li class="listitem"><p>
+        Ceph Managers
+       </p></li><li class="listitem"><p>
+        Ceph OSDs
+       </p></li><li class="listitem"><p>
+        Metadata Servers
+       </p></li><li class="listitem"><p>
+        Object Gateways
+       </p></li><li class="listitem"><p>
+        iSCSI Gateways
+       </p></li><li class="listitem"><p>
+        NFS Ganesha
+       </p></li></ol></div></dd><dt id="id-1.4.4.3.5.3.2"><span class="term">Delete Unnecessary Operating System Snapshots</span></dt><dd><p>
+      Remove not needed file system snapshots on the operating system
+      partitions of nodes. This ensures that there is enough free disk space
+      during the upgrade.
+     </p></dd><dt id="id-1.4.4.3.5.3.3"><span class="term">Check Cluster Health</span></dt><dd><p>
+      We recommend to check the cluster health before starting the upgrade
+      procedure.
+     </p></dd><dt id="id-1.4.4.3.5.3.4"><span class="term">Upgrade One by One</span></dt><dd><p>
+      We recommend upgrading all the daemons of a specific type—for
+      example all monitor daemons or all OSD daemons—one by one to ensure
+      that they are all on the same release. We also recommend that you upgrade
+      all the daemons in your cluster before you try to exercise new
+      functionality in a release.
+     </p><p>
+      After all the daemons of a specific type are upgraded, check their
+      status.
+     </p><p>
+      Ensure each monitor has rejoined the quorum after all monitors are
+      upgraded:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph mon stat</pre></div><p>
+      Ensure each Ceph OSD daemon has rejoined the cluster after all OSDs are
+      upgraded:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd stat</pre></div></dd><dt id="id-1.4.4.3.5.3.5"><span class="term">Set <code class="option">require-osd-release luminous</code> Flag</span></dt><dd><p>
+      When the last OSD is upgraded to SUSE Enterprise Storage 5.5, the
+      monitor nodes will detect that all OSDs are running the 'luminous'
+      version of Ceph and they may complain that the
+      <code class="option">require-osd-release luminous</code> osdmap flag is not set. In
+      that case, you need to set this flag manually to acknowledge
+      that—now that the cluster has been upgraded to 'luminous'—it
+      cannot be downgraded back to Ceph 'jewel'. Set the flag by running the
+      following command:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd require-osd-release luminous</pre></div><p>
+      After the command completes, the warning disappears.
+     </p><p>
+      On fresh installs of SUSE Enterprise Storage 5.5, this flag is set
+      automatically when the Ceph monitors create the initial osdmap, so no
+      end user action is needed.
+     </p></dd></dl></div></section><section class="sect1" id="ds-migrate-osd-encrypted" data-id-title="Encrypting OSDs during Upgrade"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.3 </span><span class="title-name">Encrypting OSDs during Upgrade</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ds-migrate-osd-encrypted">#</a></h2></div></div></div><p>
+   Since SUSE Enterprise Storage 5.5, OSDs are by default deployed using
+   BlueStore instead of FileStore. Although BlueStore supports
+   encryption, Ceph OSDs are deployed unencrypted by default. The following
+   procedure describes steps to encrypt OSDs during the upgrade process. Let us
+   assume that both data and WAL/DB disks to be used for OSD deployment are
+   clean with no partitions. If the disk were previously used, wipe them
+   following the procedure described in <a class="xref" href="ceph-install-saltstack.html#deploy-wiping-disk" title="Step 12">Step 12</a>.
+  </p><div id="id-1.4.4.3.6.3" data-id-title="One OSD at a Time" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: One OSD at a Time</h6><p>
+    You need to deploy encrypted OSDs one by one, not simultaneously. The
+    reason is that OSD's data is drained, and the cluster goes through several
+    iterations of rebalancing.
+   </p></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Determine the <code class="option">bluestore block db size</code> and
+     <code class="option">bluestore block wal size</code> values for your deployment and
+     add them to the
+     <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.d/global.conf</code>
+     file on the Salt master. The values need to be specified in bytes.
+    </p><div class="verbatim-wrap"><pre class="screen">[global]
+bluestore block db size = 48318382080
+bluestore block wal size = 2147483648</pre></div><p>
+     For more information on customizing the <code class="filename">ceph.conf</code>
+     file, refer to <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span>.
+    </p></li><li class="step"><p>
+     Run DeepSea Stage 3 to distribute the changes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div></li><li class="step"><p>
+     Verify that the <code class="filename">ceph.conf</code> file is updated on the
+     relevant OSD nodes:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>cat /etc/ceph/ceph.conf</pre></div></li><li class="step"><p>
+     Edit the *.yml files in the
+     <code class="filename">/srv/pillar/ceph/proposals/profile-default/stack/default/ceph/minions</code>
+     directory that are relevant to the OSDs you are encrypting. Double check
+     their path with the one defined in the
+     <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> file to ensure
+     that you modify the correct *.yml files.
+    </p><div id="id-1.4.4.3.6.4.4.2" data-id-title="Long Disk Identifiers" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Long Disk Identifiers</h6><p>
+      When identifying OSD disks in the
+      <code class="filename">/srv/pillar/ceph/proposals/profile-default/stack/default/ceph/minions/*.yml</code>
+      files, use long disk identifiers.
+     </p></div><p>
+     An example of an OSD configuration follows. Note that because we need
+     encryption, the <code class="option">db_size</code> and <code class="option">wal_size</code>
+     options are removed:
+    </p><div class="verbatim-wrap"><pre class="screen">ceph:
+ storage:
+   osds:
+     /dev/disk/by-id/scsi-SDELL_PERC_H730_Mini_007027b1065faa972100d34d7aa06d86:
+       format: bluestore
+       encryption: dmcrypt
+       db: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN
+       wal: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN
+     /dev/disk/by-id/scsi-SDELL_PERC_H730_Mini_00d146b1065faa972100d34d7aa06d86:
+       format: bluestore
+       encryption: dmcrypt
+       db: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN
+       wal: /dev/disk/by-id/nvme-INTEL_SSDPEDMD020T4D_HHHL_NVMe_2000GB_PHFT642400HV2P0EGN</pre></div></li><li class="step"><p>
+     Deploy the new Block Storage OSDs with encryption by running DeepSea
+     Stages 2 and 3:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div><p>
+     You can watch the progress with <code class="command">ceph -s</code> or
+     <code class="command">ceph osd tree</code>. It is critical that you let the cluster
+     rebalance before repeating the process on the next OSD node.
+    </p></li></ol></div></div></section><section class="sect1" id="ceph-upgrade-4to5" data-id-title="Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.4 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ceph-upgrade-4to5">#</a></h2></div></div></div><div id="u4to5-softreq" data-id-title="Software Requirements" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Software Requirements</h6><p>
+    You need to have the following software installed and updated to the latest
+    package versions on all the Ceph nodes you want to upgrade before you can
+    start with the upgrade procedure:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      SUSE Linux Enterprise Server 12 SP2
+     </p></li><li class="listitem"><p>
+      SUSE Enterprise Storage 4
+     </p></li></ul></div></div><div id="id-1.4.4.3.7.3" data-id-title="Points to Consider before the Upgrade" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.svg"/><h6>Warning: Points to Consider before the Upgrade</h6><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      Although the cluster is fully functional during the upgrade, DeepSea
+      sets the 'noout' flag which prevents Ceph from rebalancing data during
+      downtime and therefore avoids unnecessary data transfers.
+     </p></li><li class="listitem"><p>
+      To optimize the upgrade process, DeepSea upgrades your nodes in the
+      order, based on their assigned role as recommended by Ceph upstream:
+      MONs, MGRs, OSDs, MDS, RGW, IGW, and NFS Ganesha.
+     </p><p>
+      Note that DeepSea cannot prevent the prescribed order from being
+      violated if a node runs multiple services.
+     </p></li><li class="listitem"><p>
+      Although the Ceph cluster is operational during the upgrade, nodes may
+      get rebooted in order to apply, for example, new kernel versions. To
+      reduce waiting I/O operations, we recommend declining incoming requests
+      for the duration of the upgrade process.
+     </p></li><li class="listitem"><p>
+      The cluster upgrade may take a very long time—approximately the
+      time it takes to upgrade one machine multiplied by the number of cluster
+      nodes.
+     </p></li><li class="listitem"><p>
+      Since Ceph Luminous, the <code class="option">osd crush location</code>
+      configuration option is no longer supported. Update your DeepSea
+      configuration files to use <code class="command">crush location</code> before
+      upgrading.
+     </p></li><li class="listitem"><p>
+      There are two ways to obtain SUSE Linux Enterprise Server and SUSE Enterprise Storage 5.5
+      update repositories:
+     </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+        If your cluster nodes are registered with SUSEConnect and use SCC/SMT,
+        you will use the <code class="command">zypper migration</code> method and the
+        update repositories will be assigned automatically.
+       </p></li><li class="listitem"><p>
+        If you are <span class="bold"><strong>not</strong></span> using SCC/SMT but a
+        Media-ISO or other package source, you will use the <code class="command">zypper
+        dup</code> method. In this case, you need to add the following
+        repositories to all cluster nodes manually: SLE12-SP3 Base, SLE12-SP3
+        Update, SES5 Base, and SES5 Update. You can do so using the
+        <code class="command">zypper</code> command. First remove all existing software
+        repositories, then add the required new ones, and finally refresh the
+        repositories sources:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper sd {0..99}
+<code class="prompt user">root # </code>zypper ar \
+ http://<em class="replaceable">REPO_SERVER</em>/repo/SUSE/Products/Storage/5/x86_64/product/ SES5-POOL
+<code class="prompt user">root # </code>zypper ar \
+ http://<em class="replaceable">REPO_SERVER</em>/repo/SUSE/Updates/Storage/5/x86_64/update/ SES5-UPDATES
+<code class="prompt user">root # </code>zypper ar \
+ http://<em class="replaceable">REPO_SERVER</em>/repo/SUSE/Products/SLE-SERVER/12-SP3/x86_64/product/ SLES12-SP3-POOL
+<code class="prompt user">root # </code>zypper ar \
+ http://<em class="replaceable">REPO_SERVER</em>/repo/SUSE/Updates/SLE-SERVER/12-SP3/x86_64/update/ SLES12-SP3-UPDATES
+<code class="prompt user">root # </code>zypper ref</pre></div></li></ul></div></li></ul></div></div><p>
+   To upgrade the SUSE Enterprise Storage 4 cluster to version 5, follow these steps:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Upgrade the Salt master node to SUSE Linux Enterprise Server 12 SP3 and SUSE Enterprise Storage
+     5.5. Depending on your upgrade method, use either
+     <code class="command">zypper migration</code> or <code class="command">zypper dup</code>.
+    </p><p>
+     Using <code class="command">rpm -q deepsea</code>, verify that the version of the
+     DeepSea package on the Salt master node starts with at least
+     <code class="literal">0.7</code>. For example:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>rpm -q deepsea
+deepsea-0.7.27+git.0.274c55d-5.1</pre></div><p>
+     If the DeepSea package version number starts with 0.6, double check
+     whether you successfully migrated the Salt master node to SUSE Linux Enterprise Server 12 SP3 and
+     SUSE Enterprise Storage 5.5.
+    </p></li><li class="step"><p>
+     Set the new internal object sort order, run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd set sortbitwise</pre></div><div id="id-1.4.4.3.7.5.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      To verify that the command was successful, we recommend running
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd dump --format json-pretty | grep sortbitwise
+ "flags": "sortbitwise,recovery_deletes,purged_snapdirs",</pre></div></div></li><li class="step"><p>
+     If your cluster nodes are <span class="bold"><strong>not</strong></span> registered
+     with SUSEConnect and do not use SCC/SMT, you will use the <code class="command">zypper
+     dup</code> method. Change your Pillar data in order to use the
+     different strategy. Edit
+    </p><div class="verbatim-wrap"><pre class="screen">/srv/pillar/ceph/stack/<em class="replaceable">name_of_cluster</em>/cluster.yml</pre></div><p>
+     and add the following line:
+    </p><div class="verbatim-wrap"><pre class="screen">upgrade_init: zypper-dup</pre></div></li><li class="step" id="step-updatepillar"><p>
+     Update your Pillar:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> saltutil.sync_all</pre></div><p>
+     See <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting" title="4.2.2. Targeting the Minions">Section 4.2.2, “Targeting the Minions”</a> for details about Salt minions
+     targeting.
+    </p></li><li class="step"><p>
+     Verify that you successfully wrote to the Pillar:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> pillar.get upgrade_init</pre></div><p>
+     The command's output should mirror the entry you added.
+    </p></li><li class="step"><p>
+     Upgrade Salt minions:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> state.apply ceph.updates.salt</pre></div></li><li class="step"><p>
+     Verify that all Salt minions are upgraded:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> test.version</pre></div></li><li class="step"><p>
+     Include the cluster's Salt minions. Refer to
+     <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting" title="4.2.2. Targeting the Minions">Section 4.2.2, “Targeting the Minions”</a> of <a class="xref" href="ceph-install-saltstack.html#ds-depl-stages" title="Running Deployment Stages">Procedure 4.1, “Running Deployment Stages”</a>
+     for more details.
+    </p></li><li class="step"><p>
+     Start the upgrade of SUSE Linux Enterprise Server and Ceph:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.maintenance.upgrade</pre></div><p>
+     Refer to <a class="xref" href="cha-ceph-upgrade.html#ceph-maintenance-upgrade-details" title="5.4.2. Details on the salt target ceph.maintenance.upgrade Command">Section 5.4.2, “Details on the <code class="command">salt <em class="replaceable">target</em> ceph.maintenance.upgrade</code> Command”</a> for more
+     information.
+    </p><div id="id-1.4.4.3.7.5.9.4" data-id-title="Re-run on Reboot" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Re-run on Reboot</h6><p>
+      If the process results in a reboot of the Salt master, re-run the command
+      to start the upgrade process for the Salt minions again.
+     </p></div></li><li class="step"><p>
+     After the upgrade, the Ceph Managers are not installed yet. To reach a healthy
+     cluster state, do the following:
+    </p><ol type="a" class="substeps"><li class="step"><p>
+       Run Stage 0 to enable the Salt REST API:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0</pre></div></li><li class="step"><p>
+       Run Stage 1 to create the <code class="filename">role-mgr/</code> subdirectory:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1</pre></div></li><li class="step"><p>
+       Edit <span class="guimenu">policy.cfg</span> as described in
+       <a class="xref" href="ceph-install-saltstack.html#policy-configuration" title="4.5.1. The policy.cfg File">Section 4.5.1, “The <code class="filename">policy.cfg</code> File”</a> and add a Ceph Manager role to the nodes
+       where Ceph Monitors are deployed, or uncomment the 'role-mgr' lines if you
+       followed the steps of <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5cephdeloy" title="5.5. Upgrade from SUSE Enterprise Storage 4 (ceph-deploy Deployment) to 5">Section 5.5, “Upgrade from SUSE Enterprise Storage 4 (<code class="command">ceph-deploy</code> Deployment) to 5”</a> until
+       here. Also, add the openATTIC role to one of the cluster nodes. Refer to
+       <span class="intraxref">Book “Administration Guide”, Chapter 17 “openATTIC”</span> for more details.
+      </p></li><li class="step"><p>
+       Run Stage 2 to update the Pillar:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2</pre></div></li><li class="step"><p>
+       DeepSea uses a different approach to generate the
+       <code class="filename">ceph.conf</code> configuration file now, refer to
+       <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span> for more details.
+      </p></li><li class="step"><p>
+       Set any of the three AppArmor states to all DeepSea minions. For example
+       to disable them, run
+      </p><div class="verbatim-wrap"><pre class="screen"> <code class="prompt user">root@master # </code>salt '<em class="replaceable">TARGET</em>' state.apply ceph.apparmor.default-disable</pre></div><p>
+       For more information, refer to <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.13 “Enabling AppArmor Profiles”</span>.
+      </p></li><li class="step"><p>
+       Run Stage 3 to deploy Ceph Managers:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div></li><li class="step"><p>
+       Run Stage 4 to configure openATTIC properly:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4</pre></div></li></ol><div id="id-1.4.4.3.7.5.10.3" data-id-title="Ceph Key Caps Mismatch" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Ceph Key Caps Mismatch</h6><p>
+      If <code class="literal">ceph.stage.3</code> fails with "Error EINVAL: entity
+      client.bootstrap-osd exists but caps do not match", it means the key
+      capabilities (caps) for the existing cluster's
+      <code class="literal">client.bootstrap.osd</code> key do not match the caps that
+      DeepSea is trying to set. Above the error message, in red text, you can
+      see a dump of the <code class="command">ceph auth</code> command that failed. Look
+      at this command to check the key ID and file being used. In the case of
+      <code class="literal">client.bootstrap-osd</code>, the command will be
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph auth add client.bootstrap-osd \
+ -i /srv/salt/ceph/osd/cache/bootstrap.keyring</pre></div><p>
+      To fix mismatched key caps, check the content of the keyring file
+      DeepSea is trying to deploy, for example:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>cat /srv/salt/ceph/osd/cache/bootstrap.keyring
+[client.bootstrap-osd]
+     key = AQD6BpVZgqVwHBAAQerW3atANeQhia8m5xaigw==
+     caps mgr = "allow r"
+     caps mon = "allow profile bootstrap-osd"</pre></div><p>
+      Compare this with the output of <code class="command">ceph auth get
+      client.bootstrap-osd</code>:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph auth get client.bootstrap-osd
+exported keyring for client.bootstrap-osd
+[client.bootstrap-osd]
+     key = AQD6BpVZgqVwHBAAQerW3atANeQhia8m5xaigw==
+     caps mon = "allow profile bootstrap-osd"</pre></div><p>
+      Note how the latter key is missing <code class="literal">caps mgr = "allow
+      r"</code>. To fix this, run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph auth caps client.bootstrap-osd mgr \
+ "allow r" mon "allow profile bootstrap-osd"</pre></div><p>
+      Running <code class="literal">ceph.stage.3</code> should now succeed.
+     </p><p>
+      The same issue can occur with other daemon and gateway keyrings when
+      running <code class="command">ceph.stage.3</code> and
+      <code class="command">ceph.stage.4</code>. The same procedure as above applies:
+      check the command that failed, the keyring file being deployed, and the
+      capabilities of the existing key. Then run <code class="command">ceph auth
+      caps</code> to update the existing key capabilities to match to what
+      is being deployed by DeepSea. The keyring files that DeepSea tries to
+      deploy are typically placed under the
+      <code class="filename">/srv/salt/ceph/<em class="replaceable">DAEMON_OR_GATEWAY_NAME</em>/cache</code>
+      directory.
+     </p></div></li></ol></div></div><div id="id-1.4.4.3.7.6" data-id-title="Upgrade Failure" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Upgrade Failure</h6><p>
+    If the cluster is in 'HEALTH_ERR' state for more than 300 seconds, or one
+    of the services for each assigned role is down for more than 900 seconds,
+    the upgrade failed. In that case, try to find the problem, resolve it, and
+    re-run the upgrade procedure. Note that in virtualized environments, the
+    timeouts are shorter.
+   </p></div><div id="id-1.4.4.3.7.7" data-id-title="Rebooting OSDs" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Rebooting OSDs</h6><p>
+    After upgrading to SUSE Enterprise Storage 5.5, FileStore OSDs need
+    approximately five minutes longer to start as the OSD will do a one-off
+    conversion of its on-disk files.
+   </p></div><div id="id-1.4.4.3.7.8" data-id-title="Check for the Version of Cluster Components/Nodes" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Check for the Version of Cluster Components/Nodes</h6><p>
+    When you need to find out the versions of individual cluster components and
+    nodes—for example to find out if all your nodes are actually on the
+    same patch level after the upgrade—you can run
+   </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run status.report</pre></div><p>
+    The command goes through the connected Salt minions and scans for the version
+    numbers of Ceph, Salt, and SUSE Linux Enterprise Server, and gives you a report displaying the
+    version that the majority of nodes have and showing nodes whose version is
+    different from the majority.
+   </p></div><section class="sect2" id="filestore2bluestore" data-id-title="OSD Migration to BlueStore"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.4.1 </span><span class="title-name">OSD Migration to BlueStore</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#filestore2bluestore">#</a></h3></div></div></div><p>
+    OSD BlueStore is a new back end for the OSD daemons. It is the default
+    option since SUSE Enterprise Storage 5.5. Compared to FileStore, which
+    stores objects as files in an XFS file system, BlueStore can deliver
+    increased performance because it stores objects directly on the underlying
+    block device. BlueStore also enables other features, such as built-in
+    compression and EC overwrites, that are unavailable with FileStore.
+   </p><p>
+    Specifically for BlueStore, an OSD has a 'wal' (Write Ahead Log) device
+    and a 'db' (RocksDB database) device. The RocksDB database holds the
+    metadata for a BlueStore OSD. These two devices will reside on the same
+    device as an OSD by default, but either can be placed on faster/different
+    media.
+   </p><p>
+    In SES5, both FileStore and BlueStore are supported and it is possible
+    for FileStore and BlueStore OSDs to co-exist in a single cluster. During
+    the SUSE Enterprise Storage upgrade procedure, FileStore OSDs are not
+    automatically converted to BlueStore. Be aware that the
+    BlueStore-specific features will not be available on OSDs that have not
+    been migrated to BlueStore.
+   </p><p>
+    Before converting to BlueStore, the OSDs need to be running SUSE Enterprise Storage
+    5.5. The conversion is a slow process as all data gets
+    re-written twice. Though the migration process can take a long time to
+    complete, there is no cluster outage and all clients can continue accessing
+    the cluster during this period. However, do expect lower performance for
+    the duration of the migration. This is caused by rebalancing and
+    backfilling of cluster data.
+   </p><p>
+    Use the following procedure to migrate FileStore OSDs to BlueStore:
+   </p><div id="id-1.4.4.3.7.9.7" data-id-title="Turn Off Safety Measures" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Turn Off Safety Measures</h6><p>
+     Salt commands needed for running the migration are blocked by safety
+     measures. In order to turn these precautions off, run the following
+     command:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run disengage.safety</pre></div></div><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      Migrate hardware profiles:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.migrate.policy</pre></div><p>
+      This runner migrates any hardware profiles currently in use by the
+      <code class="filename">policy.cfg</code> file. It processes
+      <code class="filename">policy.cfg</code>, finds any hardware profile using the
+      original data structure, and converts it to the new data structure. The
+      result is a new hardware profile named
+      'migrated-<em class="replaceable">original_name</em>'.
+      <code class="filename">policy.cfg</code> is updated as well.
+     </p><p>
+      If the original configuration had separate journals, the BlueStore
+      configuration will use the same device for the 'wal' and 'db' for that
+      OSD.
+     </p></li><li class="step"><p>
+      DeepSea migrates OSDs by setting their weight to 0 which 'vacuums' the
+      data until the OSD is empty. You can either migrate OSDs one by one, or
+      all OSDs at once. In either case, when the OSD is empty, the
+      orchestration removes it and then re-creates it with the new
+      configuration.
+     </p><div id="id-1.4.4.3.7.9.8.2.2" data-id-title="Recommended Method" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip: Recommended Method</h6><p>
+       Use <code class="command">ceph.migrate.nodes</code> if you have a large number of
+       physical storage nodes or almost no data. If one node represents less
+       than 10% of your capacity, then the
+       <code class="command">ceph.migrate.nodes</code> may be marginally faster moving
+       all the data from those OSDs in parallel.
+      </p><p>
+       If you are not sure about which method to use, or the site has few
+       storage nodes (for example each node has more than 10% of the cluster
+       data), then select <code class="command">ceph.migrate.osds</code>.
+      </p></div><ol type="a" class="substeps"><li class="step"><p>
+        To migrate OSDs one at a time, run:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.migrate.osds</pre></div></li><li class="step"><p>
+        To migrate all OSDs on each node in parallel, run:
+       </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.migrate.nodes</pre></div></li></ol><div id="id-1.4.4.3.7.9.8.2.4" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+       As the orchestration gives no feedback about the migration progress, use
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd tree</pre></div><p>
+       to see which OSDs have a weight of zero periodically.
+      </p></div></li></ol></div></div><p>
+    After the migration to BlueStore, the object count will remain the same
+    and disk usage will be nearly the same.
+   </p></section><section class="sect2" id="ceph-maintenance-upgrade-details" data-id-title="Details on the salt target ceph.maintenance.upgrade Command"><div class="titlepage"><div><div><h3 class="title"><span class="title-number">5.4.2 </span><span class="title-name">Details on the <code class="command">salt <em class="replaceable">target</em> ceph.maintenance.upgrade</code> Command</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ceph-maintenance-upgrade-details">#</a></h3></div></div></div><p>
+    During an upgrade via <code class="command">salt
+    <em class="replaceable">target</em>ceph.maintenance.upgrade</code>,
+    DeepSea applies all available updates/patches on all servers in the
+    cluster in parallel without rebooting them. After these updates/patches are
+    applied, the actual upgrade begins:
+   </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+      The admin node is upgraded to SUSE Linux Enterprise Server 12 SP3. This also upgrades the
+      <span class="package">salt-master</span> and <span class="package">deepsea</span> packages.
+     </p></li><li class="step"><p>
+      All Salt minions are upgraded to a version that corresponds to the
+      Salt master.
+     </p></li><li class="step"><p>
+      The migration is performed sequentially on all cluster nodes in the
+      recommended order (the Ceph Monitors first, see
+      <a class="xref" href="cha-ceph-upgrade.html#upgrade-order">Upgrade Order</a>) using the preferred method. As a
+      consequence, the <span class="package">ceph</span> package is upgraded.
+     </p></li><li class="step"><p>
+      After updating all Ceph Monitors, their services are restarted but the nodes are
+      <span class="bold"><strong>not rebooted</strong></span>. This way we ensure that
+      all running Ceph Monitors have identical version.
+     </p><div id="id-1.4.4.3.7.10.3.4.2" data-id-title="Do Not Reboot Monitor Nodes" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Do Not Reboot Monitor Nodes</h6><p>
+       If the cluster monitor nodes host OSDs, <span class="bold"><strong>do not
+       reboot</strong></span> the nodes during this stage because the shared OSDs
+       will not join the cluster after the reboot.
+      </p></div></li><li class="step"><p>
+      All the remaining cluster nodes are updated and rebooted in the
+      recommended order.
+     </p></li><li class="step"><p>
+      After all nodes are on the same patch-level, the following command is
+      run:
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="command">ceph require osd release <em class="replaceable">RELEASE</em></code></pre></div></li></ol></div></div><p>
+    In case this process is interrupted by an accident or intentionally by the
+    administrator, <span class="bold"><strong>never reboot</strong></span> the nodes
+    manually because after rebooting the first OSD node and OSD daemon, it will
+    not be able to join the cluster anymore.
+   </p></section></section><section class="sect1" id="ceph-upgrade-4to5cephdeloy" data-id-title="Upgrade from SUSE Enterprise Storage 4 (ceph-deploy Deployment) to 5"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.5 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 4 (<code class="command">ceph-deploy</code> Deployment) to 5</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ceph-upgrade-4to5cephdeloy">#</a></h2></div></div></div><div id="id-1.4.4.3.8.2" data-id-title="Software Requirements" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Software Requirements</h6><p>
+    You need to have the following software installed and updated to the latest
+    package versions on all the Ceph nodes you want to upgrade before you can
+    start with the upgrade procedure:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      SUSE Linux Enterprise Server 12 SP2
+     </p></li><li class="listitem"><p>
+      SUSE Enterprise Storage 4
+     </p></li></ul></div><p>
+    Choose the Salt master for your cluster. If your cluster has Calamari
+    deployed, then the Calamari node already <span class="emphasis"><em>is</em></span> the
+    Salt master. Alternatively, the admin node from which you ran the
+    <code class="command">ceph-deploy</code> command will become the Salt master.
+   </p><p>
+    Before starting the procedure below, you need to upgrade the Salt master node
+    to SUSE Linux Enterprise Server 12 SP3 and SUSE Enterprise Storage 5.5 by running
+    <code class="command">zypper migration</code> (or your preferred way of upgrading).
+   </p></div><p>
+   To upgrade the SUSE Enterprise Storage 4 cluster which was deployed with
+   <code class="command">ceph-deploy</code> to version 5, follow these steps:
+  </p><div class="procedure" id="upgrade4to5cephdeploy-all" data-id-title="Steps to Apply to All Cluster Nodes (including the Calamari Node)"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 5.1: </span><span class="title-name">Steps to Apply to All Cluster Nodes (including the Calamari Node) </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-all">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Install the <code class="systemitem">salt</code> package from SLE-12-SP2/SES4:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper install salt</pre></div></li><li class="step"><p>
+     Install the <code class="systemitem">salt-minion</code> package from
+     SLE-12-SP2/SES4, then enable and start the related service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper install salt-minion
+<code class="prompt user">root # </code>systemctl enable salt-minion
+<code class="prompt user">root # </code>systemctl start salt-minion</pre></div></li><li class="step"><p>
+     Ensure that the host name 'salt' resolves to the IP address of the
+     Salt master node. If your Salt master is not reachable by the host name
+     <code class="literal">salt</code>, edit the file
+     <code class="filename">/etc/salt/minion</code> or create a new file
+     <code class="filename">/etc/salt/minion.d/master.conf</code> with the following
+     content:
+    </p><div class="verbatim-wrap"><pre class="screen">master: <em class="replaceable">host_name_of_salt_master</em></pre></div><div id="id-1.4.4.3.8.4.4.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      The existing Salt minions have the <code class="option">master:</code> option already
+      set in <code class="filename">/etc/salt/minion.d/calamari.conf</code>. The
+      configuration file name does not matter, the
+      <code class="filename">/etc/salt/minion.d/</code> directory is important.
+     </p></div><p>
+     If you performed any changes to the configuration files mentioned above,
+     restart the Salt service on all Salt minions:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl restart salt-minion.service</pre></div></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
+       If you registered your systems with SUSEConnect and use SCC/SMT, no
+       further actions need to be taken.
+      </p></li><li class="step"><p>
+       If you are <span class="bold"><strong>not</strong></span> using SCC/SMT but a
+       Media-ISO or other package source, add the following repositories
+       manually: SLE12-SP3 Base, SLE12-SP3 Update, SES5 Base, and SES5 Update.
+       You can do so using the <code class="command">zypper</code> command. First remove
+       all existing software repositories, then add the required new ones, and
+       finally refresh the repositories sources:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper sd {0..99}
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Products/Storage/5/x86_64/product/ SES5-POOL
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Updates/Storage/5/x86_64/update/ SES5-UPDATES
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Products/SLE-SERVER/12-SP3/x86_64/product/ SLES12-SP3-POOL
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Updates/SLE-SERVER/12-SP3/x86_64/update/ SLES12-SP3-UPDATES
+<code class="prompt user">root # </code>zypper ref</pre></div></li></ol></li></ol></div></div><div class="procedure" id="upgrade4to5cephdeploy-admin" data-id-title="Steps to Apply to the Salt master Node"><div class="procedure-title-wrap"><h6 class="procedure-title"><span class="title-number">Procedure 5.2: </span><span class="title-name">Steps to Apply to the Salt master Node </span><a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin">#</a></h6></div><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     Set the new internal object sort order, run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>ceph osd set sortbitwise</pre></div><div id="id-1.4.4.3.8.5.2.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      To verify that the command was successful, we recommend running
+     </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">cephadm &gt; </code>;ceph osd dump --format json-pretty | grep sortbitwise
+ "flags": "sortbitwise,recovery_deletes,purged_snapdirs",</pre></div></div></li><li class="step"><p>
+     Upgrade the Salt master node to SUSE Linux Enterprise Server 12 SP3 and SUSE Enterprise Storage 5.5.
+     For SCC-registered systems, use <code class="command">zypper migration</code>. If
+     you provide the required software repositories manually, use
+     <code class="command">zypper dup</code>. After the upgrade, ensure that only
+     repositories for SUSE Linux Enterprise Server 12 SP3 and SUSE Enterprise Storage 5.5 are active
+     (and refreshed) on the Salt master node before proceeding.
+    </p></li><li class="step"><p>
+     If not already present, install the <code class="systemitem">salt-master</code>
+     package, then enable and start the related service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper install salt-master
+<code class="prompt user">root@master # </code>systemctl enable salt-master
+<code class="prompt user">root@master # </code>systemctl start salt-master</pre></div></li><li class="step"><p>
+     Verify the presence of all Salt minions by listing their keys:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -L</pre></div></li><li class="step"><p>
+     Add all Salt minions keys to Salt master including the minion master:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -A -y</pre></div></li><li class="step"><p>
+     Ensure that all Salt minions' keys were accepted:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -L</pre></div></li><li class="step"><p>
+     Make sure that the software on your Salt master node is up to date:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper migration</pre></div></li><li class="step"><p>
+     Install the <code class="systemitem">deepsea</code> package:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper install deepsea</pre></div></li><li class="step"><p>
+     Include the cluster's Salt minions. Refer to
+     <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting" title="4.2.2. Targeting the Minions">Section 4.2.2, “Targeting the Minions”</a> of <a class="xref" href="ceph-install-saltstack.html#ds-depl-stages" title="Running Deployment Stages">Procedure 4.1, “Running Deployment Stages”</a>
+     for more details.
+    </p></li><li class="step"><p>
+     Import the existing <code class="command">ceph-deploy</code> installed cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run populate.engulf_existing_cluster</pre></div><p>
+     The command will do the following:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Distribute all the required Salt and DeepSea modules to all the
+       Salt minions.
+      </p></li><li class="listitem"><p>
+       Inspect the running Ceph cluster and populate
+       <code class="filename">/srv/pillar/ceph/proposals</code> with a layout of the
+       cluster.
+      </p><p>
+       <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> will be
+       created with roles matching all detected running Ceph services. If no
+       <code class="systemitem">ceph-mgr</code> daemons are detected a
+       'role-mgr' is added for every node with 'role-mon'. View this file to
+       verify that each of your existing MON, OSD, RGW and MDS nodes have the
+       appropriate roles. OSD nodes will be imported into the
+       <code class="filename">profile-import/</code> subdirectory, so you can examine
+       the files in
+       <code class="filename">/srv/pillar/ceph/proposals/profile-import/cluster/</code>
+       and
+       <code class="filename">/srv/pillar/ceph/proposals/profile-import/stack/default/ceph/minions/</code>
+       to confirm that the OSDs were correctly picked up.
+      </p><div id="id-1.4.4.3.8.5.11.4.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note</h6><p>
+        The generated <code class="filename">policy.cfg</code> will only apply roles for
+        detected Ceph services 'role-mon', 'role-mds', 'role-rgw',
+        'role-admin', and 'role-master' for the Salt master node. Any other
+        desired roles will need to be added to the file manually (see
+        <a class="xref" href="ceph-install-saltstack.html#policy-role-assignment" title="4.5.1.2. Role Assignment">Section 4.5.1.2, “Role Assignment”</a>).
+       </p></div></li><li class="listitem"><p>
+       The existing cluster's <code class="filename">ceph.conf</code> will be saved to
+       <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.import</code>.
+      </p></li><li class="listitem"><p>
+       <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>
+       will include the cluster's fsid, cluster and public networks, and also
+       specifies the <code class="option">configuration_init: default-import</code>
+       option, which makes DeepSea use the
+       <code class="filename">ceph.conf.import</code> configuration file mentioned
+       previously, rather than using DeepSea's default
+       <code class="filename">/srv/salt/ceph/configuration/files/ceph.conf.j2</code>
+       template.
+      </p><div id="id-1.4.4.3.8.5.11.4.4.2" data-id-title="Custom Settings in ceph.conf" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.svg"/><h6>Note: Custom Settings in <code class="filename">ceph.conf</code></h6><p>
+        If you need to integrate the <code class="filename">ceph.conf</code> file with
+        custom changes, wait until the engulf/upgrade process successfully
+        finishes. Then edit the
+        <code class="filename">/srv/pillar/ceph/proposals/config/stack/default/ceph/cluster.yml</code>
+        file and comment the following line:
+       </p><div class="verbatim-wrap"><pre class="screen">configuration_init: default-import</pre></div><p>
+        Save the file and follow the information in
+        <span class="intraxref">Book “Administration Guide”, Chapter 1 “Salt Cluster Administration”, Section 1.12 “Adjusting <code class="filename">ceph.conf</code> with Custom Settings”</span>.
+       </p></div></li><li class="listitem"><p>
+       The cluster's various keyrings will be saved to the following
+       directories:
+      </p><div class="verbatim-wrap"><pre class="screen">/srv/salt/ceph/admin/cache/
+/srv/salt/ceph/mon/cache/
+/srv/salt/ceph/osd/cache/
+/srv/salt/ceph/mds/cache/
+/srv/salt/ceph/rgw/cache/</pre></div><p>
+       Verify that the keyring files exist, and that there is
+       <span class="emphasis"><em>no</em></span> keyring file in the following directory (the
+       Ceph Manager did not exist before SUSE Enterprise Storage 5.5):
+      </p><div class="verbatim-wrap"><pre class="screen">/srv/salt/ceph/mgr/cache/</pre></div></li></ul></div></li><li class="step"><p>
+     If the <code class="command">salt-run populate.engulf_existing_cluster</code>
+     command cannot detect <code class="systemitem">ceph-mgr</code>
+     daemons, the <code class="filename">policy.cfg</code> file will contain a 'mgr'
+     role for each node that has the 'role-mon' assigned. This will deploy
+     <code class="systemitem">ceph-mgr</code> daemons together with the
+     monitor daemons in a later step. Since there are no
+     <code class="systemitem">ceph-mgr</code> daemons running at this
+     time, please edit
+     <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code> and comment out
+     all lines starting with 'role-mgr' by prepending a '#' character.
+    </p></li><li class="step"><p>
+     The <code class="command">salt-run populate.engulf_existing_cluster</code> command
+     does not handle importing the openATTIC configuration. You need to manually
+     edit the <code class="filename">policy.cfg</code> file and add a
+     <code class="literal">role-openattic</code> line. Refer to
+     <a class="xref" href="ceph-install-saltstack.html#policy-configuration" title="4.5.1. The policy.cfg File">Section 4.5.1, “The <code class="filename">policy.cfg</code> File”</a> for more details.
+    </p></li><li class="step"><p>
+     The <code class="command">salt-run populate.engulf_existing_cluster</code> command
+     does not handle importing the iSCSI Gateways configurations. If your cluster
+     includes iSCSI Gateways, import their configurations manually:
+    </p><ol type="a" class="substeps"><li class="step"><p>
+       On one of iSCSI Gateway nodes, export the current <code class="filename">lrbd.conf</code>
+       and copy it to the Salt master node:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>lrbd -o &gt;/tmp/lrbd.conf
+<code class="prompt user">root@minion &gt; </code>scp /tmp/lrbd.conf admin:/srv/salt/ceph/igw/cache/lrbd.conf</pre></div></li><li class="step"><p>
+       On the Salt master node, add the default iSCSI Gateway configuration to the
+       DeepSea setup:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>mkdir -p /srv/pillar/ceph/stack/ceph/
+<code class="prompt user">root@master # </code>echo 'igw_config: default-ui' &gt;&gt; /srv/pillar/ceph/stack/ceph/cluster.yml
+<code class="prompt user">root@master # </code>chown salt:salt /srv/pillar/ceph/stack/ceph/cluster.yml</pre></div></li><li class="step"><p>
+       Add the iSCSI Gateway roles to <code class="filename">policy.cfg</code> and save the
+       file:
+      </p><div class="verbatim-wrap"><pre class="screen">role-igw/stack/default/ceph/minions/ses-1.ses.suse.yml
+role-igw/cluster/ses-1.ses.suse.sls
+[...]</pre></div></li></ol></li><li class="step"><p>
+     Run Stages 0 and 1 to update packages and create all possible roles:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1</pre></div></li><li class="step"><p>
+     Generate required subdirectories under
+     <code class="filename">/srv/pillar/ceph/stack</code>:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run push.proposal</pre></div></li><li class="step"><p>
+     Verify that there is a working DeepSea-managed cluster with correctly
+     assigned roles:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> pillar.get roles</pre></div><p>
+     Compare the output with the actual layout of the cluster.
+    </p></li><li class="step"><p>
+     Calamari leaves a scheduled Salt job running to check the cluster
+     status. Remove the job:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> schedule.delete ceph.heartbeat</pre></div></li><li class="step"><p>
+     From this point on, follow the procedure described in
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>.
+    </p></li></ol></div></div></section><section class="sect1" id="ceph-upgrade-4to5crowbar" data-id-title="Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.6 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ceph-upgrade-4to5crowbar">#</a></h2></div></div></div><div id="id-1.4.4.3.9.2" data-id-title="Software Requirements" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Software Requirements</h6><p>
+    You need to have the following software installed and updated to the latest
+    package versions on all the Ceph nodes you want to upgrade before you can
+    start with the upgrade procedure:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      SUSE Linux Enterprise Server 12 SP2
+     </p></li><li class="listitem"><p>
+      SUSE Enterprise Storage 4
+     </p></li></ul></div></div><p>
+   To upgrade SUSE Enterprise Storage 4 deployed using Crowbar to version 5, follow these
+   steps:
+  </p><div class="procedure"><div class="procedure-contents"><ol class="procedure" type="1"><li class="step"><p>
+     For each Ceph node (including the Calamari node), stop and disable all
+     Crowbar-related services :
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl stop chef-client
+<code class="prompt user">root@minion &gt; </code>systemctl disable chef-client
+<code class="prompt user">root@minion &gt; </code>systemctl disable crowbar_join
+<code class="prompt user">root@minion &gt; </code>systemctl disable crowbar_notify_shutdown</pre></div></li><li class="step"><p>
+     For each Ceph node (including the Calamari node), verify that the
+     software repositories point to SUSE Enterprise Storage 5.5 and SUSE Linux Enterprise Server 12
+     SP3 products. If repositories pointing to older product versions are still
+     present, disable them.
+    </p></li><li class="step"><p>
+     For each Ceph node (including the Calamari node), verify that the
+     <span class="package">salt-minion</span> is installed. If not, install it:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>zypper in salt salt-minion</pre></div></li><li class="step"><p>
+     For the Ceph nodes that did not have the <span class="package">salt-minion</span>
+     package installed, create the file
+     <code class="filename">/etc/salt/minion.d/master.conf</code> with the
+     <code class="option">master</code> option pointing to the full Calamari node host
+     name:
+    </p><div class="verbatim-wrap"><pre class="screen">master: <em class="replaceable">full_calamari_hostname</em></pre></div><div id="id-1.4.4.3.9.4.4.3" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+      The existing Salt minions have the <code class="option">master:</code> option already
+      set in <code class="filename">/etc/salt/minion.d/calamari.conf</code>. The
+      configuration file name does not matter, the
+      <code class="filename">/etc/salt/minion.d/</code> directory is important.
+     </p></div><p>
+     Enable and start the <code class="systemitem">salt-minion</code>
+     service:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>systemctl enable salt-minion
+<code class="prompt user">root@minion &gt; </code>systemctl start salt-minion</pre></div></li><li class="step"><p>
+     On the Calamari node, accept any remaining salt minion keys:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-key -L
+[...]
+Unaccepted Keys:
+d52-54-00-16-45-0a.example.com
+d52-54-00-70-ac-30.example.com
+[...]
+
+<code class="prompt user">root@master # </code>salt-key -A
+The following keys are going to be accepted:
+Unaccepted Keys:
+d52-54-00-16-45-0a.example.com
+d52-54-00-70-ac-30.example.com
+Proceed? [n/Y] y
+Key for minion d52-54-00-16-45-0a.example.com accepted.
+Key for minion d52-54-00-70-ac-30.example.com accepted.</pre></div></li><li class="step"><p>
+     If Ceph was deployed on the public network and no VLAN interface is
+     present, add a VLAN interface on Crowbar's public network to the Calamari
+     node.
+    </p></li><li class="step"><p>
+     Upgrade the Calamari node to SUSE Linux Enterprise Server 12 SP3 and SUSE Enterprise Storage
+     5.5, either by using <code class="command">zypper migration</code> or
+     your favorite method. From here onward, the Calamari node becomes the
+     <span class="emphasis"><em>Salt master</em></span>. After the upgrade, reboot the Salt master.
+    </p></li><li class="step"><p>
+     Install DeepSea on the Salt master:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>zypper in deepsea</pre></div></li><li class="step"><p>
+     Specify the <code class="option">deepsea_minions</code> option to include the correct
+     group of Salt minions into deployment stages. Refer to
+     <a class="xref" href="ceph-install-saltstack.html#ds-minion-targeting-dsminions" title="4.2.2.3. Set the deepsea_minions Option">Section 4.2.2.3, “Set the <code class="option">deepsea_minions</code> Option”</a> for more details.
+    </p></li><li class="step"><p>
+     DeepSea expects all Ceph nodes to have an identical
+     <code class="filename">/etc/ceph/ceph.conf</code>. Crowbar deploys a slightly
+     different <code class="filename">ceph.conf</code> to each node, so you need to
+     consolidate them:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Remove the <code class="option">osd crush location hook</code> option, it was
+       included by Calamari.
+      </p></li><li class="listitem"><p>
+       Remove the <code class="option">public addr</code> option from the
+       <code class="literal">[mon]</code> section.
+      </p></li><li class="listitem"><p>
+       Remove the port numbers from the <code class="option">mon host</code> option.
+      </p></li></ul></div></li><li class="step"><p>
+     If you were running the Object Gateway, Crowbar deployed a separate
+     <code class="filename">/etc/ceph/ceph.conf.radosgw</code> file to keep the keystone
+     secrets separated from the regular <code class="filename">ceph.conf</code> file.
+     Crowbar also added a custom
+     <code class="filename">/etc/systemd/system/ceph-radosgw@.service</code> file.
+     Because DeepSea does not support it, you need to remove it:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Append all <code class="literal">[client.rgw....]</code> sections from the
+       <code class="filename">ceph.conf.radosgw</code> file to
+       <code class="filename">/etc/ceph/ceph.conf</code> on all nodes.
+      </p></li><li class="listitem"><p>
+       On the Object Gateway node, run the following:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>rm /etc/systemd/system/ceph-radosgw@.service
+systemctl reenable ceph-radosgw@rgw.public.$<em class="replaceable">hostname</em></pre></div></li></ul></div></li><li class="step"><p>
+     Double check that <code class="command">ceph status</code> works when run from the
+     Salt master:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>ceph status
+cluster a705580c-a7ae-4fae-815c-5cb9c1ded6c2
+health HEALTH_OK
+[...]</pre></div></li><li class="step"><p>
+     Import the existing cluster:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run populate.engulf_existing_cluster
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1
+<code class="prompt user">root@master # </code>salt-run push.proposal</pre></div></li><li class="step"><p>
+     The <code class="command">salt-run populate.engulf_existing_cluster</code> command
+     does not handle importing the iSCSI Gateways configurations. If your cluster
+     includes iSCSI Gateways, import their configurations manually:
+    </p><ol type="a" class="substeps"><li class="step"><p>
+       On one of iSCSI Gateway nodes, export the current <code class="filename">lrbd.conf</code>
+       and copy it to the Salt master node:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@minion &gt; </code>lrbd -o &gt; /tmp/lrbd.conf
+<code class="prompt user">root@minion &gt; </code>scp /tmp/lrbd.conf admin:/srv/salt/ceph/igw/cache/lrbd.conf</pre></div></li><li class="step"><p>
+       On the Salt master node, add the default iSCSI Gateway configuration to the
+       DeepSea setup:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>mkdir -p /srv/pillar/ceph/stack/ceph/
+<code class="prompt user">root@master # </code>echo 'igw_config: default-ui' &gt;&gt; /srv/pillar/ceph/stack/ceph/cluster.yml
+<code class="prompt user">root@master # </code>chown salt:salt /srv/pillar/ceph/stack/ceph/cluster.yml</pre></div></li><li class="step"><p>
+       Add the iSCSI Gateway roles to <code class="filename">policy.cfg</code> and save the
+       file:
+      </p><div class="verbatim-wrap"><pre class="screen">role-igw/stack/default/ceph/minions/ses-1.ses.suse.yml
+role-igw/cluster/ses-1.ses.suse.sls
+[...]</pre></div></li></ol></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>
+       If you registered your systems with SUSEConnect and use SCC/SMT, no
+       further actions need to be taken.
+      </p></li><li class="step"><p>
+       If you are <span class="bold"><strong>not</strong></span> using SCC/SMT but a
+       Media-ISO or other package source, add the following repositories
+       manually: SLE12-SP3 Base, SLE12-SP3 Update, SES5 Base, and SES5 Update.
+       You can do so using the <code class="command">zypper</code> command. First remove
+       all existing software repositories, then add the required new ones, and
+       finally refresh the repositories sources:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root # </code>zypper sd {0..99}
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Products/Storage/5/x86_64/product/ SES5-POOL
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Updates/Storage/5/x86_64/update/ SES5-UPDATES
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Products/SLE-SERVER/12-SP3/x86_64/product/ SLES12-SP3-POOL
+<code class="prompt user">root # </code>zypper ar \
+ http://172.17.2.210:82/repo/SUSE/Updates/SLE-SERVER/12-SP3/x86_64/update/ SLES12-SP3-UPDATES
+<code class="prompt user">root # </code>zypper ref</pre></div><p>
+       Then change your Pillar data in order to use a different strategy. Edit
+      </p><div class="verbatim-wrap"><pre class="screen">/srv/pillar/ceph/stack/<em class="replaceable">name_of_cluster</em>/cluster.yml</pre></div><p>
+       and add the following line:
+      </p><div class="verbatim-wrap"><pre class="screen">upgrade_init: zypper-dup</pre></div><div id="id-1.4.4.3.9.4.15.1.2.7" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.svg"/><h6>Tip</h6><p>
+        The <code class="literal">zypper-dup</code> strategy requires you to manually add
+        the latest software repositories, while the default
+        <code class="literal">zypper-migration</code> relies on the repositories provided
+        by SCC/SMT.
+       </p></div></li></ol></li><li class="step"><p>
+     Fix host grains to make DeepSea use short host names on the public
+     network for the Ceph daemon instance IDs. For each node, you need to run
+     <code class="command">grains.set</code> with the new (short) host name. Before
+     running <code class="command">grains.set</code>, verify the current monitor
+     instances by running <code class="command">ceph status</code>. A before and after
+     example follows:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> grains.get host
+d52-54-00-16-45-0a.example.com:
+    d52-54-00-16-45-0a
+d52-54-00-49-17-2a.example.com:
+    d52-54-00-49-17-2a
+d52-54-00-76-21-bc.example.com:
+    d52-54-00-76-21-bc
+d52-54-00-70-ac-30.example.com:
+    d52-54-00-70-ac-30</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt d52-54-00-16-45-0a.example.com grains.set \
+ host public.d52-54-00-16-45-0a
+<code class="prompt user">root@master # </code>salt d52-54-00-49-17-2a.example.com grains.set \
+ host public.d52-54-00-49-17-2a
+<code class="prompt user">root@master # </code>salt d52-54-00-76-21-bc.example.com grains.set \
+ host public.d52-54-00-76-21-bc
+<code class="prompt user">root@master # </code>salt d52-54-00-70-ac-30.example.com grains.set \
+ host public.d52-54-00-70-ac-30</pre></div><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> grains.get host
+d52-54-00-76-21-bc.example.com:
+    public.d52-54-00-76-21-bc
+d52-54-00-16-45-0a.example.com:
+    public.d52-54-00-16-45-0a
+d52-54-00-49-17-2a.example.com:
+    public.d52-54-00-49-17-2a
+d52-54-00-70-ac-30.example.com:
+    public.d52-54-00-70-ac-30</pre></div></li><li class="step"><p>
+     Run the upgrade:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> state.apply ceph.updates
+<code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> test.version
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.maintenance.upgrade</pre></div><p>
+     Every node will reboot. The cluster will come back up complaining that
+     there is no active Ceph Manager instance. This is normal. Calamari should not be
+     installed/running anymore at this point.
+    </p></li><li class="step"><p>
+     Run all the required deployment stages to get the cluster to a healthy
+     state:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.0
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.1
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.3</pre></div></li><li class="step"><p>
+     To deploy openATTIC (see <span class="intraxref">Book “Administration Guide”, Chapter 17 “openATTIC”</span>), add an appropriate
+     <code class="literal">role-openattic</code> (see
+     <a class="xref" href="ceph-install-saltstack.html#policy-role-assignment" title="4.5.1.2. Role Assignment">Section 4.5.1.2, “Role Assignment”</a>) line to
+     <code class="filename">/srv/pillar/ceph/proposals/policy.cfg</code>, then run:
+    </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.2
+<code class="prompt user">root@master # </code>salt-run state.orch ceph.stage.4</pre></div></li><li class="step"><p>
+     During the upgrade, you may receive "Error EINVAL: entity [...] exists but
+     caps do not match" errors. To fix them, refer to
+     <a class="xref" href="cha-ceph-upgrade.html#ceph-upgrade-4to5" title="5.4. Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5">Section 5.4, “Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5”</a>.
+    </p></li><li class="step"><p>
+     Do the remaining cleanup:
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+       Crowbar creates entries in <code class="filename">/etc/fstab</code> for each OSD.
+       They are not necessary, so delete them.
+      </p></li><li class="listitem"><p>
+       Calamari leaves a scheduled Salt job running to check the cluster
+       status. Remove the job:
+      </p><div class="verbatim-wrap"><pre class="screen"><code class="prompt user">root@master # </code>salt <em class="replaceable">target</em> schedule.delete ceph.heartbeat</pre></div></li><li class="listitem"><p>
+       There are still some unnecessary packages installed, mostly ruby gems,
+       and chef related. Their removal is not required but you may want to
+       delete them by running <code class="command">zypper rm
+       <em class="replaceable">pkg_name</em></code>.
+      </p></li></ul></div></li></ol></div></div></section><section class="sect1" id="ceph-upgrade-3to5" data-id-title="Upgrade from SUSE Enterprise Storage 3 to 5"><div class="titlepage"><div><div><h2 class="title"><span class="title-number">5.7 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 3 to 5</span> <a title="Permalink" class="permalink" href="cha-ceph-upgrade.html#ceph-upgrade-3to5">#</a></h2></div></div></div><div id="id-1.4.4.3.10.2" data-id-title="Software Requirements" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.svg"/><h6>Important: Software Requirements</h6><p>
+    You need to have the following software installed and updated to the latest
+    package versions on all the Ceph nodes you want to upgrade before you can
+    start with the upgrade procedure:
+   </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>
+      SUSE Linux Enterprise Server 12 SP1
+     </p></li><li class="listitem"><p>
+      SUSE Enterprise Storage 3
+     </p></li></ul></div></div><p>
+   To upgrade the SUSE Enterprise Storage 3 cluster to version 5, follow the steps
+   described in <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-all" title="Steps to Apply to All Cluster Nodes (including the Calamari Node)">Procedure 5.1, “Steps to Apply to All Cluster Nodes (including the Calamari Node)”</a> and then
+   <a class="xref" href="cha-ceph-upgrade.html#upgrade4to5cephdeploy-admin" title="Steps to Apply to the Salt master Node">Procedure 5.2, “Steps to Apply to the Salt master Node”</a>.
+  </p></section></section><nav class="bottom-pagination"><div><a class="pagination-link prev" href="ceph-install-saltstack.html"><span class="pagination-relation">Previous</span><span class="pagination-label"><span class="title-number">Chapter 4 </span>Deploying with DeepSea/Salt</span></a> </div><div><a class="pagination-link next" href="cha-deployment-backup.html"><span class="pagination-relation">Next</span><span class="pagination-label"><span class="title-number">Chapter 6 </span>Backing Up the Cluster Configuration</span></a> </div></nav></article><aside id="_side-toc-page" class="side-toc"><div class="side-title">On this page</div><div class="toc"><ul><li><span class="sect1"><a href="cha-ceph-upgrade.html#ceph-upgrade-relnotes"><span class="title-number">5.1 </span><span class="title-name">Read the Release Notes</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#ceph-upgrade-general"><span class="title-number">5.2 </span><span class="title-name">General Upgrade Procedure</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#ds-migrate-osd-encrypted"><span class="title-number">5.3 </span><span class="title-name">Encrypting OSDs during Upgrade</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#ceph-upgrade-4to5"><span class="title-number">5.4 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 4 (DeepSea Deployment) to 5</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#ceph-upgrade-4to5cephdeloy"><span class="title-number">5.5 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 4 (<code class="command">ceph-deploy</code> Deployment) to 5</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#ceph-upgrade-4to5crowbar"><span class="title-number">5.6 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 4 (Crowbar Deployment) to 5</span></a></span></li><li><span class="sect1"><a href="cha-ceph-upgrade.html#ceph-upgrade-3to5"><span class="title-number">5.7 </span><span class="title-name">Upgrade from SUSE Enterprise Storage 3 to 5</span></a></span></li></ul></div><div class="side-title">Give feedback</div><ul class="feedback" id="_give-feedback"><li><a id="_feedback-reportbug" href="#" rel="nofollow" target="_blank">Report an issue</a></li><li><a id="_feedback-editurl" href="https://github.com/SUSE/doc-ses/edit/maintenance/ses5/xml/admin_ceph_upgrade.xml" rel="nofollow" target="_blank">Edit source document</a></li></ul><div class="side-title">Share this page</div><ul class="share"><li><a id="_share-fb" href="#" title="Facebook"> </a></li><li><a id="_share-in" href="#" title="LinkedIn"> </a></li><li><a id="_share-tw" href="#" title="Twitter"> </a></li><li><a id="_share-mail" href="#" title="E-Mail"> </a></li><li><a id="_print-button" href="#" title="Print this page"> </a></li></ul> </aside></main><footer id="_footer"><div class="growth-inhibitor"><div class="copy"><span class="copy__rights">© SUSE
+                 2022</span></div></div></footer></body></html>
